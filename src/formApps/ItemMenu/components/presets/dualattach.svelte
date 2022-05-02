@@ -43,9 +43,11 @@
     let isCustom = preset.enableCustom || false;
     $: isCustom = preset.enableCustom = isCustom;
 
+    let shouldShowOnlyX = true;
+
     let customPath = preset.customPath;
     $: customPath = preset.customPath = customPath;
-
+    let customId = "customPresetDualAttach"
     let filePath;
     $: filePath =
             color === "random"
@@ -95,6 +97,8 @@
     bind:color
     bind:isCustom
     bind:customPath
+    bind:customId
+    {shouldShowOnlyX}
     {presetType} 
     flagPath="preset"
     animType="range"

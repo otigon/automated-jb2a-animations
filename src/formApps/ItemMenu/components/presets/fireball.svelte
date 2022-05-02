@@ -44,6 +44,7 @@
     }
     $: projectileAboveBelow = projectileBelowToken ? "Below Token" : "Above Token";
     let shouldShowOnlyX = true;
+    let projectileCustomId = "customPresetProjectile";
 
     // Configure Pre Explosion variables
     preset.explosion01 ? preset.explosion01 : preset.explosion01 = {};
@@ -79,7 +80,7 @@
     function switchPreExplosionEnable() {
         enablePreExplosion = !enablePreExplosion;
     }
-
+    let explosion01CustomId = "customPresetExplosion01";
 
     // Configure Primary Explosion variables
     preset.explosion02 ? preset.explosion02 : preset.explosion02 = {};
@@ -108,6 +109,7 @@
     $: explosion02Repeat = explosion02.repeat = explosion02Repeat;
     let explosion02Delay = explosion02.delay || 0;
     $: explosion02Delay = explosion02.delay = explosion02Delay;
+    let explosion02CustomId = "customPresetExplosion02";
 
     async function selectCustom() {
         const current = customPath;
@@ -161,6 +163,7 @@
     bind:color={projectileColor}
     bind:isCustom={projectileIsCustom}
     bind:customPath={projectileCustomPath}
+    bind:customId={projectileCustomId}
     {presetType}
     {shouldShowOnlyX}
     presetSubType="FireballProjectile"
@@ -222,6 +225,7 @@
     bind:color={explosion01Color}
     bind:isCustom={explosion01IsCustom}
     bind:customPath={explosion01CustomPath}
+    bind:customId={explosion01CustomId}
     {presetType}
     presetSubType="FireballExplosion01"
     flagPath="preset"
@@ -268,6 +272,7 @@
     bind:color={explosion02Color}
     bind:isCustom={explosion02IsCustom}
     bind:customPath={explosion02CustomPath}
+    bind:customId={explosion02CustomId}
     {presetType}
     presetSubType="FireballExplosion02"
     flagPath="preset"

@@ -110,7 +110,7 @@
     let isCustom = root.enableCustom || false;
     $: isCustom = root.enableCustom = isCustom;
 
-    let customPath = root.customPath;
+    let customPath = root.customPath || "";
     $: customPath = root.customPath = customPath;
 
     function onClick() {
@@ -161,6 +161,7 @@
             extraTarget.set(enableSection);
         }
     }
+    let customId = flagPath === "sourceExtraFX" ? "customSource" : "customTarget";
 </script>
 
 <div transition:fade={{ duration: 500 }}>
@@ -199,6 +200,7 @@
         bind:color
         bind:isCustom
         bind:customPath
+        bind:customId
         animType="static"
         {flagPath}
         {flagData}

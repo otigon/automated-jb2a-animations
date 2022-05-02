@@ -38113,8 +38113,7 @@ function create_fragment$r(ctx) {
 	let i;
 	let button_disabled_value;
 	let div1_class_value;
-	let div2_intro;
-	let div2_outro;
+	let div2_transition;
 	let current;
 	let mounted;
 	let dispose;
@@ -38177,9 +38176,9 @@ function create_fragment$r(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(input0, "change", /*input0_change_handler*/ ctx[8]),
-					listen(input1, "input", /*input1_input_handler*/ ctx[9]),
-					listen(button, "click", prevent_default(/*click_handler*/ ctx[10]))
+					listen(input0, "change", /*input0_change_handler*/ ctx[4]),
+					listen(input1, "input", /*input1_input_handler*/ ctx[5]),
+					listen(button, "click", prevent_default(/*click_handler*/ ctx[6]))
 				];
 
 				mounted = true;
@@ -38228,21 +38227,20 @@ function create_fragment$r(ctx) {
 			if (current) return;
 
 			add_render_callback(() => {
-				if (div2_outro) div2_outro.end(1);
-				div2_intro = create_in_transition(div2, fade, { duration: 500 });
-				div2_intro.start();
+				if (!div2_transition) div2_transition = create_bidirectional_transition(div2, fade, {}, true);
+				div2_transition.run(1);
 			});
 
 			current = true;
 		},
 		o(local) {
-			if (div2_intro) div2_intro.invalidate();
-			div2_outro = create_out_transition(div2, fade, { duration: 500 });
+			if (!div2_transition) div2_transition = create_bidirectional_transition(div2, fade, {}, false);
+			div2_transition.run(0);
 			current = false;
 		},
 		d(detaching) {
 			if (detaching) detach(div2);
-			if (detaching && div2_outro) div2_outro.end();
+			if (detaching && div2_transition) div2_transition.end();
 			mounted = false;
 			run_all(dispose);
 		}
@@ -38250,94 +38248,9 @@ function create_fragment$r(ctx) {
 }
 
 function instance$r($$self, $$props, $$invalidate) {
-	let { flagData } = $$props;
-	let { flagPath } = $$props;
-	let { presetType } = $$props;
-	let { presetSubType } = $$props;
 	let { customPath } = $$props;
 	let { isCustom } = $$props;
-	let customId;
-
-	switch (flagPath) {
-		case "explosions":
-			console.log("routing to explosions");
-			customId = "customExplosion";
-			break;
-		case "sourceExtraFX":
-			console.log("routing to Source Token");
-			customPath = flagData.sourceToken.customPath || "";
-			flagData.sourceToken.enableCustom;
-			customId = "customSource";
-			break;
-		case "targetExtraFX":
-			console.log("routing to Target Token");
-			customPath = flagData.targetToken.customPath || "";
-			flagData.targetToken.enableCustom;
-			customId = "customTarget";
-			break;
-		case "preset":
-			switch (presetSubType) {
-				case "Secondary":
-					flagData.preset[presetType];
-					customPath = flagData.preset[presetType].customPath02 || "";
-					flagData.preset[presetType].enableCustom02;
-					customId = "customPreset02";
-					break;
-				case "Tertiary":
-					flagData.preset[presetType];
-					customPath = flagData.preset[presetType].customPath03 || "";
-					flagData.preset[presetType].enableCustom03;
-					customId = "customPreset03";
-					break;
-				case "TeleStart":
-					flagData.preset[presetType].start;
-					customPath = flagData.preset[presetType].start.customPath || "";
-					flagData.preset[presetType].start.enableCustom;
-					customId = "customPresetStart";
-					break;
-				case "TeleBetween":
-					flagData.preset[presetType].between;
-					customPath = flagData.preset[presetType].between.customPath || "";
-					flagData.preset[presetType].between.enableCustom;
-					customId = "customPresetBetween";
-					break;
-				case "TeleEnd":
-					flagData.preset[presetType].end;
-					customPath = flagData.preset[presetType].end.customPath || "";
-					flagData.preset[presetType].end.enableCustom;
-					customId = "customPresetEnd";
-					break;
-				case "FireballProjectile":
-					flagData.preset[presetType].projectile;
-					customPath = flagData.preset[presetType].projectile.customPath || "";
-					flagData.preset[presetType].projectile.enableCustom;
-					customId = "customPresetProjectile";
-					break;
-				case "FireballExplosion01":
-					flagData.preset[presetType].explosion01;
-					customPath = flagData.preset[presetType].explosion01.customPath || "";
-					flagData.preset[presetType].explosion01.enableCustom;
-					customId = "customPresetExplosion01";
-					break;
-				case "FireballExplosion02":
-					flagData.preset[presetType].explosion02;
-					customPath = flagData.preset[presetType].explosion02.customPath || "";
-					flagData.preset[presetType].explosion02.enableCustom;
-					customId = "customPresetExplosion02";
-					break;
-				default:
-					flagData.preset[presetType];
-					customPath = flagData.preset[presetType].customPath || "";
-					flagData.preset[presetType].enableCustom;
-					customId = "customPreset";
-			}
-			break;
-		default:
-			console.log("routing to Primary");
-			customPath = flagData.options.customPath || "";
-			flagData.options.enableCustom || false;
-			customId = "customPrimary";
-	}
+	let { customId } = $$props;
 
 	async function selectCustom() {
 		const current = customPath;
@@ -38373,12 +38286,9 @@ function instance$r($$self, $$props, $$invalidate) {
 	const click_handler = () => selectCustom();
 
 	$$self.$$set = $$props => {
-		if ('flagData' in $$props) $$invalidate(4, flagData = $$props.flagData);
-		if ('flagPath' in $$props) $$invalidate(5, flagPath = $$props.flagPath);
-		if ('presetType' in $$props) $$invalidate(6, presetType = $$props.presetType);
-		if ('presetSubType' in $$props) $$invalidate(7, presetSubType = $$props.presetSubType);
 		if ('customPath' in $$props) $$invalidate(0, customPath = $$props.customPath);
 		if ('isCustom' in $$props) $$invalidate(1, isCustom = $$props.isCustom);
+		if ('customId' in $$props) $$invalidate(2, customId = $$props.customId);
 	};
 
 	$$self.$$.update = () => {
@@ -38398,10 +38308,6 @@ function instance$r($$self, $$props, $$invalidate) {
 		isCustom,
 		customId,
 		selectCustom,
-		flagData,
-		flagPath,
-		presetType,
-		presetSubType,
 		input0_change_handler,
 		input1_input_handler,
 		click_handler
@@ -38411,15 +38317,7 @@ function instance$r($$self, $$props, $$invalidate) {
 class CustomPicker extends SvelteComponent {
 	constructor(options) {
 		super();
-
-		init(this, options, instance$r, create_fragment$r, safe_not_equal, {
-			flagData: 4,
-			flagPath: 5,
-			presetType: 6,
-			presetSubType: 7,
-			customPath: 0,
-			isCustom: 1
-		});
+		init(this, options, instance$r, create_fragment$r, safe_not_equal, { customPath: 0, isCustom: 1, customId: 2 });
 	}
 }
 
@@ -38690,33 +38588,33 @@ class ExplosionApp extends SvelteComponent {
 
 function get_each_context$7(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[35] = list[i][0];
-	child_ctx[36] = list[i][1];
+	child_ctx[36] = list[i][0];
+	child_ctx[37] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_1$3(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[35] = list[i][0];
-	child_ctx[36] = list[i][1];
+	child_ctx[36] = list[i][0];
+	child_ctx[37] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_2$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[35] = list[i][0];
-	child_ctx[36] = list[i][1];
+	child_ctx[36] = list[i][0];
+	child_ctx[37] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_3$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[35] = list[i][0];
-	child_ctx[36] = list[i][1];
+	child_ctx[36] = list[i][0];
+	child_ctx[37] = list[i][1];
 	return child_ctx;
 }
 
-// (173:16) {#if animType != ""}
+// (174:16) {#if animType != ""}
 function create_if_block_5$4(ctx) {
 	let each_1_anchor;
 	let each_value_3 = Object.entries(aaTypeMenu[/*menuSelection*/ ctx[7]]);
@@ -38772,10 +38670,10 @@ function create_if_block_5$4(ctx) {
 	};
 }
 
-// (174:20) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
+// (175:20) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
 function create_each_block_3$2(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[36] + "";
+	let t_value = /*name*/ ctx[37] + "";
 	let t;
 	let option_value_value;
 
@@ -38783,7 +38681,7 @@ function create_each_block_3$2(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[35];
+			option.__value = option_value_value = /*key*/ ctx[36];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -38791,9 +38689,9 @@ function create_each_block_3$2(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection*/ 128 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection*/ 128 && t_value !== (t_value = /*name*/ ctx[37] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection*/ 128 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
+			if (dirty[0] & /*menuSelection*/ 128 && option_value_value !== (option_value_value = /*key*/ ctx[36])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -38804,7 +38702,7 @@ function create_each_block_3$2(ctx) {
 	};
 }
 
-// (180:8) {#if animType === "static" && flagPath === "PrimaryAnimation"}
+// (181:8) {#if animType === "static" && flagPath === "PrimaryAnimation"}
 function create_if_block_4$4(ctx) {
 	let div;
 	let label;
@@ -38850,7 +38748,7 @@ function create_if_block_4$4(ctx) {
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
 			attr(select, "class", "svelte-j1vmj9");
-			if (/*staticType*/ ctx[14] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[21].call(select));
+			if (/*staticType*/ ctx[15] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[22].call(select));
 			attr(div, "class", "flexcol");
 			set_style(div, "grid-row", "2 / 3");
 			set_style(div, "grid-column", "3 / 4");
@@ -38864,17 +38762,17 @@ function create_if_block_4$4(ctx) {
 			append(select, option1);
 			append(select, option2);
 			append(select, option3);
-			select_option(select, /*staticType*/ ctx[14]);
+			select_option(select, /*staticType*/ ctx[15]);
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(select, "change", /*select_change_handler*/ ctx[21]);
+				dispose = listen(select, "change", /*select_change_handler*/ ctx[22]);
 				mounted = true;
 			}
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*staticType*/ 16384) {
-				select_option(select, /*staticType*/ ctx[14]);
+			if (dirty[0] & /*staticType*/ 32768) {
+				select_option(select, /*staticType*/ ctx[15]);
 			}
 		},
 		i(local) {
@@ -38902,7 +38800,7 @@ function create_if_block_4$4(ctx) {
 	};
 }
 
-// (224:16) {#if menuType != ""}
+// (225:16) {#if menuType != ""}
 function create_if_block_3$5(ctx) {
 	let each_1_anchor;
 	let each_value_2 = Object.entries(aaNameMenu[/*menuSelection*/ ctx[7]][/*menuType*/ ctx[1]]);
@@ -38958,10 +38856,10 @@ function create_if_block_3$5(ctx) {
 	};
 }
 
-// (225:20) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
+// (226:20) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
 function create_each_block_2$2(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[36] + "";
+	let t_value = /*name*/ ctx[37] + "";
 	let t;
 	let option_value_value;
 
@@ -38969,7 +38867,7 @@ function create_each_block_2$2(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[35];
+			option.__value = option_value_value = /*key*/ ctx[36];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -38977,9 +38875,9 @@ function create_each_block_2$2(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType*/ 130 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType*/ 130 && t_value !== (t_value = /*name*/ ctx[37] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType*/ 130 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
+			if (dirty[0] & /*menuSelection, menuType*/ 130 && option_value_value !== (option_value_value = /*key*/ ctx[36])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -38990,7 +38888,7 @@ function create_each_block_2$2(ctx) {
 	};
 }
 
-// (247:16) {#if (menuType != "") & (animation != "")}
+// (248:16) {#if (menuType != "") & (animation != "")}
 function create_if_block_2$6(ctx) {
 	let each_1_anchor;
 	let each_value_1 = Object.entries(aaVariantMenu[/*menuSelection*/ ctx[7]][/*menuType*/ ctx[1]][/*animation*/ ctx[2]]);
@@ -39046,10 +38944,10 @@ function create_if_block_2$6(ctx) {
 	};
 }
 
-// (248:20) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
+// (249:20) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
 function create_each_block_1$3(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[36] + "";
+	let t_value = /*name*/ ctx[37] + "";
 	let t;
 	let option_value_value;
 
@@ -39057,7 +38955,7 @@ function create_each_block_1$3(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[35];
+			option.__value = option_value_value = /*key*/ ctx[36];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -39065,9 +38963,9 @@ function create_each_block_1$3(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType, animation*/ 134 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType, animation*/ 134 && t_value !== (t_value = /*name*/ ctx[37] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType, animation*/ 134 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
+			if (dirty[0] & /*menuSelection, menuType, animation*/ 134 && option_value_value !== (option_value_value = /*key*/ ctx[36])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -39078,7 +38976,7 @@ function create_each_block_1$3(ctx) {
 	};
 }
 
-// (269:16) {#if menuType != "" && animation != "" && variant != ""}
+// (270:16) {#if menuType != "" && animation != "" && variant != ""}
 function create_if_block_1$b(ctx) {
 	let each_1_anchor;
 	let each_value = Object.entries(aaColorMenu[/*menuSelection*/ ctx[7]][/*menuType*/ ctx[1]][/*animation*/ ctx[2]][/*variant*/ ctx[3]]);
@@ -39134,10 +39032,10 @@ function create_if_block_1$b(ctx) {
 	};
 }
 
-// (270:20) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
+// (271:20) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
 function create_each_block$7(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[36] + "";
+	let t_value = /*name*/ ctx[37] + "";
 	let t;
 	let option_value_value;
 
@@ -39145,7 +39043,7 @@ function create_each_block$7(ctx) {
 		c() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*key*/ ctx[35];
+			option.__value = option_value_value = /*key*/ ctx[36];
 			option.value = option.__value;
 		},
 		m(target, anchor) {
@@ -39153,9 +39051,9 @@ function create_each_block$7(ctx) {
 			append(option, t);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 142 && t_value !== (t_value = /*name*/ ctx[36] + "")) set_data(t, t_value);
+			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 142 && t_value !== (t_value = /*name*/ ctx[37] + "")) set_data(t, t_value);
 
-			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 142 && option_value_value !== (option_value_value = /*key*/ ctx[35])) {
+			if (dirty[0] & /*menuSelection, menuType, animation, variant*/ 142 && option_value_value !== (option_value_value = /*key*/ ctx[36])) {
 				option.__value = option_value_value;
 				option.value = option.__value;
 			}
@@ -39166,7 +39064,7 @@ function create_each_block$7(ctx) {
 	};
 }
 
-// (279:8) {#if (animType === "range" && isCustom && (flagPath === "PrimaryAnimation" || shouldShowOnlyX))}
+// (280:8) {#if (animType === "range" && isCustom && (flagPath === "PrimaryAnimation" || shouldShowOnlyX))}
 function create_if_block$d(ctx) {
 	let div;
 	let input;
@@ -39191,7 +39089,7 @@ function create_if_block$d(ctx) {
 			attr(input, "id", "constantY");
 			input.hidden = true;
 			attr(label, "for", "constantY");
-			attr(label, "class", label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[13] ? "selected" : "notSelected") + " svelte-j1vmj9"));
+			attr(label, "class", label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[14] ? "selected" : "notSelected") + " svelte-j1vmj9"));
 			attr(div, "class", "flexcol aa-button-labels");
 			set_style(div, "grid-row", "1 / 2");
 			set_style(div, "grid-column", "3 / 4");
@@ -39199,23 +39097,23 @@ function create_if_block$d(ctx) {
 		m(target, anchor) {
 			insert(target, div, anchor);
 			append(div, input);
-			input.checked = /*onlyX*/ ctx[13];
+			input.checked = /*onlyX*/ ctx[14];
 			append(div, t0);
 			append(div, label);
 			append(label, t1);
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(input, "change", /*input_change_handler*/ ctx[29]);
+				dispose = listen(input, "change", /*input_change_handler*/ ctx[30]);
 				mounted = true;
 			}
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*onlyX*/ 8192) {
-				input.checked = /*onlyX*/ ctx[13];
+			if (dirty[0] & /*onlyX*/ 16384) {
+				input.checked = /*onlyX*/ ctx[14];
 			}
 
-			if (!current || dirty[0] & /*onlyX*/ 8192 && label_class_value !== (label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[13] ? "selected" : "notSelected") + " svelte-j1vmj9"))) {
+			if (!current || dirty[0] & /*onlyX*/ 16384 && label_class_value !== (label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[14] ? "selected" : "notSelected") + " svelte-j1vmj9"))) {
 				attr(label, "class", label_class_value);
 			}
 		},
@@ -39292,18 +39190,19 @@ function create_fragment$o(ctx) {
 	let if_block4 = /*menuType*/ ctx[1] != "" && /*animation*/ ctx[2] != "" && /*variant*/ ctx[3] != "" && create_if_block_1$b(ctx);
 
 	function custompicker_isCustom_binding(value) {
-		/*custompicker_isCustom_binding*/ ctx[27](value);
+		/*custompicker_isCustom_binding*/ ctx[28](value);
 	}
 
 	function custompicker_customPath_binding(value) {
-		/*custompicker_customPath_binding*/ ctx[28](value);
+		/*custompicker_customPath_binding*/ ctx[29](value);
 	}
 
 	let custompicker_props = {
 		flagPath: /*flagPath*/ ctx[9],
 		presetSubType: /*presetSubType*/ ctx[11],
 		presetType: /*presetType*/ ctx[10],
-		flagData: /*flagData*/ ctx[8]
+		flagData: /*flagData*/ ctx[8],
+		customId: /*customId*/ ctx[13]
 	};
 
 	if (/*isCustom*/ ctx[5] !== void 0) {
@@ -39367,7 +39266,7 @@ function create_fragment$o(ctx) {
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-j1vmj9"));
 
-			if (/*menuType*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[19].call(select0));
+			if (/*menuType*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[20].call(select0));
 			attr(div0, "class", div0_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-j1vmj9");
 			set_style(div0, "grid-row", "2 / 3");
 			set_style(div0, "grid-column", "2 / 3");
@@ -39381,7 +39280,7 @@ function create_fragment$o(ctx) {
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-j1vmj9"));
 
-			if (/*animation*/ ctx[2] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[22].call(select1));
+			if (/*animation*/ ctx[2] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[23].call(select1));
 			attr(div1, "class", div1_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-j1vmj9");
 			set_style(div1, "grid-row", "3 / 4");
 			set_style(div1, "grid-column", "1 / 2");
@@ -39395,7 +39294,7 @@ function create_fragment$o(ctx) {
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-j1vmj9"));
 
-			if (/*variant*/ ctx[3] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[24].call(select2));
+			if (/*variant*/ ctx[3] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[25].call(select2));
 			attr(div2, "class", div2_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-j1vmj9");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "2 / 3");
@@ -39409,7 +39308,7 @@ function create_fragment$o(ctx) {
 			? "isPopulated"
 			: "isNotPopulated") + " svelte-j1vmj9"));
 
-			if (/*color*/ ctx[4] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[26].call(select3));
+			if (/*color*/ ctx[4] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[27].call(select3));
 			attr(div3, "class", div3_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-j1vmj9");
 			set_style(div3, "grid-row", "3 / 4");
 			set_style(div3, "grid-column", "3 / 4");
@@ -39457,13 +39356,13 @@ function create_fragment$o(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(select0, "change", /*select0_change_handler*/ ctx[19]),
-					listen(select0, "change", /*change_handler*/ ctx[20]),
-					listen(select1, "change", /*select1_change_handler*/ ctx[22]),
-					listen(select1, "change", /*change_handler_1*/ ctx[23]),
-					listen(select2, "change", /*select2_change_handler*/ ctx[24]),
-					listen(select2, "change", /*change_handler_2*/ ctx[25]),
-					listen(select3, "change", /*select3_change_handler*/ ctx[26])
+					listen(select0, "change", /*select0_change_handler*/ ctx[20]),
+					listen(select0, "change", /*change_handler*/ ctx[21]),
+					listen(select1, "change", /*select1_change_handler*/ ctx[23]),
+					listen(select1, "change", /*change_handler_1*/ ctx[24]),
+					listen(select2, "change", /*select2_change_handler*/ ctx[25]),
+					listen(select2, "change", /*change_handler_2*/ ctx[26]),
+					listen(select3, "change", /*select3_change_handler*/ ctx[27])
 				];
 
 				mounted = true;
@@ -39622,6 +39521,7 @@ function create_fragment$o(ctx) {
 			if (dirty[0] & /*presetSubType*/ 2048) custompicker_changes.presetSubType = /*presetSubType*/ ctx[11];
 			if (dirty[0] & /*presetType*/ 1024) custompicker_changes.presetType = /*presetType*/ ctx[10];
 			if (dirty[0] & /*flagData*/ 256) custompicker_changes.flagData = /*flagData*/ ctx[8];
+			if (dirty[0] & /*customId*/ 8192) custompicker_changes.customId = /*customId*/ ctx[13];
 
 			if (!updating_isCustom && dirty[0] & /*isCustom*/ 32) {
 				updating_isCustom = true;
@@ -39771,6 +39671,7 @@ function instance$o($$self, $$props, $$invalidate) {
 
 	let { isCustom } = $$props;
 	let { customPath } = $$props;
+	let { customId } = $$props;
 
 	// Autopopulates Select Menus when they change
 	async function menuTypeChange() {
@@ -39806,7 +39707,7 @@ function instance$o($$self, $$props, $$invalidate) {
 
 	function select_change_handler() {
 		staticType = select_value(this);
-		$$invalidate(14, staticType);
+		$$invalidate(15, staticType);
 	}
 
 	function select1_change_handler() {
@@ -39849,7 +39750,7 @@ function instance$o($$self, $$props, $$invalidate) {
 
 	function input_change_handler() {
 		onlyX = this.checked;
-		$$invalidate(13, onlyX);
+		$$invalidate(14, onlyX);
 	}
 
 	$$self.$$set = $$props => {
@@ -39858,7 +39759,7 @@ function instance$o($$self, $$props, $$invalidate) {
 		if ('animType' in $$props) $$invalidate(0, animType = $$props.animType);
 		if ('presetType' in $$props) $$invalidate(10, presetType = $$props.presetType);
 		if ('presetSubType' in $$props) $$invalidate(11, presetSubType = $$props.presetSubType);
-		if ('animTypeSwitched' in $$props) $$invalidate(18, animTypeSwitched = $$props.animTypeSwitched);
+		if ('animTypeSwitched' in $$props) $$invalidate(19, animTypeSwitched = $$props.animTypeSwitched);
 		if ('shouldShowOnlyX' in $$props) $$invalidate(12, shouldShowOnlyX = $$props.shouldShowOnlyX);
 		if ('menuSelection' in $$props) $$invalidate(7, menuSelection = $$props.menuSelection);
 		if ('menuType' in $$props) $$invalidate(1, menuType = $$props.menuType);
@@ -39867,6 +39768,7 @@ function instance$o($$self, $$props, $$invalidate) {
 		if ('color' in $$props) $$invalidate(4, color = $$props.color);
 		if ('isCustom' in $$props) $$invalidate(5, isCustom = $$props.isCustom);
 		if ('customPath' in $$props) $$invalidate(6, customPath = $$props.customPath);
+		if ('customId' in $$props) $$invalidate(13, customId = $$props.customId);
 	};
 
 	$$self.$$.update = () => {
@@ -39876,7 +39778,7 @@ function instance$o($$self, $$props, $$invalidate) {
 			}
 		}
 
-		if ($$self.$$.dirty[0] & /*animTypeSwitched*/ 262144) {
+		if ($$self.$$.dirty[0] & /*animTypeSwitched*/ 524288) {
 			if (animTypeSwitched) {
 				animTypeChange();
 			}
@@ -39910,16 +39812,16 @@ function instance$o($$self, $$props, $$invalidate) {
 			$$invalidate(6, customPath);
 		}
 
-		if ($$self.$$.dirty[0] & /*onlyX*/ 8192) {
+		if ($$self.$$.dirty[0] & /*onlyX*/ 16384) {
 			{
-				$$invalidate(13, onlyX);
+				$$invalidate(14, onlyX);
 				options.onlyX = onlyX;
 			}
 		}
 
-		if ($$self.$$.dirty[0] & /*staticType*/ 16384) {
+		if ($$self.$$.dirty[0] & /*staticType*/ 32768) {
 			{
-				$$invalidate(14, staticType);
+				$$invalidate(15, staticType);
 				options.staticType = staticType;
 			}
 		}
@@ -39939,6 +39841,7 @@ function instance$o($$self, $$props, $$invalidate) {
 		presetType,
 		presetSubType,
 		shouldShowOnlyX,
+		customId,
 		onlyX,
 		staticType,
 		menuTypeChange,
@@ -39975,7 +39878,7 @@ class ChooseAnimation extends SvelteComponent {
 				animType: 0,
 				presetType: 10,
 				presetSubType: 11,
-				animTypeSwitched: 18,
+				animTypeSwitched: 19,
 				shouldShowOnlyX: 12,
 				menuSelection: 7,
 				menuType: 1,
@@ -39983,7 +39886,8 @@ class ChooseAnimation extends SvelteComponent {
 				variant: 3,
 				color: 4,
 				isCustom: 5,
-				customPath: 6
+				customPath: 6,
+				customId: 13
 			},
 			null,
 			[-1, -1]
@@ -40036,7 +39940,7 @@ class ChooseAnimation extends SvelteComponent {
 	}
 
 	get animTypeSwitched() {
-		return this.$$.ctx[18];
+		return this.$$.ctx[19];
 	}
 
 	set animTypeSwitched(animTypeSwitched) {
@@ -40113,6 +40017,15 @@ class ChooseAnimation extends SvelteComponent {
 
 	set customPath(customPath) {
 		this.$$set({ customPath });
+		flush();
+	}
+
+	get customId() {
+		return this.$$.ctx[13];
+	}
+
+	set customId(customId) {
+		this.$$set({ customId });
 		flush();
 	}
 }
@@ -40692,7 +40605,7 @@ function create_if_block_1$9(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(i, "click", /*click_handler*/ ctx[16]);
+				dispose = listen(i, "click", /*click_handler*/ ctx[17]);
 				mounted = true;
 			}
 		},
@@ -40721,7 +40634,7 @@ function create_if_block_1$9(ctx) {
 	};
 }
 
-// (125:4) {#if enableSection}
+// (126:4) {#if enableSection}
 function create_if_block$b(ctx) {
 	let chooseanimation;
 	let updating_menuType;
@@ -40730,6 +40643,7 @@ function create_if_block$b(ctx) {
 	let updating_color;
 	let updating_isCustom;
 	let updating_customPath;
+	let updating_customId;
 	let t0;
 	let h2;
 	let h2_transition;
@@ -40758,27 +40672,31 @@ function create_if_block$b(ctx) {
 	let dispose;
 
 	function chooseanimation_menuType_binding(value) {
-		/*chooseanimation_menuType_binding*/ ctx[18](value);
+		/*chooseanimation_menuType_binding*/ ctx[19](value);
 	}
 
 	function chooseanimation_animation_binding(value) {
-		/*chooseanimation_animation_binding*/ ctx[19](value);
+		/*chooseanimation_animation_binding*/ ctx[20](value);
 	}
 
 	function chooseanimation_variant_binding(value) {
-		/*chooseanimation_variant_binding*/ ctx[20](value);
+		/*chooseanimation_variant_binding*/ ctx[21](value);
 	}
 
 	function chooseanimation_color_binding(value) {
-		/*chooseanimation_color_binding*/ ctx[21](value);
+		/*chooseanimation_color_binding*/ ctx[22](value);
 	}
 
 	function chooseanimation_isCustom_binding(value) {
-		/*chooseanimation_isCustom_binding*/ ctx[22](value);
+		/*chooseanimation_isCustom_binding*/ ctx[23](value);
 	}
 
 	function chooseanimation_customPath_binding(value) {
-		/*chooseanimation_customPath_binding*/ ctx[23](value);
+		/*chooseanimation_customPath_binding*/ ctx[24](value);
+	}
+
+	function chooseanimation_customId_binding(value) {
+		/*chooseanimation_customId_binding*/ ctx[25](value);
 	}
 
 	let chooseanimation_props = {
@@ -40812,6 +40730,10 @@ function create_if_block$b(ctx) {
 		chooseanimation_props.customPath = /*customPath*/ ctx[9];
 	}
 
+	if (/*customId*/ ctx[10] !== void 0) {
+		chooseanimation_props.customId = /*customId*/ ctx[10];
+	}
+
 	chooseanimation = new ChooseAnimation({ props: chooseanimation_props });
 	binding_callbacks.push(() => bind(chooseanimation, 'menuType', chooseanimation_menuType_binding));
 	binding_callbacks.push(() => bind(chooseanimation, 'animation', chooseanimation_animation_binding));
@@ -40819,6 +40741,7 @@ function create_if_block$b(ctx) {
 	binding_callbacks.push(() => bind(chooseanimation, 'color', chooseanimation_color_binding));
 	binding_callbacks.push(() => bind(chooseanimation, 'isCustom', chooseanimation_isCustom_binding));
 	binding_callbacks.push(() => bind(chooseanimation, 'customPath', chooseanimation_customPath_binding));
+	binding_callbacks.push(() => bind(chooseanimation, 'customId', chooseanimation_customId_binding));
 
 	soundsettings = new SoundSettings({
 			props: {
@@ -40852,7 +40775,7 @@ function create_if_block$b(ctx) {
 			label2.textContent = "Z-Index";
 			t10 = space();
 			button = element("button");
-			t11 = text(/*aboveBelow*/ ctx[10]);
+			t11 = text(/*aboveBelow*/ ctx[11]);
 			t12 = space();
 			create_component(soundsettings.$$.fragment);
 			attr(h2, "class", "svelte-qam8l3");
@@ -40909,9 +40832,9 @@ function create_if_block$b(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(input0, "input", /*input0_input_handler*/ ctx[24]),
-					listen(input1, "input", /*input1_input_handler*/ ctx[25]),
-					listen(button, "click", /*click_handler_2*/ ctx[26])
+					listen(input0, "input", /*input0_input_handler*/ ctx[26]),
+					listen(input1, "input", /*input1_input_handler*/ ctx[27]),
+					listen(button, "click", /*click_handler_2*/ ctx[28])
 				];
 
 				mounted = true;
@@ -40957,6 +40880,12 @@ function create_if_block$b(ctx) {
 				add_flush_callback(() => updating_customPath = false);
 			}
 
+			if (!updating_customId && dirty & /*customId*/ 1024) {
+				updating_customId = true;
+				chooseanimation_changes.customId = /*customId*/ ctx[10];
+				add_flush_callback(() => updating_customId = false);
+			}
+
 			chooseanimation.$set(chooseanimation_changes);
 
 			if (dirty & /*radius*/ 2) {
@@ -40967,7 +40896,7 @@ function create_if_block$b(ctx) {
 				set_input_value(input1, /*delay*/ ctx[2]);
 			}
 
-			if (!current || dirty & /*aboveBelow*/ 1024) set_data(t11, /*aboveBelow*/ ctx[10]);
+			if (!current || dirty & /*aboveBelow*/ 2048) set_data(t11, /*aboveBelow*/ ctx[11]);
 			const soundsettings_changes = {};
 			if (dirty & /*flagData*/ 1) soundsettings_changes.flagData = /*flagData*/ ctx[0];
 			soundsettings.$set(soundsettings_changes);
@@ -41084,7 +41013,7 @@ function create_fragment$m(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(i, "click", /*click_handler_1*/ ctx[17]);
+				dispose = listen(i, "click", /*click_handler_1*/ ctx[18]);
 				mounted = true;
 			}
 		},
@@ -41174,7 +41103,7 @@ function instance$m($$self, $$props, $$invalidate) {
 	let belowToken = explosions.below;
 
 	function below() {
-		$$invalidate(14, belowToken = !belowToken);
+		$$invalidate(15, belowToken = !belowToken);
 	}
 
 	let enableSection = root.enable || false;
@@ -41206,6 +41135,7 @@ function instance$m($$self, $$props, $$invalidate) {
 	? `autoanimations.static.${menuType}.${animation}.${variant}`
 	: `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
 
+	let customId = "customExplosion";
 	const click_handler = () => onClick();
 	const click_handler_1 = () => switchEnable();
 
@@ -41239,6 +41169,11 @@ function instance$m($$self, $$props, $$invalidate) {
 		$$invalidate(9, customPath);
 	}
 
+	function chooseanimation_customId_binding(value) {
+		customId = value;
+		$$invalidate(10, customId);
+	}
+
 	function input0_input_handler() {
 		radius = this.value;
 		$$invalidate(1, radius);
@@ -41270,15 +41205,15 @@ function instance$m($$self, $$props, $$invalidate) {
 			}
 		}
 
-		if ($$self.$$.dirty & /*belowToken*/ 16384) {
+		if ($$self.$$.dirty & /*belowToken*/ 32768) {
 			{
-				$$invalidate(14, belowToken);
+				$$invalidate(15, belowToken);
 				explosions.below = belowToken;
 			}
 		}
 
-		if ($$self.$$.dirty & /*belowToken*/ 16384) {
-			$$invalidate(10, aboveBelow = belowToken ? "Below Token" : "Above Token");
+		if ($$self.$$.dirty & /*belowToken*/ 32768) {
+			$$invalidate(11, aboveBelow = belowToken ? "Below Token" : "Above Token");
 		}
 
 		if ($$self.$$.dirty & /*enableSection*/ 8) {
@@ -41310,12 +41245,12 @@ function instance$m($$self, $$props, $$invalidate) {
 		}
 
 		if ($$self.$$.dirty & /*color, menuType, animation, variant*/ 240) {
-			$$invalidate(15, explosionFilePath = color === "random"
+			$$invalidate(16, explosionFilePath = color === "random"
 			? `autoanimations.static.${menuType}.${animation}.${variant}`
 			: `autoanimations.static.${menuType}.${animation}.${variant}.${color}`);
 		}
 
-		if ($$self.$$.dirty & /*explosionFilePath, customPath, isCustom*/ 33536) {
+		if ($$self.$$.dirty & /*explosionFilePath, customPath, isCustom*/ 66304) {
 			{
 				menuDBPath02.set(explosionFilePath);
 				customFilePath02.set(customPath);
@@ -41335,6 +41270,7 @@ function instance$m($$self, $$props, $$invalidate) {
 		color,
 		isCustom,
 		customPath,
+		customId,
 		aboveBelow,
 		below,
 		switchEnable,
@@ -41349,6 +41285,7 @@ function instance$m($$self, $$props, $$invalidate) {
 		chooseanimation_color_binding,
 		chooseanimation_isCustom_binding,
 		chooseanimation_customPath_binding,
+		chooseanimation_customId_binding,
 		input0_input_handler,
 		input1_input_handler,
 		click_handler_2
@@ -45497,7 +45434,7 @@ function create_if_block_1$6(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(i, "click", /*click_handler*/ ctx[31]);
+				dispose = listen(i, "click", /*click_handler*/ ctx[32]);
 				mounted = true;
 			}
 		},
@@ -45526,7 +45463,7 @@ function create_if_block_1$6(ctx) {
 	};
 }
 
-// (194:4) {#if enableSection}
+// (195:4) {#if enableSection}
 function create_if_block$7(ctx) {
 	let chooseanimation;
 	let updating_menuType;
@@ -45535,6 +45472,7 @@ function create_if_block$7(ctx) {
 	let updating_color;
 	let updating_isCustom;
 	let updating_customPath;
+	let updating_customId;
 	let t0;
 	let h2;
 	let h2_transition;
@@ -45604,27 +45542,31 @@ function create_if_block$7(ctx) {
 	let dispose;
 
 	function chooseanimation_menuType_binding(value) {
-		/*chooseanimation_menuType_binding*/ ctx[33](value);
+		/*chooseanimation_menuType_binding*/ ctx[34](value);
 	}
 
 	function chooseanimation_animation_binding(value) {
-		/*chooseanimation_animation_binding*/ ctx[34](value);
+		/*chooseanimation_animation_binding*/ ctx[35](value);
 	}
 
 	function chooseanimation_variant_binding(value) {
-		/*chooseanimation_variant_binding*/ ctx[35](value);
+		/*chooseanimation_variant_binding*/ ctx[36](value);
 	}
 
 	function chooseanimation_color_binding(value) {
-		/*chooseanimation_color_binding*/ ctx[36](value);
+		/*chooseanimation_color_binding*/ ctx[37](value);
 	}
 
 	function chooseanimation_isCustom_binding(value) {
-		/*chooseanimation_isCustom_binding*/ ctx[37](value);
+		/*chooseanimation_isCustom_binding*/ ctx[38](value);
 	}
 
 	function chooseanimation_customPath_binding(value) {
-		/*chooseanimation_customPath_binding*/ ctx[38](value);
+		/*chooseanimation_customPath_binding*/ ctx[39](value);
+	}
+
+	function chooseanimation_customId_binding(value) {
+		/*chooseanimation_customId_binding*/ ctx[40](value);
 	}
 
 	let chooseanimation_props = {
@@ -45657,6 +45599,10 @@ function create_if_block$7(ctx) {
 		chooseanimation_props.customPath = /*customPath*/ ctx[13];
 	}
 
+	if (/*customId*/ ctx[16] !== void 0) {
+		chooseanimation_props.customId = /*customId*/ ctx[16];
+	}
+
 	chooseanimation = new ChooseAnimation({ props: chooseanimation_props });
 	binding_callbacks.push(() => bind(chooseanimation, 'menuType', chooseanimation_menuType_binding));
 	binding_callbacks.push(() => bind(chooseanimation, 'animation', chooseanimation_animation_binding));
@@ -45664,6 +45610,7 @@ function create_if_block$7(ctx) {
 	binding_callbacks.push(() => bind(chooseanimation, 'color', chooseanimation_color_binding));
 	binding_callbacks.push(() => bind(chooseanimation, 'isCustom', chooseanimation_isCustom_binding));
 	binding_callbacks.push(() => bind(chooseanimation, 'customPath', chooseanimation_customPath_binding));
+	binding_callbacks.push(() => bind(chooseanimation, 'customId', chooseanimation_customId_binding));
 
 	soundsettings = new SoundSettings({
 			props: {
@@ -45685,28 +45632,28 @@ function create_if_block$7(ctx) {
 			label0.textContent = "Persistence";
 			t4 = space();
 			button0 = element("button");
-			t5 = text(/*isPersistent*/ ctx[16]);
+			t5 = text(/*isPersistent*/ ctx[17]);
 			t6 = space();
 			div1 = element("div");
 			label1 = element("label");
 			label1.textContent = "Z-Index";
 			t8 = space();
 			button1 = element("button");
-			t9 = text(/*aboveBelow*/ ctx[19]);
+			t9 = text(/*aboveBelow*/ ctx[20]);
 			t10 = space();
 			div2 = element("div");
 			label2 = element("label");
 			label2.textContent = "Visibility";
 			t12 = space();
 			button2 = element("button");
-			t13 = text(/*bindVisibility*/ ctx[17]);
+			t13 = text(/*bindVisibility*/ ctx[18]);
 			t14 = space();
 			div3 = element("div");
 			label3 = element("label");
 			label3.textContent = "Alpha";
 			t16 = space();
 			button3 = element("button");
-			t17 = text(/*bindAlpha*/ ctx[18]);
+			t17 = text(/*bindAlpha*/ ctx[19]);
 			t18 = space();
 			div4 = element("div");
 			label4 = element("label");
@@ -45891,16 +45838,16 @@ function create_if_block$7(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(button0, "click", /*click_handler_2*/ ctx[39]),
-					listen(button1, "click", /*click_handler_3*/ ctx[40]),
-					listen(button2, "click", /*click_handler_4*/ ctx[41]),
-					listen(button3, "click", /*click_handler_5*/ ctx[42]),
-					listen(input0, "input", /*input0_input_handler*/ ctx[43]),
-					listen(input1, "input", /*input1_input_handler*/ ctx[44]),
-					listen(input2, "input", /*input2_input_handler*/ ctx[45]),
-					listen(input3, "input", /*input3_input_handler*/ ctx[46]),
-					listen(input4, "change", /*input4_change_input_handler*/ ctx[47]),
-					listen(input4, "input", /*input4_change_input_handler*/ ctx[47])
+					listen(button0, "click", /*click_handler_2*/ ctx[41]),
+					listen(button1, "click", /*click_handler_3*/ ctx[42]),
+					listen(button2, "click", /*click_handler_4*/ ctx[43]),
+					listen(button3, "click", /*click_handler_5*/ ctx[44]),
+					listen(input0, "input", /*input0_input_handler*/ ctx[45]),
+					listen(input1, "input", /*input1_input_handler*/ ctx[46]),
+					listen(input2, "input", /*input2_input_handler*/ ctx[47]),
+					listen(input3, "input", /*input3_input_handler*/ ctx[48]),
+					listen(input4, "change", /*input4_change_input_handler*/ ctx[49]),
+					listen(input4, "input", /*input4_change_input_handler*/ ctx[49])
 				];
 
 				mounted = true;
@@ -45947,8 +45894,14 @@ function create_if_block$7(ctx) {
 				add_flush_callback(() => updating_customPath = false);
 			}
 
+			if (!updating_customId && dirty[0] & /*customId*/ 65536) {
+				updating_customId = true;
+				chooseanimation_changes.customId = /*customId*/ ctx[16];
+				add_flush_callback(() => updating_customId = false);
+			}
+
 			chooseanimation.$set(chooseanimation_changes);
-			if (!current || dirty[0] & /*isPersistent*/ 65536) set_data(t5, /*isPersistent*/ ctx[16]);
+			if (!current || dirty[0] & /*isPersistent*/ 131072) set_data(t5, /*isPersistent*/ ctx[17]);
 
 			if (!current || dirty[0] & /*flagPath*/ 2 && button0_disabled_value !== (button0_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX")) {
 				button0.disabled = button0_disabled_value;
@@ -45960,8 +45913,8 @@ function create_if_block$7(ctx) {
 				attr(div0, "class", div0_class_value);
 			}
 
-			if (!current || dirty[0] & /*aboveBelow*/ 524288) set_data(t9, /*aboveBelow*/ ctx[19]);
-			if (!current || dirty[0] & /*bindVisibility*/ 131072) set_data(t13, /*bindVisibility*/ ctx[17]);
+			if (!current || dirty[0] & /*aboveBelow*/ 1048576) set_data(t9, /*aboveBelow*/ ctx[20]);
+			if (!current || dirty[0] & /*bindVisibility*/ 262144) set_data(t13, /*bindVisibility*/ ctx[18]);
 
 			if (!current || dirty[0] & /*flagPath*/ 2 && button2_disabled_value !== (button2_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX")) {
 				button2.disabled = button2_disabled_value;
@@ -45973,7 +45926,7 @@ function create_if_block$7(ctx) {
 				attr(div2, "class", div2_class_value);
 			}
 
-			if (!current || dirty[0] & /*bindAlpha*/ 262144) set_data(t17, /*bindAlpha*/ ctx[18]);
+			if (!current || dirty[0] & /*bindAlpha*/ 524288) set_data(t17, /*bindAlpha*/ ctx[19]);
 
 			if (!current || dirty[0] & /*flagPath*/ 2 && button3_disabled_value !== (button3_disabled_value = /*flagPath*/ ctx[1] === "sourceExtraFX")) {
 				button3.disabled = button3_disabled_value;
@@ -46144,7 +46097,7 @@ function create_fragment$d(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(i, "click", /*click_handler_1*/ ctx[32]);
+				dispose = listen(i, "click", /*click_handler_1*/ ctx[33]);
 				mounted = true;
 			}
 		},
@@ -46271,15 +46224,15 @@ function instance$d($$self, $$props, $$invalidate) {
 	: root.persistent || false;
 
 	function below() {
-		$$invalidate(26, belowToken = !belowToken);
+		$$invalidate(27, belowToken = !belowToken);
 	}
 
 	function switchAlpha() {
-		$$invalidate(27, unbindAlpha = !unbindAlpha);
+		$$invalidate(28, unbindAlpha = !unbindAlpha);
 	}
 
 	function switchVisibility() {
-		$$invalidate(28, unbindVisbility = !unbindVisbility);
+		$$invalidate(29, unbindVisbility = !unbindVisbility);
 	}
 
 	function switchPersistence() {
@@ -46303,7 +46256,7 @@ function instance$d($$self, $$props, $$invalidate) {
 	let variant = root.variant;
 	let color = root.color;
 	let isCustom = root.enableCustom || false;
-	let customPath = root.customPath;
+	let customPath = root.customPath || "";
 
 	function onClick() {
 		new TJSDialog({
@@ -46322,6 +46275,11 @@ function instance$d($$self, $$props, $$invalidate) {
 
 	let sourceFilePath;
 	let targetFilePath;
+
+	let customId = flagPath === "sourceExtraFX"
+	? "customSource"
+	: "customTarget";
+
 	const click_handler = () => onClick();
 	const click_handler_1 = () => switchEnable();
 
@@ -46353,6 +46311,11 @@ function instance$d($$self, $$props, $$invalidate) {
 	function chooseanimation_customPath_binding(value) {
 		customPath = value;
 		$$invalidate(13, customPath);
+	}
+
+	function chooseanimation_customId_binding(value) {
+		customId = value;
+		$$invalidate(16, customId);
 	}
 
 	const click_handler_2 = () => switchPersistence();
@@ -46403,40 +46366,40 @@ function instance$d($$self, $$props, $$invalidate) {
 			$$invalidate(4, scale = root.scale = scale);
 		}
 
-		if ($$self.$$.dirty[0] & /*belowToken*/ 67108864) {
-			$$invalidate(26, belowToken = root.animLevel = belowToken);
+		if ($$self.$$.dirty[0] & /*belowToken*/ 134217728) {
+			$$invalidate(27, belowToken = root.animLevel = belowToken);
 		}
 
 		if ($$self.$$.dirty[0] & /*opacity*/ 32) {
 			$$invalidate(5, opacity = root.opacity = opacity > 1 ? 1 : opacity);
 		}
 
-		if ($$self.$$.dirty[0] & /*unbindAlpha*/ 134217728) {
-			$$invalidate(27, unbindAlpha = root.unbindAlpha = unbindAlpha);
+		if ($$self.$$.dirty[0] & /*unbindAlpha*/ 268435456) {
+			$$invalidate(28, unbindAlpha = root.unbindAlpha = unbindAlpha);
 		}
 
-		if ($$self.$$.dirty[0] & /*unbindVisbility*/ 268435456) {
-			$$invalidate(28, unbindVisbility = root.unbindVisbility = unbindVisbility);
+		if ($$self.$$.dirty[0] & /*unbindVisbility*/ 536870912) {
+			$$invalidate(29, unbindVisbility = root.unbindVisbility = unbindVisbility);
 		}
 
 		if ($$self.$$.dirty[0] & /*persistent*/ 64) {
 			$$invalidate(6, persistent = root.persistent = persistent);
 		}
 
-		if ($$self.$$.dirty[0] & /*belowToken*/ 67108864) {
-			$$invalidate(19, aboveBelow = belowToken ? "Below Token" : "Above Token");
+		if ($$self.$$.dirty[0] & /*belowToken*/ 134217728) {
+			$$invalidate(20, aboveBelow = belowToken ? "Below Token" : "Above Token");
 		}
 
-		if ($$self.$$.dirty[0] & /*unbindAlpha*/ 134217728) {
-			$$invalidate(18, bindAlpha = unbindAlpha ? "Unbound" : "Bound");
+		if ($$self.$$.dirty[0] & /*unbindAlpha*/ 268435456) {
+			$$invalidate(19, bindAlpha = unbindAlpha ? "Unbound" : "Bound");
 		}
 
-		if ($$self.$$.dirty[0] & /*unbindVisbility*/ 268435456) {
-			$$invalidate(17, bindVisibility = unbindVisbility ? "Unbound" : "Bound");
+		if ($$self.$$.dirty[0] & /*unbindVisbility*/ 536870912) {
+			$$invalidate(18, bindVisibility = unbindVisbility ? "Unbound" : "Bound");
 		}
 
 		if ($$self.$$.dirty[0] & /*persistent*/ 64) {
-			$$invalidate(16, isPersistent = persistent ? "Persistent" : "Not Persistent");
+			$$invalidate(17, isPersistent = persistent ? "Persistent" : "Not Persistent");
 		}
 
 		if ($$self.$$.dirty[0] & /*enableSection*/ 128) {
@@ -46469,7 +46432,7 @@ function instance$d($$self, $$props, $$invalidate) {
 
 		if ($$self.$$.dirty[0] & /*flagPath, color, menuType, animation, variant*/ 3842) {
 			if (flagPath === "sourceExtraFX") {
-				$$invalidate(29, sourceFilePath = color === "random"
+				$$invalidate(30, sourceFilePath = color === "random"
 				? `autoanimations.static.${menuType}.${animation}.${variant}`
 				: `autoanimations.static.${menuType}.${animation}.${variant}.${color}`);
 			}
@@ -46477,13 +46440,13 @@ function instance$d($$self, $$props, $$invalidate) {
 
 		if ($$self.$$.dirty[0] & /*flagPath, color, menuType, animation, variant*/ 3842) {
 			if (flagPath === "targetExtraFX") {
-				$$invalidate(30, targetFilePath = color === "random"
+				$$invalidate(31, targetFilePath = color === "random"
 				? `autoanimations.static.${menuType}.${animation}.${variant}`
 				: `autoanimations.static.${menuType}.${animation}.${variant}.${color}`);
 			}
 		}
 
-		if ($$self.$$.dirty[0] & /*flagPath, sourceFilePath, customPath, isCustom*/ 536883202) {
+		if ($$self.$$.dirty[0] & /*flagPath, sourceFilePath, customPath, isCustom*/ 1073754114) {
 			if (flagPath === "sourceExtraFX") {
 				menuDBPathSourceFX.set(sourceFilePath);
 				customFilePathSourceFX.set(customPath);
@@ -46491,7 +46454,7 @@ function instance$d($$self, $$props, $$invalidate) {
 			}
 		}
 
-		if ($$self.$$.dirty[0] & /*flagPath, targetFilePath, customPath, isCustom*/ 1073754114) {
+		if ($$self.$$.dirty[0] & /*flagPath, customPath, isCustom*/ 12290 | $$self.$$.dirty[1] & /*targetFilePath*/ 1) {
 			if (flagPath === "targetExtraFX") {
 				menuDBPathTargetFX.set(targetFilePath);
 				customFilePathTargetFX.set(customPath);
@@ -46533,6 +46496,7 @@ function instance$d($$self, $$props, $$invalidate) {
 		customPath,
 		audioPath,
 		sectionTitle,
+		customId,
 		isPersistent,
 		bindVisibility,
 		bindAlpha,
@@ -46556,6 +46520,7 @@ function instance$d($$self, $$props, $$invalidate) {
 		chooseanimation_color_binding,
 		chooseanimation_isCustom_binding,
 		chooseanimation_customPath_binding,
+		chooseanimation_customId_binding,
 		click_handler_2,
 		click_handler_3,
 		click_handler_4,
@@ -49869,6 +49834,7 @@ function create_fragment$8(ctx) {
 	let updating_color;
 	let updating_isCustom;
 	let updating_customPath;
+	let updating_customId;
 	let t3;
 	let h2;
 	let t5;
@@ -49890,30 +49856,35 @@ function create_fragment$8(ctx) {
 	let dispose;
 
 	function chooseanimation_menuType_binding(value) {
-		/*chooseanimation_menuType_binding*/ ctx[15](value);
+		/*chooseanimation_menuType_binding*/ ctx[16](value);
 	}
 
 	function chooseanimation_animation_binding(value) {
-		/*chooseanimation_animation_binding*/ ctx[16](value);
+		/*chooseanimation_animation_binding*/ ctx[17](value);
 	}
 
 	function chooseanimation_variant_binding(value) {
-		/*chooseanimation_variant_binding*/ ctx[17](value);
+		/*chooseanimation_variant_binding*/ ctx[18](value);
 	}
 
 	function chooseanimation_color_binding(value) {
-		/*chooseanimation_color_binding*/ ctx[18](value);
+		/*chooseanimation_color_binding*/ ctx[19](value);
 	}
 
 	function chooseanimation_isCustom_binding(value) {
-		/*chooseanimation_isCustom_binding*/ ctx[19](value);
+		/*chooseanimation_isCustom_binding*/ ctx[20](value);
 	}
 
 	function chooseanimation_customPath_binding(value) {
-		/*chooseanimation_customPath_binding*/ ctx[20](value);
+		/*chooseanimation_customPath_binding*/ ctx[21](value);
+	}
+
+	function chooseanimation_customId_binding(value) {
+		/*chooseanimation_customId_binding*/ ctx[22](value);
 	}
 
 	let chooseanimation_props = {
+		shouldShowOnlyX: shouldShowOnlyX$2,
 		presetType: /*presetType*/ ctx[1],
 		flagPath: "preset",
 		animType: "range",
@@ -49944,6 +49915,10 @@ function create_fragment$8(ctx) {
 		chooseanimation_props.customPath = /*customPath*/ ctx[8];
 	}
 
+	if (/*customId*/ ctx[9] !== void 0) {
+		chooseanimation_props.customId = /*customId*/ ctx[9];
+	}
+
 	chooseanimation = new ChooseAnimation({ props: chooseanimation_props });
 	binding_callbacks.push(() => bind(chooseanimation, 'menuType', chooseanimation_menuType_binding));
 	binding_callbacks.push(() => bind(chooseanimation, 'animation', chooseanimation_animation_binding));
@@ -49951,6 +49926,7 @@ function create_fragment$8(ctx) {
 	binding_callbacks.push(() => bind(chooseanimation, 'color', chooseanimation_color_binding));
 	binding_callbacks.push(() => bind(chooseanimation, 'isCustom', chooseanimation_isCustom_binding));
 	binding_callbacks.push(() => bind(chooseanimation, 'customPath', chooseanimation_customPath_binding));
+	binding_callbacks.push(() => bind(chooseanimation, 'customId', chooseanimation_customId_binding));
 
 	soundsettings = new SoundSettings({
 			props: {
@@ -49981,7 +49957,7 @@ function create_fragment$8(ctx) {
 			label1.textContent = "Z-Index";
 			t7 = space();
 			button = element("button");
-			t8 = text(/*aboveBelow*/ ctx[9]);
+			t8 = text(/*aboveBelow*/ ctx[10]);
 			t9 = space();
 			div5 = element("div");
 			label2 = element("label");
@@ -50050,9 +50026,9 @@ function create_fragment$8(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(i, "click", /*click_handler*/ ctx[14]),
-					listen(button, "click", /*click_handler_1*/ ctx[21]),
-					listen(input, "input", /*input_input_handler*/ ctx[22])
+					listen(i, "click", /*click_handler*/ ctx[15]),
+					listen(button, "click", /*click_handler_1*/ ctx[23]),
+					listen(input, "input", /*input_input_handler*/ ctx[24])
 				];
 
 				mounted = true;
@@ -50099,8 +50075,14 @@ function create_fragment$8(ctx) {
 				add_flush_callback(() => updating_customPath = false);
 			}
 
+			if (!updating_customId && dirty & /*customId*/ 512) {
+				updating_customId = true;
+				chooseanimation_changes.customId = /*customId*/ ctx[9];
+				add_flush_callback(() => updating_customId = false);
+			}
+
 			chooseanimation.$set(chooseanimation_changes);
-			if (!current || dirty & /*aboveBelow*/ 512) set_data(t8, /*aboveBelow*/ ctx[9]);
+			if (!current || dirty & /*aboveBelow*/ 1024) set_data(t8, /*aboveBelow*/ ctx[10]);
 
 			if (dirty & /*playbackRate*/ 4) {
 				set_input_value(input, /*playbackRate*/ ctx[2]);
@@ -50131,6 +50113,8 @@ function create_fragment$8(ctx) {
 	};
 }
 
+let shouldShowOnlyX$2 = true;
+
 function instance$8($$self, $$props, $$invalidate) {
 	let aboveBelow;
 	let { flagData } = $$props;
@@ -50142,7 +50126,7 @@ function instance$8($$self, $$props, $$invalidate) {
 	let playbackRate = preset.playbackRate || 1;
 
 	function below() {
-		$$invalidate(12, belowToken = !belowToken);
+		$$invalidate(13, belowToken = !belowToken);
 	}
 
 	let menuType = preset.menuType;
@@ -50151,6 +50135,7 @@ function instance$8($$self, $$props, $$invalidate) {
 	let color = preset.color;
 	let isCustom = preset.enableCustom || false;
 	let customPath = preset.customPath;
+	let customId = "customPresetDualAttach";
 	let filePath;
 
 	function onClick() {
@@ -50196,6 +50181,11 @@ function instance$8($$self, $$props, $$invalidate) {
 		$$invalidate(8, customPath);
 	}
 
+	function chooseanimation_customId_binding(value) {
+		customId = value;
+		$$invalidate(9, customId);
+	}
+
 	const click_handler_1 = () => below();
 
 	function input_input_handler() {
@@ -50209,12 +50199,12 @@ function instance$8($$self, $$props, $$invalidate) {
 	};
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*belowToken*/ 4096) {
-			$$invalidate(12, belowToken = preset.below = belowToken);
+		if ($$self.$$.dirty & /*belowToken*/ 8192) {
+			$$invalidate(13, belowToken = preset.below = belowToken);
 		}
 
-		if ($$self.$$.dirty & /*belowToken*/ 4096) {
-			$$invalidate(9, aboveBelow = belowToken ? "Below Token" : "Above Token");
+		if ($$self.$$.dirty & /*belowToken*/ 8192) {
+			$$invalidate(10, aboveBelow = belowToken ? "Below Token" : "Above Token");
 		}
 
 		if ($$self.$$.dirty & /*playbackRate*/ 4) {
@@ -50246,12 +50236,12 @@ function instance$8($$self, $$props, $$invalidate) {
 		}
 
 		if ($$self.$$.dirty & /*color, menuType, animation, variant*/ 120) {
-			$$invalidate(13, filePath = color === "random"
+			$$invalidate(14, filePath = color === "random"
 			? `autoanimations.range.${menuType}.${animation}.${variant}`
 			: `autoanimations.range.${menuType}.${animation}.${variant}.${color}`);
 		}
 
-		if ($$self.$$.dirty & /*filePath, customPath, isCustom*/ 8576) {
+		if ($$self.$$.dirty & /*filePath, customPath, isCustom*/ 16768) {
 			// Sets Store variables for sending to the Video Previewer
 			{
 				menuDBPath01.set(filePath);
@@ -50271,6 +50261,7 @@ function instance$8($$self, $$props, $$invalidate) {
 		color,
 		isCustom,
 		customPath,
+		customId,
 		aboveBelow,
 		below,
 		onClick,
@@ -50283,6 +50274,7 @@ function instance$8($$self, $$props, $$invalidate) {
 		chooseanimation_color_binding,
 		chooseanimation_isCustom_binding,
 		chooseanimation_customPath_binding,
+		chooseanimation_customId_binding,
 		click_handler_1,
 		input_input_handler
 	];
@@ -50305,6 +50297,7 @@ function create_if_block_1$2(ctx) {
 	let updating_color;
 	let updating_isCustom;
 	let updating_customPath;
+	let updating_customId;
 	let t0;
 	let h2;
 	let t2;
@@ -50341,27 +50334,31 @@ function create_if_block_1$2(ctx) {
 	let dispose;
 
 	function chooseanimation_menuType_binding(value) {
-		/*chooseanimation_menuType_binding*/ ctx[68](value);
+		/*chooseanimation_menuType_binding*/ ctx[72](value);
 	}
 
 	function chooseanimation_animation_binding(value) {
-		/*chooseanimation_animation_binding*/ ctx[69](value);
+		/*chooseanimation_animation_binding*/ ctx[73](value);
 	}
 
 	function chooseanimation_variant_binding(value) {
-		/*chooseanimation_variant_binding*/ ctx[70](value);
+		/*chooseanimation_variant_binding*/ ctx[74](value);
 	}
 
 	function chooseanimation_color_binding(value) {
-		/*chooseanimation_color_binding*/ ctx[71](value);
+		/*chooseanimation_color_binding*/ ctx[75](value);
 	}
 
 	function chooseanimation_isCustom_binding(value) {
-		/*chooseanimation_isCustom_binding*/ ctx[72](value);
+		/*chooseanimation_isCustom_binding*/ ctx[76](value);
 	}
 
 	function chooseanimation_customPath_binding(value) {
-		/*chooseanimation_customPath_binding*/ ctx[73](value);
+		/*chooseanimation_customPath_binding*/ ctx[77](value);
+	}
+
+	function chooseanimation_customId_binding(value) {
+		/*chooseanimation_customId_binding*/ ctx[78](value);
 	}
 
 	let chooseanimation_props = {
@@ -50396,6 +50393,10 @@ function create_if_block_1$2(ctx) {
 		chooseanimation_props.customPath = /*explosion01CustomPath*/ ctx[17];
 	}
 
+	if (/*explosion01CustomId*/ ctx[37] !== void 0) {
+		chooseanimation_props.customId = /*explosion01CustomId*/ ctx[37];
+	}
+
 	chooseanimation = new ChooseAnimation({ props: chooseanimation_props });
 	binding_callbacks.push(() => bind(chooseanimation, 'menuType', chooseanimation_menuType_binding));
 	binding_callbacks.push(() => bind(chooseanimation, 'animation', chooseanimation_animation_binding));
@@ -50403,6 +50404,7 @@ function create_if_block_1$2(ctx) {
 	binding_callbacks.push(() => bind(chooseanimation, 'color', chooseanimation_color_binding));
 	binding_callbacks.push(() => bind(chooseanimation, 'isCustom', chooseanimation_isCustom_binding));
 	binding_callbacks.push(() => bind(chooseanimation, 'customPath', chooseanimation_customPath_binding));
+	binding_callbacks.push(() => bind(chooseanimation, 'customId', chooseanimation_customId_binding));
 
 	soundsettings = new SoundSettings({
 			props: {
@@ -50424,7 +50426,7 @@ function create_if_block_1$2(ctx) {
 			label0.textContent = "Z-Index";
 			t4 = space();
 			button = element("button");
-			t5 = text(/*explosion01AboveBelow*/ ctx[39]);
+			t5 = text(/*explosion01AboveBelow*/ ctx[42]);
 			t6 = space();
 			div1 = element("div");
 			label1 = element("label");
@@ -50533,11 +50535,11 @@ function create_if_block_1$2(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(button, "click", /*click_handler_3*/ ctx[74]),
-					listen(input0, "input", /*input0_input_handler_1*/ ctx[75]),
-					listen(input1, "input", /*input1_input_handler_1*/ ctx[76]),
-					listen(input2, "input", /*input2_input_handler_1*/ ctx[77]),
-					listen(input3, "input", /*input3_input_handler*/ ctx[78])
+					listen(button, "click", /*click_handler_3*/ ctx[79]),
+					listen(input0, "input", /*input0_input_handler_1*/ ctx[80]),
+					listen(input1, "input", /*input1_input_handler_1*/ ctx[81]),
+					listen(input2, "input", /*input2_input_handler_1*/ ctx[82]),
+					listen(input3, "input", /*input3_input_handler*/ ctx[83])
 				];
 
 				mounted = true;
@@ -50584,8 +50586,14 @@ function create_if_block_1$2(ctx) {
 				add_flush_callback(() => updating_customPath = false);
 			}
 
+			if (!updating_customId && dirty[1] & /*explosion01CustomId*/ 64) {
+				updating_customId = true;
+				chooseanimation_changes.customId = /*explosion01CustomId*/ ctx[37];
+				add_flush_callback(() => updating_customId = false);
+			}
+
 			chooseanimation.$set(chooseanimation_changes);
-			if (!current || dirty[1] & /*explosion01AboveBelow*/ 256) set_data(t5, /*explosion01AboveBelow*/ ctx[39]);
+			if (!current || dirty[1] & /*explosion01AboveBelow*/ 2048) set_data(t5, /*explosion01AboveBelow*/ ctx[42]);
 
 			if (dirty[0] & /*explosion01Scale*/ 262144) {
 				set_input_value(input0, /*explosion01Scale*/ ctx[18]);
@@ -50632,7 +50640,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (318:0) {#if enableAfterImage}
+// (323:0) {#if enableAfterImage}
 function create_if_block$3(ctx) {
 	let div1;
 	let div0;
@@ -50683,14 +50691,14 @@ function create_if_block$3(ctx) {
 			label0.textContent = "Z-Index";
 			t3 = space();
 			button1 = element("button");
-			t4 = text(/*afterImageAboveBelow*/ ctx[36]);
+			t4 = text(/*afterImageAboveBelow*/ ctx[39]);
 			t5 = space();
 			div3 = element("div");
 			label1 = element("label");
 			label1.textContent = "Persistence";
 			t7 = space();
 			button2 = element("button");
-			t8 = text(/*isPersistent*/ ctx[37]);
+			t8 = text(/*isPersistent*/ ctx[40]);
 			t9 = space();
 			div4 = element("div");
 			label2 = element("label");
@@ -50780,12 +50788,12 @@ function create_if_block$3(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(input0, "input", /*input0_input_handler_2*/ ctx[90]),
-					listen(button0, "click", prevent_default(/*click_handler_6*/ ctx[91])),
-					listen(button1, "click", /*click_handler_7*/ ctx[92]),
-					listen(button2, "click", /*click_handler_8*/ ctx[93]),
-					listen(input1, "input", /*input1_input_handler_2*/ ctx[94]),
-					listen(input2, "input", /*input2_input_handler_2*/ ctx[95])
+					listen(input0, "input", /*input0_input_handler_2*/ ctx[96]),
+					listen(button0, "click", prevent_default(/*click_handler_6*/ ctx[97])),
+					listen(button1, "click", /*click_handler_7*/ ctx[98]),
+					listen(button2, "click", /*click_handler_8*/ ctx[99]),
+					listen(input1, "input", /*input1_input_handler_2*/ ctx[100]),
+					listen(input2, "input", /*input2_input_handler_2*/ ctx[101])
 				];
 
 				mounted = true;
@@ -50802,8 +50810,8 @@ function create_if_block$3(ctx) {
 				set_input_value(input0, /*customPath*/ ctx[33]);
 			}
 
-			if (!current || dirty[1] & /*afterImageAboveBelow*/ 32) set_data(t4, /*afterImageAboveBelow*/ ctx[36]);
-			if (!current || dirty[1] & /*isPersistent*/ 64) set_data(t8, /*isPersistent*/ ctx[37]);
+			if (!current || dirty[1] & /*afterImageAboveBelow*/ 256) set_data(t4, /*afterImageAboveBelow*/ ctx[39]);
+			if (!current || dirty[1] & /*isPersistent*/ 512) set_data(t8, /*isPersistent*/ ctx[40]);
 
 			if (dirty[1] & /*afterImageScale*/ 8) {
 				set_input_value(input1, /*afterImageScale*/ ctx[34]);
@@ -50850,6 +50858,7 @@ function create_fragment$7(ctx) {
 	let updating_color;
 	let updating_isCustom;
 	let updating_customPath;
+	let updating_customId;
 	let t2;
 	let h20;
 	let t4;
@@ -50904,6 +50913,7 @@ function create_fragment$7(ctx) {
 	let updating_color_1;
 	let updating_isCustom_1;
 	let updating_customPath_1;
+	let updating_customId_1;
 	let t31;
 	let h21;
 	let t33;
@@ -50945,27 +50955,31 @@ function create_fragment$7(ctx) {
 	let dispose;
 
 	function chooseanimation0_menuType_binding(value) {
-		/*chooseanimation0_menuType_binding*/ ctx[56](value);
+		/*chooseanimation0_menuType_binding*/ ctx[59](value);
 	}
 
 	function chooseanimation0_animation_binding(value) {
-		/*chooseanimation0_animation_binding*/ ctx[57](value);
+		/*chooseanimation0_animation_binding*/ ctx[60](value);
 	}
 
 	function chooseanimation0_variant_binding(value) {
-		/*chooseanimation0_variant_binding*/ ctx[58](value);
+		/*chooseanimation0_variant_binding*/ ctx[61](value);
 	}
 
 	function chooseanimation0_color_binding(value) {
-		/*chooseanimation0_color_binding*/ ctx[59](value);
+		/*chooseanimation0_color_binding*/ ctx[62](value);
 	}
 
 	function chooseanimation0_isCustom_binding(value) {
-		/*chooseanimation0_isCustom_binding*/ ctx[60](value);
+		/*chooseanimation0_isCustom_binding*/ ctx[63](value);
 	}
 
 	function chooseanimation0_customPath_binding(value) {
-		/*chooseanimation0_customPath_binding*/ ctx[61](value);
+		/*chooseanimation0_customPath_binding*/ ctx[64](value);
+	}
+
+	function chooseanimation0_customId_binding(value) {
+		/*chooseanimation0_customId_binding*/ ctx[65](value);
 	}
 
 	let chooseanimation0_props = {
@@ -51001,6 +51015,10 @@ function create_fragment$7(ctx) {
 		chooseanimation0_props.customPath = /*projectileCustomPath*/ ctx[7];
 	}
 
+	if (/*projectileCustomId*/ ctx[36] !== void 0) {
+		chooseanimation0_props.customId = /*projectileCustomId*/ ctx[36];
+	}
+
 	chooseanimation0 = new ChooseAnimation({ props: chooseanimation0_props });
 	binding_callbacks.push(() => bind(chooseanimation0, 'menuType', chooseanimation0_menuType_binding));
 	binding_callbacks.push(() => bind(chooseanimation0, 'animation', chooseanimation0_animation_binding));
@@ -51008,6 +51026,7 @@ function create_fragment$7(ctx) {
 	binding_callbacks.push(() => bind(chooseanimation0, 'color', chooseanimation0_color_binding));
 	binding_callbacks.push(() => bind(chooseanimation0, 'isCustom', chooseanimation0_isCustom_binding));
 	binding_callbacks.push(() => bind(chooseanimation0, 'customPath', chooseanimation0_customPath_binding));
+	binding_callbacks.push(() => bind(chooseanimation0, 'customId', chooseanimation0_customId_binding));
 
 	soundsettings0 = new SoundSettings({
 			props: {
@@ -51019,27 +51038,31 @@ function create_fragment$7(ctx) {
 	let if_block0 = /*enablePreExplosion*/ ctx[22] && create_if_block_1$2(ctx);
 
 	function chooseanimation1_menuType_binding(value) {
-		/*chooseanimation1_menuType_binding*/ ctx[79](value);
+		/*chooseanimation1_menuType_binding*/ ctx[84](value);
 	}
 
 	function chooseanimation1_animation_binding(value) {
-		/*chooseanimation1_animation_binding*/ ctx[80](value);
+		/*chooseanimation1_animation_binding*/ ctx[85](value);
 	}
 
 	function chooseanimation1_variant_binding(value) {
-		/*chooseanimation1_variant_binding*/ ctx[81](value);
+		/*chooseanimation1_variant_binding*/ ctx[86](value);
 	}
 
 	function chooseanimation1_color_binding(value) {
-		/*chooseanimation1_color_binding*/ ctx[82](value);
+		/*chooseanimation1_color_binding*/ ctx[87](value);
 	}
 
 	function chooseanimation1_isCustom_binding(value) {
-		/*chooseanimation1_isCustom_binding*/ ctx[83](value);
+		/*chooseanimation1_isCustom_binding*/ ctx[88](value);
 	}
 
 	function chooseanimation1_customPath_binding(value) {
-		/*chooseanimation1_customPath_binding*/ ctx[84](value);
+		/*chooseanimation1_customPath_binding*/ ctx[89](value);
+	}
+
+	function chooseanimation1_customId_binding(value) {
+		/*chooseanimation1_customId_binding*/ ctx[90](value);
 	}
 
 	let chooseanimation1_props = {
@@ -51074,6 +51097,10 @@ function create_fragment$7(ctx) {
 		chooseanimation1_props.customPath = /*explosion02CustomPath*/ ctx[28];
 	}
 
+	if (/*explosion02CustomId*/ ctx[38] !== void 0) {
+		chooseanimation1_props.customId = /*explosion02CustomId*/ ctx[38];
+	}
+
 	chooseanimation1 = new ChooseAnimation({ props: chooseanimation1_props });
 	binding_callbacks.push(() => bind(chooseanimation1, 'menuType', chooseanimation1_menuType_binding));
 	binding_callbacks.push(() => bind(chooseanimation1, 'animation', chooseanimation1_animation_binding));
@@ -51081,6 +51108,7 @@ function create_fragment$7(ctx) {
 	binding_callbacks.push(() => bind(chooseanimation1, 'color', chooseanimation1_color_binding));
 	binding_callbacks.push(() => bind(chooseanimation1, 'isCustom', chooseanimation1_isCustom_binding));
 	binding_callbacks.push(() => bind(chooseanimation1, 'customPath', chooseanimation1_customPath_binding));
+	binding_callbacks.push(() => bind(chooseanimation1, 'customId', chooseanimation1_customId_binding));
 
 	soundsettings1 = new SoundSettings({
 			props: {
@@ -51108,14 +51136,14 @@ function create_fragment$7(ctx) {
 			label0.textContent = "Z-Index";
 			t6 = space();
 			button0 = element("button");
-			t7 = text(/*projectileAboveBelow*/ ctx[40]);
+			t7 = text(/*projectileAboveBelow*/ ctx[43]);
 			t8 = space();
 			div1 = element("div");
 			label1 = element("label");
 			label1.textContent = `${localize("AUTOANIM.remove")}`;
 			t10 = space();
 			button1 = element("button");
-			t11 = text(/*isRemove*/ ctx[41]);
+			t11 = text(/*isRemove*/ ctx[44]);
 			t12 = space();
 			div2 = element("div");
 			label2 = element("label");
@@ -51163,7 +51191,7 @@ function create_fragment$7(ctx) {
 			label6.textContent = "Z-Index";
 			t35 = space();
 			button2 = element("button");
-			t36 = text(/*explosion02AboveBelow*/ ctx[38]);
+			t36 = text(/*explosion02AboveBelow*/ ctx[41]);
 			t37 = space();
 			div13 = element("div");
 			label7 = element("label");
@@ -51398,17 +51426,17 @@ function create_fragment$7(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(button0, "click", /*click_handler*/ ctx[62]),
-					listen(button1, "click", /*click_handler_1*/ ctx[63]),
-					listen(input0, "input", /*input0_input_handler*/ ctx[64]),
-					listen(input1, "input", /*input1_input_handler*/ ctx[65]),
-					listen(input2, "input", /*input2_input_handler*/ ctx[66]),
-					listen(i0, "click", /*click_handler_2*/ ctx[67]),
-					listen(button2, "click", /*click_handler_4*/ ctx[85]),
-					listen(input3, "input", /*input3_input_handler_1*/ ctx[86]),
-					listen(input4, "input", /*input4_input_handler*/ ctx[87]),
-					listen(input5, "input", /*input5_input_handler*/ ctx[88]),
-					listen(i1, "click", /*click_handler_5*/ ctx[89])
+					listen(button0, "click", /*click_handler*/ ctx[66]),
+					listen(button1, "click", /*click_handler_1*/ ctx[67]),
+					listen(input0, "input", /*input0_input_handler*/ ctx[68]),
+					listen(input1, "input", /*input1_input_handler*/ ctx[69]),
+					listen(input2, "input", /*input2_input_handler*/ ctx[70]),
+					listen(i0, "click", /*click_handler_2*/ ctx[71]),
+					listen(button2, "click", /*click_handler_4*/ ctx[91]),
+					listen(input3, "input", /*input3_input_handler_1*/ ctx[92]),
+					listen(input4, "input", /*input4_input_handler*/ ctx[93]),
+					listen(input5, "input", /*input5_input_handler*/ ctx[94]),
+					listen(i1, "click", /*click_handler_5*/ ctx[95])
 				];
 
 				mounted = true;
@@ -51455,9 +51483,15 @@ function create_fragment$7(ctx) {
 				add_flush_callback(() => updating_customPath = false);
 			}
 
+			if (!updating_customId && dirty[1] & /*projectileCustomId*/ 32) {
+				updating_customId = true;
+				chooseanimation0_changes.customId = /*projectileCustomId*/ ctx[36];
+				add_flush_callback(() => updating_customId = false);
+			}
+
 			chooseanimation0.$set(chooseanimation0_changes);
-			if (!current || dirty[1] & /*projectileAboveBelow*/ 512) set_data(t7, /*projectileAboveBelow*/ ctx[40]);
-			if (!current || dirty[1] & /*isRemove*/ 1024) set_data(t11, /*isRemove*/ ctx[41]);
+			if (!current || dirty[1] & /*projectileAboveBelow*/ 4096) set_data(t7, /*projectileAboveBelow*/ ctx[43]);
+			if (!current || dirty[1] & /*isRemove*/ 8192) set_data(t11, /*isRemove*/ ctx[44]);
 
 			if (!current || dirty[0] & /*removeTemplate*/ 2048 && button1_class_value !== (button1_class_value = "" + (null_to_empty(/*removeTemplate*/ ctx[11] ? "selected" : "notSelected") + " svelte-1qldtqk"))) {
 				attr(button1, "class", button1_class_value);
@@ -51548,8 +51582,14 @@ function create_fragment$7(ctx) {
 				add_flush_callback(() => updating_customPath_1 = false);
 			}
 
+			if (!updating_customId_1 && dirty[1] & /*explosion02CustomId*/ 128) {
+				updating_customId_1 = true;
+				chooseanimation1_changes.customId = /*explosion02CustomId*/ ctx[38];
+				add_flush_callback(() => updating_customId_1 = false);
+			}
+
 			chooseanimation1.$set(chooseanimation1_changes);
-			if (!current || dirty[1] & /*explosion02AboveBelow*/ 128) set_data(t36, /*explosion02AboveBelow*/ ctx[38]);
+			if (!current || dirty[1] & /*explosion02AboveBelow*/ 1024) set_data(t36, /*explosion02AboveBelow*/ ctx[41]);
 
 			if (dirty[0] & /*explosion02Scale*/ 536870912) {
 				set_input_value(input3, /*explosion02Scale*/ ctx[29]);
@@ -51674,8 +51714,10 @@ function instance$7($$self, $$props, $$invalidate) {
 	let projectileBelowToken = projectile.below || false;
 
 	function projectileBelow() {
-		$$invalidate(51, projectileBelowToken = !projectileBelowToken);
+		$$invalidate(54, projectileBelowToken = !projectileBelowToken);
 	}
+
+	let projectileCustomId = "customPresetProjectile";
 
 	// Configure Pre Explosion variables
 	preset.explosion01
@@ -51692,7 +51734,7 @@ function instance$7($$self, $$props, $$invalidate) {
 	let explosion01BelowToken = explosion01.below || false;
 
 	function explosion01Below() {
-		$$invalidate(52, explosion01BelowToken = !explosion01BelowToken);
+		$$invalidate(55, explosion01BelowToken = !explosion01BelowToken);
 	}
 
 	let explosion01Scale = explosion01.scale || 1;
@@ -51704,6 +51746,8 @@ function instance$7($$self, $$props, $$invalidate) {
 	function switchPreExplosionEnable() {
 		$$invalidate(22, enablePreExplosion = !enablePreExplosion);
 	}
+
+	let explosion01CustomId = "customPresetExplosion01";
 
 	// Configure Primary Explosion variables
 	preset.explosion02
@@ -51720,12 +51764,13 @@ function instance$7($$self, $$props, $$invalidate) {
 	let explosion02BelowToken = explosion02.below || false;
 
 	function explosion02Below() {
-		$$invalidate(53, explosion02BelowToken = !explosion02BelowToken);
+		$$invalidate(56, explosion02BelowToken = !explosion02BelowToken);
 	}
 
 	let explosion02Scale = explosion02.scale || 1;
 	let explosion02Repeat = explosion02.repeat || 1;
 	let explosion02Delay = explosion02.delay || 0;
+	let explosion02CustomId = "customPresetExplosion02";
 
 	async function selectCustom() {
 		const current = customPath;
@@ -51763,13 +51808,13 @@ function instance$7($$self, $$props, $$invalidate) {
 	let persistent = afterImage.persistent || false;
 
 	function switchPersistence() {
-		$$invalidate(54, persistent = !persistent);
+		$$invalidate(57, persistent = !persistent);
 	}
 
 	let afterImageBelowToken = afterImage.below || false;
 
 	function afterImageBelow() {
-		$$invalidate(55, afterImageBelowToken = !afterImageBelowToken);
+		$$invalidate(58, afterImageBelowToken = !afterImageBelowToken);
 	}
 
 	let afterImageScale = afterImage.scale || 1;
@@ -51803,6 +51848,11 @@ function instance$7($$self, $$props, $$invalidate) {
 	function chooseanimation0_customPath_binding(value) {
 		projectileCustomPath = value;
 		$$invalidate(7, projectileCustomPath);
+	}
+
+	function chooseanimation0_customId_binding(value) {
+		projectileCustomId = value;
+		$$invalidate(36, projectileCustomId);
 	}
 
 	const click_handler = () => projectileBelow();
@@ -51855,6 +51905,11 @@ function instance$7($$self, $$props, $$invalidate) {
 		$$invalidate(17, explosion01CustomPath);
 	}
 
+	function chooseanimation_customId_binding(value) {
+		explosion01CustomId = value;
+		$$invalidate(37, explosion01CustomId);
+	}
+
 	const click_handler_3 = () => explosion01Below();
 
 	function input0_input_handler_1() {
@@ -51905,6 +51960,11 @@ function instance$7($$self, $$props, $$invalidate) {
 	function chooseanimation1_customPath_binding(value) {
 		explosion02CustomPath = value;
 		$$invalidate(28, explosion02CustomPath);
+	}
+
+	function chooseanimation1_customId_binding(value) {
+		explosion02CustomId = value;
+		$$invalidate(38, explosion02CustomId);
 	}
 
 	const click_handler_4 = () => explosion02Below();
@@ -51992,15 +52052,15 @@ function instance$7($$self, $$props, $$invalidate) {
 		}
 
 		if ($$self.$$.dirty[0] & /*removeTemplate*/ 2048) {
-			$$invalidate(41, isRemove = removeTemplate ? "Yes" : "No");
+			$$invalidate(44, isRemove = removeTemplate ? "Yes" : "No");
 		}
 
-		if ($$self.$$.dirty[1] & /*projectileBelowToken*/ 1048576) {
-			$$invalidate(51, projectileBelowToken = projectile.below = projectileBelowToken);
+		if ($$self.$$.dirty[1] & /*projectileBelowToken*/ 8388608) {
+			$$invalidate(54, projectileBelowToken = projectile.below = projectileBelowToken);
 		}
 
-		if ($$self.$$.dirty[1] & /*projectileBelowToken*/ 1048576) {
-			$$invalidate(40, projectileAboveBelow = projectileBelowToken ? "Below Token" : "Above Token");
+		if ($$self.$$.dirty[1] & /*projectileBelowToken*/ 8388608) {
+			$$invalidate(43, projectileAboveBelow = projectileBelowToken ? "Below Token" : "Above Token");
 		}
 
 		if ($$self.$$.dirty[0] & /*explosion01MenuType*/ 4096) {
@@ -52027,12 +52087,12 @@ function instance$7($$self, $$props, $$invalidate) {
 			$$invalidate(17, explosion01CustomPath = explosion01.customPath = explosion01CustomPath);
 		}
 
-		if ($$self.$$.dirty[1] & /*explosion01BelowToken*/ 2097152) {
-			$$invalidate(52, explosion01BelowToken = explosion01.below = explosion01BelowToken);
+		if ($$self.$$.dirty[1] & /*explosion01BelowToken*/ 16777216) {
+			$$invalidate(55, explosion01BelowToken = explosion01.below = explosion01BelowToken);
 		}
 
-		if ($$self.$$.dirty[1] & /*explosion01BelowToken*/ 2097152) {
-			$$invalidate(39, explosion01AboveBelow = explosion01BelowToken ? "Below Token" : "Above Token");
+		if ($$self.$$.dirty[1] & /*explosion01BelowToken*/ 16777216) {
+			$$invalidate(42, explosion01AboveBelow = explosion01BelowToken ? "Below Token" : "Above Token");
 		}
 
 		if ($$self.$$.dirty[0] & /*explosion01Scale*/ 262144) {
@@ -52079,12 +52139,12 @@ function instance$7($$self, $$props, $$invalidate) {
 			$$invalidate(28, explosion02CustomPath = explosion02.customPath = explosion02CustomPath);
 		}
 
-		if ($$self.$$.dirty[1] & /*explosion02BelowToken*/ 4194304) {
-			$$invalidate(53, explosion02BelowToken = explosion02.below = explosion02BelowToken);
+		if ($$self.$$.dirty[1] & /*explosion02BelowToken*/ 33554432) {
+			$$invalidate(56, explosion02BelowToken = explosion02.below = explosion02BelowToken);
 		}
 
-		if ($$self.$$.dirty[1] & /*explosion02BelowToken*/ 4194304) {
-			$$invalidate(38, explosion02AboveBelow = explosion02BelowToken ? "Below Token" : "Above Token");
+		if ($$self.$$.dirty[1] & /*explosion02BelowToken*/ 33554432) {
+			$$invalidate(41, explosion02AboveBelow = explosion02BelowToken ? "Below Token" : "Above Token");
 		}
 
 		if ($$self.$$.dirty[0] & /*explosion02Scale*/ 536870912) {
@@ -52107,20 +52167,20 @@ function instance$7($$self, $$props, $$invalidate) {
 			$$invalidate(33, customPath = afterImage.customPath = customPath);
 		}
 
-		if ($$self.$$.dirty[1] & /*persistent*/ 8388608) {
-			$$invalidate(54, persistent = afterImage.persistent = persistent);
+		if ($$self.$$.dirty[1] & /*persistent*/ 67108864) {
+			$$invalidate(57, persistent = afterImage.persistent = persistent);
 		}
 
-		if ($$self.$$.dirty[1] & /*persistent*/ 8388608) {
-			$$invalidate(37, isPersistent = persistent ? "Persistent" : "Not Persistent");
+		if ($$self.$$.dirty[1] & /*persistent*/ 67108864) {
+			$$invalidate(40, isPersistent = persistent ? "Persistent" : "Not Persistent");
 		}
 
-		if ($$self.$$.dirty[1] & /*afterImageBelowToken*/ 16777216) {
-			$$invalidate(55, afterImageBelowToken = afterImage.below = afterImageBelowToken);
+		if ($$self.$$.dirty[1] & /*afterImageBelowToken*/ 134217728) {
+			$$invalidate(58, afterImageBelowToken = afterImage.below = afterImageBelowToken);
 		}
 
-		if ($$self.$$.dirty[1] & /*afterImageBelowToken*/ 16777216) {
-			$$invalidate(36, afterImageAboveBelow = afterImageBelowToken ? "Below Token" : "Above Token");
+		if ($$self.$$.dirty[1] & /*afterImageBelowToken*/ 134217728) {
+			$$invalidate(39, afterImageAboveBelow = afterImageBelowToken ? "Below Token" : "Above Token");
 		}
 
 		if ($$self.$$.dirty[1] & /*afterImageScale*/ 8) {
@@ -52169,6 +52229,9 @@ function instance$7($$self, $$props, $$invalidate) {
 		customPath,
 		afterImageScale,
 		afterImageWait,
+		projectileCustomId,
+		explosion01CustomId,
+		explosion02CustomId,
 		afterImageAboveBelow,
 		isPersistent,
 		explosion02AboveBelow,
@@ -52195,6 +52258,7 @@ function instance$7($$self, $$props, $$invalidate) {
 		chooseanimation0_color_binding,
 		chooseanimation0_isCustom_binding,
 		chooseanimation0_customPath_binding,
+		chooseanimation0_customId_binding,
 		click_handler,
 		click_handler_1,
 		input0_input_handler,
@@ -52207,6 +52271,7 @@ function instance$7($$self, $$props, $$invalidate) {
 		chooseanimation_color_binding,
 		chooseanimation_isCustom_binding,
 		chooseanimation_customPath_binding,
+		chooseanimation_customId_binding,
 		click_handler_3,
 		input0_input_handler_1,
 		input1_input_handler_1,
@@ -52218,6 +52283,7 @@ function instance$7($$self, $$props, $$invalidate) {
 		chooseanimation1_color_binding,
 		chooseanimation1_isCustom_binding,
 		chooseanimation1_customPath_binding,
+		chooseanimation1_customId_binding,
 		click_handler_4,
 		input3_input_handler_1,
 		input4_input_handler,
@@ -53821,6 +53887,7 @@ function create_if_block$2(ctx) {
 	let updating_color;
 	let updating_isCustom;
 	let updating_customPath;
+	let updating_customId;
 	let t0;
 	let h2;
 	let t2;
@@ -53840,27 +53907,31 @@ function create_if_block$2(ctx) {
 	let dispose;
 
 	function chooseanimation_menuType_binding(value) {
-		/*chooseanimation_menuType_binding*/ ctx[52](value);
+		/*chooseanimation_menuType_binding*/ ctx[56](value);
 	}
 
 	function chooseanimation_animation_binding(value) {
-		/*chooseanimation_animation_binding*/ ctx[53](value);
+		/*chooseanimation_animation_binding*/ ctx[57](value);
 	}
 
 	function chooseanimation_variant_binding(value) {
-		/*chooseanimation_variant_binding*/ ctx[54](value);
+		/*chooseanimation_variant_binding*/ ctx[58](value);
 	}
 
 	function chooseanimation_color_binding(value) {
-		/*chooseanimation_color_binding*/ ctx[55](value);
+		/*chooseanimation_color_binding*/ ctx[59](value);
 	}
 
 	function chooseanimation_isCustom_binding(value) {
-		/*chooseanimation_isCustom_binding*/ ctx[56](value);
+		/*chooseanimation_isCustom_binding*/ ctx[60](value);
 	}
 
 	function chooseanimation_customPath_binding(value) {
-		/*chooseanimation_customPath_binding*/ ctx[57](value);
+		/*chooseanimation_customPath_binding*/ ctx[61](value);
+	}
+
+	function chooseanimation_customId_binding(value) {
+		/*chooseanimation_customId_binding*/ ctx[62](value);
 	}
 
 	let chooseanimation_props = {
@@ -53896,6 +53967,10 @@ function create_if_block$2(ctx) {
 		chooseanimation_props.customPath = /*betweenCustomPath*/ ctx[25];
 	}
 
+	if (/*betweenCustomId*/ ctx[31] !== void 0) {
+		chooseanimation_props.customId = /*betweenCustomId*/ ctx[31];
+	}
+
 	chooseanimation = new ChooseAnimation({ props: chooseanimation_props });
 	binding_callbacks.push(() => bind(chooseanimation, 'menuType', chooseanimation_menuType_binding));
 	binding_callbacks.push(() => bind(chooseanimation, 'animation', chooseanimation_animation_binding));
@@ -53903,6 +53978,7 @@ function create_if_block$2(ctx) {
 	binding_callbacks.push(() => bind(chooseanimation, 'color', chooseanimation_color_binding));
 	binding_callbacks.push(() => bind(chooseanimation, 'isCustom', chooseanimation_isCustom_binding));
 	binding_callbacks.push(() => bind(chooseanimation, 'customPath', chooseanimation_customPath_binding));
+	binding_callbacks.push(() => bind(chooseanimation, 'customId', chooseanimation_customId_binding));
 
 	return {
 		c() {
@@ -53917,7 +53993,7 @@ function create_if_block$2(ctx) {
 			label0.textContent = "Z-Index";
 			t4 = space();
 			button = element("button");
-			t5 = text(/*betweenAboveBelow*/ ctx[29]);
+			t5 = text(/*betweenAboveBelow*/ ctx[32]);
 			t6 = space();
 			div1 = element("div");
 			label1 = element("label");
@@ -53963,8 +54039,8 @@ function create_if_block$2(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(button, "click", /*click_handler_3*/ ctx[58]),
-					listen(input, "input", /*input_input_handler*/ ctx[59])
+					listen(button, "click", /*click_handler_3*/ ctx[63]),
+					listen(input, "input", /*input_input_handler*/ ctx[64])
 				];
 
 				mounted = true;
@@ -54011,8 +54087,14 @@ function create_if_block$2(ctx) {
 				add_flush_callback(() => updating_customPath = false);
 			}
 
+			if (!updating_customId && dirty[1] & /*betweenCustomId*/ 1) {
+				updating_customId = true;
+				chooseanimation_changes.customId = /*betweenCustomId*/ ctx[31];
+				add_flush_callback(() => updating_customId = false);
+			}
+
 			chooseanimation.$set(chooseanimation_changes);
-			if (!current || dirty[0] & /*betweenAboveBelow*/ 536870912) set_data(t5, /*betweenAboveBelow*/ ctx[29]);
+			if (!current || dirty[1] & /*betweenAboveBelow*/ 2) set_data(t5, /*betweenAboveBelow*/ ctx[32]);
 
 			if (dirty[0] & /*betweenPlaybackRate*/ 67108864) {
 				set_input_value(input, /*betweenPlaybackRate*/ ctx[26]);
@@ -54075,6 +54157,7 @@ function create_fragment$3(ctx) {
 	let updating_color;
 	let updating_isCustom;
 	let updating_customPath;
+	let updating_customId;
 	let t18;
 	let h21;
 	let t20;
@@ -54110,6 +54193,7 @@ function create_fragment$3(ctx) {
 	let updating_color_1;
 	let updating_isCustom_1;
 	let updating_customPath_1;
+	let updating_customId_1;
 	let t34;
 	let h22;
 	let t36;
@@ -54136,27 +54220,31 @@ function create_fragment$3(ctx) {
 	let dispose;
 
 	function chooseanimation0_menuType_binding(value) {
-		/*chooseanimation0_menuType_binding*/ ctx[43](value);
+		/*chooseanimation0_menuType_binding*/ ctx[46](value);
 	}
 
 	function chooseanimation0_animation_binding(value) {
-		/*chooseanimation0_animation_binding*/ ctx[44](value);
+		/*chooseanimation0_animation_binding*/ ctx[47](value);
 	}
 
 	function chooseanimation0_variant_binding(value) {
-		/*chooseanimation0_variant_binding*/ ctx[45](value);
+		/*chooseanimation0_variant_binding*/ ctx[48](value);
 	}
 
 	function chooseanimation0_color_binding(value) {
-		/*chooseanimation0_color_binding*/ ctx[46](value);
+		/*chooseanimation0_color_binding*/ ctx[49](value);
 	}
 
 	function chooseanimation0_isCustom_binding(value) {
-		/*chooseanimation0_isCustom_binding*/ ctx[47](value);
+		/*chooseanimation0_isCustom_binding*/ ctx[50](value);
 	}
 
 	function chooseanimation0_customPath_binding(value) {
-		/*chooseanimation0_customPath_binding*/ ctx[48](value);
+		/*chooseanimation0_customPath_binding*/ ctx[51](value);
+	}
+
+	function chooseanimation0_customId_binding(value) {
+		/*chooseanimation0_customId_binding*/ ctx[52](value);
 	}
 
 	let chooseanimation0_props = {
@@ -54191,6 +54279,10 @@ function create_fragment$3(ctx) {
 		chooseanimation0_props.customPath = /*startCustomPath*/ ctx[10];
 	}
 
+	if (/*startCustomId*/ ctx[29] !== void 0) {
+		chooseanimation0_props.customId = /*startCustomId*/ ctx[29];
+	}
+
 	chooseanimation0 = new ChooseAnimation({ props: chooseanimation0_props });
 	binding_callbacks.push(() => bind(chooseanimation0, 'menuType', chooseanimation0_menuType_binding));
 	binding_callbacks.push(() => bind(chooseanimation0, 'animation', chooseanimation0_animation_binding));
@@ -54198,30 +54290,35 @@ function create_fragment$3(ctx) {
 	binding_callbacks.push(() => bind(chooseanimation0, 'color', chooseanimation0_color_binding));
 	binding_callbacks.push(() => bind(chooseanimation0, 'isCustom', chooseanimation0_isCustom_binding));
 	binding_callbacks.push(() => bind(chooseanimation0, 'customPath', chooseanimation0_customPath_binding));
+	binding_callbacks.push(() => bind(chooseanimation0, 'customId', chooseanimation0_customId_binding));
 	let if_block = /*enableBetween*/ ctx[27] && create_if_block$2(ctx);
 
 	function chooseanimation1_menuType_binding(value) {
-		/*chooseanimation1_menuType_binding*/ ctx[60](value);
+		/*chooseanimation1_menuType_binding*/ ctx[65](value);
 	}
 
 	function chooseanimation1_animation_binding(value) {
-		/*chooseanimation1_animation_binding*/ ctx[61](value);
+		/*chooseanimation1_animation_binding*/ ctx[66](value);
 	}
 
 	function chooseanimation1_variant_binding(value) {
-		/*chooseanimation1_variant_binding*/ ctx[62](value);
+		/*chooseanimation1_variant_binding*/ ctx[67](value);
 	}
 
 	function chooseanimation1_color_binding(value) {
-		/*chooseanimation1_color_binding*/ ctx[63](value);
+		/*chooseanimation1_color_binding*/ ctx[68](value);
 	}
 
 	function chooseanimation1_isCustom_binding(value) {
-		/*chooseanimation1_isCustom_binding*/ ctx[64](value);
+		/*chooseanimation1_isCustom_binding*/ ctx[69](value);
 	}
 
 	function chooseanimation1_customPath_binding(value) {
-		/*chooseanimation1_customPath_binding*/ ctx[65](value);
+		/*chooseanimation1_customPath_binding*/ ctx[70](value);
+	}
+
+	function chooseanimation1_customId_binding(value) {
+		/*chooseanimation1_customId_binding*/ ctx[71](value);
 	}
 
 	let chooseanimation1_props = {
@@ -54256,6 +54353,10 @@ function create_fragment$3(ctx) {
 		chooseanimation1_props.customPath = /*endCustomPath*/ ctx[17];
 	}
 
+	if (/*endCustomId*/ ctx[30] !== void 0) {
+		chooseanimation1_props.customId = /*endCustomId*/ ctx[30];
+	}
+
 	chooseanimation1 = new ChooseAnimation({ props: chooseanimation1_props });
 	binding_callbacks.push(() => bind(chooseanimation1, 'menuType', chooseanimation1_menuType_binding));
 	binding_callbacks.push(() => bind(chooseanimation1, 'animation', chooseanimation1_animation_binding));
@@ -54263,6 +54364,7 @@ function create_fragment$3(ctx) {
 	binding_callbacks.push(() => bind(chooseanimation1, 'color', chooseanimation1_color_binding));
 	binding_callbacks.push(() => bind(chooseanimation1, 'isCustom', chooseanimation1_isCustom_binding));
 	binding_callbacks.push(() => bind(chooseanimation1, 'customPath', chooseanimation1_customPath_binding));
+	binding_callbacks.push(() => bind(chooseanimation1, 'customId', chooseanimation1_customId_binding));
 
 	soundsettings = new SoundSettings({
 			props: {
@@ -54319,7 +54421,7 @@ function create_fragment$3(ctx) {
 			label3.textContent = "Z-Index";
 			t22 = space();
 			button1 = element("button");
-			t23 = text(/*startAboveBelow*/ ctx[31]);
+			t23 = text(/*startAboveBelow*/ ctx[34]);
 			t24 = space();
 			div6 = element("div");
 			label4 = element("label");
@@ -54353,7 +54455,7 @@ function create_fragment$3(ctx) {
 			label6.textContent = "Z-Index";
 			t38 = space();
 			button2 = element("button");
-			t39 = text(/*endAboveBelow*/ ctx[30]);
+			t39 = text(/*endAboveBelow*/ ctx[33]);
 			t40 = space();
 			div15 = element("div");
 			label7 = element("label");
@@ -54380,7 +54482,7 @@ function create_fragment$3(ctx) {
 			option1.value = option1.__value;
 			attr(select, "name", "flags.autoanimations.animation");
 			attr(select, "class", "svelte-nvwkr7");
-			if (/*measureType*/ ctx[2] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[40].call(select));
+			if (/*measureType*/ ctx[2] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[43].call(select));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "1 / 2");
@@ -54549,15 +54651,15 @@ function create_fragment$3(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(select, "change", /*select_change_handler*/ ctx[40]),
-					listen(input0, "input", /*input0_input_handler*/ ctx[41]),
-					listen(button0, "click", /*click_handler*/ ctx[42]),
-					listen(button1, "click", /*click_handler_1*/ ctx[49]),
-					listen(input1, "input", /*input1_input_handler*/ ctx[50]),
-					listen(i, "click", /*click_handler_2*/ ctx[51]),
-					listen(button2, "click", /*click_handler_4*/ ctx[66]),
-					listen(input2, "input", /*input2_input_handler*/ ctx[67]),
-					listen(input3, "input", /*input3_input_handler*/ ctx[68])
+					listen(select, "change", /*select_change_handler*/ ctx[43]),
+					listen(input0, "input", /*input0_input_handler*/ ctx[44]),
+					listen(button0, "click", /*click_handler*/ ctx[45]),
+					listen(button1, "click", /*click_handler_1*/ ctx[53]),
+					listen(input1, "input", /*input1_input_handler*/ ctx[54]),
+					listen(i, "click", /*click_handler_2*/ ctx[55]),
+					listen(button2, "click", /*click_handler_4*/ ctx[72]),
+					listen(input2, "input", /*input2_input_handler*/ ctx[73]),
+					listen(input3, "input", /*input3_input_handler*/ ctx[74])
 				];
 
 				mounted = true;
@@ -54618,8 +54720,14 @@ function create_fragment$3(ctx) {
 				add_flush_callback(() => updating_customPath = false);
 			}
 
+			if (!updating_customId && dirty[0] & /*startCustomId*/ 536870912) {
+				updating_customId = true;
+				chooseanimation0_changes.customId = /*startCustomId*/ ctx[29];
+				add_flush_callback(() => updating_customId = false);
+			}
+
 			chooseanimation0.$set(chooseanimation0_changes);
-			if (!current || dirty[1] & /*startAboveBelow*/ 1) set_data(t23, /*startAboveBelow*/ ctx[31]);
+			if (!current || dirty[1] & /*startAboveBelow*/ 8) set_data(t23, /*startAboveBelow*/ ctx[34]);
 
 			if (dirty[0] & /*startScale*/ 2048) {
 				set_input_value(input1, /*startScale*/ ctx[11]);
@@ -54694,8 +54802,14 @@ function create_fragment$3(ctx) {
 				add_flush_callback(() => updating_customPath_1 = false);
 			}
 
+			if (!updating_customId_1 && dirty[0] & /*endCustomId*/ 1073741824) {
+				updating_customId_1 = true;
+				chooseanimation1_changes.customId = /*endCustomId*/ ctx[30];
+				add_flush_callback(() => updating_customId_1 = false);
+			}
+
 			chooseanimation1.$set(chooseanimation1_changes);
-			if (!current || dirty[0] & /*endAboveBelow*/ 1073741824) set_data(t39, /*endAboveBelow*/ ctx[30]);
+			if (!current || dirty[1] & /*endAboveBelow*/ 4) set_data(t39, /*endAboveBelow*/ ctx[33]);
 
 			if (dirty[0] & /*endScale*/ 262144) {
 				set_input_value(input2, /*endScale*/ ctx[18]);
@@ -54775,13 +54889,15 @@ function instance$3($$self, $$props, $$invalidate) {
 	let startVariant = start.variant;
 	let startColor = start.color;
 	let startIsCustom = start.enableCustom || false;
-	let startCustomPath = start.customPath;
+	let startCustomPath = start.customPath || "";
 	let startScale = start.scale || 1;
 	let startBelowToken = start.below || false;
 
 	function startBelow() {
-		$$invalidate(37, startBelowToken = !startBelowToken);
+		$$invalidate(40, startBelowToken = !startBelowToken);
 	}
+
+	let startCustomId = "customPresetStart";
 
 	//Set End Animation variables
 	preset.end ? preset.end : preset.end = {};
@@ -54790,7 +54906,7 @@ function instance$3($$self, $$props, $$invalidate) {
 	let endBelowToken = end.below || false;
 
 	function endBelow() {
-		$$invalidate(38, endBelowToken = !endBelowToken);
+		$$invalidate(41, endBelowToken = !endBelowToken);
 	}
 
 	let endMenuType = end.menuType;
@@ -54798,11 +54914,12 @@ function instance$3($$self, $$props, $$invalidate) {
 	let endVariant = end.variant;
 	let endColor = end.color;
 	let endIsCustom = end.enableCustom || false;
-	let endCustomPath = end.customPath;
+	let endCustomPath = end.customPath || "";
 	let endScale = end.scale || 1;
 	let delayAlpha = end.delay || 250;
+	let endCustomId = "customPresetEnd";
 
-	//Set End Animation variables
+	//Set Between Animation variables
 	preset.between ? preset.between : preset.between = {};
 
 	const between = preset.between;
@@ -54811,7 +54928,7 @@ function instance$3($$self, $$props, $$invalidate) {
 	let betweenVariant = between.variant;
 	let betweenColor = between.color;
 	let betweenIsCustom = between.enableCustom || false;
-	let betweenCustomPath = between.customPath;
+	let betweenCustomPath = between.customPath || "";
 	let betweenPlaybackRate = between.playbackRate || 1;
 	let enableBetween = between.enableBetween || false;
 
@@ -54822,8 +54939,10 @@ function instance$3($$self, $$props, $$invalidate) {
 	let betweenBelowToken = between.below || false;
 
 	function betweenBelow() {
-		$$invalidate(39, betweenBelowToken = !betweenBelowToken);
+		$$invalidate(42, betweenBelowToken = !betweenBelowToken);
 	}
+
+	let betweenCustomId = "customPresetBetween";
 
 	function select_change_handler() {
 		measureType = select_value(this);
@@ -54867,6 +54986,11 @@ function instance$3($$self, $$props, $$invalidate) {
 		$$invalidate(10, startCustomPath);
 	}
 
+	function chooseanimation0_customId_binding(value) {
+		startCustomId = value;
+		$$invalidate(29, startCustomId);
+	}
+
 	const click_handler_1 = () => startBelow();
 
 	function input1_input_handler() {
@@ -54906,6 +55030,11 @@ function instance$3($$self, $$props, $$invalidate) {
 		$$invalidate(25, betweenCustomPath);
 	}
 
+	function chooseanimation_customId_binding(value) {
+		betweenCustomId = value;
+		$$invalidate(31, betweenCustomId);
+	}
+
 	const click_handler_3 = () => betweenBelow();
 
 	function input_input_handler() {
@@ -54941,6 +55070,11 @@ function instance$3($$self, $$props, $$invalidate) {
 	function chooseanimation1_customPath_binding(value) {
 		endCustomPath = value;
 		$$invalidate(17, endCustomPath);
+	}
+
+	function chooseanimation1_customId_binding(value) {
+		endCustomId = value;
+		$$invalidate(30, endCustomId);
 	}
 
 	const click_handler_4 = () => endBelow();
@@ -55005,20 +55139,20 @@ function instance$3($$self, $$props, $$invalidate) {
 			$$invalidate(11, startScale = start.scale = startScale);
 		}
 
-		if ($$self.$$.dirty[1] & /*startBelowToken*/ 64) {
-			$$invalidate(37, startBelowToken = start.below = startBelowToken);
+		if ($$self.$$.dirty[1] & /*startBelowToken*/ 512) {
+			$$invalidate(40, startBelowToken = start.below = startBelowToken);
 		}
 
-		if ($$self.$$.dirty[1] & /*startBelowToken*/ 64) {
-			$$invalidate(31, startAboveBelow = startBelowToken ? "Below Token" : "Above Token");
+		if ($$self.$$.dirty[1] & /*startBelowToken*/ 512) {
+			$$invalidate(34, startAboveBelow = startBelowToken ? "Below Token" : "Above Token");
 		}
 
-		if ($$self.$$.dirty[1] & /*endBelowToken*/ 128) {
-			$$invalidate(38, endBelowToken = end.below = endBelowToken);
+		if ($$self.$$.dirty[1] & /*endBelowToken*/ 1024) {
+			$$invalidate(41, endBelowToken = end.below = endBelowToken);
 		}
 
-		if ($$self.$$.dirty[1] & /*endBelowToken*/ 128) {
-			$$invalidate(30, endAboveBelow = endBelowToken ? "Below Token" : "Above Token");
+		if ($$self.$$.dirty[1] & /*endBelowToken*/ 1024) {
+			$$invalidate(33, endAboveBelow = endBelowToken ? "Below Token" : "Above Token");
 		}
 
 		if ($$self.$$.dirty[0] & /*endMenuType*/ 4096) {
@@ -55085,12 +55219,12 @@ function instance$3($$self, $$props, $$invalidate) {
 			$$invalidate(27, enableBetween = between.enableBetween = enableBetween);
 		}
 
-		if ($$self.$$.dirty[1] & /*betweenBelowToken*/ 256) {
-			$$invalidate(39, betweenBelowToken = between.below = betweenBelowToken);
+		if ($$self.$$.dirty[1] & /*betweenBelowToken*/ 2048) {
+			$$invalidate(42, betweenBelowToken = between.below = betweenBelowToken);
 		}
 
-		if ($$self.$$.dirty[1] & /*betweenBelowToken*/ 256) {
-			$$invalidate(29, betweenAboveBelow = betweenBelowToken ? "Below Token" : "Above Token");
+		if ($$self.$$.dirty[1] & /*betweenBelowToken*/ 2048) {
+			$$invalidate(32, betweenAboveBelow = betweenBelowToken ? "Below Token" : "Above Token");
 		}
 	};
 
@@ -55124,6 +55258,9 @@ function instance$3($$self, $$props, $$invalidate) {
 		betweenPlaybackRate,
 		enableBetween,
 		isHidden,
+		startCustomId,
+		endCustomId,
+		betweenCustomId,
 		betweenAboveBelow,
 		endAboveBelow,
 		startAboveBelow,
@@ -55144,6 +55281,7 @@ function instance$3($$self, $$props, $$invalidate) {
 		chooseanimation0_color_binding,
 		chooseanimation0_isCustom_binding,
 		chooseanimation0_customPath_binding,
+		chooseanimation0_customId_binding,
 		click_handler_1,
 		input1_input_handler,
 		click_handler_2,
@@ -55153,6 +55291,7 @@ function instance$3($$self, $$props, $$invalidate) {
 		chooseanimation_color_binding,
 		chooseanimation_isCustom_binding,
 		chooseanimation_customPath_binding,
+		chooseanimation_customId_binding,
 		click_handler_3,
 		input_input_handler,
 		chooseanimation1_menuType_binding,
@@ -55161,6 +55300,7 @@ function instance$3($$self, $$props, $$invalidate) {
 		chooseanimation1_color_binding,
 		chooseanimation1_isCustom_binding,
 		chooseanimation1_customPath_binding,
+		chooseanimation1_customId_binding,
 		click_handler_4,
 		input2_input_handler,
 		input3_input_handler

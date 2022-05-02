@@ -109,6 +109,7 @@
     $: isCustom = isCustom;
     export let customPath;
     $: customPath = customPath;
+    export let customId;
 
     // Autopopulates Select Menus when they change
     async function menuTypeChange() {
@@ -274,7 +275,7 @@
             </select>
         </div>
     </div>
-    <CustomPicker {flagPath} {presetSubType} {presetType} {flagData} bind:isCustom bind:customPath />
+    <CustomPicker {flagPath} {presetSubType} {presetType} {flagData} {customId} bind:isCustom bind:customPath />
     <div class="aa-3wide">
         {#if (animType === "range" && isCustom && (flagPath === "PrimaryAnimation" || shouldShowOnlyX))}
             <div

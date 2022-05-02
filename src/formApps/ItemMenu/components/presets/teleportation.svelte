@@ -37,7 +37,7 @@
     $: startColor = start.color = startColor;
     let startIsCustom = start.enableCustom || false;
     $: startIsCustom = start.enableCustom = startIsCustom;
-    let startCustomPath = start.customPath;
+    let startCustomPath = start.customPath || "";
     $: startCustomPath = start.customPath = startCustomPath;
     let startScale = start.scale || 1;
     $: startScale = start.scale = startScale;
@@ -47,7 +47,7 @@
         startBelowToken = !startBelowToken;
     }
     $: startAboveBelow = startBelowToken ? "Below Token" : "Above Token";
-
+    let startCustomId = "customPresetStart";
 
 
 
@@ -70,14 +70,15 @@
     $: endColor = end.color = endColor;
     let endIsCustom = end.enableCustom || false;
     $: endIsCustom = end.enableCustom = endIsCustom;
-    let endCustomPath = end.customPath;
+    let endCustomPath = end.customPath || "";
     $: endCustomPath = end.customPath = endCustomPath;
     let endScale = end.scale || 1;
     $: endScale = end.scale = endScale;
     let delayAlpha = end.delay || 250;
     $: delayAlpha = end.delay = delayAlpha;
+    let endCustomId = "customPresetEnd";
 
-    //Set End Animation variables
+    //Set Between Animation variables
     preset.between ? preset.between : preset.between = {};
     const between = preset.between;
     let betweenMenuType = between.menuType;
@@ -90,7 +91,7 @@
     $: betweenColor = between.color = betweenColor;
     let betweenIsCustom = between.enableCustom || false;
     $: betweenIsCustom = between.enableCustom = betweenIsCustom;
-    let betweenCustomPath = between.customPath;
+    let betweenCustomPath = between.customPath || "";
     $: betweenCustomPath = between.customPath = betweenCustomPath;
     let betweenPlaybackRate = between.playbackRate || 1;
     $: betweenPlaybackRate = between.playbackRate = betweenPlaybackRate;
@@ -105,6 +106,7 @@
         betweenBelowToken = !betweenBelowToken;
     }
     $: betweenAboveBelow = betweenBelowToken ? "Below Token" : "Above Token";
+    let betweenCustomId = "customPresetBetween";
     let shouldShowOnlyX = true;
 </script>
 <div class="aaMenu-section">
@@ -141,6 +143,7 @@
     bind:color={startColor}
     bind:isCustom={startIsCustom}
     bind:customPath={startCustomPath}
+    bind:customId={startCustomId}
     {presetType}
     presetSubType="TeleStart"
     flagPath="preset"
@@ -184,6 +187,7 @@
     bind:color={betweenColor}
     bind:isCustom={betweenIsCustom}
     bind:customPath={betweenCustomPath}
+    bind:customId={betweenCustomId}
     {shouldShowOnlyX}
     {presetType}
     presetSubType="TeleBetween"
@@ -219,6 +223,7 @@
     bind:color={endColor}
     bind:isCustom={endIsCustom}
     bind:customPath={endCustomPath}
+    bind:customId={endCustomId}
     {presetType}
     presetSubType="TeleEnd"
     flagPath="preset"

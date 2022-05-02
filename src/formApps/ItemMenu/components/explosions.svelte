@@ -91,6 +91,7 @@
         customFilePath02.set(customPath);
         customChecked02.set(isCustom);
     }
+    let customId = "customExplosion";
 
 </script>
 
@@ -130,6 +131,7 @@
         bind:color
         bind:isCustom
         bind:customPath
+        bind:customId
         animType="static"
         previewType="explosion"
         flagPath="explosions"
