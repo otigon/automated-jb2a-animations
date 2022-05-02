@@ -16,7 +16,8 @@ export function disableAnimations() {
  * 
  */
 export async function createActiveEffects5e(effect) {
-
+    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+    await wait(150)
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     if (killAllAnimations) { return; }

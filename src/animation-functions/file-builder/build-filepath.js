@@ -43,7 +43,7 @@ export async function buildFile(getMeta, dbType, name, animationType, animationV
         //msFile = color === "random" ? `autoanimations.${type}.${[menuType]}.${path}.02` : `autoanimations.${type}.${[menuType]}.${path}.02.${color}`;
         //let file = color === "random" ? `autoanimations.${type}.${path}.${variant}` : `autoanimations.${type}.${path}.${variant}.${color}`;
         //let msFile = color === "random" ? `autoanimations.${type}.${path}.02` : `autoanimations.${type}.${path}.02.${color}`;
-        const returnArray = Object.keys(jb2a.return);
+        const returnArray = Object.keys(jb2a.return.weapon);
         returnFile = returnArray.some(el => path === el) ? `autoanimations.return.weapon.${path}.${variant}.${color}` : "";
         if (getMeta) {
             fileData = color === "random" ? jb2a[type][menuType][path][variant][Object.keys(jb2a[type][menuType][path][variant])[0]][0] : jb2a[type][menuType][path][variant][color][0];

@@ -96,13 +96,14 @@ export async function auras(handler, animationData) {
 
             if (!checkAnim) {
                 aaSeq.effect()
-                    .attachTo(target, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
                     .persist()
                     .origin(handler.itemUuid)
-                    .name(`${target.name}-${handler.itemName}`)
                     .size(data.size, { gridUnits: true })
                     .belowTokens(data.below)
                     .file(aura.file)
+                    .attachTo(target, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
+                    .name(`${target.name}-${handler.itemName}`)
+                    .opacity(data.opacity)
                     .animateProperty("sprite", "width", { from: 0, to: data.size, duration: 2500, ease: randomEase, gridUnits: true })
                     .animateProperty("sprite", "height", { from: 0, to: data.size, duration: 2500, ease: randomEase, gridUnits: true })
                     .fadeIn(2500)

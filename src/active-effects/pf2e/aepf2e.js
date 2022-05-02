@@ -10,6 +10,8 @@ export function disableAnimations() {
 }
 
 export async function createActiveEffectsPF2e(item) {
+    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+    await wait(150)
     const aePF2eTypes = ['condition', 'effect', 'feat']
     const aaDebug = game.settings.get("autoanimations", "debug")
     if (!aePF2eTypes.includes(item.type)) { 
