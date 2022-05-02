@@ -301,12 +301,14 @@ Hooks.once('ready', async function () {
                 Hooks.on("BRSW-BeforePreviewingTemplate", async (template, message, ev) => {
                     const tokenId = message.getFlag("betterrolls-swade2", "token");
 
+                    /*
                     console.log("-----------TEMPLATE-----------")
                     console.log(template)
                     console.log("-----------Message-----------")
                     console.log(message)
                     console.log("-----------EV-----------")
                     console.log(ev)
+                    */
 
                     if (tokenId) {
                         const token = canvas.tokens.get(tokenId);
@@ -314,20 +316,22 @@ Hooks.once('ready', async function () {
                         const itemId = message.getFlag("betterrolls-swade2", "item_id");
                         const item = token.actor.items.get(itemId);
 
+                        /*
                         console.log("-----------TOKEN-----------")
                         console.log(token)
                         console.log("-----------ITEM-----------")
                         console.log(item)
+                        */
 
-                        //swadeData(token, item)
+                        swadeData(token, item)
                     } else {
                         const actorId = message.getFlag("betterrolls-swade2", "actor");
                         const actor = game.actors.get(actorId);
 
-                        const itemId = data.getFlag("betterrolls-swade2", "item_id");
+                        const itemId = message.getFlag("betterrolls-swade2", "item_id");
                         const item = actor.items.get(itemId);
 
-                        //swadeData(actor, item)
+                        swadeData(actor, item)
                     }
                 })
                 break;
