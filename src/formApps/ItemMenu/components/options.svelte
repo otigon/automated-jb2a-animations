@@ -127,14 +127,14 @@
         <button class="oldCheck" on:click={() => below()}>{aboveBelow}</button>
     </div>
     <!--Bind/Unbind Visibility (for Persistent Effects)-->
-    <div class="flexcol {disabled01 || animType === 'templatefx' ? "aa-disabled" : ""}" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+    <div class="flexcol {disabled01 || animType === 'templatefx' || !persistent ? "aa-disabled" : ""}" style="grid-row: 1 / 2; grid-column: 3 / 4;">
         <label for="">Visibility</label>
-        <button on:click={() => switchVisibility()} disabled="{disabled01 || animType === 'templatefx' }" >{bindVisibility}</button>
+        <button on:click={() => switchVisibility()} disabled="{disabled01 || animType === 'templatefx' || !persistent}" >{bindVisibility}</button>
     </div>
     <!--Bind/Unbind Opacity (for Persistent Effects)-->
-    <div class="flexcol {disabled01 || animType === 'templatefx' ? "aa-disabled" : ""}" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+    <div class="flexcol {disabled01 || animType === 'templatefx' || !persistent ? "aa-disabled" : ""}" style="grid-row: 1 / 2; grid-column: 4 / 5;">
         <label for="">Alpha</label>
-        <button on:click={() => switchAlpha()} disabled="{disabled01 || animType === 'templatefx' }" >{bindAlpha}</button>
+        <button on:click={() => switchAlpha()} disabled="{disabled01 || animType === 'templatefx' || !persistent }" >{bindAlpha}</button>
     </div>
     <!--Set Number of times the animation plays-->
     <div class="flexcol {isDisabled ? "aa-disabled" : ""}" style="grid-row: 2 / 3; grid-column: 1 / 2;">
@@ -161,11 +161,11 @@
     {/if}
     {/if}
     <!--Set Animation Opacity-->
-    <div class="flexcol {disabled01 ? "aa-disabled" : ""}" style="grid-row: 2 / 3; grid-column: 4 / 5;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
+    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
         <label for="aaOpacity">{localize("AUTOANIM.opacity")}</label>
         <div class='form-group'>
-            <input disabled="{disabled01}" type="Number" id="aaOpacity" bind:value={opacity} placeholder=1 min=0 max=1 step=0.01>
-            <input disabled="{disabled01}" type="range" min=0 max=1 step=0.01 bind:value={opacity}>
+            <input type="Number" id="aaOpacity" bind:value={opacity} placeholder=1 min=0 max=1 step=0.01>
+            <input type="range" min=0 max=1 step=0.01 bind:value={opacity}>
         </div>
     </div>
     <!--Template Specific Settings-->

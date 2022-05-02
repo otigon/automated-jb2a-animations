@@ -55,6 +55,7 @@ export async function rangedAnimations(handler, animationData) {
                 .stretchTo(target, { onlyX: onlyX })
                 .randomizeMirrorY()
                 .repeats(data.repeat, data.delay)
+                .opacity(data.opacity)
                 .missed(!hit)
                 .name("spot" + ` ${target.id}`)
                 .belowTokens(data.below)

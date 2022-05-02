@@ -111,6 +111,7 @@ export async function meleeAnimation(handler, animationData) {
                     .file(range.file)
                     .atLocation(sourceToken)
                     .stretchTo(target)
+                    .opacity(data.opacity)
                     .randomizeMirrorY()
                     .repeats(data.repeat, data.delay)
                     .missed(!hit)
@@ -119,6 +120,7 @@ export async function meleeAnimation(handler, animationData) {
                 if (switchReturn) {
                     aaSeq.effect()
                         .file(range.returnFile, true)
+                        .opacity(data.opacity)
                         .delay(returnDelay)
                         .atLocation(sourceToken)
                         .repeats(data.repeat, data.delay)
@@ -129,6 +131,7 @@ export async function meleeAnimation(handler, animationData) {
                 if (moveTo) {
                     aaSeq.effect()
                         .file(attack.file)
+                        .opacity(data.opacity)
                         .atLocation(sourceToken)
                         .moveTowards(target)
                         .size(sourceTokenGS * data.scale, {gridUnits: true})
@@ -140,6 +143,7 @@ export async function meleeAnimation(handler, animationData) {
                 } else {
                     aaSeq.effect()
                         .file(attack.file)
+                        .opacity(data.opacity)
                         .atLocation(sourceToken)
                         .rotateTowards(target)
                         .size(sourceTokenGS * data.scale, {gridUnits: true})

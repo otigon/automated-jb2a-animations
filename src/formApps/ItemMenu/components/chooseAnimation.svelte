@@ -185,7 +185,7 @@
                     name="flags.autoanimations.options.staticType"
                     bind:value={staticType}
                     id="6"
-                    style="text-align: center;justify-self: center"
+                    style="text-align: center;justify-self: center; background-color: rgba(21, 154, 169, 0.4);"
                 >
                     <option value="source">{localize("AUTOANIM.source")}</option
                     >

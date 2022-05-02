@@ -1,6 +1,7 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade } from "svelte/transition";
+    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import SoundSettings from "../soundSettings.svelte";
     import ChooseAnimation from "../chooseAnimation.svelte";
 
@@ -108,9 +109,22 @@
     $: betweenAboveBelow = betweenBelowToken ? "Below Token" : "Above Token";
     let betweenCustomId = "customPresetBetween";
     let shouldShowOnlyX = true;
+    function info() {
+        console.log(TJSDialog)
+        new TJSDialog({
+            modal: true,
+            draggable: true,
+            resizable: true,
+            height: 200,
+            width: 200,
+            title: "Teleportation Preset",
+            content: `<img src="modules/autoanimations/src/images/Teleportation.png" alt="">`
+        }).render(true);
+    }
 </script>
+
 <div class="aaMenu-section">
-<h1 style="margin-bottom: 15px">Teleportation Preset</h1>
+<h1 style="margin-bottom: 15px">Teleportation Preset<i class="fas fa-info-circle aa-info-icon" on:click={() => info()}></i></h1>
 <h2 style="margin-top:10px;">Options</h2>
 <div class="aa-3wide">
     <!--Measurement Type-->
@@ -344,5 +358,13 @@
     }
     .aa-options label {
         align-self: center;
+    }
+    .aa-info-icon {
+        color:rgba(21, 154, 169, 0.75);
+        position:relative;
+        left: 20px;
+    }
+    .aa-info-icon:hover {
+        color: rgba(7, 132, 25, 0.6)
     }
 </style>
