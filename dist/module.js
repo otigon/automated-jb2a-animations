@@ -54881,8 +54881,6 @@ function instance$3($$self, $$props, $$invalidate) {
 	let betweenCustomId = "customPresetBetween";
 
 	function info() {
-		console.log(TJSDialog);
-
 		new TJSDialog({
 				modal: true,
 				draggable: true,
@@ -56950,7 +56948,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (211:20) {#if autoCheck && !isCustomized && !animationDisabled}
+// (210:20) {#if autoCheck && !isCustomized && !animationDisabled}
 function create_if_block_13(ctx) {
 	let div1;
 	let div0;
@@ -57011,7 +57009,7 @@ function create_if_block_13(ctx) {
 	};
 }
 
-// (218:20) {#if isCustomized}
+// (217:20) {#if isCustomized}
 function create_if_block_11(ctx) {
 	let div1;
 	let div0;
@@ -57162,7 +57160,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (266:28) {#if animType === "preset"}
+// (265:28) {#if animType === "preset"}
 function create_if_block_12(ctx) {
 	let div;
 	let label;
@@ -57291,7 +57289,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (332:16) {#if enableMacro}
+// (331:16) {#if enableMacro}
 function create_if_block_10(ctx) {
 	let div;
 	let macrofield;
@@ -57340,7 +57338,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (337:16) {#if showSound}
+// (336:16) {#if showSound}
 function create_if_block_9(ctx) {
 	let div;
 	let soundsettings;
@@ -57395,7 +57393,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (342:16) {#if !animationDisabled && isCustomized}
+// (341:16) {#if !animationDisabled && isCustomized}
 function create_if_block_5(ctx) {
 	let current_block_type_index;
 	let if_block0;
@@ -57531,7 +57529,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (345:24) {:else}
+// (344:24) {:else}
 function create_else_block(ctx) {
 	let div;
 	let primarysection;
@@ -57579,7 +57577,7 @@ function create_else_block(ctx) {
 	};
 }
 
-// (343:24) {#if animType === "preset"}
+// (342:24) {#if animType === "preset"}
 function create_if_block_8(ctx) {
 	let presetmenu;
 	let current;
@@ -57622,7 +57620,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (354:20) {#if animType === "melee"}
+// (353:20) {#if animType === "melee"}
 function create_if_block_7(ctx) {
 	let div;
 	let rangeswitch;
@@ -57661,7 +57659,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (359:20) {#if animType === "melee" || animType === "range" || animType === "static"}
+// (358:20) {#if animType === "melee" || animType === "range" || animType === "static"}
 function create_if_block_6(ctx) {
 	let div;
 	let explosionsettings;
@@ -57700,7 +57698,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (367:8) {#if focusExtra}
+// (366:8) {#if focusExtra}
 function create_if_block_1(ctx) {
 	let div8;
 	let div5;
@@ -57919,7 +57917,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (383:24) {#if enableSource}
+// (382:24) {#if enableSource}
 function create_if_block_3(ctx) {
 	let div;
 	let label;
@@ -57964,7 +57962,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (409:24) {#if enableTarget}
+// (408:24) {#if enableTarget}
 function create_if_block_2(ctx) {
 	let div;
 	let label;
@@ -58009,7 +58007,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (455:8) {#if focus3d}
+// (454:8) {#if focus3d}
 function create_if_block(ctx) {
 	let div1;
 	let div0;
@@ -58062,7 +58060,7 @@ function create_if_block(ctx) {
 	};
 }
 
-// (150:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}      stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}      stylesApp={{ header: "red" }}  >
+// (150:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}      stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}  >
 function create_default_slot(ctx) {
 	let form_1;
 	let div4;
@@ -58371,7 +58369,6 @@ function create_fragment(ctx) {
 		transition: scale,
 		transitionOptions: { duration: 500 },
 		stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
-		stylesApp: { header: "red" },
 		$$slots: { default: [create_default_slot] },
 		$$scope: { ctx }
 	};

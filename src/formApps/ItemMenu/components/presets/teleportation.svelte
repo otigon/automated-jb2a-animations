@@ -110,7 +110,6 @@
     let betweenCustomId = "customPresetBetween";
     let shouldShowOnlyX = true;
     function info() {
-        console.log(TJSDialog)
         new TJSDialog({
             modal: true,
             draggable: true,
@@ -118,7 +117,7 @@
             height: 200,
             width: 200,
             title: "Teleportation Preset",
-            content: `<img src="modules/autoanimations/src/images/Teleportation.png" alt="">`
+            content: `<img src="modules/autoanimations/src/images/Teleportation.png" alt="">`,
         }).render(true);
     }
 </script>
