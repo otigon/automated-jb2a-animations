@@ -43318,7 +43318,7 @@ function create_if_block_2$6(ctx) {
 			attr(label, "class", "svelte-11n4z40");
 			attr(track, "kind", "captions");
 			attr(video, "class", "aaVideoPreview svelte-11n4z40");
-			if (!src_url_equal(video.src, video_src_value = /*sourceFilePath*/ ctx[4])) attr(video, "src", video_src_value);
+			if (!src_url_equal(video.src, video_src_value = /*sourceFilePath*/ ctx[5])) attr(video, "src", video_src_value);
 			video.autoplay = "autoplay";
 			video.controls = true;
 			video.loop = true;
@@ -43333,7 +43333,7 @@ function create_if_block_2$6(ctx) {
 			append(video, track);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*sourceFilePath*/ 16 && !src_url_equal(video.src, video_src_value = /*sourceFilePath*/ ctx[4])) {
+			if (dirty & /*sourceFilePath*/ 32 && !src_url_equal(video.src, video_src_value = /*sourceFilePath*/ ctx[5])) {
 				attr(video, "src", video_src_value);
 			}
 		},
@@ -43343,7 +43343,7 @@ function create_if_block_2$6(ctx) {
 	};
 }
 
-// (129:4) {#if enableExplosion}
+// (137:4) {#if enableExplosion && shouldShow}
 function create_if_block_1$9(ctx) {
 	let div;
 	let label;
@@ -43364,7 +43364,7 @@ function create_if_block_1$9(ctx) {
 			attr(label, "class", "svelte-11n4z40");
 			attr(track, "kind", "captions");
 			attr(video, "class", "aaVideoPreview svelte-11n4z40");
-			if (!src_url_equal(video.src, video_src_value = /*explosionFilePath*/ ctx[5])) attr(video, "src", video_src_value);
+			if (!src_url_equal(video.src, video_src_value = /*explosionFilePath*/ ctx[6])) attr(video, "src", video_src_value);
 			video.autoplay = "autoplay";
 			video.controls = true;
 			video.loop = true;
@@ -43379,7 +43379,7 @@ function create_if_block_1$9(ctx) {
 			append(video, track);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*explosionFilePath*/ 32 && !src_url_equal(video.src, video_src_value = /*explosionFilePath*/ ctx[5])) {
+			if (dirty & /*explosionFilePath*/ 64 && !src_url_equal(video.src, video_src_value = /*explosionFilePath*/ ctx[6])) {
 				attr(video, "src", video_src_value);
 			}
 		},
@@ -43389,7 +43389,7 @@ function create_if_block_1$9(ctx) {
 	};
 }
 
-// (143:4) {#if enableTarget}
+// (151:4) {#if enableTarget}
 function create_if_block$a(ctx) {
 	let div;
 	let label;
@@ -43410,7 +43410,7 @@ function create_if_block$a(ctx) {
 			attr(label, "class", "svelte-11n4z40");
 			attr(track, "kind", "captions");
 			attr(video, "class", "aaVideoPreview svelte-11n4z40");
-			if (!src_url_equal(video.src, video_src_value = /*targetFilePath*/ ctx[3])) attr(video, "src", video_src_value);
+			if (!src_url_equal(video.src, video_src_value = /*targetFilePath*/ ctx[4])) attr(video, "src", video_src_value);
 			video.autoplay = "autoplay";
 			video.controls = true;
 			video.loop = true;
@@ -43425,7 +43425,7 @@ function create_if_block$a(ctx) {
 			append(video, track);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*targetFilePath*/ 8 && !src_url_equal(video.src, video_src_value = /*targetFilePath*/ ctx[3])) {
+			if (dirty & /*targetFilePath*/ 16 && !src_url_equal(video.src, video_src_value = /*targetFilePath*/ ctx[4])) {
 				attr(video, "src", video_src_value);
 			}
 		},
@@ -43447,7 +43447,7 @@ function create_fragment$k(ctx) {
 	let t3;
 	let t4;
 	let if_block0 = /*enableSource*/ ctx[1] && create_if_block_2$6(ctx);
-	let if_block1 = /*enableExplosion*/ ctx[0] && create_if_block_1$9(ctx);
+	let if_block1 = /*enableExplosion*/ ctx[0] && /*shouldShow*/ ctx[3] && create_if_block_1$9(ctx);
 	let if_block2 = /*enableTarget*/ ctx[2] && create_if_block$a(ctx);
 
 	return {
@@ -43469,7 +43469,7 @@ function create_fragment$k(ctx) {
 			attr(label, "class", "svelte-11n4z40");
 			attr(track, "kind", "captions");
 			attr(video, "class", "aaVideoPreview svelte-11n4z40");
-			if (!src_url_equal(video.src, video_src_value = /*primaryFilePath*/ ctx[6])) attr(video, "src", video_src_value);
+			if (!src_url_equal(video.src, video_src_value = /*primaryFilePath*/ ctx[7])) attr(video, "src", video_src_value);
 			video.autoplay = "autoplay";
 			video.controls = true;
 			video.loop = true;
@@ -43505,11 +43505,11 @@ function create_fragment$k(ctx) {
 				if_block0 = null;
 			}
 
-			if (dirty & /*primaryFilePath*/ 64 && !src_url_equal(video.src, video_src_value = /*primaryFilePath*/ ctx[6])) {
+			if (dirty & /*primaryFilePath*/ 128 && !src_url_equal(video.src, video_src_value = /*primaryFilePath*/ ctx[7])) {
 				attr(video, "src", video_src_value);
 			}
 
-			if (/*enableExplosion*/ ctx[0]) {
+			if (/*enableExplosion*/ ctx[0] && /*shouldShow*/ ctx[3]) {
 				if (if_block1) {
 					if_block1.p(ctx, dirty);
 				} else {
@@ -43555,22 +43555,32 @@ function instance$k($$self, $$props, $$invalidate) {
 	let sourceFilePath;
 	let targetDatabaseFile;
 	let targetFilePath;
+	let animType;
+
+	menuAnimType.subscribe(value => {
+		$$invalidate(8, animType = value);
+	});
+
+	let menuFields = ['aura', 'templatefx', 'preset'];
+	let shouldShow;
+
+	// Primary Preview
 	let primaryDbPath;
 
 	menuDBPath01.subscribe(value => {
-		$$invalidate(7, primaryDbPath = value);
+		$$invalidate(9, primaryDbPath = value);
 	});
 
 	let primaryIsCustom;
 
 	customChecked01.subscribe(value => {
-		$$invalidate(8, primaryIsCustom = value);
+		$$invalidate(10, primaryIsCustom = value);
 	});
 
 	let primaryCustomPath;
 
 	customFilePath01.subscribe(value => {
-		$$invalidate(9, primaryCustomPath = value);
+		$$invalidate(11, primaryCustomPath = value);
 	});
 
 	// Explosion Preview
@@ -43583,19 +43593,19 @@ function instance$k($$self, $$props, $$invalidate) {
 	let explosionDbPath;
 
 	menuDBPath02.subscribe(value => {
-		$$invalidate(10, explosionDbPath = value);
+		$$invalidate(12, explosionDbPath = value);
 	});
 
 	let explosionIsCustom;
 
 	customChecked02.subscribe(value => {
-		$$invalidate(11, explosionIsCustom = value);
+		$$invalidate(13, explosionIsCustom = value);
 	});
 
 	let explosionCustomPath;
 
 	customFilePath02.subscribe(value => {
-		$$invalidate(12, explosionCustomPath = value);
+		$$invalidate(14, explosionCustomPath = value);
 	});
 
 	// Source FX
@@ -43608,19 +43618,19 @@ function instance$k($$self, $$props, $$invalidate) {
 	let sourceDbPath;
 
 	menuDBPathSourceFX.subscribe(value => {
-		$$invalidate(13, sourceDbPath = value);
+		$$invalidate(15, sourceDbPath = value);
 	});
 
 	let sourceIsCustom;
 
 	customCheckedSourceFX.subscribe(value => {
-		$$invalidate(14, sourceIsCustom = value);
+		$$invalidate(16, sourceIsCustom = value);
 	});
 
 	let sourceCustomPath;
 
 	customFilePathSourceFX.subscribe(value => {
-		$$invalidate(15, sourceCustomPath = value);
+		$$invalidate(17, sourceCustomPath = value);
 	});
 
 	// Target FX
@@ -43633,64 +43643,68 @@ function instance$k($$self, $$props, $$invalidate) {
 	let targetDbPath;
 
 	menuDBPathTargetFX.subscribe(value => {
-		$$invalidate(16, targetDbPath = value);
+		$$invalidate(18, targetDbPath = value);
 	});
 
 	let targetIsCustom;
 
 	customCheckedTargetFX.subscribe(value => {
-		$$invalidate(17, targetIsCustom = value);
+		$$invalidate(19, targetIsCustom = value);
 	});
 
 	let targetCustomPath;
 
 	customFilePathTargetFX.subscribe(value => {
-		$$invalidate(18, targetCustomPath = value);
+		$$invalidate(20, targetCustomPath = value);
 	});
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*primaryDbPath*/ 128) {
-			$$invalidate(22, primaryDatabaseFile = !primaryDbPath.includes("undefined")
+		if ($$self.$$.dirty & /*animType*/ 256) {
+			$$invalidate(3, shouldShow = menuFields.includes(animType) ? false : true);
+		}
+
+		if ($$self.$$.dirty & /*primaryDbPath*/ 512) {
+			$$invalidate(24, primaryDatabaseFile = !primaryDbPath.includes("undefined")
 			? getPreviewFile(primaryDbPath)
 			: "");
 		}
 
-		if ($$self.$$.dirty & /*primaryIsCustom, primaryCustomPath, primaryDatabaseFile*/ 4195072) {
-			$$invalidate(6, primaryFilePath = primaryIsCustom
+		if ($$self.$$.dirty & /*primaryIsCustom, primaryCustomPath, primaryDatabaseFile*/ 16780288) {
+			$$invalidate(7, primaryFilePath = primaryIsCustom
 			? primaryCustomPath
 			: primaryDatabaseFile);
 		}
 
-		if ($$self.$$.dirty & /*enableExplosion, explosionDbPath*/ 1025) {
-			$$invalidate(21, explosionDatabaseFile = enableExplosion && !explosionDbPath.includes("undefined")
+		if ($$self.$$.dirty & /*enableExplosion, explosionDbPath*/ 4097) {
+			$$invalidate(23, explosionDatabaseFile = enableExplosion && !explosionDbPath.includes("undefined")
 			? getPreviewFile(explosionDbPath)
 			: "");
 		}
 
-		if ($$self.$$.dirty & /*explosionIsCustom, explosionCustomPath, explosionDatabaseFile*/ 2103296) {
-			$$invalidate(5, explosionFilePath = explosionIsCustom
+		if ($$self.$$.dirty & /*explosionIsCustom, explosionCustomPath, explosionDatabaseFile*/ 8413184) {
+			$$invalidate(6, explosionFilePath = explosionIsCustom
 			? explosionCustomPath
 			: explosionDatabaseFile);
 		}
 
-		if ($$self.$$.dirty & /*enableSource, sourceDbPath*/ 8194) {
-			$$invalidate(20, sourceDatabaseFile = enableSource && !sourceDbPath.includes("undefined")
+		if ($$self.$$.dirty & /*enableSource, sourceDbPath*/ 32770) {
+			$$invalidate(22, sourceDatabaseFile = enableSource && !sourceDbPath.includes("undefined")
 			? getPreviewFile(sourceDbPath)
 			: "");
 		}
 
-		if ($$self.$$.dirty & /*sourceIsCustom, sourceCustomPath, sourceDatabaseFile*/ 1097728) {
-			$$invalidate(4, sourceFilePath = sourceIsCustom ? sourceCustomPath : sourceDatabaseFile);
+		if ($$self.$$.dirty & /*sourceIsCustom, sourceCustomPath, sourceDatabaseFile*/ 4390912) {
+			$$invalidate(5, sourceFilePath = sourceIsCustom ? sourceCustomPath : sourceDatabaseFile);
 		}
 
-		if ($$self.$$.dirty & /*enableTarget, targetDbPath*/ 65540) {
-			$$invalidate(19, targetDatabaseFile = enableTarget && !targetDbPath.includes("undefined")
+		if ($$self.$$.dirty & /*enableTarget, targetDbPath*/ 262148) {
+			$$invalidate(21, targetDatabaseFile = enableTarget && !targetDbPath.includes("undefined")
 			? getPreviewFile(targetDbPath)
 			: "");
 		}
 
-		if ($$self.$$.dirty & /*targetIsCustom, targetCustomPath, targetDatabaseFile*/ 917504) {
-			$$invalidate(3, targetFilePath = targetIsCustom ? targetCustomPath : targetDatabaseFile);
+		if ($$self.$$.dirty & /*targetIsCustom, targetCustomPath, targetDatabaseFile*/ 3670016) {
+			$$invalidate(4, targetFilePath = targetIsCustom ? targetCustomPath : targetDatabaseFile);
 		}
 	};
 
@@ -43698,10 +43712,12 @@ function instance$k($$self, $$props, $$invalidate) {
 		enableExplosion,
 		enableSource,
 		enableTarget,
+		shouldShow,
 		targetFilePath,
 		sourceFilePath,
 		explosionFilePath,
 		primaryFilePath,
+		animType,
 		primaryDbPath,
 		primaryIsCustom,
 		primaryCustomPath,
@@ -43900,6 +43916,7 @@ function create_fragment$j(ctx) {
 			set_style(div1, "grid-row", "1/2");
 			set_style(div1, "grid-column", "1/2");
 			attr(i1, "class", "fas fa-film aa-video-preview");
+			attr(i1, "title", "Full Preview");
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "1/2");
 			set_style(div2, "grid-column", "5/6");
@@ -59289,7 +59306,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (243:20) {#if autoCheck && !isCustomized && !animationDisabled}
+// (245:20) {#if autoCheck && !isCustomized && !animationDisabled}
 function create_if_block_13(ctx) {
 	let div1;
 	let div0;
@@ -59350,7 +59367,7 @@ function create_if_block_13(ctx) {
 	};
 }
 
-// (256:20) {#if isCustomized}
+// (258:20) {#if isCustomized}
 function create_if_block_11(ctx) {
 	let div1;
 	let div0;
@@ -59501,7 +59518,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (304:28) {#if animType === "preset"}
+// (306:28) {#if animType === "preset"}
 function create_if_block_12(ctx) {
 	let div;
 	let label;
@@ -59630,7 +59647,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (370:16) {#if enableMacro}
+// (372:16) {#if enableMacro}
 function create_if_block_10(ctx) {
 	let div;
 	let macrofield;
@@ -59679,7 +59696,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (375:16) {#if showSound}
+// (377:16) {#if showSound}
 function create_if_block_9(ctx) {
 	let div;
 	let soundsettings;
@@ -59734,7 +59751,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (380:16) {#if !animationDisabled && isCustomized}
+// (382:16) {#if !animationDisabled && isCustomized}
 function create_if_block_5(ctx) {
 	let current_block_type_index;
 	let if_block0;
@@ -59870,7 +59887,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (387:20) {:else}
+// (389:20) {:else}
 function create_else_block(ctx) {
 	let div;
 	let primarysection;
@@ -59918,7 +59935,7 @@ function create_else_block(ctx) {
 	};
 }
 
-// (381:20) {#if animType === "preset"}
+// (383:20) {#if animType === "preset"}
 function create_if_block_8(ctx) {
 	let presetmenu;
 	let current;
@@ -59961,7 +59978,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (396:20) {#if animType === "melee"}
+// (398:20) {#if animType === "melee"}
 function create_if_block_7(ctx) {
 	let div;
 	let rangeswitch;
@@ -60000,7 +60017,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (401:20) {#if animType === "melee" || animType === "range" || animType === "static"}
+// (403:20) {#if animType === "melee" || animType === "range" || animType === "static"}
 function create_if_block_6(ctx) {
 	let div;
 	let explosionsettings;
@@ -60039,7 +60056,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (409:8) {#if focusExtra}
+// (411:8) {#if focusExtra}
 function create_if_block_1(ctx) {
 	let div8;
 	let div5;
@@ -60260,7 +60277,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (426:24) {#if enableSource}
+// (428:24) {#if enableSource}
 function create_if_block_3(ctx) {
 	let div;
 	let label;
@@ -60305,7 +60322,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (451:24) {#if enableTarget}
+// (453:24) {#if enableTarget}
 function create_if_block_2(ctx) {
 	let div;
 	let label;
@@ -60350,7 +60367,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (498:8) {#if focus3d}
+// (500:8) {#if focus3d}
 function create_if_block(ctx) {
 	let div1;
 	let div0;
@@ -60403,7 +60420,7 @@ function create_if_block(ctx) {
 	};
 }
 
-// (182:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}      stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}  >
+// (184:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}      stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}  >
 function create_default_slot(ctx) {
 	let form_1;
 	let div4;
@@ -60986,6 +61003,7 @@ function instance($$self, $$props, $$invalidate) {
 			{
 				$$invalidate(7, animType);
 				$$invalidate(1, flagData.animType = animType, flagData);
+				menuAnimType.set(animType === "aura" ? "static" : animType);
 			}
 		}
 

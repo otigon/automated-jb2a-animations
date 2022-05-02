@@ -25,6 +25,7 @@
         menuDBPathTargetFX,
         customFilePathTargetFX,
         customCheckedTargetFX,
+        menuAnimType,
     } from "./menuStore.js";
 
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
@@ -146,6 +147,7 @@
     $: {
         animType = animType;
         flagData.animType = animType;
+        menuAnimType.set(animType === "aura" ? "static" : animType)
     }
     let presetType = preset.presetType;
     $: presetType = preset.presetType = presetType;

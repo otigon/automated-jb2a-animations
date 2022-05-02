@@ -15,9 +15,17 @@
         explosionEnabled,
         extraSource,
         extraTarget,
+        menuAnimType,
     } from "../menuStore.js";
     import { getPreviewFile } from "./getPreviewFile.js";
 
+    let animType;
+    menuAnimType.subscribe((value) => {
+        animType = value
+    })
+    let menuFields = ['aura', 'templatefx', 'preset']
+    let shouldShow;
+    $: shouldShow = menuFields.includes(animType) ? false : true;
     // Primary Preview
     let primaryDbPath;
     menuDBPath01.subscribe((value) => {
@@ -126,7 +134,7 @@
             <track kind="captions" />
         </video>
     </div>
-    {#if enableExplosion}
+    {#if enableExplosion && shouldShow}
     <div class="flexcol" style="grid-row:1/2">
         <label for="">Explosion Animation</label>
         <video

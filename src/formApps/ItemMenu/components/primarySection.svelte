@@ -94,6 +94,7 @@
     >
         <i
             class="fas fa-film aa-video-preview"
+            title="Full Preview"
             on:click={() => fullPreview()}
         />
     </div>
