@@ -267,7 +267,7 @@
                 id="aaRepeat"
                 type="Number"
                 bind:value={repeat}
-                placeholder="1"
+                placeholder=1
             />
         </div>
         <!--Set delay between repeats-->
@@ -284,7 +284,7 @@
                 it="aaDelay"
                 type="Number"
                 bind:value={delay}
-                placeholder="250"
+                placeholder=250
             />
         </div>
         <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
@@ -293,8 +293,8 @@
             <input
                 type="Number"
                 bind:value={scale}
-                placeholder="1"
-                step="0.01"
+                placeholder=1
+                step=0.01
             />
         </div>
         <!--Set Animation Opacity-->
@@ -309,16 +309,16 @@
                 <input
                     type="Number"
                     bind:value={opacity}
-                    placeholder="1"
-                    min="0"
-                    max="1"
-                    step="0.01"
+                    placeholder=1
+                    min=0
+                    max=1
+                    step=0.01
                 />
                 <input
                     type="range"
-                    min="0"
-                    max="1"
-                    step="0.01"
+                    min=0
+                    max=1
+                    step=0.01
                     bind:value={opacity}
                 />
             </div>

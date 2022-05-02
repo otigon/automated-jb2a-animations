@@ -116,8 +116,8 @@
         <input
             type="Number"
             bind:value={playbackRate}
-            placeholder="1"
-            step="0.01"
+            placeholder=1
+            step=0.01
         />
     </div>
 </div>

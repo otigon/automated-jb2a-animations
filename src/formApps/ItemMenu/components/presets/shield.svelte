@@ -127,7 +127,7 @@
     </div>
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
         <label for="">{localize("AUTOANIM.scale")}</label>
-        <input type="Number" bind:value={scale} placeholder="1" step="0.01" />
+        <input type="Number" bind:value={scale} placeholder=1 step=0.01 />
     </div>
 </div>
 <SoundSettings audioPath="a01" {flagData} />

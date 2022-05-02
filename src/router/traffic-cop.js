@@ -91,7 +91,7 @@ export async function trafficCop(handler) {
     //const animationData = isCustom ? await AAanimationData._getAnimationData(handler) : await AAanimationData._getAnimationData(isAutorec)
     if (isCustom || (isAutorec && !game.settings.get("autoanimations", "disableAutoRec"))) {
         let animType = isCustom ? handler.animType : isAutorec.menuSection;
-        let presetType = isCustom ? handler.flags?.animation : isAutorec.animation;
+        let presetType = isCustom ? handler.flags?.preset.presetType : isAutorec.animation;
         if (!isCustom && animType === 'aefx') {
             animType = isAutorec.aeType;
             if (animType === 'preset') {

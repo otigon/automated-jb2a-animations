@@ -81,11 +81,11 @@
     </div>
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
         <label for="">{localize("AUTOANIM.scale")} X</label>
-        <input type="Number" bind:value={scaleX} placeholder="1" step="0.01" />
+        <input type="Number" bind:value={scaleX} placeholder=1 step=0.01 />
     </div>
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
         <label for="">{localize("AUTOANIM.scale")} Y</label>
-        <input type="Number" bind:value={scaleY} placeholder="1" step="0.01" />
+        <input type="Number" bind:value={scaleY} placeholder=1 step=0.01 />
     </div>
     <!--Set Number of times the animation plays-->
     <div
@@ -96,7 +96,7 @@
         <input
             type="Number"
             bind:value={repeat}
-            placeholder="1"
+            placeholder=1
         />
     </div>
     <!--Set delay between repeats-->
@@ -110,7 +110,7 @@
         <input
             type="Number"
             bind:value={delay}
-            placeholder="250"
+            placeholder=250
         />
     </div>
     <!--Set Animation Opacity-->
@@ -124,16 +124,16 @@
                 type="Number"
                 id="aaOpacity"
                 bind:value={opacity}
-                placeholder="1"
-                min="0"
-                max="1"
-                step="0.01"
+                placeholder=1
+                min=0
+                max=1
+                step=0.01
             />
             <input
                 type="range"
-                min="0"
-                max="1"
-                step="0.01"
+                min=0
+                max=1
+                step=0.01
                 bind:value={opacity}
             />
         </div>

@@ -17,16 +17,53 @@ export async function teleportation(handler, animationData) {
         data.itemName01 = data.options?.name || "";
         data.itemName02 = data.options?.name02 || "";
     }
+    
+    const rootStart = handler.flags.preset.teleportation.start;
+    const startData = {
+        menuType: rootStart.menuType,
+        animation: rootStart.animation,
+        variant: rootStart.variant,
+        color: rootStart.color,
+        scale: rootStart.scale || 1,
+        below: rootStart.below || false,
+        customPath: rootStart.enableCustom ? rootStart.customPath || "" : false,
+    }
+    const rootEnd = handler.flags.preset.teleportation.end;
+    const endData = {
+        menuType: rootEnd.menuType,
+        animation: rootEnd.animation,
+        variant: rootEnd.variant,
+        color: rootEnd.color,
+        scale: rootEnd.scale,
+        below: rootEnd.below || false,
+        delay: rootEnd.delay || 0,
+        customPath: rootEnd.enableCustom ? rootEnd.customPath || "" : false,
+    }
+    const rootBetween = handler.flags.preset.teleportation.between;
+    const betweenData = {
+        menuType: rootBetween.menuType,
+        animation: rootBetween.animation,
+        variant: rootBetween.variant,
+        color: rootBetween.color,
+        below: rootBetween.below || false,
+        enable: rootBetween.enableBetween || false,
+        playbackRate: rootBetween.playbackRate || 1,
+        customPath: rootBetween.enableCustom ? rootBetween.customPath || "" : false,
+    }
+    const startFile = await buildFile(true, startData.menuType, startData.animation, "static", startData.variant, startData.color, startData.customPath);
+    const endFile = await buildFile(true, endData.menuType, endData.animation, "static", endData.variant, endData.color, endData.customPath);
+    const betweenFile = await buildFile(false, betweenData.menuType, betweenData.animation, "range", betweenData.variant, betweenData.color, betweenData.customPath);
 
-    const onToken = await buildFile(true, data.menuType, data.itemName01, "static", data.variant, data.color, data.customPath);
-    const onToken02 = await buildFile(true, data.menuType02, data.itemName02, "static", data.variant02, data.color02, data.customPath02);
+    //const onToken = await buildFile(true, data.menuType, data.itemName01, "static", data.variant, data.color, data.customPath);
+    //const onToken02 = await buildFile(true, data.menuType02, data.itemName02, "static", data.variant02, data.color02, data.customPath02);
 
     if (handler.debug) { aaDebugger("Teleportation Animation Start", animationData, onToken, onToken02) }
 
     const sourceScale = sourceToken.w;
+    let sourceTokenGS = sourceToken.width / canvas.grid.size;
 
-    let Scale = ((sourceScale / onToken.metadata.width) * data.scale) * 1.75;
-    let Scale02 = ((sourceScale / onToken02.metadata.width) * data.scale02) * 1.75;
+    //let Scale = ((sourceScale / onToken.metadata.width) * data.scale) * 1.75;
+    //let Scale02 = ((sourceScale / onToken02.metadata.width) * data.scale02) * 1.75;
 
     const drawingSize = (sourceToken.data?.width * canvas.grid.size) + (2 * ((data.teleDist / canvas.dimensions.distance) * canvas.grid.size));
 
@@ -97,23 +134,30 @@ export async function teleportation(handler, animationData) {
             aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
         }
         aaSeq.effect()
-            .file(onToken.file)
+            .file(startFile.file)
             .atLocation(sourceToken)
-            .belowTokens(data.below)
-            .scale(Scale)
+            .belowTokens(startData.below)
+            .size(sourceTokenGS * 1.5 * startData.scale, {gridUnits: true})
             .randomRotation()
         aaSeq.wait(250)
+        if (betweenData.enable) {
+            aaSeq.effect()
+                .file(betweenFile.file)
+                .atLocation(sourceToken)
+                .stretchTo({ x: centerPos[0], y: centerPos[1] })
+                .playbackRate(betweenData.playbackRate)
+        }
         aaSeq.animation()
             .on(sourceToken)
             .opacity(0)
             .teleportTo({ x: gridPos[0], y: gridPos[1] })
         aaSeq.effect()
-            .file(onToken02.file)
+            .file(endFile.file)
             .atLocation({ x: centerPos[0], y: centerPos[1] })
-            .belowTokens(data.below)
-            .scale(Scale02)
+            .belowTokens(endData.below)
+            .size(sourceTokenGS * 1.5 * endData.scale, {gridUnits: true})
             .randomRotation()
-        aaSeq.wait(1250 + data.delay)
+        aaSeq.wait(1250 + endData.delay)
         aaSeq.animation()
             .on(sourceToken)
             .opacity(1)
@@ -124,35 +168,6 @@ export async function teleportation(handler, animationData) {
                 .play()
         }
         aaSeq.play()
-        /*
-        new Sequence("Automated Animations")
-            .addSequence(sourceFX.sourceSeq)
-            .sound()
-                .file(data.itemAudio.file, true)
-                .volume(data.itemAudio.volume)
-                .delay(data.itemAudio.delay)
-                .playIf(data.playSound)
-            .effect()
-                .file(onToken.file)
-                .atLocation(sourceToken)
-                .scale(Scale)
-                .randomRotation()
-            .wait(250)
-            .animation()
-                .on(sourceToken)
-                .opacity(0)
-                .teleportTo({x: gridPos[0], y: gridPos[1]})
-            .effect()
-                .file(onToken02.file)
-                .atLocation({x: centerPos[0], y: centerPos[1]})
-                .scale(Scale02)
-                .randomRotation()
-            .wait(1250 + data.delay)
-            .animation()
-                .on(sourceToken)
-                .opacity(1)
-            .play();
-        */
     };
 
     // Credit to TPosney / Midi-QOL for the Range Check

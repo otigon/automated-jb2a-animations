@@ -113,8 +113,8 @@
                 <input
                     type="Number"
                     bind:value={startTime}
-                    placeholder="0"
-                    step="0.01"
+                    placeholder=0
+                    step=0.01
                 />
             </div>
             <div class="flexcol" style="grid-row: 3 / 4; grid-column: 2 / 3;">
@@ -122,8 +122,8 @@
                 <input
                     type="Number"
                     bind:value={volume}
-                    placeholder="0.5"
-                    step="0.01"
+                    placeholder=0.5
+                    step=0.01
                 />
             </div>
             <div class="flexcol" style="grid-row: 3 / 4; grid-column: 3 / 4;">
@@ -131,8 +131,8 @@
                 <input
                     type="Number"
                     bind:value={delay}
-                    placeholder="0"
-                    step="0.01"
+                    placeholder=0
+                    step=0.01
                 />
             </div>
         </div>

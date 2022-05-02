@@ -80,15 +80,15 @@
     </div>
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
         <label for="">{localize("AUTOANIM.scale")}</label>
-        <input type="Number" bind:value={scale} placeholder="1" step="0.01" />
+        <input type="Number" bind:value={scale} placeholder=1 step=0.01 />
     </div>
     <div class="flexcol {persistent ? "" : "aa-disabled"}" style="grid-row: 1 / 2; grid-column: 3 / 4;">
         <label for="">{localize("AUTOANIM.anchorX")}</label>
-        <input disabled={!persistent} type="Number" bind:value={anchorX} placeholder="1" step="0.01" />
+        <input disabled={!persistent} type="Number" bind:value={anchorX} placeholder=1 step=0.01 />
     </div>
     <div class="flexcol {persistent ? "" : "aa-disabled"}" style="grid-row: 1 / 2; grid-column: 4 / 5;">
         <label for="">{localize("AUTOANIM.anchorY")}</label>
-        <input disabled={!persistent} type="Number" bind:value={anchorY} placeholder="1" step="0.01" />
+        <input disabled={!persistent} type="Number" bind:value={anchorY} placeholder=1 step=0.01 />
     </div>
 </div>
 <SoundSettings audioPath="a01" {flagData} />

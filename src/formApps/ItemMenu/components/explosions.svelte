@@ -141,11 +141,11 @@
         <div class="aa-3wide" transition:fade>
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 3;">
                 <label for="">{localize("AUTOANIM.radius")}</label>
-                <input type="Number" bind:value={radius} placeholder="1.5" />
+                <input type="Number" bind:value={radius} placeholder=1.5 />
             </div>
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
                 <label for="">{localize("AUTOANIM.delayMS")}</label>
-                <input type="Number" bind:value={delay} placeholder="1" />
+                <input type="Number" bind:value={delay} placeholder=1 />
             </div>
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
                 <label for="">Z-Index</label>

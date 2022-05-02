@@ -116,15 +116,15 @@
         <label for="">{localize("AUTOANIM.speed")} </label>
         <input
             type="Number"
-            step=".01"
+            step=.01
             bind:value={speed}
-            placeholder="5"
+            placeholder=5
             on:change={() => logFlags()}
         />
     </div>
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
         <label for="">{localize("AUTOANIM.repeat")} </label>
-        <input type="Number" step=".01" bind:value={repeat} placeholder="1" />
+        <input type="Number" step=.01 bind:value={repeat} placeholder=1 />
     </div>
     {#if type === "projectile" || type === "ray"}
         <div
@@ -132,20 +132,20 @@
             style="grid-row: 3 / 4; grid-column: 3 / 4;"
         >
             <label for="">{localize("AUTOANIM.arc")} </label>
-            <input type="Number" step=".01" bind:value={arc} placeholder="2" />
+            <input type="Number" step=.01 bind:value={arc} placeholder=2 />
         </div>
     {/if}
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;">
         <label for="">{localize("AUTOANIM.delayMS")} </label>
-        <input type="Number" step=".01" bind:value={delay} placeholder="0" />
+        <input type="Number" step=.01 bind:value={delay} placeholder=0 />
     </div>
     <div class="flexcol" style="grid-row: 3 / 4; grid-column: 2 / 3;">
         <label for="">{localize("AUTOANIM.scale")} </label>
-        <input type="Number" step=".01" bind:value={scale} placeholder="0.7" />
+        <input type="Number" step=.01 bind:value={scale} placeholder=0.7 />
     </div>
     <div class="flexcol" style="grid-row: 3 / 4; grid-column: 4 / 5;">
         <label for="">{localize("AUTOANIM.alpha")} </label>
-        <input type="Number" step=".01" bind:value={alpha} placeholder="0.5" />
+        <input type="Number" step=.01 bind:value={alpha} placeholder=0.5 />
     </div>
     {#if type !== "sprite"}
         <div
@@ -155,9 +155,9 @@
             <label for="">{localize("AUTOANIM.gravity")} </label>
             <input
                 type="Number"
-                step=".01"
+                step=.01
                 bind:value={gravity}
-                placeholder="0"
+                placeholder=0
             />
         </div>
         <div
@@ -167,9 +167,9 @@
             <label for="">{localize("AUTOANIM.mass")} </label>
             <input
                 type="Number"
-                step=".01"
+                step=.01
                 bind:value={mass}
-                placeholder="100"
+                placeholder=100
             />
         </div>
         <div
@@ -179,9 +179,9 @@
             <label for="">{localize("AUTOANIM.life")} </label>
             <input
                 type="Number"
-                step=".01"
+                step=.01
                 bind:value={life}
-                placeholder="500"
+                placeholder=500
             />
         </div>
         <div
@@ -191,9 +191,9 @@
             <label for="">{localize("AUTOANIM.emiterSize")} </label>
             <input
                 type="Number"
-                step=".0001"
+                step=.0001
                 bind:value={emittersize}
-                placeholder=".0001"
+                placeholder=.0001
             />
         </div>
         <div
@@ -203,10 +203,10 @@
             <label for="rate">{localize("AUTOANIM.rate")} </label>
             <input
                 type="Number"
-                step=".01"
+                step=.01
                 id="rate"
                 bind:value={rate}
-                placeholder="10"
+                placeholder=10
             />
         </div>
     {/if}

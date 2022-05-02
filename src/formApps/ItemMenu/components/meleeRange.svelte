@@ -259,7 +259,7 @@
                 disabled={detect === "auto"}
                 type="Number"
                 bind:value={range}
-                placeholder="2"
+                placeholder=2
             />
         </div>
     </div>

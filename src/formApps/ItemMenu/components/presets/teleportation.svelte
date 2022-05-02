@@ -123,7 +123,7 @@
     </div>
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
         <label for="">Range</label>
-        <input type="Number" bind:value={teleDist} step="0.01" />
+        <input type="Number" bind:value={teleDist} step=0.01 />
     </div>
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
         <label for="">{localize("AUTOANIM.hideBorder")}</label>
@@ -159,7 +159,7 @@
     </div>
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
         <label for="">Scale</label>
-        <input type="Number" bind:value={startScale} step="0.01" />
+        <input type="Number" bind:value={startScale} step=0.01 />
     </div>
 </div>
 </div>
@@ -207,8 +207,8 @@
         <input
             type="Number"
             bind:value={betweenPlaybackRate}
-            placeholder="1"
-            step="0.01"
+            placeholder=1
+            step=0.01
         />
     </div>
 </div>
@@ -239,11 +239,11 @@
     </div>
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
         <label for="">Scale</label>
-        <input type="Number" bind:value={endScale} step="0.01" />
+        <input type="Number" bind:value={endScale} step=0.01 />
     </div>
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
         <label for="">Delay Token Alpha</label>
-        <input type="Number" bind:value={delayAlpha} step="0.01" />
+        <input type="number" bind:value={delayAlpha} step=0.01 />
     </div>
 </div>
 <SoundSettings audioPath="a01" {flagData} />

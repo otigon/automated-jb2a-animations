@@ -196,7 +196,7 @@
     <!--Set Delay before Next Explosion-->
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;">
         <label for="">Wait</label>
-        <input type="Number" bind:value={projectileWait} step="0.01" />
+        <input type="Number" bind:value={projectileWait} step=0.01 />
     </div>    
 </div>
 <SoundSettings audioPath="a01" {flagData} />
@@ -257,7 +257,7 @@
     <!--Set Delay before Next Explosion-->
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;">
         <label for="">Wait</label>
-        <input type="Number" bind:value={explosion01Wait} step="0.01" />
+        <input type="Number" bind:value={explosion01Wait} step=0.01 />
     </div>    
 </div>
 <SoundSettings audioPath="e01" {flagData} />
@@ -362,7 +362,7 @@
     <!--Set Delay before Next Explosion-->
     <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
         <label for="">Wait</label>
-        <input type="Number" bind:value={afterImageWait} step="0.01" />
+        <input type="Number" bind:value={afterImageWait} step=0.01 />
     </div>    
 </div>
 {/if}
