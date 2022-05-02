@@ -77,6 +77,9 @@
 #AA-item-settings .window-content {
     border-radius: 5px;
 }
+#AA-item-settings select {
+    background-color: rgba(210, 210, 210, 0.75);
+}
 .aa-info-blue {
     color: rgba(30, 14, 252, 0.75)
 }

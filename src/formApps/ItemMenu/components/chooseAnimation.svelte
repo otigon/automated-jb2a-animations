@@ -23,7 +23,6 @@
     $: {
         animType = animType;
     }
-    console.log(animType)
     $: if (animTypeSwitched) {
         animTypeChange()
     }
@@ -33,11 +32,9 @@
     let flagOptions;
     switch (flagPath) {
         case "explosions":
-            console.log("Routing for Explosions");
             rootPath = customRoot = flagOptions = flagData.explosions;
             break;
         case "PrimaryAnimation":
-            console.log("Routing for Primary");
             rootPath = flagData;
             customRoot = flagData.options;
             flagOptions = flagData.options;
@@ -47,11 +44,9 @@
             rootPath = customRoot = flagOptions = flagData.sourceToken;
             break;
         case "targetExtraFX":
-            console.log("Routing for Target FX");
             rootPath = customRoot = flagOptions = flagData.targetToken;
             break;
         case "preset":
-            console.log("Routing for Preset");
             rootPath = customRoot = flagOptions = flagData.preset[presetType];
             break;
     }
@@ -63,7 +58,6 @@
     // For Database path
     export let menuSelection = animType === "aura" ? "static" : animType;
     $: menuSelection = animType === "aura" ? "static" : animType;
-    console.log(menuSelection)
     export let menuType =
         options.menuType || Object.keys(aaTypeMenu[menuSelection])[0];
     $: menuType = menuType;
@@ -317,7 +311,7 @@
         text-align: center;
         font-weight: bold;
         min-height: 2em;
-        border-radius: 5px;
+        border-radius: 10px;
     }
     .aa-3wide label {
         align-self: center;

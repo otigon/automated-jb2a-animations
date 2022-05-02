@@ -229,7 +229,7 @@
                                     bind:value={animType}
                                     on:change={() => typeSwitch()}
                                     id="1"
-                                    style="text-align: center;justify-self: center"
+                                    style="text-align: center;justify-self: center;background-color: rgba(21, 154, 169, 0.4);"
                                 >
                                     <option value="melee"
                                         >{localize(
@@ -276,7 +276,7 @@
                                     <select
                                         bind:value={presetType}
                                         id="1"
-                                        style="text-align: center;justify-self: center"
+                                        style="text-align: center;justify-self: center; background-color: rgba(21, 154, 169, 0.4);"
                                     >
                                         <option value="bardicinspiration"
                                             >{localize(
@@ -596,7 +596,6 @@
         font-weight: bold;
         min-height: 2em;
         border-radius: 10px;
-        background-color: rgba(21, 154, 169, 0.4);
     }
     .aa-pickAnim label {
         align-self: center;

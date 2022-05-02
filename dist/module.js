@@ -38545,7 +38545,7 @@ function get_each_context_3$2(ctx, list, i) {
 	return child_ctx;
 }
 
-// (174:16) {#if animType != ""}
+// (168:16) {#if animType != ""}
 function create_if_block_5$4(ctx) {
 	let each_1_anchor;
 	let each_value_3 = Object.entries(aaTypeMenu[/*menuSelection*/ ctx[7]]);
@@ -38601,7 +38601,7 @@ function create_if_block_5$4(ctx) {
 	};
 }
 
-// (175:20) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
+// (169:20) {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
 function create_each_block_3$2(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[37] + "";
@@ -38633,7 +38633,7 @@ function create_each_block_3$2(ctx) {
 	};
 }
 
-// (181:8) {#if animType === "static" && flagPath === "PrimaryAnimation"}
+// (175:8) {#if animType === "static" && flagPath === "PrimaryAnimation"}
 function create_if_block_4$4(ctx) {
 	let div;
 	let label;
@@ -38665,7 +38665,7 @@ function create_if_block_4$4(ctx) {
 			option3 = element("option");
 			option3.textContent = `${localize("AUTOANIM.both")}`;
 			attr(label, "for", "6");
-			attr(label, "class", "svelte-j1vmj9");
+			attr(label, "class", "svelte-2k3x9f");
 			option0.__value = "source";
 			option0.value = option0.__value;
 			option1.__value = "target";
@@ -38678,7 +38678,7 @@ function create_if_block_4$4(ctx) {
 			attr(select, "id", "6");
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-j1vmj9");
+			attr(select, "class", "svelte-2k3x9f");
 			if (/*staticType*/ ctx[15] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[22].call(select));
 			attr(div, "class", "flexcol");
 			set_style(div, "grid-row", "2 / 3");
@@ -38731,7 +38731,7 @@ function create_if_block_4$4(ctx) {
 	};
 }
 
-// (225:16) {#if menuType != ""}
+// (219:16) {#if menuType != ""}
 function create_if_block_3$5(ctx) {
 	let each_1_anchor;
 	let each_value_2 = Object.entries(aaNameMenu[/*menuSelection*/ ctx[7]][/*menuType*/ ctx[1]]);
@@ -38787,7 +38787,7 @@ function create_if_block_3$5(ctx) {
 	};
 }
 
-// (226:20) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
+// (220:20) {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
 function create_each_block_2$2(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[37] + "";
@@ -38819,7 +38819,7 @@ function create_each_block_2$2(ctx) {
 	};
 }
 
-// (248:16) {#if (menuType != "") & (animation != "")}
+// (242:16) {#if (menuType != "") & (animation != "")}
 function create_if_block_2$6(ctx) {
 	let each_1_anchor;
 	let each_value_1 = Object.entries(aaVariantMenu[/*menuSelection*/ ctx[7]][/*menuType*/ ctx[1]][/*animation*/ ctx[2]]);
@@ -38875,7 +38875,7 @@ function create_if_block_2$6(ctx) {
 	};
 }
 
-// (249:20) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
+// (243:20) {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
 function create_each_block_1$3(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[37] + "";
@@ -38907,7 +38907,7 @@ function create_each_block_1$3(ctx) {
 	};
 }
 
-// (270:16) {#if menuType != "" && animation != "" && variant != ""}
+// (264:16) {#if menuType != "" && animation != "" && variant != ""}
 function create_if_block_1$b(ctx) {
 	let each_1_anchor;
 	let each_value = Object.entries(aaColorMenu[/*menuSelection*/ ctx[7]][/*menuType*/ ctx[1]][/*animation*/ ctx[2]][/*variant*/ ctx[3]]);
@@ -38963,7 +38963,7 @@ function create_if_block_1$b(ctx) {
 	};
 }
 
-// (271:20) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
+// (265:20) {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
 function create_each_block$7(ctx) {
 	let option;
 	let t_value = /*name*/ ctx[37] + "";
@@ -38995,7 +38995,7 @@ function create_each_block$7(ctx) {
 	};
 }
 
-// (280:8) {#if (animType === "range" && isCustom && (flagPath === "PrimaryAnimation" || shouldShowOnlyX))}
+// (274:8) {#if (animType === "range" && isCustom && (flagPath === "PrimaryAnimation" || shouldShowOnlyX))}
 function create_if_block$d(ctx) {
 	let div;
 	let input;
@@ -39020,7 +39020,7 @@ function create_if_block$d(ctx) {
 			attr(input, "id", "constantY");
 			input.hidden = true;
 			attr(label, "for", "constantY");
-			attr(label, "class", label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[14] ? "selected" : "notSelected") + " svelte-j1vmj9"));
+			attr(label, "class", label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[14] ? "selected" : "notSelected") + " svelte-2k3x9f"));
 			attr(div, "class", "flexcol aa-button-labels");
 			set_style(div, "grid-row", "1 / 2");
 			set_style(div, "grid-column", "3 / 4");
@@ -39044,7 +39044,7 @@ function create_if_block$d(ctx) {
 				input.checked = /*onlyX*/ ctx[14];
 			}
 
-			if (!current || dirty[0] & /*onlyX*/ 16384 && label_class_value !== (label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[14] ? "selected" : "notSelected") + " svelte-j1vmj9"))) {
+			if (!current || dirty[0] & /*onlyX*/ 16384 && label_class_value !== (label_class_value = "" + (null_to_empty(/*onlyX*/ ctx[14] ? "selected" : "notSelected") + " svelte-2k3x9f"))) {
 				attr(label, "class", label_class_value);
 			}
 		},
@@ -39188,63 +39188,63 @@ function create_fragment$o(ctx) {
 			div5 = element("div");
 			if (if_block5) if_block5.c();
 			attr(label0, "for", "2");
-			attr(label0, "class", "svelte-j1vmj9");
+			attr(label0, "class", "svelte-2k3x9f");
 			attr(select0, "name", "flags.autoanimations.options.menuType");
 			attr(select0, "id", "2");
 			select0.disabled = /*isCustom*/ ctx[5];
 
 			attr(select0, "class", select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != "" && !/*isCustom*/ ctx[5]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-j1vmj9"));
+			: "isNotPopulated") + " svelte-2k3x9f"));
 
 			if (/*menuType*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[20].call(select0));
-			attr(div0, "class", div0_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-j1vmj9");
+			attr(div0, "class", div0_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-2k3x9f");
 			set_style(div0, "grid-row", "2 / 3");
 			set_style(div0, "grid-column", "2 / 3");
 			attr(label1, "for", "3");
-			attr(label1, "class", "svelte-j1vmj9");
+			attr(label1, "class", "svelte-2k3x9f");
 			attr(select1, "name", "flags.autoanimations.animation");
 			attr(select1, "id", "3");
 			select1.disabled = /*isCustom*/ ctx[5];
 
 			attr(select1, "class", select1_class_value = "" + (null_to_empty(/*animation*/ ctx[2] != "" && !/*isCustom*/ ctx[5]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-j1vmj9"));
+			: "isNotPopulated") + " svelte-2k3x9f"));
 
 			if (/*animation*/ ctx[2] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[23].call(select1));
-			attr(div1, "class", div1_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-j1vmj9");
+			attr(div1, "class", div1_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-2k3x9f");
 			set_style(div1, "grid-row", "3 / 4");
 			set_style(div1, "grid-column", "1 / 2");
 			attr(label2, "for", "4");
-			attr(label2, "class", "svelte-j1vmj9");
+			attr(label2, "class", "svelte-2k3x9f");
 			attr(select2, "name", "flags.autoanimations.options.variant");
 			attr(select2, "id", "4");
 			select2.disabled = /*isCustom*/ ctx[5];
 
 			attr(select2, "class", select2_class_value = "" + (null_to_empty(/*variant*/ ctx[3] != "" && !/*isCustom*/ ctx[5]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-j1vmj9"));
+			: "isNotPopulated") + " svelte-2k3x9f"));
 
 			if (/*variant*/ ctx[3] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[25].call(select2));
-			attr(div2, "class", div2_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-j1vmj9");
+			attr(div2, "class", div2_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-2k3x9f");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "2 / 3");
 			attr(label3, "for", "5");
-			attr(label3, "class", "svelte-j1vmj9");
+			attr(label3, "class", "svelte-2k3x9f");
 			attr(select3, "name", "flags.autoanimations.color");
 			attr(select3, "id", "5");
 			select3.disabled = /*isCustom*/ ctx[5];
 
 			attr(select3, "class", select3_class_value = "" + (null_to_empty(/*color*/ ctx[4] != "" && !/*isCustom*/ ctx[5]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-j1vmj9"));
+			: "isNotPopulated") + " svelte-2k3x9f"));
 
 			if (/*color*/ ctx[4] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[27].call(select3));
-			attr(div3, "class", div3_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-j1vmj9");
+			attr(div3, "class", div3_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-2k3x9f");
 			set_style(div3, "grid-row", "3 / 4");
 			set_style(div3, "grid-column", "3 / 4");
-			attr(div4, "class", "aa-3wide svelte-j1vmj9");
-			attr(div5, "class", "aa-3wide svelte-j1vmj9");
+			attr(div4, "class", "aa-3wide svelte-2k3x9f");
+			attr(div5, "class", "aa-3wide svelte-2k3x9f");
 		},
 		m(target, anchor) {
 			insert(target, div6, anchor);
@@ -39319,7 +39319,7 @@ function create_fragment$o(ctx) {
 
 			if (!current || dirty[0] & /*menuType, isCustom, menuSelection*/ 162 && select0_class_value !== (select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != "" && !/*isCustom*/ ctx[5]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-j1vmj9"))) {
+			: "isNotPopulated") + " svelte-2k3x9f"))) {
 				attr(select0, "class", select0_class_value);
 			}
 
@@ -39327,7 +39327,7 @@ function create_fragment$o(ctx) {
 				select_option(select0, /*menuType*/ ctx[1]);
 			}
 
-			if (!current || dirty[0] & /*isCustom*/ 32 && div0_class_value !== (div0_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-j1vmj9")) {
+			if (!current || dirty[0] & /*isCustom*/ 32 && div0_class_value !== (div0_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-2k3x9f")) {
 				attr(div0, "class", div0_class_value);
 			}
 
@@ -39373,7 +39373,7 @@ function create_fragment$o(ctx) {
 
 			if (!current || dirty[0] & /*animation, isCustom, menuSelection, menuType*/ 166 && select1_class_value !== (select1_class_value = "" + (null_to_empty(/*animation*/ ctx[2] != "" && !/*isCustom*/ ctx[5]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-j1vmj9"))) {
+			: "isNotPopulated") + " svelte-2k3x9f"))) {
 				attr(select1, "class", select1_class_value);
 			}
 
@@ -39381,7 +39381,7 @@ function create_fragment$o(ctx) {
 				select_option(select1, /*animation*/ ctx[2]);
 			}
 
-			if (!current || dirty[0] & /*isCustom*/ 32 && div1_class_value !== (div1_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-j1vmj9")) {
+			if (!current || dirty[0] & /*isCustom*/ 32 && div1_class_value !== (div1_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-2k3x9f")) {
 				attr(div1, "class", div1_class_value);
 			}
 
@@ -39404,7 +39404,7 @@ function create_fragment$o(ctx) {
 
 			if (!current || dirty[0] & /*variant, isCustom, menuSelection, menuType, animation*/ 174 && select2_class_value !== (select2_class_value = "" + (null_to_empty(/*variant*/ ctx[3] != "" && !/*isCustom*/ ctx[5]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-j1vmj9"))) {
+			: "isNotPopulated") + " svelte-2k3x9f"))) {
 				attr(select2, "class", select2_class_value);
 			}
 
@@ -39412,7 +39412,7 @@ function create_fragment$o(ctx) {
 				select_option(select2, /*variant*/ ctx[3]);
 			}
 
-			if (!current || dirty[0] & /*isCustom*/ 32 && div2_class_value !== (div2_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-j1vmj9")) {
+			if (!current || dirty[0] & /*isCustom*/ 32 && div2_class_value !== (div2_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-2k3x9f")) {
 				attr(div2, "class", div2_class_value);
 			}
 
@@ -39435,7 +39435,7 @@ function create_fragment$o(ctx) {
 
 			if (!current || dirty[0] & /*color, isCustom, menuSelection, menuType, animation, variant*/ 190 && select3_class_value !== (select3_class_value = "" + (null_to_empty(/*color*/ ctx[4] != "" && !/*isCustom*/ ctx[5]
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-j1vmj9"))) {
+			: "isNotPopulated") + " svelte-2k3x9f"))) {
 				attr(select3, "class", select3_class_value);
 			}
 
@@ -39443,7 +39443,7 @@ function create_fragment$o(ctx) {
 				select_option(select3, /*color*/ ctx[4]);
 			}
 
-			if (!current || dirty[0] & /*isCustom*/ 32 && div3_class_value !== (div3_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-j1vmj9")) {
+			if (!current || dirty[0] & /*isCustom*/ 32 && div3_class_value !== (div3_class_value = "flexcol " + (/*isCustom*/ ctx[5] ? 'aa-disabled' : '') + " svelte-2k3x9f")) {
 				attr(div3, "class", div3_class_value);
 			}
 
@@ -39545,7 +39545,6 @@ function instance$o($$self, $$props, $$invalidate) {
 	let { presetSubType } = $$props;
 	let { animTypeSwitched = false } = $$props;
 	let { shouldShowOnlyX } = $$props;
-	console.log(animType);
 
 	// Defines the initial Flag path depending on the Section calling this Component
 	let rootPath;
@@ -39553,11 +39552,9 @@ function instance$o($$self, $$props, $$invalidate) {
 
 	switch (flagPath) {
 		case "explosions":
-			console.log("Routing for Explosions");
 			rootPath = flagOptions = flagData.explosions;
 			break;
 		case "PrimaryAnimation":
-			console.log("Routing for Primary");
 			rootPath = flagData;
 			flagOptions = flagData.options;
 			break;
@@ -39566,11 +39563,9 @@ function instance$o($$self, $$props, $$invalidate) {
 			rootPath = flagOptions = flagData.sourceToken;
 			break;
 		case "targetExtraFX":
-			console.log("Routing for Target FX");
 			rootPath = flagOptions = flagData.targetToken;
 			break;
 		case "preset":
-			console.log("Routing for Preset");
 			rootPath = flagOptions = flagData.preset[presetType];
 			break;
 	}
@@ -39579,7 +39574,6 @@ function instance$o($$self, $$props, $$invalidate) {
 	const options = flagOptions;
 
 	let { menuSelection = animType === "aura" ? "static" : animType } = $$props;
-	console.log(menuSelection);
 	let { menuType = options.menuType || Object.keys(aaTypeMenu[menuSelection])[0] } = $$props;
 	let { animation = rootPath.animation || Object.keys(aaNameMenu[menuSelection][menuType])[0] } = $$props;
 	let { variant = options.variant || Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0] } = $$props;
@@ -42007,52 +42001,52 @@ function create_if_block_1$8(ctx) {
 			select3 = element("select");
 			if (if_block2) if_block2.c();
 			attr(label0, "for", "2");
-			attr(label0, "class", "svelte-1cnhwgg");
+			attr(label0, "class", "svelte-1hd0pm2");
 			attr(select0, "name", "flags.autoanimations.options.menuType");
 			attr(select0, "id", "2");
 
 			attr(select0, "class", select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1cnhwgg"));
+			: "isNotPopulated") + " svelte-1hd0pm2"));
 
 			if (/*menuType*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[24].call(select0));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "2 / 3");
 			set_style(div0, "grid-column", "2 / 3");
 			attr(label1, "for", "3");
-			attr(label1, "class", "svelte-1cnhwgg");
+			attr(label1, "class", "svelte-1hd0pm2");
 			attr(select1, "name", "flags.autoanimations.animation");
 			attr(select1, "id", "3");
 
 			attr(select1, "class", select1_class_value = "" + (null_to_empty(/*animation*/ ctx[2] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1cnhwgg"));
+			: "isNotPopulated") + " svelte-1hd0pm2"));
 
 			if (/*animation*/ ctx[2] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[26].call(select1));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "3 / 4");
 			set_style(div1, "grid-column", "1 / 2");
 			attr(label2, "for", "4");
-			attr(label2, "class", "svelte-1cnhwgg");
+			attr(label2, "class", "svelte-1hd0pm2");
 			attr(select2, "name", "flags.autoanimations.options.variant");
 			attr(select2, "id", "4");
 
 			attr(select2, "class", select2_class_value = "" + (null_to_empty(/*variant*/ ctx[3] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1cnhwgg"));
+			: "isNotPopulated") + " svelte-1hd0pm2"));
 
 			if (/*variant*/ ctx[3] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[28].call(select2));
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "2 / 3");
 			attr(label3, "for", "5");
-			attr(label3, "class", "svelte-1cnhwgg");
+			attr(label3, "class", "svelte-1hd0pm2");
 			attr(select3, "name", "flags.autoanimations.color");
 			attr(select3, "id", "5");
 
 			attr(select3, "class", select3_class_value = "" + (null_to_empty(/*color*/ ctx[4] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1cnhwgg"));
+			: "isNotPopulated") + " svelte-1hd0pm2"));
 
 			if (/*color*/ ctx[4] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[30].call(select3));
 			attr(div3, "class", "flexcol");
@@ -42132,7 +42126,7 @@ function create_if_block_1$8(ctx) {
 
 			if (dirty[0] & /*menuType*/ 2 && select0_class_value !== (select0_class_value = "" + (null_to_empty(/*menuType*/ ctx[1] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1cnhwgg"))) {
+			: "isNotPopulated") + " svelte-1hd0pm2"))) {
 				attr(select0, "class", select0_class_value);
 			}
 
@@ -42155,7 +42149,7 @@ function create_if_block_1$8(ctx) {
 
 			if (dirty[0] & /*animation, menuType*/ 6 && select1_class_value !== (select1_class_value = "" + (null_to_empty(/*animation*/ ctx[2] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1cnhwgg"))) {
+			: "isNotPopulated") + " svelte-1hd0pm2"))) {
 				attr(select1, "class", select1_class_value);
 			}
 
@@ -42178,7 +42172,7 @@ function create_if_block_1$8(ctx) {
 
 			if (dirty[0] & /*variant, menuType, animation*/ 14 && select2_class_value !== (select2_class_value = "" + (null_to_empty(/*variant*/ ctx[3] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1cnhwgg"))) {
+			: "isNotPopulated") + " svelte-1hd0pm2"))) {
 				attr(select2, "class", select2_class_value);
 			}
 
@@ -42201,7 +42195,7 @@ function create_if_block_1$8(ctx) {
 
 			if (dirty[0] & /*color, menuType, animation, variant*/ 30 && select3_class_value !== (select3_class_value = "" + (null_to_empty(/*color*/ ctx[4] != ""
 			? "isPopulated"
-			: "isNotPopulated") + " svelte-1cnhwgg"))) {
+			: "isNotPopulated") + " svelte-1hd0pm2"))) {
 				attr(select3, "class", select3_class_value);
 			}
 
@@ -42552,21 +42546,21 @@ function create_if_block$9(ctx) {
 			t5 = space();
 			input = element("input");
 			attr(label0, "for", "");
-			attr(label0, "class", "svelte-1cnhwgg");
-			attr(button, "class", "oldCheck svelte-1cnhwgg");
+			attr(label0, "class", "svelte-1hd0pm2");
+			attr(button, "class", "oldCheck svelte-1hd0pm2");
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "2/3");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-1cnhwgg");
+			attr(label1, "class", "svelte-1hd0pm2");
 			input.disabled = input_disabled_value = /*detect*/ ctx[6] === "auto";
 			attr(input, "type", "Number");
 			attr(input, "placeholder", "2");
-			attr(input, "class", "svelte-1cnhwgg");
-			attr(div1, "class", div1_class_value = "flexcol " + (/*detect*/ ctx[6] === 'auto' ? 'aa-disabled' : '') + " svelte-1cnhwgg");
+			attr(input, "class", "svelte-1hd0pm2");
+			attr(div1, "class", div1_class_value = "flexcol " + (/*detect*/ ctx[6] === 'auto' ? 'aa-disabled' : '') + " svelte-1hd0pm2");
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "3 / 5");
-			attr(div2, "class", "aa-4wide svelte-1cnhwgg");
+			attr(div2, "class", "aa-4wide svelte-1hd0pm2");
 		},
 		m(target, anchor) {
 			insert(target, div2, anchor);
@@ -42603,7 +42597,7 @@ function create_if_block$9(ctx) {
 				set_input_value(input, /*range*/ ctx[8]);
 			}
 
-			if (!current || dirty[0] & /*detect*/ 64 && div1_class_value !== (div1_class_value = "flexcol " + (/*detect*/ ctx[6] === 'auto' ? 'aa-disabled' : '') + " svelte-1cnhwgg")) {
+			if (!current || dirty[0] & /*detect*/ 64 && div1_class_value !== (div1_class_value = "flexcol " + (/*detect*/ ctx[6] === 'auto' ? 'aa-disabled' : '') + " svelte-1hd0pm2")) {
 				attr(div1, "class", div1_class_value);
 			}
 		},
@@ -42669,7 +42663,7 @@ function create_fragment$j(ctx) {
 			div2 = element("div");
 			div1 = element("div");
 			div0 = element("div");
-			div0.innerHTML = `<label for="" class="svelte-1cnhwgg">Melee Range Switch</label>`;
+			div0.innerHTML = `<label for="" class="svelte-1hd0pm2">Melee Range Switch</label>`;
 			t1 = space();
 			if (if_block0) if_block0.c();
 			t2 = space();
@@ -42700,10 +42694,10 @@ function create_fragment$j(ctx) {
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "2/3");
-			attr(div1, "class", "aa-header svelte-1cnhwgg");
-			attr(div2, "class", "aa-header-section svelte-1cnhwgg");
+			attr(div1, "class", "aa-header svelte-1hd0pm2");
+			attr(div2, "class", "aa-header-section svelte-1hd0pm2");
 			attr(label1, "for", "1");
-			attr(label1, "class", "svelte-1cnhwgg");
+			attr(label1, "class", "svelte-1hd0pm2");
 			option0.__value = "on";
 			option0.value = option0.__value;
 			option1.__value = "off";
@@ -42714,23 +42708,23 @@ function create_fragment$j(ctx) {
 			attr(select, "id", "1");
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-1cnhwgg");
+			attr(select, "class", "svelte-1hd0pm2");
 			if (/*switchType*/ ctx[0] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[21].call(select));
 			attr(div3, "class", "flexcol");
 			set_style(div3, "grid-row", "1 / 2");
 			set_style(div3, "grid-column", "2 / 3");
 			attr(label2, "for", "");
-			attr(label2, "class", "svelte-1cnhwgg");
+			attr(label2, "class", "svelte-1hd0pm2");
 			button.disabled = /*isDisabled*/ ctx[10];
 
 			attr(button, "class", button_class_value = "oldCheck " + (/*returnEnabled*/ ctx[5] && !/*isDisabled*/ ctx[10]
 			? 'selected'
-			: 'notSelected') + " svelte-1cnhwgg");
+			: 'notSelected') + " svelte-1hd0pm2");
 
-			attr(div4, "class", div4_class_value = "flexcol " + (/*isDisabled*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1cnhwgg");
+			attr(div4, "class", div4_class_value = "flexcol " + (/*isDisabled*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1hd0pm2");
 			set_style(div4, "grid-row", "1/2");
 			set_style(div4, "grid-column", "3/4");
-			attr(div5, "class", "aa-select-animation svelte-1cnhwgg");
+			attr(div5, "class", "aa-select-animation svelte-1hd0pm2");
 		},
 		m(target, anchor) {
 			insert(target, div2, anchor);
@@ -42797,11 +42791,11 @@ function create_fragment$j(ctx) {
 
 			if (!current || dirty[0] & /*returnEnabled, isDisabled*/ 1056 && button_class_value !== (button_class_value = "oldCheck " + (/*returnEnabled*/ ctx[5] && !/*isDisabled*/ ctx[10]
 			? 'selected'
-			: 'notSelected') + " svelte-1cnhwgg")) {
+			: 'notSelected') + " svelte-1hd0pm2")) {
 				attr(button, "class", button_class_value);
 			}
 
-			if (!current || dirty[0] & /*isDisabled*/ 1024 && div4_class_value !== (div4_class_value = "flexcol " + (/*isDisabled*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1cnhwgg")) {
+			if (!current || dirty[0] & /*isDisabled*/ 1024 && div4_class_value !== (div4_class_value = "flexcol " + (/*isDisabled*/ ctx[10] ? 'aa-disabled' : '') + " svelte-1hd0pm2")) {
 				attr(div4, "class", div4_class_value);
 			}
 
@@ -43181,36 +43175,36 @@ function create_fragment$i(ctx) {
 			label2.textContent = `${localize("AUTOANIM.args")}`;
 			t13 = space();
 			input1 = element("input");
-			attr(h1, "class", "svelte-1ybdga3");
+			attr(h1, "class", "svelte-1h59r79");
 			set_style(div0, "padding-top", "10px");
 			attr(label0, "for", "");
-			attr(label0, "class", "svelte-1ybdga3");
+			attr(label0, "class", "svelte-1h59r79");
 			option0.__value = "0";
 			option0.value = option0.__value;
 			option1.__value = "1";
 			option1.value = option1.__value;
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-1ybdga3");
+			attr(select, "class", "svelte-1h59r79");
 			if (/*playWhen*/ ctx[2] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[4].call(select));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "1 / 2");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-1ybdga3");
+			attr(label1, "class", "svelte-1h59r79");
 			attr(input0, "type", "text");
-			attr(input0, "class", "svelte-1ybdga3");
+			attr(input0, "class", "svelte-1h59r79");
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "1 / 2");
 			set_style(div2, "grid-column", "2 / 3");
 			attr(label2, "for", "");
-			attr(label2, "class", "svelte-1ybdga3");
+			attr(label2, "class", "svelte-1h59r79");
 			attr(input1, "type", "text");
-			attr(input1, "class", "svelte-1ybdga3");
+			attr(input1, "class", "svelte-1h59r79");
 			attr(div3, "class", "flexcol");
 			set_style(div3, "grid-row", "2 / 3");
 			set_style(div3, "grid-column", "1 / 3");
-			attr(div4, "class", "aa-2wide svelte-1ybdga3");
+			attr(div4, "class", "aa-2wide svelte-1h59r79");
 		},
 		m(target, anchor) {
 			insert(target, div0, anchor);
@@ -47559,10 +47553,10 @@ function create_fragment$b(ctx) {
 			t13 = space();
 			if (if_block3) if_block3.c();
 			if_block3_anchor = empty();
-			attr(h1, "class", "svelte-10p3um");
-			attr(h3, "class", "svelte-10p3um");
+			attr(h1, "class", "svelte-o9gu52");
+			attr(h3, "class", "svelte-o9gu52");
 			attr(label, "for", "");
-			attr(label, "class", "svelte-10p3um");
+			attr(label, "class", "svelte-o9gu52");
 			option0.__value = "";
 			option0.value = option0.__value;
 			option1.__value = "projectile";
@@ -47573,12 +47567,12 @@ function create_fragment$b(ctx) {
 			option3.value = option3.__value;
 			option4.__value = "explosion";
 			option4.value = option4.__value;
-			attr(select, "class", "svelte-10p3um");
+			attr(select, "class", "svelte-o9gu52");
 			if (/*type3d*/ ctx[1] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[2].call(select));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "2 / 3");
-			attr(div1, "class", "aa-3wide svelte-10p3um");
+			attr(div1, "class", "aa-3wide svelte-o9gu52");
 		},
 		m(target, anchor) {
 			insert(target, h1, anchor);
@@ -47891,34 +47885,34 @@ function create_if_block_2$2(ctx) {
 			}
 
 			attr(label0, "for", "");
-			attr(label0, "class", "svelte-5ecx6y");
+			attr(label0, "class", "svelte-dmglgi");
 			option0.__value = "bardicinspiration";
 			option0.value = option0.__value;
 			option1.__value = "notes";
 			option1.value = option1.__value;
 			attr(select0, "name", "flags.autoanimations.animation");
-			attr(select0, "class", "svelte-5ecx6y");
+			attr(select0, "class", "svelte-dmglgi");
 			if (/*sourceAnimation*/ ctx[2] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[26].call(select0));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "3 / 4");
 			set_style(div0, "grid-column", "1 / 2");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-5ecx6y");
+			attr(label1, "class", "svelte-dmglgi");
 			attr(select1, "name", "flags.autoanimations.options.variant");
-			attr(select1, "class", "svelte-5ecx6y");
+			attr(select1, "class", "svelte-dmglgi");
 			if (/*sourceVariant*/ ctx[3] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[28].call(select1));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "3 / 4");
 			set_style(div1, "grid-column", "2 / 3");
 			attr(label2, "for", "");
-			attr(label2, "class", "svelte-5ecx6y");
+			attr(label2, "class", "svelte-dmglgi");
 			attr(select2, "name", "flags.autoanimations.color");
-			attr(select2, "class", "svelte-5ecx6y");
+			attr(select2, "class", "svelte-dmglgi");
 			if (/*sourceColor*/ ctx[4] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[30].call(select2));
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "3 / 4");
-			attr(div3, "class", "aa-3wide svelte-5ecx6y");
+			attr(div3, "class", "aa-3wide svelte-dmglgi");
 		},
 		m(target, anchor) {
 			insert(target, div3, anchor);
@@ -48186,34 +48180,34 @@ function create_if_block_1$3(ctx) {
 			}
 
 			attr(label0, "for", "");
-			attr(label0, "class", "svelte-5ecx6y");
+			attr(label0, "class", "svelte-dmglgi");
 			option0.__value = "bardicinspiration";
 			option0.value = option0.__value;
 			option1.__value = "notes";
 			option1.value = option1.__value;
 			attr(select0, "name", "flags.autoanimations.animation");
-			attr(select0, "class", "svelte-5ecx6y");
+			attr(select0, "class", "svelte-dmglgi");
 			if (/*targetAnimation*/ ctx[6] === void 0) add_render_callback(() => /*select0_change_handler_1*/ ctx[32].call(select0));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "3 / 4");
 			set_style(div0, "grid-column", "1 / 2");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-5ecx6y");
+			attr(label1, "class", "svelte-dmglgi");
 			attr(select1, "name", "flags.autoanimations.options.variant");
-			attr(select1, "class", "svelte-5ecx6y");
+			attr(select1, "class", "svelte-dmglgi");
 			if (/*targetVariant*/ ctx[7] === void 0) add_render_callback(() => /*select1_change_handler_1*/ ctx[34].call(select1));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "3 / 4");
 			set_style(div1, "grid-column", "2 / 3");
 			attr(label2, "for", "");
-			attr(label2, "class", "svelte-5ecx6y");
+			attr(label2, "class", "svelte-dmglgi");
 			attr(select2, "name", "flags.autoanimations.color");
-			attr(select2, "class", "svelte-5ecx6y");
+			attr(select2, "class", "svelte-dmglgi");
 			if (/*targetColor*/ ctx[8] === void 0) add_render_callback(() => /*select2_change_handler_1*/ ctx[36].call(select2));
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "3 / 4");
 			set_style(div2, "grid-column", "3 / 4");
-			attr(div3, "class", "aa-3wide svelte-5ecx6y");
+			attr(div3, "class", "aa-3wide svelte-dmglgi");
 		},
 		m(target, anchor) {
 			insert(target, div3, anchor);
@@ -48495,38 +48489,38 @@ function create_if_block$4(ctx) {
 			t13 = space();
 			input = element("input");
 			attr(label0, "for", "");
-			attr(label0, "class", "svelte-5ecx6y");
-			attr(select0, "class", "svelte-5ecx6y");
+			attr(label0, "class", "svelte-dmglgi");
+			attr(select0, "class", "svelte-dmglgi");
 			if (/*markerColorSelf*/ ctx[10] === void 0) add_render_callback(() => /*select0_change_handler_2*/ ctx[38].call(select0));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "1 / 2");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-5ecx6y");
-			attr(select1, "class", "svelte-5ecx6y");
+			attr(label1, "class", "svelte-dmglgi");
+			attr(select1, "class", "svelte-dmglgi");
 			if (/*markerColorTarget*/ ctx[11] === void 0) add_render_callback(() => /*select1_change_handler_2*/ ctx[39].call(select1));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "3 / 4");
-			attr(div2, "class", "aa-3wide svelte-5ecx6y");
+			attr(div2, "class", "aa-3wide svelte-dmglgi");
 			set_style(h2, "margin-top", "5px");
-			attr(h2, "class", "svelte-5ecx6y");
+			attr(h2, "class", "svelte-dmglgi");
 			attr(label2, "for", "");
-			attr(label2, "class", "svelte-5ecx6y");
-			attr(button, "class", "oldCheck svelte-5ecx6y");
+			attr(label2, "class", "svelte-dmglgi");
+			attr(button, "class", "oldCheck svelte-dmglgi");
 			attr(div3, "class", "flexcol");
 			set_style(div3, "grid-row", "1 / 2");
 			set_style(div3, "grid-column", "2 / 3");
 			attr(label3, "for", "");
-			attr(label3, "class", "svelte-5ecx6y");
+			attr(label3, "class", "svelte-dmglgi");
 			attr(input, "type", "Number");
 			attr(input, "placeholder", "1");
 			attr(input, "step", "0.01");
-			attr(input, "class", "svelte-5ecx6y");
+			attr(input, "class", "svelte-dmglgi");
 			attr(div4, "class", "flexcol");
 			set_style(div4, "grid-row", "1 / 2");
 			set_style(div4, "grid-column", "3 / 4");
-			attr(div5, "class", "aa-options svelte-5ecx6y");
+			attr(div5, "class", "aa-options svelte-dmglgi");
 		},
 		m(target, anchor) {
 			insert(target, div2, anchor);
@@ -48777,7 +48771,7 @@ function create_fragment$a(ctx) {
 			div3 = element("div");
 			div2 = element("div");
 			div0 = element("div");
-			div0.innerHTML = `<label for="" class="svelte-5ecx6y">Source Animation</label>`;
+			div0.innerHTML = `<label for="" class="svelte-dmglgi">Source Animation</label>`;
 			t3 = space();
 			div1 = element("div");
 			i0 = element("i");
@@ -48788,7 +48782,7 @@ function create_fragment$a(ctx) {
 			div8 = element("div");
 			div7 = element("div");
 			div5 = element("div");
-			div5.innerHTML = `<label for="" class="svelte-5ecx6y">Target Animation</label>`;
+			div5.innerHTML = `<label for="" class="svelte-dmglgi">Target Animation</label>`;
 			t7 = space();
 			div6 = element("div");
 			i1 = element("i");
@@ -48799,7 +48793,7 @@ function create_fragment$a(ctx) {
 			div13 = element("div");
 			div12 = element("div");
 			div10 = element("div");
-			div10.innerHTML = `<label for="" class="svelte-5ecx6y">Marker Animation</label>`;
+			div10.innerHTML = `<label for="" class="svelte-dmglgi">Marker Animation</label>`;
 			t11 = space();
 			div11 = element("div");
 			i2 = element("i");
@@ -48808,7 +48802,7 @@ function create_fragment$a(ctx) {
 			t13 = space();
 			create_component(soundsettings.$$.fragment);
 			set_style(h1, "margin-bottom", "15px");
-			attr(h1, "class", "svelte-5ecx6y");
+			attr(h1, "class", "svelte-dmglgi");
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "3/4");
@@ -48820,8 +48814,8 @@ function create_fragment$a(ctx) {
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "1/2");
 			set_style(div1, "grid-column", "5/6");
-			attr(div2, "class", "aa-subheader svelte-5ecx6y");
-			attr(div3, "class", "aa-subheader-section svelte-5ecx6y");
+			attr(div2, "class", "aa-subheader svelte-dmglgi");
+			attr(div3, "class", "aa-subheader-section svelte-dmglgi");
 			attr(div4, "class", "aaMenu-section");
 			attr(div5, "class", "flexcol");
 			set_style(div5, "grid-row", "1/2");
@@ -48834,8 +48828,8 @@ function create_fragment$a(ctx) {
 			attr(div6, "class", "flexcol");
 			set_style(div6, "grid-row", "1/2");
 			set_style(div6, "grid-column", "5/6");
-			attr(div7, "class", "aa-subheader svelte-5ecx6y");
-			attr(div8, "class", "aa-subheader-section svelte-5ecx6y");
+			attr(div7, "class", "aa-subheader svelte-dmglgi");
+			attr(div8, "class", "aa-subheader-section svelte-dmglgi");
 			attr(div9, "class", "aaMenu-section");
 			attr(div10, "class", "flexcol");
 			set_style(div10, "grid-row", "1/2");
@@ -48848,8 +48842,8 @@ function create_fragment$a(ctx) {
 			attr(div11, "class", "flexcol");
 			set_style(div11, "grid-row", "1/2");
 			set_style(div11, "grid-column", "5/6");
-			attr(div12, "class", "aa-subheader svelte-5ecx6y");
-			attr(div13, "class", "aa-subheader-section svelte-5ecx6y");
+			attr(div12, "class", "aa-subheader svelte-dmglgi");
+			attr(div13, "class", "aa-subheader-section svelte-dmglgi");
 			attr(div14, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
@@ -49447,51 +49441,51 @@ function create_fragment$9(ctx) {
 			input = element("input");
 			t25 = space();
 			create_component(soundsettings.$$.fragment);
-			attr(h1, "class", "svelte-ta9sfn");
+			attr(h1, "class", "svelte-t8jzol");
 			attr(label0, "for", "");
-			attr(label0, "class", "svelte-ta9sfn");
-			attr(select, "class", "svelte-ta9sfn");
+			attr(label0, "class", "svelte-t8jzol");
+			attr(select, "class", "svelte-t8jzol");
 			if (/*color*/ ctx[1] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[15].call(select));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "3 / 4");
 			set_style(div0, "grid-column", "2 / 3");
-			attr(div1, "class", "aa-3wide svelte-ta9sfn");
+			attr(div1, "class", "aa-3wide svelte-t8jzol");
 			set_style(h2, "margin-top", "5px");
-			attr(h2, "class", "svelte-ta9sfn");
+			attr(h2, "class", "svelte-t8jzol");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-ta9sfn");
-			attr(button0, "class", "svelte-ta9sfn");
+			attr(label1, "class", "svelte-t8jzol");
+			attr(button0, "class", "svelte-t8jzol");
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "1 / 2");
 			set_style(div2, "grid-column", "1 / 2");
 			attr(label2, "for", "");
-			attr(label2, "class", "svelte-ta9sfn");
-			attr(button1, "class", "oldCheck svelte-ta9sfn");
+			attr(label2, "class", "svelte-t8jzol");
+			attr(button1, "class", "oldCheck svelte-t8jzol");
 			attr(div3, "class", "flexcol");
 			set_style(div3, "grid-row", "1 / 2");
 			set_style(div3, "grid-column", "2 / 3");
 			attr(label3, "for", "");
-			attr(label3, "class", "svelte-ta9sfn");
-			attr(button2, "class", "svelte-ta9sfn");
+			attr(label3, "class", "svelte-t8jzol");
+			attr(button2, "class", "svelte-t8jzol");
 			attr(div4, "class", "flexcol");
 			set_style(div4, "grid-row", "1 / 2");
 			set_style(div4, "grid-column", "3 / 4");
 			attr(label4, "for", "");
-			attr(label4, "class", "svelte-ta9sfn");
-			attr(button3, "class", "svelte-ta9sfn");
+			attr(label4, "class", "svelte-t8jzol");
+			attr(button3, "class", "svelte-t8jzol");
 			attr(div5, "class", "flexcol");
 			set_style(div5, "grid-row", "1 / 2");
 			set_style(div5, "grid-column", "4 / 5");
 			attr(label5, "for", "");
-			attr(label5, "class", "svelte-ta9sfn");
+			attr(label5, "class", "svelte-t8jzol");
 			attr(input, "type", "Number");
 			attr(input, "placeholder", "1");
 			attr(input, "step", "0.01");
-			attr(input, "class", "svelte-ta9sfn");
+			attr(input, "class", "svelte-t8jzol");
 			attr(div6, "class", "flexcol");
 			set_style(div6, "grid-row", "2 / 3");
 			set_style(div6, "grid-column", "3 / 4");
-			attr(div7, "class", "aa-options svelte-ta9sfn");
+			attr(div7, "class", "aa-options svelte-t8jzol");
 			attr(div8, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
@@ -52406,72 +52400,72 @@ function create_fragment$6(ctx) {
 			input2 = element("input");
 			t28 = space();
 			create_component(soundsettings.$$.fragment);
-			attr(h1, "class", "svelte-1ftk4m2");
+			attr(h1, "class", "svelte-1jagew2");
 			attr(label0, "for", "");
-			attr(label0, "class", "svelte-1ftk4m2");
+			attr(label0, "class", "svelte-1jagew2");
 			option0.__value = "";
 			option0.value = option0.__value;
 			option1.__value = "eye";
 			option1.value = option1.__value;
 			option2.__value = "paw";
 			option2.value = option2.__value;
-			attr(select0, "class", "svelte-1ftk4m2");
+			attr(select0, "class", "svelte-1jagew2");
 			if (/*variant*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[12].call(select0));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "2 / 3");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-1ftk4m2");
-			attr(select1, "class", "svelte-1ftk4m2");
+			attr(label1, "class", "svelte-1jagew2");
+			attr(select1, "class", "svelte-1jagew2");
 			if (/*color*/ ctx[2] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[13].call(select1));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "3 / 4");
-			attr(div2, "class", "aa-4wide svelte-1ftk4m2");
+			attr(div2, "class", "aa-4wide svelte-1jagew2");
 			set_style(h2, "margin-top", "5px");
-			attr(h2, "class", "svelte-1ftk4m2");
+			attr(h2, "class", "svelte-1jagew2");
 			attr(label2, "for", "");
-			attr(label2, "class", "svelte-1ftk4m2");
-			attr(button0, "class", "svelte-1ftk4m2");
+			attr(label2, "class", "svelte-1jagew2");
+			attr(button0, "class", "svelte-1jagew2");
 			attr(div3, "class", "flexcol");
 			set_style(div3, "grid-row", "1 / 2");
 			set_style(div3, "grid-column", "1 / 2");
 			attr(label3, "for", "");
-			attr(label3, "class", "svelte-1ftk4m2");
-			attr(button1, "class", "oldCheck svelte-1ftk4m2");
+			attr(label3, "class", "svelte-1jagew2");
+			attr(button1, "class", "oldCheck svelte-1jagew2");
 			attr(div4, "class", "flexcol");
 			set_style(div4, "grid-row", "1 / 2");
 			set_style(div4, "grid-column", "2 / 3");
 			attr(label4, "for", "");
-			attr(label4, "class", "svelte-1ftk4m2");
+			attr(label4, "class", "svelte-1jagew2");
 			attr(input0, "type", "Number");
 			attr(input0, "placeholder", "1");
 			attr(input0, "step", "0.01");
-			attr(input0, "class", "svelte-1ftk4m2");
+			attr(input0, "class", "svelte-1jagew2");
 			attr(div5, "class", "flexcol");
 			set_style(div5, "grid-row", "2 / 3");
 			set_style(div5, "grid-column", "3 / 4");
 			attr(label5, "for", "");
-			attr(label5, "class", "svelte-1ftk4m2");
+			attr(label5, "class", "svelte-1jagew2");
 			input1.disabled = input1_disabled_value = !/*persistent*/ ctx[6];
 			attr(input1, "type", "Number");
 			attr(input1, "placeholder", "1");
 			attr(input1, "step", "0.01");
-			attr(input1, "class", "svelte-1ftk4m2");
-			attr(div6, "class", div6_class_value = "flexcol " + (/*persistent*/ ctx[6] ? "" : "aa-disabled") + " svelte-1ftk4m2");
+			attr(input1, "class", "svelte-1jagew2");
+			attr(div6, "class", div6_class_value = "flexcol " + (/*persistent*/ ctx[6] ? "" : "aa-disabled") + " svelte-1jagew2");
 			set_style(div6, "grid-row", "1 / 2");
 			set_style(div6, "grid-column", "3 / 4");
 			attr(label6, "for", "");
-			attr(label6, "class", "svelte-1ftk4m2");
+			attr(label6, "class", "svelte-1jagew2");
 			input2.disabled = input2_disabled_value = !/*persistent*/ ctx[6];
 			attr(input2, "type", "Number");
 			attr(input2, "placeholder", "1");
 			attr(input2, "step", "0.01");
-			attr(input2, "class", "svelte-1ftk4m2");
-			attr(div7, "class", div7_class_value = "flexcol " + (/*persistent*/ ctx[6] ? "" : "aa-disabled") + " svelte-1ftk4m2");
+			attr(input2, "class", "svelte-1jagew2");
+			attr(div7, "class", div7_class_value = "flexcol " + (/*persistent*/ ctx[6] ? "" : "aa-disabled") + " svelte-1jagew2");
 			set_style(div7, "grid-row", "1 / 2");
 			set_style(div7, "grid-column", "4 / 5");
-			attr(div8, "class", "aa-options svelte-1ftk4m2");
+			attr(div8, "class", "aa-options svelte-1jagew2");
 			attr(div9, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
@@ -52596,7 +52590,7 @@ function create_fragment$6(ctx) {
 				set_input_value(input1, /*anchorX*/ ctx[3]);
 			}
 
-			if (!current || dirty & /*persistent*/ 64 && div6_class_value !== (div6_class_value = "flexcol " + (/*persistent*/ ctx[6] ? "" : "aa-disabled") + " svelte-1ftk4m2")) {
+			if (!current || dirty & /*persistent*/ 64 && div6_class_value !== (div6_class_value = "flexcol " + (/*persistent*/ ctx[6] ? "" : "aa-disabled") + " svelte-1jagew2")) {
 				attr(div6, "class", div6_class_value);
 			}
 
@@ -52608,7 +52602,7 @@ function create_fragment$6(ctx) {
 				set_input_value(input2, /*anchorY*/ ctx[4]);
 			}
 
-			if (!current || dirty & /*persistent*/ 64 && div7_class_value !== (div7_class_value = "flexcol " + (/*persistent*/ ctx[6] ? "" : "aa-disabled") + " svelte-1ftk4m2")) {
+			if (!current || dirty & /*persistent*/ 64 && div7_class_value !== (div7_class_value = "flexcol " + (/*persistent*/ ctx[6] ? "" : "aa-disabled") + " svelte-1jagew2")) {
 				attr(div7, "class", div7_class_value);
 			}
 
@@ -52994,70 +52988,70 @@ function create_fragment$5(ctx) {
 			input = element("input");
 			t33 = space();
 			create_component(soundsettings.$$.fragment);
-			attr(h1, "class", "svelte-ta9sfn");
+			attr(h1, "class", "svelte-t8jzol");
 			attr(label0, "for", "4");
-			attr(label0, "class", "svelte-ta9sfn");
+			attr(label0, "class", "svelte-t8jzol");
 			attr(select0, "name", "flags.autoanimations.options.variant");
-			attr(select0, "class", "svelte-ta9sfn");
+			attr(select0, "class", "svelte-t8jzol");
 			if (/*variant*/ ctx[1] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[18].call(select0));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "1 / 2");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-ta9sfn");
-			attr(select1, "class", "svelte-ta9sfn");
+			attr(label1, "class", "svelte-t8jzol");
+			attr(select1, "class", "svelte-t8jzol");
 			if (/*color*/ ctx[2] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[20].call(select1));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "2 / 3");
 			attr(label2, "for", "");
-			attr(label2, "class", "svelte-ta9sfn");
+			attr(label2, "class", "svelte-t8jzol");
 			option0.__value = "outro_explode";
 			option0.value = option0.__value;
 			option1.__value = "outro_fade";
 			option1.value = option1.__value;
-			attr(select2, "class", "svelte-ta9sfn");
+			attr(select2, "class", "svelte-t8jzol");
 			if (/*shieldVar*/ ctx[3] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[21].call(select2));
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "1 / 2");
 			set_style(div2, "grid-column", "3 / 4");
-			attr(div3, "class", "aa-3wide svelte-ta9sfn");
+			attr(div3, "class", "aa-3wide svelte-t8jzol");
 			set_style(h2, "margin-top", "5px");
-			attr(h2, "class", "svelte-ta9sfn");
+			attr(h2, "class", "svelte-t8jzol");
 			attr(label3, "for", "");
-			attr(label3, "class", "svelte-ta9sfn");
-			attr(button0, "class", "svelte-ta9sfn");
+			attr(label3, "class", "svelte-t8jzol");
+			attr(button0, "class", "svelte-t8jzol");
 			attr(div4, "class", "flexcol");
 			set_style(div4, "grid-row", "1 / 2");
 			set_style(div4, "grid-column", "1 / 2");
 			attr(label4, "for", "");
-			attr(label4, "class", "svelte-ta9sfn");
-			attr(button1, "class", "oldCheck svelte-ta9sfn");
+			attr(label4, "class", "svelte-t8jzol");
+			attr(button1, "class", "oldCheck svelte-t8jzol");
 			attr(div5, "class", "flexcol");
 			set_style(div5, "grid-row", "1 / 2");
 			set_style(div5, "grid-column", "2 / 3");
 			attr(label5, "for", "");
-			attr(label5, "class", "svelte-ta9sfn");
-			attr(button2, "class", "svelte-ta9sfn");
+			attr(label5, "class", "svelte-t8jzol");
+			attr(button2, "class", "svelte-t8jzol");
 			attr(div6, "class", "flexcol");
 			set_style(div6, "grid-row", "1 / 2");
 			set_style(div6, "grid-column", "3 / 4");
 			attr(label6, "for", "");
-			attr(label6, "class", "svelte-ta9sfn");
-			attr(button3, "class", "svelte-ta9sfn");
+			attr(label6, "class", "svelte-t8jzol");
+			attr(button3, "class", "svelte-t8jzol");
 			attr(div7, "class", "flexcol");
 			set_style(div7, "grid-row", "1 / 2");
 			set_style(div7, "grid-column", "4 / 5");
 			attr(label7, "for", "");
-			attr(label7, "class", "svelte-ta9sfn");
+			attr(label7, "class", "svelte-t8jzol");
 			attr(input, "type", "Number");
 			attr(input, "placeholder", "1");
 			attr(input, "step", "0.01");
-			attr(input, "class", "svelte-ta9sfn");
+			attr(input, "class", "svelte-t8jzol");
 			attr(div8, "class", "flexcol");
 			set_style(div8, "grid-row", "2 / 3");
 			set_style(div8, "grid-column", "3 / 4");
-			attr(div9, "class", "aa-options svelte-ta9sfn");
+			attr(div9, "class", "aa-options svelte-t8jzol");
 			attr(div10, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
@@ -53539,51 +53533,51 @@ function create_fragment$4(ctx) {
 			input2 = element("input");
 			t19 = space();
 			create_component(soundsettings.$$.fragment);
-			attr(h1, "class", "svelte-ta9sfn");
+			attr(h1, "class", "svelte-t8jzol");
 			attr(label0, "for", "");
-			attr(label0, "class", "svelte-ta9sfn");
-			attr(select, "class", "svelte-ta9sfn");
+			attr(label0, "class", "svelte-t8jzol");
+			attr(select, "class", "svelte-t8jzol");
 			if (/*color*/ ctx[1] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[8].call(select));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "2 / 3");
-			attr(div1, "class", "aa-3wide svelte-ta9sfn");
+			attr(div1, "class", "aa-3wide svelte-t8jzol");
 			set_style(h2, "margin-top", "5px");
-			attr(h2, "class", "svelte-ta9sfn");
+			attr(h2, "class", "svelte-t8jzol");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-ta9sfn");
-			attr(button, "class", "oldCheck svelte-ta9sfn");
+			attr(label1, "class", "svelte-t8jzol");
+			attr(button, "class", "oldCheck svelte-t8jzol");
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "1 / 2");
 			set_style(div2, "grid-column", "1 / 2");
 			attr(label2, "for", "");
-			attr(label2, "class", "svelte-ta9sfn");
+			attr(label2, "class", "svelte-t8jzol");
 			attr(input0, "type", "Number");
 			attr(input0, "placeholder", "1");
 			attr(input0, "step", "0.01");
-			attr(input0, "class", "svelte-ta9sfn");
+			attr(input0, "class", "svelte-t8jzol");
 			attr(div3, "class", "flexcol");
 			set_style(div3, "grid-row", "1 / 2");
 			set_style(div3, "grid-column", "2 / 3");
 			attr(label3, "for", "");
-			attr(label3, "class", "svelte-ta9sfn");
+			attr(label3, "class", "svelte-t8jzol");
 			attr(input1, "type", "Number");
 			attr(input1, "placeholder", "1");
 			attr(input1, "step", "0.01");
-			attr(input1, "class", "svelte-ta9sfn");
+			attr(input1, "class", "svelte-t8jzol");
 			attr(div4, "class", "flexcol");
 			set_style(div4, "grid-row", "1 / 2");
 			set_style(div4, "grid-column", "3 / 4");
 			attr(label4, "for", "");
-			attr(label4, "class", "svelte-ta9sfn");
+			attr(label4, "class", "svelte-t8jzol");
 			attr(input2, "type", "Number");
 			attr(input2, "placeholder", "1");
 			attr(input2, "step", "0.01");
-			attr(input2, "class", "svelte-ta9sfn");
+			attr(input2, "class", "svelte-t8jzol");
 			attr(div5, "class", "flexcol");
 			set_style(div5, "grid-row", "1 / 2");
 			set_style(div5, "grid-column", "4 / 5");
-			attr(div6, "class", "aa-options svelte-ta9sfn");
+			attr(div6, "class", "aa-options svelte-t8jzol");
 			attr(div7, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
@@ -53931,23 +53925,23 @@ function create_if_block$2(ctx) {
 			label1.textContent = `${localize("AUTOANIM.playbackRate")}`;
 			t8 = space();
 			input = element("input");
-			attr(h2, "class", "svelte-nvwkr7");
+			attr(h2, "class", "svelte-cbaoff");
 			attr(label0, "for", "");
-			attr(label0, "class", "svelte-nvwkr7");
-			attr(button, "class", "oldCheck svelte-nvwkr7");
+			attr(label0, "class", "svelte-cbaoff");
+			attr(button, "class", "oldCheck svelte-cbaoff");
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "2 / 3");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-nvwkr7");
+			attr(label1, "class", "svelte-cbaoff");
 			attr(input, "type", "Number");
 			attr(input, "placeholder", "1");
 			attr(input, "step", "0.01");
-			attr(input, "class", "svelte-nvwkr7");
+			attr(input, "class", "svelte-cbaoff");
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "3 / 4");
-			attr(div2, "class", "aa-options svelte-nvwkr7");
+			attr(div2, "class", "aa-options svelte-cbaoff");
 		},
 		m(target, anchor) {
 			mount_component(chooseanimation, target, anchor);
@@ -54402,55 +54396,55 @@ function create_fragment$3(ctx) {
 			t46 = space();
 			create_component(soundsettings.$$.fragment);
 			set_style(h10, "margin-bottom", "15px");
-			attr(h10, "class", "svelte-nvwkr7");
+			attr(h10, "class", "svelte-cbaoff");
 			set_style(h20, "margin-top", "10px");
-			attr(h20, "class", "svelte-nvwkr7");
+			attr(h20, "class", "svelte-cbaoff");
 			attr(label0, "for", "");
-			attr(label0, "class", "svelte-nvwkr7");
+			attr(label0, "class", "svelte-cbaoff");
 			option0.__value = "alternating";
 			option0.value = option0.__value;
 			option1.__value = "equidistant";
 			option1.value = option1.__value;
 			attr(select, "name", "flags.autoanimations.animation");
-			attr(select, "class", "svelte-nvwkr7");
+			attr(select, "class", "svelte-cbaoff");
 			if (/*measureType*/ ctx[2] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[43].call(select));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "1 / 2");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-nvwkr7");
+			attr(label1, "class", "svelte-cbaoff");
 			attr(input0, "type", "Number");
 			attr(input0, "step", "0.01");
-			attr(input0, "class", "svelte-nvwkr7");
+			attr(input0, "class", "svelte-cbaoff");
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "2 / 3");
 			attr(label2, "for", "");
-			attr(label2, "class", "svelte-nvwkr7");
-			attr(button0, "class", button0_class_value = "" + (null_to_empty(/*hideFromPlayers*/ ctx[4] ? "selected" : "notSelected") + " svelte-nvwkr7"));
+			attr(label2, "class", "svelte-cbaoff");
+			attr(button0, "class", button0_class_value = "" + (null_to_empty(/*hideFromPlayers*/ ctx[4] ? "selected" : "notSelected") + " svelte-cbaoff"));
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "1 / 2");
 			set_style(div2, "grid-column", "3 / 4");
-			attr(div3, "class", "aa-3wide svelte-nvwkr7");
+			attr(div3, "class", "aa-3wide svelte-cbaoff");
 			attr(div4, "class", "aaMenu-section");
 			set_style(h11, "margin-top", "10px");
-			attr(h11, "class", "svelte-nvwkr7");
-			attr(h21, "class", "svelte-nvwkr7");
+			attr(h11, "class", "svelte-cbaoff");
+			attr(h21, "class", "svelte-cbaoff");
 			attr(label3, "for", "");
-			attr(label3, "class", "svelte-nvwkr7");
-			attr(button1, "class", "oldCheck svelte-nvwkr7");
+			attr(label3, "class", "svelte-cbaoff");
+			attr(button1, "class", "oldCheck svelte-cbaoff");
 			attr(div5, "class", "flexcol");
 			set_style(div5, "grid-row", "1 / 2");
 			set_style(div5, "grid-column", "2 / 3");
 			attr(label4, "for", "");
-			attr(label4, "class", "svelte-nvwkr7");
+			attr(label4, "class", "svelte-cbaoff");
 			attr(input1, "type", "Number");
 			attr(input1, "step", "0.01");
-			attr(input1, "class", "svelte-nvwkr7");
+			attr(input1, "class", "svelte-cbaoff");
 			attr(div6, "class", "flexcol");
 			set_style(div6, "grid-row", "1 / 2");
 			set_style(div6, "grid-column", "3 / 4");
-			attr(div7, "class", "aa-options svelte-nvwkr7");
+			attr(div7, "class", "aa-options svelte-cbaoff");
 			attr(div8, "class", "aaMenu-section");
 			attr(div9, "class", "flexcol");
 			set_style(div9, "grid-row", "1/2");
@@ -54467,31 +54461,31 @@ function create_fragment$3(ctx) {
 			attr(div12, "class", "aa-header-section");
 			attr(div13, "class", "aaMenu-section");
 			set_style(h12, "margin-top", "10px");
-			attr(h12, "class", "svelte-nvwkr7");
-			attr(h22, "class", "svelte-nvwkr7");
+			attr(h12, "class", "svelte-cbaoff");
+			attr(h22, "class", "svelte-cbaoff");
 			attr(label6, "for", "");
-			attr(label6, "class", "svelte-nvwkr7");
-			attr(button2, "class", "oldCheck svelte-nvwkr7");
+			attr(label6, "class", "svelte-cbaoff");
+			attr(button2, "class", "oldCheck svelte-cbaoff");
 			attr(div14, "class", "flexcol");
 			set_style(div14, "grid-row", "1 / 2");
 			set_style(div14, "grid-column", "2 / 3");
 			attr(label7, "for", "");
-			attr(label7, "class", "svelte-nvwkr7");
+			attr(label7, "class", "svelte-cbaoff");
 			attr(input2, "type", "Number");
 			attr(input2, "step", "0.01");
-			attr(input2, "class", "svelte-nvwkr7");
+			attr(input2, "class", "svelte-cbaoff");
 			attr(div15, "class", "flexcol");
 			set_style(div15, "grid-row", "1 / 2");
 			set_style(div15, "grid-column", "3 / 4");
 			attr(label8, "for", "");
-			attr(label8, "class", "svelte-nvwkr7");
+			attr(label8, "class", "svelte-cbaoff");
 			attr(input3, "type", "Number");
 			attr(input3, "step", "0.01");
-			attr(input3, "class", "svelte-nvwkr7");
+			attr(input3, "class", "svelte-cbaoff");
 			attr(div16, "class", "flexcol");
 			set_style(div16, "grid-row", "1 / 2");
 			set_style(div16, "grid-column", "4 / 5");
-			attr(div17, "class", "aa-options svelte-nvwkr7");
+			attr(div17, "class", "aa-options svelte-cbaoff");
 			attr(div18, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
@@ -54607,7 +54601,7 @@ function create_fragment$3(ctx) {
 
 			if (!current || dirty[0] & /*isHidden*/ 268435456) set_data(t14, /*isHidden*/ ctx[28]);
 
-			if (!current || dirty[0] & /*hideFromPlayers*/ 16 && button0_class_value !== (button0_class_value = "" + (null_to_empty(/*hideFromPlayers*/ ctx[4] ? "selected" : "notSelected") + " svelte-nvwkr7"))) {
+			if (!current || dirty[0] & /*hideFromPlayers*/ 16 && button0_class_value !== (button0_class_value = "" + (null_to_empty(/*hideFromPlayers*/ ctx[4] ? "selected" : "notSelected") + " svelte-cbaoff"))) {
 				attr(button0, "class", button0_class_value);
 			}
 
@@ -55421,82 +55415,82 @@ function create_fragment$2(ctx) {
 			input5 = element("input");
 			t34 = space();
 			create_component(soundsettings.$$.fragment);
-			attr(h1, "class", "svelte-w93w0q");
+			attr(h1, "class", "svelte-19ngawi");
 			attr(label0, "for", "");
-			attr(label0, "class", "svelte-w93w0q");
-			attr(select, "class", "svelte-w93w0q");
+			attr(label0, "class", "svelte-19ngawi");
+			attr(select, "class", "svelte-19ngawi");
 			if (/*color*/ ctx[1] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[13].call(select));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "2 / 3");
-			attr(div1, "class", "aa-3wide svelte-w93w0q");
+			attr(div1, "class", "aa-3wide svelte-19ngawi");
 			set_style(h2, "margin-top", "5px");
-			attr(h2, "class", "svelte-w93w0q");
+			attr(h2, "class", "svelte-19ngawi");
 			attr(label1, "for", "");
-			attr(label1, "class", "svelte-w93w0q");
-			attr(button0, "class", "oldCheck svelte-w93w0q");
+			attr(label1, "class", "svelte-19ngawi");
+			attr(button0, "class", "oldCheck svelte-19ngawi");
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "1 / 2");
 			set_style(div2, "grid-column", "1 / 2");
 			attr(label2, "for", "");
-			attr(label2, "class", "svelte-w93w0q");
-			attr(button1, "class", button1_class_value = "" + (null_to_empty(/*removeTemplate*/ ctx[7] ? "selected" : "notSelected") + " svelte-w93w0q"));
+			attr(label2, "class", "svelte-19ngawi");
+			attr(button1, "class", button1_class_value = "" + (null_to_empty(/*removeTemplate*/ ctx[7] ? "selected" : "notSelected") + " svelte-19ngawi"));
 			attr(div3, "class", "flexcol");
 			set_style(div3, "grid-row", "1 / 2");
 			set_style(div3, "grid-column", "2 / 3");
 			attr(label3, "for", "");
-			attr(label3, "class", "svelte-w93w0q");
+			attr(label3, "class", "svelte-19ngawi");
 			attr(input0, "type", "Number");
 			attr(input0, "placeholder", "1");
 			attr(input0, "step", "0.01");
-			attr(input0, "class", "svelte-w93w0q");
+			attr(input0, "class", "svelte-19ngawi");
 			attr(div4, "class", "flexcol");
 			set_style(div4, "grid-row", "1 / 2");
 			set_style(div4, "grid-column", "3 / 4");
 			attr(label4, "for", "");
-			attr(label4, "class", "svelte-w93w0q");
+			attr(label4, "class", "svelte-19ngawi");
 			attr(input1, "type", "Number");
 			attr(input1, "placeholder", "1");
 			attr(input1, "step", "0.01");
-			attr(input1, "class", "svelte-w93w0q");
+			attr(input1, "class", "svelte-19ngawi");
 			attr(div5, "class", "flexcol");
 			set_style(div5, "grid-row", "1 / 2");
 			set_style(div5, "grid-column", "4 / 5");
 			attr(label5, "for", "");
-			attr(label5, "class", "svelte-w93w0q");
+			attr(label5, "class", "svelte-19ngawi");
 			attr(input2, "type", "Number");
 			attr(input2, "placeholder", "1");
-			attr(input2, "class", "svelte-w93w0q");
+			attr(input2, "class", "svelte-19ngawi");
 			attr(div6, "class", "flexcol");
 			set_style(div6, "grid-row", "2 / 3");
 			set_style(div6, "grid-column", "1 / 2");
 			attr(label6, "for", "");
-			attr(label6, "class", "svelte-w93w0q");
+			attr(label6, "class", "svelte-19ngawi");
 			attr(input3, "type", "Number");
 			attr(input3, "placeholder", "250");
-			attr(input3, "class", "svelte-w93w0q");
+			attr(input3, "class", "svelte-19ngawi");
 			attr(div7, "class", "flexcol");
 			set_style(div7, "grid-row", "2 / 3");
 			set_style(div7, "grid-column", "2 / 3");
 			attr(label7, "for", "aaOpacity");
-			attr(label7, "class", "svelte-w93w0q");
+			attr(label7, "class", "svelte-19ngawi");
 			attr(input4, "type", "Number");
 			attr(input4, "id", "aaOpacity");
 			attr(input4, "placeholder", "1");
 			attr(input4, "min", "0");
 			attr(input4, "max", "1");
 			attr(input4, "step", "0.01");
-			attr(input4, "class", "svelte-w93w0q");
+			attr(input4, "class", "svelte-19ngawi");
 			attr(input5, "type", "range");
 			attr(input5, "min", "0");
 			attr(input5, "max", "1");
 			attr(input5, "step", "0.01");
-			attr(input5, "class", "svelte-w93w0q");
+			attr(input5, "class", "svelte-19ngawi");
 			attr(div8, "class", "form-group");
 			attr(div9, "class", "flexcol");
 			set_style(div9, "grid-row", "2 / 3");
 			set_style(div9, "grid-column", "3 / 4");
-			attr(div10, "class", "aa-options svelte-w93w0q");
+			attr(div10, "class", "aa-options svelte-19ngawi");
 			attr(div11, "class", "aaMenu-section");
 		},
 		m(target, anchor) {
@@ -55615,7 +55609,7 @@ function create_fragment$2(ctx) {
 			if (!current || dirty & /*aboveBelow*/ 512) set_data(t9, /*aboveBelow*/ ctx[9]);
 			if (!current || dirty & /*isRemove*/ 256) set_data(t13, /*isRemove*/ ctx[8]);
 
-			if (!current || dirty & /*removeTemplate*/ 128 && button1_class_value !== (button1_class_value = "" + (null_to_empty(/*removeTemplate*/ ctx[7] ? "selected" : "notSelected") + " svelte-w93w0q"))) {
+			if (!current || dirty & /*removeTemplate*/ 128 && button1_class_value !== (button1_class_value = "" + (null_to_empty(/*removeTemplate*/ ctx[7] ? "selected" : "notSelected") + " svelte-19ngawi"))) {
 				attr(button1, "class", button1_class_value);
 			}
 
@@ -56721,7 +56715,7 @@ function create_if_block_4(ctx) {
 			t4 = space();
 			if (if_block4) if_block4.c();
 			attr(div0, "class", "aaMenu-section");
-			attr(div1, "class", "aaMidSection svelte-nf15iz");
+			attr(div1, "class", "aaMidSection svelte-2tvwk6");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -56950,11 +56944,11 @@ function create_if_block_13(ctx) {
 			t2 = text(t2_value);
 			attr(label, "for", "");
 			set_style(label, "font-size", "x-large");
-			attr(label, "class", "svelte-nf15iz");
+			attr(label, "class", "svelte-2tvwk6");
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "1/4");
-			attr(div1, "class", "aa-pickAnim svelte-nf15iz");
+			attr(div1, "class", "aa-pickAnim svelte-2tvwk6");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -57034,7 +57028,7 @@ function create_if_block_11(ctx) {
 			t10 = space();
 			if (if_block) if_block.c();
 			attr(label, "for", "1");
-			attr(label, "class", "svelte-nf15iz");
+			attr(label, "class", "svelte-2tvwk6");
 			option0.__value = "melee";
 			option0.value = option0.__value;
 			option1.__value = "range";
@@ -57050,12 +57044,13 @@ function create_if_block_11(ctx) {
 			attr(select, "id", "1");
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-nf15iz");
+			set_style(select, "background-color", "rgba(21, 154, 169, 0.4)");
+			attr(select, "class", "svelte-2tvwk6");
 			if (/*animType*/ ctx[7] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[37].call(select));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "2 / 3");
-			attr(div1, "class", "aa-pickAnim svelte-nf15iz");
+			attr(div1, "class", "aa-pickAnim svelte-2tvwk6");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -57187,7 +57182,7 @@ function create_if_block_12(ctx) {
 			option8 = element("option");
 			option8.textContent = `${localize("autoanimations.presetTypes.thunderwave")} D&D 5e`;
 			attr(label, "for", "1");
-			attr(label, "class", "svelte-nf15iz");
+			attr(label, "class", "svelte-2tvwk6");
 			option0.__value = "bardicinspiration";
 			option0.value = option0.__value;
 			option1.__value = "bless";
@@ -57209,7 +57204,8 @@ function create_if_block_12(ctx) {
 			attr(select, "id", "1");
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
-			attr(select, "class", "svelte-nf15iz");
+			set_style(select, "background-color", "rgba(21, 154, 169, 0.4)");
+			attr(select, "class", "svelte-2tvwk6");
 			if (/*presetType*/ ctx[8] === void 0) add_render_callback(() => /*select_change_handler_1*/ ctx[39].call(select));
 			attr(div, "class", "flexcol");
 			set_style(div, "grid-row", "2 / 3");
@@ -57732,7 +57728,7 @@ function create_if_block_1(ctx) {
 			if (if_block0) if_block0.c();
 			t2 = space();
 			div1 = element("div");
-			div1.innerHTML = `<label for="" class="selected svelte-nf15iz" style="border: 2px outset #dddddd">Primary</label>`;
+			div1.innerHTML = `<label for="" class="selected svelte-2tvwk6" style="border: 2px outset #dddddd">Primary</label>`;
 			t4 = space();
 			if (if_block1) if_block1.c();
 			t5 = space();
@@ -57742,7 +57738,7 @@ function create_if_block_1(ctx) {
 			t7 = space();
 			div4 = element("div");
 
-			div4.innerHTML = `<label for="" style="align-self:center" class="svelte-nf15iz">Requires use of a Primary Animation, either
+			div4.innerHTML = `<label for="" style="align-self:center" class="svelte-2tvwk6">Requires use of a Primary Animation, either
                             Customized or Autorec</label>`;
 
 			t9 = space();
@@ -57752,7 +57748,7 @@ function create_if_block_1(ctx) {
 			div7 = element("div");
 			create_component(extrafx1.$$.fragment);
 			attr(label0, "for", "");
-			attr(label0, "class", label0_class_value = "" + (null_to_empty(/*enableSource*/ ctx[5] ? "selected" : "notSelected") + " svelte-nf15iz"));
+			attr(label0, "class", label0_class_value = "" + (null_to_empty(/*enableSource*/ ctx[5] ? "selected" : "notSelected") + " svelte-2tvwk6"));
 			set_style(label0, "border", "2px outset #dddddd");
 			attr(div0, "class", "flexcol aa-button-labels");
 			set_style(div0, "grid-row", "1 / 2");
@@ -57761,19 +57757,19 @@ function create_if_block_1(ctx) {
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "3 / 4");
 			attr(label2, "for", "");
-			attr(label2, "class", label2_class_value = "" + (null_to_empty(/*enableTarget*/ ctx[6] ? "selected" : "notSelected") + " svelte-nf15iz"));
+			attr(label2, "class", label2_class_value = "" + (null_to_empty(/*enableTarget*/ ctx[6] ? "selected" : "notSelected") + " svelte-2tvwk6"));
 			set_style(label2, "border", "2px outset #dddddd");
 			attr(div2, "class", "flexcol aa-button-labels");
 			set_style(div2, "grid-row", "1 / 2");
 			set_style(div2, "grid-column", "5 / 6");
-			attr(div3, "class", "aa-5wide svelte-nf15iz");
-			attr(div4, "class", "flexcol aa-extraFX-hint svelte-nf15iz");
+			attr(div3, "class", "aa-5wide svelte-2tvwk6");
+			attr(div4, "class", "flexcol aa-extraFX-hint svelte-2tvwk6");
 			set_style(div4, "grid-row", "2/3");
 			set_style(div4, "grid-column", "1/6");
 			attr(div5, "class", "aaMenu-section");
 			attr(div6, "class", "aaMenu-section");
 			attr(div7, "class", "aaMenu-section");
-			attr(div8, "class", "aaMidSection svelte-nf15iz");
+			attr(div8, "class", "aaMidSection svelte-2tvwk6");
 		},
 		m(target, anchor) {
 			insert(target, div8, anchor);
@@ -57803,7 +57799,7 @@ function create_if_block_1(ctx) {
 			current = true;
 		},
 		p(ctx, dirty) {
-			if (!current || dirty[0] & /*enableSource*/ 32 && label0_class_value !== (label0_class_value = "" + (null_to_empty(/*enableSource*/ ctx[5] ? "selected" : "notSelected") + " svelte-nf15iz"))) {
+			if (!current || dirty[0] & /*enableSource*/ 32 && label0_class_value !== (label0_class_value = "" + (null_to_empty(/*enableSource*/ ctx[5] ? "selected" : "notSelected") + " svelte-2tvwk6"))) {
 				attr(label0, "class", label0_class_value);
 			}
 
@@ -57849,7 +57845,7 @@ function create_if_block_1(ctx) {
 				check_outros();
 			}
 
-			if (!current || dirty[0] & /*enableTarget*/ 64 && label2_class_value !== (label2_class_value = "" + (null_to_empty(/*enableTarget*/ ctx[6] ? "selected" : "notSelected") + " svelte-nf15iz"))) {
+			if (!current || dirty[0] & /*enableTarget*/ 64 && label2_class_value !== (label2_class_value = "" + (null_to_empty(/*enableTarget*/ ctx[6] ? "selected" : "notSelected") + " svelte-2tvwk6"))) {
 				attr(label2, "class", label2_class_value);
 			}
 
@@ -57999,7 +57995,7 @@ function create_if_block(ctx) {
 			div0 = element("div");
 			create_component(menu3d.$$.fragment);
 			attr(div0, "class", "aaMenu-section");
-			attr(div1, "class", "aaMidSection svelte-nf15iz");
+			attr(div1, "class", "aaMidSection svelte-2tvwk6");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -58130,34 +58126,34 @@ function create_default_slot(ctx) {
 			button4 = element("button");
 			button4.textContent = "Close and Submit";
 			attr(i0, "class", "fas fa-bomb");
-			attr(button0, "class", button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[14] ? "selected" : "notSelected") + " svelte-nf15iz"));
+			attr(button0, "class", button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[14] ? "selected" : "notSelected") + " svelte-2tvwk6"));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "1 / 2");
 			attr(i1, "class", "fas fa-user-plus");
-			attr(button1, "class", button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[13] ? "selected" : "notSelected") + " svelte-nf15iz"));
+			attr(button1, "class", button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[13] ? "selected" : "notSelected") + " svelte-2tvwk6"));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "2 / 3");
 			attr(i2, "class", "fas fa-vr-cardboard");
-			attr(button2, "class", button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[12] ? "selected" : "notSelected") + " svelte-nf15iz"));
+			attr(button2, "class", button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[12] ? "selected" : "notSelected") + " svelte-2tvwk6"));
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "1 / 2");
 			set_style(div2, "grid-column", "3 / 4");
-			attr(div3, "class", "aa-tabs svelte-nf15iz");
-			attr(div4, "class", "aaTopSection svelte-nf15iz");
+			attr(div3, "class", "aa-tabs svelte-2tvwk6");
+			attr(div4, "class", "aaTopSection svelte-2tvwk6");
 			set_style(div4, "margin-top", "5px");
-			attr(button3, "class", "footer-button svelte-nf15iz");
+			attr(button3, "class", "footer-button svelte-2tvwk6");
 			attr(button3, "type", "submit");
 			attr(div5, "class", "flexcol");
 			set_style(div5, "grid-row", "1/2");
 			set_style(div5, "grid-column", "1/2");
-			attr(button4, "class", "footer-button svelte-nf15iz");
+			attr(button4, "class", "footer-button svelte-2tvwk6");
 			attr(div6, "class", "flexcol");
 			set_style(div6, "grid-row", "1/2");
 			set_style(div6, "grid-column", "2/3");
-			attr(div7, "class", "aa-submit svelte-nf15iz");
-			attr(div8, "class", "aaBottomSection svelte-nf15iz");
+			attr(div7, "class", "aa-submit svelte-2tvwk6");
+			attr(div8, "class", "aaBottomSection svelte-2tvwk6");
 			set_style(div8, "margin-bottom", "5px");
 			attr(form_1, "autocomplete", "off");
 			attr(form_1, "id", "item-menu-aa");
@@ -58218,15 +58214,15 @@ function create_default_slot(ctx) {
 			}
 		},
 		p(ctx, dirty) {
-			if (!current || dirty[0] & /*focusPrimary*/ 16384 && button0_class_value !== (button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[14] ? "selected" : "notSelected") + " svelte-nf15iz"))) {
+			if (!current || dirty[0] & /*focusPrimary*/ 16384 && button0_class_value !== (button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[14] ? "selected" : "notSelected") + " svelte-2tvwk6"))) {
 				attr(button0, "class", button0_class_value);
 			}
 
-			if (!current || dirty[0] & /*focusExtra*/ 8192 && button1_class_value !== (button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[13] ? "selected" : "notSelected") + " svelte-nf15iz"))) {
+			if (!current || dirty[0] & /*focusExtra*/ 8192 && button1_class_value !== (button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[13] ? "selected" : "notSelected") + " svelte-2tvwk6"))) {
 				attr(button1, "class", button1_class_value);
 			}
 
-			if (!current || dirty[0] & /*focus3d*/ 4096 && button2_class_value !== (button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[12] ? "selected" : "notSelected") + " svelte-nf15iz"))) {
+			if (!current || dirty[0] & /*focus3d*/ 4096 && button2_class_value !== (button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[12] ? "selected" : "notSelected") + " svelte-2tvwk6"))) {
 				attr(button2, "class", button2_class_value);
 			}
 

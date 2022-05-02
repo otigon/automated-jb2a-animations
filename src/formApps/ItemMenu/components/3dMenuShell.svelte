@@ -65,7 +65,7 @@
         text-align: center;
         font-weight: bold;
         min-height: 2em;
-        border-radius: 5px;
+        border-radius: 10px;
     }
     h1 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;

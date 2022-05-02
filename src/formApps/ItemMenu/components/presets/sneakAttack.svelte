@@ -88,7 +88,7 @@
         text-align: center;
         font-weight: bold;
         min-height: 2em;
-        border-radius: 5px;
+        border-radius: 10px;
     }
     .aa-3wide label {
         align-self: center;
