@@ -55,7 +55,7 @@ Supported Modules for DnD5e (Those that mess with rolling):
 - CORE  
 - MRE; Options to play animations on Attack or Damage  
 - Midi-QOL; Options to play animations on Attack, Damage, Hit Targets, Check Saves for certain effects  
-- Better Rolls; version 1.4.5 and above will play the animation on Attack Rolls through Better Rolls. I'll work on optional play on Damage Rolls for BR  
+- Better Rolls; Automated Animations does not specifically support Better Rolls for 5e, you're best off not using the two together  
 - Minimal Rolling Enhancements  
 - Mars 5e  
 
