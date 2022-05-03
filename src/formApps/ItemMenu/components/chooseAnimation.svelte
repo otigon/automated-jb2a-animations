@@ -49,6 +49,9 @@
         case "preset":
             rootPath = customRoot = flagOptions = flagData.preset[presetType];
             break;
+        case "MeleeSwitch":
+            rootPath = customRoot = flagOptions = flagData.meleeSwitch;
+            break;
     }
 
     // Sets the Flag Path depending on the section

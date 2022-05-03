@@ -3,6 +3,7 @@
     import { fade } from "svelte/transition";
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import SwitchApp from "../videoPreviews/switchApp.svelte";
+    import ChooseAnimation from "./chooseAnimation.svelte";
 
     import {
         aaTypeMenu,
@@ -27,55 +28,23 @@
     $: switchType = switchType;
     $: meleeSwitch.switchType = switchType;
 
-    let menuType = meleeSwitch.menuType || "";
-    $: menuType = menuType;
-    $: meleeSwitch.menuType = menuType;
+    let menuType = meleeSwitch.menuType || Object.keys(aaTypeMenu.range)[0];
+    $: menuType = meleeSwitch.menuType = menuType;
     // Sets Initial animation for Menu - Assigns to Flag when updated
-    let animation = meleeSwitch.animation || "";
-    $: animation = menuType === "" ? "" : animation;
-    $: meleeSwitch.animation = animation;
+    let animation = meleeSwitch.animation || Object.keys(aaNameMenu.range[menuType])[0];
+    $: animation = meleeSwitch.animation = animation;
     // Sets Initial variant for Menu - Assigns to Flag when updated
-    let variant = meleeSwitch.variant || "";
-    $: variant = menuType === "" || animation === "" ? "" : variant;
-    $: meleeSwitch.variant = variant;
+    let variant = meleeSwitch.variant || Object.keys(aaVariantMenu.range[menuType][animation])[0];
+    $: variant = meleeSwitch.variant = variant;
     // Sets Initial color for Menu - Assigns to Flag when updated
-    let color = meleeSwitch.color || "";
-    $: color =
-        menuType === "" || animation === "" || variant === "" ? "" : color;
-    $: meleeSwitch.color = color;
+    let color = meleeSwitch.color || Object.keys(aaColorMenu.range[menuType][animation][variant])[0];
+    $: color = meleeSwitch.color = color;
 
-    async function switchChange() {
-        let newSwitchType = switchType;
-        if (newSwitchType === "on") {
-            menuType = Object.keys(aaTypeMenu.range)[0];
-            animation = Object.keys(aaNameMenu.range[menuType])[0];
-            variant = Object.keys(aaVariantMenu.range[menuType][animation])[0];
-            color = Object.keys(
-                aaColorMenu.range[menuType][animation][variant]
-            )[0];
-        }
-    }
-    async function menuTypeChange() {
-        let newMenuType = menuType;
-        animation = Object.keys(aaNameMenu.range[newMenuType])[0];
-        variant = Object.keys(aaVariantMenu.range[newMenuType][animation])[0];
-        color = Object.keys(
-            aaColorMenu.range[newMenuType][animation][variant]
-        )[0];
-    }
-    async function animationChange() {
-        let newAnimation = animation;
-        variant = Object.keys(aaVariantMenu.range[menuType][newAnimation])[0];
-        color = Object.keys(
-            aaColorMenu.range[menuType][newAnimation][variant]
-        )[0];
-    }
-    async function variantChange() {
-        let newVariant = variant;
-        color = Object.keys(
-            aaColorMenu.range[menuType][animation][newVariant]
-        )[0];
-    }
+    let isCustom = meleeSwitch.enableCustom || false;
+    $: isCustom = meleeSwitch.enableCustom = isCustom;
+
+    let customPath = meleeSwitch.customPath;
+    $: customPath = meleeSwitch.customPath = customPath;
 
     let returnEnabled = meleeSwitch.enable;
     let returnLabel = returnEnabled ? game.i18n.localize("autoanimations.menus.enabled") : game.i18n.localize("autoanimations.menus.disabled");
@@ -127,6 +96,7 @@
             : `autoanimations.range.${menuType}.${animation}.${variant}.${color}`;
 
     $: menuDBPathSwitch.set(switchFilePath);
+    const disablePlayOn = true;
 </script>
 
 <div class="aa-header-section">
@@ -151,7 +121,6 @@
         >
         <select
             bind:value={switchType}
-            on:change={async () => await switchChange()}
             id="1"
             style="text-align: center;justify-self: center"
         >
@@ -173,70 +142,22 @@
             on:click={() => switchLabel()}>{returnLabel}</button
         >
     </div>
-    {#if switchType === "custom"}
-        <!--Type Menu-->
-        <div class="flexcol" style="grid-row: 2 / 3;grid-column: 2 / 3;">
-            <label for="2">{localize("autoanimations.menus.type")}</label>
-            <select
-                bind:value={menuType}
-                on:change={async () => await menuTypeChange()}
-                id="2"
-                class={menuType != "" ? "isPopulated" : "isNotPopulated"}
-            >
-                {#each Object.entries(aaTypeMenu.range) as [key, name]}
-                    <option value={key}>{name}</option>
-                {/each}
-            </select>
-        </div>
-        <!--Animation Menu-->
-        <div class="flexcol" style="grid-row: 3 / 4;grid-column: 1 / 2;">
-            <label for="3">{localize("autoanimations.menus.animation")}</label>
-            <select
-                bind:value={animation}
-                on:change={async () => await animationChange()}
-                id="3"
-                class={animation != "" ? "isPopulated" : "isNotPopulated"}
-            >
-                {#if menuType != ""}
-                    {#each Object.entries(aaNameMenu.range[menuType]) as [key, name]}
-                        <option value={key}>{name}</option>
-                    {/each}
-                {/if}
-            </select>
-        </div>
-        <!--Variant Menu-->
-        <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
-            <label for="4">{localize("autoanimations.menus.variant")}</label>
-            <select
-                bind:value={variant}
-                on:change={async () => await variantChange()}
-                id="4"
-                class={variant != "" ? "isPopulated" : "isNotPopulated"}
-            >
-                {#if (menuType != "") & (animation != "")}
-                    {#each Object.entries(aaVariantMenu.range[menuType][animation]) as [key, name]}
-                        <option value={key}>{name}</option>
-                    {/each}
-                {/if}
-            </select>
-        </div>
-        <!--Color Menu-->
-        <div class="flexcol" style="grid-row: 3 / 4;grid-column: 3 / 4;">
-            <label for="5">{localize("autoanimations.menus.color")}</label>
-            <select
-                bind:value={color}
-                id="5"
-                class={color != "" ? "isPopulated" : "isNotPopulated"}
-            >
-                {#if menuType != "" && animation != "" && variant != ""}
-                    {#each Object.entries(aaColorMenu.range[menuType][animation][variant]) as [key, name]}
-                        <option value={key}>{name}</option>
-                    {/each}
-                {/if}
-            </select>
-        </div>
-    {/if}
 </div>
+    {#if switchType === "custom"}
+    <ChooseAnimation
+    bind:menuType
+    bind:animation
+    bind:variant
+    bind:color
+    bind:isCustom
+    bind:customPath
+    animType="range"
+    flagPath="MeleeSwitch"
+    {disablePlayOn}
+    {flagData}
+/>
+
+    {/if}
 {#if switchType === "custom"}
     <div class="aa-4wide" transition:fade={{ duration: 500 }}>
         <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
