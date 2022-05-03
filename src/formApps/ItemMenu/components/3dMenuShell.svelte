@@ -13,16 +13,16 @@
 <h3>Requires the 3D Canvas Module by Ripper</h3>
 <div class="aa-3wide">
     <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
-        <label for="">{localize("AUTOANIM.type")}</label>
+        <label for="">{localize("autoanimations.menus.type")}</label>
             <select bind:value={type3d}>
                 <option value="" />
                 <option value="projectile"
-                    >{localize("AUTOANIM.projectile")}</option
+                    >{localize("autoanimations.menus.projectile")}</option
                 >
-                <option value="sprite">{localize("AUTOANIM.sprite")}</option>
-                <option value="ray">{localize("AUTOANIM.ray")}</option>
+                <option value="sprite">{localize("autoanimations.menus.sprite")}</option>
+                <option value="ray">{localize("autoanimations.menus.ray")}</option>
                 <option value="explosion"
-                    >{localize("AUTOANIM.explosion")}</option
+                    >{localize("autoanimations.menus.explosion")}</option
                 >
             </select>
     </div>

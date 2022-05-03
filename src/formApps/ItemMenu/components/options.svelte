@@ -1,11 +1,6 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { getContext } from "svelte";
-    import { fade, fly } from "svelte/transition";
-    import TemplateOptions from "./templatePersistent.svelte";
-
-    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
-    import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
+    import { fade } from "svelte/transition";
     import { menuAnimType } from '../menuStore.js';
 
     export let flagData;

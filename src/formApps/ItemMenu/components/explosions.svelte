@@ -99,7 +99,7 @@
     <div class="aa-header-section">
         <div class="aa-header">
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
-                <label for="">{localize("autoanimations.menus.macro")} {enableSection ? localize("autoanimations.menus.enabled") : localize("autoanimations.menus.disabled")}</label>
+                <label for="">{localize("autoanimations.menus.explosion")} {enableSection ? localize("autoanimations.menus.enabled") : localize("autoanimations.menus.disabled")}</label>
             </div>
             {#if enableSection}
                 <div
