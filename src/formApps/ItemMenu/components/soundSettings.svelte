@@ -62,7 +62,7 @@
     <div class="aa-header-section">
         <div class="aa-header">
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
-                <label for="">{localize("AUTOANIM.sound")}</label>
+                <label for="">{localize("autoanimations.menus.sound")}</label>
             </div>
             {#if soundEnabled && soundPath}
             <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
@@ -107,8 +107,8 @@
         <div class="aa-3wide" transition:fade>
             <div class="flexcol" style="grid-row: 3 / 4; grid-column: 1 / 2;">
                 <label for=""
-                    >{localize("AUTOANIM.start")}
-                    {localize("AUTOANIM.time")}</label
+                    >{localize("autoanimations.menus.start")}
+                    {localize("autoanimations.menus.time")}</label
                 >
                 <input
                     type="Number"
@@ -118,7 +118,7 @@
                 />
             </div>
             <div class="flexcol" style="grid-row: 3 / 4; grid-column: 2 / 3;">
-                <label for="">{localize("AUTOANIM.volume")}</label>
+                <label for="">{localize("autoanimations.menus.volume")}</label>
                 <input
                     type="Number"
                     bind:value={volume}
@@ -127,7 +127,7 @@
                 />
             </div>
             <div class="flexcol" style="grid-row: 3 / 4; grid-column: 3 / 4;">
-                <label for="">{localize("AUTOANIM.delay")}</label>
+                <label for="">{localize("autoanimations.menus.delay")}</label>
                 <input
                     type="Number"
                     bind:value={delay}

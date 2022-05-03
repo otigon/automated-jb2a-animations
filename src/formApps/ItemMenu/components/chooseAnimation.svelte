@@ -41,7 +41,6 @@
             flagOptions = flagData.options;
             break;
         case "sourceExtraFX":
-            console.log("Routing for Source FX");
             rootPath = customRoot = flagOptions = flagData.sourceToken;
             break;
         case "targetExtraFX":
@@ -155,9 +154,8 @@
             class="flexcol {isCustom ? 'aa-disabled' : ''}"
             style="grid-row: 2 / 3;grid-column: 2 / 3;"
         >
-            <label for="2">{localize("AUTOANIM.type")}</label>
+            <label for="2">{localize("autoanimations.menus.type")}</label>
             <select
-                name="flags.autoanimations.options.menuType"
                 bind:value={menuType}
                 on:change={async () => await menuTypeChange()}
                 id="2"
@@ -181,22 +179,21 @@
                 in:fly={{ x: 200, duration: 500 }}
                 out:fly={{ x: 200, duration: 500 }}
             >
-                <label for="6">{localize("AUTOANIM.playOn")}</label>
+                <label for="6">{localize("autoanimations.menus.playOn")}</label>
                 <select
-                    name="flags.autoanimations.options.staticType"
                     bind:value={staticType}
                     id="6"
                     style="text-align: center;justify-self: center; background-color: rgba(21, 154, 169, 0.4);"
                 >
-                    <option value="source">{localize("AUTOANIM.source")}</option
+                    <option value="source">{localize("autoanimations.menus.source")}</option
                     >
-                    <option value="target">{localize("AUTOANIM.target")}</option
+                    <option value="target">{localize("autoanimations.menus.target")}</option
                     >
                     <option value="targetDefault"
-                        >{localize("AUTOANIM.targetDefault")}</option
+                        >{localize("autoanimations.menus.targetDefault")}</option
                     >
                     <option value="sourcetarget"
-                        >{localize("AUTOANIM.both")}</option
+                        >{localize("autoanimations.menus.both")}</option
                     >
                 </select>
             </div>
@@ -206,9 +203,8 @@
             class="flexcol {isCustom ? 'aa-disabled' : ''}"
             style="grid-row: 3 / 4;grid-column: 1 / 2;"
         >
-            <label for="3">{localize("AUTOANIM.animation")}</label>
+            <label for="3">{localize("autoanimations.menus.animation")}</label>
             <select
-                name="flags.autoanimations.animation"
                 bind:value={animation}
                 on:change={async () => await animationChange()}
                 id="3"
@@ -229,9 +225,8 @@
             class="flexcol {isCustom ? 'aa-disabled' : ''}"
             style="grid-row: 3 / 4;grid-column: 2 / 3;"
         >
-            <label for="4">{localize("AUTOANIM.variant")}</label>
+            <label for="4">{localize("autoanimations.menus.variant")}</label>
             <select
-                name="flags.autoanimations.options.variant"
                 bind:value={variant}
                 on:change={async () => await variantChange()}
                 id="4"
@@ -252,9 +247,8 @@
             class="flexcol {isCustom ? 'aa-disabled' : ''}"
             style="grid-row: 3 / 4;grid-column: 3 / 4;"
         >
-            <label for="5">{localize("AUTOANIM.color")}</label>
+            <label for="5">{localize("autoanimations.menus.color")}</label>
             <select
-                name="flags.autoanimations.color"
                 bind:value={color}
                 id="5"
                 disabled={isCustom}
@@ -287,7 +281,7 @@
                 <label
                     for="constantY"
                     class={onlyX ? "selected" : "notSelected"}
-                    >{localize("AUTOANIM.constantScaleY")}</label
+                    >{localize("autoanimations.menus.constantScaleY")}</label
                 >
             </div>
         {/if}

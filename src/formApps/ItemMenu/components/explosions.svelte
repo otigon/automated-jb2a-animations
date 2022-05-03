@@ -1,5 +1,4 @@
 <script>
-    import SelectAnimation from "./SelectAnimation.svelte";
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import ExplosionApp from "../videoPreviews/explosionApp.svelte";
     import ChooseAnimation from "./chooseAnimation.svelte";
@@ -35,7 +34,7 @@
         explosions.below = belowToken;
     }
 
-    $: aboveBelow = belowToken ? "Below Token" : "Above Token";
+    $: aboveBelow = belowToken ? game.i18n.localize("autoanimations.menus.below") : game.i18n.localize("autoanimations.menus.above");
     function below() {
         belowToken = !belowToken;
     }
@@ -100,7 +99,7 @@
     <div class="aa-header-section">
         <div class="aa-header">
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
-                <label for="">Explosion {enableSection ? "Enabled" : "Disabled"}</label>
+                <label for="">{localize("autoanimations.menus.macro")} {enableSection ? localize("autoanimations.menus.enabled") : localize("autoanimations.menus.disabled")}</label>
             </div>
             {#if enableSection}
                 <div
@@ -141,11 +140,11 @@
         <h2 transition:fade>Options</h2>
         <div class="aa-3wide" transition:fade>
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 3;">
-                <label for="">{localize("AUTOANIM.radius")}</label>
+                <label for="">{localize("autoanimations.menus.radius")}</label>
                 <input type="Number" bind:value={radius} placeholder=1.5 />
             </div>
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-                <label for="">{localize("AUTOANIM.delayMS")}</label>
+                <label for="">{localize("autoanimations.menus.delay")}</label>
                 <input type="Number" bind:value={delay} placeholder=1 />
             </div>
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">

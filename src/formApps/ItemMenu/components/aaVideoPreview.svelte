@@ -51,6 +51,6 @@ if (isCustom) {
     display: block;
     margin: 0 auto;
     background: #363636
-}
+} 
 
 </style>

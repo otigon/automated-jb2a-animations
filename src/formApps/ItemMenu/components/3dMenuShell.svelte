@@ -84,6 +84,6 @@
         margin-right: 5%;
         margin-left: 5%;
         color: black;
-    }
+    } 
 
 </style>

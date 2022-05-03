@@ -1,7 +1,6 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade } from "svelte/transition";
-    import StaticMenu from "./staticMenu.svelte";
     import SoundSettings from "./soundSettings.svelte";
     import ChooseAnimation from "./chooseAnimation.svelte";
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
@@ -27,19 +26,17 @@
     let sectionTitle;
     switch (flagPath) {
         case "sourceExtraFX":
-            console.log("Source FX Options");
             root = flagData.sourceToken;
             audioPath = "s01";
-            sectionTitle = "Source Effect";
+            sectionTitle = game.i18n.localize("autoanimations.menus.source") + " " + game.i18n.localize("autoanimations.menus.effects");
             break;
         case "targetExtraFX":
-            console.log("Target FX Options");
             root = flagData.targetToken;
             audioPath = "t01";
-            sectionTitle = "Target Effect";
+            sectionTitle = game.i18n.localize("autoanimations.menus.target") + " " + game.i18n.localize("autoanimations.menus.effects");
             break;
     }
-    let previewType = flagPath === "sourceExtraFX" ? "source" : "target";
+
     let repeat = root.loops || 1;
     $: repeat = root.loops = repeat;
 
@@ -69,10 +66,10 @@
         belowToken = !belowToken;
     }
 
-    $: aboveBelow = belowToken ? "Below Token" : "Above Token";
-    $: bindAlpha = unbindAlpha ? "Unbound" : "Bound";
-    $: bindVisibility = unbindVisbility ? "Unbound" : "Bound";
-    $: isPersistent = persistent ? "Persistent" : "Not Persistent";
+    $: aboveBelow = belowToken ? game.i18n.localize("autoanimations.menus.below") : game.i18n.localize("autoanimations.menus.above");
+    $: bindAlpha = unbindAlpha ? game.i18n.localize("autoanimations.menus.unbound") : game.i18n.localize("autoanimations.menus.bound");
+    $: bindVisibility = unbindVisbility ? game.i18n.localize("autoanimations.menus.unbound") : game.i18n.localize("autoanimations.menus.bound");
+    $: isPersistent = persistent ? game.i18n.localize("autoanimations.menus.persistant") : game.i18n.localize("autoanimations.menus.not") + " " + game.i18n.localize("autoanimations.menus.persistant");
     function switchAlpha() {
         unbindAlpha = !unbindAlpha;
     }
@@ -221,7 +218,7 @@
                 : ''}"
             style="grid-row: 1 / 2; grid-column: 1 / 2;"
         >
-            <label for="">Persistence</label>
+            <label for="">{localize("autoanimations.menus.persistence")}</label>
             <button
                 disabled={flagPath === "sourceExtraFX"}
                 on:click={() => switchPersistence()}>{isPersistent}</button
@@ -229,7 +226,7 @@
         </div>
         <!--Set Z-Index-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-            <label for="">Z-Index</label>
+            <label for="">{localize("autoanimations.menus.z-index")}</label>
             <button class="oldCheck" on:click={() => below()}
                 >{aboveBelow}</button
             >
@@ -241,7 +238,7 @@
                 : ''}"
             style="grid-row: 1 / 2; grid-column: 3 / 4;"
         >
-            <label for="">Visibility</label>
+            <label for="">{localize("autoanimations.menus.visibility")}</label>
             <button
                 disabled={flagPath === "sourceExtraFX"}
                 on:click={() => switchVisibility()}>{bindVisibility}</button
@@ -254,7 +251,7 @@
                 : ''}"
             style="grid-row: 1 / 2; grid-column: 4 / 5;"
         >
-            <label for="">Alpha</label>
+            <label for="">{localize("autoanimations.menus.alpha")}</label>
             <button
                 disabled={flagPath === "sourceExtraFX"}
                 on:click={() => switchAlpha()}>{bindAlpha}</button
@@ -265,7 +262,7 @@
             class="flexcol {persistent ? 'aa-opacityButton' : ''}"
             style="grid-row: 2 / 3; grid-column: 1 / 2;"
         >
-            <label for="aaRepeat">{localize("AUTOANIM.repeat")}</label>
+            <label for="aaRepeat">{localize("autoanimations.menus.repeat")}</label>
             <input
                 disabled={persistent}
                 id="aaRepeat"
@@ -280,8 +277,8 @@
             style="grid-row: 2 / 3; grid-column: 2 / 3;"
         >
             <label for="aaDelay"
-                >{localize("AUTOANIM.repeat")}
-                {localize("AUTOANIM.delay")}</label
+                >{localize("autoanimations.menus.repeat")}
+                {localize("autoanimations.menus.delay")}</label
             >
             <input
                 disabled={persistent}
@@ -293,7 +290,7 @@
         </div>
         <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
         <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
-            <label for="">{localize("AUTOANIM.scale")}</label>
+            <label for="">{localize("autoanimations.menus.scale")}</label>
             <input
                 type="Number"
                 bind:value={scale}
@@ -308,7 +305,7 @@
             in:fade={{ duration: 500 }}
             out:fade={{ duration: 500 }}
         >
-            <label for="">{localize("AUTOANIM.opacity")}</label>
+            <label for="">{localize("autoanimations.menus.opacity")}</label>
             <div class="form-group">
                 <input
                     type="Number"

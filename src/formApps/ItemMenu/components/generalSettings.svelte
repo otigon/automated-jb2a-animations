@@ -16,22 +16,22 @@
     $: flagData.killAnim = animationDisabled;
     $: disabledLabel = disabledLabel;
     let disabledLabel = !animationDisabled
-        ? game.i18n.localize("AUTOANIM.animation") +
+        ? game.i18n.localize("autoanimations.menus.animation") +
           " " +
-          game.i18n.localize("AUTOANIM.enabled")
-        : game.i18n.localize("AUTOANIM.animation") +
+          game.i18n.localize("autoanimations.menus.enabled")
+        : game.i18n.localize("autoanimations.menus.animation") +
           " " +
-          game.i18n.localize("AUTOANIM.disabled");
+          game.i18n.localize("autoanimations.menus.disabled");
 
     $: {
         animationDisabled = animationDisabled;
         disabledLabel = animationDisabled
-            ? game.i18n.localize("AUTOANIM.animation") +
+            ? game.i18n.localize("autoanimations.menus.animation") +
               " " +
-              game.i18n.localize("AUTOANIM.disabled")
-            : game.i18n.localize("AUTOANIM.animation") +
+              game.i18n.localize("autoanimations.menus.disabled")
+            : game.i18n.localize("autoanimations.menus.animation") +
               " " +
-              game.i18n.localize("AUTOANIM.enabled");
+              game.i18n.localize("autoanimations.menus.enabled");
     }
 
     let gameSystem = game.system.id;
@@ -80,7 +80,7 @@
                 for="addMacro"
                 class={enableMacro ? "selected" : "notSelected"}
                 style="border: 2px ridge rgb(172, 172, 172, .47);"
-                >{localize("AUTOANIM.add")} {localize("AUTOANIM.macro")}</label
+                >{localize("autoanimations.menus.add")} {localize("autoanimations.menus.macro")}</label
             >
         </div>
     {/if}
@@ -116,7 +116,7 @@
             disabled={overrideAuto || animationDisabled}
         />
         <label for="override" class={isCustomized ? "selected" : "notSelected"}
-            >{localize("AUTOANIM.customize")}</label
+            >{localize("autoanimations.menus.customize")}</label
         >
     </div>
     <div
@@ -136,7 +136,7 @@
         <label
             for="overrideAuto"
             class={overrideAuto ? "selected" : "notSelected"}
-            >Override Autorec</label
+            >{localize("autoanimations.menus.override")} Autorec</label
         >
     </div>
     <div

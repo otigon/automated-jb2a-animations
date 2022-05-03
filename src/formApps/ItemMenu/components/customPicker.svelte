@@ -35,7 +35,7 @@
     <div class="flexcol aa-button-labels" style="grid-row:1/2; grid-column:1/2">
         <input type="checkbox" id={customId} hidden bind:checked={isCustom} />
         <label for={customId} class={isCustom ? "selected" : "notSelected"}
-            >Set {localize("AUTOANIM.custom")}</label
+            >Set {localize("autoanimations.menus.custom")}</label
         >
     </div>
     <div

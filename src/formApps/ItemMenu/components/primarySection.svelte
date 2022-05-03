@@ -75,7 +75,7 @@
 <div class="aa-header-section">
     <div class="aa-header">
         <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
-            <label for="">Primary Animation</label>
+            <label for="">{localize("autoanimations.menus.primary")} {localize("autoanimations.menus.animation")}</label>
         </div>
         <div
             class="flexcol"

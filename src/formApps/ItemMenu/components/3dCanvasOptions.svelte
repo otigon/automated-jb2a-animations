@@ -99,7 +99,7 @@
 
 <div class="aa-3d-settings">
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 1 / 2;">
-        <label for="">{localize("AUTOANIM.color")} 01 </label>
+        <label for="">{localize("autoanimations.menus.color")} 01 </label>
         <input type="Text" bind:value={color01} />
     </div>
     <div class="form-group" style="grid-row: 3 / 4; grid-column: 1 / 2;">
@@ -109,11 +109,11 @@
         <input type="color" data-edit="color" id="tint" bind:value={color02} />
     </div>
     <div class="flexcol" style="grid-row: 5 / 6; grid-column: 1 / 2;">
-        <label for="">{localize("AUTOANIM.color")} 02 </label>
+        <label for="">{localize("autoanimations.menus.color")} 02 </label>
         <input type="Text" bind:value={color02} />
     </div>
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 2 / 3;">
-        <label for="">{localize("AUTOANIM.speed")} </label>
+        <label for="">{localize("autoanimations.menus.speed")} </label>
         <input
             type="Number"
             step=.01
@@ -123,7 +123,7 @@
         />
     </div>
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.repeat")} </label>
+        <label for="">{localize("autoanimations.menus.repeat")} </label>
         <input type="Number" step=.01 bind:value={repeat} placeholder=1 />
     </div>
     {#if type === "projectile" || type === "ray"}
@@ -131,20 +131,20 @@
             class="flexcol"
             style="grid-row: 3 / 4; grid-column: 3 / 4;"
         >
-            <label for="">{localize("AUTOANIM.arc")} </label>
+            <label for="">{localize("autoanimations.menus.arc")} </label>
             <input type="Number" step=.01 bind:value={arc} placeholder=2 />
         </div>
     {/if}
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;">
-        <label for="">{localize("AUTOANIM.delayMS")} </label>
+        <label for="">{localize("autoanimations.menus.delay")} </label>
         <input type="Number" step=.01 bind:value={delay} placeholder=0 />
     </div>
     <div class="flexcol" style="grid-row: 3 / 4; grid-column: 2 / 3;">
-        <label for="">{localize("AUTOANIM.scale")} </label>
+        <label for="">{localize("autoanimations.menus.scale")} </label>
         <input type="Number" step=.01 bind:value={scale} placeholder=0.7 />
     </div>
     <div class="flexcol" style="grid-row: 3 / 4; grid-column: 4 / 5;">
-        <label for="">{localize("AUTOANIM.alpha")} </label>
+        <label for="">{localize("autoanimations.menus.alpha")} </label>
         <input type="Number" step=.01 bind:value={alpha} placeholder=0.5 />
     </div>
     {#if type !== "sprite"}
@@ -152,7 +152,7 @@
             class="flexcol"
             style="grid-row: 4 / 5; grid-column: 2 / 3;"
         >
-            <label for="">{localize("AUTOANIM.gravity")} </label>
+            <label for="">{localize("autoanimations.menus.gravity")} </label>
             <input
                 type="Number"
                 step=.01
@@ -164,7 +164,7 @@
             class="flexcol"
             style="grid-row: 4 / 5; grid-column: 3 / 4;"
         >
-            <label for="">{localize("AUTOANIM.mass")} </label>
+            <label for="">{localize("autoanimations.menus.mass")} </label>
             <input
                 type="Number"
                 step=.01
@@ -176,7 +176,7 @@
             class="flexcol"
             style="grid-row: 4 / 5; grid-column: 4 / 5;"
         >
-            <label for="">{localize("AUTOANIM.life")} </label>
+            <label for="">{localize("autoanimations.menus.life")} </label>
             <input
                 type="Number"
                 step=.01
@@ -188,7 +188,7 @@
             class="flexcol"
             style="grid-row: 5 / 6; grid-column: 2 / 3;"
         >
-            <label for="">{localize("AUTOANIM.emiterSize")} </label>
+            <label for="">{localize("autoanimations.menus.emiterSize")} </label>
             <input
                 type="Number"
                 step=.0001
@@ -200,7 +200,7 @@
             class="flexcol"
             style="grid-row: 5 / 6; grid-column: 3 / 4;"
         >
-            <label for="rate">{localize("AUTOANIM.rate")} </label>
+            <label for="rate">{localize("autoanimations.menus.rate")} </label>
             <input
                 type="Number"
                 step=.01
@@ -214,7 +214,7 @@
 <div class="aa-customAnim-container">
     <div class="form-group" style="grid-row: 1/2; grid-column: 1/3">
         <label for="" style="align-self:end;"
-            >{localize("AUTOANIM.sprite")}</label
+            >{localize("autoanimations.menus.sprite")}</label
         >
         <input type="text" bind:value={spritePath} />
         <button

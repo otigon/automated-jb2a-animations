@@ -130,14 +130,14 @@
 
     let enableSource = flagData.sourceToken.enable || false;
     $: enableSource = enableSource;
-    extraSource.set(flagData.sourceToken.enable)
+    extraSource.set(flagData.sourceToken.enable);
     extraSource.subscribe((value) => {
         enableSource = value;
     });
 
     let enableTarget = flagData.targetToken.enable || false;
     $: enableTarget = enableTarget;
-    extraTarget.set(flagData.targetToken.enable)
+    extraTarget.set(flagData.targetToken.enable);
     extraTarget.subscribe((value) => {
         enableTarget = value;
     });
@@ -147,7 +147,7 @@
     $: {
         animType = animType;
         flagData.animType = animType;
-        menuAnimType.set(animType === "aura" ? "static" : animType)
+        menuAnimType.set(animType === "aura" ? "static" : animType);
     }
     let presetType = preset.presetType;
     $: presetType = preset.presetType = presetType;
@@ -204,8 +204,8 @@
                         class={focusPrimary ? "selected" : "notSelected"}
                         on:click={() => switchPrimary()}
                         ><i class="fas fa-bomb" />
-                        {localize("AUTOANIM.primary")}
-                        {localize("AUTOANIM.animation")}</button
+                        {localize("autoanimations.menus.primary")}
+                        {localize("autoanimations.menus.animation")}</button
                     >
                 </div>
                 <div
@@ -216,8 +216,8 @@
                         class={focusExtra ? "selected" : "notSelected"}
                         on:click={() => switchExtra()}
                         ><i class="fas fa-user-plus" />
-                        {localize("AUTOANIM.extra")}
-                        {localize("AUTOANIM.effects")}</button
+                        {localize("autoanimations.menus.extra")}
+                        {localize("autoanimations.menus.effects")}</button
                     >
                 </div>
                 <div
@@ -250,7 +250,7 @@
                             >
                                 <label for="" style="font-size:x-large"
                                     ><strong>{oldName}</strong>
-                                    {localize("AUTOANIM.autorecognized")}
+                                    {localize("autoanimations.menus.autorecognized")}
                                 </label>
                             </div>
                         </div>
@@ -262,8 +262,8 @@
                                 style="grid-row: 1 / 2;grid-column: 2 / 3;"
                             >
                                 <label for="1"
-                                    >{localize("AUTOANIM.animation")}
-                                    {localize("AUTOANIM.type")}</label
+                                    >{localize("autoanimations.menus.animation")}
+                                    {localize("autoanimations.menus.type")}</label
                                 >
                                 <select
                                     bind:value={animType}
@@ -310,8 +310,12 @@
                                     transition:fade
                                 >
                                     <label for="1"
-                                        >{localize("AUTOANIM.preset")}
-                                        {localize("AUTOANIM.type")}</label
+                                        >{localize(
+                                            "autoanimations.menus.preset"
+                                        )}
+                                        {localize(
+                                            "autoanimations.menus.type"
+                                        )}</label
                                     >
                                     <select
                                         bind:value={presetType}
@@ -422,7 +426,9 @@
                                     ? "selected"
                                     : "notSelected"}
                                 style="border: 1px outset black; border-radius: 10px 20px"
-                                >Source</label
+                                >{localize(
+                                    "autoanimations.menus.source"
+                                )}</label
                             >
                         </div>
                         {#if enableSource}
@@ -447,7 +453,10 @@
                             <label
                                 for=""
                                 class="selected"
-                                style="border: 1px outset black">Primary</label
+                                style="border: 1px outset black"
+                                >{localize(
+                                    "autoanimations.menus.primary"
+                                )}</label
                             >
                         </div>
                         {#if enableTarget}
@@ -475,7 +484,9 @@
                                     ? "selected"
                                     : "notSelected"}
                                 style="border: 1px outset black; border-radius: 20px 10px"
-                                >Target</label
+                                >{localize(
+                                    "autoanimations.menus.target"
+                                )}</label
                             >
                         </div>
                     </div>
@@ -510,14 +521,17 @@
                     <button
                         class="footer-button"
                         type="submit"
-                        on:click|preventDefault={applyFlags}>Submit</button
+                        on:click|preventDefault={applyFlags}
+                        >{localize("autoanimations.menus.submit")}</button
                     >
                 </div>
                 <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
                     <button
                         class="footer-button"
                         on:click|preventDefault={closeApp}
-                        >Close and Submit</button
+                        >{localize("autoanimations.menus.close")} 
+                        {localize("autoanimations.menus.and")} 
+                        {localize("autoanimations.menus.submit")}</button
                     >
                 </div>
             </div>

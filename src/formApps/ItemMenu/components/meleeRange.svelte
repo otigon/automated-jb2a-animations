@@ -78,11 +78,11 @@
     }
 
     let returnEnabled = meleeSwitch.enable;
-    let returnLabel = returnEnabled ? "Enabled" : "Disabled";
+    let returnLabel = returnEnabled ? game.i18n.localize("autoanimations.menus.enabled") : game.i18n.localize("autoanimations.menus.disabled");
 
     function switchLabel() {
         returnEnabled = !returnEnabled;
-        returnLabel = returnEnabled ? "Enabled" : "Disabled";
+        returnLabel = returnEnabled ? game.i18n.localize("autoanimations.menus.enabled") : game.i18n.localize("autoanimations.menus.disabled");
     }
     $: meleeSwitch.returning = returnEnabled;
     let isDisabled = false;
@@ -132,7 +132,7 @@
 <div class="aa-header-section">
     <div class="aa-header">
         <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-            <label for="">Melee Range Switch</label>
+            <label for="">{localize("autoanimations.menus.melee")} {localize("autoanimations.menus.ranged")} {localize("autoanimations.menus.switch")}</label>
         </div>
         {#if menuType && switchType === "custom"}
             <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
@@ -147,25 +147,24 @@
 <div class="aa-select-animation" transition:fade>
     <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
         <label for="1"
-            >{localize("AUTOANIM.ranged")} {localize("AUTOANIM.switch")}</label
+            >{localize("autoanimations.menus.ranged")} {localize("autoanimations.menus.switch")}</label
         >
         <select
-            name="flags.autoanimations.animType"
             bind:value={switchType}
             on:change={async () => await switchChange()}
             id="1"
             style="text-align: center;justify-self: center"
         >
-            <option value="on">{localize("AUTOANIM.enabled")}</option>
-            <option value="off">{localize("AUTOANIM.disabled")}</option>
-            <option value="custom">{localize("AUTOANIM.custom")}</option>
+            <option value="on">{localize("autoanimations.menus.enabled")}</option>
+            <option value="off">{localize("autoanimations.menus.disabled")}</option>
+            <option value="custom">{localize("autoanimations.menus.custom")}</option>
         </select>
     </div>
     <div
         class="flexcol {isDisabled ? 'aa-disabled' : ''}"
         style="grid-row:1/2; grid-column:3/4"
     >
-        <label for="">Return Animation</label>
+        <label for="">{localize("autoanimations.menus.return")} {localize("autoanimations.menus.animation")}</label>
         <button
             disabled={isDisabled}
             class="oldCheck {returnEnabled && !isDisabled
@@ -177,9 +176,8 @@
     {#if switchType === "custom"}
         <!--Type Menu-->
         <div class="flexcol" style="grid-row: 2 / 3;grid-column: 2 / 3;">
-            <label for="2">{localize("AUTOANIM.type")}</label>
+            <label for="2">{localize("autoanimations.menus.type")}</label>
             <select
-                name="flags.autoanimations.options.menuType"
                 bind:value={menuType}
                 on:change={async () => await menuTypeChange()}
                 id="2"
@@ -192,9 +190,8 @@
         </div>
         <!--Animation Menu-->
         <div class="flexcol" style="grid-row: 3 / 4;grid-column: 1 / 2;">
-            <label for="3">{localize("AUTOANIM.animation")}</label>
+            <label for="3">{localize("autoanimations.menus.animation")}</label>
             <select
-                name="flags.autoanimations.animation"
                 bind:value={animation}
                 on:change={async () => await animationChange()}
                 id="3"
@@ -209,9 +206,8 @@
         </div>
         <!--Variant Menu-->
         <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
-            <label for="4">{localize("AUTOANIM.variant")}</label>
+            <label for="4">{localize("autoanimations.menus.variant")}</label>
             <select
-                name="flags.autoanimations.options.variant"
                 bind:value={variant}
                 on:change={async () => await variantChange()}
                 id="4"
@@ -226,9 +222,8 @@
         </div>
         <!--Color Menu-->
         <div class="flexcol" style="grid-row: 3 / 4;grid-column: 3 / 4;">
-            <label for="5">{localize("AUTOANIM.color")}</label>
+            <label for="5">{localize("autoanimations.menus.color")}</label>
             <select
-                name="flags.autoanimations.color"
                 bind:value={color}
                 id="5"
                 class={color != "" ? "isPopulated" : "isNotPopulated"}
@@ -245,7 +240,7 @@
 {#if switchType === "custom"}
     <div class="aa-4wide" transition:fade={{ duration: 500 }}>
         <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-            <label for="">{localize("AUTOANIM.rangeDetect")}</label>
+            <label for="">{localize("autoanimations.menus.rangeDetect")}</label>
             <button class="oldCheck" on:click={() => switchDetect()}
                 >{detectLabel}</button
             >
@@ -254,7 +249,7 @@
             class="flexcol {detect === 'auto' ? 'aa-disabled' : ''}"
             style="grid-row: 1 / 2; grid-column: 3 / 5;"
         >
-            <label for="">{localize("AUTOANIM.gridSquares")}</label>
+            <label for="">{localize("autoanimations.menus.gridSquares")}</label>
             <input
                 disabled={detect === "auto"}
                 type="Number"

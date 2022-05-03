@@ -12850,7 +12850,7 @@ async function menuOptions(database) {
     aaVariantMenu[section] = Object.keys(jb2a[section]).reduce((o, type) => _objectSpread2(_objectSpread2({}, o), {}, {
       [type]: Object.keys(jb2a[section][type]).reduce((o, name) => _objectSpread2(_objectSpread2({}, o), {}, {
         [name]: Object.keys(jb2a[section][type][name]).reduce((o, variant) => _objectSpread2(_objectSpread2({}, o), {}, {
-          [variant]: game.i18n.localize(`AUTOANIM.${variant}`)
+          [variant]: game.i18n.localize(`autoanimations.variants.${variant}`)
         }), {})
       }), {})
     }), {});
@@ -41085,10 +41085,10 @@ function create_if_block$c(ctx) {
 	let input;
 	let t0;
 	let label;
-	let t1_value = localize("AUTOANIM.add") + "";
+	let t1_value = localize("autoanimations.menus.add") + "";
 	let t1;
 	let t2;
-	let t3_value = localize("AUTOANIM.macro") + "";
+	let t3_value = localize("autoanimations.menus.macro") + "";
 	let t3;
 	let label_class_value;
 	let div_transition;
@@ -41181,7 +41181,7 @@ function create_fragment$n(ctx) {
 	let input1_disabled_value;
 	let t4;
 	let label1;
-	let t5_value = localize("AUTOANIM.customize") + "";
+	let t5_value = localize("autoanimations.menus.customize") + "";
 	let t5;
 	let label1_class_value;
 	let div1_class_value;
@@ -41192,17 +41192,19 @@ function create_fragment$n(ctx) {
 	let input2_disabled_value;
 	let t7;
 	let label2;
+	let t8_value = localize("autoanimations.menus.override") + "";
 	let t8;
+	let t9;
 	let label2_class_value;
 	let div2_class_value;
 	let div2_transition;
-	let t9;
+	let t10;
 	let div3;
 	let input3;
 	let input3_disabled_value;
-	let t10;
-	let label3;
 	let t11;
+	let label3;
+	let t12;
 	let label3_class_value;
 	let div3_class_value;
 	let div3_transition;
@@ -41232,13 +41234,14 @@ function create_fragment$n(ctx) {
 			input2 = element("input");
 			t7 = space();
 			label2 = element("label");
-			t8 = text("Override Autorec");
-			t9 = space();
+			t8 = text(t8_value);
+			t9 = text(" Autorec");
+			t10 = space();
 			div3 = element("div");
 			input3 = element("input");
-			t10 = space();
+			t11 = space();
 			label3 = element("label");
-			t11 = text("Animate from Ammo");
+			t12 = text("Animate from Ammo");
 			attr(input0, "type", "checkbox");
 			attr(input0, "id", "killAnim");
 			input0.hidden = true;
@@ -41321,13 +41324,14 @@ function create_fragment$n(ctx) {
 			append(div2, t7);
 			append(div2, label2);
 			append(label2, t8);
-			append(div4, t9);
+			append(label2, t9);
+			append(div4, t10);
 			append(div4, div3);
 			append(div3, input3);
 			input3.checked = /*fromAmmo*/ ctx[7];
-			append(div3, t10);
+			append(div3, t11);
 			append(div3, label3);
-			append(label3, t11);
+			append(label3, t12);
 			current = true;
 
 			if (!mounted) {
@@ -41492,8 +41496,8 @@ function instance$n($$self, $$props, $$invalidate) {
 	let { animationDisabled = flagData.killAnim || false } = $$props;
 
 	let disabledLabel = !animationDisabled
-	? game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled")
-	: game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.disabled");
+	? game.i18n.localize("autoanimations.menus.animation") + " " + game.i18n.localize("autoanimations.menus.enabled")
+	: game.i18n.localize("autoanimations.menus.animation") + " " + game.i18n.localize("autoanimations.menus.disabled");
 
 	let gameSystem = game.system.id;
 	let { isCustomized = flagData.override || false } = $$props;
@@ -41541,8 +41545,8 @@ function instance$n($$self, $$props, $$invalidate) {
 				$$invalidate(0, animationDisabled);
 
 				$$invalidate(5, disabledLabel = animationDisabled
-				? game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.disabled")
-				: game.i18n.localize("AUTOANIM.animation") + " " + game.i18n.localize("AUTOANIM.enabled"));
+				? game.i18n.localize("autoanimations.menus.animation") + " " + game.i18n.localize("autoanimations.menus.disabled")
+				: game.i18n.localize("autoanimations.menus.animation") + " " + game.i18n.localize("autoanimations.menus.enabled"));
 			}
 		}
 
@@ -41652,23 +41656,23 @@ function create_fragment$m(ctx) {
 			div4 = element("div");
 			div1 = element("div");
 			label0 = element("label");
-			label0.textContent = `${localize("AUTOANIM.playwhen")}`;
+			label0.textContent = `${localize("autoanimations.menus.playwhen")}`;
 			t3 = space();
 			select = element("select");
 			option0 = element("option");
-			option0.textContent = `${localize("AUTOANIM.macroconcurrent")}`;
+			option0.textContent = `${localize("autoanimations.menus.macroconcurrent")}`;
 			option1 = element("option");
-			option1.textContent = `${localize("AUTOANIM.awaitmacro")}`;
+			option1.textContent = `${localize("autoanimations.menus.awaitmacro")}`;
 			t6 = space();
 			div2 = element("div");
 			label1 = element("label");
-			label1.textContent = `${localize("AUTOANIM.macro")}  ${localize("AUTOANIM.name")}`;
+			label1.textContent = `${localize("autoanimations.menus.macro")}  ${localize("autoanimations.menus.name")}`;
 			t10 = space();
 			input0 = element("input");
 			t11 = space();
 			div3 = element("div");
 			label2 = element("label");
-			label2.textContent = `${localize("AUTOANIM.args")}`;
+			label2.textContent = `${localize("autoanimations.menus.args")}`;
 			t13 = space();
 			input1 = element("input");
 			attr(h1, "class", "svelte-1h59r79");
@@ -55949,27 +55953,28 @@ function create_fragment$6(ctx) {
 	let div2;
 	let div1;
 	let div0;
-	let t1;
-	let t2;
+	let label0;
+	let t5;
+	let t6;
 	let div5;
 	let div3;
 	let label1;
-	let t6;
+	let t10;
 	let select;
 	let option0;
 	let option1;
 	let option2;
-	let t10;
+	let t14;
 	let div4;
 	let label2;
-	let t12;
+	let t16;
 	let button;
-	let t13;
+	let t17;
 	let button_class_value;
 	let div4_class_value;
-	let t14;
+	let t18;
 	let div5_transition;
-	let t15;
+	let t19;
 	let if_block2_anchor;
 	let current;
 	let mounted;
@@ -55983,34 +55988,37 @@ function create_fragment$6(ctx) {
 			div2 = element("div");
 			div1 = element("div");
 			div0 = element("div");
-			div0.innerHTML = `<label for="" class="svelte-1hd0pm2">Melee Range Switch</label>`;
-			t1 = space();
+			label0 = element("label");
+			label0.textContent = `${localize("autoanimations.menus.melee")}  ${localize("autoanimations.menus.ranged")}  ${localize("autoanimations.menus.switch")}`;
+			t5 = space();
 			if (if_block0) if_block0.c();
-			t2 = space();
+			t6 = space();
 			div5 = element("div");
 			div3 = element("div");
 			label1 = element("label");
-			label1.textContent = `${localize("AUTOANIM.ranged")}  ${localize("AUTOANIM.switch")}`;
-			t6 = space();
+			label1.textContent = `${localize("autoanimations.menus.ranged")}  ${localize("autoanimations.menus.switch")}`;
+			t10 = space();
 			select = element("select");
 			option0 = element("option");
-			option0.textContent = `${localize("AUTOANIM.enabled")}`;
+			option0.textContent = `${localize("autoanimations.menus.enabled")}`;
 			option1 = element("option");
-			option1.textContent = `${localize("AUTOANIM.disabled")}`;
+			option1.textContent = `${localize("autoanimations.menus.disabled")}`;
 			option2 = element("option");
-			option2.textContent = `${localize("AUTOANIM.custom")}`;
-			t10 = space();
+			option2.textContent = `${localize("autoanimations.menus.custom")}`;
+			t14 = space();
 			div4 = element("div");
 			label2 = element("label");
 			label2.textContent = "Return Animation";
-			t12 = space();
+			t16 = space();
 			button = element("button");
-			t13 = text(/*returnLabel*/ ctx[9]);
-			t14 = space();
+			t17 = text(/*returnLabel*/ ctx[9]);
+			t18 = space();
 			if (if_block1) if_block1.c();
-			t15 = space();
+			t19 = space();
 			if (if_block2) if_block2.c();
 			if_block2_anchor = empty();
+			attr(label0, "for", "");
+			attr(label0, "class", "svelte-1hd0pm2");
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1/2");
 			set_style(div0, "grid-column", "2/3");
@@ -56050,27 +56058,28 @@ function create_fragment$6(ctx) {
 			insert(target, div2, anchor);
 			append(div2, div1);
 			append(div1, div0);
-			append(div1, t1);
+			append(div0, label0);
+			append(div1, t5);
 			if (if_block0) if_block0.m(div1, null);
-			insert(target, t2, anchor);
+			insert(target, t6, anchor);
 			insert(target, div5, anchor);
 			append(div5, div3);
 			append(div3, label1);
-			append(div3, t6);
+			append(div3, t10);
 			append(div3, select);
 			append(select, option0);
 			append(select, option1);
 			append(select, option2);
 			select_option(select, /*switchType*/ ctx[0]);
-			append(div5, t10);
+			append(div5, t14);
 			append(div5, div4);
 			append(div4, label2);
-			append(div4, t12);
+			append(div4, t16);
 			append(div4, button);
-			append(button, t13);
-			append(div5, t14);
+			append(button, t17);
+			append(div5, t18);
 			if (if_block1) if_block1.m(div5, null);
-			insert(target, t15, anchor);
+			insert(target, t19, anchor);
 			if (if_block2) if_block2.m(target, anchor);
 			insert(target, if_block2_anchor, anchor);
 			current = true;
@@ -56103,7 +56112,7 @@ function create_fragment$6(ctx) {
 				select_option(select, /*switchType*/ ctx[0]);
 			}
 
-			if (!current || dirty[0] & /*returnLabel*/ 512) set_data(t13, /*returnLabel*/ ctx[9]);
+			if (!current || dirty[0] & /*returnLabel*/ 512) set_data(t17, /*returnLabel*/ ctx[9]);
 
 			if (!current || dirty[0] & /*isDisabled*/ 1024) {
 				button.disabled = /*isDisabled*/ ctx[10];
@@ -56175,11 +56184,11 @@ function create_fragment$6(ctx) {
 		d(detaching) {
 			if (detaching) detach(div2);
 			if (if_block0) if_block0.d();
-			if (detaching) detach(t2);
+			if (detaching) detach(t6);
 			if (detaching) detach(div5);
 			if (if_block1) if_block1.d();
 			if (detaching && div5_transition) div5_transition.end();
-			if (detaching) detach(t15);
+			if (detaching) detach(t19);
 			if (if_block2) if_block2.d(detaching);
 			if (detaching) detach(if_block2_anchor);
 			mounted = false;
@@ -56234,11 +56243,17 @@ function instance$6($$self, $$props, $$invalidate) {
 	}
 
 	let returnEnabled = meleeSwitch.enable;
-	let returnLabel = returnEnabled ? "Enabled" : "Disabled";
+
+	let returnLabel = returnEnabled
+	? game.i18n.localize("autoanimations.menus.enabled")
+	: game.i18n.localize("autoanimations.menus.disabled");
 
 	function switchLabel() {
 		$$invalidate(5, returnEnabled = !returnEnabled);
-		$$invalidate(9, returnLabel = returnEnabled ? "Enabled" : "Disabled");
+
+		$$invalidate(9, returnLabel = returnEnabled
+		? game.i18n.localize("autoanimations.menus.enabled")
+		: game.i18n.localize("autoanimations.menus.disabled"));
 	}
 
 	let isDisabled = false;
@@ -59313,7 +59328,7 @@ function create_if_block_13(ctx) {
 	let label;
 	let strong;
 	let t1;
-	let t2_value = localize("AUTOANIM.autorecognized") + "";
+	let t2_value = localize("autoanimations.menus.autorecognized") + "";
 	let t2;
 	let div1_transition;
 	let current;
@@ -59393,8 +59408,8 @@ function create_if_block_11(ctx) {
 			div0 = element("div");
 			label = element("label");
 
-			label.textContent = `${localize("AUTOANIM.animation")} 
-                                    ${localize("AUTOANIM.type")}`;
+			label.textContent = `${localize("autoanimations.menus.animation")} 
+                                    ${localize("autoanimations.menus.type")}`;
 
 			t3 = space();
 			select = element("select");
@@ -59543,8 +59558,8 @@ function create_if_block_12(ctx) {
 			div = element("div");
 			label = element("label");
 
-			label.textContent = `${localize("AUTOANIM.preset")} 
-                                        ${localize("AUTOANIM.type")}`;
+			label.textContent = `${localize("autoanimations.menus.preset")} 
+                                        ${localize("autoanimations.menus.type")}`;
 
 			t3 = space();
 			select = element("select");
@@ -59647,7 +59662,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (372:16) {#if enableMacro}
+// (376:16) {#if enableMacro}
 function create_if_block_10(ctx) {
 	let div;
 	let macrofield;
@@ -59696,7 +59711,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (377:16) {#if showSound}
+// (381:16) {#if showSound}
 function create_if_block_9(ctx) {
 	let div;
 	let soundsettings;
@@ -59751,7 +59766,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (382:16) {#if !animationDisabled && isCustomized}
+// (386:16) {#if !animationDisabled && isCustomized}
 function create_if_block_5(ctx) {
 	let current_block_type_index;
 	let if_block0;
@@ -59887,7 +59902,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (389:20) {:else}
+// (393:20) {:else}
 function create_else_block(ctx) {
 	let div;
 	let primarysection;
@@ -59935,7 +59950,7 @@ function create_else_block(ctx) {
 	};
 }
 
-// (383:20) {#if animType === "preset"}
+// (387:20) {#if animType === "preset"}
 function create_if_block_8(ctx) {
 	let presetmenu;
 	let current;
@@ -59978,7 +59993,7 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (398:20) {#if animType === "melee"}
+// (402:20) {#if animType === "melee"}
 function create_if_block_7(ctx) {
 	let div;
 	let rangeswitch;
@@ -60017,7 +60032,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (403:20) {#if animType === "melee" || animType === "range" || animType === "static"}
+// (407:20) {#if animType === "melee" || animType === "range" || animType === "static"}
 function create_if_block_6(ctx) {
 	let div;
 	let explosionsettings;
@@ -60056,22 +60071,25 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (411:8) {#if focusExtra}
+// (415:8) {#if focusExtra}
 function create_if_block_1(ctx) {
 	let div8;
 	let div5;
 	let div3;
 	let div0;
 	let label0;
+	let t0_value = localize("autoanimations.menus.source") + "";
 	let t0;
 	let label0_class_value;
 	let t1;
 	let t2;
 	let div1;
+	let label1;
 	let t4;
 	let t5;
 	let div2;
 	let label2;
+	let t6_value = localize("autoanimations.menus.target") + "";
 	let t6;
 	let label2_class_value;
 	let t7;
@@ -60108,18 +60126,19 @@ function create_if_block_1(ctx) {
 			div3 = element("div");
 			div0 = element("div");
 			label0 = element("label");
-			t0 = text("Source");
+			t0 = text(t0_value);
 			t1 = space();
 			if (if_block0) if_block0.c();
 			t2 = space();
 			div1 = element("div");
-			div1.innerHTML = `<label for="" class="selected svelte-2tvwk6" style="border: 1px outset black">Primary</label>`;
+			label1 = element("label");
+			label1.textContent = `${localize("autoanimations.menus.primary")}`;
 			t4 = space();
 			if (if_block1) if_block1.c();
 			t5 = space();
 			div2 = element("div");
 			label2 = element("label");
-			t6 = text("Target");
+			t6 = text(t6_value);
 			t7 = space();
 			div4 = element("div");
 
@@ -60139,6 +60158,9 @@ function create_if_block_1(ctx) {
 			attr(div0, "class", "flexcol aa-button-labels");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "1 / 2");
+			attr(label1, "for", "");
+			attr(label1, "class", "selected svelte-2tvwk6");
+			set_style(label1, "border", "1px outset black");
 			attr(div1, "class", "flexcol aa-button-labels");
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "3 / 4");
@@ -60169,6 +60191,7 @@ function create_if_block_1(ctx) {
 			if (if_block0) if_block0.m(div3, null);
 			append(div3, t2);
 			append(div3, div1);
+			append(div1, label1);
 			append(div3, t4);
 			if (if_block1) if_block1.m(div3, null);
 			append(div3, t5);
@@ -60277,7 +60300,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (428:24) {#if enableSource}
+// (434:24) {#if enableSource}
 function create_if_block_3(ctx) {
 	let div;
 	let label;
@@ -60322,7 +60345,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (453:24) {#if enableTarget}
+// (462:24) {#if enableTarget}
 function create_if_block_2(ctx) {
 	let div;
 	let label;
@@ -60367,7 +60390,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (500:8) {#if focus3d}
+// (511:8) {#if focus3d}
 function create_if_block(ctx) {
 	let div1;
 	let div0;
@@ -60429,10 +60452,10 @@ function create_default_slot(ctx) {
 	let button0;
 	let i0;
 	let t0;
-	let t1_value = localize("AUTOANIM.primary") + "";
+	let t1_value = localize("autoanimations.menus.primary") + "";
 	let t1;
 	let t2;
-	let t3_value = localize("AUTOANIM.animation") + "";
+	let t3_value = localize("autoanimations.menus.animation") + "";
 	let t3;
 	let button0_class_value;
 	let t4;
@@ -60440,10 +60463,10 @@ function create_default_slot(ctx) {
 	let button1;
 	let i1;
 	let t5;
-	let t6_value = localize("AUTOANIM.extra") + "";
+	let t6_value = localize("autoanimations.menus.extra") + "";
 	let t6;
 	let t7;
-	let t8_value = localize("AUTOANIM.effects") + "";
+	let t8_value = localize("autoanimations.menus.effects") + "";
 	let t8;
 	let button1_class_value;
 	let t9;
@@ -60507,11 +60530,15 @@ function create_default_slot(ctx) {
 			div7 = element("div");
 			div5 = element("div");
 			button3 = element("button");
-			button3.textContent = "Submit";
+			button3.textContent = `${localize("autoanimations.menus.submit")}`;
 			t16 = space();
 			div6 = element("div");
 			button4 = element("button");
-			button4.textContent = "Close and Submit";
+
+			button4.textContent = `${localize("autoanimations.menus.close")}  
+                        ${localize("autoanimations.menus.and")}  
+                        ${localize("autoanimations.menus.submit")}`;
+
 			attr(i0, "class", "fas fa-bomb");
 			attr(button0, "class", button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[14] ? "selected" : "notSelected") + " svelte-2tvwk6"));
 			attr(div0, "class", "flexcol");
@@ -61191,7 +61218,7 @@ class aaAutorec {
         0: {
           hidden: true,
           meleeType: 'weapon',
-          name: game.i18n.localize("AUTOANIM.dagger"),
+          name: game.i18n.localize("autoanimations.animations.dagger"),
           animation: 'dagger',
           variant: '01',
           color: 'white',
@@ -61203,7 +61230,7 @@ class aaAutorec {
         1: {
           hidden: true,
           meleeType: 'weapon',
-          name: game.i18n.localize("AUTOANIM.flurryofblows"),
+          name: game.i18n.localize("autoanimations.animations.flurryofblows"),
           animation: 'flurryofblows',
           variant: 'physical',
           color: 'blue',
@@ -61215,7 +61242,7 @@ class aaAutorec {
         2: {
           hidden: true,
           meleeType: 'weapon',
-          name: game.i18n.localize("AUTOANIM.greataxe"),
+          name: game.i18n.localize("autoanimations.animations.greataxe"),
           animation: 'greataxe',
           variant: '01',
           color: 'white',
@@ -61227,7 +61254,7 @@ class aaAutorec {
         3: {
           hidden: true,
           meleeType: 'weapon',
-          name: game.i18n.localize("AUTOANIM.greatclub"),
+          name: game.i18n.localize("autoanimations.animations.greatclub"),
           animation: 'greatclub',
           variant: '01',
           color: 'white',
@@ -61239,7 +61266,7 @@ class aaAutorec {
         4: {
           hidden: true,
           meleeType: 'weapon',
-          name: game.i18n.localize("AUTOANIM.greatsword"),
+          name: game.i18n.localize("autoanimations.animations.greatsword"),
           animation: 'greatsword',
           variant: '01',
           color: 'white',
@@ -61251,7 +61278,7 @@ class aaAutorec {
         5: {
           hidden: true,
           meleeType: 'weapon',
-          name: game.i18n.localize("AUTOANIM.handaxe"),
+          name: game.i18n.localize("autoanimations.animations.handaxe"),
           animation: 'handaxe',
           variant: '01',
           color: 'white',
@@ -61263,7 +61290,7 @@ class aaAutorec {
         6: {
           hidden: true,
           meleeType: 'weapon',
-          name: game.i18n.localize("AUTOANIM.sword"),
+          name: game.i18n.localize("autoanimations.animations.sword"),
           animation: 'sword',
           variant: '01',
           color: 'white',
@@ -61275,7 +61302,7 @@ class aaAutorec {
         7: {
           hidden: true,
           meleeType: 'weapon',
-          name: game.i18n.localize("AUTOANIM.mace"),
+          name: game.i18n.localize("autoanimations.animations.mace"),
           animation: 'mace',
           variant: '01',
           color: 'white',
@@ -61287,7 +61314,7 @@ class aaAutorec {
         8: {
           hidden: true,
           meleeType: 'weapon',
-          name: game.i18n.localize("AUTOANIM.maul"),
+          name: game.i18n.localize("autoanimations.animations.maul"),
           animation: 'maul',
           variant: '01',
           color: 'white',
@@ -61299,7 +61326,7 @@ class aaAutorec {
         9: {
           hidden: true,
           meleeType: 'weapon',
-          name: game.i18n.localize("AUTOANIM.spear"),
+          name: game.i18n.localize("autoanimations.animations.spear"),
           animation: 'spear',
           variant: '01',
           color: 'white',
@@ -61311,7 +61338,7 @@ class aaAutorec {
         10: {
           hidden: true,
           meleeType: 'weapon',
-          name: game.i18n.localize("AUTOANIM.rapier"),
+          name: game.i18n.localize("autoanimations.animations.rapier"),
           animation: 'rapier',
           variant: '01',
           color: 'white',
@@ -61323,7 +61350,7 @@ class aaAutorec {
         11: {
           hidden: true,
           meleeType: 'weapon',
-          name: game.i18n.localize("AUTOANIM.unarmedstrike"),
+          name: game.i18n.localize("autoanimations.animations.unarmedstrike"),
           animation: 'unarmedstrike',
           variant: 'physical',
           color: 'blue',
@@ -61336,7 +61363,7 @@ class aaAutorec {
       range: {
         0: {
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.crossbow"),
+          name: game.i18n.localize("autoanimations.animations.crossbow"),
           animation: 'bolt',
           variant: 'physical',
           color: 'orange',
@@ -61347,7 +61374,7 @@ class aaAutorec {
         },
         1: {
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.bow"),
+          name: game.i18n.localize("autoanimations.animations.bow"),
           animation: 'arrow',
           variant: 'regular',
           color: 'regular',
@@ -61358,7 +61385,7 @@ class aaAutorec {
         },
         2: {
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.disintegrate"),
+          name: game.i18n.localize("autoanimations.animations.disintegrate"),
           animation: 'disintegrate',
           variant: '01',
           color: 'green',
@@ -61369,7 +61396,7 @@ class aaAutorec {
         },
         3: {
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.eldritchblast"),
+          name: game.i18n.localize("autoanimations.animations.eldritchblast"),
           animation: 'eldritchblast',
           variant: '01',
           color: 'purple',
@@ -61380,7 +61407,7 @@ class aaAutorec {
         },
         4: {
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.firebolt"),
+          name: game.i18n.localize("autoanimations.animations.firebolt"),
           animation: 'firebolt',
           variant: '01',
           color: 'orange',
@@ -61391,7 +61418,7 @@ class aaAutorec {
         },
         5: {
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.guidingbolt"),
+          name: game.i18n.localize("autoanimations.animations.guidingbolt"),
           animation: 'guidingbolt',
           variant: '01',
           color: 'blueyellow',
@@ -61402,7 +61429,7 @@ class aaAutorec {
         },
         6: {
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.magicmissile"),
+          name: game.i18n.localize("autoanimations.animations.magicmissile"),
           animation: 'magicmissile',
           variant: '01',
           color: 'purple',
@@ -61413,7 +61440,7 @@ class aaAutorec {
         },
         7: {
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.rayoffrost"),
+          name: game.i18n.localize("autoanimations.animations.rayoffrost"),
           animation: 'rayoffrost',
           variant: '01',
           color: 'blue',
@@ -61424,7 +61451,7 @@ class aaAutorec {
         },
         8: {
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.scorchingray"),
+          name: game.i18n.localize("autoanimations.animations.scorchingray"),
           animation: 'scorchingray',
           variant: '01',
           color: 'orange',
@@ -61435,7 +61462,7 @@ class aaAutorec {
         },
         9: {
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.witchbolt"),
+          name: game.i18n.localize("autoanimations.animations.witchbolt"),
           animation: 'witchbolt',
           variant: '01',
           color: 'blue',
@@ -61448,7 +61475,7 @@ class aaAutorec {
       static: {
         0: {
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.curewounds"),
+          name: game.i18n.localize("autoanimations.animations.curewounds"),
           animation: 'curewounds',
           staticOptions: 'staticSpells',
           variant: '01',
@@ -61462,7 +61489,7 @@ class aaAutorec {
         },
         1: {
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.itemHealingWord"),
+          name: game.i18n.localize("autoanimations.animations.itemHealingWord"),
           animation: 'generichealing',
           staticOptions: 'staticSpells',
           variant: '01',
@@ -61476,7 +61503,7 @@ class aaAutorec {
         },
         2: {
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.tollthedead"),
+          name: game.i18n.localize("autoanimations.animations.tollthedead"),
           animation: 'tollthedead',
           staticOptions: 'staticSpells',
           variant: 'complete',
@@ -61496,7 +61523,7 @@ class aaAutorec {
           custom: false,
           delay: 500,
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.bite"),
+          name: game.i18n.localize("autoanimations.animations.bite"),
           repeat: 1,
           scale: 1,
           type: "target",
@@ -61511,7 +61538,7 @@ class aaAutorec {
           custom: false,
           delay: 500,
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.claw"),
+          name: game.i18n.localize("autoanimations.animations.claw"),
           repeat: 1,
           scale: 1,
           type: "target",
@@ -61527,7 +61554,7 @@ class aaAutorec {
           custom: false,
           delay: 500,
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.calllightning"),
+          name: game.i18n.localize("autoanimations.animations.calllightning"),
           occlusionAlpha: 0.7,
           occlusionMode: "3",
           opacity: 0.75,
@@ -61549,7 +61576,7 @@ class aaAutorec {
           custom: false,
           delay: 500,
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.fogcloud"),
+          name: game.i18n.localize("autoanimations.animations.fogcloud"),
           occlusionAlpha: 0.65,
           occlusionMode: "3",
           opacity: 0.75,
@@ -61571,7 +61598,7 @@ class aaAutorec {
           custom: false,
           delay: 500,
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.thunderwave"),
+          name: game.i18n.localize("autoanimations.animations.thunderwave"),
           opacity: 0.75,
           persist: false,
           removeTemplate: true,
@@ -61590,7 +61617,7 @@ class aaAutorec {
           color: 'darkblue',
           custom: false,
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.spiritguardians"),
+          name: game.i18n.localize("autoanimations.animations.spiritguardians"),
           opacity: 0.75,
           scale: 3.5,
           static: false,
@@ -61608,7 +61635,7 @@ class aaAutorec {
           below: false,
           hidden: true,
           marker: true,
-          name: game.i18n.localize("AUTOANIM.bardicinspiration"),
+          name: game.i18n.localize("autoanimations.animations.bardicinspiration"),
           scale: 1,
           selfAnimation: "music",
           selfColor: "blue",
@@ -61623,7 +61650,7 @@ class aaAutorec {
           below: true,
           color: "yellow",
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.bless"),
+          name: game.i18n.localize("autoanimations.animations.bless"),
           scale: 1.5
         },
         2: {
@@ -61632,7 +61659,7 @@ class aaAutorec {
           color: "blue",
           endeffect: "outro_explode",
           hidden: true,
-          name: game.i18n.localize("AUTOANIM.shield"),
+          name: game.i18n.localize("autoanimations.animations.shield"),
           scale: 1,
           variant: "01"
         },
@@ -61643,7 +61670,7 @@ class aaAutorec {
           custom: false,
           hidden: true,
           hideTemplate: false,
-          name: game.i18n.localize("AUTOANIM.mistystep"),
+          name: game.i18n.localize("autoanimations.animations.mistystep"),
           range: 30,
           scale: 1.5,
           subAnimation: "mistystep",
@@ -61677,7 +61704,7 @@ function aaSettings() {
   const menuAAAutoRecSettings = {
     key: 'custom-autorec',
     config: {
-      label: game.i18n.format("AUTOANIM.autoRecSetting"),
+      label: game.i18n.format("autoanimations.settings.autoRecSetting"),
       icon: "fas fa-dice-d20",
       type: aaAutoRecognition,
       restricted: true
@@ -61699,14 +61726,14 @@ function aaSettings() {
     default: aaAutorec.defaultConfiguration
   }, true, true));
   game.settings.register("autoanimations", "killAllAnim", {
-    name: game.i18n.format("AUTOANIM.toggleAnimations"),
-    hint: game.i18n.format("AUTOANIM.toggleAnimations_hint"),
+    name: game.i18n.format("autoanimations.settings.toggleAnimations"),
+    hint: game.i18n.format("autoanimations.settings.toggleAnimations_hint"),
     scope: "client",
     config: true,
     type: String,
     choices: {
-      "on": game.i18n.format("AUTOANIM.ON"),
-      "off": game.i18n.format("AUTOANIM.OFF")
+      "on": game.i18n.format("autoanimations.settings.ON"),
+      "off": game.i18n.format("autoanimations.settings.OFF")
     },
     default: "on",
     onChange: value => {
@@ -61720,24 +61747,24 @@ function aaSettings() {
     }
   });
   game.settings.register("autoanimations", "disableAutoRec", {
-    name: game.i18n.format("AUTOANIM.settingDisableAutoRec"),
-    hint: game.i18n.format("AUTOANIM.settingDisableAutoRecHint"),
+    name: game.i18n.format("autoanimations.settings.settingDisableAutoRec"),
+    hint: game.i18n.format("autoanimations.settings.settingDisableAutoRecHint"),
     scope: "client",
     config: true,
     type: Boolean,
     default: false
   });
   game.settings.register("autoanimations", "globaldelay", {
-    name: game.i18n.format("AUTOANIM.globaldelay_name"),
-    hint: game.i18n.format("AUTOANIM.globaldelay_hint"),
+    name: game.i18n.format("autoanimations.settings.globaldelay_name"),
+    hint: game.i18n.format("autoanimations.settings.globaldelay_hint"),
     scope: "world",
     config: true,
     default: 100,
     type: Number
   });
   game.settings.register("autoanimations", "videoLoop", {
-    name: game.i18n.format("AUTOANIM.animPreview"),
-    hint: game.i18n.format("AUTOANIM.animPreviewHint"),
+    name: game.i18n.format("autoanimations.settings.animPreview"),
+    hint: game.i18n.format("autoanimations.settings.animPreviewHint"),
     scope: "world",
     type: String,
     choices: {
@@ -61749,8 +61776,8 @@ function aaSettings() {
     config: true
   });
   game.settings.register("autoanimations", "jb2aLocation", {
-    name: game.i18n.format("AUTOANIM.s3Name"),
-    hint: game.i18n.format("AUTOANIM.s3Hint"),
+    name: game.i18n.format("autoanimations.settings.s3Name"),
+    hint: game.i18n.format("autoanimations.settings.s3Hint"),
     scope: 'world',
     config: true,
     type: String,
@@ -61760,32 +61787,32 @@ function aaSettings() {
     }
   });
   game.settings.register("autoanimations", "hideFromPlayers", {
-    name: game.i18n.format("AUTOANIM.animtab_name"),
-    hint: game.i18n.format("AUTOANIM.animtab_hint"),
+    name: game.i18n.format("autoanimations.settings.animtab_name"),
+    hint: game.i18n.format("autoanimations.settings.animtab_hint"),
     scope: "world",
     config: true,
     type: Boolean,
     default: false
   });
   game.settings.register("autoanimations", "decoupleSound", {
-    name: game.i18n.format("AUTOANIM.decoupleSounds"),
-    hint: game.i18n.format("AUTOANIM.decoupleSounds_hint"),
+    name: game.i18n.format("autoanimations.settings.decoupleSounds"),
+    hint: game.i18n.format("autoanimations.settings.decoupleSounds_hint"),
     scope: "world",
     config: true,
     type: Boolean,
     default: false
   });
   game.settings.register("autoanimations", "rangeSwitch", {
-    name: game.i18n.format("AUTOANIM.settingRangeSwitch"),
-    hint: game.i18n.format("AUTOANIM.settingRangeSwitchhint"),
+    name: game.i18n.format("autoanimations.settings.settingRangeSwitch"),
+    hint: game.i18n.format("autoanimations.settings.settingRangeSwitchhint"),
     scope: "client",
     config: true,
     type: Boolean,
     default: false
   });
   game.settings.register("autoanimations", "noTips", {
-    name: game.i18n.format("AUTOANIM.noTips"),
-    hint: game.i18n.format("AUTOANIM.noTipsHint"),
+    name: game.i18n.format("autoanimations.settings.noTips"),
+    hint: game.i18n.format("autoanimations.settings.noTipsHint"),
     scope: "client",
     config: true,
     type: Boolean,
@@ -61796,16 +61823,16 @@ function aaSettings() {
     case "demonlord":
       {
         game.settings.register("autoanimations", "playtrigger", {
-          name: game.i18n.format("AUTOANIM.demonlordtrigger_name"),
-          hint: game.i18n.format("AUTOANIM.demonlordtrigger_hint"),
+          name: game.i18n.format("autoanimations.settings.demonlordtrigger_name"),
+          hint: game.i18n.format("autoanimations.settings.demonlordtrigger_hint"),
           scope: "world",
           type: String,
           choices: {
-            "rollattack": game.i18n.format("AUTOANIM.demonlordtrigger_rollattack"),
-            "hits": game.i18n.format("AUTOANIM.demonlordtrigger_hits"),
-            "misses": game.i18n.format("AUTOANIM.demonlordtrigger_misses"),
-            "rolldamage": game.i18n.format("AUTOANIM.demonlordtrigger_rolldamage"),
-            "applydamage": game.i18n.format("AUTOANIM.demonlordtrigger_applydamage")
+            "rollattack": game.i18n.format("autoanimations.settings.demonlordtrigger_rollattack"),
+            "hits": game.i18n.format("autoanimations.settings.demonlordtrigger_hits"),
+            "misses": game.i18n.format("autoanimations.settings.demonlordtrigger_misses"),
+            "rolldamage": game.i18n.format("autoanimations.settings.demonlordtrigger_rolldamage"),
+            "applydamage": game.i18n.format("autoanimations.settings.demonlordtrigger_applydamage")
           },
           default: "rollattack",
           config: true
@@ -61816,8 +61843,8 @@ function aaSettings() {
     case "sfrpg":
       {
         game.settings.register("autoanimations", "playonDamage", {
-          name: game.i18n.format("AUTOANIM.midiondmg_name"),
-          hint: game.i18n.format("AUTOANIM.midiondmg_hint"),
+          name: game.i18n.format("autoanimations.settings.midiondmg_name"),
+          hint: game.i18n.format("autoanimations.settings.midiondmg_hint"),
           scope: 'world',
           type: Boolean,
           default: false,
@@ -61832,8 +61859,8 @@ function aaSettings() {
     case "dnd5e":
     case "sw5e":
       game.settings.register("autoanimations", "disableAEAnimations", {
-        name: game.i18n.format("AUTOANIM.disableAEAnimations"),
-        hint: game.i18n.format("AUTOANIM.disableAEAnimationsHint"),
+        name: game.i18n.format("autoanimations.settings.disableAEAnimations"),
+        hint: game.i18n.format("autoanimations.settings.disableAEAnimationsHint"),
         scope: 'world',
         type: Boolean,
         default: false,
@@ -61842,24 +61869,24 @@ function aaSettings() {
 
       if ((_game$modules$get = game.modules.get("midi-qol")) !== null && _game$modules$get !== void 0 && _game$modules$get.active) {
         game.settings.register("autoanimations", "playonhit", {
-          name: game.i18n.format("AUTOANIM.midionhit_name"),
-          hint: game.i18n.format("AUTOANIM.midionhit_hint"),
+          name: game.i18n.format("autoanimations.settings.midionhit_name"),
+          hint: game.i18n.format("autoanimations.settings.midionhit_hint"),
           scope: 'world',
           type: Boolean,
           default: false,
           config: true
         });
         game.settings.register("autoanimations", "playonmiss", {
-          name: game.i18n.format("AUTOANIM.midionmiss_name"),
-          hint: game.i18n.format("AUTOANIM.midionmiss_hint"),
+          name: game.i18n.format("autoanimations.settings.midionmiss_name"),
+          hint: game.i18n.format("autoanimations.settings.midionmiss_hint"),
           scope: `world`,
           type: Boolean,
           default: false,
           config: true
         });
         game.settings.register("autoanimations", "playonDamage", {
-          name: game.i18n.format("AUTOANIM.midiondmg_name"),
-          hint: game.i18n.format("AUTOANIM.midiondmg_hint"),
+          name: game.i18n.format("autoanimations.settings.midiondmg_name"),
+          hint: game.i18n.format("autoanimations.settings.midiondmg_hint"),
           scope: 'world',
           type: Boolean,
           default: false,
@@ -61869,8 +61896,8 @@ function aaSettings() {
           }
         });
         game.settings.register("autoanimations", "EnableCritical", {
-          name: game.i18n.format("AUTOANIM.crithit_name"),
-          hint: game.i18n.format("AUTOANIM.crithit_hint"),
+          name: game.i18n.format("autoanimations.settings.crithit_name"),
+          hint: game.i18n.format("autoanimations.settings.crithit_hint"),
           scope: 'world',
           type: Boolean,
           default: false,
@@ -61880,7 +61907,7 @@ function aaSettings() {
           }
         });
         game.settings.register("autoanimations", "CriticalAnimation", {
-          name: game.i18n.format("AUTOANIM.crithitAnim_name"),
+          name: game.i18n.format("autoanimations.settings.crithitAnim_name"),
           //name: "Choose A File",
           scope: 'world',
           config: true,
@@ -61888,8 +61915,8 @@ function aaSettings() {
           filePicker: "imagevideo"
         });
         game.settings.register("autoanimations", "EnableCriticalMiss", {
-          name: game.i18n.format("AUTOANIM.critmiss_name"),
-          hint: game.i18n.format("AUTOANIM.critmiss_hint"),
+          name: game.i18n.format("autoanimations.settings.critmiss_name"),
+          hint: game.i18n.format("autoanimations.settings.critmiss_hint"),
           scope: 'world',
           type: Boolean,
           default: false,
@@ -61899,7 +61926,7 @@ function aaSettings() {
           }
         });
         game.settings.register("autoanimations", "CriticalMissAnimation", {
-          name: game.i18n.format("AUTOANIM.critmissAnim_name"),
+          name: game.i18n.format("autoanimations.settings.critmissAnim_name"),
           scope: 'world',
           config: true,
           type: String,
@@ -61907,8 +61934,8 @@ function aaSettings() {
         });
       } else {
         game.settings.register("autoanimations", "playonDamageCore", {
-          name: game.i18n.format("AUTOANIM.coreondmg_name"),
-          hint: game.i18n.format("AUTOANIM.coreondmg_hint"),
+          name: game.i18n.format("autoanimations.settings.coreondmg_name"),
+          hint: game.i18n.format("autoanimations.settings.coreondmg_hint"),
           scope: 'world',
           type: Boolean,
           default: false,
@@ -61921,15 +61948,15 @@ function aaSettings() {
     case "pf2e":
       {
         game.settings.register("autoanimations", "playonDamageCore", {
-          name: game.i18n.format("AUTOANIM.coreondmg_name"),
-          hint: game.i18n.format("AUTOANIM.coreondmg_hint"),
+          name: game.i18n.format("autoanimations.settings.coreondmg_name"),
+          hint: game.i18n.format("autoanimations.settings.coreondmg_hint"),
           scope: 'world',
           type: Boolean,
           default: false,
           config: true
         });
         game.settings.register("autoanimations", "playonmiss", {
-          name: game.i18n.format("AUTOANIM.midionmiss_name"),
+          name: game.i18n.format("autoanimations.settings.midionmiss_name"),
           hint: "Requires Animations to be played on Attack rolls",
           scope: `world`,
           type: Boolean,
@@ -61937,8 +61964,8 @@ function aaSettings() {
           config: true
         });
         game.settings.register("autoanimations", "disableNestedEffects", {
-          name: game.i18n.format("AUTOANIM.disableNested"),
-          hint: game.i18n.format("AUTOANIM.disableNestedHint"),
+          name: game.i18n.format("autoanimations.settings.disableNested"),
+          hint: game.i18n.format("autoanimations.settings.disableNestedHint"),
           scope: `world`,
           type: Boolean,
           default: false,
@@ -61950,8 +61977,8 @@ function aaSettings() {
     case "pf1":
       {
         game.settings.register("autoanimations", "disableAEAnimations", {
-          name: game.i18n.format("AUTOANIM.disableAEAnimations"),
-          hint: game.i18n.format("AUTOANIM.disableAEAnimationsHint"),
+          name: game.i18n.format("autoanimations.settings.disableAEAnimations"),
+          hint: game.i18n.format("autoanimations.settings.disableAEAnimationsHint"),
           scope: 'world',
           type: Boolean,
           default: false,
@@ -61962,7 +61989,7 @@ function aaSettings() {
   }
 
   game.settings.register("autoanimations", "debug", {
-    name: game.i18n.format("AUTOANIM.debugging"),
+    name: game.i18n.format("autoanimations.settings.debugging"),
     scope: "world",
     config: true,
     default: false,

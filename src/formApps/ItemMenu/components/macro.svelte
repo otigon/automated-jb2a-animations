@@ -20,23 +20,23 @@
 </div>
 <div class="aa-2wide">
     <div class="flexcol" style="grid-row: 1 / 2;grid-column: 1 / 2;">
-        <label for="">{localize("AUTOANIM.playwhen")}</label>
+        <label for="">{localize("autoanimations.menus.playwhen")}</label>
         <select
             bind:value={playWhen}
             style="text-align: center;justify-self: center"
         >
-            <option value="0">{localize("AUTOANIM.macroconcurrent")}</option>
-            <option value="1">{localize("AUTOANIM.awaitmacro")}</option>
+            <option value="0">{localize("autoanimations.menus.macroconcurrent")}</option>
+            <option value="1">{localize("autoanimations.menus.awaitmacro")}</option>
         </select>
     </div>
     <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
         <label for=""
-            >{localize("AUTOANIM.macro")} {localize("AUTOANIM.name")}</label
+            >{localize("autoanimations.menus.macro")} {localize("autoanimations.menus.name")}</label
         >
         <input type="text" bind:value={name} />
     </div>
     <div class="flexcol" style="grid-row: 2 / 3;grid-column: 1 / 3;">
-        <label for="">{localize("AUTOANIM.args")}</label>
+        <label for="">{localize("autoanimations.menus.args")}</label>
         <input type="text" bind:value={data} />
     </div>
 </div>
