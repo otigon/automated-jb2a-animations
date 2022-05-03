@@ -179,6 +179,12 @@
     menuDBPathTargetFX.set(targetFilePath);
     customFilePathTargetFX.set(flagData.targetToken.customPath);
     customCheckedTargetFX.set(flagData.targetToken.enableCustom);
+
+    let primaryMenuType;
+    $: primaryMenuType = primaryMenuType;
+
+    let primaryAnimation;
+    $: primaryAnimation = primaryAnimation;
 </script>
 
 <ApplicationShell
@@ -393,6 +399,8 @@
                     {:else}
                         <div class="aaMenu-section">
                             <PrimarySection
+                                bind:menuType={primaryMenuType}
+                                bind:animation={primaryAnimation}
                                 {animTypeSwitched}
                                 {animType}
                                 {flagData}
@@ -401,7 +409,7 @@
                     {/if}
                     {#if animType === "melee"}
                         <div class="aaMenu-section">
-                            <RangeSwitch {flagData} />
+                            <RangeSwitch {primaryAnimation} {primaryMenuType} {flagData} />
                         </div>
                     {/if}
                     {#if animType === "melee" || animType === "range" || animType === "static"}

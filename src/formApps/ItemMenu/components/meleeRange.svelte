@@ -14,6 +14,12 @@
     import { menuDBPathSwitch } from "../menuStore.js";
 
     export let flagData;
+    export let primaryMenuType;
+    $: primaryMenuType = primaryMenuType;
+    export let primaryAnimation;
+    $: primaryAnimation = primaryAnimation;
+    console.log(primaryMenuType)
+    console.log(primaryAnimation)
     const returningWeapons = [
         "chakram",
         "dagger",
@@ -21,6 +27,7 @@
         "hammer",
         "javelin",
         "spear",
+        "dart"
     ];
     let meleeSwitch = flagData.meleeSwitch;
 
@@ -46,7 +53,7 @@
     let customPath = meleeSwitch.customPath;
     $: customPath = meleeSwitch.customPath = customPath;
 
-    let returnEnabled = meleeSwitch.enable;
+    let returnEnabled = meleeSwitch.enable || false;
     let returnLabel = returnEnabled ? game.i18n.localize("autoanimations.menus.enabled") : game.i18n.localize("autoanimations.menus.disabled");
 
     function switchLabel() {
@@ -55,14 +62,17 @@
     }
     $: meleeSwitch.returning = returnEnabled;
     let isDisabled = false;
-    $: isDisabled =
-        (switchType === "custom" &&
-            returningWeapons.includes(animation) &&
-            menuType === "weapon") ||
-        switchType === "on"
-            ? false
-            : true;
-
+    $: {
+        if (switchType === "custom" && returningWeapons.includes(animation) && menuType === "weapon") {
+            isDisabled = false;
+        } else if (switchType === "on" && primaryMenuType === "weapon" && returningWeapons.includes(primaryAnimation)) {
+            isDisabled = false;
+        } else {
+            isDisabled = true;
+            returnEnabled = meleeSwitch.returning = false;
+            returnLabel = game.i18n.localize("autoanimations.menus.disabled")
+        }
+    }
     let detect = meleeSwitch.detect || "auto";
     $: meleeSwitch.detect = detect;
     let detectLabel = detect === "auto" ? "Automatic" : "Manual";

@@ -43854,18 +43854,18 @@ function create_fragment$j(ctx) {
 
 	let chooseanimation_props = {
 		flagPath: "PrimaryAnimation",
-		disablePlayOn: /*disablePlayOn*/ ctx[3],
-		animTypeSwitched: /*animTypeSwitched*/ ctx[2],
-		animType: /*animType*/ ctx[1],
-		flagData: /*flagData*/ ctx[0]
+		disablePlayOn: /*disablePlayOn*/ ctx[5],
+		animTypeSwitched: /*animTypeSwitched*/ ctx[4],
+		animType: /*animType*/ ctx[3],
+		flagData: /*flagData*/ ctx[2]
 	};
 
-	if (/*menuType*/ ctx[5] !== void 0) {
-		chooseanimation_props.menuType = /*menuType*/ ctx[5];
+	if (/*menuType*/ ctx[0] !== void 0) {
+		chooseanimation_props.menuType = /*menuType*/ ctx[0];
 	}
 
-	if (/*animation*/ ctx[6] !== void 0) {
-		chooseanimation_props.animation = /*animation*/ ctx[6];
+	if (/*animation*/ ctx[1] !== void 0) {
+		chooseanimation_props.animation = /*animation*/ ctx[1];
 	}
 
 	if (/*variant*/ ctx[7] !== void 0) {
@@ -43884,8 +43884,8 @@ function create_fragment$j(ctx) {
 		chooseanimation_props.customPath = /*customPath*/ ctx[10];
 	}
 
-	if (/*menuSelection*/ ctx[4] !== void 0) {
-		chooseanimation_props.menuSelection = /*menuSelection*/ ctx[4];
+	if (/*menuSelection*/ ctx[6] !== void 0) {
+		chooseanimation_props.menuSelection = /*menuSelection*/ ctx[6];
 	}
 
 	chooseanimation = new ChooseAnimation({ props: chooseanimation_props });
@@ -43899,16 +43899,16 @@ function create_fragment$j(ctx) {
 
 	options_1 = new Options({
 			props: {
-				animType: /*animType*/ ctx[1],
-				menuType: /*menuType*/ ctx[5],
-				flagData: /*flagData*/ ctx[0]
+				animType: /*animType*/ ctx[3],
+				menuType: /*menuType*/ ctx[0],
+				flagData: /*flagData*/ ctx[2]
 			}
 		});
 
 	soundsettings = new SoundSettings({
 			props: {
 				audioPath: "a01",
-				flagData: /*flagData*/ ctx[0]
+				flagData: /*flagData*/ ctx[2]
 			}
 		});
 
@@ -43977,20 +43977,20 @@ function create_fragment$j(ctx) {
 		},
 		p(ctx, [dirty]) {
 			const chooseanimation_changes = {};
-			if (dirty & /*disablePlayOn*/ 8) chooseanimation_changes.disablePlayOn = /*disablePlayOn*/ ctx[3];
-			if (dirty & /*animTypeSwitched*/ 4) chooseanimation_changes.animTypeSwitched = /*animTypeSwitched*/ ctx[2];
-			if (dirty & /*animType*/ 2) chooseanimation_changes.animType = /*animType*/ ctx[1];
-			if (dirty & /*flagData*/ 1) chooseanimation_changes.flagData = /*flagData*/ ctx[0];
+			if (dirty & /*disablePlayOn*/ 32) chooseanimation_changes.disablePlayOn = /*disablePlayOn*/ ctx[5];
+			if (dirty & /*animTypeSwitched*/ 16) chooseanimation_changes.animTypeSwitched = /*animTypeSwitched*/ ctx[4];
+			if (dirty & /*animType*/ 8) chooseanimation_changes.animType = /*animType*/ ctx[3];
+			if (dirty & /*flagData*/ 4) chooseanimation_changes.flagData = /*flagData*/ ctx[2];
 
-			if (!updating_menuType && dirty & /*menuType*/ 32) {
+			if (!updating_menuType && dirty & /*menuType*/ 1) {
 				updating_menuType = true;
-				chooseanimation_changes.menuType = /*menuType*/ ctx[5];
+				chooseanimation_changes.menuType = /*menuType*/ ctx[0];
 				add_flush_callback(() => updating_menuType = false);
 			}
 
-			if (!updating_animation && dirty & /*animation*/ 64) {
+			if (!updating_animation && dirty & /*animation*/ 2) {
 				updating_animation = true;
-				chooseanimation_changes.animation = /*animation*/ ctx[6];
+				chooseanimation_changes.animation = /*animation*/ ctx[1];
 				add_flush_callback(() => updating_animation = false);
 			}
 
@@ -44018,20 +44018,20 @@ function create_fragment$j(ctx) {
 				add_flush_callback(() => updating_customPath = false);
 			}
 
-			if (!updating_menuSelection && dirty & /*menuSelection*/ 16) {
+			if (!updating_menuSelection && dirty & /*menuSelection*/ 64) {
 				updating_menuSelection = true;
-				chooseanimation_changes.menuSelection = /*menuSelection*/ ctx[4];
+				chooseanimation_changes.menuSelection = /*menuSelection*/ ctx[6];
 				add_flush_callback(() => updating_menuSelection = false);
 			}
 
 			chooseanimation.$set(chooseanimation_changes);
 			const options_1_changes = {};
-			if (dirty & /*animType*/ 2) options_1_changes.animType = /*animType*/ ctx[1];
-			if (dirty & /*menuType*/ 32) options_1_changes.menuType = /*menuType*/ ctx[5];
-			if (dirty & /*flagData*/ 1) options_1_changes.flagData = /*flagData*/ ctx[0];
+			if (dirty & /*animType*/ 8) options_1_changes.animType = /*animType*/ ctx[3];
+			if (dirty & /*menuType*/ 1) options_1_changes.menuType = /*menuType*/ ctx[0];
+			if (dirty & /*flagData*/ 4) options_1_changes.flagData = /*flagData*/ ctx[2];
 			options_1.$set(options_1_changes);
 			const soundsettings_changes = {};
-			if (dirty & /*flagData*/ 1) soundsettings_changes.flagData = /*flagData*/ ctx[0];
+			if (dirty & /*flagData*/ 4) soundsettings_changes.flagData = /*flagData*/ ctx[2];
 			soundsettings.$set(soundsettings_changes);
 		},
 		i(local) {
@@ -44089,13 +44089,13 @@ function instance$j($$self, $$props, $$invalidate) {
 	? "static"
 	: flagData.animType;
 
-	let menuType = options.menuType === ""
+	let { menuType = options.menuType === ""
 	? Object.keys(aaTypeMenu[menuSelection])[0]
-	: options.menuType;
+	: options.menuType } = $$props;
 
-	let animation = flagData.animation === ""
+	let { animation = flagData.animation === ""
 	? Object.keys(aaNameMenu[menuSelection][menuType])[0]
-	: flagData.animation;
+	: flagData.animation } = $$props;
 
 	let variant = options.variant === ""
 	? Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0]
@@ -44130,12 +44130,12 @@ function instance$j($$self, $$props, $$invalidate) {
 
 	function chooseanimation_menuType_binding(value) {
 		menuType = value;
-		$$invalidate(5, menuType);
+		$$invalidate(0, menuType);
 	}
 
 	function chooseanimation_animation_binding(value) {
 		animation = value;
-		$$invalidate(6, animation);
+		$$invalidate(1, animation);
 	}
 
 	function chooseanimation_variant_binding(value) {
@@ -44160,27 +44160,29 @@ function instance$j($$self, $$props, $$invalidate) {
 
 	function chooseanimation_menuSelection_binding(value) {
 		menuSelection = value;
-		$$invalidate(4, menuSelection);
+		$$invalidate(6, menuSelection);
 	}
 
 	$$self.$$set = $$props => {
-		if ('flagData' in $$props) $$invalidate(0, flagData = $$props.flagData);
-		if ('animType' in $$props) $$invalidate(1, animType = $$props.animType);
-		if ('animTypeSwitched' in $$props) $$invalidate(2, animTypeSwitched = $$props.animTypeSwitched);
-		if ('disablePlayOn' in $$props) $$invalidate(3, disablePlayOn = $$props.disablePlayOn);
+		if ('flagData' in $$props) $$invalidate(2, flagData = $$props.flagData);
+		if ('animType' in $$props) $$invalidate(3, animType = $$props.animType);
+		if ('animTypeSwitched' in $$props) $$invalidate(4, animTypeSwitched = $$props.animTypeSwitched);
+		if ('disablePlayOn' in $$props) $$invalidate(5, disablePlayOn = $$props.disablePlayOn);
+		if ('menuType' in $$props) $$invalidate(0, menuType = $$props.menuType);
+		if ('animation' in $$props) $$invalidate(1, animation = $$props.animation);
 	};
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*menuSelection*/ 16) {
-			$$invalidate(4, menuSelection);
+		if ($$self.$$.dirty & /*menuSelection*/ 64) {
+			$$invalidate(6, menuSelection);
 		}
 
-		if ($$self.$$.dirty & /*menuType*/ 32) {
-			$$invalidate(5, menuType = options.menuType = menuType);
+		if ($$self.$$.dirty & /*menuType*/ 1) {
+			$$invalidate(0, menuType = options.menuType = menuType);
 		}
 
-		if ($$self.$$.dirty & /*animation*/ 64) {
-			$$invalidate(6, animation = $$invalidate(0, flagData.animation = animation, flagData));
+		if ($$self.$$.dirty & /*animation*/ 2) {
+			$$invalidate(1, animation = $$invalidate(2, flagData.animation = animation, flagData));
 		}
 
 		if ($$self.$$.dirty & /*variant*/ 128) {
@@ -44188,7 +44190,7 @@ function instance$j($$self, $$props, $$invalidate) {
 		}
 
 		if ($$self.$$.dirty & /*color*/ 256) {
-			$$invalidate(8, color = $$invalidate(0, flagData.color = color, flagData));
+			$$invalidate(8, color = $$invalidate(2, flagData.color = color, flagData));
 		}
 
 		if ($$self.$$.dirty & /*isCustom*/ 512) {
@@ -44199,7 +44201,7 @@ function instance$j($$self, $$props, $$invalidate) {
 			$$invalidate(10, customPath = options.customPath = customPath);
 		}
 
-		if ($$self.$$.dirty & /*color, menuSelection, menuType, animation, variant*/ 496) {
+		if ($$self.$$.dirty & /*color, menuSelection, menuType, animation, variant*/ 451) {
 			$$invalidate(13, primaryFilePath = color === "random"
 			? `autoanimations.${menuSelection}.${menuType}.${animation}.${variant}`
 			: `autoanimations.${menuSelection}.${menuType}.${animation}.${variant}.${color}`);
@@ -44216,13 +44218,13 @@ function instance$j($$self, $$props, $$invalidate) {
 	};
 
 	return [
+		menuType,
+		animation,
 		flagData,
 		animType,
 		animTypeSwitched,
 		disablePlayOn,
 		menuSelection,
-		menuType,
-		animation,
 		variant,
 		color,
 		isCustom,
@@ -44247,10 +44249,12 @@ class PrimarySection extends SvelteComponent {
 		super();
 
 		init(this, options, instance$j, create_fragment$j, safe_not_equal, {
-			flagData: 0,
-			animType: 1,
-			animTypeSwitched: 2,
-			disablePlayOn: 3
+			flagData: 2,
+			animType: 3,
+			animTypeSwitched: 4,
+			disablePlayOn: 5,
+			menuType: 0,
+			animation: 1
 		});
 	}
 }
@@ -55244,7 +55248,7 @@ function create_if_block_2$2(ctx) {
 			append(div, i);
 
 			if (!mounted) {
-				dispose = listen(i, "click", /*click_handler*/ ctx[18]);
+				dispose = listen(i, "click", /*click_handler*/ ctx[20]);
 				mounted = true;
 			}
 		},
@@ -55257,7 +55261,7 @@ function create_if_block_2$2(ctx) {
 	};
 }
 
-// (146:4) {#if switchType === "custom"}
+// (156:4) {#if switchType === "custom"}
 function create_if_block_1$4(ctx) {
 	let chooseanimation;
 	let updating_menuType;
@@ -55269,27 +55273,27 @@ function create_if_block_1$4(ctx) {
 	let current;
 
 	function chooseanimation_menuType_binding(value) {
-		/*chooseanimation_menuType_binding*/ ctx[21](value);
+		/*chooseanimation_menuType_binding*/ ctx[23](value);
 	}
 
 	function chooseanimation_animation_binding(value) {
-		/*chooseanimation_animation_binding*/ ctx[22](value);
+		/*chooseanimation_animation_binding*/ ctx[24](value);
 	}
 
 	function chooseanimation_variant_binding(value) {
-		/*chooseanimation_variant_binding*/ ctx[23](value);
+		/*chooseanimation_variant_binding*/ ctx[25](value);
 	}
 
 	function chooseanimation_color_binding(value) {
-		/*chooseanimation_color_binding*/ ctx[24](value);
+		/*chooseanimation_color_binding*/ ctx[26](value);
 	}
 
 	function chooseanimation_isCustom_binding(value) {
-		/*chooseanimation_isCustom_binding*/ ctx[25](value);
+		/*chooseanimation_isCustom_binding*/ ctx[27](value);
 	}
 
 	function chooseanimation_customPath_binding(value) {
-		/*chooseanimation_customPath_binding*/ ctx[26](value);
+		/*chooseanimation_customPath_binding*/ ctx[28](value);
 	}
 
 	let chooseanimation_props = {
@@ -55341,39 +55345,39 @@ function create_if_block_1$4(ctx) {
 		},
 		p(ctx, dirty) {
 			const chooseanimation_changes = {};
-			if (dirty & /*flagData*/ 1) chooseanimation_changes.flagData = /*flagData*/ ctx[0];
+			if (dirty[0] & /*flagData*/ 1) chooseanimation_changes.flagData = /*flagData*/ ctx[0];
 
-			if (!updating_menuType && dirty & /*menuType*/ 4) {
+			if (!updating_menuType && dirty[0] & /*menuType*/ 4) {
 				updating_menuType = true;
 				chooseanimation_changes.menuType = /*menuType*/ ctx[2];
 				add_flush_callback(() => updating_menuType = false);
 			}
 
-			if (!updating_animation && dirty & /*animation*/ 8) {
+			if (!updating_animation && dirty[0] & /*animation*/ 8) {
 				updating_animation = true;
 				chooseanimation_changes.animation = /*animation*/ ctx[3];
 				add_flush_callback(() => updating_animation = false);
 			}
 
-			if (!updating_variant && dirty & /*variant*/ 16) {
+			if (!updating_variant && dirty[0] & /*variant*/ 16) {
 				updating_variant = true;
 				chooseanimation_changes.variant = /*variant*/ ctx[4];
 				add_flush_callback(() => updating_variant = false);
 			}
 
-			if (!updating_color && dirty & /*color*/ 32) {
+			if (!updating_color && dirty[0] & /*color*/ 32) {
 				updating_color = true;
 				chooseanimation_changes.color = /*color*/ ctx[5];
 				add_flush_callback(() => updating_color = false);
 			}
 
-			if (!updating_isCustom && dirty & /*isCustom*/ 64) {
+			if (!updating_isCustom && dirty[0] & /*isCustom*/ 64) {
 				updating_isCustom = true;
 				chooseanimation_changes.isCustom = /*isCustom*/ ctx[6];
 				add_flush_callback(() => updating_isCustom = false);
 			}
 
-			if (!updating_customPath && dirty & /*customPath*/ 128) {
+			if (!updating_customPath && dirty[0] & /*customPath*/ 128) {
 				updating_customPath = true;
 				chooseanimation_changes.customPath = /*customPath*/ ctx[7];
 				add_flush_callback(() => updating_customPath = false);
@@ -55396,7 +55400,7 @@ function create_if_block_1$4(ctx) {
 	};
 }
 
-// (161:0) {#if switchType === "custom"}
+// (171:0) {#if switchType === "custom"}
 function create_if_block$4(ctx) {
 	let div2;
 	let div0;
@@ -55465,25 +55469,25 @@ function create_if_block$4(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(button, "click", /*click_handler_2*/ ctx[27]),
-					listen(input, "input", /*input_input_handler*/ ctx[28])
+					listen(button, "click", /*click_handler_2*/ ctx[29]),
+					listen(input, "input", /*input_input_handler*/ ctx[30])
 				];
 
 				mounted = true;
 			}
 		},
 		p(ctx, dirty) {
-			if (!current || dirty & /*detectLabel*/ 1024) set_data(t2, /*detectLabel*/ ctx[10]);
+			if (!current || dirty[0] & /*detectLabel*/ 1024) set_data(t2, /*detectLabel*/ ctx[10]);
 
-			if (!current || dirty & /*detect*/ 512 && input_disabled_value !== (input_disabled_value = /*detect*/ ctx[9] === "auto")) {
+			if (!current || dirty[0] & /*detect*/ 512 && input_disabled_value !== (input_disabled_value = /*detect*/ ctx[9] === "auto")) {
 				input.disabled = input_disabled_value;
 			}
 
-			if (dirty & /*range*/ 2048) {
+			if (dirty[0] & /*range*/ 2048) {
 				set_input_value(input, /*range*/ ctx[11]);
 			}
 
-			if (!current || dirty & /*detect*/ 512 && div1_class_value !== (div1_class_value = "flexcol " + (/*detect*/ ctx[9] === 'auto' ? 'aa-disabled' : '') + " svelte-1hd0pm2")) {
+			if (!current || dirty[0] & /*detect*/ 512 && div1_class_value !== (div1_class_value = "flexcol " + (/*detect*/ ctx[9] === 'auto' ? 'aa-disabled' : '') + " svelte-1hd0pm2")) {
 				attr(div1, "class", div1_class_value);
 			}
 		},
@@ -55598,7 +55602,7 @@ function create_fragment$6(ctx) {
 			set_style(select, "text-align", "center");
 			set_style(select, "justify-self", "center");
 			attr(select, "class", "svelte-1hd0pm2");
-			if (/*switchType*/ ctx[1] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[19].call(select));
+			if (/*switchType*/ ctx[1] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[21].call(select));
 			attr(div3, "class", "flexcol");
 			set_style(div3, "grid-row", "1 / 2");
 			set_style(div3, "grid-column", "2 / 3");
@@ -55647,14 +55651,14 @@ function create_fragment$6(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(select, "change", /*select_change_handler*/ ctx[19]),
-					listen(button, "click", /*click_handler_1*/ ctx[20])
+					listen(select, "change", /*select_change_handler*/ ctx[21]),
+					listen(button, "click", /*click_handler_1*/ ctx[22])
 				];
 
 				mounted = true;
 			}
 		},
-		p(ctx, [dirty]) {
+		p(ctx, dirty) {
 			if (/*menuType*/ ctx[2] && /*switchType*/ ctx[1] === "custom") {
 				if (if_block0) {
 					if_block0.p(ctx, dirty);
@@ -55668,23 +55672,23 @@ function create_fragment$6(ctx) {
 				if_block0 = null;
 			}
 
-			if (dirty & /*switchType*/ 2) {
+			if (dirty[0] & /*switchType*/ 2) {
 				select_option(select, /*switchType*/ ctx[1]);
 			}
 
-			if (!current || dirty & /*returnLabel*/ 4096) set_data(t19, /*returnLabel*/ ctx[12]);
+			if (!current || dirty[0] & /*returnLabel*/ 4096) set_data(t19, /*returnLabel*/ ctx[12]);
 
-			if (!current || dirty & /*isDisabled*/ 8192) {
+			if (!current || dirty[0] & /*isDisabled*/ 8192) {
 				button.disabled = /*isDisabled*/ ctx[13];
 			}
 
-			if (!current || dirty & /*returnEnabled, isDisabled*/ 8448 && button_class_value !== (button_class_value = "oldCheck " + (/*returnEnabled*/ ctx[8] && !/*isDisabled*/ ctx[13]
+			if (!current || dirty[0] & /*returnEnabled, isDisabled*/ 8448 && button_class_value !== (button_class_value = "oldCheck " + (/*returnEnabled*/ ctx[8] && !/*isDisabled*/ ctx[13]
 			? 'selected'
 			: 'notSelected') + " svelte-1hd0pm2")) {
 				attr(button, "class", button_class_value);
 			}
 
-			if (!current || dirty & /*isDisabled*/ 8192 && div4_class_value !== (div4_class_value = "flexcol " + (/*isDisabled*/ ctx[13] ? 'aa-disabled' : '') + " svelte-1hd0pm2")) {
+			if (!current || dirty[0] & /*isDisabled*/ 8192 && div4_class_value !== (div4_class_value = "flexcol " + (/*isDisabled*/ ctx[13] ? 'aa-disabled' : '') + " svelte-1hd0pm2")) {
 				attr(div4, "class", div4_class_value);
 			}
 
@@ -55692,7 +55696,7 @@ function create_fragment$6(ctx) {
 				if (if_block1) {
 					if_block1.p(ctx, dirty);
 
-					if (dirty & /*switchType*/ 2) {
+					if (dirty[0] & /*switchType*/ 2) {
 						transition_in(if_block1, 1);
 					}
 				} else {
@@ -55715,7 +55719,7 @@ function create_fragment$6(ctx) {
 				if (if_block2) {
 					if_block2.p(ctx, dirty);
 
-					if (dirty & /*switchType*/ 2) {
+					if (dirty[0] & /*switchType*/ 2) {
 						transition_in(if_block2, 1);
 					}
 				} else {
@@ -55774,7 +55778,11 @@ const disablePlayOn = true;
 
 function instance$6($$self, $$props, $$invalidate) {
 	let { flagData } = $$props;
-	const returningWeapons = ["chakram", "dagger", "greatsword", "hammer", "javelin", "spear"];
+	let { primaryMenuType } = $$props;
+	let { primaryAnimation } = $$props;
+	console.log(primaryMenuType);
+	console.log(primaryAnimation);
+	const returningWeapons = ["chakram", "dagger", "greatsword", "hammer", "javelin", "spear", "dart"];
 	let meleeSwitch = flagData.meleeSwitch;
 	let switchType = meleeSwitch.switchType || "on";
 	let menuType = meleeSwitch.menuType || Object.keys(aaTypeMenu.range)[0];
@@ -55790,7 +55798,7 @@ function instance$6($$self, $$props, $$invalidate) {
 
 	let isCustom = meleeSwitch.enableCustom || false;
 	let customPath = meleeSwitch.customPath;
-	let returnEnabled = meleeSwitch.enable;
+	let returnEnabled = meleeSwitch.enable || false;
 
 	let returnLabel = returnEnabled
 	? game.i18n.localize("autoanimations.menus.enabled")
@@ -55875,74 +55883,92 @@ function instance$6($$self, $$props, $$invalidate) {
 
 	$$self.$$set = $$props => {
 		if ('flagData' in $$props) $$invalidate(0, flagData = $$props.flagData);
+		if ('primaryMenuType' in $$props) $$invalidate(17, primaryMenuType = $$props.primaryMenuType);
+		if ('primaryAnimation' in $$props) $$invalidate(18, primaryAnimation = $$props.primaryAnimation);
 	};
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*switchType*/ 2) {
+		if ($$self.$$.dirty[0] & /*primaryMenuType*/ 131072) {
+			$$invalidate(17, primaryMenuType);
+		}
+
+		if ($$self.$$.dirty[0] & /*primaryAnimation*/ 262144) {
+			$$invalidate(18, primaryAnimation);
+		}
+
+		if ($$self.$$.dirty[0] & /*switchType*/ 2) {
 			$$invalidate(1, switchType);
 		}
 
-		if ($$self.$$.dirty & /*switchType*/ 2) {
+		if ($$self.$$.dirty[0] & /*switchType*/ 2) {
 			meleeSwitch.switchType = switchType;
 		}
 
-		if ($$self.$$.dirty & /*menuType*/ 4) {
+		if ($$self.$$.dirty[0] & /*menuType*/ 4) {
 			$$invalidate(2, menuType = meleeSwitch.menuType = menuType);
 		}
 
-		if ($$self.$$.dirty & /*animation*/ 8) {
+		if ($$self.$$.dirty[0] & /*animation*/ 8) {
 			$$invalidate(3, animation = meleeSwitch.animation = animation);
 		}
 
-		if ($$self.$$.dirty & /*variant*/ 16) {
+		if ($$self.$$.dirty[0] & /*variant*/ 16) {
 			$$invalidate(4, variant = meleeSwitch.variant = variant);
 		}
 
-		if ($$self.$$.dirty & /*color*/ 32) {
+		if ($$self.$$.dirty[0] & /*color*/ 32) {
 			$$invalidate(5, color = meleeSwitch.color = color);
 		}
 
-		if ($$self.$$.dirty & /*isCustom*/ 64) {
+		if ($$self.$$.dirty[0] & /*isCustom*/ 64) {
 			$$invalidate(6, isCustom = meleeSwitch.enableCustom = isCustom);
 		}
 
-		if ($$self.$$.dirty & /*customPath*/ 128) {
+		if ($$self.$$.dirty[0] & /*customPath*/ 128) {
 			$$invalidate(7, customPath = meleeSwitch.customPath = customPath);
 		}
 
-		if ($$self.$$.dirty & /*returnEnabled*/ 256) {
+		if ($$self.$$.dirty[0] & /*switchType, animation, menuType, primaryMenuType, primaryAnimation*/ 393230) {
+			{
+				if (switchType === "custom" && returningWeapons.includes(animation) && menuType === "weapon") {
+					$$invalidate(13, isDisabled = false);
+				} else if (switchType === "on" && primaryMenuType === "weapon" && returningWeapons.includes(primaryAnimation)) {
+					$$invalidate(13, isDisabled = false);
+				} else {
+					$$invalidate(13, isDisabled = true);
+					$$invalidate(8, returnEnabled = meleeSwitch.returning = false);
+					$$invalidate(12, returnLabel = game.i18n.localize("autoanimations.menus.disabled"));
+				}
+			}
+		}
+
+		if ($$self.$$.dirty[0] & /*returnEnabled*/ 256) {
 			meleeSwitch.returning = returnEnabled;
 		}
 
-		if ($$self.$$.dirty & /*switchType, animation, menuType*/ 14) {
-			$$invalidate(13, isDisabled = switchType === "custom" && returningWeapons.includes(animation) && menuType === "weapon" || switchType === "on"
-			? false
-			: true);
-		}
-
-		if ($$self.$$.dirty & /*detect*/ 512) {
+		if ($$self.$$.dirty[0] & /*detect*/ 512) {
 			meleeSwitch.detect = detect;
 		}
 
-		if ($$self.$$.dirty & /*detectLabel*/ 1024) {
+		if ($$self.$$.dirty[0] & /*detectLabel*/ 1024) {
 			$$invalidate(10, detectLabel);
 		}
 
-		if ($$self.$$.dirty & /*range*/ 2048) {
+		if ($$self.$$.dirty[0] & /*range*/ 2048) {
 			$$invalidate(11, range);
 		}
 
-		if ($$self.$$.dirty & /*range*/ 2048) {
+		if ($$self.$$.dirty[0] & /*range*/ 2048) {
 			meleeSwitch.range = range;
 		}
 
-		if ($$self.$$.dirty & /*color, menuType, animation, variant*/ 60) {
-			$$invalidate(17, switchFilePath = color === "random"
+		if ($$self.$$.dirty[0] & /*color, menuType, animation, variant*/ 60) {
+			$$invalidate(19, switchFilePath = color === "random"
 			? `autoanimations.range.${menuType}.${animation}.${variant}`
 			: `autoanimations.range.${menuType}.${animation}.${variant}.${color}`);
 		}
 
-		if ($$self.$$.dirty & /*switchFilePath*/ 131072) {
+		if ($$self.$$.dirty[0] & /*switchFilePath*/ 524288) {
 			menuDBPathSwitch.set(switchFilePath);
 		}
 	};
@@ -55965,6 +55991,8 @@ function instance$6($$self, $$props, $$invalidate) {
 		switchLabel,
 		switchDetect,
 		onClick,
+		primaryMenuType,
+		primaryAnimation,
 		switchFilePath,
 		click_handler,
 		select_change_handler,
@@ -55983,7 +56011,21 @@ function instance$6($$self, $$props, $$invalidate) {
 class MeleeRange extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance$6, create_fragment$6, safe_not_equal, { flagData: 0 });
+
+		init(
+			this,
+			options,
+			instance$6,
+			create_fragment$6,
+			safe_not_equal,
+			{
+				flagData: 0,
+				primaryMenuType: 17,
+				primaryAnimation: 18
+			},
+			null,
+			[-1, -1]
+		);
 	}
 }
 
@@ -58599,19 +58641,19 @@ function create_if_block_4(ctx) {
 	let current;
 
 	function generalsettings_animationDisabled_binding(value) {
-		/*generalsettings_animationDisabled_binding*/ ctx[34](value);
+		/*generalsettings_animationDisabled_binding*/ ctx[36](value);
 	}
 
 	function generalsettings_isCustomized_binding(value) {
-		/*generalsettings_isCustomized_binding*/ ctx[35](value);
+		/*generalsettings_isCustomized_binding*/ ctx[37](value);
 	}
 
 	function generalsettings_enableMacro_binding(value) {
-		/*generalsettings_enableMacro_binding*/ ctx[36](value);
+		/*generalsettings_enableMacro_binding*/ ctx[38](value);
 	}
 
 	let generalsettings_props = {
-		autoCheck: /*autoCheck*/ ctx[16],
+		autoCheck: /*autoCheck*/ ctx[18],
 		flagData: /*flagData*/ ctx[1]
 	};
 
@@ -58631,10 +58673,10 @@ function create_if_block_4(ctx) {
 	binding_callbacks.push(() => bind(generalsettings, 'animationDisabled', generalsettings_animationDisabled_binding));
 	binding_callbacks.push(() => bind(generalsettings, 'isCustomized', generalsettings_isCustomized_binding));
 	binding_callbacks.push(() => bind(generalsettings, 'enableMacro', generalsettings_enableMacro_binding));
-	let if_block0 = /*autoCheck*/ ctx[16] && !/*isCustomized*/ ctx[3] && !/*animationDisabled*/ ctx[2] && create_if_block_13(ctx);
+	let if_block0 = /*autoCheck*/ ctx[18] && !/*isCustomized*/ ctx[3] && !/*animationDisabled*/ ctx[2] && create_if_block_13(ctx);
 	let if_block1 = /*isCustomized*/ ctx[3] && create_if_block_11(ctx);
 	let if_block2 = /*enableMacro*/ ctx[4] && create_if_block_10(ctx);
-	let if_block3 = /*showSound*/ ctx[9] && create_if_block_9(ctx);
+	let if_block3 = /*showSound*/ ctx[11] && create_if_block_9(ctx);
 	let if_block4 = !/*animationDisabled*/ ctx[2] && /*isCustomized*/ ctx[3] && create_if_block_5(ctx);
 
 	return {
@@ -58695,7 +58737,7 @@ function create_if_block_4(ctx) {
 
 			generalsettings.$set(generalsettings_changes);
 
-			if (/*autoCheck*/ ctx[16] && !/*isCustomized*/ ctx[3] && !/*animationDisabled*/ ctx[2]) {
+			if (/*autoCheck*/ ctx[18] && !/*isCustomized*/ ctx[3] && !/*animationDisabled*/ ctx[2]) {
 				if (if_block0) {
 					if_block0.p(ctx, dirty);
 
@@ -58764,11 +58806,11 @@ function create_if_block_4(ctx) {
 				check_outros();
 			}
 
-			if (/*showSound*/ ctx[9]) {
+			if (/*showSound*/ ctx[11]) {
 				if (if_block3) {
 					if_block3.p(ctx, dirty);
 
-					if (dirty[0] & /*showSound*/ 512) {
+					if (dirty[0] & /*showSound*/ 2048) {
 						transition_in(if_block3, 1);
 					}
 				} else {
@@ -58859,7 +58901,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (245:20) {#if autoCheck && !isCustomized && !animationDisabled}
+// (251:20) {#if autoCheck && !isCustomized && !animationDisabled}
 function create_if_block_13(ctx) {
 	let div1;
 	let div0;
@@ -58877,7 +58919,7 @@ function create_if_block_13(ctx) {
 			div0 = element("div");
 			label = element("label");
 			strong = element("strong");
-			strong.textContent = `${/*oldName*/ ctx[15]}`;
+			strong.textContent = `${/*oldName*/ ctx[17]}`;
 			t1 = space();
 			t2 = text(t2_value);
 			attr(label, "for", "");
@@ -58920,7 +58962,7 @@ function create_if_block_13(ctx) {
 	};
 }
 
-// (258:20) {#if isCustomized}
+// (264:20) {#if isCustomized}
 function create_if_block_11(ctx) {
 	let div1;
 	let div0;
@@ -58984,7 +59026,7 @@ function create_if_block_11(ctx) {
 			set_style(select, "justify-self", "center");
 			set_style(select, "background-color", "rgba(21, 154, 169, 0.4)");
 			attr(select, "class", "svelte-2tvwk6");
-			if (/*animType*/ ctx[7] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[37].call(select));
+			if (/*animType*/ ctx[7] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[39].call(select));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "2 / 3");
@@ -59009,8 +59051,8 @@ function create_if_block_11(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(select, "change", /*select_change_handler*/ ctx[37]),
-					listen(select, "change", /*change_handler*/ ctx[38])
+					listen(select, "change", /*select_change_handler*/ ctx[39]),
+					listen(select, "change", /*change_handler*/ ctx[40])
 				];
 
 				mounted = true;
@@ -59071,7 +59113,7 @@ function create_if_block_11(ctx) {
 	};
 }
 
-// (306:28) {#if animType === "preset"}
+// (312:28) {#if animType === "preset"}
 function create_if_block_12(ctx) {
 	let div;
 	let label;
@@ -59144,7 +59186,7 @@ function create_if_block_12(ctx) {
 			set_style(select, "justify-self", "center");
 			set_style(select, "background-color", "rgba(21, 154, 169, 0.4)");
 			attr(select, "class", "svelte-2tvwk6");
-			if (/*presetType*/ ctx[8] === void 0) add_render_callback(() => /*select_change_handler_1*/ ctx[39].call(select));
+			if (/*presetType*/ ctx[8] === void 0) add_render_callback(() => /*select_change_handler_1*/ ctx[41].call(select));
 			attr(div, "class", "flexcol");
 			set_style(div, "grid-row", "2 / 3");
 			set_style(div, "grid-column", "2 / 3");
@@ -59167,7 +59209,7 @@ function create_if_block_12(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(select, "change", /*select_change_handler_1*/ ctx[39]);
+				dispose = listen(select, "change", /*select_change_handler_1*/ ctx[41]);
 				mounted = true;
 			}
 		},
@@ -59200,7 +59242,7 @@ function create_if_block_12(ctx) {
 	};
 }
 
-// (376:16) {#if enableMacro}
+// (382:16) {#if enableMacro}
 function create_if_block_10(ctx) {
 	let div;
 	let macrofield;
@@ -59249,7 +59291,7 @@ function create_if_block_10(ctx) {
 	};
 }
 
-// (381:16) {#if showSound}
+// (387:16) {#if showSound}
 function create_if_block_9(ctx) {
 	let div;
 	let soundsettings;
@@ -59304,7 +59346,7 @@ function create_if_block_9(ctx) {
 	};
 }
 
-// (386:16) {#if !animationDisabled && isCustomized}
+// (392:16) {#if !animationDisabled && isCustomized}
 function create_if_block_5(ctx) {
 	let current_block_type_index;
 	let if_block0;
@@ -59440,19 +59482,39 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (393:20) {:else}
+// (399:20) {:else}
 function create_else_block(ctx) {
 	let div;
 	let primarysection;
+	let updating_menuType;
+	let updating_animation;
 	let current;
 
-	primarysection = new PrimarySection({
-			props: {
-				animTypeSwitched: /*animTypeSwitched*/ ctx[11],
-				animType: /*animType*/ ctx[7],
-				flagData: /*flagData*/ ctx[1]
-			}
-		});
+	function primarysection_menuType_binding(value) {
+		/*primarysection_menuType_binding*/ ctx[42](value);
+	}
+
+	function primarysection_animation_binding(value) {
+		/*primarysection_animation_binding*/ ctx[43](value);
+	}
+
+	let primarysection_props = {
+		animTypeSwitched: /*animTypeSwitched*/ ctx[13],
+		animType: /*animType*/ ctx[7],
+		flagData: /*flagData*/ ctx[1]
+	};
+
+	if (/*primaryMenuType*/ ctx[9] !== void 0) {
+		primarysection_props.menuType = /*primaryMenuType*/ ctx[9];
+	}
+
+	if (/*primaryAnimation*/ ctx[10] !== void 0) {
+		primarysection_props.animation = /*primaryAnimation*/ ctx[10];
+	}
+
+	primarysection = new PrimarySection({ props: primarysection_props });
+	binding_callbacks.push(() => bind(primarysection, 'menuType', primarysection_menuType_binding));
+	binding_callbacks.push(() => bind(primarysection, 'animation', primarysection_animation_binding));
 
 	return {
 		c() {
@@ -59467,9 +59529,22 @@ function create_else_block(ctx) {
 		},
 		p(ctx, dirty) {
 			const primarysection_changes = {};
-			if (dirty[0] & /*animTypeSwitched*/ 2048) primarysection_changes.animTypeSwitched = /*animTypeSwitched*/ ctx[11];
+			if (dirty[0] & /*animTypeSwitched*/ 8192) primarysection_changes.animTypeSwitched = /*animTypeSwitched*/ ctx[13];
 			if (dirty[0] & /*animType*/ 128) primarysection_changes.animType = /*animType*/ ctx[7];
 			if (dirty[0] & /*flagData*/ 2) primarysection_changes.flagData = /*flagData*/ ctx[1];
+
+			if (!updating_menuType && dirty[0] & /*primaryMenuType*/ 512) {
+				updating_menuType = true;
+				primarysection_changes.menuType = /*primaryMenuType*/ ctx[9];
+				add_flush_callback(() => updating_menuType = false);
+			}
+
+			if (!updating_animation && dirty[0] & /*primaryAnimation*/ 1024) {
+				updating_animation = true;
+				primarysection_changes.animation = /*primaryAnimation*/ ctx[10];
+				add_flush_callback(() => updating_animation = false);
+			}
+
 			primarysection.$set(primarysection_changes);
 		},
 		i(local) {
@@ -59488,14 +59563,14 @@ function create_else_block(ctx) {
 	};
 }
 
-// (387:20) {#if animType === "preset"}
+// (393:20) {#if animType === "preset"}
 function create_if_block_8(ctx) {
 	let presetmenu;
 	let current;
 
 	presetmenu = new PresetShell({
 			props: {
-				animTypeSwitched: /*animTypeSwitched*/ ctx[11],
+				animTypeSwitched: /*animTypeSwitched*/ ctx[13],
 				flagData: /*flagData*/ ctx[1],
 				presetType: /*presetType*/ ctx[8]
 			}
@@ -59511,7 +59586,7 @@ function create_if_block_8(ctx) {
 		},
 		p(ctx, dirty) {
 			const presetmenu_changes = {};
-			if (dirty[0] & /*animTypeSwitched*/ 2048) presetmenu_changes.animTypeSwitched = /*animTypeSwitched*/ ctx[11];
+			if (dirty[0] & /*animTypeSwitched*/ 8192) presetmenu_changes.animTypeSwitched = /*animTypeSwitched*/ ctx[13];
 			if (dirty[0] & /*flagData*/ 2) presetmenu_changes.flagData = /*flagData*/ ctx[1];
 			if (dirty[0] & /*presetType*/ 256) presetmenu_changes.presetType = /*presetType*/ ctx[8];
 			presetmenu.$set(presetmenu_changes);
@@ -59531,12 +59606,19 @@ function create_if_block_8(ctx) {
 	};
 }
 
-// (402:20) {#if animType === "melee"}
+// (410:20) {#if animType === "melee"}
 function create_if_block_7(ctx) {
 	let div;
 	let rangeswitch;
 	let current;
-	rangeswitch = new MeleeRange({ props: { flagData: /*flagData*/ ctx[1] } });
+
+	rangeswitch = new MeleeRange({
+			props: {
+				primaryAnimation: /*primaryAnimation*/ ctx[10],
+				primaryMenuType: /*primaryMenuType*/ ctx[9],
+				flagData: /*flagData*/ ctx[1]
+			}
+		});
 
 	return {
 		c() {
@@ -59551,6 +59633,8 @@ function create_if_block_7(ctx) {
 		},
 		p(ctx, dirty) {
 			const rangeswitch_changes = {};
+			if (dirty[0] & /*primaryAnimation*/ 1024) rangeswitch_changes.primaryAnimation = /*primaryAnimation*/ ctx[10];
+			if (dirty[0] & /*primaryMenuType*/ 512) rangeswitch_changes.primaryMenuType = /*primaryMenuType*/ ctx[9];
 			if (dirty[0] & /*flagData*/ 2) rangeswitch_changes.flagData = /*flagData*/ ctx[1];
 			rangeswitch.$set(rangeswitch_changes);
 		},
@@ -59570,7 +59654,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (407:20) {#if animType === "melee" || animType === "range" || animType === "static"}
+// (415:20) {#if animType === "melee" || animType === "range" || animType === "static"}
 function create_if_block_6(ctx) {
 	let div;
 	let explosionsettings;
@@ -59609,7 +59693,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (415:8) {#if focusExtra}
+// (423:8) {#if focusExtra}
 function create_if_block_1(ctx) {
 	let div8;
 	let div5;
@@ -59838,7 +59922,7 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (434:24) {#if enableSource}
+// (442:24) {#if enableSource}
 function create_if_block_3(ctx) {
 	let div;
 	let label;
@@ -59883,7 +59967,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (462:24) {#if enableTarget}
+// (470:24) {#if enableTarget}
 function create_if_block_2(ctx) {
 	let div;
 	let label;
@@ -59928,7 +60012,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (511:8) {#if focus3d}
+// (519:8) {#if focus3d}
 function create_if_block(ctx) {
 	let div1;
 	let div0;
@@ -59981,7 +60065,7 @@ function create_if_block(ctx) {
 	};
 }
 
-// (184:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}      stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}  >
+// (190:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}      stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}  >
 function create_default_slot(ctx) {
 	let form_1;
 	let div4;
@@ -60028,9 +60112,9 @@ function create_default_slot(ctx) {
 	let current;
 	let mounted;
 	let dispose;
-	let if_block0 = /*focusPrimary*/ ctx[14] && create_if_block_4(ctx);
-	let if_block1 = /*focusExtra*/ ctx[13] && create_if_block_1(ctx);
-	let if_block2 = /*focus3d*/ ctx[12] && create_if_block(ctx);
+	let if_block0 = /*focusPrimary*/ ctx[16] && create_if_block_4(ctx);
+	let if_block1 = /*focusExtra*/ ctx[15] && create_if_block_1(ctx);
+	let if_block2 = /*focus3d*/ ctx[14] && create_if_block(ctx);
 
 	return {
 		c() {
@@ -60078,17 +60162,17 @@ function create_default_slot(ctx) {
                         ${localize("autoanimations.menus.submit")}`;
 
 			attr(i0, "class", "fas fa-bomb");
-			attr(button0, "class", button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[14] ? "selected" : "notSelected") + " svelte-2tvwk6"));
+			attr(button0, "class", button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[16] ? "selected" : "notSelected") + " svelte-2tvwk6"));
 			attr(div0, "class", "flexcol");
 			set_style(div0, "grid-row", "1 / 2");
 			set_style(div0, "grid-column", "1 / 2");
 			attr(i1, "class", "fas fa-user-plus");
-			attr(button1, "class", button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[13] ? "selected" : "notSelected") + " svelte-2tvwk6"));
+			attr(button1, "class", button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[15] ? "selected" : "notSelected") + " svelte-2tvwk6"));
 			attr(div1, "class", "flexcol");
 			set_style(div1, "grid-row", "1 / 2");
 			set_style(div1, "grid-column", "2 / 3");
 			attr(i2, "class", "fas fa-vr-cardboard");
-			attr(button2, "class", button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[12] ? "selected" : "notSelected") + " svelte-2tvwk6"));
+			attr(button2, "class", button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[14] ? "selected" : "notSelected") + " svelte-2tvwk6"));
 			attr(div2, "class", "flexcol");
 			set_style(div2, "grid-row", "1 / 2");
 			set_style(div2, "grid-column", "3 / 4");
@@ -60149,40 +60233,40 @@ function create_default_slot(ctx) {
 			append(div7, t16);
 			append(div7, div6);
 			append(div6, button4);
-			/*form_1_binding*/ ctx[40](form_1);
+			/*form_1_binding*/ ctx[44](form_1);
 			current = true;
 
 			if (!mounted) {
 				dispose = [
-					listen(button0, "click", /*click_handler*/ ctx[31]),
-					listen(button1, "click", /*click_handler_1*/ ctx[32]),
-					listen(button2, "click", /*click_handler_2*/ ctx[33]),
-					listen(button3, "click", prevent_default(/*applyFlags*/ ctx[17])),
-					listen(button4, "click", prevent_default(/*closeApp*/ ctx[18])),
-					listen(form_1, "submit", prevent_default(/*submit_handler*/ ctx[30]))
+					listen(button0, "click", /*click_handler*/ ctx[33]),
+					listen(button1, "click", /*click_handler_1*/ ctx[34]),
+					listen(button2, "click", /*click_handler_2*/ ctx[35]),
+					listen(button3, "click", prevent_default(/*applyFlags*/ ctx[19])),
+					listen(button4, "click", prevent_default(/*closeApp*/ ctx[20])),
+					listen(form_1, "submit", prevent_default(/*submit_handler*/ ctx[32]))
 				];
 
 				mounted = true;
 			}
 		},
 		p(ctx, dirty) {
-			if (!current || dirty[0] & /*focusPrimary*/ 16384 && button0_class_value !== (button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[14] ? "selected" : "notSelected") + " svelte-2tvwk6"))) {
+			if (!current || dirty[0] & /*focusPrimary*/ 65536 && button0_class_value !== (button0_class_value = "" + (null_to_empty(/*focusPrimary*/ ctx[16] ? "selected" : "notSelected") + " svelte-2tvwk6"))) {
 				attr(button0, "class", button0_class_value);
 			}
 
-			if (!current || dirty[0] & /*focusExtra*/ 8192 && button1_class_value !== (button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[13] ? "selected" : "notSelected") + " svelte-2tvwk6"))) {
+			if (!current || dirty[0] & /*focusExtra*/ 32768 && button1_class_value !== (button1_class_value = "" + (null_to_empty(/*focusExtra*/ ctx[15] ? "selected" : "notSelected") + " svelte-2tvwk6"))) {
 				attr(button1, "class", button1_class_value);
 			}
 
-			if (!current || dirty[0] & /*focus3d*/ 4096 && button2_class_value !== (button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[12] ? "selected" : "notSelected") + " svelte-2tvwk6"))) {
+			if (!current || dirty[0] & /*focus3d*/ 16384 && button2_class_value !== (button2_class_value = "" + (null_to_empty(/*focus3d*/ ctx[14] ? "selected" : "notSelected") + " svelte-2tvwk6"))) {
 				attr(button2, "class", button2_class_value);
 			}
 
-			if (/*focusPrimary*/ ctx[14]) {
+			if (/*focusPrimary*/ ctx[16]) {
 				if (if_block0) {
 					if_block0.p(ctx, dirty);
 
-					if (dirty[0] & /*focusPrimary*/ 16384) {
+					if (dirty[0] & /*focusPrimary*/ 65536) {
 						transition_in(if_block0, 1);
 					}
 				} else {
@@ -60201,11 +60285,11 @@ function create_default_slot(ctx) {
 				check_outros();
 			}
 
-			if (/*focusExtra*/ ctx[13]) {
+			if (/*focusExtra*/ ctx[15]) {
 				if (if_block1) {
 					if_block1.p(ctx, dirty);
 
-					if (dirty[0] & /*focusExtra*/ 8192) {
+					if (dirty[0] & /*focusExtra*/ 32768) {
 						transition_in(if_block1, 1);
 					}
 				} else {
@@ -60224,11 +60308,11 @@ function create_default_slot(ctx) {
 				check_outros();
 			}
 
-			if (/*focus3d*/ ctx[12]) {
+			if (/*focus3d*/ ctx[14]) {
 				if (if_block2) {
 					if_block2.p(ctx, dirty);
 
-					if (dirty[0] & /*focus3d*/ 4096) {
+					if (dirty[0] & /*focus3d*/ 16384) {
 						transition_in(if_block2, 1);
 					}
 				} else {
@@ -60274,7 +60358,7 @@ function create_default_slot(ctx) {
 			if (if_block0) if_block0.d();
 			if (if_block1) if_block1.d();
 			if (if_block2) if_block2.d();
-			/*form_1_binding*/ ctx[40](null);
+			/*form_1_binding*/ ctx[44](null);
 			mounted = false;
 			run_all(dispose);
 		}
@@ -60287,7 +60371,7 @@ function create_fragment(ctx) {
 	let current;
 
 	function applicationshell_elementRoot_binding(value) {
-		/*applicationshell_elementRoot_binding*/ ctx[41](value);
+		/*applicationshell_elementRoot_binding*/ ctx[45](value);
 	}
 
 	let applicationshell_props = {
@@ -60316,7 +60400,7 @@ function create_fragment(ctx) {
 		p(ctx, dirty) {
 			const applicationshell_changes = {};
 
-			if (dirty[0] & /*form, flagData, focus3d, enableTarget, enableSource, focusExtra, animType, animTypeSwitched, presetType, animationDisabled, isCustomized, showSound, enableMacro, focusPrimary*/ 32766 | dirty[1] & /*$$scope*/ 65536) {
+			if (dirty[0] & /*form, flagData, focus3d, enableTarget, enableSource, focusExtra, animType, primaryAnimation, primaryMenuType, animTypeSwitched, presetType, animationDisabled, isCustomized, showSound, enableMacro, focusPrimary*/ 131070 | dirty[1] & /*$$scope*/ 1048576) {
 				applicationshell_changes.$$scope = { dirty, ctx };
 			}
 
@@ -60408,21 +60492,21 @@ function instance($$self, $$props, $$invalidate) {
 	let tab3d = false;
 
 	function switchPrimary() {
-		$$invalidate(27, primaryTab = !extraTab && !tab3d ? primaryTab : !primaryTab);
-		$$invalidate(28, extraTab = false);
-		$$invalidate(29, tab3d = false);
+		$$invalidate(29, primaryTab = !extraTab && !tab3d ? primaryTab : !primaryTab);
+		$$invalidate(30, extraTab = false);
+		$$invalidate(31, tab3d = false);
 	}
 
 	function switchExtra() {
-		$$invalidate(28, extraTab = !primaryTab && !tab3d ? extraTab : !extraTab);
-		$$invalidate(27, primaryTab = false);
-		$$invalidate(29, tab3d = false);
+		$$invalidate(30, extraTab = !primaryTab && !tab3d ? extraTab : !extraTab);
+		$$invalidate(29, primaryTab = false);
+		$$invalidate(31, tab3d = false);
 	}
 
 	function switch3d() {
-		$$invalidate(29, tab3d = !primaryTab && !extraTab ? tab3d : !tab3d);
-		$$invalidate(27, primaryTab = false);
-		$$invalidate(28, extraTab = false);
+		$$invalidate(31, tab3d = !primaryTab && !extraTab ? tab3d : !tab3d);
+		$$invalidate(29, primaryTab = false);
+		$$invalidate(30, extraTab = false);
 	}
 
 	let enableSource = flagData.sourceToken.enable || false;
@@ -60446,9 +60530,9 @@ function instance($$self, $$props, $$invalidate) {
 	let animTypeSwitched = false;
 
 	async function typeSwitch() {
-		$$invalidate(11, animTypeSwitched = true);
+		$$invalidate(13, animTypeSwitched = true);
 		await wait(150);
-		$$invalidate(11, animTypeSwitched = false);
+		$$invalidate(13, animTypeSwitched = false);
 	}
 
 	let sourceFilePath;
@@ -60473,6 +60557,8 @@ function instance($$self, $$props, $$invalidate) {
 	menuDBPathTargetFX.set(targetFilePath);
 	customFilePathTargetFX.set(flagData.targetToken.customPath);
 	customCheckedTargetFX.set(flagData.targetToken.enableCustom);
+	let primaryMenuType;
+	let primaryAnimation;
 
 	function submit_handler(event) {
 		bubble.call(this, $$self, event);
@@ -60509,10 +60595,20 @@ function instance($$self, $$props, $$invalidate) {
 		$$invalidate(8, presetType);
 	}
 
+	function primarysection_menuType_binding(value) {
+		primaryMenuType = value;
+		$$invalidate(9, primaryMenuType);
+	}
+
+	function primarysection_animation_binding(value) {
+		primaryAnimation = value;
+		$$invalidate(10, primaryAnimation);
+	}
+
 	function form_1_binding($$value) {
 		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
 			form = $$value;
-			$$invalidate(10, form);
+			$$invalidate(12, form);
 		});
 	}
 
@@ -60523,8 +60619,8 @@ function instance($$self, $$props, $$invalidate) {
 
 	$$self.$$set = $$props => {
 		if ('elementRoot' in $$props) $$invalidate(0, elementRoot = $$props.elementRoot);
-		if ('item' in $$props) $$invalidate(23, item = $$props.item);
-		if ('itemFlags' in $$props) $$invalidate(24, itemFlags = $$props.itemFlags);
+		if ('item' in $$props) $$invalidate(25, item = $$props.item);
+		if ('itemFlags' in $$props) $$invalidate(26, itemFlags = $$props.itemFlags);
 	};
 
 	$$self.$$.update = () => {
@@ -60537,23 +60633,23 @@ function instance($$self, $$props, $$invalidate) {
 		}
 
 		if ($$self.$$.dirty[0] & /*animationDisabled*/ 4) {
-			$$invalidate(9, showSound = animationDisabled ? true : false);
+			$$invalidate(11, showSound = animationDisabled ? true : false);
 		}
 
-		if ($$self.$$.dirty[0] & /*menuType*/ 67108864) {
-			$$invalidate(26, menuType);
+		if ($$self.$$.dirty[0] & /*menuType*/ 268435456) {
+			$$invalidate(28, menuType);
 		}
 
-		if ($$self.$$.dirty[0] & /*primaryTab*/ 134217728) {
-			$$invalidate(14, focusPrimary = primaryTab);
+		if ($$self.$$.dirty[0] & /*primaryTab*/ 536870912) {
+			$$invalidate(16, focusPrimary = primaryTab);
 		}
 
-		if ($$self.$$.dirty[0] & /*extraTab*/ 268435456) {
-			$$invalidate(13, focusExtra = extraTab);
+		if ($$self.$$.dirty[0] & /*extraTab*/ 1073741824) {
+			$$invalidate(15, focusExtra = extraTab);
 		}
 
-		if ($$self.$$.dirty[0] & /*tab3d*/ 536870912) {
-			$$invalidate(12, focus3d = tab3d);
+		if ($$self.$$.dirty[1] & /*tab3d*/ 1) {
+			$$invalidate(14, focus3d = tab3d);
 		}
 
 		if ($$self.$$.dirty[0] & /*enableSource*/ 32) {
@@ -60575,6 +60671,14 @@ function instance($$self, $$props, $$invalidate) {
 		if ($$self.$$.dirty[0] & /*presetType*/ 256) {
 			$$invalidate(8, presetType = preset.presetType = presetType);
 		}
+
+		if ($$self.$$.dirty[0] & /*primaryMenuType*/ 512) {
+			$$invalidate(9, primaryMenuType);
+		}
+
+		if ($$self.$$.dirty[0] & /*primaryAnimation*/ 1024) {
+			$$invalidate(10, primaryAnimation);
+		}
 	};
 
 	return [
@@ -60587,6 +60691,8 @@ function instance($$self, $$props, $$invalidate) {
 		enableTarget,
 		animType,
 		presetType,
+		primaryMenuType,
+		primaryAnimation,
 		showSound,
 		form,
 		animTypeSwitched,
@@ -60618,6 +60724,8 @@ function instance($$self, $$props, $$invalidate) {
 		select_change_handler,
 		change_handler,
 		select_change_handler_1,
+		primarysection_menuType_binding,
+		primarysection_animation_binding,
 		form_1_binding,
 		applicationshell_elementRoot_binding
 	];
@@ -60635,9 +60743,9 @@ class ItemMenuAppShell extends SvelteComponent {
 			safe_not_equal,
 			{
 				elementRoot: 0,
-				item: 23,
-				itemFlags: 24,
-				flags: 25,
+				item: 25,
+				itemFlags: 26,
+				flags: 27,
 				flagData: 1
 			},
 			null,
@@ -60655,7 +60763,7 @@ class ItemMenuAppShell extends SvelteComponent {
 	}
 
 	get item() {
-		return this.$$.ctx[23];
+		return this.$$.ctx[25];
 	}
 
 	set item(item) {
@@ -60664,7 +60772,7 @@ class ItemMenuAppShell extends SvelteComponent {
 	}
 
 	get itemFlags() {
-		return this.$$.ctx[24];
+		return this.$$.ctx[26];
 	}
 
 	set itemFlags(itemFlags) {
@@ -60673,7 +60781,7 @@ class ItemMenuAppShell extends SvelteComponent {
 	}
 
 	get flags() {
-		return this.$$.ctx[25];
+		return this.$$.ctx[27];
 	}
 
 	get flagData() {
