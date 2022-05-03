@@ -142,7 +142,7 @@
     }
 
     // Handles the "Static Type" option for when On Token is selected
-    let staticType = options.staticType || "source";
+    export let staticType = options.staticType || "source";
     $: {
         staticType = staticType;
         options.staticType = staticType;

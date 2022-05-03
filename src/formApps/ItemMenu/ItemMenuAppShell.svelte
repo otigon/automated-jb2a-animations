@@ -34,7 +34,6 @@
     export let item;
     export let itemFlags;
     export const flags = itemFlags.autoanimations || {};
-
     const oldName = item.name || item.sourceName;
     const autoCheck = AutorecFunctions._checkAutoRec(oldName);
 
@@ -42,6 +41,14 @@
         new Promise((resolve) => setTimeout(resolve, delay));
 
     let animationDisabled = flags.killAnim;
+    $: {
+        if (animationDisabled) {
+            isCustomized = flags.override = false;
+        }
+        if (!animationDisabled && !isCustomized) {
+            enableMacro = flags.macro.enable = false;
+        }
+    }
     let isCustomized = flags.override;
     $: isCustomized = isCustomized;
 
@@ -69,6 +76,8 @@
         meleeSwitch: flags.meleeSwitch || {},
         preset: flags.preset || {},
     };
+    export let staticType = flagData.options.staticType;
+    $: staticType = staticType;
     const preset = flagData.preset;
     let enableMacro;
     $: enableMacro = enableMacro;
@@ -185,6 +194,18 @@
 
     let primaryAnimation;
     $: primaryAnimation = primaryAnimation;
+
+    const targetFXNoShow = ['templatefx', 'aura']
+    const targetFXNoShowPreset = ['bless', 'dualattach', 'fireball', 'shieldspell', 'sneakattack', 'teleportation', 'thunderwave']
+    let shouldShowTargetFX = true;
+
+    $: {
+        if (targetFXNoShow.includes(animType) || (animType === 'preset' && targetFXNoShowPreset.includes(presetType)) || (animType === 'static' && staticType === "source") ) {
+            shouldShowTargetFX = false;
+        } else {
+            shouldShowTargetFX = true;
+        }
+    }
 </script>
 
 <ApplicationShell
@@ -381,7 +402,7 @@
                 </div>
                 {#if enableMacro}
                     <div class="aaMenu-section" transition:fade>
-                        <MacroField {flagData} />
+                        <MacroField {animationDisabled} {flagData} />
                     </div>
                 {/if}
                 {#if showSound}
@@ -401,6 +422,7 @@
                             <PrimarySection
                                 bind:menuType={primaryMenuType}
                                 bind:animation={primaryAnimation}
+                                bind:staticType
                                 {animTypeSwitched}
                                 {animType}
                                 {flagData}
@@ -511,9 +533,11 @@
                 <div class="aaMenu-section">
                     <ExtraFX flagPath="sourceExtraFX" {flagData} />
                 </div>
+                {#if shouldShowTargetFX}
                 <div class="aaMenu-section">
                     <ExtraFX flagPath="targetExtraFX" {flagData} />
                 </div>
+                {/if}
             </div>
         {/if}
         {#if focus3d}

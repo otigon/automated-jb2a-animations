@@ -13,17 +13,21 @@
 
     let playWhen = macros.playWhen;
     $: macros.playWhen = playWhen = playWhen;
+
+    export let animationDisabled = flagData.killAnim;
+    $: animationDisabled = animationDisabled;
 </script>
 
 <div style="padding-top: 10px">
     <h1>{localize("AUTOANIM.macro")}</h1>
 </div>
 <div class="aa-2wide">
-    <div class="flexcol" style="grid-row: 1 / 2;grid-column: 1 / 2;">
+    <div class="flexcol {animationDisabled ? "aa-disabled" : ""}" style="grid-row: 1 / 2;grid-column: 1 / 2;">
         <label for="">{localize("autoanimations.menus.playwhen")}</label>
         <select
             bind:value={playWhen}
             style="text-align: center;justify-self: center"
+            disabled={animationDisabled}
         >
             <option value="0">{localize("autoanimations.menus.macroconcurrent")}</option>
             <option value="1">{localize("autoanimations.menus.awaitmacro")}</option>
@@ -76,5 +80,9 @@
         text-align: center;
         margin-right: 5%;
         margin-left: 5%;
+    }
+    .aa-disabled {
+        opacity:0.4;
+        transition: opacity 0.5s
     }
 </style>

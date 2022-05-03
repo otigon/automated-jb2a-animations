@@ -25,6 +25,8 @@
     export let animType;
     export let animTypeSwitched;
     export let disablePlayOn;
+    export let staticType;
+    $: staticType = staticType;
     const options = flagData.options;
 
     let menuSelection = flagData.animType === "aura" ? "static" : flagData.animType;
@@ -115,6 +117,7 @@
     bind:isCustom
     bind:customPath
     bind:menuSelection
+    bind:staticType
     flagPath="PrimaryAnimation"
     {disablePlayOn}
     {animTypeSwitched}
