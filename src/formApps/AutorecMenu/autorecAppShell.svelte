@@ -1,5 +1,5 @@
 <svelte:options accessors={true} />
- 
+
 <script>
     import { getContext } from "svelte";
     import { fade, scale } from "svelte/transition";
@@ -7,14 +7,23 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import MeleeMenuShell from "./meleeMenuShell.svelte";
     import RangeMenuShell from "./rangeMenuShell.svelte";
+    import AutorecRouter from "./AutorecRouter.svelte";
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
-    import Tabs from "./Tabs.svelte";
+    //import Tabs from "./Tabs.svelte";
 
     export let elementRoot;
-    const data = game.settings.get("autoanimations", "aaAutorec");
+    export let activeTabValue = 1;
+    const handleClick = (tabValue) => () => (activeTabValue = tabValue);
 
+    const data = game.settings.get("autoanimations", "aaAutorec");
+    
     export const flagData = {
-        melee: data.melee || {},
+        melee: {
+            "0": {},
+            "1": {},
+            "2": {},
+            "3": {},
+        },
         range: data.range || {},
         static: data.static || {},
         templatefx: data.templatefx || {},
@@ -34,13 +43,13 @@
             label: "Melee",
             value: 1,
             icon: "fas fa-shield-alt",
-            component: MeleeMenuShell,
+            type: "melee",
         },
         {
             label: "Range",
             value: 2,
             icon: "fas fa-people-arrows",
-            component: RangeMenuShell
+            type: "range",
         },
         {
             label: "On Token",
@@ -67,7 +76,6 @@
             value: 7,
             icon: "fas fa-atom",
         },
-
     ];
     let form = void 0;
 </script>
@@ -85,7 +93,29 @@
         id="autorec-menu-aa"
         novalidate
     >
-        <Tabs {items} {flagData} />
+        <div class="aa-autorec-header aaTopSection">
+            {#each items as item}
+                <li
+                    class="{activeTabValue === item.value
+                        ? 'active'
+                        : ''} flexrow"
+                >
+                    <span on:click={handleClick(item.value)}
+                        ><i class={item.icon} />{item.label}</span
+                    >
+                </li>
+            {/each}
+        </div>
+        <div class="aaMidSection">
+            {#each items as item}
+                {#if activeTabValue == item.value}
+                    <div class="box" transition:fade={{ duration: 500 }}>
+                        <AutorecRouter type={item.type} flags={flagData[item.type]} />
+                        <!--<svelte:component this={item.component} {flagData} />-->
+                    </div>
+                {/if}
+            {/each}
+        </div>
         <div class="aaBottomSection" style="margin-bottom: 5px">
             <div class="aa-submit">
                 <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
@@ -106,6 +136,20 @@
 </ApplicationShell>
 
 <style lang="scss">
+    .aaTopSection {
+        position: absolute;
+        top: 30px;
+        left: 1%;
+        right: 1%;
+    }
+    .aaMidSection {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 70px;
+        bottom: 51px;
+        overflow: scroll;
+    }
     .aaBottomSection {
         position: absolute;
         bottom: 0;
@@ -134,5 +178,40 @@
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-weight: bold;
         font-size: large;
+    }
+    .box {
+        margin-bottom: 50px;
+    }
+    .aa-autorec-header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        height: auto;
+        background: rgba(199, 199, 199, 0.85);
+        border: 2px solid black;
+        border-radius: 10px;
+        align-items: center;
+        padding-top: 5px;
+    }
+    li {
+        margin-bottom: -1px;
+        height: 30px;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: large;
+        font-weight: bold;
+        vertical-align: middle;
+    }
+
+    span {
+        border: 1px solid transparent;
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+        display: block;
+        cursor: pointer;
+    }
+
+    li.active > span {
+        text-shadow: 0 0 5px rgba(255, 0, 0, 0.687);
     }
 </style>

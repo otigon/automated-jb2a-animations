@@ -46,7 +46,8 @@
             isCustomized = flags.override = false;
         }
         if (!animationDisabled && !isCustomized) {
-            enableMacro = flags.macro.enable = false;
+            enableMacro = false;
+            flags.macro?.enable ? flags.macro.enable = false : null;
         }
     }
     let isCustomized = flags.override;

@@ -104,8 +104,8 @@
         menuSelection = value;
     })
     $: menuSelection = menuSelection;
-    $: disabled01 = flagData.animType === "melee" || flagData.animType === "range" || menuSelection === "melee" || menuSelection === 'range';
-    $: isDisabled = flagData.animType === "melee" || flagData.animType === "range" || menuSelection === "melee" || menuSelection === "range" ? false : persistent;
+    $: disabled01 = animType === "melee" || animType === "range" || menuSelection === "melee" || menuSelection === 'range';
+    $: isDisabled = animType === "melee" || animType === "range" || menuSelection === "melee" || menuSelection === "range" ? false : persistent;
 </script>
 
 <div transition:fade={{duration: 500}}>
