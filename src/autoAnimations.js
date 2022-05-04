@@ -12,6 +12,7 @@ import { createActiveEffectsPF1, deleteActiveEffectsPF1 } from "./active-effects
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import AAActiveEffectMenu from "./formApps/ActiveEffects/activeEffectMenu.js";
+import AAAutorecMenu from "./formApps/AutorecMenu/aaAutorecMenu.js";
 
 import AAItemMenu from "./formApps/ItemMenu/itemMenu.js";
 import aaSettings from "./settings.js";
@@ -430,7 +431,7 @@ window.AutoAnimations = AutoAnimations;
 function moduleIncludes(test) {
     return !!game.modules.get(test);
 }
-
+window.AAAutoRec = AAAutorecMenu;
 /*
 / Midi-QOL Functions for DnD 5e and Star Wars 5e
 */

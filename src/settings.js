@@ -1,4 +1,5 @@
-import { aaAutoRecognition } from "./custom-recognition/auto-recognition.js"
+import { aaAutoRecognition } from "./custom-recognition/auto-recognition.js";
+import AutorecShim from "./formApps/AutorecMenu/appShim.js"
 import { aaAutorec } from "./custom-recognition/aaAutoRecList.js";
 import { disableAnimations } from "./autoAnimations.js";
 export default function aaSettings() {
@@ -8,7 +9,7 @@ export default function aaSettings() {
         config: {
             label: game.i18n.format("autoanimations.settings.autoRecSetting"),
             icon: "fas fa-dice-d20",
-            type: aaAutoRecognition,
+            type: AutorecShim,
             restricted: true,
         },
     };
