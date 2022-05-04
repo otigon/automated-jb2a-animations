@@ -211,6 +211,117 @@ export class AASystemData {
 
         return { item, token, targets };
     }
+	
+	/// Cypher System  [Requires SypherSystem 1.32.3 and above]
+	/// 20220502 - Handles Recovery, ability rolls and other ability/item use by Dice roll. Ability use by Payment not working, flags.itemID and Speaker are both NULL in this case.
+	///			   Doesn't handle companions (These don't have abilities in their character sheets, the ability is owned by the player sheet, so need to look at how we can animate companions)
+	/// 20220502 (1.32.4) PAYED abilities now can fire off animations
+	static async cyphersystem(input) {
+		const itemId = input.data.flags?.itemID;
+        const tokenId = input.data.speaker.token;
+
+        const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
+        if (!itemId || !token) {return {};}
+		
+		// if the item ID is a recover roll (not a real item id) lets animate the recovery IF selected. No crits of fumbles are used here
+		if (itemId == "recovery-roll")
+		{
+			if ( game.settings.get("autoanimations", "EnableOnRecoveryRoll"))
+			{	let recoverAnim = game.settings.get("autoanimations", "RecoveryRollAnimation");
+			
+				new Sequence()
+					.effect()
+					.file(recoverAnim)
+					.atLocation(token)
+					.play();
+			}
+		}
+		else
+		{
+			// others, things here can fire a Crit or Fumble
+			// First crits etc
+			
+			var diceRoll = 10;
+			if (input._roll != null)
+			{
+				diceRoll = input._roll?._total;
+			}
+			
+			let critAnim = game.settings.get("autoanimations", "CriticalAnimation");
+			let fumbleAnim = game.settings.get("autoanimations", "FumbleAnimation");
+			
+			switch (true) {
+				case (game.settings.get("autoanimations", "EnableCritical") && diceRoll == 20):
+					new Sequence()
+						.effect()
+						.file(critAnim)
+						.atLocation(token)
+						.play()
+					break;
+				case (game.settings.get("autoanimations", "EnableFumble") && diceRoll == 1):
+					new Sequence()
+						.effect()
+						.file(fumbleAnim)
+						.atLocation(token)
+						.play()
+					break;
+			}
+			
+			if (diceRoll > 1)
+			{
+				// not a Fumble, actually PLAY the other animation if any (Start with Speed, Might and Intellect rolls, from embedded Character Sheet GUI)
+				
+				if (itemId == "might-roll")
+				{
+					if (game.settings.get("autoanimations", "EnableOnMightRoll"))
+					{
+						let mightAnim = game.settings.get("autoanimations", "MightRollAnimation");
+						new Sequence()
+						.effect()
+						.file(mightAnim)
+						.atLocation(token)
+						.play()
+					}
+				}
+				else if (itemId == "speed-roll")
+				{
+					if (game.settings.get("autoanimations", "EnableOnSpeedRoll"))
+					{
+						let speedAnim = game.settings.get("autoanimations", "SpeedRollAnimation");
+						new Sequence()
+						.effect()
+						.file(speedAnim)
+						.atLocation(token)
+						.play()
+					}
+				}
+				else if (itemId == "intellect-roll")
+				{
+					if (game.settings.get("autoanimations", "EnableOnIntellecRoll"))
+					{
+						let intellectAnim = game.settings.get("autoanimations", "IntellectRollAnimation");
+						new Sequence()
+						.effect()
+						.file(intellectAnim)
+						.atLocation(token)
+						.play()
+					}
+				}
+				else
+				{		
+					// otherwise, see if we can find an item connected to this message and play any animations attached to it
+					const item = token.actor.items?.get(itemId) ?? "";
+		
+					const targets = Array.from(input.user.targets);
+
+					return { item, token, targets };
+				}
+			}
+		}
+		
+		return {};
+	}
+	
 
     static async demonlord(input) {
         const eventType = input.type
