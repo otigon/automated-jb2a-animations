@@ -9,7 +9,7 @@
     "compatibleCoreVersion": "9",
     "styles": [
         "./dist/module.css",
-        "src/css/newMenuCss.css"
+        "./styles/newMenuCss.css"
     ],
     "esmodules": [
         "./dist/module.js"
