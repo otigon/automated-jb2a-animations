@@ -18,7 +18,7 @@
 
     const data = game.settings.get("autoanimations", "aaAutorec");
 
-    export const flagData = {
+    const flagData = {
         melee: data.melee || {},
         range: data.range || {},
         static: data.static || {},
@@ -33,6 +33,9 @@
                 .reverse()[0],
         search: "",
     };
+    $: flagData = flagData;
+    let meleeList = Object.values(flagData.melee);
+    console.log(meleeList)
 
     let items = [
         {
@@ -108,9 +111,10 @@
         <div class="aaMidSection">
             {#each items as item}
                 {#if activeTabValue == item.value}
-                    {#each Object.entries(flagData[item.type]) as menuSection, idx}
+                    {#each Object.values(flagData[item.type]) as menuSection, idx}
                         <div class="aaMenu-section">
                             <PrimaryMenuShell
+                                bind:menuSection
                                 {idx}
                                 type={item.type}
                                 {flagData}

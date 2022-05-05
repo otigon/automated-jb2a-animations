@@ -16,38 +16,40 @@
     export let flagData;
     export let type;
     export let idx;
-    let section = flagData[type][idx];
-    section.options ? section.options : (section.options = {});
-    section.audio ? section.audio : (section.audio = {});
-    const options = section.options;
-    console.log(section);
+    export let menuSection;
+    //console.log(menuSection)
+    
+    menuSection.options ? menuSection.options : (menuSection.options = {});
+    menuSection.audio ? menuSection.audio : (menuSection.audio = {});
+    const options = menuSection.options;
 
     export let menuType = options.menuType;
     $: menuType = options.menuType = menuType;
-    export let animation = section.animation;
-    $: animation = section.animation = animation;
+    export let animation = menuSection.animation;
+    $: animation = menuSection.animation = animation;
     let variant = options.variant;
     $: variant = options.variant = variant;
-    let color = section.color;
-    $: color = section.colro = color;
+    let color = menuSection.color;
+    $: color = menuSection.color = color;
     let isCustom = options.enableCustom || false;
     $: isCustom = options.enableCustom = isCustom;
     let customPath = options.customPath;
     $: customPath = options.customPath = customPath;
-
+    //console.log(menuType)
     if (!menuType) {
         menuType = Object.keys(aaTypeMenu[type])[0];
         animation = Object.keys(aaNameMenu[type][menuType])[0];
         variant = Object.keys(aaVariantMenu[type][menuType][animation])[0];
         color = Object.keys(aaColorMenu[type][menuType][animation][variant])[0];
     }
-    let isHidden = section.hidden || false;
-    $: isHidden = section.hidden = isHidden;
+    let isHidden = menuSection.hidden || false;
+    $: isHidden = menuSection.hidden = isHidden;
     let customId = `${type}` + `${idx}`;
-    let sectionName = section.name || "";
-    $: sectionName = section.name = sectionName;
+    let sectionName = menuSection.name || "";
+    $: sectionName = menuSection.name = sectionName;
     function removeSection(idx) {
         delete flagData[type][idx]
+        
         for (let i = 0; i < Object.entries(flagData[type]).length; i ++) {
             let compacted = {}
             Object.values(flagData[type]).forEach((val, idx) => compacted[idx] = val);
@@ -87,14 +89,14 @@
     bind:isCustom
     bind:customPath
     flagPath="PrimaryAnimation"
-    animTypeSwitched={true}
+    animTypeSwitched={false}
     disablePlayOn={true}
     animType={type}
-    flagData={section}
+    flagData={menuSection}
     customId={`${type}-${idx}`}
 />
-<Options animType={type} {menuType} flagData={section} />
-<SoundSettings audioPath="a01" flagData={section} />
+<Options animType={type} {menuType} flagData={menuSection} />
+<SoundSettings audioPath="a01" flagData={menuSection} />
 {/if}
 <style lang="scss">
     .autorec-header {

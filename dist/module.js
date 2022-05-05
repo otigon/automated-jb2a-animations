@@ -55256,11 +55256,11 @@ function create_if_block$6(ctx) {
 
 	let chooseanimation_props = {
 		flagPath: "PrimaryAnimation",
-		animTypeSwitched: true,
+		animTypeSwitched: false,
 		disablePlayOn: true,
-		animType: /*type*/ ctx[2],
-		flagData: /*section*/ ctx[10],
-		customId: `${/*type*/ ctx[2]}-${/*idx*/ ctx[3]}`
+		animType: /*type*/ ctx[3],
+		flagData: /*menuSection*/ ctx[2],
+		customId: `${/*type*/ ctx[3]}-${/*idx*/ ctx[4]}`
 	};
 
 	if (/*menuType*/ ctx[0] !== void 0) {
@@ -55271,20 +55271,20 @@ function create_if_block$6(ctx) {
 		chooseanimation_props.animation = /*animation*/ ctx[1];
 	}
 
-	if (/*variant*/ ctx[4] !== void 0) {
-		chooseanimation_props.variant = /*variant*/ ctx[4];
+	if (/*variant*/ ctx[5] !== void 0) {
+		chooseanimation_props.variant = /*variant*/ ctx[5];
 	}
 
-	if (/*color*/ ctx[5] !== void 0) {
-		chooseanimation_props.color = /*color*/ ctx[5];
+	if (/*color*/ ctx[6] !== void 0) {
+		chooseanimation_props.color = /*color*/ ctx[6];
 	}
 
-	if (/*isCustom*/ ctx[6] !== void 0) {
-		chooseanimation_props.isCustom = /*isCustom*/ ctx[6];
+	if (/*isCustom*/ ctx[7] !== void 0) {
+		chooseanimation_props.isCustom = /*isCustom*/ ctx[7];
 	}
 
-	if (/*customPath*/ ctx[7] !== void 0) {
-		chooseanimation_props.customPath = /*customPath*/ ctx[7];
+	if (/*customPath*/ ctx[8] !== void 0) {
+		chooseanimation_props.customPath = /*customPath*/ ctx[8];
 	}
 
 	chooseanimation = new ChooseAnimation({ props: chooseanimation_props });
@@ -55297,16 +55297,16 @@ function create_if_block$6(ctx) {
 
 	options_1 = new Options({
 			props: {
-				animType: /*type*/ ctx[2],
+				animType: /*type*/ ctx[3],
 				menuType: /*menuType*/ ctx[0],
-				flagData: /*section*/ ctx[10]
+				flagData: /*menuSection*/ ctx[2]
 			}
 		});
 
 	soundsettings = new SoundSettings({
 			props: {
 				audioPath: "a01",
-				flagData: /*section*/ ctx[10]
+				flagData: /*menuSection*/ ctx[2]
 			}
 		});
 
@@ -55348,9 +55348,9 @@ function create_if_block$6(ctx) {
 		},
 		p(ctx, dirty) {
 			const chooseanimation_changes = {};
-			if (dirty & /*type*/ 4) chooseanimation_changes.animType = /*type*/ ctx[2];
-			if (dirty & /*section*/ 1024) chooseanimation_changes.flagData = /*section*/ ctx[10];
-			if (dirty & /*type, idx*/ 12) chooseanimation_changes.customId = `${/*type*/ ctx[2]}-${/*idx*/ ctx[3]}`;
+			if (dirty & /*type*/ 8) chooseanimation_changes.animType = /*type*/ ctx[3];
+			if (dirty & /*menuSection*/ 4) chooseanimation_changes.flagData = /*menuSection*/ ctx[2];
+			if (dirty & /*type, idx*/ 24) chooseanimation_changes.customId = `${/*type*/ ctx[3]}-${/*idx*/ ctx[4]}`;
 
 			if (!updating_menuType && dirty & /*menuType*/ 1) {
 				updating_menuType = true;
@@ -55364,38 +55364,38 @@ function create_if_block$6(ctx) {
 				add_flush_callback(() => updating_animation = false);
 			}
 
-			if (!updating_variant && dirty & /*variant*/ 16) {
+			if (!updating_variant && dirty & /*variant*/ 32) {
 				updating_variant = true;
-				chooseanimation_changes.variant = /*variant*/ ctx[4];
+				chooseanimation_changes.variant = /*variant*/ ctx[5];
 				add_flush_callback(() => updating_variant = false);
 			}
 
-			if (!updating_color && dirty & /*color*/ 32) {
+			if (!updating_color && dirty & /*color*/ 64) {
 				updating_color = true;
-				chooseanimation_changes.color = /*color*/ ctx[5];
+				chooseanimation_changes.color = /*color*/ ctx[6];
 				add_flush_callback(() => updating_color = false);
 			}
 
-			if (!updating_isCustom && dirty & /*isCustom*/ 64) {
+			if (!updating_isCustom && dirty & /*isCustom*/ 128) {
 				updating_isCustom = true;
-				chooseanimation_changes.isCustom = /*isCustom*/ ctx[6];
+				chooseanimation_changes.isCustom = /*isCustom*/ ctx[7];
 				add_flush_callback(() => updating_isCustom = false);
 			}
 
-			if (!updating_customPath && dirty & /*customPath*/ 128) {
+			if (!updating_customPath && dirty & /*customPath*/ 256) {
 				updating_customPath = true;
-				chooseanimation_changes.customPath = /*customPath*/ ctx[7];
+				chooseanimation_changes.customPath = /*customPath*/ ctx[8];
 				add_flush_callback(() => updating_customPath = false);
 			}
 
 			chooseanimation.$set(chooseanimation_changes);
 			const options_1_changes = {};
-			if (dirty & /*type*/ 4) options_1_changes.animType = /*type*/ ctx[2];
+			if (dirty & /*type*/ 8) options_1_changes.animType = /*type*/ ctx[3];
 			if (dirty & /*menuType*/ 1) options_1_changes.menuType = /*menuType*/ ctx[0];
-			if (dirty & /*section*/ 1024) options_1_changes.flagData = /*section*/ ctx[10];
+			if (dirty & /*menuSection*/ 4) options_1_changes.flagData = /*menuSection*/ ctx[2];
 			options_1.$set(options_1_changes);
 			const soundsettings_changes = {};
-			if (dirty & /*section*/ 1024) soundsettings_changes.flagData = /*section*/ ctx[10];
+			if (dirty & /*menuSection*/ 4) soundsettings_changes.flagData = /*menuSection*/ ctx[2];
 			soundsettings.$set(soundsettings_changes);
 		},
 		i(local) {
@@ -55450,7 +55450,7 @@ function create_fragment$9(ctx) {
 	let current;
 	let mounted;
 	let dispose;
-	let if_block = !/*isHidden*/ ctx[8] && create_if_block$6(ctx);
+	let if_block = !/*isHidden*/ ctx[9] && create_if_block$6(ctx);
 
 	return {
 		c() {
@@ -55472,7 +55472,7 @@ function create_fragment$9(ctx) {
 			attr(input0, "id", /*customId*/ ctx[11]);
 			input0.hidden = true;
 
-			attr(i0, "class", i0_class_value = /*isHidden*/ ctx[8]
+			attr(i0, "class", i0_class_value = /*isHidden*/ ctx[9]
 			? "fas fa-plus fa-lg aa-green"
 			: "fas fa-minus fa-lg aa-red");
 
@@ -55494,13 +55494,13 @@ function create_fragment$9(ctx) {
 			insert(target, div2, anchor);
 			append(div2, div0);
 			append(div0, input0);
-			input0.checked = /*isHidden*/ ctx[8];
+			input0.checked = /*isHidden*/ ctx[9];
 			append(div0, t0);
 			append(div0, label);
 			append(label, i0);
 			append(div2, t1);
 			append(div2, input1);
-			set_input_value(input1, /*sectionName*/ ctx[9]);
+			set_input_value(input1, /*sectionName*/ ctx[10]);
 			append(div2, t2);
 			append(div2, div1);
 			append(div1, i1);
@@ -55520,25 +55520,25 @@ function create_fragment$9(ctx) {
 			}
 		},
 		p(ctx, [dirty]) {
-			if (dirty & /*isHidden*/ 256) {
-				input0.checked = /*isHidden*/ ctx[8];
+			if (dirty & /*isHidden*/ 512) {
+				input0.checked = /*isHidden*/ ctx[9];
 			}
 
-			if (!current || dirty & /*isHidden*/ 256 && i0_class_value !== (i0_class_value = /*isHidden*/ ctx[8]
+			if (!current || dirty & /*isHidden*/ 512 && i0_class_value !== (i0_class_value = /*isHidden*/ ctx[9]
 			? "fas fa-plus fa-lg aa-green"
 			: "fas fa-minus fa-lg aa-red")) {
 				attr(i0, "class", i0_class_value);
 			}
 
-			if (dirty & /*sectionName*/ 512 && input1.value !== /*sectionName*/ ctx[9]) {
-				set_input_value(input1, /*sectionName*/ ctx[9]);
+			if (dirty & /*sectionName*/ 1024 && input1.value !== /*sectionName*/ ctx[10]) {
+				set_input_value(input1, /*sectionName*/ ctx[10]);
 			}
 
-			if (!/*isHidden*/ ctx[8]) {
+			if (!/*isHidden*/ ctx[9]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 
-					if (dirty & /*isHidden*/ 256) {
+					if (dirty & /*isHidden*/ 512) {
 						transition_in(if_block, 1);
 					}
 				} else {
@@ -55581,18 +55581,26 @@ function instance$9($$self, $$props, $$invalidate) {
 	let { flagData } = $$props;
 	let { type } = $$props;
 	let { idx } = $$props;
-	let section = flagData[type][idx];
-	section.options ? section.options : section.options = {};
-	section.audio ? section.audio : section.audio = {};
-	const options = section.options;
-	console.log(section);
+	let { menuSection } = $$props;
+
+	//console.log(menuSection)
+	menuSection.options
+	? menuSection.options
+	: menuSection.options = {};
+
+	menuSection.audio
+	? menuSection.audio
+	: menuSection.audio = {};
+
+	const options = menuSection.options;
 	let { menuType = options.menuType } = $$props;
-	let { animation = section.animation } = $$props;
+	let { animation = menuSection.animation } = $$props;
 	let variant = options.variant;
-	let color = section.color;
+	let color = menuSection.color;
 	let isCustom = options.enableCustom || false;
 	let customPath = options.customPath;
 
+	//console.log(menuType)
 	if (!menuType) {
 		menuType = Object.keys(aaTypeMenu[type])[0];
 		animation = Object.keys(aaNameMenu[type][menuType])[0];
@@ -55600,9 +55608,9 @@ function instance$9($$self, $$props, $$invalidate) {
 		color = Object.keys(aaColorMenu[type][menuType][animation][variant])[0];
 	}
 
-	let isHidden = section.hidden || false;
+	let isHidden = menuSection.hidden || false;
 	let customId = `${type}` + `${idx}`;
-	let sectionName = section.name || "";
+	let sectionName = menuSection.name || "";
 
 	function removeSection(idx) {
 		delete flagData[type][idx];
@@ -55616,12 +55624,12 @@ function instance$9($$self, $$props, $$invalidate) {
 
 	function input0_change_handler() {
 		isHidden = this.checked;
-		$$invalidate(8, isHidden);
+		$$invalidate(9, isHidden);
 	}
 
 	function input1_input_handler() {
 		sectionName = this.value;
-		$$invalidate(9, sectionName);
+		$$invalidate(10, sectionName);
 	}
 
 	const click_handler = () => removeSection(idx);
@@ -55638,28 +55646,29 @@ function instance$9($$self, $$props, $$invalidate) {
 
 	function chooseanimation_variant_binding(value) {
 		variant = value;
-		$$invalidate(4, variant);
+		$$invalidate(5, variant);
 	}
 
 	function chooseanimation_color_binding(value) {
 		color = value;
-		$$invalidate(5, color);
+		$$invalidate(6, color);
 	}
 
 	function chooseanimation_isCustom_binding(value) {
 		isCustom = value;
-		$$invalidate(6, isCustom);
+		$$invalidate(7, isCustom);
 	}
 
 	function chooseanimation_customPath_binding(value) {
 		customPath = value;
-		$$invalidate(7, customPath);
+		$$invalidate(8, customPath);
 	}
 
 	$$self.$$set = $$props => {
 		if ('flagData' in $$props) $$invalidate(13, flagData = $$props.flagData);
-		if ('type' in $$props) $$invalidate(2, type = $$props.type);
-		if ('idx' in $$props) $$invalidate(3, idx = $$props.idx);
+		if ('type' in $$props) $$invalidate(3, type = $$props.type);
+		if ('idx' in $$props) $$invalidate(4, idx = $$props.idx);
+		if ('menuSection' in $$props) $$invalidate(2, menuSection = $$props.menuSection);
 		if ('menuType' in $$props) $$invalidate(0, menuType = $$props.menuType);
 		if ('animation' in $$props) $$invalidate(1, animation = $$props.animation);
 	};
@@ -55670,37 +55679,38 @@ function instance$9($$self, $$props, $$invalidate) {
 		}
 
 		if ($$self.$$.dirty & /*animation*/ 2) {
-			$$invalidate(1, animation = $$invalidate(10, section.animation = animation, section));
+			$$invalidate(1, animation = $$invalidate(2, menuSection.animation = animation, menuSection));
 		}
 
-		if ($$self.$$.dirty & /*variant*/ 16) {
-			$$invalidate(4, variant = options.variant = variant);
+		if ($$self.$$.dirty & /*variant*/ 32) {
+			$$invalidate(5, variant = options.variant = variant);
 		}
 
-		if ($$self.$$.dirty & /*color*/ 32) {
-			$$invalidate(5, color = $$invalidate(10, section.colro = color, section));
+		if ($$self.$$.dirty & /*color*/ 64) {
+			$$invalidate(6, color = $$invalidate(2, menuSection.color = color, menuSection));
 		}
 
-		if ($$self.$$.dirty & /*isCustom*/ 64) {
-			$$invalidate(6, isCustom = options.enableCustom = isCustom);
+		if ($$self.$$.dirty & /*isCustom*/ 128) {
+			$$invalidate(7, isCustom = options.enableCustom = isCustom);
 		}
 
-		if ($$self.$$.dirty & /*customPath*/ 128) {
-			$$invalidate(7, customPath = options.customPath = customPath);
+		if ($$self.$$.dirty & /*customPath*/ 256) {
+			$$invalidate(8, customPath = options.customPath = customPath);
 		}
 
-		if ($$self.$$.dirty & /*isHidden*/ 256) {
-			$$invalidate(8, isHidden = $$invalidate(10, section.hidden = isHidden, section));
+		if ($$self.$$.dirty & /*isHidden*/ 512) {
+			$$invalidate(9, isHidden = $$invalidate(2, menuSection.hidden = isHidden, menuSection));
 		}
 
-		if ($$self.$$.dirty & /*sectionName*/ 512) {
-			$$invalidate(9, sectionName = $$invalidate(10, section.name = sectionName, section));
+		if ($$self.$$.dirty & /*sectionName*/ 1024) {
+			$$invalidate(10, sectionName = $$invalidate(2, menuSection.name = sectionName, menuSection));
 		}
 	};
 
 	return [
 		menuType,
 		animation,
+		menuSection,
 		type,
 		idx,
 		variant,
@@ -55709,7 +55719,6 @@ function instance$9($$self, $$props, $$invalidate) {
 		customPath,
 		isHidden,
 		sectionName,
-		section,
 		customId,
 		removeSection,
 		flagData,
@@ -55731,8 +55740,9 @@ class PrimaryMenuShell extends SvelteComponent {
 
 		init(this, options, instance$9, create_fragment$9, safe_not_equal, {
 			flagData: 13,
-			type: 2,
-			idx: 3,
+			type: 3,
+			idx: 4,
+			menuSection: 2,
 			menuType: 0,
 			animation: 1
 		});
@@ -55748,7 +55758,7 @@ class PrimaryMenuShell extends SvelteComponent {
 	}
 
 	get type() {
-		return this.$$.ctx[2];
+		return this.$$.ctx[3];
 	}
 
 	set type(type) {
@@ -55757,11 +55767,20 @@ class PrimaryMenuShell extends SvelteComponent {
 	}
 
 	get idx() {
-		return this.$$.ctx[3];
+		return this.$$.ctx[4];
 	}
 
 	set idx(idx) {
 		this.$$set({ idx });
+		flush();
+	}
+
+	get menuSection() {
+		return this.$$.ctx[2];
+	}
+
+	set menuSection(menuSection) {
+		this.$$set({ menuSection });
 		flush();
 	}
 
@@ -55788,30 +55807,31 @@ class PrimaryMenuShell extends SvelteComponent {
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[10] = list[i];
+	child_ctx[12] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[13] = list[i];
-	child_ctx[15] = i;
+	child_ctx[15] = list[i];
+	child_ctx[16] = list;
+	child_ctx[17] = i;
 	return child_ctx;
 }
 
 function get_each_context_2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[10] = list[i];
+	child_ctx[12] = list[i];
 	return child_ctx;
 }
 
-// (96:12) {#each items as item}
+// (97:12) {#each items as item}
 function create_each_block_2(ctx) {
 	let li;
 	let span;
 	let i;
 	let i_class_value;
-	let t0_value = /*item*/ ctx[10].label + "";
+	let t0_value = /*item*/ ctx[12].label + "";
 	let t0;
 	let t1;
 	let li_class_value;
@@ -55825,10 +55845,10 @@ function create_each_block_2(ctx) {
 			i = element("i");
 			t0 = text(t0_value);
 			t1 = space();
-			attr(i, "class", i_class_value = "" + (null_to_empty(/*item*/ ctx[10].icon) + " svelte-15oms0g"));
+			attr(i, "class", i_class_value = "" + (null_to_empty(/*item*/ ctx[12].icon) + " svelte-15oms0g"));
 			attr(span, "class", "svelte-15oms0g");
 
-			attr(li, "class", li_class_value = "" + ((/*activeTabValue*/ ctx[1] === /*item*/ ctx[10].value
+			attr(li, "class", li_class_value = "" + ((/*activeTabValue*/ ctx[1] === /*item*/ ctx[12].value
 			? 'active'
 			: '') + " flexrow" + " svelte-15oms0g"));
 		},
@@ -55840,14 +55860,23 @@ function create_each_block_2(ctx) {
 			append(li, t1);
 
 			if (!mounted) {
-				dispose = listen(span, "click", /*handleClick*/ ctx[4](/*item*/ ctx[10].value));
+				dispose = listen(span, "click", function () {
+					if (is_function(/*handleClick*/ ctx[5](/*item*/ ctx[12].value))) /*handleClick*/ ctx[5](/*item*/ ctx[12].value).apply(this, arguments);
+				});
+
 				mounted = true;
 			}
 		},
 		p(new_ctx, dirty) {
 			ctx = new_ctx;
 
-			if (dirty & /*activeTabValue*/ 2 && li_class_value !== (li_class_value = "" + ((/*activeTabValue*/ ctx[1] === /*item*/ ctx[10].value
+			if (dirty & /*items*/ 8 && i_class_value !== (i_class_value = "" + (null_to_empty(/*item*/ ctx[12].icon) + " svelte-15oms0g"))) {
+				attr(i, "class", i_class_value);
+			}
+
+			if (dirty & /*items*/ 8 && t0_value !== (t0_value = /*item*/ ctx[12].label + "")) set_data(t0, t0_value);
+
+			if (dirty & /*activeTabValue, items*/ 10 && li_class_value !== (li_class_value = "" + ((/*activeTabValue*/ ctx[1] === /*item*/ ctx[12].value
 			? 'active'
 			: '') + " flexrow" + " svelte-15oms0g"))) {
 				attr(li, "class", li_class_value);
@@ -55861,11 +55890,11 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (110:16) {#if activeTabValue == item.value}
+// (111:16) {#if activeTabValue == item.value}
 function create_if_block$5(ctx) {
 	let each_1_anchor;
 	let current;
-	let each_value_1 = Object.entries(/*flagData*/ ctx[2][/*item*/ ctx[10].type]);
+	let each_value_1 = Object.values(/*flagData*/ ctx[2][/*item*/ ctx[12].type]);
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value_1.length; i += 1) {
@@ -55893,8 +55922,8 @@ function create_if_block$5(ctx) {
 			current = true;
 		},
 		p(ctx, dirty) {
-			if (dirty & /*items, flagData*/ 36) {
-				each_value_1 = Object.entries(/*flagData*/ ctx[2][/*item*/ ctx[10].type]);
+			if (dirty & /*items, flagData, Object*/ 12) {
+				each_value_1 = Object.values(/*flagData*/ ctx[2][/*item*/ ctx[12].type]);
 				let i;
 
 				for (i = 0; i < each_value_1.length; i += 1) {
@@ -55945,20 +55974,30 @@ function create_if_block$5(ctx) {
 	};
 }
 
-// (111:20) {#each Object.entries(flagData[item.type]) as menuSection, idx}
+// (112:20) {#each Object.values(flagData[item.type]) as menuSection, idx}
 function create_each_block_1(ctx) {
 	let div;
 	let primarymenushell;
+	let updating_menuSection;
 	let t;
 	let current;
 
-	primarymenushell = new PrimaryMenuShell({
-			props: {
-				idx: /*idx*/ ctx[15],
-				type: /*item*/ ctx[10].type,
-				flagData: /*flagData*/ ctx[2]
-			}
-		});
+	function primarymenushell_menuSection_binding(value) {
+		/*primarymenushell_menuSection_binding*/ ctx[7](value, /*menuSection*/ ctx[15], /*each_value_1*/ ctx[16], /*idx*/ ctx[17]);
+	}
+
+	let primarymenushell_props = {
+		idx: /*idx*/ ctx[17],
+		type: /*item*/ ctx[12].type,
+		flagData: /*flagData*/ ctx[2]
+	};
+
+	if (/*menuSection*/ ctx[15] !== void 0) {
+		primarymenushell_props.menuSection = /*menuSection*/ ctx[15];
+	}
+
+	primarymenushell = new PrimaryMenuShell({ props: primarymenushell_props });
+	binding_callbacks.push(() => bind(primarymenushell, 'menuSection', primarymenushell_menuSection_binding));
 
 	return {
 		c() {
@@ -55973,7 +56012,20 @@ function create_each_block_1(ctx) {
 			append(div, t);
 			current = true;
 		},
-		p: noop,
+		p(new_ctx, dirty) {
+			ctx = new_ctx;
+			const primarymenushell_changes = {};
+			if (dirty & /*items*/ 8) primarymenushell_changes.type = /*item*/ ctx[12].type;
+			if (dirty & /*flagData*/ 4) primarymenushell_changes.flagData = /*flagData*/ ctx[2];
+
+			if (!updating_menuSection && dirty & /*Object, flagData, items*/ 12) {
+				updating_menuSection = true;
+				primarymenushell_changes.menuSection = /*menuSection*/ ctx[15];
+				add_flush_callback(() => updating_menuSection = false);
+			}
+
+			primarymenushell.$set(primarymenushell_changes);
+		},
 		i(local) {
 			if (current) return;
 			transition_in(primarymenushell.$$.fragment, local);
@@ -55990,11 +56042,11 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (109:12) {#each items as item}
+// (110:12) {#each items as item}
 function create_each_block(ctx) {
 	let if_block_anchor;
 	let current;
-	let if_block = /*activeTabValue*/ ctx[1] == /*item*/ ctx[10].value && create_if_block$5(ctx);
+	let if_block = /*activeTabValue*/ ctx[1] == /*item*/ ctx[12].value && create_if_block$5(ctx);
 
 	return {
 		c() {
@@ -56007,11 +56059,11 @@ function create_each_block(ctx) {
 			current = true;
 		},
 		p(ctx, dirty) {
-			if (/*activeTabValue*/ ctx[1] == /*item*/ ctx[10].value) {
+			if (/*activeTabValue*/ ctx[1] == /*item*/ ctx[12].value) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 
-					if (dirty & /*activeTabValue*/ 2) {
+					if (dirty & /*activeTabValue, items*/ 10) {
 						transition_in(if_block, 1);
 					}
 				} else {
@@ -56046,7 +56098,7 @@ function create_each_block(ctx) {
 	};
 }
 
-// (82:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}      stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}  >
+// (83:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}      stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}  >
 function create_default_slot$1(ctx) {
 	let form_1;
 	let div0;
@@ -56063,14 +56115,14 @@ function create_default_slot$1(ctx) {
 	let current;
 	let mounted;
 	let dispose;
-	let each_value_2 = /*items*/ ctx[5];
+	let each_value_2 = /*items*/ ctx[3];
 	let each_blocks_1 = [];
 
 	for (let i = 0; i < each_value_2.length; i += 1) {
 		each_blocks_1[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
 	}
 
-	let each_value = /*items*/ ctx[5];
+	let each_value = /*items*/ ctx[3];
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value.length; i += 1) {
@@ -56152,7 +56204,7 @@ function create_default_slot$1(ctx) {
 			append(div4, t3);
 			append(div4, div3);
 			append(div3, button1);
-			/*form_1_binding*/ ctx[7](form_1);
+			/*form_1_binding*/ ctx[8](form_1);
 			current = true;
 
 			if (!mounted) {
@@ -56161,8 +56213,8 @@ function create_default_slot$1(ctx) {
 			}
 		},
 		p(ctx, dirty) {
-			if (dirty & /*activeTabValue, items, handleClick*/ 50) {
-				each_value_2 = /*items*/ ctx[5];
+			if (dirty & /*activeTabValue, items, handleClick*/ 42) {
+				each_value_2 = /*items*/ ctx[3];
 				let i;
 
 				for (i = 0; i < each_value_2.length; i += 1) {
@@ -56184,8 +56236,8 @@ function create_default_slot$1(ctx) {
 				each_blocks_1.length = each_value_2.length;
 			}
 
-			if (dirty & /*Object, flagData, items, activeTabValue*/ 38) {
-				each_value = /*items*/ ctx[5];
+			if (dirty & /*Object, flagData, items, activeTabValue*/ 14) {
+				each_value = /*items*/ ctx[3];
 				let i;
 
 				for (i = 0; i < each_value.length; i += 1) {
@@ -56233,7 +56285,7 @@ function create_default_slot$1(ctx) {
 			if (detaching) detach(form_1);
 			destroy_each(each_blocks_1, detaching);
 			destroy_each(each_blocks, detaching);
-			/*form_1_binding*/ ctx[7](null);
+			/*form_1_binding*/ ctx[8](null);
 			mounted = false;
 			dispose();
 		}
@@ -56246,7 +56298,7 @@ function create_fragment$8(ctx) {
 	let current;
 
 	function applicationshell_elementRoot_binding(value) {
-		/*applicationshell_elementRoot_binding*/ ctx[8](value);
+		/*applicationshell_elementRoot_binding*/ ctx[9](value);
 	}
 
 	let applicationshell_props = {
@@ -56275,7 +56327,7 @@ function create_fragment$8(ctx) {
 		p(ctx, [dirty]) {
 			const applicationshell_changes = {};
 
-			if (dirty & /*$$scope, form, activeTabValue*/ 262154) {
+			if (dirty & /*$$scope, form, items, Object, flagData, activeTabValue*/ 1048606) {
 				applicationshell_changes.$$scope = { dirty, ctx };
 			}
 
@@ -56308,17 +56360,19 @@ function instance$8($$self, $$props, $$invalidate) {
 	const handleClick = tabValue => () => $$invalidate(1, activeTabValue = tabValue);
 	const data = game.settings.get("autoanimations", "aaAutorec");
 
-	const flagData = {
-		melee: data.melee || {},
-		range: data.range || {},
-		static: data.static || {},
-		templatefx: data.templatefx || {},
-		aura: data.aura || {},
-		preset: data.preset || {},
-		aefx: data.aefx || {},
-		version: data.version || Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0],
-		search: ""
-	};
+	const flagData = [
+		data.melee || {},
+		data.range || {},
+		data.static || {},
+		data.templatefx || {},
+		data.aura || {},
+		data.preset || {},
+		data.aefx || {},
+		data.version || Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0]
+	];
+
+	let meleeList = Object.values(flagData.melee);
+	console.log(meleeList);
 
 	let items = [
 		{
@@ -56369,10 +56423,14 @@ function instance$8($$self, $$props, $$invalidate) {
 		bubble.call(this, $$self, event);
 	}
 
+	function primarymenushell_menuSection_binding(value, menuSection, each_value_1, idx) {
+		each_value_1[idx] = value;
+	}
+
 	function form_1_binding($$value) {
 		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
 			form = $$value;
-			$$invalidate(3, form);
+			$$invalidate(4, form);
 		});
 	}
 
@@ -56386,14 +56444,21 @@ function instance$8($$self, $$props, $$invalidate) {
 		if ('activeTabValue' in $$props) $$invalidate(1, activeTabValue = $$props.activeTabValue);
 	};
 
+	$$self.$$.update = () => {
+		if ($$self.$$.dirty & /*flagData*/ 4) {
+			$$invalidate(2, flagData);
+		}
+	};
+
 	return [
 		elementRoot,
 		activeTabValue,
 		flagData,
+		items,
 		form,
 		handleClick,
-		items,
 		submit_handler,
+		primarymenushell_menuSection_binding,
 		form_1_binding,
 		applicationshell_elementRoot_binding
 	];
@@ -56402,12 +56467,7 @@ function instance$8($$self, $$props, $$invalidate) {
 class AutorecAppShell extends SvelteComponent {
 	constructor(options) {
 		super();
-
-		init(this, options, instance$8, create_fragment$8, safe_not_equal, {
-			elementRoot: 0,
-			activeTabValue: 1,
-			flagData: 2
-		});
+		init(this, options, instance$8, create_fragment$8, safe_not_equal, { elementRoot: 0, activeTabValue: 1 });
 	}
 
 	get elementRoot() {
@@ -56426,10 +56486,6 @@ class AutorecAppShell extends SvelteComponent {
 	set activeTabValue(activeTabValue) {
 		this.$$set({ activeTabValue });
 		flush();
-	}
-
-	get flagData() {
-		return this.$$.ctx[2];
 	}
 }
 
