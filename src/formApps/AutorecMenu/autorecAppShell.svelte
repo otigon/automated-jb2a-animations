@@ -62,12 +62,8 @@
     >
         <div class="aa-autorec-header aaTopSection">
             {#each items as item}
-                <li
-                    class="{activeTabValue === item.value
-                        ? 'active'
-                        : ''} flexrow"
-                >
-                    <span on:click={handleClick(item.value)}
+                <li class=flexrow class:active={activeTabValue === item.value}>
+                    <span on:click={() => handleClick(item.value)}
                         ><i class={item.icon} />{item.label}</span
                     >
                 </li>
