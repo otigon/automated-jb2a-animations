@@ -1,7 +1,8 @@
 import { aaAutoRecognition } from "./custom-recognition/auto-recognition.js";
 import AutorecShim from "./formApps/AutorecMenu/appShim.js"
 import { aaAutorec } from "./custom-recognition/aaAutoRecList.js";
-import { disableAnimations } from "./autoAnimations.js";
+import { AnimationState } from "./AnimationState.js";
+
 export default function aaSettings() {
 
     Hooks.on('AA.Open.AutorecSetting', () => new AutorecShim());
@@ -52,10 +53,11 @@ export default function aaSettings() {
         default: "on",
         onChange: value => {
             if (value === "off") {
-                disableAnimations()
+               AnimationState.enabled = false;
             }
             if (value === "on") {
-                window.location.reload()
+               AnimationState.enabled = true;
+               window.location.reload()
             }
         }
     })

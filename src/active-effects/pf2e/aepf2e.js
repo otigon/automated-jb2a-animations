@@ -2,28 +2,24 @@ import { aaDebugger } from "../../constants/constants.js";
 import { flagMigrations } from "../../system-handlers/flagMerge.js";
 import { trafficCop } from "../../router/traffic-cop.js";
 import systemData from "../../system-handlers/system-data.js";
+import { AnimationState } from "../../AnimationState.js";
 
-var killAllAnimations;
-export function disableAnimations() {
-    socket.off('module.sequencer')
-    killAllAnimations = true;
-}
 
 export async function createActiveEffectsPF2e(item) {
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
     await wait(150)
     const aePF2eTypes = ['condition', 'effect', 'feat']
     const aaDebug = game.settings.get("autoanimations", "debug")
-    if (!aePF2eTypes.includes(item.type)) { 
+    if (!aePF2eTypes.includes(item.type)) {
         if (aaDebug) { aaDebugger("This is not a PF2e Ruleset, exiting early") }
         return;
     }
-    if (item.data?.data?.references?.parent && game.settings.get("autoanimations", "disableNestedEffects")) { 
+    if (item.data?.data?.references?.parent && game.settings.get("autoanimations", "disableNestedEffects")) {
         if (aaDebug) { aaDebugger("This is a nested Ruleset, exiting early") }
         return;
     }
 
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
 
     // Get the Item ID and Token it is on
     const itemId = item.id;
@@ -78,7 +74,7 @@ export async function createActiveEffectsPF2e(item) {
 export async function deleteActiveEffectsPF2e(item) {
     const aePF2eTypes = ['condition', 'effect', 'feat']
     if (!aePF2eTypes.includes(item.type)) { return; }
-    
+
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Finds all active Animations on the scene that match .origin(effect.uuid)

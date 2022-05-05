@@ -22,16 +22,15 @@ import { teleportation } from "./animation-functions/teleportation.js";
 import { setupSocket } from "./socketset.js";
 import { flagMigrations } from "./system-handlers/flagMerge.js";
 import { autoRecMigration } from "./custom-recognition/autoRecMerge.js";
+
+import { AnimationState } from "./AnimationState.js";
+
 const log = () => { };
 
 Hooks.once('socketlib.ready', function () {
     setupSocket();
 });
-var killAllAnimations;
-export function disableAnimations() {
-    socket.off('module.sequencer')
-    killAllAnimations = true;
-}
+
 Hooks.on('init', () => {
     Handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
         return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
@@ -129,8 +128,7 @@ Hooks.on("aa.ready", () => {
     Sequencer.Database.registerEntries("autoanimations", obj01, true);
     if (game.settings.get("autoanimations", "killAllAnim") === "off") {
         console.log("ANIMATIONS ARE OFF")
-        socket.off('module.sequencer')//
-        killAllAnimations = true;
+        AnimationState.enabled = false;
     }
 });
 
@@ -141,8 +139,8 @@ Hooks.once('ready', async function () {
     //const jb2aFreeFound = moduleIncludes("JB2A_DnD5e");
     let jb2aPath = game.settings.get('autoanimations', 'jb2aLocation');
     let s3Patreon;
-  
-    if (!jb2aPath || jb2aPath === "null") { 
+
+    if (!jb2aPath || jb2aPath === "null") {
         if (jb2aPatreonFound) {
             jb2aPath = 'modules/jb2a_patreon'
         } else {
@@ -416,7 +414,7 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 */
 class AutoAnimations {
     static async playAnimation(sourceToken, targets, item, options = {}) {
-        if (killAllAnimations) { return; }
+        if (!AnimationState.enabled) { return; }
         const data = {
             token: sourceToken,
             targets: targets,
@@ -437,7 +435,7 @@ window.AAAutoRec = AAAutorecMenu;
 */
 // setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
 async function setUpMidi(workflow) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     let handler = await systemData.make(workflow);
     if (!handler.item || !handler.sourceToken) {
         return;
@@ -447,7 +445,7 @@ async function setUpMidi(workflow) {
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
 async function setUpMidiNoAttackDamage(workflow) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (workflow.item?.hasAttack || workflow.item?.hasDamage) { return; }
     let handler = await systemData.make(workflow);
     if (!handler.item || !handler.sourceToken) {
@@ -458,7 +456,7 @@ async function setUpMidiNoAttackDamage(workflow) {
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
 async function setUpMidiNoAttack(workflow) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (workflow.item?.hasAttack) { return; }
     let handler = await systemData.make(workflow);
     if (!handler.item || !handler.sourceToken) {
@@ -470,7 +468,7 @@ async function setUpMidiNoAttack(workflow) {
 /*
 // For AOE items when using Midi QOL
 async function midiAOE(workflow) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     const handler = await systemData.make(workflow);
     if (!handler.item || !handler.sourceToken) {
         return;
@@ -482,7 +480,7 @@ async function midiAOE(workflow) {
 */
 // Special cases required when using Midi-QOL. Houses only the Template Animations right now
 async function midiTemplateAnimations(msg) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (game.user.id !== msg.user?.id) {
         return;
     }
@@ -510,7 +508,7 @@ function checkMessege(msg) {
 *
 */
 async function criticalCheck(workflow) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (!workflow.isCritical && !workflow.isFumble) { return; }
     let critical = workflow.isCritical;
     let fumble = workflow.isFumble;
@@ -544,7 +542,7 @@ async function criticalCheck(workflow) {
 */
 async function setUp5eCore(msg) {
 
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (msg.user.id !== game.user.id) { return };
 
     const animationNow = game.settings.get("autoanimations", "playonDamageCore");
@@ -603,7 +601,7 @@ async function setUp5eCore(msg) {
 / sets Handler for PF1 and DnD3.5
 */
 async function onCreateChatMessage(msg) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (msg.user.id !== game.user.id) { return };
     log('onCreateChatMessage', msg);
     let handler;
@@ -625,7 +623,7 @@ async function onCreateChatMessage(msg) {
 / Sets Handler for Star Wars FFG
 */
 async function swffgReady(msg) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (game.user.id !== msg.user.id) { return }
     let handler = await systemData.make(msg);
     if (!handler.item || !handler.sourceToken) {
@@ -638,7 +636,7 @@ async function swffgReady(msg) {
 / Sets Handler for SWADE
 */
 async function swadeData(SwadeTokenOrActor, SwadeItem) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     let data = { SwadeTokenOrActor, SwadeItem }
     let handler = await systemData.make(data);
     if (!handler.item || !handler.sourceToken) {
@@ -651,7 +649,7 @@ async function swadeData(SwadeTokenOrActor, SwadeItem) {
 / Sets Handler for Starfinder
 */
 async function starFinder(data, msg) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     const sfrpgData = { data, msg }
     const handler = await systemData.make(sfrpgData)
     //let tokenId = msg.data.speaker.token;
@@ -666,7 +664,7 @@ async function starFinder(data, msg) {
 / Sets Handler for Tormenta 20
 */
 async function setupTormenta20(msg) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (game.user.id !== msg.user.id) {
         return;
     }
@@ -690,7 +688,7 @@ async function setupTormenta20(msg) {
 / Sets Handler for Forbidden Lands
 */
 async function fblReady(msg) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (game.user.id !== msg.user.id) { return; }
     const handler = await systemData.make(msg);
     if (!handler.item || !handler.sourceToken) {
@@ -702,7 +700,7 @@ async function fblReady(msg) {
 / Sets Handler for Demon Lord
 */
 async function setupDemonLord(data) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     let handler = await systemData.make(data);
     if (!handler.item || !handler.sourceToken) {
         return;
@@ -714,7 +712,7 @@ async function setupDemonLord(data) {
 / Sets Handler for Pathfinder 2e and routes to animations
 */
 async function pf2eReady(msg) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (game.user.id !== msg.user.id) { return; }
     const handler = await systemData.make(msg);
     if (!handler.item || !handler.sourceToken) {
@@ -799,7 +797,7 @@ async function pf2eReady(msg) {
 / WFRP Functions
 */
 async function wfrpWeapon(data, info) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (game.user.id !== info.user) { return }
     let handler = await systemData.make({ item: data.weapon, targets: data.context?.targets, info: info });
     switch (true) {
@@ -811,7 +809,7 @@ async function wfrpWeapon(data, info) {
     }
 }
 async function wfrpPrayer(data, info) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (game.user.id !== info.user) { return }
     let handler = await systemData.make({ item: data.prayer, targets: data.context?.targets, info: info });
     switch (true) {
@@ -823,7 +821,7 @@ async function wfrpPrayer(data, info) {
     }
 }
 async function wfrpCast(data, info) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (game.user.id !== info.user) { return }
     let handler = await systemData.make({ item: data.spell, targets: data.context?.targets, info: info });
     switch (true) {
@@ -835,7 +833,7 @@ async function wfrpCast(data, info) {
     }
 }
 async function wfrpTrait(data, info) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (game.user.id !== info.user) { return }
     let handler = await systemData.make({ item: data.trait, targets: data.context?.targets, info: info });
     switch (true) {
@@ -848,7 +846,7 @@ async function wfrpTrait(data, info) {
 }
 /*
 async function wfrpSkill(data, info) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (game.user.id !== info.user) { return }
     let handler = await systemData.make({ item: data.skill, targets: data.targets, info: info });
     switch (true) {
@@ -861,7 +859,7 @@ async function wfrpSkill(data, info) {
 }
 */
 async function oseReady(input) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (input.user.id !== game.user.id) { return };
     let handler = await systemData.make(input)
     if (!handler.item || !handler.sourceToken) {
@@ -871,7 +869,7 @@ async function oseReady(input) {
 }
 
 async function setupAlienRPG(input) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (input.user.id !== game.user.id) { return };
     let handler = await systemData.make(input)
     if (!handler.item || !handler.sourceToken) {
@@ -881,7 +879,7 @@ async function setupAlienRPG(input) {
 }
 
 async function dccReady(input) {
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     if (input.user.id !== game.user.id) { return };
 
     if (!game.settings.get('dcc', 'useStandardDiceRoller')) {
