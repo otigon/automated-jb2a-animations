@@ -3,24 +3,19 @@ import systemData from "../system-handlers/system-data.js";
 import { aaDebugger } from "../constants/constants.js";
 import { flagMigrations } from "../system-handlers/flagMerge.js";
 import { socketlibSocket } from "../socketset.js";
-
-var killAllAnimations;
-export function disableAnimations() {
-    socket.off('module.sequencer')
-    killAllAnimations = true;
-}
+import { AnimationState } from "../AnimationState.js";
 
 /**
- * 
- * @param {*} // The Active Effect being applied 
- * 
+ *
+ * @param {*} // The Active Effect being applied
+ *
  */
 export async function createActiveEffects5e(effect) {
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
     await wait(150)
     const aaDebug = game.settings.get("autoanimations", "debug")
 
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
 
     // Gets the Token that the Active Effect is applied to
     const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
@@ -73,9 +68,9 @@ export async function createActiveEffects5e(effect) {
 }
 
 /**
- * 
+ *
  * @param {*} effect // The Active Effect being removed
- * 
+ *
  */
 export async function deleteActiveEffects5e(effect) {
 
@@ -85,7 +80,7 @@ export async function deleteActiveEffects5e(effect) {
     let aaEffects = Sequencer.EffectManager.getEffects({ origin: effect.uuid })
 
     // If no animations, exit early, Else continue with gathering data
-    if (aaEffects.length > 0) {  
+    if (aaEffects.length > 0) {
         const itemData = effect.data?.flags?.autoanimations ?? {};
         const data = {
             token: undefined,
@@ -171,9 +166,9 @@ export async function deleteActiveEffects5e(effect) {
 }
 
 /**
- * 
- * @param {Active Effect being updated} effect 
- * @param {Toggle Check On/Off for Effect} toggle 
+ *
+ * @param {Active Effect being updated} effect
+ * @param {Toggle Check On/Off for Effect} toggle
  */
 export async function toggleActiveEffects5e(effect, toggle) {
 

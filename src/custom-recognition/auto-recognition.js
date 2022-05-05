@@ -116,7 +116,7 @@ export class aaAutoRecognition extends FormApplication {
         html.on('keyup', '#aatest', this._onSearch.bind(this))
         //html.on('focus', '.aa-autorecognition', this._loadSearch.bind(this))
         html.on(this._loadSearch())
-        html.on('open', '#aatest', (evt) => { 
+        html.on('open', '#aatest', (evt) => {
             evt.preventDefault()
         })
         html.find("#aa-autorec-export").click(AutorecFunctions._exportAutorecToJSON);
@@ -158,7 +158,7 @@ export class aaAutoRecognition extends FormApplication {
             }
         })
     }
-    
+
     _onSearch(evt) {
         const search = $(evt.currentTarget).val().toLowerCase();
         this.element.find('.aa-search').each((index, element) => {
@@ -446,7 +446,7 @@ export class aaAutoRecognition extends FormApplication {
                 data[menuType[i]] = compacted;
             }
             const oldData = await game.settings.get('autoanimations', 'aaAutorec');
-            const newData = mergeObject(oldData, data);
+            const newData = foundry.utils.mergeObject(oldData, data);
 
             await game.settings.set('autoanimations', "aaAutorec", newData);
     }
@@ -464,10 +464,10 @@ export class aaAutoRecognition extends FormApplication {
         sortedMenu.auras = autoRec.auras ? await this.sortMenu(autoRec.auras) : {};
         sortedMenu.preset = autoRec.preset ? await this.sortMenu(autoRec.preset) : {};
         sortedMenu.aefx = autoRec.aefx ? await this.sortMenu(autoRec.aefx) : {};
-    
+
         await game.settings.set("autoanimations", "aaAutorec", sortedMenu);
     }
-    
+
     async sortMenu(data) {
         const mergedArray = [];
         const keys = Object.keys(data);
@@ -479,7 +479,7 @@ export class aaAutoRecognition extends FormApplication {
             mergedArray.push(currentObject)
         }
         mergedArray.sort((a, b) => b.name.toLowerCase() > a.name.toLowerCase() ? -1 : 1)
-    
+
         const sortedMenu = {};
         const newLength = mergedArray.length;
         for (var i = 0; i < newLength; i++) {
@@ -488,7 +488,7 @@ export class aaAutoRecognition extends FormApplication {
         }
         return sortedMenu;
     }
-    
+
 }
 
 // Credit to Tim Poseny of Midi-QOL for the import/export functions for settings

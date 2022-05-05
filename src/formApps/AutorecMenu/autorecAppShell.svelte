@@ -2,7 +2,6 @@
 
 <script>
     import { getContext } from "svelte";
-    import { fade, scale } from "svelte/transition";
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import MeleeMenuShell from "./meleeMenuShell.svelte";
@@ -12,13 +11,23 @@
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
     //import Tabs from "./Tabs.svelte";
 
+    import { gameSettings } from "../../gameSettings.js";
+
+    import items from './data/tabItems.js';
+
     export let elementRoot;
     export let activeTabValue = 1;
-    const handleClick = (tabValue) => () => (activeTabValue = tabValue);
 
+    const handleClick = (tabValue) => activeTabValue = tabValue;
+
+    const storeData = gameSettings.getStore('aaAutorec');
+
+    // TODO: this is a test console.log showing updates to `aaAutorec` game settings.
+    $: console.log(`! autorecAppShell - storeData (aaAutorec): \n`, $storeData);
+
+    // TODO: Remove this and make `aaAutorec` setting store above the authority.
     const data = game.settings.get("autoanimations", "aaAutorec");
-
-    const flagData = {
+    let flagData = {
         melee: data.melee || {},
         range: data.range || {},
         static: data.static || {},
@@ -33,58 +42,14 @@
                 .reverse()[0],
         search: "",
     };
-    $: flagData = flagData;
+
     let meleeList = Object.values(flagData.melee);
 
-    let items = [
-        {
-            label: "Melee",
-            value: 1,
-            icon: "fas fa-shield-alt",
-            type: "melee",
-        },
-        {
-            label: "Range",
-            value: 2,
-            icon: "fas fa-people-arrows",
-            type: "range",
-        },
-        {
-            label: "On Token",
-            value: 3,
-            icon: "fas fa-child",
-            type: "static",
-        },
-        {
-            label: "Templates",
-            value: 4,
-            icon: "fas fa-shapes",
-            type: "templatefx",
-        },
-        {
-            label: "Aura",
-            value: 5,
-            icon: "fab fa-creative-commons-by",
-            type: "static",
-        },
-        {
-            label: "Preset",
-            value: 6,
-            icon: "fas fa-gift",
-        },
-        {
-            label: "Active Effects",
-            value: 7,
-            icon: "fas fa-atom",
-        },
-    ];
     let form = void 0;
 </script>
 
 <ApplicationShell
     bind:elementRoot
-    transition={scale}
-    transitionOptions={{ duration: 500 }}
     stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}
 >
     <form
@@ -96,12 +61,8 @@
     >
         <div class="aa-autorec-header aaTopSection">
             {#each items as item}
-                <li
-                    class="{activeTabValue === item.value
-                        ? 'active'
-                        : ''} flexrow"
-                >
-                    <span on:click={handleClick(item.value)}
+                <li class=flexrow class:active={activeTabValue === item.value}>
+                    <span on:click={() => handleClick(item.value)}
                         ><i class={item.icon} />{item.label}</span
                     >
                 </li>
