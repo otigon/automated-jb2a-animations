@@ -3,6 +3,16 @@ import AutorecShim from "./formApps/AutorecMenu/appShim.js"
 import { aaAutorec } from "./custom-recognition/aaAutoRecList.js";
 import { AnimationState } from "./AnimationState.js";
 
+/**
+ * Constants for setting scope type.
+ *
+ * @type {{world: string, client: string}}
+ */
+const scope = {
+   client: 'client',
+   world: 'world'
+};
+
 export default function aaSettings() {
 
     Hooks.on('AA.Open.AutorecSetting', () => new AutorecShim());
@@ -22,7 +32,7 @@ export default function aaSettings() {
         config: {
             name: "Automatic Recognition",
             hint: "Configure Automatic Recognition",
-            scope: 'world',
+            scope: scope.world,
             config: false,
             default: {},
             type: Object,
@@ -43,7 +53,7 @@ export default function aaSettings() {
     game.settings.register("autoanimations", "killAllAnim", {
         name: game.i18n.format("autoanimations.settings.toggleAnimations"),
         hint: game.i18n.format("autoanimations.settings.toggleAnimations_hint"),
-        scope: "client",
+        scope: scope.client,
         config: true,
         type: String,
         choices: {
@@ -64,7 +74,7 @@ export default function aaSettings() {
     game.settings.register("autoanimations", "disableAutoRec", {
         name: game.i18n.format("autoanimations.settings.settingDisableAutoRec"),
         hint: game.i18n.format("autoanimations.settings.settingDisableAutoRecHint"),
-        scope: "client",
+        scope: scope.client,
         config: true,
         type: Boolean,
         default: false,
@@ -72,7 +82,7 @@ export default function aaSettings() {
     game.settings.register("autoanimations", "globaldelay", {
         name: game.i18n.format("autoanimations.settings.globaldelay_name"),
         hint: game.i18n.format("autoanimations.settings.globaldelay_hint"),
-        scope: "world",
+        scope: scope.world,
         config: true,
         default: 100,
         type: Number
@@ -80,7 +90,7 @@ export default function aaSettings() {
     game.settings.register("autoanimations", "videoLoop", {
         name: game.i18n.format("autoanimations.settings.animPreview"),
         hint: game.i18n.format("autoanimations.settings.animPreviewHint"),
-        scope: "world",
+        scope: scope.world,
         type: String,
         choices: {
             "0": "No Video Preview",
@@ -93,7 +103,7 @@ export default function aaSettings() {
     game.settings.register("autoanimations", "jb2aLocation", {
         name: game.i18n.format("autoanimations.settings.s3Name"),
         hint: game.i18n.format("autoanimations.settings.s3Hint"),
-        scope: 'world',
+        scope: scope.world,
         config: true,
         type: String,
         default: "",
@@ -102,7 +112,7 @@ export default function aaSettings() {
     game.settings.register("autoanimations", "hideFromPlayers", {
         name: game.i18n.format("autoanimations.settings.animtab_name"),
         hint: game.i18n.format("autoanimations.settings.animtab_hint"),
-        scope: "world",
+        scope: scope.world,
         config: true,
         type: Boolean,
         default: false,
@@ -110,7 +120,7 @@ export default function aaSettings() {
     game.settings.register("autoanimations", "decoupleSound", {
         name: game.i18n.format("autoanimations.settings.decoupleSounds"),
         hint: game.i18n.format("autoanimations.settings.decoupleSounds_hint"),
-        scope: "world",
+        scope: scope.world,
         config: true,
         type: Boolean,
         default: false,
@@ -118,7 +128,7 @@ export default function aaSettings() {
     game.settings.register("autoanimations", "rangeSwitch", {
         name: game.i18n.format("autoanimations.settings.settingRangeSwitch"),
         hint: game.i18n.format("autoanimations.settings.settingRangeSwitchhint"),
-        scope: "client",
+        scope: scope.client,
         config: true,
         type: Boolean,
         default: false,
@@ -126,7 +136,7 @@ export default function aaSettings() {
     game.settings.register("autoanimations", "noTips", {
         name: game.i18n.format("autoanimations.settings.noTips"),
         hint: game.i18n.format("autoanimations.settings.noTipsHint"),
-        scope: "client",
+        scope: scope.client,
         config: true,
         type: Boolean,
         default: false,
@@ -136,7 +146,7 @@ export default function aaSettings() {
             game.settings.register("autoanimations", "playtrigger", {
                 name: game.i18n.format("autoanimations.settings.demonlordtrigger_name"),
                 hint: game.i18n.format("autoanimations.settings.demonlordtrigger_hint"),
-                scope: "world",
+                scope: scope.world,
                 type: String,
                 choices: {
                     "rollattack": game.i18n.format("autoanimations.settings.demonlordtrigger_rollattack"),
@@ -154,7 +164,7 @@ export default function aaSettings() {
             game.settings.register("autoanimations", "playonDamage", {
                 name: game.i18n.format("autoanimations.settings.midiondmg_name"),
                 hint: game.i18n.format("autoanimations.settings.midiondmg_hint"),
-                scope: 'world',
+                scope: scope.world,
                 type: Boolean,
                 default: false,
                 config: true,
@@ -167,7 +177,7 @@ export default function aaSettings() {
             game.settings.register("autoanimations", "disableAEAnimations", {
                 name: game.i18n.format("autoanimations.settings.disableAEAnimations"),
                 hint: game.i18n.format("autoanimations.settings.disableAEAnimationsHint"),
-                scope: 'world',
+                scope: scope.world,
                 type: Boolean,
                 default: false,
                 config: true,
@@ -176,7 +186,7 @@ export default function aaSettings() {
                 game.settings.register("autoanimations", "playonhit", {
                     name: game.i18n.format("autoanimations.settings.midionhit_name"),
                     hint: game.i18n.format("autoanimations.settings.midionhit_hint"),
-                    scope: 'world',
+                    scope: scope.world,
                     type: Boolean,
                     default: false,
                     config: true,
@@ -184,7 +194,7 @@ export default function aaSettings() {
                 game.settings.register("autoanimations", "playonmiss", {
                     name: game.i18n.format("autoanimations.settings.midionmiss_name"),
                     hint: game.i18n.format("autoanimations.settings.midionmiss_hint"),
-                    scope: `world`,
+                    scope: scope.world,
                     type: Boolean,
                     default: false,
                     config: true,
@@ -192,7 +202,7 @@ export default function aaSettings() {
                 game.settings.register("autoanimations", "playonDamage", {
                     name: game.i18n.format("autoanimations.settings.midiondmg_name"),
                     hint: game.i18n.format("autoanimations.settings.midiondmg_hint"),
-                    scope: 'world',
+                    scope: scope.world,
                     type: Boolean,
                     default: false,
                     config: true,
@@ -201,7 +211,7 @@ export default function aaSettings() {
                 game.settings.register("autoanimations", "EnableCritical", {
                     name: game.i18n.format("autoanimations.settings.crithit_name"),
                     hint: game.i18n.format("autoanimations.settings.crithit_hint"),
-                    scope: 'world',
+                    scope: scope.world,
                     type: Boolean,
                     default: false,
                     config: true,
@@ -210,7 +220,7 @@ export default function aaSettings() {
                 game.settings.register("autoanimations", "CriticalAnimation", {
                     name: game.i18n.format("autoanimations.settings.crithitAnim_name"),
                     //name: "Choose A File",
-                    scope: 'world',
+                    scope: scope.world,
                     config: true,
                     type: String,
                     filePicker: "imagevideo"
@@ -218,7 +228,7 @@ export default function aaSettings() {
                 game.settings.register("autoanimations", "EnableCriticalMiss", {
                     name: game.i18n.format("autoanimations.settings.critmiss_name"),
                     hint: game.i18n.format("autoanimations.settings.critmiss_hint"),
-                    scope: 'world',
+                    scope: scope.world,
                     type: Boolean,
                     default: false,
                     config: true,
@@ -226,7 +236,7 @@ export default function aaSettings() {
                 });
                 game.settings.register("autoanimations", "CriticalMissAnimation", {
                     name: game.i18n.format("autoanimations.settings.critmissAnim_name"),
-                    scope: 'world',
+                    scope: scope.world,
                     config: true,
                     type: String,
                     filePicker: "imagevideo"
@@ -235,7 +245,7 @@ export default function aaSettings() {
                 game.settings.register("autoanimations", "playonDamageCore", {
                     name: game.i18n.format("autoanimations.settings.coreondmg_name"),
                     hint: game.i18n.format("autoanimations.settings.coreondmg_hint"),
-                    scope: 'world',
+                    scope: scope.world,
                     type: Boolean,
                     default: false,
                     config: true,
@@ -246,7 +256,7 @@ export default function aaSettings() {
             game.settings.register("autoanimations", "playonDamageCore", {
                 name: game.i18n.format("autoanimations.settings.coreondmg_name"),
                 hint: game.i18n.format("autoanimations.settings.coreondmg_hint"),
-                scope: 'world',
+                scope: scope.world,
                 type: Boolean,
                 default: false,
                 config: true,
@@ -254,7 +264,7 @@ export default function aaSettings() {
             game.settings.register("autoanimations", "playonmiss", {
                 name: game.i18n.format("autoanimations.settings.midionmiss_name"),
                 hint: "Requires Animations to be played on Attack rolls",
-                scope: `world`,
+                scope: scope.world,
                 type: Boolean,
                 default: false,
                 config: true,
@@ -262,7 +272,7 @@ export default function aaSettings() {
             game.settings.register("autoanimations", "disableNestedEffects", {
                 name: game.i18n.format("autoanimations.settings.disableNested"),
                 hint: game.i18n.format("autoanimations.settings.disableNestedHint"),
-                scope: `world`,
+                scope: scope.world,
                 type: Boolean,
                 default: false,
                 config: true,
@@ -273,7 +283,7 @@ export default function aaSettings() {
             game.settings.register("autoanimations", "disableAEAnimations", {
                 name: game.i18n.format("autoanimations.settings.disableAEAnimations"),
                 hint: game.i18n.format("autoanimations.settings.disableAEAnimationsHint"),
-                scope: 'world',
+                scope: scope.world,
                 type: Boolean,
                 default: false,
                 config: true,
@@ -284,7 +294,7 @@ export default function aaSettings() {
 
     game.settings.register("autoanimations", "debug", {
         name: game.i18n.format("autoanimations.settings.debugging"),
-        scope: "world",
+        scope: scope.world,
         config: true,
         default: false,
         type: Boolean
