@@ -4,6 +4,8 @@ import { aaAutorec } from "./custom-recognition/aaAutoRecList.js";
 import { disableAnimations } from "./autoAnimations.js";
 export default function aaSettings() {
 
+    Hooks.on('AA.Open.AutorecSetting', () => new AutorecShim());
+
     const menuAAAutoRecSettings = {
         key: 'custom-autorec',
         config: {
