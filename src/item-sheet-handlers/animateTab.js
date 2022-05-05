@@ -11,7 +11,7 @@ export class AAItemSettings extends FormApplication {
     }
 
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             template: './modules/autoanimations/src/item-sheet-handlers/aa-templates/item-central.html',
             id: 'AA-item-settings',
             class:'AA-item-app',

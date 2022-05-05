@@ -32,7 +32,9 @@ export default function aaSettings() {
     game.settings.register(
         'autoanimations',
         AutoRecSettings.key,
-        mergeObject(AutoRecSettings.config, {
+
+        // TODO: BUG POSSIBLE - misuse of options - `true, true` below.
+        foundry.utils.mergeObject(AutoRecSettings.config, {
             default: aaAutorec.defaultConfiguration
         }, true, true),
     );
