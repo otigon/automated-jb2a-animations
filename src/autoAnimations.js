@@ -15,7 +15,6 @@ import AAActiveEffectMenu from "./formApps/ActiveEffects/activeEffectMenu.js";
 import AAAutorecMenu from "./formApps/AutorecMenu/aaAutorecMenu.js";
 
 import AAItemMenu from "./formApps/ItemMenu/itemMenu.js";
-import { initSettings } from "./settings.js";
 import { aaAutoRecognition } from "./custom-recognition/auto-recognition.js"
 
 import { teleportation } from "./animation-functions/teleportation.js";
@@ -24,6 +23,8 @@ import { flagMigrations } from "./system-handlers/flagMerge.js";
 import { autoRecMigration } from "./custom-recognition/autoRecMerge.js";
 
 import { AnimationState } from "./AnimationState.js";
+import { initSettings } from "./initSettings.js";
+import { gameSettings } from "./gameSettings.js";
 
 const log = () => { };
 
@@ -133,7 +134,7 @@ Hooks.on("aa.ready", () => {
 });
 
 Hooks.once('ready', async function () {
-    initSettings();
+    initSettings(gameSettings);
     const s3Check = game.settings.get('autoanimations', 'jb2aLocation');
     const jb2aPatreonFound = moduleIncludes("jb2a_patreon");
     //const jb2aFreeFound = moduleIncludes("JB2A_DnD5e");

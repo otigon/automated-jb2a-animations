@@ -11,12 +11,18 @@
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
     //import Tabs from "./Tabs.svelte";
 
+    import { gameSettings } from "../../gameSettings.js";
+
     import items from './data/tabItems.js';
 
     export let elementRoot;
     export let activeTabValue = 1;
 
     const handleClick = (tabValue) => activeTabValue = tabValue;
+
+    const storeData = gameSettings.getStore('aaAutorec');
+
+    $: console.log(`! autorecAppShell - storeData (aaAutorec): \n`, $storeData);
 
     const data = game.settings.get("autoanimations", "aaAutorec");
 
@@ -35,8 +41,6 @@
                 .reverse()[0],
         search: "",
     };
-
-    $: flagData = flagData;
 
     let meleeList = Object.values(flagData.melee);
 
