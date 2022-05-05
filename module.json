@@ -18,37 +18,37 @@
         {
             "lang": "en",
             "name": "English",
-            "path": "languages/en.json"
+            "path": "lang/en.json"
         },
         {
             "lang": "es",
             "name": "Español",
-            "path": "languages/es.json"
+            "path": "lang/es.json"
         },
         {
             "lang": "ko",
             "name": "Korean",
-            "path": "languages/ko.json"
+            "path": "lang/ko.json"
         },
         {
             "lang": "ja",
             "name": "日本語",
-            "path": "languages/ja.json"
+            "path": "lang/ja.json"
         },
         {
             "lang": "fr",
             "name": "Français",
-            "path": "languages/fr.json"
+            "path": "lang/fr.json"
         },
         {
             "lang": "pt-BR",
             "name": "Português (Brasil)",
-            "path": "languages/pt-br.json"
+            "path": "lang/pt-br.json"
         },
         {
             "lang": "de",
             "name": "Deutsch",
-            "path": "languages/de.json"
+            "path": "lang/de.json"
         }
     ],
     "dependencies": [
