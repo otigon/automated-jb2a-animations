@@ -2,7 +2,6 @@
 
 <script>
     import { getContext } from "svelte";
-    import { fade, scale } from "svelte/transition";
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import MeleeMenuShell from "./meleeMenuShell.svelte";
@@ -46,8 +45,6 @@
 
 <ApplicationShell
     bind:elementRoot
-    transition={scale}
-    transitionOptions={{ duration: 500 }}
     stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}
 >
     <form
