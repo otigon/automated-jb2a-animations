@@ -12,13 +12,15 @@
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
     //import Tabs from "./Tabs.svelte";
 
+    import items from './data/tabItems.js';
+
     export let elementRoot;
     export let activeTabValue = 1;
     const handleClick = (tabValue) => () => (activeTabValue = tabValue);
 
     const data = game.settings.get("autoanimations", "aaAutorec");
 
-    const flagData = {
+    let flagData = {
         melee: data.melee || {},
         range: data.range || {},
         static: data.static || {},
@@ -36,48 +38,6 @@
     $: flagData = flagData;
     let meleeList = Object.values(flagData.melee);
 
-    let items = [
-        {
-            label: "Melee",
-            value: 1,
-            icon: "fas fa-shield-alt",
-            type: "melee",
-        },
-        {
-            label: "Range",
-            value: 2,
-            icon: "fas fa-people-arrows",
-            type: "range",
-        },
-        {
-            label: "On Token",
-            value: 3,
-            icon: "fas fa-child",
-            type: "static",
-        },
-        {
-            label: "Templates",
-            value: 4,
-            icon: "fas fa-shapes",
-            type: "templatefx",
-        },
-        {
-            label: "Aura",
-            value: 5,
-            icon: "fab fa-creative-commons-by",
-            type: "static",
-        },
-        {
-            label: "Preset",
-            value: 6,
-            icon: "fas fa-gift",
-        },
-        {
-            label: "Active Effects",
-            value: 7,
-            icon: "fas fa-atom",
-        },
-    ];
     let form = void 0;
 </script>
 
