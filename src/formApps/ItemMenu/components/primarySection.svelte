@@ -32,16 +32,16 @@
     let menuSelection = flagData.animType === "aura" ? "static" : flagData.animType;
     $: menuSelection = menuSelection;
 
-    export let menuType = options.menuType === "" ? Object.keys(aaTypeMenu[menuSelection])[0] : options.menuType;
+    export let menuType = options.menuType ? Object.keys(aaTypeMenu[menuSelection])[0] : options.menuType;
     $: menuType = options.menuType = menuType;
 
-    export let animation = flagData.animation === "" ? Object.keys(aaNameMenu[menuSelection][menuType])[0] : flagData.animation;
+    export let animation = flagData.animation ? Object.keys(aaNameMenu[menuSelection][menuType])[0] : flagData.animation;
     $: animation = flagData.animation = animation;
 
-    let variant = options.variant === "" ? Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0] : options.variant;
+    let variant = options.variant ? Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0] : options.variant;
     $: variant = options.variant = variant;
 
-    let color = flagData.color === "" ? Object.keys(aaColorMenu[menuSelection][menuType][animation][variant])[0] : flagData.color;
+    let color = flagData.color ? Object.keys(aaColorMenu[menuSelection][menuType][animation][variant])[0] : flagData.color;
     $: color = flagData.color = color;
 
     let isCustom = options.enableCustom || false;

@@ -25,7 +25,7 @@
         animType = animType;
     }
     $: if (animTypeSwitched) {
-        animTypeChange()
+        animTypeChange(flagPath)
     }
     // Defines the initial Flag path depending on the Section calling this Component
     let rootPath;
@@ -81,16 +81,11 @@
             aaColorMenu[menuSelection][menuType][animation][variant]
         )[0];
     $: color = color;
-    function animTypeChange() {
-        if (flagPath !== "PrimaryAnimation") {
+    function animTypeChange(type) {
+        if (type !== "PrimaryAnimation") {
             return;
         }
-        let menuSelection =
-            flagPath !== "PrimaryAnimation"
-                ? "static"
-                : animType === "aura"
-                ? "static"
-                : animType;
+        let menuSelection = animType === "aura" ? "static" : animType;
         menuType = Object.keys(aaTypeMenu[menuSelection])[0];
         animation = Object.keys(aaNameMenu[menuSelection][menuType])[0];
         variant = Object.keys(

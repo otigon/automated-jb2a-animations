@@ -8,6 +8,7 @@
     import MeleeMenuShell from "./meleeMenuShell.svelte";
     import RangeMenuShell from "./rangeMenuShell.svelte";
     import AutorecRouter from "./AutorecRouter.svelte";
+    import PrimaryMenuShell from "./primaryMenuShell.svelte";
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
     //import Tabs from "./Tabs.svelte";
 
@@ -16,14 +17,9 @@
     const handleClick = (tabValue) => () => (activeTabValue = tabValue);
 
     const data = game.settings.get("autoanimations", "aaAutorec");
-    
+
     export const flagData = {
-        melee: {
-            "0": {},
-            "1": {},
-            "2": {},
-            "3": {},
-        },
+        melee: data.melee || {},
         range: data.range || {},
         static: data.static || {},
         templatefx: data.templatefx || {},
@@ -55,16 +51,19 @@
             label: "On Token",
             value: 3,
             icon: "fas fa-child",
+            type: "static",
         },
         {
             label: "Templates",
             value: 4,
             icon: "fas fa-shapes",
+            type: "templatefx",
         },
         {
             label: "Aura",
             value: 5,
             icon: "fab fa-creative-commons-by",
+            type: "static",
         },
         {
             label: "Preset",
@@ -109,10 +108,15 @@
         <div class="aaMidSection">
             {#each items as item}
                 {#if activeTabValue == item.value}
-                    <div class="box" transition:fade={{ duration: 500 }}>
-                        <AutorecRouter type={item.type} flags={flagData[item.type]} />
-                        <!--<svelte:component this={item.component} {flagData} />-->
-                    </div>
+                    {#each Object.entries(flagData[item.type]) as menuSection, idx}
+                        <div class="aaMenu-section">
+                            <PrimaryMenuShell
+                                {idx}
+                                type={item.type}
+                                {flagData}
+                            />
+                        </div>
+                    {/each}
                 {/if}
             {/each}
         </div>
@@ -213,5 +217,11 @@
 
     li.active > span {
         text-shadow: 0 0 5px rgba(255, 0, 0, 0.687);
+    }
+    .aaMenu-section {
+        background: rgba(199, 199, 199, 0.85);
+        border: 2px solid black;
+        border-radius: 10px;
+        margin: 1.5% 3% 1.5% 3%;
     }
 </style>

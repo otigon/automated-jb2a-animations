@@ -80,6 +80,9 @@
 #AA-item-settings select {
     background-color: rgba(210, 210, 210, 0.75);
 }
+#AA-autorec-settings select {
+    background-color: rgba(210, 210, 210, 0.75);
+}
 .aa-info-blue {
     color: rgba(30, 14, 252, 0.75)
 }

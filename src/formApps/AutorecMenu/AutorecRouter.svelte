@@ -5,12 +5,12 @@
 
     export let flags;
     export let type;
-    
+    export let flagData;
 </script>
 
 {#each Object.entries(flags) as menuSection, idx}
 <div class="aaMenu-section">
-        <PrimaryMenuShell {idx} {type} section={flags[idx]} />
+        <PrimaryMenuShell {idx} {type} section={flags[idx]} {flagData}/>
 </div>
 {/each}
 
