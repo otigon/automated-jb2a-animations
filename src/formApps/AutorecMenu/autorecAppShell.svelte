@@ -16,7 +16,8 @@
 
     export let elementRoot;
     export let activeTabValue = 1;
-    const handleClick = (tabValue) => () => (activeTabValue = tabValue);
+
+    const handleClick = (tabValue) => activeTabValue = tabValue;
 
     const data = game.settings.get("autoanimations", "aaAutorec");
 
@@ -35,7 +36,9 @@
                 .reverse()[0],
         search: "",
     };
+
     $: flagData = flagData;
+
     let meleeList = Object.values(flagData.melee);
 
     let form = void 0;
