@@ -10,7 +10,7 @@ export class AAActiveEffectMenu extends FormApplication {
     }
 
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             template: './modules/autoanimations/src/active-effects/aeMenus/ae-central.html',
             id: 'AA-item-settings',
             class:'AA-item-app',

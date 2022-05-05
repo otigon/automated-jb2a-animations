@@ -3,17 +3,12 @@ import systemData from "../../system-handlers/system-data.js";
 import { aaDebugger } from "../../constants/constants.js";
 import { flagMigrations } from "../../system-handlers/flagMerge.js";
 import { socketlibSocket } from "../../socketset.js";
-
-var killAllAnimations;
-export function disableAnimations() {
-    socket.off('module.sequencer')
-    killAllAnimations = true;
-}
+import { AnimationState } from "../../AnimationState.js";
 
 /**
- * 
- * @param {*} // The Active Effect being applied 
- * 
+ *
+ * @param {*} // The Active Effect being applied
+ *
  */
 export async function createActiveEffectsPF1(effect) {
     const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -21,7 +16,7 @@ export async function createActiveEffectsPF1(effect) {
 
     const aaDebug = game.settings.get("autoanimations", "debug")
 
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
     /*
     // Sets data for the System Handler
     const flagData = {
@@ -36,7 +31,7 @@ export async function createActiveEffectsPF1(effect) {
     }
     const aeNameField = effect.data?.label + `${aeToken.id}`
     const checkAnim = Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
-    if (checkAnim) { 
+    if (checkAnim) {
         if (aaDebug) { aaDebugger("Animation is already present on the Token, returning.") }
         return;
     }
@@ -55,7 +50,7 @@ export async function createActiveEffectsPF1(effect) {
         await flagMigrations.handle(originatingItem);
     }
 
-    const flagData = {} 
+    const flagData = {}
     if (originatingItem.data?.flags?.autoanimations) {
         // If the BUFF had an originating Item with A-A data, assign that data to flagData, and set status to "on"
         Object.assign(flagData, originatingItem.data?.flags?.autoanimations);
@@ -96,9 +91,9 @@ export async function createActiveEffectsPF1(effect) {
 }
 
 /**
- * 
+ *
  * @param {*} effect // The Active Effect being removed
- * 
+ *
  */
 export async function deleteActiveEffectsPF1(effect) {
 
@@ -197,9 +192,9 @@ export async function deleteActiveEffectsPF1(effect) {
 }
 
 /**
- * 
- * @param {Active Effect being updated} effect 
- * @param {Toggle Check On/Off for Effect} toggle 
+ *
+ * @param {Active Effect being updated} effect
+ * @param {Toggle Check On/Off for Effect} toggle
  */
 /*
 export async function toggleActiveEffectsPF1(effect, toggle) {

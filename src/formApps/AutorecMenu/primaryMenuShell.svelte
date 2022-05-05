@@ -19,7 +19,7 @@
     export let menuSection;
     export let item;
     //console.log(menuSection)
-    
+
     menuSection.options ? menuSection.options : (menuSection.options = {});
     menuSection.audio ? menuSection.audio : (menuSection.audio = {});
     const options = menuSection.options;
@@ -50,7 +50,7 @@
     $: sectionName = menuSection.name = sectionName;
     function removeSection(idx) {
         delete flagData[type][idx]
-        
+
         for (let i = 0; i < Object.entries(flagData[type]).length; i ++) {
             let compacted = {}
             Object.values(flagData[type]).forEach((val, idx) => compacted[idx] = val);
@@ -102,13 +102,14 @@
 <SoundSettings audioPath="a01" flagData={menuSection} />
 {/if}
 <style lang="scss">
-    .autorec-header {
-        display: grid;
-        grid-template-columns: 5% 5% 5% 5% 60% 5% 5% 5% 5%;
-        grid-gap: 5px;
-        padding: 5px;
-        align-items: center;
-    }
+    // TODO: temporarily commented out while not in template.
+    //.autorec-header {
+    //    display: grid;
+    //    grid-template-columns: 5% 5% 5% 5% 60% 5% 5% 5% 5%;
+    //    grid-gap: 5px;
+    //    padding: 5px;
+    //    align-items: center;
+    //}
     .aa-nameField {
         background-color: rgba(210, 210, 210, 0.75);
         border: 1.5px outset rgba(0, 0, 0, 0.5);
