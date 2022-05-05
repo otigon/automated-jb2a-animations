@@ -35,7 +35,6 @@
     };
     $: flagData = flagData;
     let meleeList = Object.values(flagData.melee);
-    console.log(meleeList)
 
     let items = [
         {

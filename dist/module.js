@@ -55231,27 +55231,27 @@ function create_if_block$6(ctx) {
 	let current;
 
 	function chooseanimation_menuType_binding(value) {
-		/*chooseanimation_menuType_binding*/ ctx[17](value);
+		/*chooseanimation_menuType_binding*/ ctx[18](value);
 	}
 
 	function chooseanimation_animation_binding(value) {
-		/*chooseanimation_animation_binding*/ ctx[18](value);
+		/*chooseanimation_animation_binding*/ ctx[19](value);
 	}
 
 	function chooseanimation_variant_binding(value) {
-		/*chooseanimation_variant_binding*/ ctx[19](value);
+		/*chooseanimation_variant_binding*/ ctx[20](value);
 	}
 
 	function chooseanimation_color_binding(value) {
-		/*chooseanimation_color_binding*/ ctx[20](value);
+		/*chooseanimation_color_binding*/ ctx[21](value);
 	}
 
 	function chooseanimation_isCustom_binding(value) {
-		/*chooseanimation_isCustom_binding*/ ctx[21](value);
+		/*chooseanimation_isCustom_binding*/ ctx[22](value);
 	}
 
 	function chooseanimation_customPath_binding(value) {
-		/*chooseanimation_customPath_binding*/ ctx[22](value);
+		/*chooseanimation_customPath_binding*/ ctx[23](value);
 	}
 
 	let chooseanimation_props = {
@@ -55511,9 +55511,9 @@ function create_fragment$9(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(input0, "change", /*input0_change_handler*/ ctx[14]),
-					listen(input1, "input", /*input1_input_handler*/ ctx[15]),
-					listen(i1, "click", /*click_handler*/ ctx[16])
+					listen(input0, "change", /*input0_change_handler*/ ctx[15]),
+					listen(input1, "input", /*input1_input_handler*/ ctx[16]),
+					listen(i1, "click", /*click_handler*/ ctx[17])
 				];
 
 				mounted = true;
@@ -55582,6 +55582,7 @@ function instance$9($$self, $$props, $$invalidate) {
 	let { type } = $$props;
 	let { idx } = $$props;
 	let { menuSection } = $$props;
+	let { item } = $$props;
 
 	//console.log(menuSection)
 	menuSection.options
@@ -55620,6 +55621,9 @@ function instance$9($$self, $$props, $$invalidate) {
 			Object.values(flagData[type]).forEach((val, idx) => compacted[idx] = val);
 			$$invalidate(13, flagData[type] = compacted, flagData);
 		}
+
+		$$invalidate(13, flagData);
+		$$invalidate(14, item);
 	}
 
 	function input0_change_handler() {
@@ -55669,6 +55673,7 @@ function instance$9($$self, $$props, $$invalidate) {
 		if ('type' in $$props) $$invalidate(3, type = $$props.type);
 		if ('idx' in $$props) $$invalidate(4, idx = $$props.idx);
 		if ('menuSection' in $$props) $$invalidate(2, menuSection = $$props.menuSection);
+		if ('item' in $$props) $$invalidate(14, item = $$props.item);
 		if ('menuType' in $$props) $$invalidate(0, menuType = $$props.menuType);
 		if ('animation' in $$props) $$invalidate(1, animation = $$props.animation);
 	};
@@ -55722,6 +55727,7 @@ function instance$9($$self, $$props, $$invalidate) {
 		customId,
 		removeSection,
 		flagData,
+		item,
 		input0_change_handler,
 		input1_input_handler,
 		click_handler,
@@ -55743,6 +55749,7 @@ class PrimaryMenuShell extends SvelteComponent {
 			type: 3,
 			idx: 4,
 			menuSection: 2,
+			item: 14,
 			menuType: 0,
 			animation: 1
 		});
@@ -55781,6 +55788,15 @@ class PrimaryMenuShell extends SvelteComponent {
 
 	set menuSection(menuSection) {
 		this.$$set({ menuSection });
+		flush();
+	}
+
+	get item() {
+		return this.$$.ctx[14];
+	}
+
+	set item(item) {
+		this.$$set({ item });
 		flush();
 	}
 
@@ -55825,7 +55841,7 @@ function get_each_context_2(ctx, list, i) {
 	return child_ctx;
 }
 
-// (97:12) {#each items as item}
+// (98:12) {#each items as item}
 function create_each_block_2(ctx) {
 	let li;
 	let span;
@@ -55890,7 +55906,7 @@ function create_each_block_2(ctx) {
 	};
 }
 
-// (111:16) {#if activeTabValue == item.value}
+// (112:16) {#if activeTabValue == item.value}
 function create_if_block$5(ctx) {
 	let each_1_anchor;
 	let current;
@@ -55974,7 +55990,7 @@ function create_if_block$5(ctx) {
 	};
 }
 
-// (112:20) {#each Object.values(flagData[item.type]) as menuSection, idx}
+// (113:20) {#each Object.values(flagData[item.type]) as menuSection, idx}
 function create_each_block_1(ctx) {
 	let div;
 	let primarymenushell;
@@ -56042,7 +56058,7 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (110:12) {#each items as item}
+// (111:12) {#each items as item}
 function create_each_block(ctx) {
 	let if_block_anchor;
 	let current;
@@ -56098,7 +56114,7 @@ function create_each_block(ctx) {
 	};
 }
 
-// (83:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}      stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}  >
+// (84:0) <ApplicationShell      bind:elementRoot      transition={scale}      transitionOptions={{ duration: 500 }}      stylesContent={{ background: "rgba(125, 125, 125, 0.75)" }}  >
 function create_default_slot$1(ctx) {
 	let form_1;
 	let div0;
@@ -56360,19 +56376,19 @@ function instance$8($$self, $$props, $$invalidate) {
 	const handleClick = tabValue => () => $$invalidate(1, activeTabValue = tabValue);
 	const data = game.settings.get("autoanimations", "aaAutorec");
 
-	const flagData = [
-		data.melee || {},
-		data.range || {},
-		data.static || {},
-		data.templatefx || {},
-		data.aura || {},
-		data.preset || {},
-		data.aefx || {},
-		data.version || Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0]
-	];
+	const flagData = {
+		melee: data.melee || {},
+		range: data.range || {},
+		static: data.static || {},
+		templatefx: data.templatefx || {},
+		aura: data.aura || {},
+		preset: data.preset || {},
+		aefx: data.aefx || {},
+		version: data.version || Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0],
+		search: ""
+	};
 
-	let meleeList = Object.values(flagData.melee);
-	console.log(meleeList);
+	Object.values(flagData.melee);
 
 	let items = [
 		{

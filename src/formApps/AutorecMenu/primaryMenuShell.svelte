@@ -17,6 +17,7 @@
     export let type;
     export let idx;
     export let menuSection;
+    export let item;
     //console.log(menuSection)
     
     menuSection.options ? menuSection.options : (menuSection.options = {});
@@ -55,6 +56,8 @@
             Object.values(flagData[type]).forEach((val, idx) => compacted[idx] = val);
             flagData[type] = compacted;
         }
+        flagData = flagData;
+        item = item;
     }
 </script>
 
