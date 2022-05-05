@@ -22,10 +22,12 @@
 
     const storeData = gameSettings.getStore('aaAutorec');
 
+    // TODO: this is a test console.log showing updates to `aaAutorec` game settings.
     $: console.log(`! autorecAppShell - storeData (aaAutorec): \n`, $storeData);
 
     const data = game.settings.get("autoanimations", "aaAutorec");
 
+    // TODO: Remove this and make `aaAutorec` setting the authority.
     let flagData = {
         melee: data.melee || {},
         range: data.range || {},
