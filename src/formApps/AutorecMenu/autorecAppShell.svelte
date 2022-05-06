@@ -4,7 +4,8 @@
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import PrimaryMenuShell from "./primaryMenuShell.svelte";
-    import PresetShell from "./PreseteShell.svelte";
+    import PresetShell from "./PresetShell.svelte";
+    import ActiveEffectShell from "./ActiveEffectShell.svelte";
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
     //import Tabs from "./Tabs.svelte";
 
@@ -78,6 +79,15 @@
                                     type={item.type}
                                     {flagData}
                                 />
+                            {:else if item.type === "aefx"}
+                            <div class="aaMenu-section">
+                                <ActiveEffectShell 
+                                    bind:menuSection
+                                    {idx}
+                                    type={item.type}
+                                    {flagData}
+                                />
+                            </div>
                             {:else}
                             <div class="aaMenu-section">
                                 <PrimaryMenuShell

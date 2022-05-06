@@ -557,7 +557,24 @@ export class aaAutorec {
                 }
             },
             aefx: {
-
+                0: {
+                    animType: "static",
+                    animation: "drop",
+                    hidden: true,
+                    name: "Frightened",
+                    color: "green",
+                    options: {
+                        persistent: true,
+                        below: false,
+                        menuType: "conditions",
+                        opacity: 1,
+                        repeat: 1,
+                        delay: 250,
+                        scale: 1,
+                        staticType: "source",
+                        variant: "01",
+                    }
+                }
             },
             version: 4,
         };
