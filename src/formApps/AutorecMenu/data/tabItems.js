@@ -33,10 +33,12 @@ export default [
       label: "Preset",
       value: 6,
       icon: "fas fa-gift",
+      type: "preset",
    },
    {
       label: "Active Effects",
       value: 7,
       icon: "fas fa-atom",
+      type: "aefx"
    },
 ];

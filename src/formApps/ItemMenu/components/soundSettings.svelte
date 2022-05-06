@@ -4,6 +4,7 @@
 
     export let flagData;
     export let audioPath;
+    flagData.audio ? flagData.audio : (flagData.audio = {});
     flagData.audio[audioPath]
         ? flagData.audio[audioPath]
         : (flagData.audio[audioPath] = {});
@@ -54,7 +55,10 @@
     }
 
     function playSound() {
-        AudioHelper.play({ src: soundPath, volume: volume, autoplay: true, loop: false }, true);
+        AudioHelper.play(
+            { src: soundPath, volume: volume, autoplay: true, loop: false },
+            true
+        );
     }
 </script>
 
@@ -65,16 +69,21 @@
                 <label for="">{localize("autoanimations.menus.sound")}</label>
             </div>
             {#if soundEnabled && soundPath}
-            <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
-                <i
-                    class="fas fa-music aa-video-preview"
-                    on:click={() => playSound()}
-                />
-            </div>
+                <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
+                    <i
+                        class="fas fa-music aa-video-preview"
+                        on:click={() => playSound()}
+                    />
+                </div>
             {/if}
             <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
-                <i class="{soundEnabled ? "fas fa-minus aa-red" : "fas fa-plus aa-green"}" on:click={() => enableSound()}></i>
-            </div>    
+                <i
+                    class={soundEnabled
+                        ? "fas fa-minus aa-red"
+                        : "fas fa-plus aa-green"}
+                    on:click={() => enableSound()}
+                />
+            </div>
         </div>
     </div>
     {#if soundEnabled}
@@ -113,8 +122,8 @@
                 <input
                     type="Number"
                     bind:value={startTime}
-                    placeholder=0
-                    step=0.01
+                    placeholder="0"
+                    step="0.01"
                 />
             </div>
             <div class="flexcol" style="grid-row: 3 / 4; grid-column: 2 / 3;">
@@ -122,8 +131,8 @@
                 <input
                     type="Number"
                     bind:value={volume}
-                    placeholder=0.5
-                    step=0.01
+                    placeholder="0.5"
+                    step="0.01"
                 />
             </div>
             <div class="flexcol" style="grid-row: 3 / 4; grid-column: 3 / 4;">
@@ -131,8 +140,8 @@
                 <input
                     type="Number"
                     bind:value={delay}
-                    placeholder=0
-                    step=0.01
+                    placeholder="0"
+                    step="0.01"
                 />
             </div>
         </div>

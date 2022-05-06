@@ -1,32 +1,30 @@
 <svelte:options accessors={true} />
 
 <script>
-    import { getContext } from "svelte";
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import MeleeMenuShell from "./meleeMenuShell.svelte";
-    import RangeMenuShell from "./rangeMenuShell.svelte";
-    import AutorecRouter from "./AutorecRouter.svelte";
     import PrimaryMenuShell from "./primaryMenuShell.svelte";
+    import PresetShell from "./PreseteShell.svelte";
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
     //import Tabs from "./Tabs.svelte";
 
     import { gameSettings } from "../../gameSettings.js";
 
-    import items from './data/tabItems.js';
-
+    import items from "./data/tabItems.js";
+    console.log(items);
     export let elementRoot;
     export let activeTabValue = 1;
 
-    const handleClick = (tabValue) => activeTabValue = tabValue;
+    const handleClick = (tabValue) => (activeTabValue = tabValue);
 
-    const storeData = gameSettings.getStore('aaAutorec');
+    const storeData = gameSettings.getStore("aaAutorec");
 
     // TODO: this is a test console.log showing updates to `aaAutorec` game settings.
     $: console.log(`! autorecAppShell - storeData (aaAutorec): \n`, $storeData);
 
     // TODO: Remove this and make `aaAutorec` setting store above the authority.
     const data = game.settings.get("autoanimations", "aaAutorec");
+    console.log(data);
     let flagData = {
         melee: data.melee || {},
         range: data.range || {},
@@ -42,8 +40,6 @@
                 .reverse()[0],
         search: "",
     };
-
-    let meleeList = Object.values(flagData.melee);
 
     let form = void 0;
 </script>
@@ -61,7 +57,10 @@
     >
         <div class="aa-autorec-header aaTopSection">
             {#each items as item}
-                <li class=flexrow class:active={activeTabValue === item.value}>
+                <li
+                    class="flexrow"
+                    class:active={activeTabValue === item.value}
+                >
                     <span on:click={() => handleClick(item.value)}
                         ><i class={item.icon} />{item.label}</span
                     >
@@ -72,14 +71,23 @@
             {#each items as item}
                 {#if activeTabValue == item.value}
                     {#each Object.values(flagData[item.type]) as menuSection, idx}
-                        <div class="aaMenu-section">
-                            <PrimaryMenuShell
-                                bind:menuSection
-                                {idx}
-                                type={item.type}
-                                {flagData}
-                            />
-                        </div>
+                            {#if item.type === "preset"}
+                                <PresetShell
+                                    bind:menuSection
+                                    {idx}
+                                    type={item.type}
+                                    {flagData}
+                                />
+                            {:else}
+                            <div class="aaMenu-section">
+                                <PrimaryMenuShell
+                                    bind:menuSection
+                                    {idx}
+                                    type={item.type}
+                                    {flagData}
+                                />
+                            </div>
+                            {/if}
                     {/each}
                 {/if}
             {/each}

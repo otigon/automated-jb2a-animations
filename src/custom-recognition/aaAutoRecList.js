@@ -482,25 +482,25 @@ export class aaAutorec {
             },
             preset: {
                 0: {
-                    animateSelf: true,
-                    animateTarget: true,
-                    animation: "bardicinspiration",
-                    below: false,
+                    presetType: "bardicinspiration",
                     hidden: true,
-                    marker: true,
                     name: game.i18n.localize("autoanimations.animations.bardicinspiration"),
-                    scale: 1,
-                    selfAnimation: "music",
-                    selfColor: "blue",
-                    selfMarkerColor: "greenorange",
-                    targetAnimation: "bardicinspiration",
-                    targetColor: "greenorange",
-                    targetMarkerColor: "greenorange",
                     bardicinspiration: {
-
+                        animateSelf: true,
+                        animateTarget: true,
+                        below: false,
+                        marker: true,
+                        scale: 1,
+                        selfAnimation: "music",
+                        selfColor: "blue",
+                        selfMarkerColor: "greenorange",
+                        targetAnimation: "bardicinspiration",
+                        targetColor: "greenorange",
+                        targetMarkerColor: "greenorange",    
                     }
                 },
                 1: {
+                    presetType:"bless",
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.bless"),
                     bless: {
@@ -511,6 +511,7 @@ export class aaAutorec {
                     }
                 },
                 2: {
+                    presetType:"shieldspell",
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.shield"),
                     shield: {
@@ -522,6 +523,7 @@ export class aaAutorec {
                     }
                 },
                 3: {
+                    presetType:"teleportation",
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.mistystep"),
                     teleportation: {
@@ -553,6 +555,9 @@ export class aaAutorec {
                         },
                     }
                 }
+            },
+            aefx: {
+
             },
             version: 4,
         };

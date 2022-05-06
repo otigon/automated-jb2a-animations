@@ -8,7 +8,15 @@
     } from "../../../../animation-functions/databases/jb2a-menu-options.js";
 
     export let flagData;
-    const root = flagData.preset;
+    export let isAutoRec;
+
+    let root;
+
+    if (isAutoRec) {
+        root = flagData;
+    } else {
+        root = flagData.preset;
+    }
     root.sneakattack ? root.sneakattack : root.sneakattack = {};
     const preset = root.sneakattack;
     preset.menuType = "spell";

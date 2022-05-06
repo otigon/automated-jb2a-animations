@@ -6,7 +6,15 @@
     import {aaColorMenu} from "../../../../animation-functions/databases/jb2a-menu-options.js"
 
     export let flagData;
-    const root = flagData.preset;
+    export let isAutoRec;
+
+    let root;
+
+    if (isAutoRec) {
+        root = flagData;
+    } else {
+        root = flagData.preset;
+    }
     root.bless ? root.bless : root.bless = {};
     const preset = root.bless;
     preset.menuType = "spell";

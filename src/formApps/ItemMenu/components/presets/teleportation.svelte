@@ -7,7 +7,15 @@
 
     export let flagData;
     export let presetType;
-    const root = flagData.preset;
+    export let isAutoRec;
+
+    let root;
+
+    if (isAutoRec) {
+        root = flagData;
+    } else {
+        root = flagData.preset;
+    }
     root.teleportation ? root.teleportation : (root.teleportation = {});
     const preset = root.teleportation;
 
@@ -157,6 +165,7 @@
     bind:isCustom={startIsCustom}
     bind:customPath={startCustomPath}
     bind:customId={startCustomId}
+    {isAutoRec}
     {presetType}
     presetSubType="TeleStart"
     flagPath="preset"
@@ -202,6 +211,7 @@
     bind:customPath={betweenCustomPath}
     bind:customId={betweenCustomId}
     {shouldShowOnlyX}
+    {isAutoRec}
     {presetType}
     presetSubType="TeleBetween"
     flagPath="preset"
@@ -237,6 +247,7 @@
     bind:isCustom={endIsCustom}
     bind:customPath={endCustomPath}
     bind:customId={endCustomId}
+    {isAutoRec}
     {presetType}
     presetSubType="TeleEnd"
     flagPath="preset"

@@ -8,13 +8,19 @@
     } from "../../../../animation-functions/databases/jb2a-menu-options.js";
 
     export let flagData;
-    const root = flagData.preset;
+    export let isAutoRec;
+
+    let root;
+
+    if (isAutoRec) {
+        root = flagData;
+    } else {
+        root = flagData.preset;
+    }
     root.thunderwave ? root.thunderwave : root.thunderwave = {};
     const preset = root.thunderwave;
     preset.menuType = "spell";
     preset.animation = "thunderwave";
-
-    const options = flagData.options;
 
     let color = preset.color || Object.keys(aaColorMenu.static.spell.thunderwave["mid"])[0];
     $: color = preset.color = color;
@@ -43,9 +49,9 @@
         belowToken = !belowToken;
     }
 
-    let removeTemplate = options.removeTemplate || false;
+    let removeTemplate = flagData.removeTemplate || false;
     $: removeTemplate = removeTemplate;
-    $: options.removeTemplate = removeTemplate;
+    $: flagData.removeTemplate = removeTemplate;
     $: isRemove = removeTemplate ? "Yes" : "No";
     function switchRemove() {
         removeTemplate = !removeTemplate;

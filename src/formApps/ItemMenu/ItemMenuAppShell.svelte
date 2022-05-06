@@ -47,7 +47,7 @@
         }
         if (!animationDisabled && !isCustomized) {
             enableMacro = false;
-            flags.macro?.enable ? flags.macro.enable = false : null;
+            flags.macro?.enable ? (flags.macro.enable = false) : null;
         }
     }
     let isCustomized = flags.override;
@@ -196,12 +196,25 @@
     let primaryAnimation;
     $: primaryAnimation = primaryAnimation;
 
-    const targetFXNoShow = ['templatefx', 'aura']
-    const targetFXNoShowPreset = ['bless', 'dualattach', 'fireball', 'shieldspell', 'sneakattack', 'teleportation', 'thunderwave']
+    const targetFXNoShow = ["templatefx", "aura"];
+    const targetFXNoShowPreset = [
+        "bless",
+        "dualattach",
+        "fireball",
+        "shieldspell",
+        "sneakattack",
+        "teleportation",
+        "thunderwave",
+    ];
     let shouldShowTargetFX = true;
 
     $: {
-        if (targetFXNoShow.includes(animType) || (animType === 'preset' && targetFXNoShowPreset.includes(presetType)) || (animType === 'static' && staticType === "source") ) {
+        if (
+            targetFXNoShow.includes(animType) ||
+            (animType === "preset" &&
+                targetFXNoShowPreset.includes(presetType)) ||
+            (animType === "static" && staticType === "source")
+        ) {
             shouldShowTargetFX = false;
         } else {
             shouldShowTargetFX = true;
@@ -278,7 +291,9 @@
                             >
                                 <label for="" style="font-size:x-large"
                                     ><strong>{oldName}</strong>
-                                    {localize("autoanimations.menus.autorecognized")}
+                                    {localize(
+                                        "autoanimations.menus.autorecognized"
+                                    )}
                                 </label>
                             </div>
                         </div>
@@ -290,8 +305,12 @@
                                 style="grid-row: 1 / 2;grid-column: 2 / 3;"
                             >
                                 <label for="1"
-                                    >{localize("autoanimations.menus.animation")}
-                                    {localize("autoanimations.menus.type")}</label
+                                    >{localize(
+                                        "autoanimations.menus.animation"
+                                    )}
+                                    {localize(
+                                        "autoanimations.menus.type"
+                                    )}</label
                                 >
                                 <select
                                     bind:value={animType}
@@ -412,14 +431,14 @@
                     </div>
                 {/if}
                 {#if !animationDisabled && isCustomized}
-                    {#if animType === "preset"}
-                        <PresetMenu
-                            {animTypeSwitched}
-                            {flagData}
-                            {presetType}
-                        />
-                    {:else}
-                        <div class="aaMenu-section">
+                    <div class="aaMenu-section">
+                        {#if animType === "preset"}
+                            <PresetMenu
+                                {animTypeSwitched}
+                                {flagData}
+                                {presetType}
+                            />
+                        {:else}
                             <PrimarySection
                                 bind:menuType={primaryMenuType}
                                 bind:animation={primaryAnimation}
@@ -428,11 +447,15 @@
                                 {animType}
                                 {flagData}
                             />
-                        </div>
-                    {/if}
+                        {/if}
+                    </div>
                     {#if animType === "melee"}
                         <div class="aaMenu-section">
-                            <RangeSwitch {primaryAnimation} {primaryMenuType} {flagData} />
+                            <RangeSwitch
+                                {primaryAnimation}
+                                {primaryMenuType}
+                                {flagData}
+                            />
                         </div>
                     {/if}
                     {#if animType === "melee" || animType === "range" || animType === "static"}
@@ -535,9 +558,9 @@
                     <ExtraFX flagPath="sourceExtraFX" {flagData} />
                 </div>
                 {#if shouldShowTargetFX}
-                <div class="aaMenu-section">
-                    <ExtraFX flagPath="targetExtraFX" {flagData} />
-                </div>
+                    <div class="aaMenu-section">
+                        <ExtraFX flagPath="targetExtraFX" {flagData} />
+                    </div>
                 {/if}
             </div>
         {/if}
@@ -562,8 +585,8 @@
                     <button
                         class="footer-button"
                         on:click|preventDefault={closeApp}
-                        >{localize("autoanimations.menus.close")} 
-                        {localize("autoanimations.menus.and")} 
+                        >{localize("autoanimations.menus.close")}
+                        {localize("autoanimations.menus.and")}
                         {localize("autoanimations.menus.submit")}</button
                     >
                 </div>

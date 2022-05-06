@@ -6,7 +6,15 @@
 
     export let flagData;
     export let presetType;
-    const root = flagData.preset;
+    export let isAutoRec;
+
+    let root;
+
+    if (isAutoRec) {
+        root = flagData;
+    } else {
+        root = flagData.preset;
+    }
     root.fireball ? root.fireball : (root.fireball = {});
     const preset = root.fireball;
 
@@ -164,6 +172,7 @@
     bind:isCustom={projectileIsCustom}
     bind:customPath={projectileCustomPath}
     bind:customId={projectileCustomId}
+    {isAutoRec}
     {presetType}
     {shouldShowOnlyX}
     presetSubType="FireballProjectile"
@@ -226,6 +235,7 @@
     bind:isCustom={explosion01IsCustom}
     bind:customPath={explosion01CustomPath}
     bind:customId={explosion01CustomId}
+    {isAutoRec}
     {presetType}
     presetSubType="FireballExplosion01"
     flagPath="preset"
@@ -273,6 +283,7 @@
     bind:isCustom={explosion02IsCustom}
     bind:customPath={explosion02CustomPath}
     bind:customId={explosion02CustomId}
+    {isAutoRec}
     {presetType}
     presetSubType="FireballExplosion02"
     flagPath="preset"

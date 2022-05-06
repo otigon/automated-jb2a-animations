@@ -73,7 +73,7 @@ async function addRandom(menu) {
                 let subsetVariants = Object.keys(menu[menuSection[a]][subsetTypes[c]][subsetNames[i]]);
                 let variantsLength = subsetVariants.length;
                 for (var z = 0; z < variantsLength; z++) {
-                    menu[menuSection[a]][subsetTypes[c]][subsetNames[i]][subsetVariants[z]].random = game.i18n.localize('AUTOANIM.random');
+                    menu[menuSection[a]][subsetTypes[c]][subsetNames[i]][subsetVariants[z]].random = game.i18n.localize('autoanimations.colors.random');
                 }
             }
         }

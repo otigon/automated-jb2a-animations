@@ -17,8 +17,6 @@
     export let type;
     export let idx;
     export let menuSection;
-    export let item;
-    //console.log(menuSection)
 
     menuSection.options ? menuSection.options : (menuSection.options = {});
     menuSection.audio ? menuSection.audio : (menuSection.audio = {});
@@ -57,7 +55,6 @@
             flagData[type] = compacted;
         }
         flagData = flagData;
-        item = item;
     }
 </script>
 

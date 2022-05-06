@@ -21,6 +21,7 @@
     export let animTypeSwitched = false;
     export let shouldShowOnlyX;
     export let disablePlayOn;
+    export let isAutoRec;
     $: {
         animType = animType;
     }
@@ -47,7 +48,11 @@
             rootPath = customRoot = flagOptions = flagData.targetToken;
             break;
         case "preset":
-            rootPath = customRoot = flagOptions = flagData.preset[presetType];
+            if (isAutoRec) {
+                rootPath = customRoot = flagOptions = flagData[presetType];
+            } else {
+                rootPath = customRoot = flagOptions = flagData.preset[presetType];
+            }
             break;
         case "MeleeSwitch":
             rootPath = customRoot = flagOptions = flagData.meleeSwitch;
@@ -57,7 +62,6 @@
     // Sets the Flag Path depending on the section
     const options = flagOptions;
     // Sets Initial menuType for Menu - Assigns to Flag when updated
-
     // For Database path
     export let menuSelection = animType === "aura" ? "static" : animType;
     $: menuSelection = animType === "aura" ? "static" : animType;

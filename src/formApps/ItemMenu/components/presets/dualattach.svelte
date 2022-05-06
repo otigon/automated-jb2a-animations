@@ -13,7 +13,15 @@
 
     export let flagData;
     export let presetType;
-    const root = flagData.preset;
+    export let isAutoRec;
+
+    let root;
+
+    if (isAutoRec) {
+        root = flagData;
+    } else {
+        root = flagData.preset;
+    }
     root.dualattach ? root.dualattach : root.dualattach = {};
     const preset = root.dualattach;
     
@@ -99,6 +107,7 @@
     bind:customPath
     bind:customId
     {shouldShowOnlyX}
+    {isAutoRec}
     {presetType} 
     flagPath="preset"
     animType="range"

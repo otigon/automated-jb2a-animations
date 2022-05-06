@@ -9,7 +9,15 @@
     } from "../../../../animation-functions/databases/jb2a-menu-options.js";
 
     export let flagData;
-    const root = flagData.preset;
+    export let isAutoRec;
+
+    let root;
+
+    if (isAutoRec) {
+        root = flagData;
+    } else {
+        root = flagData.preset;
+    }
     root.shield ? root.shield : root.shield = {};
     const preset = root.shield;
     preset.menuType = "spell";
