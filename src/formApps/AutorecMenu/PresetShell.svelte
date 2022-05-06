@@ -74,6 +74,14 @@
         </div>
     </div>
     {#if !isHidden}
+    <div class="autorec-options flexcol" transition:fade>
+        <div style="grid-row:1/2; grid-column:2/3">
+            <label for=""><i class="far fa-clone" /></label>
+        </div>
+        <div style="grid-row:1/2; grid-column:9/10">
+            <label for=""><i class="far fa-keyboard" /></label>
+        </div>
+    </div>
     <div class="aa-pickAnim" transition:fade>
         <div
             class="flexcol"

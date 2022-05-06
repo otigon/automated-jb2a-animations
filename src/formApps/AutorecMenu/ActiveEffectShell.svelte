@@ -112,9 +112,6 @@
         <div style="grid-row:1/2; grid-column:2/3">
             <label for=""><i class="far fa-clone" /></label>
         </div>
-        <div style="grid-row:1/2; grid-column:3/4">
-            <label for=""><i class="fas fa-cube" /></label>
-        </div>
         <div style="grid-row:1/2; grid-column:8/9">
             <label for=""><i class="fas fa-music" /></label>
         </div>
