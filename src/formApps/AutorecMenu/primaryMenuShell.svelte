@@ -1,10 +1,12 @@
 <svelte:options accessors={true} />
 
 <script>
-    import { fade, scale } from "svelte/transition";
+    import { fade } from "svelte/transition";
     import ChooseAnimation from "../ItemMenu/components/chooseAnimation.svelte";
     import Options from "../ItemMenu/components/options.svelte";
     import SoundSettings from "../ItemMenu/components/soundSettings.svelte";
+    import AddExplosion from "../ItemMenu/components/explosions.svelte";
+
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import {
         aaTypeMenu,
@@ -56,6 +58,8 @@
         }
         flagData = flagData;
     }
+    const showExplosions = ['melee', 'range', 'static']
+
 </script>
 
 <div class="form-group">
@@ -71,6 +75,20 @@
     </div>
 </div>
 {#if !isHidden}
+<div class="autorec-options flexcol" transition:fade>
+    <div style="grid-row:1/2; grid-column:2/3">
+        <label for=""><i class="far fa-clone"></i></label>
+    </div>
+    <div style="grid-row:1/2; grid-column:3/4">
+        <label for=""><i class="fas fa-cube"></i></label>
+    </div>
+    <div style="grid-row:1/2; grid-column:8/9">
+        <label for=""><i class="fas fa-music"></i></label>
+    </div>
+    <div style="grid-row:1/2; grid-column:9/10">
+        <label for=""><i class="far fa-keyboard"></i></label>
+    </div>
+</div>
 <div class="aa-header-section" transition:fade>
     <div class="aa-header">
         <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
@@ -97,16 +115,21 @@
 />
 <Options animType={type} {menuType} flagData={menuSection} />
 <SoundSettings audioPath="a01" flagData={menuSection} />
+{#if showExplosions.includes(type)}
+<AddExplosion flagData={menuSection} />
+{/if}
+
 {/if}
 <style lang="scss">
-    // TODO: temporarily commented out while not in template.
-    //.autorec-header {
-    //    display: grid;
-    //    grid-template-columns: 5% 5% 5% 5% 60% 5% 5% 5% 5%;
-    //    grid-gap: 5px;
-    //    padding: 5px;
-    //    align-items: center;
-    //}
+    .autorec-options {
+        display: grid;
+        grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+        grid-gap: 5px;
+        padding: 5px;
+        margin-right:8%;
+        text-align:center;
+        align-items: center;
+    }
     .aa-nameField {
         background-color: rgba(210, 210, 210, 0.75);
         border: 1.5px outset rgba(0, 0, 0, 0.5);

@@ -13,6 +13,7 @@
     } from "../menuStore.js";
 
     export let flagData;
+    flagData.explosions ? flagData.explosions : flagData.explosions = {};
     const root = flagData.explosions;
     let explosions = flagData.explosions;
 

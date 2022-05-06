@@ -27,7 +27,7 @@ export default [
       label: "Aura",
       value: 5,
       icon: "fab fa-creative-commons-by",
-      type: "static",
+      type: "aura",
    },
    {
       label: "Preset",

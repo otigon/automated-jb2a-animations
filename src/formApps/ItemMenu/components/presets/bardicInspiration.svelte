@@ -140,10 +140,10 @@
 <h1 style="margin-bottom: 15px">Bardic Inspiration Preset</h1>
 <div class="aa-subheader-section">
     <div class="aa-subheader">
-        <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+        <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
             <label for="">Source Animation</label>
         </div>
-        <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
+        <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
             <i
                 class="{bardSelf
                     ? 'fas fa-minus aa-red'
@@ -197,10 +197,10 @@
 <div class="aaMenu-section">
 <div class="aa-subheader-section">
     <div class="aa-subheader">
-        <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+        <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
             <label for="">Target Animation</label>
         </div>
-        <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
+        <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
             <i
                 class="{bardTarget
                     ? 'fas fa-minus aa-red'
@@ -254,10 +254,10 @@
 <div class="aaMenu-section">
 <div class="aa-subheader-section">
     <div class="aa-subheader">
-        <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+        <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
             <label for="">Marker Animation</label>
         </div>
-        <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
+        <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
             <i
                 class="{markerEnable
                     ? 'fas fa-minus aa-red'
@@ -343,7 +343,7 @@
     }
     .aa-subheader {
         display: grid;
-        grid-template-columns: 10% 20% 40% 20% 10%;
+        grid-template-columns: 10% 80% 10%;
         grid-gap: 5px;
         padding: 1px;
         align-items: center;

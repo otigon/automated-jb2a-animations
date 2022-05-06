@@ -115,8 +115,8 @@
     .aaTopSection {
         position: absolute;
         top: 30px;
-        left: 1%;
-        right: 1%;
+        left: 0;
+        right: 0;
     }
     .aaMidSection {
         position: absolute;
@@ -166,7 +166,7 @@
         height: auto;
         background: rgba(199, 199, 199, 0.85);
         border: 2px solid black;
-        border-radius: 10px;
+        //border-radius: 10px;
         align-items: center;
         padding-top: 5px;
     }
