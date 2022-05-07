@@ -76,17 +76,20 @@
 </div>
 {#if !isHidden}
 <div class="autorec-options flexcol" transition:fade>
+    <div style="grid-row:1/2; grid-column:1/2">
+        <label for="" title="Duplicate"><i class="far fa-clone aa-zoom"></i></label>
+    </div>
     <div style="grid-row:1/2; grid-column:2/3">
-        <label for=""><i class="far fa-clone aa-zoom"></i></label>
+        <label for="" title="3D Canvas"><i class="fas fa-cube aa-zoom"></i></label>
     </div>
     <div style="grid-row:1/2; grid-column:3/4">
-        <label for=""><i class="fas fa-cube aa-zoom"></i></label>
+        <label for="" title="Extra FX"><i class="fas fa-user-plus aa-zoom"></i></label>
     </div>
-    <div style="grid-row:1/2; grid-column:8/9">
-        <label for=""><i class="fas fa-music aa-zoom"></i></label>
+    <div style="grid-row:1/2; grid-column:4/5">
+        <label for="" title="Sound Only"><i class="fas fa-music aa-zoom"></i></label>
     </div>
-    <div style="grid-row:1/2; grid-column:9/10">
-        <label for=""><i class="far fa-keyboard aa-zoom"></i></label>
+    <div style="grid-row:1/2; grid-column:5/6">
+        <label for="" title="Add Macro"><i class="far fa-keyboard aa-zoom"></i></label>
     </div>
 </div>
 <div class="aa-header-section" transition:fade>
@@ -123,7 +126,7 @@
 <style lang="scss">
     .autorec-options {
         display: grid;
-        grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+        grid-template-columns: 20% 20% 20% 20% 20%;
         grid-gap: 5px;
         padding: 5px;
         margin-right:8%;

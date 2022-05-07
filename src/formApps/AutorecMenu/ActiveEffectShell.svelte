@@ -89,8 +89,8 @@
         <label for={customId}
             ><i
                 class={isHidden
-                    ? "fas fa-plus fa-lg aa-green"
-                    : "fas fa-minus fa-lg aa-red"}
+                    ? "fas fa-plus fa-lg aa-green aa-zoom"
+                    : "fas fa-minus fa-lg aa-red aa-zoom"}
             /></label
         >
     </div>
@@ -109,14 +109,17 @@
 </div>
 {#if !isHidden}
     <div class="autorec-options flexcol" transition:fade>
-        <div style="grid-row:1/2; grid-column:2/3">
-            <label for=""><i class="far fa-clone" /></label>
+        <div style="grid-row:1/2; grid-column:1/2">
+            <label for="" title="Duplicate"><i class="far fa-clone aa-zoom" /></label>
         </div>
-        <div style="grid-row:1/2; grid-column:8/9">
-            <label for=""><i class="fas fa-music" /></label>
+        <div style="grid-row:1/2; grid-column:3/4">
+            <label for=""><i class="fas fa-user-plus aa-zoom" /></label>
         </div>
-        <div style="grid-row:1/2; grid-column:9/10">
-            <label for=""><i class="far fa-keyboard" /></label>
+        <div style="grid-row:1/2; grid-column:4/5">
+            <label for=""><i class="fas fa-music aa-zoom" /></label>
+        </div>
+        <div style="grid-row:1/2; grid-column:5/6">
+            <label for=""><i class="far fa-keyboard aa-zoom" /></label>
         </div>
     </div>
     <div class="aa-pickAnim" transition:fade>
@@ -206,7 +209,7 @@
 <style lang="scss">
     .autorec-options {
         display: grid;
-        grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+        grid-template-columns: 20% 20% 20% 20% 20%;
         grid-gap: 5px;
         padding: 5px;
         margin-right: 8%;
@@ -250,9 +253,12 @@
         align-self: center;
     }
     .aa-deleteSection {
-        color:rgba(74, 74, 74, 0.824);
+        color: rgba(74, 74, 74, 0.824);
     }
     .aa-deleteSection:hover {
         text-shadow: 0 0 5px rgba(255, 0, 0, 0.687);
+    }
+    .aa-zoom:hover {
+        transform: scale(1.2)
     }
 </style>
