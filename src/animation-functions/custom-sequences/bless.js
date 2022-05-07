@@ -158,16 +158,17 @@ async function buildBlessFile(jb2a, baseColor) {
         return items[Math.floor(Math.random() * items.length)];
     }
     color = color === "random" ? random_item(Object.keys(aaColorMenu.static.spell.bless['01'])) : color;
-    const file01 = `autoanimations.static.spell.bless.01.${color}.intro`;
-    const file02 = `autoanimations.static.spell.bless.01.${color}.loop`;
-    const ctaFile01 = jb2a.static.spell.bless['01'][color]["intro"];
-    const ctaFile02 = jb2a.static.spell.bless['01'][color]["loop"];
+    const file01 = `autoanimations.static.spell.bless.intro.${color}`;
+    const file02 = `autoanimations.static.spell.bless.loop.${color}`;
+    //const ctaFile01 = jb2a.static.spell.bless['01'][color]["intro"];
+    //const ctaFile02 = jb2a.static.spell.bless['01'][color]["loop"];
 
-    let metadata = await getVideoDimensionsOf(ctaFile01);
-    let metadata2 = await getVideoDimensionsOf(ctaFile02);
+    //let metadata = await getVideoDimensionsOf(ctaFile01);
+    //let metadata2 = await getVideoDimensionsOf(ctaFile02);
 
-    return { file01, file02, ctaFile01, ctaFile02, metadata, metadata2 }
+    return { file01, file02 }
 }
+/*
 function getVideoDimensionsOf(url) {
     return new Promise(resolve => {
         // create the video element
@@ -187,3 +188,4 @@ function getVideoDimensionsOf(url) {
 
     });
 }
+*/

@@ -5438,24 +5438,18 @@ JB2APATREONDB.static = {
             },
         },
         bless: {
-            '01': {
-                blue: {
-                    'intro': l1`Bless/Bless_01_Regular_Blue_Intro_400x400.webm`,
-                    'loop': l1`Bless/Bless_01_Regular_Blue_Loop_400x400.webm`,
-                },
-                green: {
-                    'intro': l1`Bless/Bless_01_Regular_Green_Intro_400x400.webm`,
-                    'loop': l1`Bless/Bless_01_Regular_Green_Loop_400x400.webm`,
-                },
-                purple: {
-                    'intro': l1`Bless/Bless_01_Regular_Purple_Intro_400x400.webm`,
-                    'loop': l1`Bless/Bless_01_Regular_Purple_Loop_400x400.webm`,
-                },
-                yellow: {
-                    'intro': l1`Bless/Bless_01_Regular_Yellow_Intro_400x400.webm`,
-                    'loop': l1`Bless/Bless_01_Regular_Yellow_Loop_400x400.webm`,
-                }
-            }
+            "intro": {
+                blue: [l1`Bless/Bless_01_Regular_Blue_Intro_400x400.webm`],
+                green: [l1`Bless/Bless_01_Regular_Green_Intro_400x400.webm`],
+                purple: [l1`Bless/Bless_01_Regular_Purple_Intro_400x400.webm`],
+                yellow: [l1`Bless/Bless_01_Regular_Yellow_Intro_400x400.webm`],
+            },
+            "loop": {
+                blue: [l1`Bless/Bless_01_Regular_Blue_Loop_400x400.webm`],
+                green: [l1`Bless/Bless_01_Regular_Green_Loop_400x400.webm`],
+                purple: [l1`Bless/Bless_01_Regular_Purple_Loop_400x400.webm`],
+                yellow: [l1`Bless/Bless_01_Regular_Yellow_Loop_400x400.webm`],
+            },
         },
         calllightning: {
             '01': {

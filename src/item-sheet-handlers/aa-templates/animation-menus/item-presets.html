@@ -842,7 +842,7 @@
             <label>{{localize "AUTOANIM.color"}}</label>
             <select name="flags.autoanimations.color">
                 {{#select flags.autoanimations.color}}
-                {{#each (lookup menuColors.static.spell.bless '01') as |name key|}}
+                {{#each (lookup menuColors.static.spell.bless 'intro') as |name key|}}
                 <option value="{{key}}">{{name}}</option>
                 {{/each}}
                 {{/select}}
