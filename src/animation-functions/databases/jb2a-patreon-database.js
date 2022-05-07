@@ -4998,7 +4998,7 @@ JB2APATREONDB.static = {
                 orange: [lg`Lightning/StaticElectricity_01_Regular_Orange_400x400.webm`],
                 purple: [lg`Lightning/StaticElectricity_01_Regular_Purple_400x400.webm`],
                 red: [lg`Lightning/StaticElectricity_01_Regular_Red_400x400.webm`],
-                yellow: [lg`Lightning/StaticElectricity_01_Regular_Red_400x400.webm`]
+                yellow: [lg`Lightning/StaticElectricity_01_Regular_Yellow_400x400.webm`]
             },
             '02': {
                 blue: [lg`Lightning/StaticElectricity_02_Regular_Blue_400x400.webm`],
@@ -5009,7 +5009,7 @@ JB2APATREONDB.static = {
                 orange: [lg`Lightning/StaticElectricity_02_Regular_Orange_400x400.webm`],
                 purple: [lg`Lightning/StaticElectricity_02_Regular_Purple_400x400.webm`],
                 red: [lg`Lightning/StaticElectricity_02_Regular_Red_400x400.webm`],
-                yellow: [lg`Lightning/StaticElectricity_02_Regular_Red_400x400.webm`]
+                yellow: [lg`Lightning/StaticElectricity_02_Regular_Yellow_400x400.webm`]
             },
             '03': {
                 blue: [lg`Lightning/StaticElectricity_03_Regular_Blue_400x400.webm`],
@@ -5020,7 +5020,7 @@ JB2APATREONDB.static = {
                 orange: [lg`Lightning/StaticElectricity_03_Regular_Orange_400x400.webm`],
                 purple: [lg`Lightning/StaticElectricity_03_Regular_Purple_400x400.webm`],
                 red: [lg`Lightning/StaticElectricity_03_Regular_Red_400x400.webm`],
-                yellow: [lg`Lightning/StaticElectricity_03_Regular_Red_400x400.webm`]
+                yellow: [lg`Lightning/StaticElectricity_03_Regular_Yellow_400x400.webm`]
             }
         },
     },
