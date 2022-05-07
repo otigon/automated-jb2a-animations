@@ -191,6 +191,10 @@ Hooks.once('ready', async function () {
         }
     } else {
         switch (game.system.id) {
+			case "cyphersystem":
+                Hooks.on("createChatMessage", async (msg) => { setupCypherSystem(msg) });
+                break;
+				
             case "alienrpg":
                 Hooks.on("createChatMessage", async (msg) => { setupAlienRPG(msg) });
                 break;
@@ -691,6 +695,22 @@ async function starFinder(data, msg) {
     //let targets = Array.from(msg.user.targets);
     //let item = data.item;
     //AutoAnimations.playAnimation(sourceToken, targets, item)
+    trafficCop(handler);
+}
+
+/*
+/ Sets Handler for Cypher System
+*/
+async function setupCypherSystem(msg) {
+    if (killAllAnimations) { return; }
+    if (game.user.id !== msg.user.id) {
+        return;
+    }
+    let handler = await systemData.make(msg);
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
+
     trafficCop(handler);
 }
 

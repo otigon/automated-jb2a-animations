@@ -125,6 +125,111 @@ export default function aaSettings() {
         default: false,
     })
     switch (game.system.id) {
+		case "cyphersystem": {
+			game.settings.register("autoanimations", "EnableCritical", {
+                    name: game.i18n.format("AUTOANIM.cypherCrit_name"),
+                    hint: game.i18n.format("AUTOANIM.cypherCrit_hint"),
+                    scope: 'world',
+                    type: Boolean,
+                    default: false,
+                    config: true,
+                    onchange: () => { window.location.reload() }
+                });
+			game.settings.register("autoanimations", "CriticalAnimation", {
+				name: game.i18n.format("AUTOANIM.cypherCritAnim_name"),
+				//name: "Choose A File",
+				scope: 'world',
+				config: true,
+				type: String,
+				filePicker: "imagevideo"
+			});
+			game.settings.register("autoanimations", "EnableFumble", {
+				name: game.i18n.format("AUTOANIM.cypherFumble_name"),
+				hint: game.i18n.format("AUTOANIM.cypherFumble_hint"),
+				scope: 'world',
+				type: Boolean,
+				default: false,
+				config: true,
+				onchange: () => { window.location.reload() }
+			});
+			game.settings.register("autoanimations", "FumbleAnimation", {
+				name: game.i18n.format("AUTOANIM.cypherFumbleAnim_name"),
+				scope: 'world',
+				config: true,
+				type: String,
+				filePicker: "imagevideo"
+			});
+			game.settings.register("autoanimations", "EnableOnRecoveryRoll", {
+                    name: game.i18n.format("AUTOANIM.recovery_name"),
+                    hint: game.i18n.format("AUTOANIM.recovery_hint"),
+                    scope: 'world',
+                    type: Boolean,
+                    default: false,
+                    config: true,
+                    onchange: () => { window.location.reload() }
+                });
+			game.settings.register("autoanimations", "RecoveryRollAnimation", {
+				name: game.i18n.format("AUTOANIM.recoveryAnim_name"),
+				//name: "Choose A File",
+				scope: 'world',
+				config: true,
+				type: String,
+				filePicker: "imagevideo"
+			});
+				game.settings.register("autoanimations", "EnableOnMightRoll", {
+                    name: game.i18n.format("AUTOANIM.mightroll_name"),
+                    hint: game.i18n.format("AUTOANIM.mightroll_hint"),
+                    scope: 'world',
+                    type: Boolean,
+                    default: false,
+                    config: true,
+                    onchange: () => { window.location.reload() }
+                });
+			game.settings.register("autoanimations", "MightRollAnimation", {
+				name: game.i18n.format("AUTOANIM.mightRollAnim_name"),
+				//name: "Choose A File",
+				scope: 'world',
+				config: true,
+				type: String,
+				filePicker: "imagevideo"
+			});
+			game.settings.register("autoanimations", "EnableOnSpeedRoll", {
+                    name: game.i18n.format("AUTOANIM.speedroll_name"),
+                    hint: game.i18n.format("AUTOANIM.speedroll_hint"),
+                    scope: 'world',
+                    type: Boolean,
+                    default: false,
+                    config: true,
+                    onchange: () => { window.location.reload() }
+                });
+			game.settings.register("autoanimations", "SpeedRollAnimation", {
+				name: game.i18n.format("AUTOANIM.speedRollAnim_name"),
+				//name: "Choose A File",
+				scope: 'world',
+				config: true,
+				type: String,
+				filePicker: "imagevideo"
+			});
+			game.settings.register("autoanimations", "EnableOnIntellecRoll", {
+                    name: game.i18n.format("AUTOANIM.intellectroll_name"),
+                    hint: game.i18n.format("AUTOANIM.intellectroll_hint"),
+                    scope: 'world',
+                    type: Boolean,
+                    default: false,
+                    config: true,
+                    onchange: () => { window.location.reload() }
+                });
+			game.settings.register("autoanimations", "IntellectRollAnimation", {
+				name: game.i18n.format("AUTOANIM.intellectRollAnim_name"),
+				//name: "Choose A File",
+				scope: 'world',
+				config: true,
+				type: String,
+				filePicker: "imagevideo"
+			});
+			}
+			break;
+		
         case "demonlord": {
             game.settings.register("autoanimations", "playtrigger", {
                 name: game.i18n.format("AUTOANIM.demonlordtrigger_name"),
