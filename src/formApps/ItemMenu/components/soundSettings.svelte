@@ -193,7 +193,7 @@
         border-bottom: 1px solid rgba(120, 46, 34, 1);
         margin-right: 15%;
         margin-left: 15%;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
     }
     .aa-header {
         display: grid;

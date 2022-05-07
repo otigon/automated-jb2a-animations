@@ -42,7 +42,7 @@
 
 <div class="aaMenu-section">
     <div class="form-group">
-        <div class="aaToolTip" style="max-width: 1.5rem;margin-left: .75rem;">
+        <div style="max-width: 1.5rem;margin-left: .75rem;">
             <input
                 type="checkbox"
                 id={customId}
@@ -64,8 +64,8 @@
             placeholder={localize("AUTOANIM.itemName")}
         />
         <div
-            class="aaToolTip"
-            style="max-width: 1.5rem;margin-left: .75rem;text-shadow: 0 0 5px rgba(255, 0, 0, 0.687);"
+            class="aa-deleteSection"
+            style="max-width: 1.5rem;margin-left: .75rem;"
         >
             <i
                 class="far fa-trash-alt fa-lg"
@@ -190,11 +190,20 @@
 </div>
 
 <style lang="scss">
+    .autorec-options {
+        display: grid;
+        grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+        grid-gap: 5px;
+        padding: 5px;
+        margin-right:8%;
+        text-align:center;
+        align-items: center;
+    }
     .aaMenu-section {
         background: rgba(199, 199, 199, 0.85);
         border: 2px solid black;
         border-radius: 10px;
-        margin: 1.5% 3% 1.5% 3%;
+        margin: 2px 0 2px 0;
     }
     .aa-nameField {
         background-color: rgba(210, 210, 210, 0.75);
@@ -231,5 +240,11 @@
     }
     .aa-pickAnim label {
         align-self: center;
+    }
+    .aa-deleteSection {
+        color:rgba(74, 74, 74, 0.824);
+    }
+    .aa-deleteSection:hover {
+        text-shadow: 0 0 5px rgba(255, 0, 0, 0.687);
     }
 </style>

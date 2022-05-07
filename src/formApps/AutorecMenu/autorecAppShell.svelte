@@ -3,6 +3,9 @@
 <script>
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
+    import MenuManager from "./menuManager.svelte";
+
     import PrimaryMenuShell from "./primaryMenuShell.svelte";
     import PresetShell from "./PresetShell.svelte";
     import ActiveEffectShell from "./ActiveEffectShell.svelte";
@@ -25,7 +28,7 @@
 
     // TODO: Remove this and make `aaAutorec` setting store above the authority.
     const data = game.settings.get("autoanimations", "aaAutorec");
-    console.log(data);
+
     let flagData = {
         melee: data.melee || {},
         range: data.range || {},
@@ -43,6 +46,19 @@
     };
 
     let form = void 0;
+
+    function manageMenu() {
+        new TJSDialog({
+            modal: true,
+            draggable: true,
+            resizable: true,
+            title: "Autorec Menu Manager",
+            stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
+            content: {
+                class: MenuManager,
+            },
+        }).render(true);
+    }
 </script>
 
 <ApplicationShell
@@ -72,23 +88,23 @@
             {#each items as item}
                 {#if activeTabValue == item.value}
                     {#each Object.values(flagData[item.type]) as menuSection, idx}
-                            {#if item.type === "preset"}
-                                <PresetShell
-                                    bind:menuSection
-                                    {idx}
-                                    type={item.type}
-                                    {flagData}
-                                />
-                            {:else if item.type === "aefx"}
+                        {#if item.type === "preset"}
+                            <PresetShell
+                                bind:menuSection
+                                {idx}
+                                type={item.type}
+                                {flagData}
+                            />
+                        {:else if item.type === "aefx"}
                             <div class="aaMenu-section">
-                                <ActiveEffectShell 
+                                <ActiveEffectShell
                                     bind:menuSection
                                     {idx}
                                     type={item.type}
                                     {flagData}
                                 />
                             </div>
-                            {:else}
+                        {:else}
                             <div class="aaMenu-section">
                                 <PrimaryMenuShell
                                     bind:menuSection
@@ -97,7 +113,7 @@
                                     {flagData}
                                 />
                             </div>
-                            {/if}
+                        {/if}
                     {/each}
                 {/if}
             {/each}
@@ -105,12 +121,18 @@
         <div class="aaBottomSection" style="margin-bottom: 5px">
             <div class="aa-submit">
                 <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
-                    <button class="footer-button" type="submit"
+                    <button class="aa-addSection">Add Section</button>
+                </div>
+                <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
+                    <button class="aa-manageMenu" on:click={() => manageMenu()}>Menu Manager</button>
+                </div>
+                <div class="flexcol" style="grid-row:2/3; grid-column:1/2">
+                    <button class="aa-snclose" type="submit"
                         >{localize("autoanimations.menus.submit")}</button
                     >
                 </div>
-                <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-                    <button class="footer-button"
+                <div class="flexcol" style="grid-row:2/3; grid-column:2/3;">
+                    <button class="aa-casubmit"
                         >{localize("autoanimations.menus.close")}
                         {localize("autoanimations.menus.and")}
                         {localize("autoanimations.menus.submit")}</button
@@ -122,6 +144,18 @@
 </ApplicationShell>
 
 <style lang="scss">
+    .aa-casubmit {
+        background-color: rgb(115, 115, 115, 0.6);
+    }
+    .aa-snclose {
+        background-color: rgb(140, 140, 140, 0.5);
+    }
+    .aa-manageMenu {
+        background-color: rgba(219, 132, 2, 0.4);
+    }
+    .aa-addSection {
+        background-color: rgba(25, 175, 2, 0.4);
+    }
     .aaTopSection {
         position: absolute;
         top: 30px;
@@ -130,10 +164,10 @@
     }
     .aaMidSection {
         position: absolute;
-        left: 0;
-        right: 0;
+        left: 3%;
+        right: 3%;
         top: 70px;
-        bottom: 51px;
+        bottom: 90px;
         overflow: scroll;
     }
     .aaBottomSection {
@@ -204,6 +238,6 @@
         background: rgba(199, 199, 199, 0.85);
         border: 2px solid black;
         border-radius: 10px;
-        margin: 1.5% 3% 1.5% 3%;
+        margin: 2px 0 2px 0;
     }
 </style>

@@ -84,7 +84,7 @@
 </script>
 
 <div class="form-group">
-    <div class="aaToolTip" style="max-width: 1.5rem;margin-left: .75rem;">
+    <div style="max-width: 1.5rem;margin-left: .75rem;">
         <input type="checkbox" id={customId} hidden bind:checked={isHidden} />
         <label for={customId}
             ><i
@@ -101,8 +101,8 @@
         placeholder={localize("AUTOANIM.itemName")}
     />
     <div
-        class="aaToolTip"
-        style="max-width: 1.5rem;margin-left: .75rem;text-shadow: 0 0 5px rgba(255, 0, 0, 0.687);"
+        class="aa-deleteSection"
+        style="max-width: 1.5rem;margin-left: .75rem;"
     >
         <i class="far fa-trash-alt fa-lg" on:click={() => removeSection(idx)} />
     </div>
@@ -248,5 +248,11 @@
     }
     .aa-pickAnim label {
         align-self: center;
+    }
+    .aa-deleteSection {
+        color:rgba(74, 74, 74, 0.824);
+    }
+    .aa-deleteSection:hover {
+        text-shadow: 0 0 5px rgba(255, 0, 0, 0.687);
     }
 </style>

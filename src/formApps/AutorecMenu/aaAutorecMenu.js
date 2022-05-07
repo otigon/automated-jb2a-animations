@@ -39,7 +39,7 @@ export default class AAAutorecMenu extends SvelteApplication {
             resizable: true,
             minimizable: true,
             width: 600,
-            height: 650,
+            height: 750,
             closeOnSubmit: true,
         });
     }
