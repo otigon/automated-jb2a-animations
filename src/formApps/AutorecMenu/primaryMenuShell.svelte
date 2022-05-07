@@ -66,7 +66,7 @@
     <div style="max-width: 1.5rem;margin-left: .75rem;">
         <input type="checkbox" id={customId} hidden bind:checked={isHidden} />
         <label for={customId}
-            ><i class={isHidden ? "fas fa-plus fa-lg aa-green" : "fas fa-minus fa-lg aa-red"} /></label
+            ><i class={isHidden ? "fas fa-plus fa-lg aa-green aa-zoom" : "fas fa-minus fa-lg aa-red aa-zoom"} /></label
         >
     </div>
     <input type="text" class="aa-nameField" bind:value={sectionName} placeholder={localize('AUTOANIM.itemName')} />
@@ -77,16 +77,16 @@
 {#if !isHidden}
 <div class="autorec-options flexcol" transition:fade>
     <div style="grid-row:1/2; grid-column:2/3">
-        <label for=""><i class="far fa-clone"></i></label>
+        <label for=""><i class="far fa-clone aa-zoom"></i></label>
     </div>
     <div style="grid-row:1/2; grid-column:3/4">
-        <label for=""><i class="fas fa-cube"></i></label>
+        <label for=""><i class="fas fa-cube aa-zoom"></i></label>
     </div>
     <div style="grid-row:1/2; grid-column:8/9">
-        <label for=""><i class="fas fa-music"></i></label>
+        <label for=""><i class="fas fa-music aa-zoom"></i></label>
     </div>
     <div style="grid-row:1/2; grid-column:9/10">
-        <label for=""><i class="far fa-keyboard"></i></label>
+        <label for=""><i class="far fa-keyboard aa-zoom"></i></label>
     </div>
 </div>
 <div class="aa-header-section" transition:fade>
@@ -149,5 +149,8 @@
     }
     .aa-deleteSection:hover {
         text-shadow: 0 0 5px rgba(255, 0, 0, 0.687);
+    }
+    .aa-zoom:hover {
+        transform: scale(1.2)
     }
 </style>

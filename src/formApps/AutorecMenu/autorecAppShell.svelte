@@ -1,6 +1,7 @@
 <svelte:options accessors={true} />
 
 <script>
+    import { getContext } from "svelte";
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
@@ -56,8 +57,25 @@
             stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
             content: {
                 class: MenuManager,
+                props: {
+                    app: application,
+                }
             },
         }).render(true);
+    }
+
+    const { application } = getContext("external");
+
+    let searchValue;
+    function sortMenu() {}
+
+    async function applyFlags() {
+        await game.settings.set("autoanimations", 'aaAutorec', flagData);
+    }
+
+    async function closeApp() {
+        await game.settings.set("autoanimations", 'aaAutorec', flagData);
+        application.close();
     }
 </script>
 
@@ -72,17 +90,35 @@
         id="autorec-menu-aa"
         novalidate
     >
-        <div class="aa-autorec-header aaTopSection">
-            {#each items as item}
-                <li
-                    class="flexrow"
-                    class:active={activeTabValue === item.value}
-                >
-                    <span on:click={() => handleClick(item.value)}
-                        ><i class={item.icon} />{item.label}</span
+        <div class="aaTopSection">
+            <div class="aa-autorec-tabs">
+                {#each items as item}
+                    <li
+                        class="flexrow"
+                        class:active={activeTabValue === item.value}
                     >
-                </li>
-            {/each}
+                        <span on:click={() => handleClick(item.value)}
+                            ><i class={item.icon} />{item.label}</span
+                        >
+                    </li>
+                {/each}
+            </div>
+            <div class="form-group" style="margin-left: 3%;margin-right: 23%;">
+                <label
+                    class="aa-sort"
+                    for=""
+                    style="max-width: 25%;"
+                    on:click={() => sortMenu()}
+                    ><i class="fas fa-sort-alpha-down fa-lg aa-green" />
+                    {localize("AUTOANIM.sortmenu")}</label
+                >
+                <input
+                    type="text"
+                    class="aa-nameField"
+                    bind:value={searchValue}
+                    placeholder={localize("AUTOANIM.search")}
+                />
+            </div>
         </div>
         <div class="aaMidSection">
             {#each items as item}
@@ -124,15 +160,22 @@
                     <button class="aa-addSection">Add Section</button>
                 </div>
                 <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-                    <button class="aa-manageMenu" on:click={() => manageMenu()}>Menu Manager</button>
+                    <button class="aa-manageMenu" on:click={() => manageMenu()}
+                        >Menu Manager</button
+                    >
                 </div>
                 <div class="flexcol" style="grid-row:2/3; grid-column:1/2">
-                    <button class="aa-snclose" type="submit"
+                    <button
+                        class="aa-snclose"
+                        type="submit"
+                        on:click|preventDefault={applyFlags}
                         >{localize("autoanimations.menus.submit")}</button
                     >
                 </div>
                 <div class="flexcol" style="grid-row:2/3; grid-column:2/3;">
-                    <button class="aa-casubmit"
+                    <button
+                        class="aa-casubmit"
+                        on:click|preventDefault={closeApp}
                         >{localize("autoanimations.menus.close")}
                         {localize("autoanimations.menus.and")}
                         {localize("autoanimations.menus.submit")}</button
@@ -161,13 +204,15 @@
         top: 30px;
         left: 0;
         right: 0;
+        border: 2px solid black;
+        background: rgba(199, 199, 199, 0.85);
     }
     .aaMidSection {
         position: absolute;
         left: 3%;
         right: 3%;
-        top: 70px;
-        bottom: 90px;
+        top: 100px;
+        bottom: 85px;
         overflow: scroll;
     }
     .aaBottomSection {
@@ -202,14 +247,13 @@
     .box {
         margin-bottom: 50px;
     }
-    .aa-autorec-header {
+    .aa-autorec-tabs {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-around;
         height: auto;
         background: rgba(199, 199, 199, 0.85);
-        border: 2px solid black;
         //border-radius: 10px;
         align-items: center;
         padding-top: 5px;
@@ -222,7 +266,6 @@
         font-weight: bold;
         vertical-align: middle;
     }
-
     span {
         border: 1px solid transparent;
         border-top-left-radius: 0.25rem;
@@ -239,5 +282,21 @@
         border: 2px solid black;
         border-radius: 10px;
         margin: 2px 0 2px 0;
+    }
+    .aa-nameField {
+        background-color: rgba(210, 210, 210, 0.75);
+        border: 1.5px outset rgba(0, 0, 0, 0.5);
+        border-radius: 13px;
+        text-align: center;
+        font-weight: bold;
+        font-size: large;
+        color: black;
+        box-shadow: 5px;
+    }
+    .aa-nameField:placeholder-shown {
+        opacity: 0.4;
+    }
+    .aa-sort:hover {
+        text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
     }
 </style>
