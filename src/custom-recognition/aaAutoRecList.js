@@ -20,7 +20,6 @@ export class aaAutorec {
                 },
                 1: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: game.i18n.localize("autoanimations.animations.flurryofblows"),
                     animation: 'flurryofblows',
                     color: 'blue',
@@ -34,7 +33,6 @@ export class aaAutorec {
                 },
                 2: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: game.i18n.localize("autoanimations.animations.greataxe"),
                     animation: 'greataxe',
                     color: 'white',
@@ -48,7 +46,6 @@ export class aaAutorec {
                 },
                 3: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: game.i18n.localize("autoanimations.animations.greatclub"),
                     animation: 'greatclub',
                     color: 'white',
@@ -62,7 +59,6 @@ export class aaAutorec {
                 },
                 4: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: game.i18n.localize("autoanimations.animations.greatsword"),
                     animation: 'greatsword',
                     color: 'white',
@@ -76,7 +72,6 @@ export class aaAutorec {
                 },
                 5: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: game.i18n.localize("autoanimations.animations.handaxe"),
                     animation: 'handaxe',
                     color: 'white',
@@ -90,7 +85,6 @@ export class aaAutorec {
                 },
                 6: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: game.i18n.localize("autoanimations.animations.sword"),
                     animation: 'sword',
                     color: 'white',
@@ -104,7 +98,6 @@ export class aaAutorec {
                 },
                 7: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: game.i18n.localize("autoanimations.animations.mace"),
                     animation: 'mace',
                     color: 'white',
@@ -118,7 +111,6 @@ export class aaAutorec {
                 },
                 8: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: game.i18n.localize("autoanimations.animations.maul"),
                     animation: 'maul',
                     color: 'white',
@@ -132,7 +124,6 @@ export class aaAutorec {
                 },
                 9: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: game.i18n.localize("autoanimations.animations.spear"),
                     animation: 'spear',
                     color: 'white',
@@ -146,7 +137,6 @@ export class aaAutorec {
                 },
                 10: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: game.i18n.localize("autoanimations.animations.rapier"),
                     variant: '01',
                     color: 'white',
@@ -160,7 +150,6 @@ export class aaAutorec {
                 },
                 11: {
                     hidden: true,
-                    meleeType: 'weapon',
                     name: game.i18n.localize("autoanimations.animations.unarmedstrike"),
                     animation: 'unarmedstrike',
                     color: 'blue',
