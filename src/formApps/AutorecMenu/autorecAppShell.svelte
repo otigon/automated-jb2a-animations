@@ -54,7 +54,7 @@
         aura: Object.values(flagData.aura),
         preset: Object.values(flagData.preset),
         aefx: Object.values(flagData.aefx),
-    }
+    };
     $: menuListings = menuListings;
     let form = void 0;
 
@@ -69,7 +69,7 @@
                 class: MenuManager,
                 props: {
                     app: application,
-                }
+                },
             },
         }).render(true);
     }
@@ -80,22 +80,29 @@
     function sortMenu() {}
 
     async function applyFlags() {
-        await game.settings.set("autoanimations", 'aaAutorec', flagData);
+        await game.settings.set("autoanimations", "aaAutorec", flagData);
     }
 
     async function closeApp() {
-        await game.settings.set("autoanimations", 'aaAutorec', flagData);
+        await game.settings.set("autoanimations", "aaAutorec", flagData);
         application.close();
     }
     function addSection() {
-        let currentMenu = items.filter(obj => { return obj.value === activeTabValue })[0]
-        console.log(currentMenu)
+        let currentMenu = items.filter((obj) => {
+            return obj.value === activeTabValue;
+        })[0];
         let menuLength = Object.keys(flagData[currentMenu.type]).length;
-        flagData[currentMenu.type][menuLength] = { id: randomID(), hidden: true };
+        flagData[currentMenu.type][menuLength] = {
+            id: randomID(),
+            hidden: true,
+        };
         flagData = flagData;
-        menuListings[currentMenu.type] = Object.values(flagData[currentMenu.type]);
+        menuListings[currentMenu.type] = Object.values(
+            flagData[currentMenu.type]
+        );
         menuListings = menuListings;
     }
+
 </script>
 
 <ApplicationShell
@@ -149,7 +156,7 @@
                                 {idx}
                                 type={item.type}
                                 {flagData}
-                                bind:menuListings={menuListings}
+                                bind:menuListings
                             />
                         {:else if item.type === "aefx"}
                             <div class="aaMenu-section">
@@ -158,7 +165,7 @@
                                     {idx}
                                     type={item.type}
                                     {flagData}
-                                    bind:menuListings={menuListings}
+                                    bind:menuListings
                                 />
                             </div>
                         {:else}
@@ -168,7 +175,7 @@
                                     {idx}
                                     type={item.type}
                                     {flagData}
-                                    bind:menuListings={menuListings}
+                                    bind:menuListings
                                 />
                             </div>
                         {/if}
@@ -179,7 +186,9 @@
         <div class="aaBottomSection" style="margin-bottom: 5px">
             <div class="aa-submit">
                 <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
-                    <button class="aa-addSection" on:click={() => addSection()}>Add Section</button>
+                    <button class="aa-addSection" on:click={() => addSection()}
+                        >Add Section</button
+                    >
                 </div>
                 <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
                     <button class="aa-manageMenu" on:click={() => manageMenu()}

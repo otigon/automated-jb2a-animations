@@ -41,11 +41,12 @@
     let customPath = options.customPath;
     $: customPath = options.customPath = customPath;
     //console.log(menuType)
+    let menuSelection = type === "aura" ? "static" : type;
     if (!menuType) {
-        menuType = Object.keys(aaTypeMenu[type])[0];
-        animation = Object.keys(aaNameMenu[type][menuType])[0];
-        variant = Object.keys(aaVariantMenu[type][menuType][animation])[0];
-        color = Object.keys(aaColorMenu[type][menuType][animation][variant])[0];
+        menuType = Object.keys(aaTypeMenu[menuSelection])[0];
+        animation = Object.keys(aaNameMenu[menuSelection][menuType])[0];
+        variant = Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0];
+        color = Object.keys(aaColorMenu[menuSelection][menuType][animation][variant])[0];
     }
     let isHidden = menuSection.hidden || false;
     $: isHidden = menuSection.hidden = isHidden;
@@ -113,6 +114,21 @@
 
     playWhen = macroField.playWhen;
     $: playWhen = playWhen;
+
+    let isOnSource = type === "static" ? false : true;
+    let staticType =
+        type === "static" ? options.staticType || "source" : undefined;
+    $: staticType = staticType;
+    let shouldShowTargetFX =
+        type === "static" && staticType === "source" ? false : true;
+    $: {
+        if (type === "static" && staticType === "source") {
+            shouldShowTargetFX = false;
+            enableTarget = false;
+        } else {
+            shouldShowTargetFX = true;
+        }
+    }
 </script>
 
 <div class="form-group">
@@ -276,15 +292,19 @@
                         flagPath="sourceExtraFX"
                         bind:enableSection={enableSource}
                         flagData={menuSection}
+                        {staticType}
                     />
                 </div>
-                <div class="aaMenu-section">
-                    <ExtraFX
-                        flagPath="targetExtraFX"
-                        bind:enableSection={enableTarget}
-                        flagData={menuSection}
-                    />
-                </div>
+                {#if shouldShowTargetFX}
+                    <div class="aaMenu-section">
+                        <ExtraFX
+                            flagPath="targetExtraFX"
+                            bind:enableSection={enableTarget}
+                            flagData={menuSection}
+                            {staticType}
+                        />
+                    </div>
+                {/if}
             {/if}
             {#if !show3d && !showExtraFX}
                 <div class="aa-header-section" transition:fade>
@@ -309,9 +329,10 @@
                     bind:color
                     bind:isCustom
                     bind:customPath
+                    bind:staticType
                     flagPath="PrimaryAnimation"
                     animTypeSwitched={false}
-                    disablePlayOn={true}
+                    disablePlayOn={isOnSource}
                     animType={type}
                     flagData={menuSection}
                     customId={`${type}-${idx}`}
