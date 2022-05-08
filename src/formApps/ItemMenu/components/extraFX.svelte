@@ -26,11 +26,13 @@
     let sectionTitle;
     switch (flagPath) {
         case "sourceExtraFX":
+            flagData.sourceToken ? flagData.sourceToken : flagData.sourceToken = {}
             root = flagData.sourceToken;
             audioPath = "s01";
             sectionTitle = game.i18n.localize("autoanimations.menus.source") + " " + game.i18n.localize("autoanimations.menus.effects");
             break;
         case "targetExtraFX":
+            flagData.targetToken ? flagData.targetToken : flagData.targetToken = {}
             root = flagData.targetToken;
             audioPath = "t01";
             sectionTitle = game.i18n.localize("autoanimations.menus.target") + " " + game.i18n.localize("autoanimations.menus.effects");
@@ -84,7 +86,7 @@
         }
     }
 
-    let enableSection = root.enable || false;
+    export let enableSection = root.enable || false;
     $: enableSection = enableSection;
 
     function switchEnable() {

@@ -4,6 +4,7 @@
     import Options3d from "./3dCanvasOptions.svelte";
 
     export let flagData;
+    flagData.levels3d ? flagData.levels3d : flagData.levels3d = {};
     const root = flagData.levels3d;
     let type3d = root.type || "";
     $: type3d = root.type = type3d;

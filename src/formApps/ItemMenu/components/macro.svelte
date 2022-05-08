@@ -2,6 +2,7 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade, fly } from "svelte/transition";
 
+    export let isAutorec;
     export let flagData;
     const macros = flagData.macro;
 
@@ -11,7 +12,7 @@
     let data = macros.args;
     $: macros.args = data = data;
 
-    let playWhen = macros.playWhen;
+    export let playWhen = macros.playWhen;
     $: macros.playWhen = playWhen = playWhen;
 
     export let animationDisabled = flagData.killAnim;
@@ -31,6 +32,9 @@
         >
             <option value="0">{localize("autoanimations.menus.macroconcurrent")}</option>
             <option value="1">{localize("autoanimations.menus.awaitmacro")}</option>
+            {#if isAutorec}
+            <option value="2">{localize("autoanimations.menus.macroonly")}</option>
+            {/if}
         </select>
     </div>
     <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">

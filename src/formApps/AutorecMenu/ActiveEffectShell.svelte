@@ -61,18 +61,14 @@
     let customId = `${type}` + `${idx}`;
     let sectionName = menuSection.name || "";
     $: sectionName = menuSection.name = sectionName;
-    function removeSection(idx) {
-        delete flagData[type][idx];
+    function removeSection() {
+        console.log()
+        delete flagData[type][idx]
 
-        for (let i = 0; i < Object.entries(flagData[type]).length; i++) {
-            let compacted = {};
-            Object.values(flagData[type]).forEach(
-                (val, idx) => (compacted[idx] = val)
-            );
+        for (let i = 0; i < Object.entries(flagData[type]).length; i ++) {
+            let compacted = {}
+            Object.values(flagData[type]).forEach((val, idx) => compacted[idx] = val);
             flagData[type] = compacted;
-            for(let i = 0; i < Object.entries(flagData[type]).length; i ++) {
-                flagData[type][i].id = i;
-            }
         }
         flagData = flagData;
         menuListings[type] = Object.values(flagData[type])
@@ -109,7 +105,7 @@
         class="aa-deleteSection"
         style="max-width: 1.5rem;margin-left: .75rem;"
     >
-        <i class="far fa-trash-alt fa-lg" on:click={() => removeSection(idx)} />
+        <i class="far fa-trash-alt fa-lg" on:click={() => removeSection()} />
     </div>
 </div>
 {#if !isHidden}
