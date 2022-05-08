@@ -91,7 +91,7 @@
         let currentMenu = items.filter(obj => { return obj.value === activeTabValue })[0]
         console.log(currentMenu)
         let menuLength = Object.keys(flagData[currentMenu.type]).length;
-        flagData[currentMenu.type][menuLength] = { id: randomID()};
+        flagData[currentMenu.type][menuLength] = { id: randomID(), hidden: true };
         flagData = flagData;
         menuListings[currentMenu.type] = Object.values(flagData[currentMenu.type]);
         menuListings = menuListings;
