@@ -49,7 +49,8 @@
     let customId = `${type}` + `${idx}`;
     let sectionName = menuSection.name || "";
     $: sectionName = menuSection.name = sectionName;
-    function removeSection(idx) {
+    function removeSection(section) {
+        console.log(section)
         delete flagData[type][idx]
 
         for (let i = 0; i < Object.entries(flagData[type]).length; i ++) {

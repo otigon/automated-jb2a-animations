@@ -6,7 +6,7 @@ export class aaAutorec {
             search: "",
             melee: {
                 0: {
-                    id:0,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.dagger"),
                     animation: 'dagger',
@@ -20,7 +20,7 @@ export class aaAutorec {
                     }
                 },
                 1: {
-                    id:1,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.flurryofblows"),
                     animation: 'flurryofblows',
@@ -34,7 +34,7 @@ export class aaAutorec {
                     }
                 },
                 2: {
-                    id:2,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.greataxe"),
                     animation: 'greataxe',
@@ -48,7 +48,7 @@ export class aaAutorec {
                     }
                 },
                 3: {
-                    id:3,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.greatclub"),
                     animation: 'greatclub',
@@ -62,7 +62,7 @@ export class aaAutorec {
                     }
                 },
                 4: {
-                    id:4,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.greatsword"),
                     animation: 'greatsword',
@@ -76,7 +76,7 @@ export class aaAutorec {
                     }
                 },
                 5: {
-                    id:5,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.handaxe"),
                     animation: 'handaxe',
@@ -90,7 +90,7 @@ export class aaAutorec {
                     }
                 },
                 6: {
-                    id:6,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.sword"),
                     animation: 'sword',
@@ -104,7 +104,7 @@ export class aaAutorec {
                     }
                 },
                 7: {
-                    id:7,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.mace"),
                     animation: 'mace',
@@ -118,7 +118,7 @@ export class aaAutorec {
                     }
                 },
                 8: {
-                    id:8,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.maul"),
                     animation: 'maul',
@@ -132,7 +132,7 @@ export class aaAutorec {
                     }
                 },
                 9: {
-                    id:9,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.spear"),
                     animation: 'spear',
@@ -146,7 +146,7 @@ export class aaAutorec {
                     }
                 },
                 10: {
-                    id:10,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.rapier"),
                     variant: '01',
@@ -160,7 +160,7 @@ export class aaAutorec {
                     }
                 },
                 11: {
-                    id:11,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.unarmedstrike"),
                     animation: 'unarmedstrike',
@@ -176,7 +176,7 @@ export class aaAutorec {
             },
             range: {
                 0: {
-                    id:0,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.crossbow"),
                     animation: 'bolt',
@@ -190,7 +190,7 @@ export class aaAutorec {
                     }
                 },
                 1: {
-                    id:1,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.bow"),
                     animation: 'arrow',
@@ -204,7 +204,7 @@ export class aaAutorec {
                     }
                 },
                 2: {
-                    id:2,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.disintegrate"),
                     animation: 'disintegrate',
@@ -218,7 +218,7 @@ export class aaAutorec {
                     }
                 },
                 3: {
-                    id:3,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.eldritchblast"),
                     animation: 'eldritchblast',
@@ -232,7 +232,7 @@ export class aaAutorec {
                     }
                 },
                 4: {
-                    id:4,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.firebolt"),
                     animation: 'firebolt',
@@ -246,7 +246,7 @@ export class aaAutorec {
                     }
                 },
                 5: {
-                    id:5,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.guidingbolt"),
                     animation: 'guidingbolt',
@@ -260,7 +260,7 @@ export class aaAutorec {
                     }
                 },
                 6: {
-                    id:6,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.magicmissile"),
                     animation: 'magicmissile',
@@ -274,7 +274,7 @@ export class aaAutorec {
                     }
                 },
                 7: {
-                    id:7,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.rayoffrost"),
                     animation: 'rayoffrost',
@@ -288,7 +288,7 @@ export class aaAutorec {
                     }
                 },
                 8: {
-                    id:8,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.scorchingray"),
                     animation: 'scorchingray',
@@ -302,7 +302,7 @@ export class aaAutorec {
                     }
                 },
                 9: {
-                    id:9,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.witchbolt"),
                     animation: 'witchbolt',
@@ -318,7 +318,7 @@ export class aaAutorec {
             },
             static: {
                 0: {
-                    id:0,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.curewounds"),
                     animation: 'curewounds',
@@ -336,7 +336,7 @@ export class aaAutorec {
                     }
                 },
                 1: {
-                    id:1,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.itemHealingWord"),
                     animation: 'generichealing',
@@ -354,7 +354,7 @@ export class aaAutorec {
                     }
                 },
                 2: {
-                    id:2,
+                    id:randomID(),
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.tollthedead"),
                     animation: 'tollthedead',
@@ -372,7 +372,7 @@ export class aaAutorec {
                     }
                 },
                 3: {
-                    id:3,
+                    id:randomID(),
                     staticOptions: 'creature',
                     animation: "bite",
                     below: false,
@@ -391,7 +391,7 @@ export class aaAutorec {
                     }
                 },
                 4: {
-                    id:4,
+                    id:randomID(),
                     staticOptions: 'creature',
                     animation: "claw",
                     below: false,
@@ -412,7 +412,7 @@ export class aaAutorec {
             },
             templatefx: {
                 0: {
-                    id:0,
+                    id:randomID(),
                     animation: "calllightning",
                     color: 'blueorange',
                     hidden: true,
@@ -436,7 +436,7 @@ export class aaAutorec {
                     }
                 },
                 1: {
-                    id:1,
+                    id:randomID(),
                     animation: "fogcloud",
                     color: 'white',
                     hidden: true,
@@ -460,7 +460,7 @@ export class aaAutorec {
                     }
                 },
                 2: {
-                    id:2,
+                    id:randomID(),
                     animation: "thunderwave",
                     color: "blue",
                     hidden: true,
@@ -483,7 +483,7 @@ export class aaAutorec {
             },
             aura: {
                 0: {
-                    id:0,
+                    id:randomID(),
                     animation: "spiritguardians",
                     color: 'darkblue',
                     hidden: true,
@@ -502,7 +502,7 @@ export class aaAutorec {
             },
             preset: {
                 0: {
-                    id:0,
+                    id:randomID(),
                     presetType: "bardicinspiration",
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.bardicinspiration"),
@@ -521,7 +521,7 @@ export class aaAutorec {
                     }
                 },
                 1: {
-                    id:1,
+                    id:randomID(),
                     presetType:"bless",
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.bless"),
@@ -533,7 +533,7 @@ export class aaAutorec {
                     }
                 },
                 2: {
-                    id:2,
+                    id:randomID(),
                     presetType:"shieldspell",
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.shield"),
@@ -546,7 +546,7 @@ export class aaAutorec {
                     }
                 },
                 3: {
-                    id:3,
+                    id:randomID(),
                     presetType:"teleportation",
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.mistystep"),
@@ -582,7 +582,7 @@ export class aaAutorec {
             },
             aefx: {
                 0: {
-                    id:0,
+                    id:randomID(),
                     animType: "static",
                     animation: "drop",
                     hidden: true,

@@ -87,6 +87,15 @@
         await game.settings.set("autoanimations", 'aaAutorec', flagData);
         application.close();
     }
+    function addSection() {
+        let currentMenu = items.filter(obj => { return obj.value === activeTabValue })[0]
+        console.log(currentMenu)
+        let menuLength = Object.keys(flagData[currentMenu.type]).length;
+        flagData[currentMenu.type][menuLength] = { id: randomID(8)};
+        flagData = flagData;
+        menuListings[currentMenu.type] = Object.values(flagData[currentMenu.type]);
+        menuListings = menuListings;
+    }
 </script>
 
 <ApplicationShell
@@ -170,7 +179,7 @@
         <div class="aaBottomSection" style="margin-bottom: 5px">
             <div class="aa-submit">
                 <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
-                    <button class="aa-addSection">Add Section</button>
+                    <button class="aa-addSection" on:click={() => addSection()}>Add Section</button>
                 </div>
                 <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
                     <button class="aa-manageMenu" on:click={() => manageMenu()}
