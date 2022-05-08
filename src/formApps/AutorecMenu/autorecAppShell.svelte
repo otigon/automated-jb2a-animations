@@ -46,9 +46,6 @@
         search: "",
     };
 
-    let meleeList = Object.values(flagData.melee)
-    $: meleeList = meleeList
-
     let menuListings = {
         melee: Object.values(flagData.melee),
         range: Object.values(flagData.range),
@@ -136,11 +133,11 @@
         <div class="aaMidSection">
             {#each items as item}
                 {#if activeTabValue == item.value}
-                    {#each menuListings[item.type] as menuSection (menuSection.name)}
+                    {#each menuListings[item.type] as menuSection, idx (menuSection.id)}
                         {#if item.type === "preset"}
                             <PresetShell
                                 bind:menuSection
-                                idx={menuSection.id}
+                                {idx}
                                 type={item.type}
                                 {flagData}
                                 bind:menuListings={menuListings}
@@ -149,7 +146,7 @@
                             <div class="aaMenu-section">
                                 <ActiveEffectShell
                                     bind:menuSection
-                                    idx={menuSection.id}
+                                    {idx}
                                     type={item.type}
                                     {flagData}
                                     bind:menuListings={menuListings}
@@ -159,7 +156,7 @@
                             <div class="aaMenu-section">
                                 <PrimaryMenuShell
                                     bind:menuSection
-                                    idx={menuSection.id}
+                                    {idx}
                                     type={item.type}
                                     {flagData}
                                     bind:menuListings={menuListings}
