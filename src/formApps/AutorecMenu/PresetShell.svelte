@@ -16,6 +16,7 @@
     export let menuSection;
     export let type;
     export let idx;
+    export let menuListings;
 
     export let isAutoRec = true;
     let presetType = menuSection.presetType;
@@ -35,8 +36,12 @@
                 (val, idx) => (compacted[idx] = val)
             );
             flagData[type] = compacted;
+            for(let i = 0; i < Object.entries(flagData[type]).length; i ++) {
+                flagData[type][i].id = i;
+            }
         }
         flagData = flagData;
+        menuListings[type] = Object.values(flagData[type])
     }
 </script>
 

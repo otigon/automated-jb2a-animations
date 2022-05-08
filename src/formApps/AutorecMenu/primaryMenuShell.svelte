@@ -19,6 +19,7 @@
     export let type;
     export let idx;
     export let menuSection;
+    export let menuListings;
 
     menuSection.options ? menuSection.options : (menuSection.options = {});
     menuSection.audio ? menuSection.audio : (menuSection.audio = {});
@@ -55,8 +56,12 @@
             let compacted = {}
             Object.values(flagData[type]).forEach((val, idx) => compacted[idx] = val);
             flagData[type] = compacted;
+            for(let i = 0; i < Object.entries(flagData[type]).length; i ++) {
+                flagData[type][i].id = i;
+            }
         }
         flagData = flagData;
+        menuListings[type] = Object.values(flagData[type])
     }
     const showExplosions = ['melee', 'range', 'static']
 
@@ -71,7 +76,7 @@
     </div>
     <input type="text" class="aa-nameField" bind:value={sectionName} placeholder={localize('AUTOANIM.itemName')} />
     <div class="aa-deleteSection" style="max-width: 1.5rem;margin-left: .75rem;">
-        <i class="far fa-trash-alt fa-lg" on:click={() => removeSection(idx)}/>
+        <i class="far fa-trash-alt fa-lg" on:click={() => removeSection(menuSection.id)}/>
     </div>
 </div>
 {#if !isHidden}

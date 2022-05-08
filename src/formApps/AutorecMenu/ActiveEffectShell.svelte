@@ -25,6 +25,7 @@
     export let type;
     export let idx;
     export let menuSection;
+    export let menuListings;
 
     let animType = flagData.animType || "static";
     $: animType = flagData.animType = animType;
@@ -69,8 +70,12 @@
                 (val, idx) => (compacted[idx] = val)
             );
             flagData[type] = compacted;
+            for(let i = 0; i < Object.entries(flagData[type]).length; i ++) {
+                flagData[type][i].id = i;
+            }
         }
         flagData = flagData;
+        menuListings[type] = Object.values(flagData[type])
     }
     const showExplosions = ["melee", "range", "static"];
 

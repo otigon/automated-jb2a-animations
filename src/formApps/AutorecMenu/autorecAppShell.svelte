@@ -46,6 +46,19 @@
         search: "",
     };
 
+    let meleeList = Object.values(flagData.melee)
+    $: meleeList = meleeList
+
+    let menuListings = {
+        melee: Object.values(flagData.melee),
+        range: Object.values(flagData.range),
+        static: Object.values(flagData.static),
+        templatefx: Object.values(flagData.templatefx),
+        aura: Object.values(flagData.aura),
+        preset: Object.values(flagData.preset),
+        aefx: Object.values(flagData.aefx),
+    }
+    $: menuListings = menuListings;
     let form = void 0;
 
     function manageMenu() {
@@ -123,30 +136,33 @@
         <div class="aaMidSection">
             {#each items as item}
                 {#if activeTabValue == item.value}
-                    {#each Object.values(flagData[item.type]) as menuSection, idx}
+                    {#each menuListings[item.type] as menuSection (menuSection.name)}
                         {#if item.type === "preset"}
                             <PresetShell
                                 bind:menuSection
-                                {idx}
+                                idx={menuSection.id}
                                 type={item.type}
                                 {flagData}
+                                bind:menuListings={menuListings}
                             />
                         {:else if item.type === "aefx"}
                             <div class="aaMenu-section">
                                 <ActiveEffectShell
                                     bind:menuSection
-                                    {idx}
+                                    idx={menuSection.id}
                                     type={item.type}
                                     {flagData}
+                                    bind:menuListings={menuListings}
                                 />
                             </div>
                         {:else}
                             <div class="aaMenu-section">
                                 <PrimaryMenuShell
                                     bind:menuSection
-                                    {idx}
+                                    idx={menuSection.id}
                                     type={item.type}
                                     {flagData}
+                                    bind:menuListings={menuListings}
                                 />
                             </div>
                         {/if}
