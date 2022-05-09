@@ -551,6 +551,7 @@ export const autoRecMigration = {
 
             async function compileNewMenu(data, type) {
                 const dataLength = Object.keys(data).length;
+                debugger
                 for (var i = 0; i < dataLength; i++) {
                     const oldMO = data[i];
                     newMenu[type][i] = {};
