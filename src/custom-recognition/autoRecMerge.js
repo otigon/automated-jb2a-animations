@@ -546,6 +546,7 @@ export const autoRecMigration = {
                 aura: {},
                 preset: {},
                 aefx: {},
+                version: 5,
             };
 
             async function compileNewMenu(data, type) {
@@ -602,8 +603,7 @@ export const autoRecMigration = {
 
                 }
             }
-            currentAutorec.version = 5;
-            await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
+            await game.settings.set('autoanimations', 'aaAutorec', newMenu)
         }
     }
 }
