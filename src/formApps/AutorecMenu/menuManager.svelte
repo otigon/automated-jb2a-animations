@@ -1,7 +1,8 @@
 <script>
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import { getContext } from "svelte";
-    import AutorecShim from "./appShim.js"
+    import AutorecShim from "./appShim.js";
+    import { AutorecFunctions } from "../../aa-classes/autorecFunctions.js";
 
     const { application } = getContext("external");
 
@@ -17,13 +18,18 @@
         });
 
         async function setDefault() {
-            const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+            const wait = (delay) =>
+                new Promise((resolve) => setTimeout(resolve, delay));
             game.settings.set("autoanimations", "aaAutorec");
             app.close();
             application.close();
-            await wait (1000)
-            new AutorecShim()
+            await wait(1000);
+            new AutorecShim();
         }
+    }
+    async function mergeMenu() {
+
+        
     }
 </script>
 
@@ -47,7 +53,9 @@
     style="border-bottom: 3px inset rgba(0, 0, 0, 0.5);"
 >
     <div style="grid-row:2/3;grid-column:1/2">
-        <button class="aa-green">Merge Menus</button>
+        <button on:click|preventDefault={restoreDefault} class="aa-green"
+            >Merge Menus</button
+        >
     </div>
     <div style="grid-row:2/3;grid-column:2/3">
         <label for="">Merge a new Menu into your existing Menu</label>

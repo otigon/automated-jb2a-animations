@@ -77,7 +77,6 @@
     const { application } = getContext("external");
 
     let searchValue;
-    function sortMenu() {}
 
     async function applyFlags() {
         await game.settings.set("autoanimations", "aaAutorec", flagData);
@@ -101,6 +100,35 @@
             flagData[currentMenu.type]
         );
         menuListings = menuListings;
+    }
+    async function sortMenu() {
+        let currentMenu = items.filter((obj) => {
+            return obj.value === activeTabValue;
+        })[0];
+        const menuData = flagData[currentMenu.type];
+        const mergedArray = [];
+        const keys = Object.keys(menuData);
+        const keyLength = keys.length;
+        for (var i = 0; i < keyLength; i++) {
+            var currentObject = menuData[keys[i]];
+            if (!currentObject.name) { continue; }
+            currentObject.menuSection = keys[i]
+            mergedArray.push(currentObject)
+        }
+        mergedArray.sort((a, b) => b.name.toLowerCase() > a.name.toLowerCase() ? -1 : 1)
+
+        const sortedMenu = {};
+        const newLength = mergedArray.length;
+        for (var i = 0; i < newLength; i++) {
+            var currentKey = i.toString()
+            sortedMenu[currentKey] = mergedArray[currentKey];
+        }
+
+        flagData[currentMenu.type] = sortedMenu;
+        flagData = flagData;
+
+        menuListings[currentMenu.type] = Object.values(flagData[currentMenu.type])
+
     }
 
 </script>
