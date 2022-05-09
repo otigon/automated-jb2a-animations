@@ -551,13 +551,13 @@ export const autoRecMigration = {
 
             async function compileNewMenu(data, type) {
                 const dataLength = Object.keys(data).length;
-                debugger
+
                 for (var i = 0; i < dataLength; i++) {
                     const oldMO = data[i];
                     newMenu[type][i] = {};
                     const newMO = newMenu[type][i];
 
-                    let {name, animation, color, audio, macro, soundOnly, explosion, levels3d, ...rest} = {oldMO}
+                    let {name, animation, color, audio, macro, soundOnly, explosion, levels3d, ...rest} = oldMO
                     newMO.id = randomID();
                     newMO.name = name;
                     newMO.hidden = true;
