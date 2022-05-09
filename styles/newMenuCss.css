@@ -79,9 +79,32 @@
 }
 #AA-item-settings select {
     background-color: rgba(210, 210, 210, 0.75);
+    text-align: center;
+    font-weight: bold;
+    min-height: 2em;
+    border-radius: 7px;
 }
 #AA-autorec-settings select {
     background-color: rgba(210, 210, 210, 0.75);
+    text-align: center;
+    font-weight: bold;
+    min-height: 2em;
+    border-radius: 7px;
+}
+#AA-autorec-settings .form-group label {
+    border: none;
+    background: none;
+}
+.aaMidSection::-webkit-scrollbar {
+    width: 6px;
+    height: 0;
+}
+.aaMidSection::-webkit-scrollbar-thumb {
+    outline:none;
+    border-radius: 3px;
+    background-image:none;
+    background:rgb(2, 32, 203);
+    border:none;
 }
 .aa-info-blue {
     color: rgba(30, 14, 252, 0.75)

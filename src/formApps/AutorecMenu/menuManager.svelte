@@ -1,12 +1,11 @@
 <script>
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import { getContext } from "svelte";
-    import AutorecShim from "./appShim.js";
     import { AutorecFunctions } from "../../aa-classes/autorecFunctions.js";
 
     const { application } = getContext("external");
 
-    export let app;
+    //export let app;
 
     async function restoreDefault() {
         let d = TJSDialog.confirm({
@@ -21,15 +20,198 @@
             const wait = (delay) =>
                 new Promise((resolve) => setTimeout(resolve, delay));
             game.settings.set("autoanimations", "aaAutorec");
-            app.close();
+            //app.close();
             application.close();
-            await wait(1000);
-            new AutorecShim();
+            //await wait(1000);
+            //new AutorecShim();
         }
     }
     async function mergeMenu() {
+        let d = TJSDialog.confirm({
+            title: "WARNING!!",
+            content: `<p style="text-align:center">This will Merge menus and is <strong>IRREVERSIBLE. Continue?</strong></p>`,
+            yes: () => importFromJSONDialog(),
+            no: () => console.log("Exiting without default restore"),
+            defaultYes: false,
+        });
 
-        
+        async function importFromJSONDialog() {
+            const content = await renderTemplate(
+                "modules/autoanimations/src/custom-recognition/import-data.html",
+                { entity: "autoanimations", name: "aaAutorec" }
+            );
+
+            let dialog = new Promise((resolve, reject) => {
+                new Dialog(
+                    {
+                        title: game.i18n.format("AUTOANIM.menuImport"),
+                        content: content,
+                        buttons: {
+                            merge: {
+                                icon: '<i class="fas fa-file-import"></i>',
+                                label: game.i18n.format("AUTOANIM.merge"),
+                                callback: (html) => {
+                                    //@ts-ignore
+                                    const form = html.find("form")[0];
+                                    if (!form.data.files.length)
+                                        return ui.notifications?.error(
+                                            "You did not upload a data file!"
+                                        );
+                                    readTextFromFile(form.data.files[0]).then(
+                                        (json) => {
+                                            mergeAutorecFile(json);
+                                            resolve(true);
+                                        }
+                                    );
+                                },
+                            },
+                            no: {
+                                icon: '<i class="fas fa-times"></i>',
+                                label: "Cancel",
+                                callback: (html) => resolve(false),
+                            },
+                        },
+                    },
+                    {
+                        width: 600,
+                    }
+                ).render(true);
+            });
+            return await dialog;
+        }
+
+        async function mergeAutorecFile(json) {
+            // Imported Autorec Menu
+            const newData = JSON.parse(json);
+            // Existing Autorec Menu
+            const oldData = game.settings.get("autoanimations", "aaAutorec");
+            // New Autorec Menu
+            oldData.version = newData.version;
+            oldData.search = "";
+
+            let idx;
+
+            const menuSections = [
+                "melee",
+                "range",
+                "static",
+                "templates",
+                "auras",
+                "preset",
+                "aefx",
+            ];
+
+            await mergeMenus();
+
+            async function mergeMenus() {
+                for (var i = 0; i < menuSections.length; i++) {
+                    if (!newData[menuSections[i]]) {
+                        return;
+                    }
+                    // Resets IDX to 0
+                    if (!oldData[menuSections[i]]) {
+                        oldData[menuSections[i]] = {};
+                    }
+                    let sectionLength = Object.keys(
+                        oldData[menuSections[i]]
+                    ).length;
+                    idx = sectionLength === 0 ? 0 : sectionLength;
+
+                    // Sets Menu Section in new Merged Data
+                    //mergedData[menuSections[i]] = {};
+
+                    // Sets Old and New Names arrays from the Section, spaces removed and toLowerCase()
+                    const newSectionNames = await getAllNamesInSection(
+                        newData,
+                        menuSections[i]
+                    );
+                    const oldSectionNames = await getAllNamesInSection(
+                        oldData,
+                        menuSections[i]
+                    );
+
+                    // If Existing Menu has no Section, check if New Menu has Section. If NO, return. If YES set Merged Section = New Section
+                    if (!oldData[menuSections[i]]) {
+                        if (!newData[menuSections[i]]) {
+                            oldData[menuSections[i]] = {};
+                            return;
+                        } else {
+                            oldData[menuSections[i]] = newData[menuSections[i]];
+                            return;
+                        }
+                    }
+
+                    // Compare Existing versus New and build new Merged Object for Section
+                    //await checkOldData(oldData, oldSectionNames, newSectionNames, menuSections[i]);
+                    await checkNewData(
+                        newData,
+                        oldSectionNames,
+                        newSectionNames,
+                        menuSections[i]
+                    );
+                }
+            }
+
+            async function getAllNamesInSection(obj, type) {
+                const nameArray = [];
+                try {
+                    Object.keys(obj[type]).length;
+                } catch (exception) {
+                    return nameArray;
+                }
+                const arrayLength = Object.keys(obj[type]).length;
+                for (var i = 0; i < arrayLength; i++) {
+                    if (!obj[type][i].name) {
+                        continue;
+                    }
+
+                    nameArray.push(
+                        obj[type][i].name.replace(/\s+/g, "").toLowerCase()
+                    );
+                }
+                return nameArray;
+            }
+
+            async function findObjectByName(data, type, name) {
+                var newObject = Object.values(data[type])
+                    .sort(
+                        (a, b) =>
+                            b.name.replace(/\s+/g, "").length -
+                            a.name.replace(/\s+/g, "").length
+                    )
+                    .find((section) => {
+                        //cutting out all spaces
+                        return name.includes(
+                            section.name.replace(/\s+/g, "").toLowerCase()
+                        )
+                            ? section
+                            : "";
+                    });
+
+                return newObject;
+            }
+            async function checkNewData(newData, oldArray, newArray, section) {
+                let newDataLength = Object.keys(newData[section]).length;
+                for (var i = 0; i < newDataLength; i++) {
+                    if (oldArray.includes(newArray[i])) {
+                        continue;
+                    } else {
+                        let newSection = await findObjectByName(
+                            newData,
+                            section,
+                            newArray[i]
+                        );
+                        oldData[section][idx] = newSection;
+                        idx = idx + 1;
+                    }
+                }
+            }
+
+            await game.settings.set("autoanimations", "aaAutorec", oldData);
+            //await autoRecMigration.handle(
+                //game.settings.get("autoanimations", "aaAutorec")
+            //);
+        }
     }
 </script>
 
@@ -53,7 +235,7 @@
     style="border-bottom: 3px inset rgba(0, 0, 0, 0.5);"
 >
     <div style="grid-row:2/3;grid-column:1/2">
-        <button on:click|preventDefault={restoreDefault} class="aa-green"
+        <button class="aa-green"
             >Merge Menus</button
         >
     </div>

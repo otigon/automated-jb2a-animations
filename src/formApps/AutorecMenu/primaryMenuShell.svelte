@@ -65,7 +65,8 @@
             flagData[type] = compacted;
         }
         flagData = flagData;
-        menuListings[type] = Object.values(flagData[type]);
+        //menuListings[type] = Object.values(flagData[type]);
+        menuListings = menuListings
     }
     const showExplosions = ["melee", "range", "static"];
     function duplicateSection() {
@@ -165,6 +166,7 @@
                 /></label
             >
         </div>
+        {#if type !== "templatefx" && type !== "aura"}
         <div style="grid-row:1/2; grid-column:2/3">
             <label for="" title="3D Canvas"
                 ><i
@@ -173,6 +175,7 @@
                 /></label
             >
         </div>
+        {/if}
         <div style="grid-row:1/2; grid-column:3/4">
             <label for="" title="Extra FX"
                 ><i

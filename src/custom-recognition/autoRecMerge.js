@@ -155,7 +155,7 @@ export const autoRecMigration = {
                                 break;
                             default:
                                 co.explosion.menuType = 'spell';
-                        }            
+                        }
                     }
                 }
             }
@@ -208,7 +208,7 @@ export const autoRecMigration = {
                                 break;
                             default:
                                 ro.explosion.menuType = 'spell';
-                        }            
+                        }
                     }
                 }
             }
@@ -357,7 +357,7 @@ export const autoRecMigration = {
                                 break;
                             default:
                                 so.explosion.menuType = 'spell';
-                        }            
+                        }
                     }
                 }
             }
@@ -491,7 +491,7 @@ export const autoRecMigration = {
                                         break;
                                     default:
                                         po.ex01Type = 'spell';
-                                }            
+                                }
                             }
                             if (po.explosion02) {
                                 switch (true) {
@@ -519,7 +519,7 @@ export const autoRecMigration = {
                                         break;
                                     default:
                                         po.ex02Type = 'spell';
-                                }            
+                                }
                             }
                             break;
 
@@ -528,7 +528,82 @@ export const autoRecMigration = {
             }
             currentAutorec.version = 4;
             await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
-        }
+        },
+        "5": async (currentAutorec) => {
+            const meleeObject = currentAutorec.melee;
+            const rangeObject = currentAutorec.range;
+            const staticObject = currentAutorec.static;
+            const templateObject = currentAutorec.templates;
+            const auraObject = currentAutorec.auras;
+            const presetObject = currentAutorec.preset;
+            const aefxObject = currentAutorec.aefx;
 
+            const newMenu = {
+                melee: {},
+                range: {},
+                static: {},
+                templatefx: {},
+                aura: {},
+                preset: {},
+                aefx: {},
+            };
+
+            async function compileNewMenu(data, type) {
+                const dataLength = Object.keys(data).length;
+                for (var i = 0; i < dataLength; i++) {
+                    const oldMO = data[i];
+                    newMenu[type][i] = {};
+                    const newMO = newMenu[type][i];
+
+                    let {name, animation, color, audio, macro, soundOnly, explosion, levels3d, ...rest} = {oldMO}
+                    newMO.id = randomID();
+                    newMO.name = name;
+                    newMO.hidden = true;
+                    newMO.animation = animation;
+                    newMO.color = color;
+                    newMO.options = rest;
+                    newMO.audio = audio || {};
+                    newMO.macro = macro || {};
+                    newMO.levels3d = levels3d || {};
+                    newMO.soundOnly = soundOnly?.enable || false;
+                    newMO.explosions = explosion || {};
+                    if (!newMO.options.menuType || !newMO.options.variant || !newMO.animation || !newMO.color) {
+                        newMO.options.menuType = "";
+                        newMO.options.variant = "";
+                        newMO.animation = "";
+                        newMO.color = "";
+                    }
+                }
+            }
+            if (meleeObject) {
+                await compileNewMenu(meleeObject, "melee")
+            }
+            if (rangeObject) {
+                await compileNewMenu(rangeObject, "range")
+            }
+            if (staticObject) {
+                await compileNewMenu(staticObject, "static")
+            } else { newMenu.static = {}; }
+            if (templateObject) {
+                await compileNewMenu(templateObject, "templatefx")
+            }
+            if (auraObject) {
+                await compileNewMenu(auraObject, "aura")
+            }
+            if (presetObject) {
+                const presetLength = Object.keys(presetObject).length;
+                for (var i = 0; i < presetLength; i++) {
+
+                }
+            }
+            if (aefxObject) {
+                const aefxLength = Object.keys(aefxObject).length;
+                for (var i = 0; i < aefxLength; i++) {
+
+                }
+            }
+            currentAutorec.version = 5;
+            await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
+        }
     }
 }

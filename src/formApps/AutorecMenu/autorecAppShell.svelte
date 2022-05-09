@@ -13,7 +13,7 @@
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
     //import Tabs from "./Tabs.svelte";
 
-    //import { gameSettings } from "../../gameSettings.js";
+    import { gameSettings } from "../../gameSettings.js";
 
     import items from "./data/tabItems.js";
     console.log(items);
@@ -22,14 +22,17 @@
 
     const handleClick = (tabValue) => (activeTabValue = tabValue);
 
-    //const storeData = gameSettings.getStore("aaAutorec");
+    const storeData = gameSettings.getStore("aaAutorec");
+    storeData.set(game.settings.get("autoanimations", "aaAutorec"))
 
     // TODO: this is a test console.log showing updates to `aaAutorec` game settings.
-    //$: console.log(`! autorecAppShell - storeData (aaAutorec): \n`, $storeData);
+    $: console.log(`! autorecAppShell - storeData (aaAutorec): \n`, $storeData);
 
     // TODO: Remove this and make `aaAutorec` setting store above the authority.
-    const data = game.settings.get("autoanimations", "aaAutorec");
-
+    //const data = game.settings.get("autoanimations", "aaAutorec");
+    let flagData = $storeData;
+    $: flagData = $storeData;
+    /*
     let flagData = {
         melee: data.melee || {},
         range: data.range || {},
@@ -45,8 +48,8 @@
                 .reverse()[0],
         search: "",
     };
-
-    let menuListings = {
+    */
+    $: menuListings = {
         melee: Object.values(flagData.melee),
         range: Object.values(flagData.range),
         static: Object.values(flagData.static),
@@ -55,7 +58,7 @@
         preset: Object.values(flagData.preset),
         aefx: Object.values(flagData.aefx),
     };
-    $: menuListings = menuListings;
+    //$: menuListings = menuListings;
     let form = void 0;
 
     function manageMenu() {
@@ -96,10 +99,12 @@
             hidden: true,
         };
         flagData = flagData;
+        /*
         menuListings[currentMenu.type] = Object.values(
             flagData[currentMenu.type]
         );
         menuListings = menuListings;
+        */
     }
     async function sortMenu() {
         let currentMenu = items.filter((obj) => {
@@ -127,7 +132,7 @@
         flagData[currentMenu.type] = sortedMenu;
         flagData = flagData;
 
-        menuListings[currentMenu.type] = Object.values(flagData[currentMenu.type])
+        //menuListings[currentMenu.type] = Object.values(flagData[currentMenu.type])
 
     }
 
