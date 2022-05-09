@@ -564,6 +564,9 @@ export const autoRecMigration = {
                     newMO.animation = animation;
                     newMO.color = color;
                     newMO.options = rest;
+                    if (type === "templatefx") {
+                        newMO.options.persistent = newMO.options.persist || false;
+                    }
                     newMO.audio = audio || {};
                     newMO.macro = macro || {};
                     newMO.levels3d = levels3d || {};
