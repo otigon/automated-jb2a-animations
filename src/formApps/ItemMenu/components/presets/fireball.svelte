@@ -8,8 +8,62 @@
     export let presetType;
     export let isAutoRec;
 
-    let root;
+    /*Data Structure
+        section: {
+            fireball: {
+                removeTemplate: Boolean,
+                projectile: {
+                    menuType: String,
+                    animation: String,
+                    variant: String,
+                    color: String,
+                    enableCustom: Boolean,
+                    customPath: String,
+                    wait: Number,
+                    repeat: Number,
+                    delay: Number,
+                    below: Boolean,
+                },
+                explosion01: {
+                    enable: Boolean,
+                    menuType: String,
+                    animation: String,
+                    variant: String,
+                    color: String,
+                    enableCustom: Boolean,
+                    customPath: String,
+                    below: Boolean,
+                    scale: Number,
+                    wait: Number,
+                    repeat: Number,
+                    delay: Number,
+                },
+                explosion02: {
+                    menuType: String,
+                    animation: String,
+                    variant: String,
+                    color: String,
+                    enableCustom: Boolean,
+                    customPath: String,
+                    below: Boolean,
+                    scale: Number,
+                    wait: Number,
+                    repeat: Number,
+                    delay: Number,
+                },
+                afterImage: {
+                    enable: Boolean,
+                    customPath: String,
+                    persistent: Boolean,
+                    below: Boolean,
+                    scale: Number,
+                    wait: Number,
+                },
+            },
+        }
+    */
 
+    let root;
     if (isAutoRec) {
         root = flagData;
     } else {
@@ -19,7 +73,7 @@
     const preset = root.fireball;
 
     // Configure Projectile variables
-    preset.projectile ? preset.projectile : preset.projectile = {};
+    preset.projectile ? preset.projectile : (preset.projectile = {});
     const projectile = preset.projectile;
     let projectileMenuType = projectile.menuType;
     $: projectileMenuType = projectile.menuType = projectileMenuType;
@@ -50,12 +104,14 @@
     function projectileBelow() {
         projectileBelowToken = !projectileBelowToken;
     }
-    $: projectileAboveBelow = projectileBelowToken ? "Below Token" : "Above Token";
+    $: projectileAboveBelow = projectileBelowToken
+        ? "Below Token"
+        : "Above Token";
     let shouldShowOnlyX = true;
     let projectileCustomId = "customPresetProjectile";
 
     // Configure Pre Explosion variables
-    preset.explosion01 ? preset.explosion01 : preset.explosion01 = {};
+    preset.explosion01 ? preset.explosion01 : (preset.explosion01 = {});
     const explosion01 = preset.explosion01;
     let explosion01MenuType = explosion01.menuType;
     $: explosion01MenuType = explosion01.menuType = explosion01MenuType;
@@ -74,7 +130,9 @@
     function explosion01Below() {
         explosion01BelowToken = !explosion01BelowToken;
     }
-    $: explosion01AboveBelow = explosion01BelowToken ? "Below Token" : "Above Token";
+    $: explosion01AboveBelow = explosion01BelowToken
+        ? "Below Token"
+        : "Above Token";
     let explosion01Scale = explosion01.scale || 1;
     $: explosion01Scale = explosion01.scale = explosion01Scale;
     let explosion01Wait = explosion01.wait || 0;
@@ -91,7 +149,7 @@
     let explosion01CustomId = "customPresetExplosion01";
 
     // Configure Primary Explosion variables
-    preset.explosion02 ? preset.explosion02 : preset.explosion02 = {};
+    preset.explosion02 ? preset.explosion02 : (preset.explosion02 = {});
     const explosion02 = preset.explosion02;
     let explosion02MenuType = explosion02.menuType;
     $: explosion02MenuType = explosion02.menuType = explosion02MenuType;
@@ -110,7 +168,9 @@
     function explosion02Below() {
         explosion02BelowToken = !explosion02BelowToken;
     }
-    $: explosion02AboveBelow = explosion02BelowToken ? "Below Token" : "Above Token";
+    $: explosion02AboveBelow = explosion02BelowToken
+        ? "Below Token"
+        : "Above Token";
     let explosion02Scale = explosion02.scale || 1;
     $: explosion02Scale = explosion02.scale = explosion02Scale;
     let explosion02Repeat = explosion02.repeat || 1;
@@ -134,7 +194,7 @@
         await picker.browse(current);
     }
 
-    preset.afterImage ? preset.afterImage : preset.afterImage = {};
+    preset.afterImage ? preset.afterImage : (preset.afterImage = {});
     const afterImage = preset.afterImage;
     let enableAfterImage = afterImage.enable || false;
     $: enableAfterImage = afterImage.enable = enableAfterImage;
@@ -145,7 +205,7 @@
     $: customPath = afterImage.customPath = customPath;
     let persistent = afterImage.persistent || false;
     $: persistent = afterImage.persistent = persistent;
-    $: isPersistent = persistent ? "Persistent" : "Not Persistent"
+    $: isPersistent = persistent ? "Persistent" : "Not Persistent";
     function switchPersistence() {
         persistent = !persistent;
     }
@@ -154,232 +214,285 @@
     function afterImageBelow() {
         afterImageBelowToken = !afterImageBelowToken;
     }
-    $: afterImageAboveBelow = afterImageBelowToken ? "Below Token" : "Above Token";
+    $: afterImageAboveBelow = afterImageBelowToken
+        ? "Below Token"
+        : "Above Token";
     let afterImageScale = afterImage.scale || 1;
     $: afterImageScale = afterImage.scale = afterImageScale;
     let afterImageWait = afterImage.wait || 0;
     $: afterImageWait = afterImage.wait = afterImageWait;
-
 </script>
 
 <div class="aaMenu-section">
-<h1 style="margin-top:10px;">Projectile Animation</h1>
-<ChooseAnimation
-    bind:menuType={projectileMenuType}
-    bind:animation={projectileAnimation}
-    bind:variant={projectileVariant}
-    bind:color={projectileColor}
-    bind:isCustom={projectileIsCustom}
-    bind:customPath={projectileCustomPath}
-    bind:customId={projectileCustomId}
-    {isAutoRec}
-    {presetType}
-    {shouldShowOnlyX}
-    presetSubType="FireballProjectile"
-    flagPath="preset"
-    animType="range"
-    {flagData}
-/>
-<h2>Options</h2>
-<div class="aa-options">
-    <!--Set Z-Index-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-        <label for="">Z-Index</label>
-        <button class="oldCheck" on:click={() => projectileBelow()}>{projectileAboveBelow}</button>
-    </div>
-    <!--Remove Template option-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-        <label for="">{localize("AUTOANIM.remove")}</label>
-        <button class="{removeTemplate ? "selected" : "notSelected"}" on:click={() => switchRemove()}>{isRemove}</button>
-    </div>        
-    <!--Set Number of times the animation plays-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.repeat")}</label>
-        <input type="Number" bind:value={projectileRepeat} placeholder=1>
-    </div>
-    <!--Set delay between repeats-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-        <label for="">{localize("AUTOANIM.repeat")} {localize("AUTOANIM.delay")}</label>
-        <input type="Number" bind:value={projectileDelay} placeholder=250>
-    </div>
-    <!--Set Delay before Next Explosion-->
-    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;">
-        <label for="">Wait</label>
-        <input type="Number" bind:value={projectileWait} step=0.01 />
-    </div>    
-</div>
-<SoundSettings audioPath="a01" {flagData} />
-</div>
-<div class="aaMenu-section">
-<div class="aa-preheader-section">
-    <div class="aa-preheader">
-        <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-            <label for="">Pre-Explosion Animation</label>
+    <h1 style="margin-top:10px;">Projectile Animation</h1>
+    <ChooseAnimation
+        bind:menuType={projectileMenuType}
+        bind:animation={projectileAnimation}
+        bind:variant={projectileVariant}
+        bind:color={projectileColor}
+        bind:isCustom={projectileIsCustom}
+        bind:customPath={projectileCustomPath}
+        bind:customId={projectileCustomId}
+        {isAutoRec}
+        {presetType}
+        {shouldShowOnlyX}
+        presetSubType="FireballProjectile"
+        flagPath="preset"
+        animType="range"
+        {flagData}
+    />
+    <h2>Options</h2>
+    <div class="aa-options">
+        <!--Set Z-Index-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
+            <label for="">Z-Index</label>
+            <button class="oldCheck" on:click={() => projectileBelow()}
+                >{projectileAboveBelow}</button
+            >
         </div>
-        <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
-            <i
-                class="{enablePreExplosion
-                    ? 'fas fa-minus aa-red'
-                    : 'fas fa-plus aa-green'} aaCenterToggle"
-                on:click={() => switchPreExplosionEnable()}
+        <!--Remove Template option-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+            <label for="">{localize("AUTOANIM.remove")}</label>
+            <button
+                class={removeTemplate ? "selected" : "notSelected"}
+                on:click={() => switchRemove()}>{isRemove}</button
+            >
+        </div>
+        <!--Set Number of times the animation plays-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+            <label for="">{localize("AUTOANIM.repeat")}</label>
+            <input
+                type="Number"
+                bind:value={projectileRepeat}
+                placeholder="1"
             />
         </div>
-    </div>
-</div>
-{#if enablePreExplosion}
-<ChooseAnimation
-    bind:menuType={explosion01MenuType}
-    bind:animation={explosion01Animation}
-    bind:variant={explosion01Variant}
-    bind:color={explosion01Color}
-    bind:isCustom={explosion01IsCustom}
-    bind:customPath={explosion01CustomPath}
-    bind:customId={explosion01CustomId}
-    {isAutoRec}
-    {presetType}
-    presetSubType="FireballExplosion01"
-    flagPath="preset"
-    animType="static"
-    {flagData}
-/>
-<h2>Options</h2>
-<div class="aa-options">
-    <!--Set Z-Index-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-        <label for="">Z-Index</label>
-        <button class="oldCheck" on:click={() => explosion01Below()}>{explosion01AboveBelow}</button>
-    </div>
-    <!--Set the Scale of the Animation-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-        <label for="">{localize("AUTOANIM.scale")}</label>
-        <input type="Number" bind:value={explosion01Scale} placeholder=1>
-    </div>
-    <!--Set Number of times the animation plays-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.repeat")}</label>
-        <input type="Number" bind:value={explosion01Repeat} placeholder=1>
-    </div>
-    <!--Set delay between repeats-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-        <label for="">{localize("AUTOANIM.repeat")} {localize("AUTOANIM.delay")}</label>
-        <input type="Number" bind:value={explosion01Delay} placeholder=250>
-    </div>
-    <!--Set Delay before Next Explosion-->
-    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;">
-        <label for="">Wait</label>
-        <input type="Number" bind:value={explosion01Wait} step=0.01 />
-    </div>    
-</div>
-<SoundSettings audioPath="e01" {flagData} />
-{/if}
-</div>
-<div class="aaMenu-section">
-<h1 style="margin-top:10px;">Primary Explosion Animation</h1>
-<ChooseAnimation
-    bind:menuType={explosion02MenuType}
-    bind:animation={explosion02Animation}
-    bind:variant={explosion02Variant}
-    bind:color={explosion02Color}
-    bind:isCustom={explosion02IsCustom}
-    bind:customPath={explosion02CustomPath}
-    bind:customId={explosion02CustomId}
-    {isAutoRec}
-    {presetType}
-    presetSubType="FireballExplosion02"
-    flagPath="preset"
-    animType="static"
-    {flagData}
-/>
-<h2>Options</h2>
-<div class="aa-options">
-    <!--Set Z-Index-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-        <label for="">Z-Index</label>
-        <button class="oldCheck" on:click={() => explosion02Below()}>{explosion02AboveBelow}</button>
-    </div>
-    <!--Set the Scale of the Animation-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-        <label for="">{localize("AUTOANIM.scale")}</label>
-        <input type="Number" bind:value={explosion02Scale} placeholder=1>
-    </div>
-    <!--Set Number of times the animation plays-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.repeat")}</label>
-        <input type="Number" bind:value={explosion02Repeat} placeholder=1>
-    </div>
-    <!--Set delay between repeats-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-        <label for="">{localize("AUTOANIM.repeat")} {localize("AUTOANIM.delay")}</label>
-        <input type="Number" bind:value={explosion02Delay} placeholder=250>
-    </div>
-</div>
-<SoundSettings audioPath="e02" {flagData} />
-</div>
-<div class="aaMenu-section">
-<div class="aa-preheader-section">
-    <div class="aa-preheader">
-        <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-            <label for="">Add After Image/Video</label>
-        </div>
-        <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
-            <i
-                class="{enableAfterImage
-                    ? 'fas fa-minus aa-red'
-                    : 'fas fa-plus aa-green'} aaCenterToggle"
-                on:click={() => switchAfterImageEnable()}
+        <!--Set delay between repeats-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+            <label for=""
+                >{localize("AUTOANIM.repeat")}
+                {localize("AUTOANIM.delay")}</label
+            >
+            <input
+                type="Number"
+                bind:value={projectileDelay}
+                placeholder="250"
             />
         </div>
+        <!--Set Delay before Next Explosion-->
+        <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;">
+            <label for="">Wait</label>
+            <input type="Number" bind:value={projectileWait} step="0.01" />
+        </div>
     </div>
+    <SoundSettings audioPath="a01" {flagData} />
 </div>
-{#if enableAfterImage}
-<div
-    class="aa-customAnim-container"
-    transition:fade
->
-    <div
-        class="form-group"
-        style="grid-row: 1/2; grid-column: 1/5"
-    >
-        <input
-            type="text"
-            bind:value={customPath}
-            class={customPath !== ""
-                ? "isPopulated"
-                : "isNotPopulated opacityText"}
+<div class="aaMenu-section">
+    <div class="aa-preheader-section">
+        <div class="aa-preheader">
+            <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
+                <label for="">Pre-Explosion Animation</label>
+            </div>
+            <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
+                <i
+                    class="{enablePreExplosion
+                        ? 'fas fa-minus aa-red'
+                        : 'fas fa-plus aa-green'} aaCenterToggle"
+                    on:click={() => switchPreExplosionEnable()}
+                />
+            </div>
+        </div>
+    </div>
+    {#if enablePreExplosion}
+        <ChooseAnimation
+            bind:menuType={explosion01MenuType}
+            bind:animation={explosion01Animation}
+            bind:variant={explosion01Variant}
+            bind:color={explosion01Color}
+            bind:isCustom={explosion01IsCustom}
+            bind:customPath={explosion01CustomPath}
+            bind:customId={explosion01CustomId}
+            {isAutoRec}
+            {presetType}
+            presetSubType="FireballExplosion01"
+            flagPath="preset"
+            animType="static"
+            {flagData}
         />
-        <button
-            class="file-picker"
-            on:click|preventDefault={() => selectCustom()}
-            ><i class="fas fa-file-import fa-fw" /></button
-        >
-    </div>
+        <h2>Options</h2>
+        <div class="aa-options">
+            <!--Set Z-Index-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
+                <label for="">Z-Index</label>
+                <button class="oldCheck" on:click={() => explosion01Below()}
+                    >{explosion01AboveBelow}</button
+                >
+            </div>
+            <!--Set the Scale of the Animation-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+                <label for="">{localize("AUTOANIM.scale")}</label>
+                <input
+                    type="Number"
+                    bind:value={explosion01Scale}
+                    placeholder="1"
+                />
+            </div>
+            <!--Set Number of times the animation plays-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+                <label for="">{localize("AUTOANIM.repeat")}</label>
+                <input
+                    type="Number"
+                    bind:value={explosion01Repeat}
+                    placeholder="1"
+                />
+            </div>
+            <!--Set delay between repeats-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+                <label for=""
+                    >{localize("AUTOANIM.repeat")}
+                    {localize("AUTOANIM.delay")}</label
+                >
+                <input
+                    type="Number"
+                    bind:value={explosion01Delay}
+                    placeholder="250"
+                />
+            </div>
+            <!--Set Delay before Next Explosion-->
+            <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;">
+                <label for="">Wait</label>
+                <input type="Number" bind:value={explosion01Wait} step="0.01" />
+            </div>
+        </div>
+        <SoundSettings audioPath="e01" {flagData} />
+    {/if}
 </div>
-<div class="aa-options">
-    <!--Set Z-Index-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-        <label for="">Z-Index</label>
-        <button class="oldCheck" on:click={() => afterImageBelow()}>{afterImageAboveBelow}</button>
+<div class="aaMenu-section">
+    <h1 style="margin-top:10px;">Primary Explosion Animation</h1>
+    <ChooseAnimation
+        bind:menuType={explosion02MenuType}
+        bind:animation={explosion02Animation}
+        bind:variant={explosion02Variant}
+        bind:color={explosion02Color}
+        bind:isCustom={explosion02IsCustom}
+        bind:customPath={explosion02CustomPath}
+        bind:customId={explosion02CustomId}
+        {isAutoRec}
+        {presetType}
+        presetSubType="FireballExplosion02"
+        flagPath="preset"
+        animType="static"
+        {flagData}
+    />
+    <h2>Options</h2>
+    <div class="aa-options">
+        <!--Set Z-Index-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
+            <label for="">Z-Index</label>
+            <button class="oldCheck" on:click={() => explosion02Below()}
+                >{explosion02AboveBelow}</button
+            >
+        </div>
+        <!--Set the Scale of the Animation-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+            <label for="">{localize("AUTOANIM.scale")}</label>
+            <input
+                type="Number"
+                bind:value={explosion02Scale}
+                placeholder="1"
+            />
+        </div>
+        <!--Set Number of times the animation plays-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+            <label for="">{localize("AUTOANIM.repeat")}</label>
+            <input
+                type="Number"
+                bind:value={explosion02Repeat}
+                placeholder="1"
+            />
+        </div>
+        <!--Set delay between repeats-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+            <label for=""
+                >{localize("AUTOANIM.repeat")}
+                {localize("AUTOANIM.delay")}</label
+            >
+            <input
+                type="Number"
+                bind:value={explosion02Delay}
+                placeholder="250"
+            />
+        </div>
     </div>
-    <!--Persistent Setting-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-        <label for="">Persistence</label>
-        <button on:click={() => switchPersistence()}>{isPersistent}</button>
-    </div>    
-    <!--Set the Scale of the Animation-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.scale")}</label>
-        <input type="Number" bind:value={afterImageScale} placeholder=1>
-    </div>
-    <!--Set Delay before Next Explosion-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-        <label for="">Wait</label>
-        <input type="Number" bind:value={afterImageWait} step=0.01 />
-    </div>    
+    <SoundSettings audioPath="e02" {flagData} />
 </div>
-{/if}
+<div class="aaMenu-section">
+    <div class="aa-preheader-section">
+        <div class="aa-preheader">
+            <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
+                <label for="">Add After Image/Video</label>
+            </div>
+            <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
+                <i
+                    class="{enableAfterImage
+                        ? 'fas fa-minus aa-red'
+                        : 'fas fa-plus aa-green'} aaCenterToggle"
+                    on:click={() => switchAfterImageEnable()}
+                />
+            </div>
+        </div>
+    </div>
+    {#if enableAfterImage}
+        <div class="aa-customAnim-container" transition:fade>
+            <div class="form-group" style="grid-row: 1/2; grid-column: 1/5">
+                <input
+                    type="text"
+                    bind:value={customPath}
+                    class={customPath !== ""
+                        ? "isPopulated"
+                        : "isNotPopulated opacityText"}
+                />
+                <button
+                    class="file-picker"
+                    on:click|preventDefault={() => selectCustom()}
+                    ><i class="fas fa-file-import fa-fw" /></button
+                >
+            </div>
+        </div>
+        <div class="aa-options">
+            <!--Set Z-Index-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
+                <label for="">Z-Index</label>
+                <button class="oldCheck" on:click={() => afterImageBelow()}
+                    >{afterImageAboveBelow}</button
+                >
+            </div>
+            <!--Persistent Setting-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+                <label for="">Persistence</label>
+                <button on:click={() => switchPersistence()}
+                    >{isPersistent}</button
+                >
+            </div>
+            <!--Set the Scale of the Animation-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+                <label for="">{localize("AUTOANIM.scale")}</label>
+                <input
+                    type="Number"
+                    bind:value={afterImageScale}
+                    placeholder="1"
+                />
+            </div>
+            <!--Set Delay before Next Explosion-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+                <label for="">Wait</label>
+                <input type="Number" bind:value={afterImageWait} step="0.01" />
+            </div>
+        </div>
+    {/if}
 </div>
 
-<style lang='scss'>
+<style lang="scss">
     h1 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: x-large;
@@ -493,5 +606,4 @@
         margin-bottom: 5px;
         margin-top: 5px;
     }
-
 </style>

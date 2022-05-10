@@ -3,26 +3,43 @@
     import { fade } from "svelte/transition";
     import SoundSettings from "../soundSettings.svelte";
 
-    import {
-        aaColorMenu,
-    } from "../../../../animation-functions/databases/jb2a-menu-options.js";
+    import { aaColorMenu } from "../../../../animation-functions/databases/jb2a-menu-options.js";
 
     export let flagData;
     export let isAutoRec;
 
-    let root;
+    /*Data Structure
+        section: {
+            hunterksmark: {
+                menuType: "spell",
+                animation: "thunderwave",
+                color: String,
+                below: Boolean,
+                scaleX: Number,
+                anchorY: Number,
+                scaleY: Number,
+                opacity: Number,
+                repeat: Number,
+                delay: Number,
+                removeTemplate: Boolean,
+            }
+        }
+    */
 
+    let root;
     if (isAutoRec) {
         root = flagData;
     } else {
         root = flagData.preset;
     }
-    root.thunderwave ? root.thunderwave : root.thunderwave = {};
+    root.thunderwave ? root.thunderwave : (root.thunderwave = {});
     const preset = root.thunderwave;
     preset.menuType = "spell";
     preset.animation = "thunderwave";
 
-    let color = preset.color || Object.keys(aaColorMenu.static.spell.thunderwave["mid"])[0];
+    let color =
+        preset.color ||
+        Object.keys(aaColorMenu.static.spell.thunderwave["mid"])[0];
     $: color = preset.color = color;
 
     let belowToken = preset.below || false;
@@ -49,9 +66,9 @@
         belowToken = !belowToken;
     }
 
-    let removeTemplate = flagData.removeTemplate || false;
+    let removeTemplate = preset.removeTemplate || false;
     $: removeTemplate = removeTemplate;
-    $: flagData.removeTemplate = removeTemplate;
+    $: preset.removeTemplate = removeTemplate;
     $: isRemove = removeTemplate ? "Yes" : "No";
     function switchRemove() {
         removeTemplate = !removeTemplate;
@@ -59,93 +76,89 @@
 </script>
 
 <div class="aaMenu-section">
-<h1>Thunderwave 5e Preset</h1>
-<div class="aa-3wide">
-    <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
-        <label for="">{localize("AUTOANIM.color")}</label>
-        <select bind:value={color}>
-            {#each Object.entries(aaColorMenu.static.spell.sneakattack["01"]) as [key, name]}
-                <option value={key}>{name}</option>
-            {/each}
-        </select>
-    </div>
-</div>
-<h2 style="margin-top:5px;">Options</h2>
-<div class="aa-options">
-    <!--Set Z-Index-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-        <label for="">Z-Index</label>
-        <button class="oldCheck" on:click={() => below()}>{aboveBelow}</button>
-    </div>
-    <!--Remove Template option-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-        <label for="">{localize("AUTOANIM.remove")}</label>
-        <button
-            class={removeTemplate ? "selected" : "notSelected"}
-            on:click={() => switchRemove()}>{isRemove}</button
-        >
-    </div>
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.scale")} X</label>
-        <input type="Number" bind:value={scaleX} placeholder=1 step=0.01 />
-    </div>
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-        <label for="">{localize("AUTOANIM.scale")} Y</label>
-        <input type="Number" bind:value={scaleY} placeholder=1 step=0.01 />
-    </div>
-    <!--Set Number of times the animation plays-->
-    <div
-        class="flexcol"
-        style="grid-row: 2 / 3; grid-column: 1 / 2;"
-    >
-        <label for="">{localize("AUTOANIM.repeat")}</label>
-        <input
-            type="Number"
-            bind:value={repeat}
-            placeholder=1
-        />
-    </div>
-    <!--Set delay between repeats-->
-    <div
-        class="flexcol"
-        style="grid-row: 2 / 3; grid-column: 2 / 3;"
-    >
-        <label for=""
-            >{localize("AUTOANIM.repeat")} {localize("AUTOANIM.delay")}</label
-        >
-        <input
-            type="Number"
-            bind:value={delay}
-            placeholder=250
-        />
-    </div>
-    <!--Set Animation Opacity-->
-    <div
-        class="flexcol"
-        style="grid-row: 2 / 3; grid-column: 3 / 4;"
-    >
-        <label for="aaOpacity">{localize("AUTOANIM.opacity")}</label>
-        <div class="form-group">
-            <input
-                type="Number"
-                id="aaOpacity"
-                bind:value={opacity}
-                placeholder=1
-                min=0
-                max=1
-                step=0.01
-            />
-            <input
-                type="range"
-                min=0
-                max=1
-                step=0.01
-                bind:value={opacity}
-            />
+    <h1>Thunderwave 5e Preset</h1>
+    <div class="aa-3wide">
+        <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
+            <label for="">{localize("AUTOANIM.color")}</label>
+            <select bind:value={color}>
+                {#each Object.entries(aaColorMenu.static.spell.sneakattack["01"]) as [key, name]}
+                    <option value={key}>{name}</option>
+                {/each}
+            </select>
         </div>
     </div>
-</div>
-<SoundSettings audioPath="a01" {flagData} />
+    <h2 style="margin-top:5px;">Options</h2>
+    <div class="aa-options">
+        <!--Set Z-Index-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
+            <label for="">Z-Index</label>
+            <button class="oldCheck" on:click={() => below()}
+                >{aboveBelow}</button
+            >
+        </div>
+        <!--Remove Template option-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+            <label for="">{localize("AUTOANIM.remove")}</label>
+            <button
+                class={removeTemplate ? "selected" : "notSelected"}
+                on:click={() => switchRemove()}>{isRemove}</button
+            >
+        </div>
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+            <label for="">{localize("AUTOANIM.scale")} X</label>
+            <input
+                type="Number"
+                bind:value={scaleX}
+                placeholder="1"
+                step="0.01"
+            />
+        </div>
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+            <label for="">{localize("AUTOANIM.scale")} Y</label>
+            <input
+                type="Number"
+                bind:value={scaleY}
+                placeholder="1"
+                step="0.01"
+            />
+        </div>
+        <!--Set Number of times the animation plays-->
+        <div class="flexcol" style="grid-row: 2 / 3; grid-column: 1 / 2;">
+            <label for="">{localize("AUTOANIM.repeat")}</label>
+            <input type="Number" bind:value={repeat} placeholder="1" />
+        </div>
+        <!--Set delay between repeats-->
+        <div class="flexcol" style="grid-row: 2 / 3; grid-column: 2 / 3;">
+            <label for=""
+                >{localize("AUTOANIM.repeat")}
+                {localize("AUTOANIM.delay")}</label
+            >
+            <input type="Number" bind:value={delay} placeholder="250" />
+        </div>
+        <!--Set Animation Opacity-->
+        <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
+            <label for="aaOpacity">{localize("AUTOANIM.opacity")}</label>
+            <div class="form-group">
+                <input
+                    type="Number"
+                    id="aaOpacity"
+                    bind:value={opacity}
+                    placeholder="1"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                />
+                <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    bind:value={opacity}
+                />
+            </div>
+        </div>
+    </div>
+    <SoundSettings audioPath="a01" {flagData} />
 </div>
 
 <style lang="scss">

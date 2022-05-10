@@ -3,27 +3,41 @@
     import { fade } from "svelte/transition";
     import SoundSettings from "../soundSettings.svelte";
 
-    import {
-        aaColorMenu,
-    } from "../../../../animation-functions/databases/jb2a-menu-options.js";
+    import { aaColorMenu } from "../../../../animation-functions/databases/jb2a-menu-options.js";
 
     export let flagData;
     export let isAutoRec;
 
-    let root;
+    /*Data Structure
+        section: {
+            hunterksmark: {
+                menuType: "spell",
+                animation: "sneakattack",
+                variant: "01",
+                color: String,
+                below: Boolean,
+                anchorX: Number,
+                anchorY: Number,
+                scale: Number,
+            }
+        }
+    */
 
+    let root;
     if (isAutoRec) {
         root = flagData;
     } else {
         root = flagData.preset;
     }
-    root.sneakattack ? root.sneakattack : root.sneakattack = {};
+    root.sneakattack ? root.sneakattack : (root.sneakattack = {});
     const preset = root.sneakattack;
     preset.menuType = "spell";
     preset.animation = "sneakattack";
     preset.variant = "01";
 
-    let color = preset.color || Object.keys(aaColorMenu.static.spell.sneakattack["01"])[0];
+    let color =
+        preset.color ||
+        Object.keys(aaColorMenu.static.spell.sneakattack["01"])[0];
     $: color = preset.color = color;
 
     let belowToken = preset.below || false;
@@ -44,38 +58,55 @@
 </script>
 
 <div class="aaMenu-section">
-<h1>Sneak Attack Animation Preset</h1>
-<div class="aa-3wide">
-    <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
-        <label for="">{localize("AUTOANIM.color")}</label>
-        <select bind:value={color}>
-            {#each Object.entries(aaColorMenu.static.spell.sneakattack["01"]) as [key, name]}
-                <option value={key}>{name}</option>
-            {/each}
-        </select>
+    <h1>Sneak Attack Animation Preset</h1>
+    <div class="aa-3wide">
+        <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
+            <label for="">{localize("AUTOANIM.color")}</label>
+            <select bind:value={color}>
+                {#each Object.entries(aaColorMenu.static.spell.sneakattack["01"]) as [key, name]}
+                    <option value={key}>{name}</option>
+                {/each}
+            </select>
+        </div>
     </div>
-</div>
-<h2 style="margin-top:5px;">Options</h2>
-<div class="aa-options">
-    <!--Set Z-Index-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-        <label for="">Z-Index</label>
-        <button class="oldCheck" on:click={() => below()}>{aboveBelow}</button>
+    <h2 style="margin-top:5px;">Options</h2>
+    <div class="aa-options">
+        <!--Set Z-Index-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
+            <label for="">Z-Index</label>
+            <button class="oldCheck" on:click={() => below()}
+                >{aboveBelow}</button
+            >
+        </div>
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+            <label for="">{localize("AUTOANIM.scale")}</label>
+            <input
+                type="Number"
+                bind:value={scale}
+                placeholder="1"
+                step="0.01"
+            />
+        </div>
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+            <label for="">{localize("AUTOANIM.anchorX")}</label>
+            <input
+                type="Number"
+                bind:value={anchorX}
+                placeholder="1"
+                step="0.01"
+            />
+        </div>
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+            <label for="">{localize("AUTOANIM.anchorY")}</label>
+            <input
+                type="Number"
+                bind:value={anchorY}
+                placeholder="1"
+                step="0.01"
+            />
+        </div>
     </div>
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-        <label for="">{localize("AUTOANIM.scale")}</label>
-        <input type="Number" bind:value={scale} placeholder=1 step=0.01 />
-    </div>
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.anchorX")}</label>
-        <input type="Number" bind:value={anchorX} placeholder=1 step=0.01 />
-    </div>
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-        <label for="">{localize("AUTOANIM.anchorY")}</label>
-        <input type="Number" bind:value={anchorY} placeholder=1 step=0.01 />
-    </div>
-</div>
-<SoundSettings audioPath="a01" {flagData} />
+    <SoundSettings audioPath="a01" {flagData} />
 </div>
 
 <style lang="scss">

@@ -3,29 +3,43 @@
     import { fade } from "svelte/transition";
     import SoundSettings from "../soundSettings.svelte";
 
-    import {
-        aaColorMenu,
-    } from "../../../../animation-functions/databases/jb2a-menu-options.js";
+    import { aaColorMenu } from "../../../../animation-functions/databases/jb2a-menu-options.js";
 
     export let flagData;
     export let isAutoRec;
 
+    /*Data Structure
+        section: {
+            hunterksmark: {
+                menuType: "spell",
+                animation: "huntersmark",
+                variant: String,
+                color: String,
+                below: Boolean,
+                anchorX: Number,
+                anchorY: Number,
+                scale: Number,
+                persistent: Boolean,
+            }
+        }
+    */
     let root;
-
     if (isAutoRec) {
         root = flagData;
     } else {
         root = flagData.preset;
     }
-    root.huntersmark ? root.huntersmark : root.huntersmark = {};
+    root.huntersmark ? root.huntersmark : (root.huntersmark = {});
     const preset = root.huntersmark;
     preset.menuType = "spell";
     preset.animation = "huntersmark";
 
-    let variant = preset.variant || 'eye';
+    let variant = preset.variant || "eye";
     $: variant = preset.variant = variant;
 
-    let color = preset.color || Object.keys(aaColorMenu.static.spell.huntersmark.eye)[0];
+    let color =
+        preset.color ||
+        Object.keys(aaColorMenu.static.spell.huntersmark.eye)[0];
     $: color = preset.color = color;
 
     let belowToken = preset.below || false;
@@ -43,7 +57,7 @@
 
     let persistent = preset.persistent || false;
     $: persistent = preset.persistent = persistent;
-    $: isPersistent = persistent ? "Persistent" : "Not Persistent"
+    $: isPersistent = persistent ? "Persistent" : "Not Persistent";
 
     function below() {
         belowToken = !belowToken;
@@ -51,55 +65,79 @@
     function switchPersistence() {
         persistent = !persistent;
     }
-
 </script>
 
 <div class="aaMenu-section">
-<h1>Hunter's Mark Preset</h1>
-<div class="aa-4wide">
-    <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
-        <label for="">{localize("AUTOANIM.variant")}</label>
-        <select bind:value={variant}>
-            <option value="" />
-            <option value="eye">{localize("AUTOANIM.eye")}</option>
-            <option value="paw">{localize("AUTOANIM.paw")}</option>
-        </select>
+    <h1>Hunter's Mark Preset</h1>
+    <div class="aa-4wide">
+        <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
+            <label for="">{localize("AUTOANIM.variant")}</label>
+            <select bind:value={variant}>
+                <option value="" />
+                <option value="eye">{localize("AUTOANIM.eye")}</option>
+                <option value="paw">{localize("AUTOANIM.paw")}</option>
+            </select>
+        </div>
+        <div class="flexcol" style="grid-row: 1 / 2;grid-column: 3 / 4;">
+            <label for="">{localize("AUTOANIM.color")}</label>
+            <select bind:value={color}>
+                {#each Object.entries(aaColorMenu.static.spell.huntersmark.eye) as [key, name]}
+                    <option value={key}>{name}</option>
+                {/each}
+            </select>
+        </div>
     </div>
-    <div class="flexcol" style="grid-row: 1 / 2;grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.color")}</label>
-        <select bind:value={color}>
-            {#each Object.entries(aaColorMenu.static.spell.huntersmark.eye) as [key, name]}
-                <option value={key}>{name}</option>
-            {/each}
-        </select>
-    </div>
-</div>
-<h2 style="margin-top:5px;">Options</h2>
-<div class="aa-options">
+    <h2 style="margin-top:5px;">Options</h2>
+    <div class="aa-options">
         <!--Persistent Setting-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
             <label for="">Persistence</label>
             <button on:click={() => switchPersistence()}>{isPersistent}</button>
-        </div>    
-    <!--Set Z-Index-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-        <label for="">Z-Index</label>
-        <button class="oldCheck" on:click={() => below()}>{aboveBelow}</button>
+        </div>
+        <!--Set Z-Index-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+            <label for="">Z-Index</label>
+            <button class="oldCheck" on:click={() => below()}
+                >{aboveBelow}</button
+            >
+        </div>
+        <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
+            <label for="">{localize("AUTOANIM.scale")}</label>
+            <input
+                type="Number"
+                bind:value={scale}
+                placeholder="1"
+                step="0.01"
+            />
+        </div>
+        <div
+            class="flexcol {persistent ? '' : 'aa-disabled'}"
+            style="grid-row: 1 / 2; grid-column: 3 / 4;"
+        >
+            <label for="">{localize("AUTOANIM.anchorX")}</label>
+            <input
+                disabled={!persistent}
+                type="Number"
+                bind:value={anchorX}
+                placeholder="1"
+                step="0.01"
+            />
+        </div>
+        <div
+            class="flexcol {persistent ? '' : 'aa-disabled'}"
+            style="grid-row: 1 / 2; grid-column: 4 / 5;"
+        >
+            <label for="">{localize("AUTOANIM.anchorY")}</label>
+            <input
+                disabled={!persistent}
+                type="Number"
+                bind:value={anchorY}
+                placeholder="1"
+                step="0.01"
+            />
+        </div>
     </div>
-    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.scale")}</label>
-        <input type="Number" bind:value={scale} placeholder=1 step=0.01 />
-    </div>
-    <div class="flexcol {persistent ? "" : "aa-disabled"}" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.anchorX")}</label>
-        <input disabled={!persistent} type="Number" bind:value={anchorX} placeholder=1 step=0.01 />
-    </div>
-    <div class="flexcol {persistent ? "" : "aa-disabled"}" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-        <label for="">{localize("AUTOANIM.anchorY")}</label>
-        <input disabled={!persistent} type="Number" bind:value={anchorY} placeholder=1 step=0.01 />
-    </div>
-</div>
-<SoundSettings audioPath="a01" {flagData} />
+    <SoundSettings audioPath="a01" {flagData} />
 </div>
 
 <style lang="scss">
@@ -174,7 +212,7 @@
         transition: opacity 0.5s;
     }
     .aa-disabled label {
-        opacity:0.3;
+        opacity: 0.3;
         transition: opacity 0.5s;
     }
 </style>
