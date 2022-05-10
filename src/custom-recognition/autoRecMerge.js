@@ -1,6 +1,3 @@
-import { root } from "postcss";
-import { rootCertificates } from "tls";
-
 export const autoRecMigration = {
 
     async handle(autoObject) {
