@@ -877,6 +877,7 @@ async function wfrpPrayer(data, info) {
 async function wfrpCast(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
+    if (data.result.castOutcome != "success" && game.settings.get('autoanimations', 'castOnlyOnSuccess')) { return }
     let handler = await systemData.make({ item: data.spell, targets: data.context?.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):

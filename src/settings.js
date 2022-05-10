@@ -378,6 +378,17 @@ export default function aaSettings() {
             })
         }
             break;
+        case "wfrp4e": {
+            game.settings.register("autoanimations", "castOnlyOnSuccess", {
+                name: game.i18n.format("AUTOANIM.wfrp4eCastOnlyOnSuccess"),
+                hint: game.i18n.format("AUTOANIM.wfrp4eCastOnlyOnSuccessHint"),
+                scope: 'world',
+                type: Boolean,
+                default: false,
+                config: true,
+            })
+        }
+            break;
     }
 
     game.settings.register("autoanimations", "debug", {
