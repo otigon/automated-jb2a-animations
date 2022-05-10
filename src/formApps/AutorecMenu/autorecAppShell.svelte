@@ -63,7 +63,7 @@
 
     function manageMenu() {
         new TJSDialog({
-            modal: true,
+            modal: false,
             draggable: true,
             resizable: true,
             title: "Autorec Menu Manager",

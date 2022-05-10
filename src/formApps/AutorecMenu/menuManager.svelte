@@ -5,7 +5,7 @@
 
     const { application } = getContext("external");
 
-    //export let app;
+    export let app;
 
     async function restoreDefault() {
         let d = TJSDialog.confirm({
@@ -26,6 +26,7 @@
             //new AutorecShim();
         }
     }
+
     async function mergeMenu() {
         let d = TJSDialog.confirm({
             title: "WARNING!!",
@@ -209,8 +210,66 @@
 
             await game.settings.set("autoanimations", "aaAutorec", oldData);
             //await autoRecMigration.handle(
-                //game.settings.get("autoanimations", "aaAutorec")
+            //game.settings.get("autoanimations", "aaAutorec")
             //);
+        }
+    }
+    async function overwriteMenu() {
+        let d = TJSDialog.confirm({
+            title: "WARNING!!",
+            content: `<p style="text-align:center">This will ERASE your current menu and is <strong>IRREVERSIBLE. Continue?</strong></p>`,
+            yes: () => importFromJSONDialog(),
+            no: () => console.log("Exiting without default restore"),
+            defaultYes: false,
+        });
+
+        async function importFromJSONDialog() {
+            const content = await renderTemplate(
+                "modules/autoanimations/src/custom-recognition/import-data.html",
+                { entity: "autoanimations", name: "aaAutorec" }
+            );
+            let dialog = new Promise((resolve, reject) => {
+                new Dialog(
+                    {
+                        title: game.i18n.format("AUTOANIM.menuImport"),
+                        content: content,
+                        buttons: {
+                            import: {
+                                icon: '<i class="fas fa-file-import"></i>',
+                                label: game.i18n.format("AUTOANIM.overwrite"),
+                                callback: (html) => {
+                                    //@ts-ignore
+                                    const form = html.find("form")[0];
+                                    if (!form.data.files.length)
+                                        return ui.notifications?.error(
+                                            "You did not upload a data file!"
+                                        );
+                                    readTextFromFile(form.data.files[0]).then( 
+                                        async (json) => {
+                                            await application.close();
+                                            await app.close();
+                                            AutorecFunctions._importAutorecFromJSON(
+                                                json
+                                            );
+                                            resolve(true);
+                                        }
+                                    );
+                                },
+                            },
+                            no: {
+                                icon: '<i class="fas fa-times"></i>',
+                                label: "Cancel",
+                                callback: (html) => resolve(false),
+                            },
+                        },
+                        default: "import",
+                    },
+                    {
+                        width: 600,
+                    }
+                ).render(true);
+            });
+            return await dialog;
         }
     }
 </script>
@@ -235,9 +294,7 @@
     style="border-bottom: 3px inset rgba(0, 0, 0, 0.5);"
 >
     <div style="grid-row:2/3;grid-column:1/2">
-        <button class="aa-green"
-            >Merge Menus</button
-        >
+        <button class="aa-green">Merge Menus</button>
     </div>
     <div style="grid-row:2/3;grid-column:2/3">
         <label for="">Merge a new Menu into your existing Menu</label>
@@ -245,7 +302,9 @@
 </div>
 <div class="flexcol aa-tabs">
     <div style="grid-row:3/4;grid-column:1/2">
-        <button class="aa-red">Overwrite Menu</button>
+        <button on:click|preventDefault={() => overwriteMenu()} class="aa-red"
+            >Overwrite Menu</button
+        >
     </div>
     <div style="grid-row:3/4;grid-column:2/3">
         <label for="">Erase current Menu and import a new Menu</label>

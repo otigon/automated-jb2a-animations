@@ -75,7 +75,7 @@
             flagData[type] = compacted;
         }
         flagData = flagData;
-        menuListings[type] = Object.values(flagData[type]);
+        menuListings = menuListings
     }
     const showExplosions = ["melee", "range", "static"];
 

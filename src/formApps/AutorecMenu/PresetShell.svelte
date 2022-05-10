@@ -40,7 +40,6 @@
     let sectionName = menuSection.name || "";
     $: sectionName = menuSection.name = sectionName;
     function removeSection() {
-        console.log();
         delete flagData[type][idx];
 
         for (let i = 0; i < Object.entries(flagData[type]).length; i++) {
@@ -51,7 +50,7 @@
             flagData[type] = compacted;
         }
         flagData = flagData;
-        menuListings[type] = Object.values(flagData[type]);
+        menuListings = menuListings
     }
 
     menuSection.macro ? menuSection.macro : (menuSection.macro = {});

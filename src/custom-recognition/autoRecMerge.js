@@ -642,6 +642,7 @@ export const autoRecMigration = {
             }
 
             function updateBI(oldData, newData) {
+                newData.id = randomID();
                 newData.bardicinspiration = {};
                 const root = newData.bardicinspiration;
                 let { animateSelf, animateTarget, below, marker, name, scale, selfAnimation, selfColor, selfMarkerColor, targetAnimation, targetColor, targetMarkerColor, macro, audio } = oldData;
@@ -678,10 +679,10 @@ export const autoRecMigration = {
                 }
             }
             function updateBless(oldData, newData) {
+                newData.id = randomID();
                 newData.bless = {};
                 const root = newData.bless;
                 let { below, color, name, scale, macro, unbindAlpha, unbindVisibility, audio, addCTA: persistent, ...rest } = oldData;
-                root = { oldData };
                 root.audio = audio || {};
                 root.macro = macro || {};
                 newData.presetType = "bless";
@@ -698,6 +699,7 @@ export const autoRecMigration = {
                 root.persistent = persistent;
             }
             function updateShield(oldData, newData) {
+                newData.id = randomID();
                 newData.shield = {};
                 const root = newData.shield;
                 let { below, color, endeffect, name, scale, variant, macro, addCTA: persistent, unbindAlpha, unbindVisibility, audio } = oldData;
@@ -718,6 +720,7 @@ export const autoRecMigration = {
                 root.scale = scale;
             }
             function updateTele(oldData, newData) {
+                newData.id = randomID();
                 newData.teleportation = {};
                 const root = newData.teleportation;
                 let { menuType, subAnimation, variant, color, below, custom, customPath,
@@ -726,7 +729,7 @@ export const autoRecMigration = {
                     macro, delay, audio } = oldData;
                 root.audio = audio || {};
                 root.macro = macro || {};
-                newData.presetType = "shieldspell";
+                newData.presetType = "teleportation";
                 newData.name = name;
                 newData.hidden = true;
                 root.hideFromPlayers = hideTemplate;
@@ -760,6 +763,7 @@ export const autoRecMigration = {
 
             }
             function updateDAttach(oldData, newData) {
+                newData.id = randomID();
                 newData.dualattach = {};
                 const root = newData.dualattach;
                 let { name, below, macro, audio, menuType, subAnimation, variant, color, custom, customPath, playbackRate, onlyX } = oldData;
@@ -779,6 +783,7 @@ export const autoRecMigration = {
                 root.below = below;
             }
             function updateFireball(oldData, newData) {
+                newData.id = randomID();
                 newData.fireball = {};
                 const root = newData.fireball;
                 let { audio, macro, name, below, animation, rangeType, projectile, projectilVariant, projectileColor, projectileRepeat, projectileDelay, wait01, removeTemplate,
@@ -807,11 +812,14 @@ export const autoRecMigration = {
                     variant: explosion01Variant,
                     color: explosion01Color,
                     repeat: explosion01Repeat,
-                    delay, explosion01Delay,
+                    delay: explosion01Delay,
                     scale: explosion01Scale,
                     wait: wait02,
                     below: below,
                 }
+                if (!root.explosion01.menuType || !root.explosion01.animation || !root.explosion01.variant || !root.explosion01.color) {
+                    root.explosion01.enable = false;
+                } else { root.explosion01.enable = true }
                 root.explosion02 = {
                     menuType: ex02Type,
                     animation: explosion02,
@@ -830,6 +838,7 @@ export const autoRecMigration = {
                 }
             }
             function updateHM(oldData, newData) {
+                newData.id = randomID();
                 newData.huntersmark = {};
                 const root = newData.huntersmark;
                 let { below, name, macro, audio, variant, color, scale, persistent, anchorX, anchorY } = oldData;
@@ -847,6 +856,7 @@ export const autoRecMigration = {
                 root.anchorY = anchorY;
             }
             function updateSneak(oldData, newData) {
+                newData.id = randomID();
                 newData.sneakattack = {};
                 const root = newData.sneakattack;
                 let { audio, macro, name, below, variant, color, scale, anchorX, anchorY } = oldData;
@@ -864,6 +874,7 @@ export const autoRecMigration = {
 
             }
             function updateThunderwave(oldData, newData) {
+                newData.id = randomID();
                 newData.thunderwave = {};
                 const root = newData.thunderwave;
                 let { audio, macro, name, below, color, repeat, delay, scaleX, scaleY, opacity, removeTemplate, persist: persistent, persistType, occlusionMode, occlusionAlpha } = oldData;

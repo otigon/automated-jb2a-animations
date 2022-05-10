@@ -507,17 +507,25 @@ export class aaAutorec {
                     hidden: true,
                     name: game.i18n.localize("autoanimations.animations.bardicinspiration"),
                     bardicinspiration: {
-                        animateSelf: true,
-                        animateTarget: true,
+                        self: {
+                            enable: true,
+                            animation: "bardicinspiration",
+                            variant: "inspire",
+                            color: "yellowblue",
+                        },
+                        target: {
+                            enable: true,
+                            animation: "bardicinspiration",
+                            variant: "inspire",
+                            color: "yellowblue",
+                        },
+                        marker: {
+                            enable: true,
+                            selfColor: "yellowblue",
+                            targetColor: "yellowblue",
+                        },
                         below: false,
-                        marker: true,
                         scale: 1,
-                        selfAnimation: "music",
-                        selfColor: "blue",
-                        selfMarkerColor: "greenorange",
-                        targetAnimation: "bardicinspiration",
-                        targetColor: "greenorange",
-                        targetMarkerColor: "greenorange",    
                     }
                 },
                 1: {
@@ -601,7 +609,7 @@ export class aaAutorec {
                     }
                 }
             },
-            version: 4,
+            version: 5,
         };
         return defaultConfig;
     }
