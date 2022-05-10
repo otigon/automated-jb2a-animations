@@ -9,6 +9,7 @@
 
     async function restoreDefault() {
         let d = TJSDialog.confirm({
+            modal: true,
             title: "WARNING!!",
             content: `<p style="text-align:center">This will <strong>ERASE</strong> your current Menu. <strong>ARE YOU SURE?</strong></p>`,
             yes: () => setDefault(),
@@ -217,59 +218,37 @@
     async function overwriteMenu() {
         let d = TJSDialog.confirm({
             title: "WARNING!!",
+            modal: true,
             content: `<p style="text-align:center">This will ERASE your current menu and is <strong>IRREVERSIBLE. Continue?</strong></p>`,
-            yes: () => importFromJSONDialog(),
-            no: () => console.log("Exiting without default restore"),
+            yes: () => getFiles(),
+            no: () => console.log("Exiting without overwrite"),
             defaultYes: false,
         });
 
-        async function importFromJSONDialog() {
+        async function getFiles() {
             const content = await renderTemplate(
                 "modules/autoanimations/src/custom-recognition/import-data.html",
                 { entity: "autoanimations", name: "aaAutorec" }
             );
-            let dialog = new Promise((resolve, reject) => {
-                new Dialog(
-                    {
-                        title: game.i18n.format("AUTOANIM.menuImport"),
-                        content: content,
-                        buttons: {
-                            import: {
-                                icon: '<i class="fas fa-file-import"></i>',
-                                label: game.i18n.format("AUTOANIM.overwrite"),
-                                callback: (html) => {
-                                    //@ts-ignore
-                                    const form = html.find("form")[0];
-                                    if (!form.data.files.length)
-                                        return ui.notifications?.error(
-                                            "You did not upload a data file!"
-                                        );
-                                    readTextFromFile(form.data.files[0]).then( 
-                                        async (json) => {
-                                            await application.close();
-                                            //await app.close();
-                                            AutorecFunctions._importAutorecFromJSON(
-                                                json
-                                            );
-                                            resolve(true);
-                                        }
-                                    );
-                                },
-                            },
-                            no: {
-                                icon: '<i class="fas fa-times"></i>',
-                                label: "Cancel",
-                                callback: (html) => resolve(false),
-                            },
-                        },
-                        default: "import",
-                    },
-                    {
-                        width: 600,
-                    }
-                ).render(true);
+            let d = TJSDialog.prompt({
+                title: "Overwrite Menu",
+                content: content,
+                modal:true,
+                callback: (html) => {
+                    //@ts-ignore
+                    const form = html.find("form")[0];
+                    if (!form.data.files.length)
+                        return ui.notifications?.error(
+                            "You did not upload a data file!"
+                        );
+                    readTextFromFile(form.data.files[0]).then(async (json) => {
+                        await application.close();
+                        //await app.close();
+                        AutorecFunctions._importAutorecFromJSON(json);
+                    });
+                },
             });
-            return await dialog;
+            return await d;
         }
     }
 </script>
