@@ -756,9 +756,7 @@ export async function jb2aAAFreeDatabase(path) {
             },
             fireball: {
                 explode: {
-                    '01': {
-                        orange: [l3`Fireball/FireballExplosion_01_Orange_800x800.webm`],
-                    }
+                    orange: [l3`Fireball/FireballExplosion_01_Orange_800x800.webm`],
                 },
                 loop: {
                     orange: [l3`Fireball/FireballLoop_01_Orange_800x800.webm`],
@@ -1258,7 +1256,7 @@ export async function jb2aAAFreeDatabase(path) {
                 '03': {
                     green: [lg`Energy/EnergyStrandIN01_03_Regular_Green_600x600.webm`],
                 },
-            },    
+            },
         },
         fire: {
             eruption: {
@@ -1841,7 +1839,7 @@ export async function jb2aAAFreeDatabase(path) {
                 target: {
                     yellow: [l0`Sacred_Flame/SacredFlameTarget_01_Regular_Yellow_400x400.webm`],
                 },
-            },    
+            },
             shatter: {
                 '01': {
                     blue: [l2`Shatter/Shatter_01_Blue_400x400.webm`]
