@@ -709,7 +709,7 @@ export const autoRecMigration = {
                             newMO.animType = "static";
                             newMO.type = "source";
                             break;
-                        case "aura":
+                        case "auras":
                             await primaryMenu(oldMO, newMO)
                             newMO.animType = "aura";
                             break;
@@ -727,8 +727,6 @@ export const autoRecMigration = {
                             break;
                     }
                     await primaryMenu(oldMO, newMO)
-                    console.log(oldMO)
-                    console.log(newMO)
                 }
             }
 

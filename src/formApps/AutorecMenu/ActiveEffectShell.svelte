@@ -29,8 +29,8 @@
     export let menuSection;
     export let menuListings;
 
-    let animType = flagData.animType || "static";
-    $: animType = flagData.animType = animType;
+    let animType = menuSection.animType || "static";
+    $: animType = menuSection.animType = animType;
 
     let presetType = menuSection.presetType;
     $: presetType = menuSection.presetType = presetType;
