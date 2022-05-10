@@ -5,7 +5,7 @@
 
     const { application } = getContext("external");
 
-    export let app;
+    //export let app;
 
     async function restoreDefault() {
         let d = TJSDialog.confirm({
@@ -247,7 +247,7 @@
                                     readTextFromFile(form.data.files[0]).then( 
                                         async (json) => {
                                             await application.close();
-                                            await app.close();
+                                            //await app.close();
                                             AutorecFunctions._importAutorecFromJSON(
                                                 json
                                             );

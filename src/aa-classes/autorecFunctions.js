@@ -282,8 +282,8 @@ export class AutorecFunctions {
     static async _importAutorecFromJSON(json) {
         const data = JSON.parse(json);
         console.warn("autoanimations | Import settings ", data);
-        await game.settings.set("autoanimations", "aaAutorec", data);
-        await autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'))
+        //await game.settings.set("autoanimations", "aaAutorec", data);
+        await autoRecMigration.handle(data)
     }
 
     static async _mergeAutorecFile(json) {

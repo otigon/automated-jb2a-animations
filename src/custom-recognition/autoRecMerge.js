@@ -5,17 +5,17 @@ export const autoRecMigration = {
         if (!autoObject) { return; }
         if (this.upToDate(autoObject)) { return; }
 
-        ui.notifications.info("Automated Animations: Merging the Automatic Recognition Menu")
-
+        ui.notifications.info("Automated Animations: Updating the Automatic Recognition Menu")
+        let currentAutorec = autoObject;
         for (let [version, migration] of Object.entries(this.migrations)) {
-            let currentAutorec = game.settings.get('autoanimations', 'aaAutorec')
             let flagVersion = currentAutorec.version;
 
             if (flagVersion >= Number(version)) continue;
 
-            await migration(currentAutorec)
+            currentAutorec = await migration(currentAutorec)
         }
-        ui.notifications.info("Automatic Recognition Menu merge is Complete!")
+        await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
+        ui.notifications.info("Automatic Recognition Menu update is Complete!")
     },
 
     upToDate(autoObject) {
@@ -60,7 +60,8 @@ export const autoRecMigration = {
                 }
             }
             currentAutorec.version = 1;
-            await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
+            return currentAutorec;
+            //await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
         },
         "2": async (currentAutorec) => {
             const meleeObject = currentAutorec.melee;
@@ -71,7 +72,8 @@ export const autoRecMigration = {
                 }
             }
             currentAutorec.version = 2;
-            await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
+            return currentAutorec;
+            //await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
         },
         "3": async (currentAutorec) => {
             const templateObject = currentAutorec.templates;
@@ -99,7 +101,8 @@ export const autoRecMigration = {
                 }
             }
             currentAutorec.version = 3;
-            await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
+            return currentAutorec;
+            //await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
         },
         "4": async (currentAutorec) => {
             const meleeObject = currentAutorec.melee;
@@ -527,7 +530,8 @@ export const autoRecMigration = {
                 }
             }
             currentAutorec.version = 4;
-            await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
+            return currentAutorec;
+            //await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
         },
         "5": async (currentAutorec) => {
             const meleeObject = currentAutorec.melee;
@@ -655,23 +659,28 @@ export const autoRecMigration = {
                 newData.hidden = true;
                 root.self = {
                     enable: animateSelf || false,
-                    animation: selfAnimation,
+                    animation: selfAnimation === "music" ? "notes" : selfAnimation,
                     color: selfColor,
                 }
                 if (!root.self.animation || !root.self.color) {
                     root.self.animation = "";
+                    root.self.variant = "";
                     root.self.color = "";
-                }
+                } else if (root.self.animation === "bardicinspiration"){
+                    root.self.variant = "inspire";
+                } else { root.self.variant = "01"}
                 root.target = {
                     enable: animateTarget || false,
-                    animation: targetAnimation,
+                    animation: targetAnimation === "music" ? "notes" : targetAnimation,
                     color: targetColor,
                 }
                 // TO-DO, assign VARIANTS somehow
                 if (!root.target.animation || !root.target.color) {
                     root.target.animation = "";
                     root.target.color = "";
-                }
+                } else if (root.target.animation === "bardicinspiration"){
+                    root.target.variant = "inspire";
+                } else { root.target.variant = "01"}
                 root.marker = {
                     enable: marker || false,
                     selfColor: selfMarkerColor || "",
@@ -896,8 +905,8 @@ export const autoRecMigration = {
                 root.occlusionMode = occlusionMode;
                 root.occlusionAlpha = occlusionAlpha;
             }
-
-            await game.settings.set('autoanimations', 'aaAutorec', newMenu)
+            return newMenu;
+            //await game.settings.set('autoanimations', 'aaAutorec', newMenu)
         },
     }
 }
