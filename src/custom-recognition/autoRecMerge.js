@@ -584,20 +584,79 @@ export const autoRecMigration = {
                     }
                 }
             }
+            async function primaryMenu(oldMO, newMO, type) {
+                let { name, animation, color, audio, macro, soundOnly, explosion, levels3d, ...rest } = oldMO
+                newMO.id = randomID();
+                newMO.name = name;
+                newMO.hidden = true;
+                newMO.animation = animation;
+                newMO.color = color;
+                newMO.options = rest;
+                if (type) {
+                    newMO.options.persistent = newMO.options.persist || false;
+                }
+                newMO.audio = audio || {};
+                newMO.macro = macro || {};
+                newMO.levels3d = levels3d || {};
+                newMO.soundOnly = soundOnly?.enable || false;
+                newMO.explosions = explosion || {};
+                if (!newMO.options.menuType || !newMO.options.variant || !newMO.animation || !newMO.color) {
+                    newMO.options.menuType = "";
+                    newMO.options.variant = "";
+                    newMO.animation = "";
+                    newMO.color = "";
+                }
+            }
+
             if (meleeObject) {
-                await compileNewMenu(meleeObject, "melee")
+                const dataLength = Object.keys(meleeObject).length;
+                for (var i = 0; i < dataLength; i++) {
+                    const oldMO = meleeObject[i]
+                    newMenu.melee[i] = {};
+                    const newMO = newMenu.melee[i];
+                    await primaryMenu(oldMO, newMO)
+                }
+                //await compileNewMenu(meleeObject, "melee")
             }
             if (rangeObject) {
-                await compileNewMenu(rangeObject, "range")
+                const dataLength = Object.keys(rangeObject).length;
+                for (var i = 0; i < dataLength; i++) {
+                    const oldMO = rangeObject[i]
+                    newMenu.range[i] = {};
+                    const newMO = newMenu.range[i];
+                    await primaryMenu(oldMO, newMO)
+                }
+                //await compileNewMenu(rangeObject, "range")
             }
             if (staticObject) {
-                await compileNewMenu(staticObject, "static")
-            } else { newMenu.static = {}; }
+                const dataLength = Object.keys(staticObject).length;
+                for (var i = 0; i < dataLength; i++) {
+                    const oldMO = staticObject[i]
+                    newMenu.static[i] = {};
+                    const newMO = newMenu.static[i];
+                    await primaryMenu(oldMO, newMO)
+                }
+                //await compileNewMenu(staticObject, "static")
+            }
             if (templateObject) {
-                await compileNewMenu(templateObject, "templatefx")
+                const dataLength = Object.keys(templateObject).length;
+                for (var i = 0; i < dataLength; i++) {
+                    const oldMO = templateObject[i]
+                    newMenu.templatefx[i] = {};
+                    const newMO = newMenu.templatefx[i];
+                    await primaryMenu(oldMO, newMO, true)
+                }
+                //await compileNewMenu(templateObject, "templatefx")
             }
             if (auraObject) {
-                await compileNewMenu(auraObject, "aura")
+                const dataLength = Object.keys(auraObject).length;
+                for (var i = 0; i < dataLength; i++) {
+                    const oldMO = auraObject[i]
+                    newMenu.aura[i] = {};
+                    const newMO = newMenu.aura[i];
+                    await primaryMenu(oldMO, newMO)
+                }
+                //await compileNewMenu(auraObject, "aura")
             }
             if (presetObject) {
                 const presetLength = Object.keys(presetObject).length;
@@ -607,31 +666,31 @@ export const autoRecMigration = {
                     const newMO = newMenu.preset[i];
                     switch (oldMO.animation) {
                         case "bardicinspiration":
-                            updateBI(oldMO, newMO)
+                            await updateBI(oldMO, newMO)
                             break;
                         case "bless":
-                            updateBless(oldMO, newMO)
+                            await updateBless(oldMO, newMO)
                             break;
                         case "shieldspell":
-                            updateShield(oldMO, newMO)
+                            await updateShield(oldMO, newMO)
                             break;
                         case "teleportation":
-                            updateTele(oldMO, newMO)
+                            await updateTele(oldMO, newMO)
                             break;
                         case "dualattach":
-                            updateDAttach(oldMO, newMO)
+                            await updateDAttach(oldMO, newMO)
                             break;
                         case "fireball":
-                            updateFireball(oldMO, newMO)
+                            await updateFireball(oldMO, newMO)
                             break;
                         case "huntersmark":
-                            updateHM(oldMO, newMO)
+                            await updateHM(oldMO, newMO)
                             break;
                         case "sneakattack":
-                            updateSneak(oldMO, newMO)
+                            await updateSneak(oldMO, newMO)
                             break;
                         case "thunderwave":
-                            updateThunderwave(oldMO, newMO)
+                            await updateThunderwave(oldMO, newMO)
                             break;
 
                     }
@@ -641,11 +700,39 @@ export const autoRecMigration = {
             if (aefxObject) {
                 const aefxLength = Object.keys(aefxObject).length;
                 for (var i = 0; i < aefxLength; i++) {
-
+                    const oldMO = aefxObject[i]
+                    newMenu.aefx[i] = {};
+                    const newMO = newMenu.aefx[i];
+                    switch (oldMO.aeType) {
+                        case "static":
+                            await primaryMenu(oldMO, newMO)
+                            newMO.animType = "static";
+                            newMO.type = "source";
+                            break;
+                        case "aura":
+                            await primaryMenu(oldMO, newMO)
+                            newMO.animType = "aura";
+                            break;
+                        case "preset":
+                            switch(oldMO.menuType) {
+                                case "bless":
+                                    await updateBless(oldMO, newMO)
+                                    newMO.animType = "preset";
+                                    break;
+                                case "shieldspell":
+                                    await updateShield(oldMO, newMO)
+                                    newMO.animType = "preset";
+                                    break;
+                            }
+                            break;
+                    }
+                    await primaryMenu(oldMO, newMO)
+                    console.log(oldMO)
+                    console.log(newMO)
                 }
             }
 
-            function updateBI(oldData, newData) {
+            async function updateBI(oldData, newData) {
                 newData.id = randomID();
                 newData.bardicinspiration = {};
                 const root = newData.bardicinspiration;
@@ -666,9 +753,9 @@ export const autoRecMigration = {
                     root.self.animation = "";
                     root.self.variant = "";
                     root.self.color = "";
-                } else if (root.self.animation === "bardicinspiration"){
+                } else if (root.self.animation === "bardicinspiration") {
                     root.self.variant = "inspire";
-                } else { root.self.variant = "01"}
+                } else { root.self.variant = "01" }
                 root.target = {
                     enable: animateTarget || false,
                     animation: targetAnimation === "music" ? "notes" : targetAnimation,
@@ -678,16 +765,16 @@ export const autoRecMigration = {
                 if (!root.target.animation || !root.target.color) {
                     root.target.animation = "";
                     root.target.color = "";
-                } else if (root.target.animation === "bardicinspiration"){
+                } else if (root.target.animation === "bardicinspiration") {
                     root.target.variant = "inspire";
-                } else { root.target.variant = "01"}
+                } else { root.target.variant = "01" }
                 root.marker = {
                     enable: marker || false,
                     selfColor: selfMarkerColor || "",
                     targetColor: targetMarkerColor || "",
                 }
             }
-            function updateBless(oldData, newData) {
+            async function updateBless(oldData, newData) {
                 newData.id = randomID();
                 newData.bless = {};
                 const root = newData.bless;
@@ -703,11 +790,11 @@ export const autoRecMigration = {
                 root.animation = "bless";
                 root.variant = "01";
                 root.color = color;
-                root.unbindAlpha = unbindAlpha;
-                root.unbindVisibility = unbindVisibility;
+                root.unbindAlpha = unbindAlpha || false;
+                root.unbindVisibility = unbindVisibility || false;
                 root.persistent = persistent;
             }
-            function updateShield(oldData, newData) {
+            async function updateShield(oldData, newData) {
                 newData.id = randomID();
                 newData.shield = {};
                 const root = newData.shield;
@@ -728,7 +815,7 @@ export const autoRecMigration = {
                 root.below = below;
                 root.scale = scale;
             }
-            function updateTele(oldData, newData) {
+            async function updateTele(oldData, newData) {
                 newData.id = randomID();
                 newData.teleportation = {};
                 const root = newData.teleportation;
@@ -771,7 +858,7 @@ export const autoRecMigration = {
 
 
             }
-            function updateDAttach(oldData, newData) {
+            async function updateDAttach(oldData, newData) {
                 newData.id = randomID();
                 newData.dualattach = {};
                 const root = newData.dualattach;
@@ -791,7 +878,7 @@ export const autoRecMigration = {
                 root.onlyX = onlyX;
                 root.below = below;
             }
-            function updateFireball(oldData, newData) {
+            async function updateFireball(oldData, newData) {
                 newData.id = randomID();
                 newData.fireball = {};
                 const root = newData.fireball;
@@ -846,7 +933,7 @@ export const autoRecMigration = {
                     wait: wait03,
                 }
             }
-            function updateHM(oldData, newData) {
+            async function updateHM(oldData, newData) {
                 newData.id = randomID();
                 newData.huntersmark = {};
                 const root = newData.huntersmark;
@@ -864,7 +951,7 @@ export const autoRecMigration = {
                 root.anchorX = anchorX;
                 root.anchorY = anchorY;
             }
-            function updateSneak(oldData, newData) {
+            async function updateSneak(oldData, newData) {
                 newData.id = randomID();
                 newData.sneakattack = {};
                 const root = newData.sneakattack;
@@ -882,7 +969,7 @@ export const autoRecMigration = {
                 root.below = below;
 
             }
-            function updateThunderwave(oldData, newData) {
+            async function updateThunderwave(oldData, newData) {
                 newData.id = randomID();
                 newData.thunderwave = {};
                 const root = newData.thunderwave;
