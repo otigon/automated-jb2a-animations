@@ -20,6 +20,16 @@
     export let idx;
     export let menuListings;
 
+    /*Data Structure
+        section: {
+            hidden: Boolean,
+            presetType: String Router,
+            name: String Section Name,
+            macro: {},
+            audio: {},
+        }
+    */
+ 
     export let isAutoRec = true;
     let presetType = menuSection.presetType;
     $: presetType = menuSection.presetType = presetType;

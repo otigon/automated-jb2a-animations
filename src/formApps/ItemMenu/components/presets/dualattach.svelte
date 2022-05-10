@@ -15,16 +15,30 @@
     export let presetType;
     export let isAutoRec;
 
-    let root;
+    /*Data Structure
+        section: {
+            dualattach: {
+                menuType: String,
+                animation: String,
+                variant: String,
+                color: String,
+                enableCustom: Boolean,
+                customPath: String,
+                below: Boolean,
+                playbackRate: Number,
+            }
+        }
+    */
 
+    let root;
     if (isAutoRec) {
         root = flagData;
     } else {
         root = flagData.preset;
     }
-    root.dualattach ? root.dualattach : root.dualattach = {};
+    root.dualattach ? root.dualattach : (root.dualattach = {});
     const preset = root.dualattach;
-    
+
     let belowToken = preset.below || false;
     $: belowToken = preset.below = belowToken;
     $: aboveBelow = belowToken ? "Below Token" : "Above Token";
@@ -55,12 +69,12 @@
 
     let customPath = preset.customPath;
     $: customPath = preset.customPath = customPath;
-    let customId = "customPresetDualAttach"
+    let customId = "customPresetDualAttach";
     let filePath;
     $: filePath =
-            color === "random"
-                ? `autoanimations.range.${menuType}.${animation}.${variant}`
-                : `autoanimations.range.${menuType}.${animation}.${variant}.${color}`;
+        color === "random"
+            ? `autoanimations.range.${menuType}.${animation}.${variant}`
+            : `autoanimations.range.${menuType}.${animation}.${variant}.${color}`;
     // Sets Store variables for sending to the Video Previewer
     $: {
         menuDBPath01.set(filePath);
@@ -82,55 +96,54 @@
 </script>
 
 <div class="aaMenu-section">
-<div class="aa-header-section">
-    <div class="aa-header">
-        <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
-            <label for="">Dual Attach Preset</label>
+    <div class="aa-header-section">
+        <div class="aa-header">
+            <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+                <label for="">Dual Attach Preset</label>
+            </div>
+            <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
+                <i
+                    class="fas fa-video aa-video-preview"
+                    on:click={() => onClick()}
+                />
+            </div>
         </div>
-        <div
-            class="flexcol"
-            style="grid-row:1/2; grid-column:1/2"
-        >
-            <i
-                class="fas fa-video aa-video-preview"
-                on:click={() => onClick()}
+    </div>
+    <ChooseAnimation
+        bind:menuType
+        bind:animation
+        bind:variant
+        bind:color
+        bind:isCustom
+        bind:customPath
+        bind:customId
+        {shouldShowOnlyX}
+        {isAutoRec}
+        {presetType}
+        flagPath="preset"
+        animType="range"
+        {flagData}
+    />
+    <h2 style="margin-top:5px;">Options</h2>
+    <div class="aa-options">
+        <!--Set Z-Index-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+            <label for="">Z-Index</label>
+            <button class="oldCheck" on:click={() => below()}
+                >{aboveBelow}</button
+            >
+        </div>
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+            <label for="">{localize("AUTOANIM.playbackRate")}</label>
+            <input
+                type="Number"
+                bind:value={playbackRate}
+                placeholder="1"
+                step="0.01"
             />
         </div>
     </div>
-</div>
-<ChooseAnimation
-    bind:menuType
-    bind:animation
-    bind:variant
-    bind:color
-    bind:isCustom
-    bind:customPath
-    bind:customId
-    {shouldShowOnlyX}
-    {isAutoRec}
-    {presetType} 
-    flagPath="preset"
-    animType="range"
-    {flagData}
-/>
-<h2 style="margin-top:5px;">Options</h2>
-<div class="aa-options">
-    <!--Set Z-Index-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-        <label for="">Z-Index</label>
-        <button class="oldCheck" on:click={() => below()}>{aboveBelow}</button>
-    </div>
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.playbackRate")}</label>
-        <input
-            type="Number"
-            bind:value={playbackRate}
-            placeholder=1
-            step=0.01
-        />
-    </div>
-</div>
-<SoundSettings audioPath="a01" {flagData} />
+    <SoundSettings audioPath="a01" {flagData} />
 </div>
 
 <style lang="scss">

@@ -3,25 +3,41 @@
     import { fade } from "svelte/transition";
     import SoundSettings from "../soundSettings.svelte";
 
-    import {aaColorMenu} from "../../../../animation-functions/databases/jb2a-menu-options.js"
+    import { aaColorMenu } from "../../../../animation-functions/databases/jb2a-menu-options.js";
 
     export let flagData;
     export let isAutoRec;
 
-    let root;
+    /*Data Structure
+        section: {
+            bless: {
+                menuType: "spell",
+                animation: "bless",
+                variant: "01",
+                color: String,
+                unbindAlpha: Boolean,
+                unbindVisibility: Boolean,
+                persistent: Boolean,
+                below: Boolean,
+                scale: Number,
+            }
+        }
+    */
 
+    let root;
     if (isAutoRec) {
         root = flagData;
     } else {
         root = flagData.preset;
     }
-    root.bless ? root.bless : root.bless = {};
+    root.bless ? root.bless : (root.bless = {});
     const preset = root.bless;
     preset.menuType = "spell";
     preset.animation = "bless";
     preset.variant = "01";
 
-    let color = preset.color || Object.keys(aaColorMenu.static.spell.bless["01"])[0];
+    let color =
+        preset.color || Object.keys(aaColorMenu.static.spell.bless["01"])[0];
     $: color = preset.color = color;
 
     let unbindAlpha = preset.unbindAlpha || false;
@@ -34,14 +50,14 @@
 
     let persistent = preset.persistent || false;
     $: persistent = preset.persistent = persistent;
-    $: isPersistent = persistent ? "Persistent" : "Not Persistent"
+    $: isPersistent = persistent ? "Persistent" : "Not Persistent";
 
     let belowToken = preset.below || false;
-    $: belowToken = preset.below = belowToken
+    $: belowToken = preset.below = belowToken;
     $: aboveBelow = belowToken ? "Below Token" : "Above Token";
 
     let scale = preset.scale || 1;
-    $: scale = preset.scale = scale
+    $: scale = preset.scale = scale;
 
     function switchAlpha() {
         unbindAlpha = !unbindAlpha;
@@ -55,53 +71,56 @@
     function below() {
         belowToken = !belowToken;
     }
-
 </script>
+
 <div class="aaMenu-section">
-<h1>Bless Animation Preset</h1>
-<div class="aa-3wide">
-    <div
-        class="flexcol"
-        style="grid-row: 3 / 4;grid-column: 2 / 3;"
-    >
-        <label for="">{localize("AUTOANIM.color")}</label>
-        <select
-            bind:value={color}
-        >
-            {#each Object.entries(aaColorMenu.static.spell.bless['01']) as [key, name]}
-                <option value={key}>{name}</option>
-            {/each}
-        </select>
+    <h1>Bless Animation Preset</h1>
+    <div class="aa-3wide">
+        <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
+            <label for="">{localize("AUTOANIM.color")}</label>
+            <select bind:value={color}>
+                {#each Object.entries(aaColorMenu.static.spell.bless["01"]) as [key, name]}
+                    <option value={key}>{name}</option>
+                {/each}
+            </select>
+        </div>
     </div>
-</div>
-<h2 style="margin-top:5px;">Options</h2>
-<div class="aa-options">
-    <!--Persistent Setting-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-        <label for="">Persistence</label>
-        <button on:click={() => switchPersistence()}>{isPersistent}</button>
+    <h2 style="margin-top:5px;">Options</h2>
+    <div class="aa-options">
+        <!--Persistent Setting-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
+            <label for="">Persistence</label>
+            <button on:click={() => switchPersistence()}>{isPersistent}</button>
+        </div>
+        <!--Set Z-Index-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+            <label for="">Z-Index</label>
+            <button class="oldCheck" on:click={() => below()}
+                >{aboveBelow}</button
+            >
+        </div>
+        <!--Bind/Unbind Visibility (for Persistent Effects)-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+            <label for="">Visibility</label>
+            <button on:click={() => switchVisibility()}>{bindVisibility}</button
+            >
+        </div>
+        <!--Bind/Unbind Opacity (for Persistent Effects)-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+            <label for="">Alpha</label>
+            <button on:click={() => switchAlpha()}>{bindAlpha}</button>
+        </div>
+        <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
+            <label for="">{localize("AUTOANIM.scale")}</label>
+            <input
+                type="Number"
+                bind:value={scale}
+                placeholder="1"
+                step="0.01"
+            />
+        </div>
     </div>
-    <!--Set Z-Index-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-        <label for="">Z-Index</label>
-        <button class="oldCheck" on:click={() => below()}>{aboveBelow}</button>
-    </div>
-    <!--Bind/Unbind Visibility (for Persistent Effects)-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-        <label for="">Visibility</label>
-        <button on:click={() => switchVisibility()}>{bindVisibility}</button>
-    </div>
-    <!--Bind/Unbind Opacity (for Persistent Effects)-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-        <label for="">Alpha</label>
-        <button on:click={() => switchAlpha()}>{bindAlpha}</button>
-    </div>
-    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.scale")}</label>
-        <input type="Number" bind:value={scale} placeholder=1 step=0.01>
-    </div>
-</div>
-<SoundSettings audioPath="a01" {flagData} />
+    <SoundSettings audioPath="a01" {flagData} />
 </div>
 
 <style lang="scss">
@@ -154,7 +173,7 @@
     }
     h2 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size:x-large;
+        font-size: x-large;
         font-weight: bold;
         text-align: center;
         margin-right: 15%;

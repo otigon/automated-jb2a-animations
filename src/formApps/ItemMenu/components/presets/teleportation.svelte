@@ -9,8 +9,49 @@
     export let presetType;
     export let isAutoRec;
 
-    let root;
+    /*Data Structure
+        section: {
+            teleportation: {
+                measureType: String,
+                range: Number, 
+                hideFromPlayers: Boolean,
+                start: {
+                    menuType: String,
+                    animation: String,
+                    variant: String,
+                    color: String,
+                    enableCustom: Boolean,
+                    customPath: String,
+                    scale: Number,
+                    below: Boolean,
+                },
+                between: {
+                    enable: Boolean,
+                    menuType: String,
+                    animation: String,
+                    variant: String,
+                    color: String,
+                    enableCustom: Boolean,
+                    customPath: String,
+                    scale: Number,
+                    playbackRate: Number,
+                },
+                end: {
+                    menuType: String,
+                    animation: String,
+                    variant: String,
+                    color: String,
+                    enableCustom: Boolean,
+                    customPath: String,
+                    scale: Number,
+                    below: Boolean,
+                    delay: Number,
+                }
+            }
+        }
+    */
 
+    let root;
     if (isAutoRec) {
         root = flagData;
     } else {
@@ -22,8 +63,8 @@
     let measureType = preset.measureType || "alternating";
     $: measureType = preset.measureType = measureType;
 
-    let teleDist = preset.teleDist || 30;
-    $: teleDist = preset.teleDist = teleDist;
+    let teleDist = preset.range || 30;
+    $: teleDist = preset.range = teleDist;
 
     let hideFromPlayers = preset.hideFromPlayers || false;
     $: hideFromPlayers = preset.hideFromPlayers = hideFromPlayers;
@@ -34,7 +75,7 @@
     }
 
     //Set Start Animation variables
-    preset.start ? preset.start : preset.start = {};
+    preset.start ? preset.start : (preset.start = {});
     const start = preset.start;
     let startMenuType = start.menuType;
     $: startMenuType = start.menuType = startMenuType;
@@ -58,10 +99,8 @@
     $: startAboveBelow = startBelowToken ? "Below Token" : "Above Token";
     let startCustomId = "customPresetStart";
 
-
-
     //Set End Animation variables
-    preset.end ? preset.end : preset.end = {};
+    preset.end ? preset.end : (preset.end = {});
     const end = preset.end;
     let endBelowToken = end.below || false;
     $: endBelowToken = end.below = endBelowToken;
@@ -88,7 +127,7 @@
     let endCustomId = "customPresetEnd";
 
     //Set Between Animation variables
-    preset.between ? preset.between : preset.between = {};
+    preset.between ? preset.between : (preset.between = {});
     const between = preset.between;
     let betweenMenuType = between.menuType;
     $: betweenMenuType = between.menuType = betweenMenuType;
@@ -104,8 +143,8 @@
     $: betweenCustomPath = between.customPath = betweenCustomPath;
     let betweenPlaybackRate = between.playbackRate || 1;
     $: betweenPlaybackRate = between.playbackRate = betweenPlaybackRate;
-    let enableBetween = between.enableBetween || false;
-    $: enableBetween = between.enableBetween = enableBetween;
+    let enableBetween = between.enable || false;
+    $: enableBetween = between.enable = enableBetween;
     function switchBetween() {
         enableBetween = !enableBetween;
     }
@@ -131,146 +170,164 @@
 </script>
 
 <div class="aaMenu-section">
-<h1 style="margin-bottom: 15px">Teleportation Preset<i class="fas fa-info-circle aa-info-icon" on:click={() => info()}></i></h1>
-<h2 style="margin-top:10px;">Options</h2>
-<div class="aa-3wide">
-    <!--Measurement Type-->
-    <div class="flexcol" style="grid-row: 1 / 2;grid-column: 1 / 2;">
-        <label for="">{localize("AUTOANIM.animation")}</label>
-        <select name="flags.autoanimations.animation" bind:value={measureType}>
-            <option value="alternating">{localize("AUTOANIM.circle")}</option>
-            <option value="equidistant">{localize("AUTOANIM.square")}</option>
-        </select>
+    <h1 style="margin-bottom: 15px">
+        Teleportation Preset<i
+            class="fas fa-info-circle aa-info-icon"
+            on:click={() => info()}
+        />
+    </h1>
+    <h2 style="margin-top:10px;">Options</h2>
+    <div class="aa-3wide">
+        <!--Measurement Type-->
+        <div class="flexcol" style="grid-row: 1 / 2;grid-column: 1 / 2;">
+            <label for="">{localize("AUTOANIM.animation")}</label>
+            <select
+                name="flags.autoanimations.animation"
+                bind:value={measureType}
+            >
+                <option value="alternating"
+                    >{localize("AUTOANIM.circle")}</option
+                >
+                <option value="equidistant"
+                    >{localize("AUTOANIM.square")}</option
+                >
+            </select>
+        </div>
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+            <label for="">Range</label>
+            <input type="Number" bind:value={teleDist} step="0.01" />
+        </div>
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+            <label for="">{localize("AUTOANIM.hideBorder")}</label>
+            <button
+                class={hideFromPlayers ? "selected" : "notSelected"}
+                on:click={() => switchHide()}>{isHidden}</button
+            >
+        </div>
     </div>
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-        <label for="">Range</label>
-        <input type="Number" bind:value={teleDist} step=0.01 />
-    </div>
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.hideBorder")}</label>
-        <button
-            class={hideFromPlayers ? "selected" : "notSelected"}
-            on:click={() => switchHide()}>{isHidden}</button
-        >
-    </div>
-</div>
 </div>
 <div class="aaMenu-section">
-<h1 style="margin-top:10px;">Start Animation</h1>
-<ChooseAnimation
-    bind:menuType={startMenuType}
-    bind:animation={startAnimation}
-    bind:variant={startVariant}
-    bind:color={startColor}
-    bind:isCustom={startIsCustom}
-    bind:customPath={startCustomPath}
-    bind:customId={startCustomId}
-    {isAutoRec}
-    {presetType}
-    presetSubType="TeleStart"
-    flagPath="preset"
-    animType="static"
-    {flagData}
-/>
-<h2>Options</h2>
-<div class="aa-options">
-    <!--Set Z-Index-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-        <label for="">Z-Index</label>
-        <button class="oldCheck" on:click={() => startBelow()}>{startAboveBelow}</button>
+    <h1 style="margin-top:10px;">Start Animation</h1>
+    <ChooseAnimation
+        bind:menuType={startMenuType}
+        bind:animation={startAnimation}
+        bind:variant={startVariant}
+        bind:color={startColor}
+        bind:isCustom={startIsCustom}
+        bind:customPath={startCustomPath}
+        bind:customId={startCustomId}
+        {isAutoRec}
+        {presetType}
+        presetSubType="TeleStart"
+        flagPath="preset"
+        animType="static"
+        {flagData}
+    />
+    <h2>Options</h2>
+    <div class="aa-options">
+        <!--Set Z-Index-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+            <label for="">Z-Index</label>
+            <button class="oldCheck" on:click={() => startBelow()}
+                >{startAboveBelow}</button
+            >
+        </div>
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+            <label for="">Scale</label>
+            <input type="Number" bind:value={startScale} step="0.01" />
+        </div>
     </div>
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-        <label for="">Scale</label>
-        <input type="Number" bind:value={startScale} step=0.01 />
-    </div>
-</div>
 </div>
 <div class="aaMenu-section">
     <div class="aa-header-section">
-    <div class="aa-header">
-        <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
-            <label for="">Between Animation</label>
-        </div>
-        <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
-            <i
-                class="{enableBetween
-                    ? 'fas fa-minus aa-red'
-                    : 'fas fa-plus aa-green'} aaCenterToggle"
-                on:click={() => switchBetween()}
-            />
+        <div class="aa-header">
+            <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+                <label for="">Between Animation</label>
+            </div>
+            <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
+                <i
+                    class="{enableBetween
+                        ? 'fas fa-minus aa-red'
+                        : 'fas fa-plus aa-green'} aaCenterToggle"
+                    on:click={() => switchBetween()}
+                />
+            </div>
         </div>
     </div>
-</div>
-{#if enableBetween}
-<ChooseAnimation
-    bind:menuType={betweenMenuType}
-    bind:animation={betweenAnimation}
-    bind:variant={betweenVariant}
-    bind:color={betweenColor}
-    bind:isCustom={betweenIsCustom}
-    bind:customPath={betweenCustomPath}
-    bind:customId={betweenCustomId}
-    {shouldShowOnlyX}
-    {isAutoRec}
-    {presetType}
-    presetSubType="TeleBetween"
-    flagPath="preset"
-    animType="range"
-    {flagData}
-/>
-<h2>Options</h2>
-<div class="aa-options">
-    <!--Set Z-Index-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-        <label for="">Z-Index</label>
-        <button class="oldCheck" on:click={() => betweenBelow()}>{betweenAboveBelow}</button>
-    </div>
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.playbackRate")}</label>
-        <input
-            type="Number"
-            bind:value={betweenPlaybackRate}
-            placeholder=1
-            step=0.01
+    {#if enableBetween}
+        <ChooseAnimation
+            bind:menuType={betweenMenuType}
+            bind:animation={betweenAnimation}
+            bind:variant={betweenVariant}
+            bind:color={betweenColor}
+            bind:isCustom={betweenIsCustom}
+            bind:customPath={betweenCustomPath}
+            bind:customId={betweenCustomId}
+            {shouldShowOnlyX}
+            {isAutoRec}
+            {presetType}
+            presetSubType="TeleBetween"
+            flagPath="preset"
+            animType="range"
+            {flagData}
         />
-    </div>
-</div>
-{/if}
+        <h2>Options</h2>
+        <div class="aa-options">
+            <!--Set Z-Index-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+                <label for="">Z-Index</label>
+                <button class="oldCheck" on:click={() => betweenBelow()}
+                    >{betweenAboveBelow}</button
+                >
+            </div>
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+                <label for="">{localize("AUTOANIM.playbackRate")}</label>
+                <input
+                    type="Number"
+                    bind:value={betweenPlaybackRate}
+                    placeholder="1"
+                    step="0.01"
+                />
+            </div>
+        </div>
+    {/if}
 </div>
 <div class="aaMenu-section">
-<h1 style="margin-top:10px;">End Animation</h1>
-<ChooseAnimation
-    bind:menuType={endMenuType}
-    bind:animation={endAnimation}
-    bind:variant={endVariant}
-    bind:color={endColor}
-    bind:isCustom={endIsCustom}
-    bind:customPath={endCustomPath}
-    bind:customId={endCustomId}
-    {isAutoRec}
-    {presetType}
-    presetSubType="TeleEnd"
-    flagPath="preset"
-    animType="static"
-    {flagData}
-/>
-<h2>Options</h2>
-<div class="aa-options">
-    <!--Set Z-Index-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-        <label for="">Z-Index</label>
-        <button class="oldCheck" on:click={() => endBelow()}>{endAboveBelow}</button>
+    <h1 style="margin-top:10px;">End Animation</h1>
+    <ChooseAnimation
+        bind:menuType={endMenuType}
+        bind:animation={endAnimation}
+        bind:variant={endVariant}
+        bind:color={endColor}
+        bind:isCustom={endIsCustom}
+        bind:customPath={endCustomPath}
+        bind:customId={endCustomId}
+        {isAutoRec}
+        {presetType}
+        presetSubType="TeleEnd"
+        flagPath="preset"
+        animType="static"
+        {flagData}
+    />
+    <h2>Options</h2>
+    <div class="aa-options">
+        <!--Set Z-Index-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+            <label for="">Z-Index</label>
+            <button class="oldCheck" on:click={() => endBelow()}
+                >{endAboveBelow}</button
+            >
+        </div>
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+            <label for="">Scale</label>
+            <input type="Number" bind:value={endScale} step="0.01" />
+        </div>
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+            <label for="">Delay Token Alpha</label>
+            <input type="number" bind:value={delayAlpha} step="0.01" />
+        </div>
     </div>
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-        <label for="">Scale</label>
-        <input type="Number" bind:value={endScale} step=0.01 />
-    </div>
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-        <label for="">Delay Token Alpha</label>
-        <input type="number" bind:value={delayAlpha} step=0.01 />
-    </div>
-</div>
-<SoundSettings audioPath="a01" {flagData} />
+    <SoundSettings audioPath="a01" {flagData} />
 </div>
 
 <style lang="scss">
@@ -364,11 +421,11 @@
         align-self: center;
     }
     .aa-info-icon {
-        color:rgba(21, 154, 169, 0.75);
-        position:relative;
+        color: rgba(21, 154, 169, 0.75);
+        position: relative;
         left: 20px;
     }
     .aa-info-icon:hover {
-        color: rgba(7, 132, 25, 0.6)
+        color: rgba(7, 132, 25, 0.6);
     }
 </style>

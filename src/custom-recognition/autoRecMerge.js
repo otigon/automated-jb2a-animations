@@ -1,3 +1,6 @@
+import { root } from "postcss";
+import { rootCertificates } from "tls";
+
 export const autoRecMigration = {
 
     async handle(autoObject) {
@@ -557,7 +560,7 @@ export const autoRecMigration = {
                     newMenu[type][i] = {};
                     const newMO = newMenu[type][i];
 
-                    let {name, animation, color, audio, macro, soundOnly, explosion, levels3d, ...rest} = oldMO
+                    let { name, animation, color, audio, macro, soundOnly, explosion, levels3d, ...rest } = oldMO
                     newMO.id = randomID();
                     newMO.name = name;
                     newMO.hidden = true;
@@ -598,6 +601,39 @@ export const autoRecMigration = {
             if (presetObject) {
                 const presetLength = Object.keys(presetObject).length;
                 for (var i = 0; i < presetLength; i++) {
+                    const oldMO = presetObject[i]
+                    newMenu.preset[i] = {};
+                    const newMO = newMenu.preset[i];
+                    switch (oldMO.animation) {
+                        case "bardicinspiration":
+                            updateBI(oldMO, newMO)
+                            break;
+                        case "bless":
+                            updateBless(oldMO, newMO)
+                            break;
+                        case "shieldspell":
+                            updateShield(oldMO, newMO)
+                            break;
+                        case "teleportation":
+                            updateTele(oldMO, newMO)
+                            break;
+                        case "dualattach":
+                            updateDAttach(oldMO, newMO)
+                            break;
+                        case "fireball":
+                            updateFireball(oldMO, newMO)
+                            break;
+                        case "huntersmark":
+                            updateHM(oldMO, newMO)
+                            break;
+                        case "sneakattack":
+                            updateSneak(oldMO, newMO)
+                            break;
+                        case "thunderwave":
+                            updateThunderwave(oldMO, newMO)
+                            break;
+
+                    }
 
                 }
             }
@@ -607,7 +643,253 @@ export const autoRecMigration = {
 
                 }
             }
+
+            function updateBI(oldData, newData) {
+                newData.bardicinspiration = {};
+                const root = newData.bardicinspiration;
+                let { animateSelf, animateTarget, below, marker, name, scale, selfAnimation, selfColor, selfMarkerColor, targetAnimation, targetColor, targetMarkerColor, macro, audio } = oldData;
+                root.audio = audio || {};
+                root.macro = macro || {};
+                newData.presetType = "bardicinspiration";
+                root.below = below;
+                root.scale = scale;
+                newData.name = name;
+                newData.hidden = true;
+                root.self = {
+                    enable: animateSelf || false,
+                    animation: selfAnimation,
+                    color: selfColor,
+                }
+                if (!root.self.animation || !root.self.color) {
+                    root.self.animation = "";
+                    root.self.color = "";
+                }
+                root.target = {
+                    enable: animateTarget || false,
+                    animation: targetAnimation,
+                    color: targetColor,
+                }
+                // TO-DO, assign VARIANTS somehow
+                if (!root.target.animation || !root.target.color) {
+                    root.target.animation = "";
+                    root.target.color = "";
+                }
+                root.marker = {
+                    enable: marker || false,
+                    selfColor: selfMarkerColor || "",
+                    targetColor: targetMarkerColor || "",
+                }
+            }
+            function updateBless(oldData, newData) {
+                newData.bless = {};
+                const root = newData.bless;
+                let { below, color, name, scale, macro, unbindAlpha, unbindVisibility, audio, addCTA: persistent, ...rest } = oldData;
+                root = { oldData };
+                root.audio = audio || {};
+                root.macro = macro || {};
+                newData.presetType = "bless";
+                newData.name = name;
+                newData.hidden = true;
+                root.below = below;
+                root.scale = scale;
+                root.menuType = "spell";
+                root.animation = "bless";
+                root.variant = "01";
+                root.color = color;
+                root.unbindAlpha = unbindAlpha;
+                root.unbindVisibility = unbindVisibility;
+                root.persistent = persistent;
+            }
+            function updateShield(oldData, newData) {
+                newData.shield = {};
+                const root = newData.shield;
+                let { below, color, endeffect, name, scale, variant, macro, addCTA: persistent, unbindAlpha, unbindVisibility, audio } = oldData;
+                root.audio = audio || {};
+                root.macro = macro || {};
+                newData.presetType = "shieldspell";
+                newData.name = name;
+                newData.hidden = true;
+                root.menuType = "spell";
+                root.animation = "shieldspell";
+                root.variant = variant;
+                root.color = color;
+                root.endEffect = endeffect;
+                root.unbindAlpha = unbindAlpha;
+                root.unbindVisibility = unbindVisibility;
+                root.persistent = persistent;
+                root.below = below;
+                root.scale = scale;
+            }
+            function updateTele(oldData, newData) {
+                newData.teleportation = {};
+                const root = newData.teleportation;
+                let { menuType, subAnimation, variant, color, below, custom, customPath,
+                    hideTemplate, name, range, measureType, scale,
+                    menuType02, subAnimation02, variant02, color02, scale02, custom02, customPath02,
+                    macro, delay, audio } = oldData;
+                root.audio = audio || {};
+                root.macro = macro || {};
+                newData.presetType = "shieldspell";
+                newData.name = name;
+                newData.hidden = true;
+                root.hideFromPlayers = hideTemplate;
+                root.range = range;
+                root.measureType = measureType;
+                root.start = {
+                    menuType,
+                    animation: subAnimation,
+                    variant,
+                    color,
+                    below,
+                    enableCustom: custom || false,
+                    customPath,
+                    scale,
+                }
+                root.between = {
+                    enable: false,
+                }
+                root.end = {
+                    menuType: menuType02,
+                    animation: subAnimation02,
+                    variant: variant02,
+                    color: color02,
+                    below,
+                    enableCustom: custom02,
+                    customPath: customPath02,
+                    scale: scale02,
+                    delay
+                }
+
+
+            }
+            function updateDAttach(oldData, newData) {
+                newData.dualattach = {};
+                const root = newData.dualattach;
+                let { name, below, macro, audio, menuType, subAnimation, variant, color, custom, customPath, playbackRate, onlyX } = oldData;
+                root.audio = audio || {};
+                root.macro = macro || {};
+                newData.presetType = "dualattach";
+                newData.name = name;
+                newData.hidden = true;
+                root.menuType = menuType;
+                root.animation = subAnimation;
+                root.variant = variant;
+                root.color = color;
+                root.custom = custom || false;
+                root.customPath = customPath;
+                root.playbackRate = playbackRate;
+                root.onlyX = onlyX;
+                root.below = below;
+            }
+            function updateFireball(oldData, newData) {
+                newData.fireball = {};
+                const root = newData.fireball;
+                let { audio, macro, name, below, animation, rangeType, projectile, projectilVariant, projectileColor, projectileRepeat, projectileDelay, wait01, removeTemplate,
+                    ex01Type, explosion01, explosion01Variant, explosion01Color, explosion01Repeat, explosion01Delay, explosion01Scale, wait02,
+                    ex02Type, explosion02, explosion02Variant, explosion02Color, explosion02Repeat, explosion02Delay, explosion02Scale,
+                    afterEffect, afterEffectPath, wait03 } = oldData;
+                root.audio = audio || {};
+                root.macro = macro || {};
+                newData.presetType = "fireball";
+                newData.name = name;
+                newData.hidden = true;
+                root.removeTemplate = removeTemplate;
+                root.projectile = {
+                    menuType: rangeType,
+                    animation: projectile,
+                    variant: projectilVariant,
+                    color: projectileColor,
+                    repeat: projectileRepeat,
+                    delay: projectileDelay,
+                    wait: wait01,
+                    below: below,
+                }
+                root.explosion01 = {
+                    menuType: ex01Type,
+                    animation: explosion01,
+                    variant: explosion01Variant,
+                    color: explosion01Color,
+                    repeat: explosion01Repeat,
+                    delay, explosion01Delay,
+                    scale: explosion01Scale,
+                    wait: wait02,
+                    below: below,
+                }
+                root.explosion02 = {
+                    menuType: ex02Type,
+                    animation: explosion02,
+                    variant: explosion02Variant,
+                    color: explosion02Color,
+                    repeat: explosion02Repeat,
+                    delay: explosion02Delay,
+                    scale: explosion02Scale,
+                }
+                root.afterImage = {
+                    enable: afterEffect,
+                    customPath: afterEffectPath,
+                    below: true,
+                    scale: 1,
+                    wait: wait03,
+                }
+            }
+            function updateHM(oldData, newData) {
+                newData.huntersmark = {};
+                const root = newData.huntersmark;
+                let { below, name, macro, audio, variant, color, scale, persistent, anchorX, anchorY } = oldData;
+                root.audio = audio || {};
+                root.macro = macro || {};
+                newData.name = name;
+                newData.presetType = "huntersmark";
+                newData.hidden = true;
+                root.variant = variant;
+                root.color = color;
+                root.scale = scale;
+                root.below = below;
+                root.persistent = persistent;
+                root.anchorX = anchorX;
+                root.anchorY = anchorY;
+            }
+            function updateSneak(oldData, newData) {
+                newData.sneakattack = {};
+                const root = newData.sneakattack;
+                let { audio, macro, name, below, variant, color, scale, anchorX, anchorY } = oldData;
+                root.audio = audio || {};
+                root.macro = macro || {};
+                newData.name = name;
+                newData.presetType = "sneakattack";
+                newData.hidden = true;
+                root.variant = variant;
+                root.color = color;
+                root.scale = scale;
+                root.anchorX = anchorX;
+                root.anchorY = anchorY;
+                root.below = below;
+
+            }
+            function updateThunderwave(oldData, newData) {
+                newData.thunderwave = {};
+                const root = newData.thunderwave;
+                let { audio, macro, name, below, color, repeat, delay, scaleX, scaleY, opacity, removeTemplate, persist: persistent, persistType, occlusionMode, occlusionAlpha } = oldData;
+                root.audio = audio || {};
+                root.macro = macro || {};
+                newData.name = name;
+                newData.presetType = "thunderwave";
+                newData.hidden = true;
+                root.color = color;
+                root.below = below;
+                root.repeat = repeat;
+                root.delay = delay;
+                root.scaleX = scaleX;
+                root.scaleY = scaleY;
+                root.opacity = opacity;
+                root.removeTemplate = removeTemplate;
+                root.persistent = persistent;
+                root.persistType = persistType;
+                root.occlusionMode = occlusionMode;
+                root.occlusionAlpha = occlusionAlpha;
+            }
+
             await game.settings.set('autoanimations', 'aaAutorec', newMenu)
-        }
+        },
     }
 }

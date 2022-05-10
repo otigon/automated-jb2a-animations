@@ -10,8 +10,33 @@
     export let flagData;
     export let isAutoRec;
 
-    let root;
+    /*Data Structure
+        section: {
+            bardicinspiration: {
+                scale: Number,
+                below: Boolean,
+                self: {
+                    enable: Boolean,
+                    animation: String,
+                    variant: String,
+                    color: String,
+                },
+                target: {
+                    enable: Boolean,
+                    animation: String,
+                    variant: String,
+                    color: String,
+                },
+                marker: {
+                    enable: Boolean,
+                    selfColor: String,
+                    targetColor: String,
+                },
+            }
+        }
+    */
 
+    let root;
     if (isAutoRec) {
         root = flagData;
     } else {
@@ -22,60 +47,66 @@
         : (root.bardicinspiration = {});
     const preset = root.bardicinspiration;
 
-    let bardSelf = preset.bardSelf || false;
-    $: bardSelf = preset.bardSelf = bardSelf;
+    preset.self ? preset.self : (preset.self = {});
+    const self = preset.self;
+    let bardSelf = self.enable || false;
+    $: bardSelf = self.enable = bardSelf;
 
-    let sourceAnimation = preset.bardAnim || "bardicinspiration";
-    $: sourceAnimation = preset.bardAnim = sourceAnimation;
+    let sourceAnimation = self.animation || "bardicinspiration";
+    $: sourceAnimation = self.animation = sourceAnimation;
     let sourceType =
         sourceAnimation === "bardicinspiration" ? "spell" : "music";
     $: sourceType = sourceAnimation === "bardicinspiration" ? "spell" : "music";
 
     let sourceVariant =
-        preset.bardVariant ||
+        self.variant ||
         Object.keys(aaVariantMenu.static[sourceType][sourceAnimation])[0];
-    $: sourceVariant = preset.bardVariant = sourceVariant;
+    $: sourceVariant = self.variant = sourceVariant;
 
     let sourceColor =
-        preset.bardSelfColor ||
+        self.color ||
         Object.keys(
             aaColorMenu.static[sourceType][sourceAnimation][sourceVariant]
         )[0];
-    $: sourceColor = preset.bardSelfColor = sourceColor;
+    $: sourceColor = self.color = sourceColor;
 
-    let bardTarget = preset.bardTarget || false;
-    $: bardTarget = preset.bardTarget = bardTarget;
+    preset.target ? preset.target : (preset.target = {});
+    const target = preset.target;
+    let bardTarget = target.enable || false;
+    $: bardTarget = target.enable = bardTarget;
 
-    let targetAnimation = preset.bardTargetAnim || "bardicinspiration";
-    $: targetAnimation = preset.bardTargetAnim = targetAnimation;
+    let targetAnimation = target.animation || "bardicinspiration";
+    $: targetAnimation = target.animation = targetAnimation;
     let targetType =
         targetAnimation === "bardicinspiration" ? "spell" : "music";
     $: targetType = targetAnimation === "bardicinspiration" ? "spell" : "music";
 
     let targetVariant =
-        preset.bardTargetVariant ||
+        target.variant ||
         Object.keys(aaVariantMenu.static[targetType][targetAnimation])[0];
-    $: targetVariant = preset.bardTargetVariant = targetVariant;
+    $: targetVariant = target.variant = targetVariant;
 
     let targetColor =
-        preset.bardTargetColor ||
+        target.color ||
         Object.keys(
             aaColorMenu.static[targetType][targetAnimation][targetVariant]
         )[0];
-    $: targetColor = preset.bardTargetColor = targetColor;
+    $: targetColor = target.color = targetColor;
 
-    let markerEnable = preset.markerEnable || false;
-    $: markerEnable = preset.markerEnable = markerEnable;
+    preset.marker ? preset.marker : (preset.marker = {});
+    const marker = preset.marker;
+    let markerEnable = marker.enable || false;
+    $: markerEnable = marker.enable = markerEnable;
 
     let markerColorSelf =
-        preset.markerColor ||
+        marker.selfColor ||
         Object.keys(aaColorMenu.static.spell.bardicinspiration.marker)[0];
-    $: markerColorSelf = preset.markerColor = markerColorSelf;
+    $: markerColorSelf = marker.selfColor = markerColorSelf;
 
     let markerColorTarget =
-        preset.markerColorTarget ||
+        marker.targetColor ||
         Object.keys(aaColorMenu.static.spell.bardicinspiration.marker)[0];
-    $: markerColorTarget = preset.markerColorTarget = markerColorTarget;
+    $: markerColorTarget = marker.targetColor = markerColorTarget;
 
     let scale = preset.scale || 1;
     $: scale = preset.scale = scale;
@@ -90,7 +121,7 @@
 
     function switchSourceEnable() {
         bardSelf = !bardSelf;
-        preset.bardSelf = bardSelf;
+        self.enable = bardSelf;
     }
     async function sourceAnimationChange() {
         let newAnimation = sourceAnimation;
@@ -111,7 +142,7 @@
     }
     function switchTargetEnable() {
         bardTarget = !bardTarget;
-        preset.bardTarget = bardTarget;
+        target.enable = bardTarget;
     }
     async function targetAnimationChange() {
         let newAnimation = targetAnimation;
@@ -132,182 +163,195 @@
     }
     function switchMarkerEnable() {
         markerEnable = !markerEnable;
-        preset.markerEnable = markerEnable;
+        marker.enable = markerEnable;
     }
 </script>
 
 <div class="aaMenu-section">
-<h1 style="margin-bottom: 15px">Bardic Inspiration Preset</h1>
-<div class="aa-subheader-section">
-    <div class="aa-subheader">
-        <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-            <label for="">Source Animation</label>
-        </div>
-        <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
-            <i
-                class="{bardSelf
-                    ? 'fas fa-minus aa-red'
-                    : 'fas fa-plus aa-green'} aaCenterToggle"
-                on:click={() => switchSourceEnable()}
-            />
+    <h1 style="margin-bottom: 15px">Bardic Inspiration Preset</h1>
+    <div class="aa-subheader-section">
+        <div class="aa-subheader">
+            <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
+                <label for="">Source Animation</label>
+            </div>
+            <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
+                <i
+                    class="{bardSelf
+                        ? 'fas fa-minus aa-red'
+                        : 'fas fa-plus aa-green'} aaCenterToggle"
+                    on:click={() => switchSourceEnable()}
+                />
+            </div>
         </div>
     </div>
-</div>
-{#if bardSelf}
-    <div class="aa-3wide" transition:fade>
-        <!--Animation Menu-->
-        <div class="flexcol" style="grid-row: 3 / 4;grid-column: 1 / 2;">
-            <label for="">{localize("AUTOANIM.animation")}</label>
-            <select
-                name="flags.autoanimations.animation"
-                bind:value={sourceAnimation}
-                on:change={async () => await sourceAnimationChange()}
-            >
-                <option value="bardicinspiration"
-                    >{localize("AUTOANIM.bardicinspiration")}</option
+    {#if bardSelf}
+        <div class="aa-3wide" transition:fade>
+            <!--Animation Menu-->
+            <div class="flexcol" style="grid-row: 3 / 4;grid-column: 1 / 2;">
+                <label for="">{localize("AUTOANIM.animation")}</label>
+                <select
+                    name="flags.autoanimations.animation"
+                    bind:value={sourceAnimation}
+                    on:change={async () => await sourceAnimationChange()}
                 >
-                <option value="notes">{localize("AUTOANIM.musicnote")}</option>
-            </select>
+                    <option value="bardicinspiration"
+                        >{localize("AUTOANIM.bardicinspiration")}</option
+                    >
+                    <option value="notes"
+                        >{localize("AUTOANIM.musicnote")}</option
+                    >
+                </select>
+            </div>
+            <!--Variant Menu-->
+            <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
+                <label for="">{localize("AUTOANIM.variant")}</label>
+                <select
+                    name="flags.autoanimations.options.variant"
+                    bind:value={sourceVariant}
+                    on:change={async () => await sourceVariantChange()}
+                >
+                    {#each Object.entries(aaVariantMenu.static[sourceType][sourceAnimation]) as [key, name]}
+                        <option value={key}>{name}</option>
+                    {/each}
+                </select>
+            </div>
+            <!--Color Menu-->
+            <div class="flexcol" style="grid-row: 3 / 4;grid-column: 3 / 4;">
+                <label for="">{localize("AUTOANIM.color")}</label>
+                <select
+                    name="flags.autoanimations.color"
+                    bind:value={sourceColor}
+                >
+                    {#each Object.entries(aaColorMenu.static[sourceType][sourceAnimation][sourceVariant]) as [key, name]}
+                        <option value={key}>{name}</option>
+                    {/each}
+                </select>
+            </div>
         </div>
-        <!--Variant Menu-->
-        <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
-            <label for="">{localize("AUTOANIM.variant")}</label>
-            <select
-                name="flags.autoanimations.options.variant"
-                bind:value={sourceVariant}
-                on:change={async () => await sourceVariantChange()}
-            >
-                {#each Object.entries(aaVariantMenu.static[sourceType][sourceAnimation]) as [key, name]}
-                    <option value={key}>{name}</option>
-                {/each}
-            </select>
-        </div>
-        <!--Color Menu-->
-        <div class="flexcol" style="grid-row: 3 / 4;grid-column: 3 / 4;">
-            <label for="">{localize("AUTOANIM.color")}</label>
-            <select name="flags.autoanimations.color" bind:value={sourceColor}>
-                {#each Object.entries(aaColorMenu.static[sourceType][sourceAnimation][sourceVariant]) as [key, name]}
-                    <option value={key}>{name}</option>
-                {/each}
-            </select>
-        </div>
-    </div>
-{/if}
+    {/if}
 </div>
 <div class="aaMenu-section">
-<div class="aa-subheader-section">
-    <div class="aa-subheader">
-        <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-            <label for="">Target Animation</label>
-        </div>
-        <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
-            <i
-                class="{bardTarget
-                    ? 'fas fa-minus aa-red'
-                    : 'fas fa-plus aa-green'} aaCenterToggle"
-                on:click={() => switchTargetEnable()}
-            />
+    <div class="aa-subheader-section">
+        <div class="aa-subheader">
+            <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
+                <label for="">Target Animation</label>
+            </div>
+            <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
+                <i
+                    class="{bardTarget
+                        ? 'fas fa-minus aa-red'
+                        : 'fas fa-plus aa-green'} aaCenterToggle"
+                    on:click={() => switchTargetEnable()}
+                />
+            </div>
         </div>
     </div>
-</div>
-{#if bardTarget}
-    <div class="aa-3wide" transition:fade>
-        <!--Animation Menu-->
-        <div class="flexcol" style="grid-row: 3 / 4;grid-column: 1 / 2;">
-            <label for="">{localize("AUTOANIM.animation")}</label>
-            <select
-                name="flags.autoanimations.animation"
-                bind:value={targetAnimation}
-                on:change={async () => await targetAnimationChange()}
-            >
-                <option value="bardicinspiration"
-                    >{localize("AUTOANIM.bardicinspiration")}</option
+    {#if bardTarget}
+        <div class="aa-3wide" transition:fade>
+            <!--Animation Menu-->
+            <div class="flexcol" style="grid-row: 3 / 4;grid-column: 1 / 2;">
+                <label for="">{localize("AUTOANIM.animation")}</label>
+                <select
+                    name="flags.autoanimations.animation"
+                    bind:value={targetAnimation}
+                    on:change={async () => await targetAnimationChange()}
                 >
-                <option value="notes">{localize("AUTOANIM.musicnote")}</option>
-            </select>
+                    <option value="bardicinspiration"
+                        >{localize("AUTOANIM.bardicinspiration")}</option
+                    >
+                    <option value="notes"
+                        >{localize("AUTOANIM.musicnote")}</option
+                    >
+                </select>
+            </div>
+            <!--Variant Menu-->
+            <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
+                <label for="">{localize("AUTOANIM.variant")}</label>
+                <select
+                    name="flags.autoanimations.options.variant"
+                    bind:value={targetVariant}
+                    on:change={async () => await targetVariantChange()}
+                >
+                    {#each Object.entries(aaVariantMenu.static[targetType][targetAnimation]) as [key, name]}
+                        <option value={key}>{name}</option>
+                    {/each}
+                </select>
+            </div>
+            <!--Color Menu-->
+            <div class="flexcol" style="grid-row: 3 / 4;grid-column: 3 / 4;">
+                <label for="">{localize("AUTOANIM.color")}</label>
+                <select
+                    name="flags.autoanimations.color"
+                    bind:value={targetColor}
+                >
+                    {#each Object.entries(aaColorMenu.static[targetType][targetAnimation][targetVariant]) as [key, name]}
+                        <option value={key}>{name}</option>
+                    {/each}
+                </select>
+            </div>
         </div>
-        <!--Variant Menu-->
-        <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
-            <label for="">{localize("AUTOANIM.variant")}</label>
-            <select
-                name="flags.autoanimations.options.variant"
-                bind:value={targetVariant}
-                on:change={async () => await targetVariantChange()}
-            >
-                {#each Object.entries(aaVariantMenu.static[targetType][targetAnimation]) as [key, name]}
-                    <option value={key}>{name}</option>
-                {/each}
-            </select>
-        </div>
-        <!--Color Menu-->
-        <div class="flexcol" style="grid-row: 3 / 4;grid-column: 3 / 4;">
-            <label for="">{localize("AUTOANIM.color")}</label>
-            <select name="flags.autoanimations.color" bind:value={targetColor}>
-                {#each Object.entries(aaColorMenu.static[targetType][targetAnimation][targetVariant]) as [key, name]}
-                    <option value={key}>{name}</option>
-                {/each}
-            </select>
-        </div>
-    </div>
-{/if}
+    {/if}
 </div>
 <div class="aaMenu-section">
-<div class="aa-subheader-section">
-    <div class="aa-subheader">
-        <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-            <label for="">Marker Animation</label>
-        </div>
-        <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
-            <i
-                class="{markerEnable
-                    ? 'fas fa-minus aa-red'
-                    : 'fas fa-plus aa-green'} aaCenterToggle"
-                on:click={() => switchMarkerEnable()}
-            />
+    <div class="aa-subheader-section">
+        <div class="aa-subheader">
+            <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
+                <label for="">Marker Animation</label>
+            </div>
+            <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
+                <i
+                    class="{markerEnable
+                        ? 'fas fa-minus aa-red'
+                        : 'fas fa-plus aa-green'} aaCenterToggle"
+                    on:click={() => switchMarkerEnable()}
+                />
+            </div>
         </div>
     </div>
+    {#if markerEnable}
+        <div class="aa-3wide" transition:fade>
+            <!--Color Menu-->
+            <div class="flexcol" style="grid-row: 1 / 2;grid-column: 1 / 2;">
+                <label for="">{localize("AUTOANIM.markerColor")}</label>
+                <select bind:value={markerColorSelf}>
+                    {#each Object.entries(aaColorMenu.static.spell.bardicinspiration.marker) as [key, name]}
+                        <option value={key}>{name}</option>
+                    {/each}
+                </select>
+            </div>
+            <!--Color Menu-->
+            <div class="flexcol" style="grid-row: 1 / 2;grid-column: 3 / 4;">
+                <label for="">{localize("AUTOANIM.markerColorTarget")}</label>
+                <select bind:value={markerColorTarget}>
+                    {#each Object.entries(aaColorMenu.static.spell.bardicinspiration.marker) as [key, name]}
+                        <option value={key}>{name}</option>
+                    {/each}
+                </select>
+            </div>
+        </div>
+        <h2 style="margin-top:5px;">Options</h2>
+        <div class="aa-options">
+            <!--Set Z-Index-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+                <label for="">Z-Index</label>
+                <button class="oldCheck" on:click={() => below()}
+                    >{aboveBelow}</button
+                >
+            </div>
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+                <label for="">{localize("AUTOANIM.scale")}</label>
+                <input
+                    type="Number"
+                    bind:value={scale}
+                    placeholder="1"
+                    step="0.01"
+                />
+            </div>
+        </div>
+    {/if}
+    <SoundSettings audioPath="a01" {flagData} />
 </div>
-{#if markerEnable}
-    <div class="aa-3wide" transition:fade>
-        <!--Color Menu-->
-        <div class="flexcol" style="grid-row: 1 / 2;grid-column: 1 / 2;">
-            <label for="">{localize("AUTOANIM.markerColor")}</label>
-            <select bind:value={markerColorSelf}>
-                {#each Object.entries(aaColorMenu.static.spell.bardicinspiration.marker) as [key, name]}
-                    <option value={key}>{name}</option>
-                {/each}
-            </select>
-        </div>
-        <!--Color Menu-->
-        <div class="flexcol" style="grid-row: 1 / 2;grid-column: 3 / 4;">
-            <label for="">{localize("AUTOANIM.markerColorTarget")}</label>
-            <select bind:value={markerColorTarget}>
-                {#each Object.entries(aaColorMenu.static.spell.bardicinspiration.marker) as [key, name]}
-                    <option value={key}>{name}</option>
-                {/each}
-            </select>
-        </div>
-    </div>
-<h2 style="margin-top:5px;">Options</h2>
-<div class="aa-options">
-    <!--Set Z-Index-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-        <label for="">Z-Index</label>
-        <button class="oldCheck" on:click={() => below()}>{aboveBelow}</button>
-    </div>
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-        <label for="">{localize("AUTOANIM.scale")}</label>
-        <input
-            type="Number"
-            bind:value={scale}
-            placeholder=1
-            step=0.01
-        />
-    </div>
-</div>
-{/if}
-<SoundSettings audioPath="a01" {flagData} />
-</div>
+
 <style lang="scss">
     .aa-3wide {
         display: grid;
