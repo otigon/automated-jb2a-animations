@@ -1,6 +1,6 @@
 export const autoRecMigration = {
 
-    async handle(autoObject) {
+    async handle(autoObject, shouldSubmit) {
 
         if (!autoObject) { return; }
         if (this.upToDate(autoObject)) { return; }
@@ -14,7 +14,11 @@ export const autoRecMigration = {
 
             currentAutorec = await migration(currentAutorec)
         }
-        await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
+        if (shouldSubmit) {
+            return currentAutorec;
+        } else {
+            await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
+        }
         ui.notifications.info("Automatic Recognition Menu update is Complete!")
     },
 

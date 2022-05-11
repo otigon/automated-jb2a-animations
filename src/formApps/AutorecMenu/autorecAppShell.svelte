@@ -26,7 +26,7 @@
     storeData.set(game.settings.get("autoanimations", "aaAutorec"))
 
     // TODO: this is a test console.log showing updates to `aaAutorec` game settings.
-    $: console.log(`! autorecAppShell - storeData (aaAutorec): \n`, $storeData);
+    //$: console.log(`! autorecAppShell - storeData (aaAutorec): \n`, $storeData);
 
     // TODO: Remove this and make `aaAutorec` setting store above the authority.
     //const data = game.settings.get("autoanimations", "aaAutorec");
