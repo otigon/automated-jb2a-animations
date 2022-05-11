@@ -18,8 +18,6 @@
     $: primaryMenuType = primaryMenuType;
     export let primaryAnimation;
     $: primaryAnimation = primaryAnimation;
-    console.log(primaryMenuType)
-    console.log(primaryAnimation)
     const returningWeapons = [
         "chakram",
         "dagger",
@@ -29,6 +27,7 @@
         "spear",
         "dart"
     ];
+    flagData.meleeSwitch ? flagData.meleeSwitch : flagData.meleeSwitch = {};
     let meleeSwitch = flagData.meleeSwitch;
 
     let switchType = meleeSwitch.switchType || "on";

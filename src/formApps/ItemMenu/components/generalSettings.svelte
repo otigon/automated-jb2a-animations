@@ -1,9 +1,6 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { getContext } from "svelte";
-    import { fade, fly } from "svelte/transition";
-    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
-    import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
+    import { fade } from "svelte/transition";
 
     export let flagData;
     export let disableAmmo;
@@ -40,7 +37,7 @@
     $: isCustomized = isCustomized;
     $: flagData.override = isCustomized;
 
-    let overrideAuto = autoOverride.enable || false;
+    export let overrideAuto = autoOverride.enable || false;
     $: overrideAuto = overrideAuto;
     $: autoOverride.enable = overrideAuto;
 

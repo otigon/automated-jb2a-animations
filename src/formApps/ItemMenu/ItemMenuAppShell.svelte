@@ -16,6 +16,7 @@
     import ExtraFX from "./components/extraFX.svelte";
     import Menu3d from "./components/3dMenuShell.svelte";
     import PresetMenu from "./components/presetShell.svelte";
+    import AutoOverride from "./components/AutoOverride.svelte";
     import {
         extraSource,
         extraTarget,
@@ -36,6 +37,9 @@
     export const flags = itemFlags.autoanimations || {};
     const oldName = item.name || item.sourceName;
     const autoCheck = AutorecFunctions._checkAutoRec(oldName);
+    const autoObject = autoCheck ? AutorecFunctions._findObjectFromArray(game.settings.get('autoanimations', 'aaAutorec'), AutorecFunctions._rinseName(oldName)) : {};
+
+    console.log(autoObject)
 
     const wait = (delay) =>
         new Promise((resolve) => setTimeout(resolve, delay));
@@ -220,6 +224,9 @@
             shouldShowTargetFX = true;
         }
     }
+
+    let overrideAuto = flagData.autoOverride.enable || false;
+    $: overrideAuto = overrideAuto;
 </script>
 
 <ApplicationShell
@@ -280,6 +287,7 @@
                         bind:animationDisabled
                         bind:isCustomized
                         bind:enableMacro
+                        bind:overrideAuto
                         {autoCheck}
                         {flagData}
                     />
@@ -463,6 +471,9 @@
                             <ExplosionSettings {flagData} />
                         </div>
                     {/if}
+                {/if}
+                {#if !animationDisabled && overrideAuto}
+                        <AutoOverride {flagData} {autoObject}/>
                 {/if}
             </div>
         {/if}

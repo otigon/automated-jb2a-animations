@@ -9,6 +9,7 @@
     import Canvas3D from "../ItemMenu/components/3dMenuShell.svelte";
     import ExtraFX from "../ItemMenu/components/extraFX.svelte";
     import MacroField from "../ItemMenu/components/macro.svelte";
+    import RangeSwitch from "../ItemMenu/components/meleeRange.svelte";
 
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import {
@@ -342,6 +343,9 @@
                 />
                 <Options animType={type} {menuType} flagData={menuSection} />
                 <SoundSettings audioPath="a01" flagData={menuSection} />
+                {#if type === "melee"}
+                    <RangeSwitch primaryAnimation={animation} primaryMenuType={menuType} flagData={menuSection}/>
+                {/if}
                 {#if showExplosions.includes(type)}
                     <AddExplosion flagData={menuSection} />
                 {/if}

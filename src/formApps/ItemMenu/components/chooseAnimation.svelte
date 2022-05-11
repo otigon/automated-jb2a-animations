@@ -26,7 +26,7 @@
         animType = animType;
     }
     $: if (animTypeSwitched) {
-        animTypeChange(flagPath)
+        animTypeChange(flagPath);
     }
     // Defines the initial Flag path depending on the Section calling this Component
     let rootPath;
@@ -51,7 +51,10 @@
             if (isAutoRec) {
                 rootPath = customRoot = flagOptions = flagData[presetType];
             } else {
-                rootPath = customRoot = flagOptions = flagData.preset[presetType];
+                rootPath =
+                    customRoot =
+                    flagOptions =
+                        flagData.preset[presetType];
             }
             break;
         case "MeleeSwitch":
@@ -146,6 +149,13 @@
         staticType = staticType;
         options.staticType = staticType;
     }
+    let dbPath;
+    $: {
+        dbPath =
+            color !== "random"
+                ? `autoanimations.${animType}.${menuType}.${animation}.${variant}.${color}`
+                : `autoanimations.${animType}.${menuType}.${animation}.${variant}`;
+    }
 </script>
 
 <div transition:fade>
@@ -187,12 +197,16 @@
                     id="6"
                     style="text-align: center;justify-self: center; background-color: rgba(21, 154, 169, 0.4);"
                 >
-                    <option value="source">{localize("autoanimations.menus.source")}</option
+                    <option value="source"
+                        >{localize("autoanimations.menus.source")}</option
                     >
-                    <option value="target">{localize("autoanimations.menus.target")}</option
+                    <option value="target"
+                        >{localize("autoanimations.menus.target")}</option
                     >
                     <option value="targetDefault"
-                        >{localize("autoanimations.menus.targetDefault")}</option
+                        >{localize(
+                            "autoanimations.menus.targetDefault"
+                        )}</option
                     >
                     <option value="sourcetarget"
                         >{localize("autoanimations.menus.both")}</option
@@ -266,9 +280,18 @@
             </select>
         </div>
     </div>
-    <CustomPicker {flagPath} {presetSubType} {presetType} {flagData} {customId} bind:isCustom bind:customPath />
+    <CustomPicker
+        {flagPath}
+        {dbPath}
+        {presetSubType}
+        {presetType}
+        {flagData}
+        {customId}
+        bind:isCustom
+        bind:customPath
+    />
     <div class="aa-3wide">
-        {#if (animType === "range" && isCustom && (flagPath === "PrimaryAnimation" || shouldShowOnlyX))}
+        {#if animType === "range" && isCustom && (flagPath === "PrimaryAnimation" || shouldShowOnlyX)}
             <div
                 class="flexcol aa-button-labels"
                 style="grid-row: 1 / 2; grid-column: 3 / 4;"

@@ -5,10 +5,10 @@
     export let customPath;
     export let isCustom;
     export let customId;
-
+    export let dbPath;
     //const options = flagData.options || {};
     //let customPath = options.customPath || "";
-    $: customPath = customPath;
+    $: customPath = isCustom ? customPath : dbPath;
 
     $: isCustom = isCustom;
 
@@ -86,7 +86,7 @@
         transition: box-shadow 0.5s;
     }
     .opacityText {
-        color: rgba(133, 133, 133, 0.418);
+        opacity: 0.6;
     }
     .opacityButton button {
         border: 2px outset rgba(133, 133, 133, 0.418);
