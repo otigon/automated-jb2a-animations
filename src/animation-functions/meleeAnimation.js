@@ -45,7 +45,7 @@ export async function meleeAnimation(handler, animationData) {
     const sourceToken = handler.sourceToken;
     //const sourceScale = data.animation === "unarmedstrike" || data.animation === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
     const sourceTokenGS = (sourceToken.width / canvas.grid.size) * 4;
-
+    
     async function cast() {
 
         const rangeSwitchActive = game.settings.get("autoanimations", "rangeSwitch")

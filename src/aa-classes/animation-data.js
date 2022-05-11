@@ -118,10 +118,11 @@ export class AAanimationData {
 
             data.switchAnimation = data.switchType === "custom" ? data.switchAnimation || "" : data.animation || "";
             data.switchType = data.switchType || "on";
-            data.switchVariant = data.switchVariant ?? "01";
-            data.switchColor = data.switchColor || "white";
+            data.switchMenuType = data.switchType === "custom" ? data.switchMenuType || "weapon" : "weapon",
+            data.switchVariant = data.switchType === "custom" ? data.switchVariant ?? "01" :  data.variant || "01";
+            data.switchColor = data.switchType === "custom" ? data.switchColor || "white" : data.color || "white";
             data.detect = data.detect ?? "auto";
-            data.return = data.returning || false;
+            data.return = data.return || false;
             data.range = data.range ?? 2;
             data.switchAudio = {
                 enable: data.audio?.a02?.enable || false,
