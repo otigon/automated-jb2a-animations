@@ -116,6 +116,7 @@ export async function trafficCop(handler) {
                         case "dnd5e":
                         case "pf2e":
                         case "sw5e":
+                        case "swade":
                             if (game.modules.get("mars-5e")?.active) {
                                 autoOnlyData()
                             } else {
@@ -185,6 +186,7 @@ export async function trafficCop(handler) {
                     case "pf2e":
                     case "sw5e":
                     case "tormenta20":
+                    case "swade":
                         if (game.modules.get("mars-5e")?.active) {
                             templateAnimation(handler, animationData, config);
                         } else {
@@ -230,6 +232,7 @@ export async function trafficCop(handler) {
                             case "dnd5e":
                             case "pf2e":
                             case "sw5e":
+                            case "swade":
                                 if (game.modules.get("mars-5e")?.active) {
                                     thunderwaveAuto(handler, animationData, config);
                                 } else {
@@ -248,6 +251,7 @@ export async function trafficCop(handler) {
                             case "dnd5e":
                             case "pf2e":
                             case "sw5e":
+                            case "swade":
                                 if (game.modules.get("mars-5e")?.active/* || game.modules.get('midi-qol')?.active*/) {
                                     fireball(handler, animationData);
                                 } else {

@@ -22,7 +22,7 @@ export async function shieldSpell(handler, animationData) {
         function random_item(items) {
             return items[Math.floor(Math.random() * items.length)];
         }
-        color = color === "random" ? random_item(Object.keys(aaColorMenu.static.bless[variant])) : color;
+        color = color === "random" ? random_item(Object.keys(aaColorMenu.static.spell.shieldspell[variant])) : color;
         //const shieldVar = handler.options.shieldVar || "outro_fade";
 
         const file01 = `autoanimations.static.spell.shieldspell.${variant}.${color}.intro`;
