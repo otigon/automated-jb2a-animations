@@ -7,6 +7,8 @@
     import ChooseAnimation from "../components/chooseAnimation.svelte";
     import Options from "../components/options.svelte";
     import SoundSettings from "../components/soundSettings.svelte";
+    import RangeSwitch from "../components/meleeRange.svelte";
+    import ExplosionSettings from "../components/explosions.svelte";
 
     import {
         menuDBPath01,
@@ -22,16 +24,16 @@
     const options = autoObject.options;
     const menuSection = autoObject.menuSection;
 
-    let menuType = overrideOptions.menuType || options.menuType;
+    export let menuType = overrideOptions.menuType || options.menuType;
     $: menuType = overrideOptions.menuType = menuType;
-    let animation = autoSection.animation || autoObject.animation;
+    export let animation = autoSection.animation || autoObject.animation;
     $: animation = autoSection.animation = animation;
     let variant = overrideOptions.variant || options.variant;
     $: variant = overrideOptions.variant = variant;
     let color = autoSection.color || autoObject.color;
     $: color = autoSection.color = color;
 
-    let isCustom = overrideOptions.enableCustom ? overrideOptions.enableCustom || false : autoObject.options?.enableCustom || false;
+    let isCustom = overrideOptions.enableCustom || false;
     $: isCustom = overrideOptions.enableCustom = isCustom;
     let customPath = overrideOptions.customPath || options.customPath;
     $: customPath = overrideOptions.customPath = customPath;
@@ -95,6 +97,21 @@
     <Options {animType} {menuType} flagData={autoSection} />
     <SoundSettings audioPath="a01" flagData={autoSection} />
 </div>
+{#if animType === "melee"}
+<div class="aaMenu-section">
+    <RangeSwitch
+        primaryAnimation={animation}
+        primaryMenuType={menuType}
+        flagData={autoSection}
+    />
+</div>
+{/if}
+{#if animType === "melee" || animType === "range" || animType === "static"}
+<div class="aaMenu-section">
+    <ExplosionSettings flagData={autoSection} />
+</div>
+{/if}
+
 
 <style lang="scss">
 </style>

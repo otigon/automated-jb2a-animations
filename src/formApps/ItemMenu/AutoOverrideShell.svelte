@@ -7,13 +7,14 @@
     export let autoObject;
 
     let animType = autoObject.menuSection;
+    Object.keys(flagData.autoOverride).length > 1 ? flagData.autoOverride : flagData.autoOverride = {...flagData.autoOverride, ...autoObject};
     const autoSection = flagData.autoOverride;
 
 
 </script>
 
 {#if animType === "preset"}
-    <PresetMenus />
+    <PresetMenus {autoSection}/>
 {:else}
     <PrimaryMenus {animType} {autoObject} {autoSection}/>
 {/if}
