@@ -1711,12 +1711,12 @@ export async function jb2aAAFreeDatabase(path) {
                 },
             },
             bless: {
-                '01': {
-                    yellow: {
-                        'intro': l1`Bless/Bless_01_Regular_Yellow_Intro_400x400.webm`,
-                        'loop': l1`Bless/Bless_01_Regular_Yellow_Loop_400x400.webm`
-                    }
-                }
+                "intro": {
+                    yellow: [l1`Bless/Bless_01_Regular_Yellow_Intro_400x400.webm`],
+                },
+                "loop": {
+                    yellow: [l1`Bless/Bless_01_Regular_Yellow_Loop_400x400.webm`],
+                },
             },
             calllightning: {
                 '01': {
