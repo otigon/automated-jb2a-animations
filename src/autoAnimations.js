@@ -356,12 +356,11 @@ Hooks.once('ready', async function () {
                     //let targets = game.user.targets;
                     wfrpTrait(data, info)
                 });
-                /*
                 Hooks.on("wfrp4e:rollTest", async (data, info) => {
-                    let targets = game.user.targets;
-                    wfrpSkill(data, targets, info)
+                    //let targets = game.user.targets;
+                    wfrpSkill(data, info)
                 });
-                */
+                
                 break;
             case 'ose':
                 Hooks.on("createChatMessage", async (msg) => { oseReady(msg) });
@@ -865,6 +864,7 @@ async function wfrpWeapon(data, info) {
 async function wfrpPrayer(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
+    if (data.result.outcome != "success" && game.settings.get('autoanimations', 'castOnlyOnSuccess')) { return }
     let handler = await systemData.make({ item: data.prayer, targets: data.context?.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
@@ -899,11 +899,11 @@ async function wfrpTrait(data, info) {
             trafficCop(handler);
     }
 }
-/*
 async function wfrpSkill(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.skill, targets: data.targets, info: info });
+    if (data.result.outcome != "success" && game.settings.get('autoanimations', 'castOnlyOnSuccess')) { return }
+    let handler = await systemData.make({ item: data.skill, targets: data.context?.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
@@ -912,7 +912,7 @@ async function wfrpSkill(data, info) {
             trafficCop(handler);
     }
 }
-*/
+
 async function oseReady(input) {
     if (killAllAnimations) { return; }
     if (input.user.id !== game.user.id) { return };
