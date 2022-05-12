@@ -227,7 +227,7 @@ export class AutorecFunctions {
         const mergedArray = [];
         const keys = Object.keys(data);
         const keyLength = keys.length;
-        for (var i = 1; i < keyLength; i++) {
+        for (var i = 0; i < keyLength; i++) {
             if (keys[i] === 'version' || keys[i] === 'aefx') { continue; }
             var arrayLength = Object.keys(data[keys[i]]).length
             var currentObject = data[keys[i]];

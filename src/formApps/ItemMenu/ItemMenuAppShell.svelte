@@ -16,7 +16,7 @@
     import ExtraFX from "./components/extraFX.svelte";
     import Menu3d from "./components/3dMenuShell.svelte";
     import PresetMenu from "./components/presetShell.svelte";
-    import AutoOverride from "./components/AutoOverride.svelte";
+    import AutoOverride from "./AutoOverrideShell.svelte";
     import {
         extraSource,
         extraTarget,
@@ -38,7 +38,7 @@
     const oldName = item.name || item.sourceName;
     const autoCheck = AutorecFunctions._checkAutoRec(oldName);
     const autoObject = autoCheck ? AutorecFunctions._findObjectFromArray(game.settings.get('autoanimations', 'aaAutorec'), AutorecFunctions._rinseName(oldName)) : {};
-
+    console.log(autoCheck)
     console.log(autoObject)
 
     const wait = (delay) =>

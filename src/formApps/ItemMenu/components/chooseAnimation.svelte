@@ -60,8 +60,10 @@
         case "MeleeSwitch":
             rootPath = customRoot = flagOptions = flagData.meleeSwitch;
             break;
-    }
+        case "autoOverride":
 
+            break;
+    }
     // Sets the Flag Path depending on the section
     const options = flagOptions;
     // Sets Initial menuType for Menu - Assigns to Flag when updated
