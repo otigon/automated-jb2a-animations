@@ -39,30 +39,35 @@
             break;
     }
 
-    let repeat = root.loops || 1;
-    $: repeat = root.loops = repeat;
+    root.options ? root.options : root.options = {};
+    const options = root.options;
+    root.primary ? root.primary : root.primary = {};
+    const primary = root.primary;
 
-    let delay = root.loopDelay;
-    $: delay = root.loopDelay = delay;
+    let repeat = options.repeat || 1;
+    $: repeat = options.repeat = repeat;
 
-    let scale = root.scale || 1;
-    $: scale = root.scale = scale;
+    let delay = options.delay || 250;
+    $: delay = options.delay = delay;
 
-    let belowToken = root.animLevel || false;
-    $: belowToken = root.animLevel = belowToken;
+    let scale = options.scale || 1;
+    $: scale = options.scale = scale;
 
-    let opacity = root.opacity || 1;
-    $: opacity = root.opacity = opacity > 1 ? 1 : opacity;
+    let belowToken = options.below || false;
+    $: belowToken = options.below = belowToken;
 
-    let unbindAlpha = root.unbindAlpha || false;
-    $: unbindAlpha = root.unbindAlpha = unbindAlpha;
+    let opacity = options.opacity || 1;
+    $: opacity = options.opacity = opacity > 1 ? 1 : opacity;
 
-    let unbindVisbility = root.unbindVisbility || false;
-    $: unbindVisbility = root.unbindVisbility = unbindVisbility;
+    let unbindAlpha = options.unbindAlpha || false;
+    $: unbindAlpha = options.unbindAlpha = unbindAlpha;
+
+    let unbindVisbility = options.unbindVisbility || false;
+    $: unbindVisbility = options.unbindVisbility = unbindVisbility;
 
     let persistent =
-        flagPath === "sourceExtraFX" ? false : root.persistent || false;
-    $: persistent = root.persistent = persistent;
+        flagPath === "sourceExtraFX" ? false : options.persistent || false;
+    $: persistent = options.persistent = persistent;
 
     function below() {
         belowToken = !belowToken;
@@ -94,23 +99,23 @@
         root.enable = enableSection;
     }
 
-    let menuType = root.menuType;
-    $: menuType = root.menuType = menuType;
+    let menuType = primary.menuType;
+    $: menuType = primary.menuType = menuType;
 
-    let animation = root.animation;
-    $: animation = root.animation = animation;
+    let animation = primary.animation;
+    $: animation = primary.animation = animation;
 
-    let variant = root.variant;
-    $: variant = root.variant = variant;
+    let variant = primary.variant;
+    $: variant = primary.variant = variant;
 
-    let color = root.color;
-    $: color = root.color = color;
+    let color = primary.color;
+    $: color = primary.color = color;
 
-    let isCustom = root.enableCustom || false;
-    $: isCustom = root.enableCustom = isCustom;
+    let isCustom = primary.enableCustom || false;
+    $: isCustom = primary.enableCustom = isCustom;
 
-    let customPath = root.customPath || "";
-    $: customPath = root.customPath = customPath;
+    let customPath = primary.customPath || "";
+    $: customPath = primary.customPath = customPath;
 
     function onClick() {
         new TJSDialog({
@@ -287,7 +292,6 @@
                 it="aaDelay"
                 type="Number"
                 bind:value={delay}
-                placeholder=250
             />
         </div>
         <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->

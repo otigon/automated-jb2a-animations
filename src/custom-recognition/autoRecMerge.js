@@ -705,7 +705,6 @@ export const autoRecMigration = {
                         case "thunderwave":
                             await updateThunderwave(oldMO, newMO)
                             break;
-
                     }
 
                 }

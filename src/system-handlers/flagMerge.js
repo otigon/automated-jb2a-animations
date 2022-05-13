@@ -924,15 +924,201 @@ export const flagMigrations = {
             await item.update({ 'flags.-=autoanimations': null })
             await item.update({ 'flags.autoanimations': v4Flags })
             console.warn(`DEBUG | Automated Animations | Version 3 Flag Migration Complete`, v4Flags)
-
         },
-        /*
         "5": async (item) => {
-            const v5Flags = item.data?.flags?.autoanimations || {};
-            const options = v5Flags.options || {};
+            if (!item.data?.flags?.autoanimations) { return; }
+            const v4Flags = item.data?.flags?.autoanimations || {};
+            const v5Flags = {}
+            let primarySet = ['melee', 'range', 'static', 'template', 'aura']
+
+            if (v4Flags.killAnim && !v4Flags.macro?.enable && !v4Flags.audio?.a01?.enable) {
+                v5Flags.killAnim = true;
+                v5Flags.version = 5;
+                await item.update({ 'flags.-=autoanimations': null })
+                await item.update({ 'flags.autoanimations': v5Flags })
+                return;
+            } else if (v4Flags.killAnim && (v4Flags.macro?.enable || v4Flags.audio?.a01?.enable)) {
+                v5Flags.killAnim = false;
+                v5Flags.macro = v4Flags.macro || {};
+                v5Flags.audio = v4Flags.audio || {};
+                await item.update({ 'flags.-=autoanimations': null })
+                await item.update({ 'flags.autoanimations': v5Flags })
+                return;
+            } else if (!v4Flags.killAnim && !v4Flags.override) {
+                await item.update({ 'flags.-=autoanimations': null })
+                await item.update({ 'flags.autoanimations': v5Flags })
+                return;
+            }
+            
+            if (v4Flags.override) {
+                if (primarySet.includes(v4Flags.animType)) {
+                    await mergePrimary()
+                    if (v5Flags.animType === "template") {v5Flags.animType = "templatefx"}
+                    await item.update({ 'flags.-=autoanimations': null })
+                    await item.update({ 'flags.autoanimations': v5Flags })
+                    return;    
+                }
+                if (v4Flags.animType === "preset") {
+                    await mergePreset()
+                    await item.update({ 'flags.-=autoanimations': null })
+                    await item.update({ 'flags.autoanimations': v5Flags })
+                    return;    
+                }
+            }
+
+            async function mergePrimary() {
+                let { options, explosions, audio, macro, levels3d, sourceToken, targetToken,
+                    meleeSwitch, killAnim, override, animType, animation, color, enableCustom, customPath } = v4Flags;
+
+                v5Flags = {
+                    killAnim,
+                    override,
+                    animType,
+                    primary: {
+                        menuType: options.menuType || "",
+                        animation,
+                        variant: options.variant || "",
+                        color,
+                        enableCustom,
+                        customPath,
+                    },
+                    version: 5,
+                    options,
+                    explosions,
+                    audio,
+                    macro,
+                    levels3d,
+                    meleeSwitch,
+                    preset: {},
+                }
+                if (sourceToken?.enable) {
+                    await convertSource(sourceToken)
+                }
+                if (targetToken?.enable) {
+                    convertTarget(targetToken)
+                }
+            }
+            async function convertSource(data) {
+                let {menuType, name: animation, variant, color, enable, enableCustom, customPath, loops, loopDelay,
+                    delayAfter, animLevel, ...rest} = data;
+
+                v5Flags.sourceToken = {
+                    enable,
+                    delayAfter,
+                    primary: {
+                        menuType,
+                        animation,
+                        variant,
+                        color,
+                        enableCustom,
+                        customPath
+                    },
+                    options: rest,
+                }
+                v5Flags.options.repeat = loops || 1;
+                v5Flags.options.delay = loopDelay || 250;
+                v5Flags.below = animLevel || false;
+            }
+            async function convertTarget(data) {
+                let {menuType, name: animation, variant, color, enable, enableCustom, customPath, loops, loopDelay,
+                    delayStart, animLevel, ...rest} = data;
+
+                v5Flags.targetToken = {
+                    enable,
+                    delayStart,
+                    primary: {
+                        menuType,
+                        animation,
+                        variant,
+                        color,
+                        enableCustom,
+                        customPath
+                    },
+                    options: rest,
+                }
+                v5Flags.options.repeat = loops || 1;
+                v5Flags.options.delay = loopDelay || 250;
+                v5Flags.below = animLevel || false;
+            }
+
+            async function mergePreset() {
+                switch (v4Flags.animation) {
+                    case "bardicinspiration":
+                        await updateBI(oldMO, newMO)
+                        break;
+                    case "bless":
+                        await updateBless(oldMO, newMO)
+                        break;
+                    case "shieldspell":
+                        await updateShield(oldMO, newMO)
+                        break;
+                    case "teleportation":
+                        await updateTele(oldMO, newMO)
+                        break;
+                    case "dualattach":
+                        await updateDAttach(oldMO, newMO)
+                        break;
+                    case "fireball":
+                        await updateFireball(oldMO, newMO)
+                        break;
+                    case "huntersmark":
+                        await updateHM(oldMO, newMO)
+                        break;
+                    case "sneakattack":
+                        await updateSneak(oldMO, newMO)
+                        break;
+                    case "thunderwave":
+                        await updateThunderwave(oldMO, newMO)
+                        break;
+                }
+            }
+
+            async function updateBI(oldData, newData) {
+                newData.id = randomID();
+                newData.bardicinspiration = {};
+                const root = newData.bardicinspiration;
+                let { animateSelf, animateTarget, below, marker, name, scale, selfAnimation, selfColor, selfMarkerColor, targetAnimation, targetColor, targetMarkerColor, macro, audio } = oldData;
+                root.audio = audio || {};
+                root.macro = macro || {};
+                newData.presetType = "bardicinspiration";
+                root.below = below;
+                root.scale = scale;
+                newData.name = name;
+                newData.hidden = true;
+                root.self = {
+                    enable: animateSelf || false,
+                    animation: selfAnimation === "music" ? "notes" : selfAnimation,
+                    color: selfColor,
+                }
+                if (!root.self.animation || !root.self.color) {
+                    root.self.animation = "";
+                    root.self.variant = "";
+                    root.self.color = "";
+                } else if (root.self.animation === "bardicinspiration") {
+                    root.self.variant = "inspire";
+                } else { root.self.variant = "01" }
+                root.target = {
+                    enable: animateTarget || false,
+                    animation: targetAnimation === "music" ? "notes" : targetAnimation,
+                    color: targetColor,
+                }
+                // TO-DO, assign VARIANTS somehow
+                if (!root.target.animation || !root.target.color) {
+                    root.target.animation = "";
+                    root.target.color = "";
+                } else if (root.target.animation === "bardicinspiration") {
+                    root.target.variant = "inspire";
+                } else { root.target.variant = "01" }
+                root.marker = {
+                    enable: marker || false,
+                    selfColor: selfMarkerColor || "",
+                    targetColor: targetMarkerColor || "",
+                }
+            }
 
 
+
+            console.warn(`DEBUG | Automated Animations | Version 5 Flag Migration Complete`, v5Flags)
         }
-        */
     }
 }
