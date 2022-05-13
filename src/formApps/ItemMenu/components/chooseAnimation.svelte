@@ -37,8 +37,7 @@
             rootPath = customRoot = flagOptions = flagData.explosions;
             break;
         case "PrimaryAnimation":
-            rootPath = flagData;
-            customRoot = flagData.options;
+            rootPath =  customRoot = flagData.primary;
             flagOptions = flagData.options;
             break;
         case "sourceExtraFX":
@@ -51,10 +50,7 @@
             if (isAutoRec) {
                 rootPath = customRoot = flagOptions = flagData[presetType];
             } else {
-                rootPath =
-                    customRoot =
-                    flagOptions =
-                        flagData.preset[presetType];
+                rootPath = customRoot = flagOptions = flagData.preset[presetType];
             }
             break;
         case "MeleeSwitch":

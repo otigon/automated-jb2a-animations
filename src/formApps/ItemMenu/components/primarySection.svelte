@@ -27,28 +27,29 @@
     export let disablePlayOn;
     export let staticType;
     $: staticType = staticType;
-    const options = flagData.options;
+    //const options = flagData.options;
+    const primaryData = flagData.primary;
 
     let menuSelection = flagData.animType === "aura" ? "static" : flagData.animType;
     $: menuSelection = menuSelection;
 
-    export let menuType = options.menuType ? Object.keys(aaTypeMenu[menuSelection])[0] : options.menuType;
-    $: menuType = options.menuType = menuType;
+    export let menuType = primaryData.menuType ? Object.keys(aaTypeMenu[menuSelection])[0] : primaryData.menuType;
+    $: menuType = primaryData.menuType = menuType;
 
-    export let animation = flagData.animation ? Object.keys(aaNameMenu[menuSelection][menuType])[0] : flagData.animation;
-    $: animation = flagData.animation = animation;
+    export let animation = primaryData.animation ? Object.keys(aaNameMenu[menuSelection][menuType])[0] : primaryData.animation;
+    $: animation = primaryData.animation = animation;
 
-    let variant = options.variant ? Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0] : options.variant;
-    $: variant = options.variant = variant;
+    let variant = primaryData.variant ? Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0] : primaryData.variant;
+    $: variant = primaryData.variant = variant;
 
-    let color = flagData.color ? Object.keys(aaColorMenu[menuSelection][menuType][animation][variant])[0] : flagData.color;
-    $: color = flagData.color = color;
+    let color = primaryData.color ? Object.keys(aaColorMenu[menuSelection][menuType][animation][variant])[0] : primaryData.color;
+    $: color = primaryData.color = color;
 
-    let isCustom = options.enableCustom || false;
-    $: isCustom = options.enableCustom = isCustom;
+    let isCustom = primaryData.enableCustom || false;
+    $: isCustom = primaryData.enableCustom = isCustom;
 
-    let customPath = options.customPath;
-    $: customPath = options.customPath = customPath;
+    let customPath = primaryData.customPath;
+    $: customPath = primaryData.customPath = customPath;
 
     let primaryFilePath;
     $: primaryFilePath =

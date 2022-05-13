@@ -599,16 +599,24 @@ export const autoRecMigration = {
                 if (type) {
                     newMO.options.persistent = newMO.options.persist || false;
                 }
+                newMO.primary = {
+                    menuType: oldMO.options.menuType,
+                    animation,
+                    variant: oldMO.options.variant,
+                    color,
+                    enableCustom: oldMO.options.custom,
+                    customPath: oldMO.options.customPath,
+                }
                 newMO.audio = audio || {};
                 newMO.macro = macro || {};
                 newMO.levels3d = levels3d || {};
                 newMO.soundOnly = soundOnly?.enable || false;
                 newMO.explosions = explosion || {};
                 if (!newMO.options.menuType || !newMO.options.variant || !newMO.animation || !newMO.color) {
-                    newMO.options.menuType = "";
-                    newMO.options.variant = "";
-                    newMO.animation = "";
-                    newMO.color = "";
+                    newMO.primary.menuType = "";
+                    newMO.primary.variant = "";
+                    newMO.primary.animation = "";
+                    newMO.primary.color = "";
                 }
             }
 
@@ -639,6 +647,7 @@ export const autoRecMigration = {
                     newMenu.static[i] = {};
                     const newMO = newMenu.static[i];
                     await primaryMenu(oldMO, newMO)
+                    newMO.staticType = oldMO.type;
                 }
                 //await compileNewMenu(staticObject, "static")
             }
@@ -852,7 +861,7 @@ export const autoRecMigration = {
                     variant: variant02,
                     color: color02,
                     below,
-                    enableCustom: custom02,
+                    enableCustom: custom02 || false,
                     customPath: customPath02,
                     scale: scale02,
                     delay
@@ -874,7 +883,7 @@ export const autoRecMigration = {
                 root.animation = subAnimation;
                 root.variant = variant;
                 root.color = color;
-                root.custom = custom || false;
+                root.enableCustom = custom || false;
                 root.customPath = customPath;
                 root.playbackRate = playbackRate;
                 root.onlyX = onlyX;

@@ -925,6 +925,14 @@ export const flagMigrations = {
             await item.update({ 'flags.autoanimations': v4Flags })
             console.warn(`DEBUG | Automated Animations | Version 3 Flag Migration Complete`, v4Flags)
 
+        },
+        /*
+        "5": async (item) => {
+            const v5Flags = item.data?.flags?.autoanimations || {};
+            const options = v5Flags.options || {};
+
+
         }
+        */
     }
 }

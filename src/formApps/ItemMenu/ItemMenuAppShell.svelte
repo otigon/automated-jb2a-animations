@@ -59,11 +59,12 @@
 
     export const flagData = {
         killAnim: flags.killAnim,
-        animLevel: flags.animLevel,
+        //animLevel: flags.animLevel,
         override: flags.override,
         animType: flags.animType,
-        animation: flags.animation,
-        color: flags.color,
+        //animation: flags.animation,
+        //color: flags.color,
+        primary: flags.primary || {},
         version: flags.version
             ? flags.version
             : Object.keys(flagMigrations.migrations)

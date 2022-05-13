@@ -28,19 +28,20 @@
     menuSection.options ? menuSection.options : (menuSection.options = {});
     menuSection.audio ? menuSection.audio : (menuSection.audio = {});
     const options = menuSection.options;
+    const primaryData = menuSection.primary;
 
-    export let menuType = options.menuType;
-    $: menuType = options.menuType = menuType;
-    export let animation = menuSection.animation;
-    $: animation = menuSection.animation = animation;
-    let variant = options.variant;
-    $: variant = options.variant = variant;
-    let color = menuSection.color;
-    $: color = menuSection.color = color;
-    let isCustom = options.enableCustom || false;
-    $: isCustom = options.enableCustom = isCustom;
-    let customPath = options.customPath;
-    $: customPath = options.customPath = customPath;
+    export let menuType = primaryData.menuType;
+    $: menuType = primaryData.menuType = menuType;
+    export let animation = primaryData.animation;
+    $: animation = primaryData.animation = animation;
+    let variant = primaryData.variant;
+    $: variant = primaryData.variant = variant;
+    let color = primaryData.color;
+    $: color = primaryData.color = color;
+    let isCustom = primaryData.enableCustom || false;
+    $: isCustom = primaryData.enableCustom = isCustom;
+    let customPath = primaryData.customPath;
+    $: customPath = primaryData.customPath = customPath;
     //console.log(menuType)
     let menuSelection = type === "aura" ? "static" : type;
     if (!menuType) {
