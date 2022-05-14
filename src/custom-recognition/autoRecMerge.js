@@ -865,8 +865,6 @@ export const autoRecMigration = {
                     scale: scale02,
                     delay
                 }
-
-
             }
             async function updateDAttach(oldData, newData) {
                 newData.id = randomID();
