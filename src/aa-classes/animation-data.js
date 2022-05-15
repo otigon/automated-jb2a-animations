@@ -56,6 +56,110 @@ export class AAanimationData {
 
     static async _primaryData(handler, autoObject) {
 
+        const flags = autoObject ? autoObject : handler.flags;
+        const meleeSwitch = flags.meleeSwitch || {};
+        const options = flags.options || {};
+        const data = {
+            isAuto: autoObject ? true : false,
+            menuType: flags.primary?.menuType,
+            animation: flags.primary?.animation?.toLowerCase(),
+            variant: flags.primary?.variant,
+            color: flags.primary?.color?.toLowerCase() ?? "",
+            enableCustom: flags.primary?.enableCustom || false,
+            customPath: flags.primary?.enableCustom ? flags.primary?.customPath : false,
+
+            preset: flags.preset,
+
+            options: options,
+            below: options.below || false,
+            aeDelay: options.aeDelay || 250,
+            //variant: options.variant || "01",
+            variant02: options.variant02 || "01",
+            repeat: options.repeat || 1,
+            delay: options.delay || 250,
+            scale: options.scale || 1,
+            scaleX: options.scaleX || 1,
+            scaleY: options.scaleY || 1,
+            //scale02: options.scale02 || 1,
+            opacity: options.opacity || 1,
+            persistent: options.persistent || false,
+            //enableCustom: options.enableCustom || false,
+            //enableCustom02: options.enableCustom02 || false,
+            //customPath: options.enableCustom ? options.customPath : false,
+            //customPath02: options.enableCustom02 ? options.customPath02 : false,
+            staticType: options.staticType || "targetDefault",
+            //menuType: options.menuType || false,
+            //menuType02: options.menuType02 || false,
+            isShieldFX: options.menuType === 'shieldfx' ? true : false,
+            anchorX: options.anchorX || 0.5,
+            anchorY: options.anchorY || 0.5,
+            auraRadius: options.auraRadius || 3.5,
+            teleDist: options.teleDist || 30,
+            ignoreTargets: options.ignoreTarget || false,
+            tempType: options.tempType || "circle",
+            hideTemplate: options.hideTemplate || false,
+            removeTemplate: options.removeTemplate ?? false,
+            occlusionMode: parseInt(options.occlusionMode ?? "3"),
+            occlusionAlpha: options.occlusionAlpha ?? "0",
+            persistType: options.persistType || "sequencerground",
+            measureType: options.measureType || "alternating",
+            hideFromPlayers: options.hideFromPlayers || false,
+            playbackRate: options.playbackRate || 1,
+            onlyX: options.onlyX ?? false,
+            unbindAlpha: options.unbindAlpha ? false : true,
+            unbindVisibility: options.unbindVisibility ? false : true,
+
+            itemAudio: {
+                enable: flags.audio?.a01?.enable || false,
+                file: flags.audio?.a01?.file,
+                volume: flags.audio?.a01?.volume || 0.25,
+                delay: flags.audio?.a01?.delay || 0,
+                repeat: handler.decoupleSound ? 1 : options.repeat || 1,
+                startTime: flags.audio?.a01?.startTime || 0,
+            },
+
+            switchAnimation: meleeSwitch.switchType === 'custom' ? meleeSwitch.animation || "" : flags.primary?.animation || "",
+            switchType: meleeSwitch.switchType || "on",
+            switchColor: meleeSwitch.switchType === 'custom' ? meleeSwitch.color || "white" : flags.primary?.color || "",
+            detect: meleeSwitch.detect ?? "auto",
+            return: meleeSwitch.returning || false,
+            switchVariant: meleeSwitch.switchType === 'custom' ? meleeSwitch.variant || "01" : flags.primary?.variant || '01',
+            switchMenuType: meleeSwitch.menuType || "weapon",
+            range: meleeSwitch.range ?? 2,
+            switchAudio: {
+                enable: flags.audio?.a02?.enable || false,
+                file: flags.audio?.a02?.file,
+                volume: flags.audio?.a02?.volume || 0.25,
+                delay: flags.audio?.a02?.delay || 0,
+                repeat: handler.decoupleSound ? 1 : options.repeat || 1,
+                startTime: flags.audio?.a02?.startTime || 0,
+            },
+            explosion: await this._explosionData(handler, false),
+
+            macro: {
+                enabled: flags.macro?.enable ?? false,
+                name: flags.macro?.name ?? "",
+                args: flags.macro?.args ? flags.macro.args.split(',').map(s => s.trim()) : "",
+                playWhen: flags.macro?.playWhen ?? "0",
+            }
+        }
+
+        if (autoObject) {
+            data.soundOnly = {
+                enable: flags.soundOnly?.enable ?? false,
+                file: flags.soundOnly?.file ?? "",
+                volume: flags.soundOnly?.volume ?? 0.25,
+                delay: flags.soundOnly?.delay ?? 0,
+                startTime: flags.soundOnly?.startTime ?? 0,
+            }
+        }
+        //data.macro.args = data.macro.preArgs.split(',').map(s => s.trim());
+        data.playMacro = data.macro.enabled && data.macro.name ? true : false;
+        data.playSound = data.itemAudio?.enable && data.itemAudio?.file ? true : false;
+        data.playSwitchSound = data.switchAudio.enable && data.switchAudio.file && data.switchType !== "off" ? true : false;
+        if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
+        return data;
+        /*
         if (autoObject) {
             const data = {};
             const autoOverridden = handler.autorecOverrides?.enable
@@ -182,12 +286,12 @@ export class AAanimationData {
                 opacity: options.opacity || 1,
                 persistent: options.persistent || false,
                 //enableCustom: options.enableCustom || false,
-                enableCustom02: options.enableCustom02 || false,
+                //enableCustom02: options.enableCustom02 || false,
                 //customPath: options.enableCustom ? options.customPath : false,
-                customPath02: options.enableCustom02 ? options.customPath02 : false,
+                //customPath02: options.enableCustom02 ? options.customPath02 : false,
                 staticType: options.staticType || "targetDefault",
                 //menuType: options.menuType || false,
-                menuType02: options.menuType02 || false,
+                //menuType02: options.menuType02 || false,
                 isShieldFX: options.menuType === 'shieldfx' ? true : false,
                 anchorX: options.anchorX || 0.5,
                 anchorY: options.anchorY || 0.5,
@@ -248,6 +352,7 @@ export class AAanimationData {
             if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
             return data;
         }
+        */
     }
 
     static async _explosionData(handler, autorec) {
@@ -357,7 +462,7 @@ export class AAanimationData {
                 .file(sourceFX.data.file, true)
                 .atLocation(handler.sourceToken)
                 //.scale(sourceFX.sFXScale * sourceFX.scale)
-                .size(sourceTokenGS * 1.5 * sourceFX.scale, {gridUnits: true})
+                .size(sourceTokenGS * 1.5 * sourceFX.scale, { gridUnits: true })
                 .repeats(sourceFX.repeat, sourceFX.delay)
                 .belowTokens(sourceFX.below)
                 .opacity(sourceFX.opacity)
@@ -436,7 +541,7 @@ export class AAanimationData {
             .file(targetFX.data?.file, true)
             .atLocation(target)
             //.scale(targetFX.tFXScale * targetFX.scale)
-            .size(targetTokenGS * 1.5 * targetFX.scale, {gridUnits: true})
+            .size(targetTokenGS * 1.5 * targetFX.scale, { gridUnits: true })
             .repeats(targetFX.repeat, targetFX.delay)
             .belowTokens(targetFX.below)
             .persist(targetFX.persistent)

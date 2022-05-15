@@ -38,7 +38,8 @@ export async function shieldSpell(handler, animationData) {
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
 
-    const shieldData =  handler.flags?.preset?.shield;
+    //const shieldData =  handler.flags?.preset?.shield;
+    const shieldData = data.isAuto ? handler.autorecObject?.shield : handler.flags?.preset?.shield;
     if (!shieldData) { return; }
     const cleanData = {
         variant: shieldData.variant || "01",
@@ -50,7 +51,7 @@ export async function shieldSpell(handler, animationData) {
         unbindAlpha: shieldData.unbindAlpha || false,
         unbindVisibility: shieldData.unbindVisibility || false
     }
-    console.log(cleanData)
+
     /*
     if (data.isAuto) {
         const autoOverridden = handler.autorecOverrides?.enable

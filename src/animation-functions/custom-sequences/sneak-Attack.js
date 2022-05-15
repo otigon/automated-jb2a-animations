@@ -9,7 +9,9 @@ export async function sneakAttack(handler, animationData) {
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
 
-    const sneakData =  handler.flags?.preset?.sneakattack;
+    //const sneakData =  handler.flags?.preset?.sneakattack;
+    const sneakData = data.isAuto ? handler.autorecObject?.sneakattack : handler.flags?.preset?.sneakattack;
+
     if (!sneakData) { return; }
     const cleanData = {
         color: sneakData.color || "darkgreen",

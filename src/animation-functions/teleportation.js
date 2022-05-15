@@ -8,7 +8,7 @@ export async function teleportation(handler, animationData) {
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
-
+    /*
     if (data.isAuto) {
         data.itemName01 = data.subAnimation || "";
         data.itemName02 = data.subAnimation02 || "";
@@ -17,8 +17,11 @@ export async function teleportation(handler, animationData) {
         data.itemName01 = data.options?.name || "";
         data.itemName02 = data.options?.name02 || "";
     }
-    
-    const rootStart = handler.flags.preset.teleportation.start;
+    */
+    //const root = handler.flags.preset?.teleportation;
+    const root = data.isAuto ? handler.autorecObject?.teleportation : handler.flags?.preset?.teleportation;
+    if (!root) { return; }
+    const rootStart = root.start;
     const startData = {
         menuType: rootStart.menuType,
         animation: rootStart.animation,
@@ -28,7 +31,7 @@ export async function teleportation(handler, animationData) {
         below: rootStart.below || false,
         customPath: rootStart.enableCustom ? rootStart.customPath || "" : false,
     }
-    const rootEnd = handler.flags.preset.teleportation.end;
+    const rootEnd = root.end;
     const endData = {
         menuType: rootEnd.menuType,
         animation: rootEnd.animation,
@@ -39,14 +42,14 @@ export async function teleportation(handler, animationData) {
         delay: rootEnd.delay || 0,
         customPath: rootEnd.enableCustom ? rootEnd.customPath || "" : false,
     }
-    const rootBetween = handler.flags.preset.teleportation.between;
+    const rootBetween = root.between;
     const betweenData = {
         menuType: rootBetween.menuType,
         animation: rootBetween.animation,
         variant: rootBetween.variant,
         color: rootBetween.color,
         below: rootBetween.below || false,
-        enable: rootBetween.enableBetween || false,
+        enable: rootBetween.enable || false,
         playbackRate: rootBetween.playbackRate || 1,
         customPath: rootBetween.enableCustom ? rootBetween.customPath || "" : false,
     }
@@ -57,7 +60,7 @@ export async function teleportation(handler, animationData) {
     //const onToken = await buildFile(true, data.menuType, data.itemName01, "static", data.variant, data.color, data.customPath);
     //const onToken02 = await buildFile(true, data.menuType02, data.itemName02, "static", data.variant02, data.color02, data.customPath02);
 
-    if (handler.debug) { aaDebugger("Teleportation Animation Start", animationData, onToken, onToken02) }
+    if (handler.debug) { aaDebugger("Teleportation Animation Start", animationData, startFile, endFile) }
 
     const sourceScale = sourceToken.w;
     let sourceTokenGS = sourceToken.width / canvas.grid.size;

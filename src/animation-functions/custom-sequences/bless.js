@@ -20,7 +20,8 @@ export async function bless(handler, animationData) {
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
 
-    const blessData =  handler.flags?.preset?.bless;
+    //const blessData =  handler.flags?.preset?.bless;
+    const blessData = data.isAuto ? handler.autorecObject?.bless : handler.flags?.preset?.bless;
     if (!blessData) { return; }
     const cleanData = {
         color: blessData.color || "blue",
@@ -49,7 +50,7 @@ export async function bless(handler, animationData) {
     const sourceScale = sourceToken.w;
 
     if (handler.allTargets.length === 0) {
-        const sourceTokenGS = (sourceToken.width / canvas.grid.size) * 1.75 * data.scale;
+        const sourceTokenGS = (sourceToken.width / canvas.grid.size) * 1.75 * cleanData.scale;
 
         const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
         const playPersist = (!checkAnim && cleanData.persistent) ? true : false;
@@ -127,7 +128,7 @@ export async function bless(handler, animationData) {
         })
 
         for (let target of handler.allTargets) {
-            let targetTokenGS = (target.width / canvas.grid.size) * 1.75 * data.scale
+            let targetTokenGS = (target.width / canvas.grid.size) * 1.75 * cleanData.scale
             let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0
             let playPersist = (!checkAnim && cleanData.persistent) ? true : false;
             if (!checkAnim) {

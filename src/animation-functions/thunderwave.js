@@ -18,20 +18,35 @@ export async function thunderwaveAuto(handler, animationData, config) {
     const sourceFX = animationData.sourceFX;
 
     let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+
+    //const twData =  handler.flags?.preset?.thunderwave;
+    const twData = data.isAuto ? handler.autorecObject?.thunderwave : handler.flags?.preset?.thunderwave;
+
+    if (!twData) { return; }
+    const cleanData = {
+        color: twData.color || "blue",
+        repeat: twData.repeat || 1,
+        delay: twData.delay || 250,
+        below: twData.below || false,
+        opacity: twData.opacity || 1,
+        removeTemplate: twData.removeTemplate || false
+    }
+
+
     let color;
     const colors = ['green', 'orange', 'purple', 'red', 'blue']
     function random_item(items) {
         return items[Math.floor(Math.random() * items.length)];
     }
     switch (true) {
-        case data.color === "a1" || ``:
-        case !data.color:
+        case cleanData.color === "a1" || ``:
             color = "blue";
             break;
-        case data.color === "random":
+        case cleanData.color === "random":
             color = random_item(colors);
+            break;
         default:
-            color = data.color;
+            color = cleanData.color;
     }
 
     //const templateID = await canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
@@ -48,9 +63,10 @@ export async function thunderwaveAuto(handler, animationData, config) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    if (data.removeTemplate) {
+    if (cleanData.removeTemplate) {
         canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.id])
     }
+    /*
     if (data.persist && (data.type === "circle" || data.type === "rect")) {
         const gridSize = canvas.scene.data.grid;
         let tileData;
@@ -104,6 +120,7 @@ export async function thunderwaveAuto(handler, animationData, config) {
             aaSeq.play()
         }
     } else {
+    */
         const gridSize = canvas.scene.data.grid;
         let aaSeq = await new Sequence("Automated Animations")
         // Play Macro if Awaiting
@@ -128,9 +145,10 @@ export async function thunderwaveAuto(handler, animationData, config) {
             //.atLocation(template, { cacheLocation: true })
             .rotate(angle)
             //.scale(scale)
+            .opacity(cleanData.opacity)
             .size(3, { gridUnits: true })
-            .belowTokens(false)
-            .repeats(data.repeat, data.delay)
+            .belowTokens(cleanData.below)
+            .repeats(cleanData.repeat, cleanData.delay)
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;
             new Sequence()
@@ -140,7 +158,7 @@ export async function thunderwaveAuto(handler, animationData, config) {
         aaSeq.play()
         await wait(500)
         Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
-    }
+    //}
 
     function getRelativePosition(token, template) {
         const xPos = token.data.x;

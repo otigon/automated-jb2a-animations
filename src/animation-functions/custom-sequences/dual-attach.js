@@ -11,7 +11,9 @@ export async function dualAttach(handler, animationData) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    const daData =  handler.flags?.preset?.dualattach;
+    //const daData =  handler.flags?.preset?.dualattach;
+    const daData = data.isAuto ? handler.autorecObject?.dualattach : handler.flags?.preset?.dualattach;
+
     if (!daData) { return; }
     const cleanData = {
         menuType: daData.menuType || "spell",

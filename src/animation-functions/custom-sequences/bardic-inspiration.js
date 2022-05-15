@@ -12,7 +12,8 @@ export async function bardicInspiration(handler, animationData) {
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
 
-    const biData =  flags.preset?.bardicinspiration;
+    //const biData =  flags.preset?.bardicinspiration;
+    const biData = data.isAuto ? handler.autorecObject?.bardicinspiration : handler.flags?.preset?.bardicinspiration;
     if (!biData) { return; }
     const cleanData = {
         scale: biData.scale || 1,

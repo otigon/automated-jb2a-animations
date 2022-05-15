@@ -8,7 +8,9 @@ export async function fireball(handler, animationData, config) {
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
 
-    const fbData =  handler.flags?.preset?.fireball;
+    //const fbData =  handler.flags?.preset?.fireball;
+    const fbData = data.isAuto ? handler.autorecObject?.fireball : handler.flags?.preset?.fireball;
+
     if (!fbData) { return; }
     const projectileData = fbData.projectile || {};
     const explosion01Data = fbData.explosion01 || {};
@@ -59,7 +61,32 @@ export async function fireball(handler, animationData, config) {
             persistent: afterData.persistent || false,
             scale: afterData.scale || 1,
             wait: afterData.wait || 0,
+        },
+        itemAudio: {
+            enable: handler.flags?.audio?.a01?.enable || false,
+            file: handler.flags?.audio?.a01?.file,
+            volume: handler.flags?.audio?.a01?.volume || 0.25,
+            delay: handler.flags?.audio?.a01?.delay || 0,
+            repeat: handler.decoupleSound ? 1 : data.projectileRepeat || 1,
+            startTime: handler.flags?.audio?.a01?.startTime || 0,
+        },
+        exAudio01: {
+            enable: handler.flags?.audio?.e01?.enable || false,
+            file: handler.flags?.audio?.e01?.file,
+            volume: handler.flags?.audio?.e01?.volume || 0.25,
+            delay: handler.flags?.audio?.e01?.delay || 0,
+            repeat: handler.decoupleSound ? 1 : data.explosion01Repeat || 1,
+            startTime: handler.flags?.audio?.e01?.startTime || 0,
+        },
+        exAudio02: {
+            enable: handler.flags?.audio?.e02?.enable || false,
+            file: handler.flags?.audio?.e02?.file,
+            volume: handler.flags?.audio?.e02?.volume || 0.25,
+            delay: handler.flags?.audio?.e02?.delay || 0,
+            repeat: handler.decoupleSound ? 1 : data.explosion02Repeat || 1,
+            startTime: handler.flags?.audio?.e02?.startTime || 0,
         }
+
     }
 
     /*
@@ -231,13 +258,13 @@ export async function fireball(handler, animationData, config) {
     if (sourceFX.enabled) {
         aaSeq.addSequence(sourceFX.sourceSeq)
     }
-    if (data.itemAudio.enable && data.itemAudio.file) {
+    if (cleanData.itemAudio.enable && cleanData.itemAudio.file) {
         aaSeq.sound()
-            .file(data.itemAudio.file, true)
-            .volume(data.itemAudio.volume)
-            .delay(data.itemAudio.delay)
-            .repeats(data.itemAudio.repeat, data.projectileDelay)
-            .startTime(data.itemAudio.startTime)
+            .file(cleanData.itemAudio.file, true)
+            .volume(cleanData.itemAudio.volume)
+            .delay(cleanData.itemAudio.delay)
+            .repeats(cleanData.itemAudio.repeat, cleanData.projectileDelay)
+            .startTime(cleanData.itemAudio.startTime)
     }
     aaSeq.effect()
         .file(projectileAnimation.file)
@@ -245,13 +272,13 @@ export async function fireball(handler, animationData, config) {
         .stretchTo(position)
         .repeats(cleanData.projectile.repeat, cleanData.projectile.delay)
         .waitUntilFinished(cleanData.projectile.wait)
-    if (data.exAudio01.enable && data.exAudio01.file) {
+    if (cleanData.exAudio01.enable && cleanData.exAudio01.file) {
         aaSeq.sound()
-            .file(data.exAudio01.file, true)
-            .volume(data.exAudio01.volume)
-            .delay(data.exAudio01.delay)
-            .repeats(data.exAudio01.repeat, data.explosion01Delay)
-            .startTime(data.exAudio01.startTime)
+            .file(cleanData.exAudio01.file, true)
+            .volume(cleanData.exAudio01.volume)
+            .delay(cleanData.exAudio01.delay)
+            .repeats(cleanData.exAudio01.repeat, cleanData.explosion01Delay)
+            .startTime(cleanData.exAudio01.startTime)
     }
     if (cleanData.explosion01.enable && cleanData.explosion01.menuType) {
         aaSeq.effect()
@@ -261,13 +288,13 @@ export async function fireball(handler, animationData, config) {
             .repeats(cleanData.explosion01.repeat, cleanData.explosion01.delay)
             .waitUntilFinished(cleanData.explosion01.wait)
     }
-    if (data.exAudio02.enable && data.exAudio02.file) {
+    if (cleanData.exAudio02.enable && cleanData.exAudio02.file) {
         aaSeq.sound()
-            .file(data.exAudio02.file, true)
-            .volume(data.exAudio02.volume)
-            .delay(data.exAudio02.delay)
-            .repeats(data.exAudio02.repeat, data.explosion02Delay)
-            .startTime(data.exAudio02.startTime)
+            .file(cleanData.exAudio02.file, true)
+            .volume(cleanData.exAudio02.volume)
+            .delay(cleanData.exAudio02.delay)
+            .repeats(cleanData.exAudio02.repeat, cleanData.explosion02Delay)
+            .startTime(cleanData.exAudio02.startTime)
     }
     if (cleanData.explosion02.menuType) {
         aaSeq.effect()

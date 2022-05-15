@@ -17,7 +17,9 @@ export async function huntersMark(handler, animationData) {
         data.anchorY = autoOverridden ? handler.autorecOverrides?.anchorY : data.anchorY || 0.7;
     }
     */
-    const hmData =  handler.flags?.preset?.huntersmark;
+    //const hmData =  handler.flags?.preset?.huntersmark;
+    const hmData = data.isAuto ? handler.autorecObject?.huntersmark : handler.flags?.preset?.huntersmark;
+
     if (!hmData) { return; }
     const cleanData = {
         variant: hmData.variant || "eye",
