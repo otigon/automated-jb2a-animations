@@ -18,22 +18,14 @@
     let explosions = flagData.explosions;
 
     let radius = explosions.radius;
-    $: {
-        radius = radius;
-        explosions.radius = radius;
-    }
+    $: radius = explosions.radius = Number(radius);
+    
 
     let delay = explosions.delay;
-    $: {
-        delay = delay;
-        explosions.delay = delay;
-    }
+    $: delay = explosions.delay = Number(delay);
 
     let belowToken = explosions.below;
-    $: {
-        belowToken = belowToken;
-        explosions.below = belowToken;
-    }
+    $: belowToken = explosions.below = belowToken;
 
     $: aboveBelow = belowToken ? game.i18n.localize("autoanimations.menus.below") : game.i18n.localize("autoanimations.menus.above");
     function below() {

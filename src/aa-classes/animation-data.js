@@ -25,7 +25,7 @@ export class AAanimationData {
                     .delay(data.itemAudio.delay)
                     .repeats(data.itemAudio.repeat, data.delay)
                     .startTime(data.itemAudio.startTime)
-            } else {
+            } else if (soundSettings.switchSound && data.switchAudio?.enable) {
                 soundSeq.sound()
                     .file(data.switchAudio.file, true)
                     .volume(data.switchAudio.volume)
@@ -160,14 +160,18 @@ export class AAanimationData {
             const options = flags.options || {};
             const data = {
                 isAuto: false,
-                animation: flags.animation?.toLowerCase(),
-                color: flags.color?.toLowerCase() ?? "",
-                color02: flags.color02?.toLowerCase() ?? "",
-                below: flags.animLevel || false,
+                menuType: flags.primary?.menuType,
+                animation: flags.primary?.animation?.toLowerCase(),
+                variant: flags.primary?.variant,
+                color: flags.primary?.color?.toLowerCase() ?? "",
+                enableCustom: flags.primary?.enableCustom || false,
+                customPath: flags.primary?.enableCustom ? flags.primary?.customPath : false,
+
 
                 options: options,
+                below: options.below || false,
                 aeDelay: options.aeDelay || 250,
-                variant: options.variant || "01",
+                //variant: options.variant || "01",
                 variant02: options.variant02 || "01",
                 repeat: options.repeat || 1,
                 delay: options.delay || 250,
@@ -177,12 +181,12 @@ export class AAanimationData {
                 scale02: options.scale02 || 1,
                 opacity: options.opacity || 1,
                 persistent: options.persistent || false,
-                enableCustom: options.enableCustom || false,
+                //enableCustom: options.enableCustom || false,
                 enableCustom02: options.enableCustom02 || false,
-                customPath: options.enableCustom ? options.customPath : false,
+                //customPath: options.enableCustom ? options.customPath : false,
                 customPath02: options.enableCustom02 ? options.customPath02 : false,
                 staticType: options.staticType || "targetDefault",
-                menuType: options.menuType || false,
+                //menuType: options.menuType || false,
                 menuType02: options.menuType02 || false,
                 isShieldFX: options.menuType === 'shieldfx' ? true : false,
                 anchorX: options.anchorX || 0.5,
@@ -212,12 +216,12 @@ export class AAanimationData {
                     startTime: flags.audio?.a01?.startTime || 0,
                 },
 
-                switchAnimation: meleeSwitch.switchType === 'custom' ? meleeSwitch.animation || "" : flags.animation || "",
+                switchAnimation: meleeSwitch.switchType === 'custom' ? meleeSwitch.animation || "" : flags.primary?.animation || "",
                 switchType: meleeSwitch.switchType || "on",
-                switchColor: meleeSwitch.switchType === 'custom' ? meleeSwitch.color || "white" : flags.color || "",
+                switchColor: meleeSwitch.switchType === 'custom' ? meleeSwitch.color || "white" : flags.primary?.color || "",
                 detect: meleeSwitch.detect ?? "auto",
                 return: meleeSwitch.returning || false,
-                switchVariant: meleeSwitch.switchType === 'custom' ? meleeSwitch.variant || "01" : options.variant || '01',
+                switchVariant: meleeSwitch.switchType === 'custom' ? meleeSwitch.variant || "01" : flags.primary?.variant || '01',
                 switchMenuType: meleeSwitch.menuType || "weapon",
                 range: meleeSwitch.range ?? 2,
                 switchAudio: {
@@ -304,20 +308,24 @@ export class AAanimationData {
 
     static async _sourceFX(handler) {
         const source = handler.flags.sourceToken || {};
-        const enableCustom = source.enableCustom || false;
+        const primary = source.primary || {};
+        const options = source.options || {};
+        const enableCustom = primary.enableCustom || false;
         const sourceFX = {
-            menuType: source.menuType,
+            menuType: primary.menuType,
+            animation: primary.animation || "",
+            variant: primary.variant,
+            color: primary.color,
+            customSourcePath: enableCustom && primary.customPath ? source.customPath : false,
+
             enabled: source.enable || false,
-            customSourcePath: enableCustom ? source.customPath : false,
-            repeat: source.loops || 1,
-            delay: source.loopDelay || 250,
-            below: source.animLevel || false,
-            startDelay: source.delayAfter || 500,
-            scale: source.scale || 1,
-            animation: source.name || "",
-            color: source.color,
-            variant: source.variant,
-            opacity: source.opacity || 1,
+
+            repeat: options.repeat || 1,
+            delay: options.delay || 250,
+            below: options.below || false,
+            startDelay: options.delayAfter || 500,
+            scale: options.scale || 1,
+            opacity: options.opacity || 1,
             itemAudio: {
                 enable: handler.flags.audio?.s01?.enable || false,
                 file: handler.flags.audio?.s01?.file,
@@ -328,7 +336,7 @@ export class AAanimationData {
             },
         }
 
-        if (source.enable && (source.name === "a1" || !source.name) && !source.enableCustom) {
+        if (source.enable && (sourceFX.animation === "a1" || !sourceFX.animation) && !sourceFX.customSourcePath) {
             sourceFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
@@ -362,21 +370,24 @@ export class AAanimationData {
 
     static async _targetFX(handler) {
         const target = handler.flags?.targetToken || {};
-        const enableCustom = target.enableCustom || false;
+        const primary = target.primary || {};
+        const options = target.options || {};
+        const enableCustom = primary.enableCustom || false;
         const targetFX = {
-            menuType: target.menuType,
+            menuType: primary.menuType,
+            animation: primary.animation || "",
+            variant: primary.variant,
+            color: primary.color,
+            customTargetPath: enableCustom && primary.customPath ? primary.customPath : false,
+
             enabled: target.enable || false,
-            customTargetPath: enableCustom ? target.customPath : false,
-            repeat: target.loops || 1,
-            delay: target.loopDelay || 250,
-            below: target.animLevel || false,
-            startDelay: target.delayStart || 500,
-            scale: target.scale || 1,
-            animation: target.name || "",
-            color: target.color,
-            variant: target.variant,
-            persistent: target.persistent || false,
-            opacity: target.opacity || 1,
+            repeat: options.repeat || 1,
+            delay: options.delay || 250,
+            below: options.below || false,
+            startDelay: options.delayStart || 500,
+            scale: options.scale || 1,
+            persistent: options.persistent || false,
+            opacity: options.opacity || 1,
             itemAudio: {
                 enable: handler.flags.audio?.t01?.enable || false,
                 file: handler.flags.audio?.t01?.file,
@@ -388,7 +399,7 @@ export class AAanimationData {
             },
         }
 
-        if (target.enable && (target.name === "a1" || !target.name) && !target.enableCustom) {
+        if (target.enable && (targetFX.animation === "a1" || !targetFX.animation) && !targetFX.customTargetPath) {
             targetFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }

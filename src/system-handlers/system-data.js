@@ -93,7 +93,7 @@ export default class systemData {
         this.autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
 
         this.rinsedName = this.itemName ? AutorecFunctions._rinseName(this.itemName) : "noitem";
-        this.isAutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNamesInSection(this.autorecSettings, 'templates'), this.rinsedName);
+        this.isAutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNamesInSection(this.autorecSettings, 'templatefx'), this.rinsedName);
         this.autorecObject = this.isActiveEffect || this.pf2eRuleset ? AutorecFunctions._findObjectIn5eAE(this.autorecSettings, this.rinsedName) : AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
     
         // If there is no match and there are alternative names, then attempt to use those names instead
@@ -114,15 +114,15 @@ export default class systemData {
         this.isAutoThunderwave5e = false;
         if (this.autorecObject && !this.isCustomized) {
             this.isAutorecFireball = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === "fireball" ? true : false;
-            this.isAutorecAura = this.autorecObject.menuSection === "auras" ? true : false;
+            this.isAutorecAura = this.autorecObject.menuSection === "aura" ? true : false;
             this.isAutorecTeleport = this.autorecObject?.menuSection === "preset" && this.autorecObject?.animation === 'teleportation' ? true : false;
             this.isAutoThunderwave5e = this.autorecObject?.menuSection === 'preset' && this.autorecObject?.animation === 'thunderwave' ? true : false;
         }
         this.isAutorecTemplate = (this.isAutorecTemplateItem || this.isAutorecFireball) && !this.isCustomized ? true : false;
 
-        this.isOverrideTemplate = (this.animType === "template" && this.isCustomized) || (this.animType === "preset" && this.flags.animation === "fireball" && this.isCustomized) ? true : false;
+        this.isOverrideTemplate = (this.animType === "templatefx" && this.isCustomized) || (this.animType === "preset" && this.flags.preset?.presetType === "fireball" && this.isCustomized) ? true : false;
         this.isOverrideAura = this.animType === "aura" && this.isCustomized ? true: false;
-        this.isOverrideTeleport = (this.animType === "preset" && this.flags.animation === "teleportation") || this.isAutorecTeleport ? true : false;
+        this.isOverrideTeleport = (this.animType === "preset" && this.flags.preset?.presetType === "teleportation") || this.isAutorecTeleport ? true : false;
         //this.isAutorecTeleport = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === 'teleportation' ? true: false;
         this.decoupleSound = game.settings.get("autoanimations", "decoupleSound");
         this.isThunderwave5e = (this.animType === 'preset' && this.isCustomized && this.flags.animation === 'thunderwave'); 

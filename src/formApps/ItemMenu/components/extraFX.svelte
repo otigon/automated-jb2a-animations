@@ -45,19 +45,19 @@
     const primary = root.primary;
 
     let repeat = options.repeat || 1;
-    $: repeat = options.repeat = repeat;
+    $: repeat = options.repeat = Number(repeat);
 
     let delay = options.delay || 250;
-    $: delay = options.delay = delay;
+    $: delay = options.delay = Number(delay);
 
     let scale = options.scale || 1;
-    $: scale = options.scale = scale;
+    $: scale = options.scale = Number(scale);
 
     let belowToken = options.below || false;
     $: belowToken = options.below = belowToken;
 
     let opacity = options.opacity || 1;
-    $: opacity = options.opacity = opacity > 1 ? 1 : opacity;
+    $: opacity = options.opacity = opacity > 1 ? 1 : Number(opacity);
 
     let unbindAlpha = options.unbindAlpha || false;
     $: unbindAlpha = options.unbindAlpha = unbindAlpha;
@@ -68,6 +68,12 @@
     let persistent =
         flagPath === "sourceExtraFX" ? false : options.persistent || false;
     $: persistent = options.persistent = persistent;
+
+    let delayAfter = options.delayAfter || 0;
+    $: delayAfter = options.delayAfter = Number(delayAfter)
+
+    let delayStart = options.delayStart || 0;
+    $: delayStart = options.delayStart = Number(delayStart)
 
     function below() {
         belowToken = !belowToken;
@@ -330,6 +336,27 @@
                 />
             </div>
         </div>
+        {#if flagPath === "sourceExtraFX"}
+        <div class="flexcol" style="grid-row:3/4; grid-column:2/4">
+            <label for="">{localize("autoanimations.menus.delay")} {localize("autoanimations.menus.primary")} {localize("autoanimations.menus.start")}</label>
+            <input
+                type="Number"
+                bind:value={delayAfter}
+                placeholder=1
+                step=0.01
+            />
+        </div>
+        {:else}
+        <div class="flexcol" style="grid-row:3/4; grid-column:2/4">
+            <label for="">{localize("autoanimations.menus.delay")} {localize("autoanimations.menus.start")}</label>
+            <input
+                type="Number"
+                bind:value={delayStart}
+                placeholder=1
+                step=0.01
+            />
+        </div>
+        {/if}
     </div>
     <SoundSettings {audioPath} {flagData} />
     {/if}

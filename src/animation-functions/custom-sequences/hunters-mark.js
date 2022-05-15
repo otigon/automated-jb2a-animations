@@ -10,29 +10,44 @@ export async function huntersMark(handler, animationData) {
     }
 
     const data = animationData.primary;
+    /*
     if (data.isAuto) {
         const autoOverridden = handler.autorecOverrides?.enable
         data.anchorX = autoOverridden ? handler.autorecOverrides?.anchorX : data.anchorX || 0.5;
         data.anchorY = autoOverridden ? handler.autorecOverrides?.anchorY : data.anchorY || 0.7;
     }
+    */
+    const hmData =  handler.flags?.preset?.huntersmark;
+    if (!hmData) { return; }
+    const cleanData = {
+        variant: hmData.variant || "eye",
+        color: hmData.color || "blue",
+        below: hmData.below || false,
+        anchorX: hmData.anchorX || 0.5,
+        anchorY: hmData.anchorY || 0.7,
+        scale: hmData.scale || 1,
+        persistent: hmData.persistent || false
+    }
+
+
 
     const sourceToken = handler.sourceToken;
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
     //let target = handler.allTargets[0] || null;
 
-    const animLoop = data.variant + "loop";
-    let hmPulse = data.color === 'random' ? `autoanimations.static.spell.huntersmark.${data.variant}` : `autoanimations.static.spell.huntersmark.${data.variant}.${data.color}`;
+    const animLoop = cleanData.variant + "loop";
+    let hmPulse = cleanData.color === 'random' ? `autoanimations.static.spell.huntersmark.${cleanData.variant}` : `autoanimations.static.spell.huntersmark.${cleanData.variant}.${cleanData.color}`;
 
-    let hmLoop = data.color === 'random' ? `autoanimations.static.spell.huntersmark.${animLoop}` : `autoanimations.static.spell.huntersmark.${animLoop}.${data.color}`
+    let hmLoop = cleanData.color === 'random' ? `autoanimations.static.spell.huntersmark.${animLoop}` : `autoanimations.static.spell.huntersmark.${animLoop}.${cleanData.color}`
 
     //const checkAnim = Sequencer.EffectManager.getEffects({ object: target, name: "huntersmark" }).length > 0
 
-    const scale = data.scale || 1
+    const scale = cleanData.scale || 1
 
     const sourceTokenGS = sourceToken.width / canvas.grid.size;
 
-    if (handler.debug) { aaDebugger("Aura Animation Start", data) }
+    if (handler.debug) { aaDebugger("Aura Animation Start", data, cleanData) }
 
     //const playPersist = (!checkAnim && data.persistent) ? true : false;
     let aaSeq = await new Sequence()
@@ -55,7 +70,8 @@ export async function huntersMark(handler, animationData) {
     aaSeq.effect()
         .file(hmPulse)
         .atLocation(sourceToken)
-        .size(sourceTokenGS * data.scale, {gridUnits: true})
+        .belowTokens(cleanData.below)
+        .size(sourceTokenGS * cleanData.scale, {gridUnits: true})
     for (let target of handler.allTargets) {
         let targetTokenGS = target.width / canvas.grid.size;
         let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0
@@ -63,16 +79,17 @@ export async function huntersMark(handler, animationData) {
         aaSeq.effect()
             .file(hmPulse)
             .atLocation(target)
-            .size(targetTokenGS * data.scale, {gridUnits: true})
+            .belowTokens(cleanData.below)
+            .size(targetTokenGS * cleanData.scale, {gridUnits: true})
             //.playIf(target)
-        if (!checkAnim && data.persistent) {
+        if (!checkAnim && cleanData.persistent) {
             aaSeq.effect()
                 .file(hmLoop)
                 .attachTo(target)
-                .anchor({ x: data.anchorX, y: data.anchorY })
+                .anchor({ x: cleanData.anchorX, y: cleanData.anchorY })
                 .delay(1500)
                 .size(targetTokenGS * .25, {gridUnits: true})
-                .belowTokens(false)
+                .belowTokens(cleanData.below)
                 .name("huntersmark")
                 .persist()
                 .origin(handler.itemUuid)

@@ -24,20 +24,16 @@
     $: section01.enable = soundEnabled;
 
     let startTime = section01.startTime;
-    $: startTime = startTime;
-    $: section01.startTime = startTime;
+    $: startTime = section01.startTime = Number(startTime);
 
     let volume = section01.volume;
-    $: volume = volume;
-    $: section01.volume = volume;
+    $: volume = section01.volume = Number(volume);
 
     let delay = section01.delay;
-    $: delay = delay;
-    $: section01.delay = delay;
+    $: delay = section01.delay = Number(delay);
 
     let soundPath = section01.file || "";
-    $: soundPath = soundPath;
-    $: section01.file = soundPath;
+    $: soundPath = section01.file = soundPath;
 
     async function selectCustom() {
         const current = soundPath;

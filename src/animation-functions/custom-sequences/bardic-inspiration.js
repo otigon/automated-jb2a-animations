@@ -12,6 +12,32 @@ export async function bardicInspiration(handler, animationData) {
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
 
+    const biData =  flags.preset?.bardicinspiration;
+    if (!biData) { return; }
+    const cleanData = {
+        scale: biData.scale || 1,
+        below: biData.below || false,
+        self: {
+            enable: biData.self?.enable || false,
+            animation: biData.self?.animation || "bardicinspiration",
+            variant: biData.self?.variant || "inspire",
+            color: biData.self?.color || "yellowblue",
+        },
+        target: {
+            enable: biData.target?.enable || false,
+            animation: biData.target?.animation || "bardicinspiration",
+            variant: biData.target?.variant || "inspire",
+            color: biData.target?.color || "yellowblue",
+        },
+        marker: {
+            enable: biData.marker?.enable || false,
+            selfColor: biData.marker?.selfColor || "yellowblue",
+            targetColor: biData.marker?.targetColor || "yellowblue",
+        },
+    };
+
+
+    /*
     if (data.isAuto) {
 
     } else {
@@ -27,15 +53,15 @@ export async function bardicInspiration(handler, animationData) {
         data.selfAnimation = bards.bardAnim;
         data.targetAnimation = bards.bardTargetAnim;
     }
+    */
+    if (handler.debug) { aaDebugger("Bardic Inspiration Animation Start", data, cleanData) }
 
-    if (handler.debug) { aaDebugger("Bardic Inspiration Animation Start", data) }
-
-    const selfMarkerPath = data.selfMarkerColor === "random" ? `autoanimations.static.spell.bardicinspiration.marker` : `autoanimations.static.spell.bardicinspiration.marker.${data.selfMarkerColor}`;
-    const targetMarkerPath = data.targetMarkerColor === "random" ? `autoanimations.static.spell.bardicinspiration.marker` : `autoanimations.static.spell.bardicinspiration.marker.${data.targetMarkerColor}`
-    const selfMusicPath = data.selfColor === "random" ? `autoanimations.static.music.notes.01` : `autoanimations.static.music.notes.01.${data.selfColor}`
-    const targetMusicPath = data.targetColor === "random" ? `autoanimations.static.music.notes.01` : `autoanimations.static.music.notes.01.${data.targetColor}`
-    const selfBIPath = data.selfColor === "random" ? `autoanimations.static.spell.bardicinspiration.inspire` : `autoanimations.static.spell.bardicinspiration.inspire.${data.selfColor}`
-    const targetBIPath = data.targetColor === "random" ? `autoanimations.static.spell.bardicinspiration.inspire` : `autoanimations.static.spell.bardicinspiration.inspire.${data.targetColor}`
+    const selfMarkerPath = cleanData.marker.selfColor === "random" ? `autoanimations.static.spell.bardicinspiration.marker` : `autoanimations.static.spell.bardicinspiration.marker.${cleanData.marker.selfColor}`;
+    const targetMarkerPath = cleanData.marker.targetColor === "random" ? `autoanimations.static.spell.bardicinspiration.marker` : `autoanimations.static.spell.bardicinspiration.marker.${cleanData.marker.targetColor}`
+    const selfMusicPath = cleanData.self.color === "random" ? `autoanimations.static.music.notes.01` : `autoanimations.static.music.notes.01.${cleanData.self.color}`
+    const targetMusicPath = cleanData.target.color === "random" ? `autoanimations.static.music.notes.01` : `autoanimations.static.music.notes.01.${cleanData.target.color}`
+    const selfBIPath = cleanData.self.color === "random" ? `autoanimations.static.spell.bardicinspiration.inspire` : `autoanimations.static.spell.bardicinspiration.inspire.${cleanData.self.color}`
+    const targetBIPath = cleanData.target.color === "random" ? `autoanimations.static.spell.bardicinspiration.inspire` : `autoanimations.static.spell.bardicinspiration.inspire.${cleanData.target.color}`
 
     let aaSeq = await new Sequence("Automated Animations")
 
@@ -52,11 +78,11 @@ export async function bardicInspiration(handler, animationData) {
     aaSeq.thenDo(function () {
         Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
     })
-    if (data.animateSelf) {
+    if (cleanData.self.enable) {
         const sourceTokenGS = (sourceToken.width / canvas.grid.size) * 1.75 * data.scale;
         let selfEffect = aaSeq.effect()
         selfEffect.atLocation(sourceToken)
-        if (data.selfAnimation === 'music') {
+        if (cleanData.self.animation === 'notes') {
             selfEffect.file(selfMusicPath)
             selfEffect.size((sourceToken.width / canvas.grid.size), { gridUnits: true })
             selfEffect.repeats(10, 350)
@@ -65,21 +91,23 @@ export async function bardicInspiration(handler, animationData) {
             selfEffect.file(selfBIPath)
             selfEffect.size(sourceTokenGS, { gridUnits: true })
         }
-        if (data.marker) {
+        if (cleanData.marker.enable) {
             aaSeq.effect()
                 .file(selfMarkerPath)
+                .fadeIn(500)
+                .fadeOut(500)
                 .atLocation(sourceToken)
                 .size(sourceTokenGS, { gridUnits: true })
                 .belowTokens(true)
         }
     }
     let targetSound = false;
-    if (data.animateTarget && handler.allTargets.length > 0) {
+    if (cleanData.target.enable && handler.allTargets.length > 0) {
         for (let target of handler.allTargets) {
-            let targetTokenGS = (target.width / canvas.grid.size) * 1.75 * data.scale
+            let targetTokenGS = (target.width / canvas.grid.size) * 1.75 * cleanData.scale
             let targetEffect = aaSeq.effect()
             targetEffect.atLocation(target)
-            if (data.targetAnimation === 'music') {
+            if (cleanData.target.animation === 'notes') {
                 targetEffect.file(targetMusicPath)
                 targetEffect.size((target.width / canvas.grid.size), { gridUnits: true })
                 targetEffect.repeats(10, 350)
@@ -88,9 +116,11 @@ export async function bardicInspiration(handler, animationData) {
                 targetEffect.file(targetBIPath)
                 targetEffect.size(targetTokenGS, { gridUnits: true })
             }
-            if (data.marker) {
+            if (cleanData.marker.enable) {
                 aaSeq.effect()
                     .file(targetMarkerPath)
+                    .fadeIn(500)
+                    .fadeOut(500)
                     .atLocation(target)
                     .size(targetTokenGS, { gridUnits: true })
                     .belowTokens(true)

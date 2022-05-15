@@ -4,6 +4,7 @@
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import SwitchApp from "../videoPreviews/switchApp.svelte";
     import ChooseAnimation from "./chooseAnimation.svelte";
+    import SoundSettings from "./soundSettings.svelte";
 
     import {
         aaTypeMenu,
@@ -188,6 +189,9 @@
             />
         </div>
     </div>
+{/if}
+{#if switchType !== "off"}
+<SoundSettings audioPath="a02" {flagData} />
 {/if}
 
 <style lang="scss">

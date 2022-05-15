@@ -262,9 +262,9 @@
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
             <label for="">{localize("AUTOANIM.repeat")}</label>
             <input
-                type="Number"
+                type=number
                 bind:value={projectileRepeat}
-                placeholder="1"
+                placeholder=1
             />
         </div>
         <!--Set delay between repeats-->
@@ -274,15 +274,15 @@
                 {localize("AUTOANIM.delay")}</label
             >
             <input
-                type="Number"
+                type=number
                 bind:value={projectileDelay}
-                placeholder="250"
+                placeholder=250
             />
         </div>
         <!--Set Delay before Next Explosion-->
         <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;">
             <label for="">Wait</label>
-            <input type="Number" bind:value={projectileWait} step="0.01" />
+            <input type=number bind:value={projectileWait} step=0.01 />
         </div>
     </div>
     <SoundSettings audioPath="a01" {flagData} />
@@ -332,18 +332,18 @@
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
                 <label for="">{localize("AUTOANIM.scale")}</label>
                 <input
-                    type="Number"
+                    type=number
                     bind:value={explosion01Scale}
-                    placeholder="1"
+                    placeholder=1
                 />
             </div>
             <!--Set Number of times the animation plays-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
                 <label for="">{localize("AUTOANIM.repeat")}</label>
                 <input
-                    type="Number"
+                    type=number
                     bind:value={explosion01Repeat}
-                    placeholder="1"
+                    placeholder=1
                 />
             </div>
             <!--Set delay between repeats-->
@@ -353,15 +353,15 @@
                     {localize("AUTOANIM.delay")}</label
                 >
                 <input
-                    type="Number"
+                    type=number
                     bind:value={explosion01Delay}
-                    placeholder="250"
+                    placeholder=250
                 />
             </div>
             <!--Set Delay before Next Explosion-->
             <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;">
                 <label for="">Wait</label>
-                <input type="Number" bind:value={explosion01Wait} step="0.01" />
+                <input type=number bind:value={explosion01Wait} step=0.01 />
             </div>
         </div>
         <SoundSettings audioPath="e01" {flagData} />
@@ -397,18 +397,18 @@
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
             <label for="">{localize("AUTOANIM.scale")}</label>
             <input
-                type="Number"
+                type=number
                 bind:value={explosion02Scale}
-                placeholder="1"
+                placeholder=1
             />
         </div>
         <!--Set Number of times the animation plays-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
             <label for="">{localize("AUTOANIM.repeat")}</label>
             <input
-                type="Number"
+                type=number
                 bind:value={explosion02Repeat}
-                placeholder="1"
+                placeholder=1
             />
         </div>
         <!--Set delay between repeats-->
@@ -418,9 +418,9 @@
                 {localize("AUTOANIM.delay")}</label
             >
             <input
-                type="Number"
+                type=number
                 bind:value={explosion02Delay}
-                placeholder="250"
+                placeholder=250
             />
         </div>
     </div>
@@ -478,15 +478,15 @@
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
                 <label for="">{localize("AUTOANIM.scale")}</label>
                 <input
-                    type="Number"
+                    type=number
                     bind:value={afterImageScale}
-                    placeholder="1"
+                    placeholder=1
                 />
             </div>
             <!--Set Delay before Next Explosion-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
                 <label for="">Wait</label>
-                <input type="Number" bind:value={afterImageWait} step="0.01" />
+                <input type=number bind:value={afterImageWait} step=0.01 />
             </div>
         </div>
     {/if}

@@ -37,6 +37,21 @@ export async function shieldSpell(handler, animationData) {
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
+
+    const shieldData =  handler.flags?.preset?.shield;
+    if (!shieldData) { return; }
+    const cleanData = {
+        variant: shieldData.variant || "01",
+        color: shieldData.color || "blue",
+        below: shieldData.below || false,
+        endEffect: shieldData.endEffect || "outro_explode",
+        scale: shieldData.scale || 1,
+        persistent: shieldData.persistent || false,
+        unbindAlpha: shieldData.unbindAlpha || false,
+        unbindVisibility: shieldData.unbindVisibility || false
+    }
+    console.log(cleanData)
+    /*
     if (data.isAuto) {
         const autoOverridden = handler.autorecOverrides?.enable
         data.persistent = autoOverridden ? handler.autorecOverrides?.persistent : data.addCTA;
@@ -44,8 +59,9 @@ export async function shieldSpell(handler, animationData) {
     } else {
         data.endeffect = data.options.shieldVar ?? "outro_fade";
     }
+    */
     const sourceToken = handler.sourceToken;
-    const onToken = await buildShieldFile(obj01, data.color, data.variant, data.endeffect);
+    const onToken = await buildShieldFile(obj01, cleanData.color, cleanData.variant, cleanData.endEffect);
 
     if (handler.debug) { aaDebugger("Shield Animation Start", animationData, onToken) }
     const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
@@ -72,25 +88,25 @@ export async function shieldSpell(handler, animationData) {
         })
         aaSeq.effect()
             .file(onToken.file01)
-            .size(sourceTokenGS * 1.75 * data.scale, {gridUnits: true})
+            .size(sourceTokenGS * 1.75 * cleanData.scale, {gridUnits: true})
             .atLocation(sourceToken)
-            .belowTokens(data.below)
+            .belowTokens(cleanData.below)
             .waitUntilFinished(-500)
         let persistSwitch = aaSeq.effect();
         persistSwitch.file(onToken.file02)
-        persistSwitch.size(sourceTokenGS * 1.75 * data.scale, {gridUnits: true})
+        persistSwitch.size(sourceTokenGS * 1.75 * cleanData.scale, {gridUnits: true})
         persistSwitch.atLocation(sourceToken)
-        persistSwitch.belowTokens(data.below)
+        persistSwitch.belowTokens(cleanData.below)
         persistSwitch.fadeIn(300)
         persistSwitch.fadeOut(300)
         persistSwitch.origin(handler.itemUuid)
-        if (data.persistent) {
+        if (cleanData.persistent) {
             if (handler.isActiveEffect) {
                 persistSwitch.name(handler.itemName + `${sourceToken.id}`)
             } else {
                 persistSwitch.name(`${sourceToken.id}`)
             }
-            persistSwitch.attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility});
+            persistSwitch.attachTo(sourceToken, {bindAlpha: cleanData.unbindAlpha, bindVisibility: cleanData.unbindVisibility});
             persistSwitch.persist();
             persistSwitch.origin(handler.itemUuid)
         }
@@ -98,8 +114,8 @@ export async function shieldSpell(handler, animationData) {
         persistSwitch.waitUntilFinished(-1000)
         aaSeq.effect()
             .file(onToken.file03)
-            .size(sourceTokenGS * 1.75 * data.scale, {gridUnits: true})
-            .belowTokens(data.below)
+            .size(sourceTokenGS * 1.75 * cleanData.scale, {gridUnits: true})
+            .belowTokens(cleanData.below)
             .atLocation(sourceToken)
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;

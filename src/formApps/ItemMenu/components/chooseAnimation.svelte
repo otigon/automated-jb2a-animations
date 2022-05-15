@@ -67,7 +67,7 @@
     export let menuSelection = animType === "aura" ? "static" : animType;
     $: menuSelection = animType === "aura" ? "static" : animType;
     export let menuType =
-        options.menuType || Object.keys(aaTypeMenu[menuSelection])[0];
+        rootPath.menuType || Object.keys(aaTypeMenu[menuSelection])[0];
     $: menuType = menuType;
     // Sets Initial animation for Menu - Assigns to Flag when updated
     export let animation =
@@ -76,7 +76,7 @@
     $: animation = animation;
     // Sets Initial variant for Menu - Assigns to Flag when updated
     export let variant =
-        options.variant ||
+        rootPath.variant ||
         Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0];
     $: variant = variant;
     // Sets Initial color for Menu - Assigns to Flag when updated

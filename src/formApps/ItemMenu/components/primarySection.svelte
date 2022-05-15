@@ -33,16 +33,16 @@
     let menuSelection = flagData.animType === "aura" ? "static" : flagData.animType;
     $: menuSelection = menuSelection;
 
-    export let menuType = primaryData.menuType ? Object.keys(aaTypeMenu[menuSelection])[0] : primaryData.menuType;
+    export let menuType = !primaryData.menuType ? Object.keys(aaTypeMenu[menuSelection])[0] : primaryData.menuType;
     $: menuType = primaryData.menuType = menuType;
 
-    export let animation = primaryData.animation ? Object.keys(aaNameMenu[menuSelection][menuType])[0] : primaryData.animation;
+    export let animation = !primaryData.animation ? Object.keys(aaNameMenu[menuSelection][menuType])[0] : primaryData.animation;
     $: animation = primaryData.animation = animation;
 
-    let variant = primaryData.variant ? Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0] : primaryData.variant;
+    let variant = !primaryData.variant ? Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0] : primaryData.variant;
     $: variant = primaryData.variant = variant;
 
-    let color = primaryData.color ? Object.keys(aaColorMenu[menuSelection][menuType][animation][variant])[0] : primaryData.color;
+    let color = !primaryData.color ? Object.keys(aaColorMenu[menuSelection][menuType][animation][variant])[0] : primaryData.color;
     $: color = primaryData.color = color;
 
     let isCustom = primaryData.enableCustom || false;
@@ -119,6 +119,7 @@
     bind:customPath
     bind:menuSelection
     bind:staticType
+    customId="PrimaryCustom"
     flagPath="PrimaryAnimation"
     {disablePlayOn}
     {animTypeSwitched}

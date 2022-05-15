@@ -37,7 +37,7 @@
     preset.variant = "01";
 
     let color =
-        preset.color || Object.keys(aaColorMenu.static.spell.bless["01"])[0];
+        preset.color || Object.keys(aaColorMenu.static.spell.bless.intro)[0];
     $: color = preset.color = color;
 
     let unbindAlpha = preset.unbindAlpha || false;
@@ -79,7 +79,7 @@
         <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
             <label for="">{localize("AUTOANIM.color")}</label>
             <select bind:value={color}>
-                {#each Object.entries(aaColorMenu.static.spell.bless["01"]) as [key, name]}
+                {#each Object.entries(aaColorMenu.static.spell.bless.intro) as [key, name]}
                     <option value={key}>{name}</option>
                 {/each}
             </select>
@@ -113,10 +113,10 @@
         <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
             <label for="">{localize("AUTOANIM.scale")}</label>
             <input
-                type="Number"
+                type=number
                 bind:value={scale}
-                placeholder="1"
-                step="0.01"
+                placeholder=1
+                step=0.01
             />
         </div>
     </div>

@@ -19,13 +19,27 @@ export async function bless(handler, animationData) {
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
+
+    const blessData =  handler.flags?.preset?.bless;
+    if (!blessData) { return; }
+    const cleanData = {
+        color: blessData.color || "blue",
+        below: blessData.below || false,
+        persistent: blessData.persistent || false,
+        scale: blessData.scale || 1,
+        unbindAlpha: blessData.unbindAlpha || false,
+        unbindVisibility: blessData.unbindVisibility || false,
+    }
+
+    /*
     if (data.isAuto) {
         const autoOverridden = handler.autorecOverrides?.enable
         data.persistent = autoOverridden ? handler.autorecOverrides?.persistent : data.addCTA;
     }
-    const bless = await buildBlessFile(obj01, data.color);
+    */
+    const bless = await buildBlessFile(obj01, cleanData.color);
 
-    if (handler.debug) { aaDebugger("Aura Animation Start", animationData, bless) }
+    if (handler.debug) { aaDebugger("Aura Animation Start", animationData, cleanData, bless) }
 
     // builds Source Token file if Enabled, and pulls from flags if already set
     //const sourceFX = await AAanimationData._sourceFX(handler, sourceToken);
@@ -38,7 +52,7 @@ export async function bless(handler, animationData) {
         const sourceTokenGS = (sourceToken.width / canvas.grid.size) * 1.75 * data.scale;
 
         const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
-        const playPersist = (!checkAnim && data.persistent) ? true : false;
+        const playPersist = (!checkAnim && cleanData.persistent) ? true : false;
         let aaSeq = await new Sequence()
         // Play Macro if Awaiting
         if (data.playMacro && data.macro.playWhen === "1") {
@@ -59,18 +73,19 @@ export async function bless(handler, animationData) {
         if (!checkAnim) {
             aaSeq.effect()
                 .file(bless.file01)
-                .attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
+                .attachTo(sourceToken, {bindAlpha: cleanData.unbindAlpha, bindVisibility: cleanData.unbindVisibility})
                 .size(sourceTokenGS, { gridUnits: true })
-                .belowTokens(data.below)
+                .belowTokens(cleanData.below)
                 .waitUntilFinished(-500)
             let endSection = aaSeq.effect();
             endSection.file(bless.file02)
             endSection.size(sourceTokenGS, { gridUnits: true })
             endSection.origin(handler.itemUuid)
-            endSection.attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
-            endSection.belowTokens(data.below)
+            endSection.attachTo(sourceToken, {bindAlpha: cleanData.unbindAlpha, bindVisibility: cleanData.unbindVisibility})
+            endSection.belowTokens(cleanData.below)
             endSection.loopProperty("sprite", "width", { from: (sourceTokenGS * 0.95), to: (sourceTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
             endSection.loopProperty("sprite", "height", { from: (sourceTokenGS * 0.95), to: (sourceTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
+            endSection.fadeOut(500)
             if (playPersist) { 
                 if (handler.isActiveEffect) {
                     endSection.name(handler.itemName + `${sourceToken.id}`)
@@ -114,22 +129,23 @@ export async function bless(handler, animationData) {
         for (let target of handler.allTargets) {
             let targetTokenGS = (target.width / canvas.grid.size) * 1.75 * data.scale
             let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0
-            let playPersist = (!checkAnim && data.persistent) ? true : false;
+            let playPersist = (!checkAnim && cleanData.persistent) ? true : false;
             if (!checkAnim) {
                 aaSeq.effect()
                     .file(bless.file01)
-                    .attachTo(target, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
+                    .attachTo(target, {bindAlpha: cleanData.unbindAlpha, bindVisibility: cleanData.unbindVisibility})
                     .size(targetTokenGS, { gridUnits: true })
-                    .belowTokens(data.below)
+                    .belowTokens(cleanData.below)
                     .waitUntilFinished(-500)
                 let endSection = aaSeq.effect();
                 endSection.file(bless.file02)
                 endSection.size(targetTokenGS, { gridUnits: true })
                 endSection.origin(handler.itemUuid)
-                endSection.attachTo(target, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
-                endSection.belowTokens(data.below)
+                endSection.attachTo(target, {bindAlpha: cleanData.unbindAlpha, bindVisibility: cleanData.unbindVisibility})
+                endSection.belowTokens(cleanData.below)
                 endSection.loopProperty("sprite", "width", { from: (targetTokenGS * 0.95), to: (targetTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
                 endSection.loopProperty("sprite", "height", { from: (targetTokenGS * 0.95), to: (targetTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
+                endSection.fadeOut(500)
                 if (playPersist) { 
                     if (handler.isActiveEffect) {
                         endSection.name(handler.itemName + `${target.id}`)

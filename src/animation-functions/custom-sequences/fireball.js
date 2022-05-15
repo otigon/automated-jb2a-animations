@@ -8,6 +8,61 @@ export async function fireball(handler, animationData, config) {
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
 
+    const fbData =  handler.flags?.preset?.fireball;
+    if (!fbData) { return; }
+    const projectileData = fbData.projectile || {};
+    const explosion01Data = fbData.explosion01 || {};
+    const explosion02Data = fbData.explosion02 || {};
+    const afterData = fbData.afterImage || {};
+
+    const cleanData = {
+        onlyX: fbData.onlyX || false,
+        removeTemplate: fbData.removeTemplate || false,
+        projectile: {
+            menuType: projectileData.menuType || "spell",
+            animation: projectileData.animation || "fireballbeam",
+            variant: projectileData.variant || "01",
+            color: projectileData.color || "orange",
+            customPath: projectileData.enableCustom && projectileData.customPath ? projectileData.customPath : false,
+            below: projectileData.below || false,
+            repeat: projectileData.repeat || 1,
+            delay: projectileData.delay || 250,
+            wait: projectileData.wait || 0,
+        },
+        explosion01: {
+            enable: explosion01Data.enable || false,
+            menuType: explosion01Data.menuType || "spell",
+            animation: explosion01Data.animation || "shatter",
+            variant: explosion01Data.variant || "01",
+            color: explosion01Data.color || "blue",
+            customPath : explosion01Data.enableCustom && explosion01Data.customPath ? explosion01Data.customPath : false,
+            below: explosion01Data.below || false,
+            repeat: explosion01Data.repeat || 1,
+            delay: explosion01Data.delay || 250,
+            scale: explosion01Data.scale || 1,
+            wait: explosion01Data.wait || 0,
+        },
+        explosion02: {
+            menuType: explosion02Data.menuType || "spell",
+            animation: explosion02Data.animation || "shatter",
+            variant: explosion02Data.variant || "01",
+            color: explosion02Data.color || "blue",
+            customPath : explosion02Data.enableCustom && explosion02Data.customPath ? explosion02Data.customPath : false,
+            below: explosion02Data.below || false,
+            repeat: explosion02Data.repeat || 1,
+            delay: explosion02Data.delay || 250,
+            scale: explosion02Data.scale || 1,
+        },
+        afterImage: {
+            enable: afterData.enable && afterData.customPath ? afterData.enable : false,
+            below: afterData.below || false,
+            persistent: afterData.persistent || false,
+            scale: afterData.scale || 1,
+            wait: afterData.wait || 0,
+        }
+    }
+
+    /*
     const flags = handler.flags;
     if (data.isAuto) {
         //Object.assign(data, autoObject);
@@ -127,12 +182,13 @@ export async function fireball(handler, animationData, config) {
             startTime: handler.flags?.audio?.e02?.startTime || 0,
         }
     }
+    */
 
-    const projectileAnimation = await buildFile(false, data.rangeType, data.projectile, "range", data.projectileVariant, data.projectileColor);
-    const explosion01 = data.explosion01 !== "a1" ? await buildFile(true, data.ex01Type, data.explosion01, "static", data.explosion01Variant, data.explosion01Color) : "";
-    const explosion02 = data.explosion02 !== "a1" ? await buildFile(true, data.ex02Type, data.explosion02, "static", data.explosion02Variant, data.explosion02Color) : "";
+    const projectileAnimation = await buildFile(false, cleanData.projectile.menuType, cleanData.projectile.animation, "range", cleanData.projectile.variant, cleanData.projectile.color);
+    const explosion01 = cleanData.explosion01.enable ? await buildFile(true, cleanData.explosion01.menuType, cleanData.explosion01.animation, "static", cleanData.explosion01.variant, cleanData.explosion01.color) : "";
+    const explosion02 = cleanData.explosion02.animation !== "a1" ? await buildFile(true, cleanData.explosion02.menuType, cleanData.explosion02.animation, "static", cleanData.explosion02.variant, cleanData.explosion02.color) : "";
 
-    if (handler.debug) { aaDebugger("Fireball Animation Start", data, projectileAnimation, explosion01, explosion02) }
+    if (handler.debug) { aaDebugger("Fireball Animation Start", data, cleanData, projectileAnimation, explosion01, explosion02) }
 
     const template = config ? config : canvas.templates.placeables[canvas.templates.placeables.length - 1];
     const sourceToken = handler.sourceToken;
@@ -160,7 +216,7 @@ export async function fireball(handler, animationData, config) {
         size = canvas.grid.size * ((template.data.distance * 2) / canvas.dimensions.distance);
     }
     let aaSeq = await new Sequence("Automated Animations")
-    if (data.removeTemplate) {
+    if (cleanData.removeTemplate) {
         aaSeq.thenDo(function () {
             canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.id])
         })
@@ -187,8 +243,8 @@ export async function fireball(handler, animationData, config) {
         .file(projectileAnimation.file)
         .atLocation(sourceToken)
         .stretchTo(position)
-        .repeats(data.projectileRepeat, data.projectileDelay)
-        .waitUntilFinished(data.wait01)
+        .repeats(cleanData.projectile.repeat, cleanData.projectile.delay)
+        .waitUntilFinished(cleanData.projectile.wait)
     if (data.exAudio01.enable && data.exAudio01.file) {
         aaSeq.sound()
             .file(data.exAudio01.file, true)
@@ -197,13 +253,13 @@ export async function fireball(handler, animationData, config) {
             .repeats(data.exAudio01.repeat, data.explosion01Delay)
             .startTime(data.exAudio01.startTime)
     }
-    if (data.ex01Type) {
+    if (cleanData.explosion01.enable && cleanData.explosion01.menuType) {
         aaSeq.effect()
             .file(explosion01.file, true)
             .atLocation(position)
-            .size(size * .35 * data.explosion01Scale)
-            .repeats(data.explosion01Repeat, data.explosion01Delay)
-            .waitUntilFinished(data.wait02)
+            .size(size * .35 * cleanData.explosion01.scale)
+            .repeats(cleanData.explosion01.repeat, cleanData.explosion01.delay)
+            .waitUntilFinished(cleanData.explosion01.wait)
     }
     if (data.exAudio02.enable && data.exAudio02.file) {
         aaSeq.sound()
@@ -213,18 +269,18 @@ export async function fireball(handler, animationData, config) {
             .repeats(data.exAudio02.repeat, data.explosion02Delay)
             .startTime(data.exAudio02.startTime)
     }
-    if (data.ex02Type) {
+    if (cleanData.explosion02.menuType) {
         aaSeq.effect()
             .file(explosion02.file, true)
             .atLocation(position)
-            .size(size * data.explosion02Scale)
-            .repeats(data.explosion02Repeat, data.explosion02Delay)
+            .size(size * cleanData.explosion02.scale)
+            .repeats(cleanData.explosion02.repeat, cleanData.explosion02.delay)
             .zIndex(5)
-            .waitUntilFinished(-750 + data.wait03)
+            .waitUntilFinished(-750 + cleanData.afterImage.wait)
     }
-    if (data.afterEffect && data.afterEffectPath) {
+    if (cleanData.afterImage.enable) {
         aaSeq.effect()
-            .file(data.afterEffectPath, true)
+            .file(cleanData.afterImage.customPath, true)
             .size(size)
             .atLocation(position)
             .belowTokens(true)
@@ -240,69 +296,6 @@ export async function fireball(handler, animationData, config) {
             .macro(data.macro.name, handler.workflow, handler, ...userData)
             .play()
     }
-    if (data.afterEffect && data.afterEffectPath) { AAanimationData.howToDelete("sequencerground") }
+    if (cleanData.afterImage.enable) { AAanimationData.howToDelete("sequencerground") }
     aaSeq.play()
-
-    /*
-    new Sequence("Automated Animations")
-        .sound()
-            .file(data.itemAudio.file, true)
-            .volume(data.itemAudio.volume)
-            .delay(data.itemAudio.delay)
-            .repeats(data.itemAudio.repeat, data.projectileDelay)
-            .playIf(() => {
-                return data.itemAudio.enable && data.itemAudio.file;
-            })
-        .effect()
-            .file(projectileAnimation.file)
-            .atLocation(sourceToken)
-            .stretchTo(position)
-            .repeats(data.projectileRepeat, data.projectileDelay)
-            .waitUntilFinished(data.wait01)
-        .sound()
-            .file(data.exAudio01.file, true)
-            .volume(data.exAudio01.volume)
-            .delay(data.exAudio01.delay)
-            .repeats(data.exAudio01.repeat, data.explosion01Delay)
-            .playIf(() => {
-                return data.exAudio01.enable && data.exAudio01.file;
-            })
-        .effect()
-            .file(explosion01.file, true)
-            .playIf(data.explosion01 !== "a1")
-            .atLocation(position)
-            .size(size * .35 * data.explosion01Scale)
-            .repeats(data.explosion01Repeat, data.explosion01Delay)
-            //.timeRange(0, 1200)
-            .waitUntilFinished(data.wait02)
-        .sound()
-            .file(data.exAudio02.file, true)
-            .volume(data.exAudio02.volume)
-            .delay(data.exAudio02.delay)
-            .repeats(data.exAudio02.repeat, data.explosion02Delay)
-            .playIf(() => {
-                return data.exAudio02.enable && data.exAudio02.file;
-            })
-        .effect()
-            .file(explosion02.file, true)
-            .playIf(data.explosion02 !== "a1")
-            .atLocation(position)
-            .size(size * data.explosion02Scale)
-            .zIndex(5)
-            .waitUntilFinished(-750 + data.wait03)
-        .effect()
-            .file(data.afterEffectPath, true)
-            .size(size)
-            .atLocation(position)
-            .belowTokens(true)
-            .persist(true)
-            .origin(handler.item.uuid)
-            .fadeIn(250)
-            .playIf(data.afterEffect)
-        .play()
-
-        if (data.removeTemplate) {
-            canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.data._id])
-        }
-        */
 }

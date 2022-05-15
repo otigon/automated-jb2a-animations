@@ -104,10 +104,10 @@
         <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
             <label for="">{localize("AUTOANIM.scale")}</label>
             <input
-                type="Number"
+                type=number
                 bind:value={scale}
                 placeholder="1"
-                step="0.01"
+                step=0.01
             />
         </div>
         <div
@@ -117,10 +117,10 @@
             <label for="">{localize("AUTOANIM.anchorX")}</label>
             <input
                 disabled={!persistent}
-                type="Number"
+                type=number
                 bind:value={anchorX}
                 placeholder="1"
-                step="0.01"
+                step=0.01
             />
         </div>
         <div
@@ -130,10 +130,10 @@
             <label for="">{localize("AUTOANIM.anchorY")}</label>
             <input
                 disabled={!persistent}
-                type="Number"
+                type=number
                 bind:value={anchorY}
                 placeholder="1"
-                step="0.01"
+                step=0.01
             />
         </div>
     </div>

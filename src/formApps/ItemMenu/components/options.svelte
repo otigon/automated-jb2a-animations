@@ -12,65 +12,54 @@
     $: menuType = menuType;
 
     let repeat = options.repeat || 1;
-    $: repeat = repeat;
-    $: options.repeat = repeat
+    $: repeat = options.repeat = repeat;
 
     let delay = options.delay || 250;
-    $: delay = delay;
-    $: options.delay = delay
+    $: delay = options.delay = delay;
 
     let scale = options.scale || 1;
-    $: scale = scale;
-    $: options.scale = scale
+    $: scale = options.scale = scale;
 
     let auraRadius = options.auraRadius;
-    $: auraRadius = auraRadius;
-    $: options.auraRadius = auraRadius;
+    $: auraRadius = options.auraRadius = auraRadius;
 
     let belowToken = options.below || false;
-    $: belowToken = belowToken;
-    $: options.below = belowToken
+    $: belowToken = options.below = belowToken;
 
     let opacity = options.opacity || 1;
-    $: opacity = opacity > 1 ? 1 : opacity;
-    $: options.opacity = opacity > 1 ? 1 : opacity;
+    $: opacity = options.opacity = opacity > 1 ? 1 : opacity;
 
     let unbindAlpha = options.unbindAlpha || false;
-    $: unbindAlpha = unbindAlpha;
-    $: options.unbindAlpha = unbindAlpha;
+    $: unbindAlpha = options.unbindAlpha = unbindAlpha;
 
     let unbindVisbility = options.unbindVisbility || false;
-    $: unbindVisbility = unbindVisbility;
-    $: options.unbindVisbility = unbindVisbility;
+    $: unbindVisbility = options.unbindVisbility = unbindVisbility;
 
     let persistent = options.persistent || false;
-    $: persistent = persistent;
-    $: options.persistent = persistent;
+    $: persistent = options.persistent = persistent;
 
     let removeTemplate = options.removeTemplate || false;
-    $: removeTemplate = removeTemplate;
-    $: options.removeTemplate = removeTemplate;
+    $: removeTemplate = options.removeTemplate = removeTemplate;
     $: isRemove = removeTemplate ? "Yes" : "No";
 
+    let ignoreTarget = options.ignoreTarget || false;
+    $: ignoreTarget = options.ignoreTarget = ignoreTarget;
+    $: isIgnore = ignoreTarget ? "Yes" : "No";
+
     let scaleX = options.scaleX;
-    $: scaleX = scaleX;
-    $: options.scaleX = scaleX;
+    $: scaleX = options.scaleX = scaleX;
 
     let scaleY = options.scaleY;
-    $: scaleY = scaleY;
-    $: options.scaleY = scaleY;
+    $: scaleY = options.scaleY = scaleY;
 
     let persistType = options.persistType || false;
-    $: persistType = persistType;
-    $: options.persistType = persistType;
+    $: persistType = options.persistType = persistType;
 
     let occlusionMode = options.occlusionMode || "3";
-    $: occlusionMode = occlusionMode;
-    $: options.occlusionMode = occlusionMode;
+    $: occlusionMode = options.occlusionMode = occlusionMode;
 
     let occlusionAlpha = options.occlusionAlpha || 0.5;
-    $: occlusionAlpha = occlusionAlpha > 1 ? 1 : occlusionAlpha;
-    $: options.occlusionAlpha =  occlusionAlpha > 1 ? 1 : occlusionAlpha;
+    $: occlusionAlpha = options.occlusionAlpha = occlusionAlpha > 1 ? 1 : occlusionAlpha;
 
     function below() {
         belowToken = !belowToken;
@@ -97,6 +86,10 @@
     }
     function switchRemove() {
         removeTemplate = !removeTemplate;
+    }
+
+    function switchIgnore() {
+        ignoreTarget = !ignoreTarget;
     }
 
     let menuSelection = flagData.animType;
@@ -134,24 +127,24 @@
     <!--Set Number of times the animation plays-->
     <div class="flexcol {isDisabled ? "aa-disabled" : ""}" style="grid-row: 2 / 3; grid-column: 1 / 2;">
         <label for="">{localize("autoanimations.menus.repeat")}</label>
-        <input disabled={isDisabled} type="Number" bind:value={repeat} placeholder=1>
+        <input disabled={isDisabled} type=number bind:value={repeat} placeholder=1>
     </div>
     <!--Set delay between repeats-->
     <div class="flexcol {isDisabled ? "aa-disabled" : ""}" style="grid-row: 2 / 3; grid-column: 2 / 3;">
         <label for="">{localize("autoanimations.menus.repeat")} {localize("autoanimations.menus.delay")}</label>
-        <input disabled={isDisabled} type="Number" bind:value={delay} placeholder=250>
+        <input disabled={isDisabled} type=number bind:value={delay} placeholder=250>
     </div>
     <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
     {#if animType !== "templatefx"}
     {#if animType === "aura"}
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
         <label for="">{localize("autoanimations.menus.radius")}</label>
-        <input type="Number" bind:value={auraRadius} placeholder=3.5 step=0.01>
+        <input type=number bind:value={auraRadius} placeholder=3.5 step=0.01>
     </div>
     {:else}
     <div class="flexcol {animType === "range" ? "aa-disabled" : ""}" style="grid-row: 2 / 3; grid-column: 3 / 4;">
         <label for="">{localize("autoanimations.menus.scale")}</label>
-        <input type="Number" disabled={animType === "range"} bind:value={scale} placeholder=1 step=0.01>
+        <input type=number disabled={animType === "range"} bind:value={scale} placeholder=1 step=0.01>
     </div>
     {/if}
     {/if}
@@ -159,21 +152,29 @@
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
         <label for="aaOpacity">{localize("autoanimations.menus.opacity")}</label>
         <div class='form-group'>
-            <input type="Number" id="aaOpacity" bind:value={opacity} placeholder=1 min=0 max=1 step=0.01>
+            <input type=number id="aaOpacity" bind:value={opacity} placeholder=1 min=0 max=1 step=0.01>
             <input type="range" min=0 max=1 step=0.01 bind:value={opacity}>
         </div>
     </div>
+    <!-- Aura Specific Setting-->
+    {#if animType === "aura"}
+    <!--Ignore Targets-->
+    <div class="flexcol" style="grid-row: 3 / 4; grid-column: 4 / 5;">
+        <label for="">{localize("autoanimations.menus.ignoreTargets")}</label>
+        <button class="{ignoreTarget ? "selected" : "notSelected"}" on:click={() => switchIgnore()}>{isIgnore}</button>
+    </div>
+    {/if}
     <!--Template Specific Settings-->
     {#if animType === "templatefx"}
     <!--Set Scale in X-->
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
         <label for="">{localize("autoanimations.menus.scale")} X</label>
-        <input type="Number" bind:value={scaleX} placeholder=1>
+        <input type=number bind:value={scaleX} placeholder=1>
     </div>
     <!--Set Scale in Y-->
     <div class="flexcol" style="grid-row: 3 / 4; grid-column: 3 / 4;">
         <label for="">{localize("autoanimations.menus.scale")} Y</label>
-        <input type="Number" bind:value={scaleY} placeholder=1>
+        <input type=number bind:value={scaleY} placeholder=1>
     </div>
     <!--Remove Template option-->
     <div class="flexcol" style="grid-row: 3 / 4; grid-column: 4 / 5;">
@@ -218,8 +219,8 @@
     <div class="flexcol" style="grid-row: 4 / 5; grid-column: 3 / 4;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
         <label for="">{localize("autoanimations.menus.occlusionAlpha")}</label>
         <div class='form-group'>
-            <input type="Number" bind:value={occlusionAlpha} placeholder=1 min=0 max=1 step=0.01>
-            <input type="range" min=0 max=1 step=0.01 bind:value={occlusionAlpha}>
+            <input type=number bind:value={occlusionAlpha} placeholder=1 min=0 max=1 step=0.01>
+            <input type=range min=0 max=1 step=0.01 bind:value={occlusionAlpha}>
         </div>
     </div>
     {/if}

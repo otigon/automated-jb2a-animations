@@ -926,6 +926,7 @@ export const flagMigrations = {
             console.warn(`DEBUG | Automated Animations | Version 3 Flag Migration Complete`, v4Flags)
         },
         "5": async (item) => {
+            debugger
             if (!item.data?.flags?.autoanimations) { return; }
             const v4Flags = item.data?.flags?.autoanimations || {};
             const v5Flags = {}
@@ -973,7 +974,8 @@ export const flagMigrations = {
             async function mergePrimary() {
                 let { options, explosions, audio, macro, levels3d, sourceToken, targetToken,
                     meleeSwitch, killAnim, override, animType, animation, color, enableCustom, customPath, animLevel } = v4Flags;
-
+                v5Flags.options ? v5Flags.options : v5Flags.options = {};
+                const newOptions = v5Flags.options;
                 v5Flags = {
                     killAnim,
                     override,
@@ -995,7 +997,7 @@ export const flagMigrations = {
                     meleeSwitch,
                     preset: {},
                 }
-                v5Flags.options?.below = animLevel;
+                newOptions.below = animLevel;
                 if (sourceToken?.enable) {
                     await convertSource(sourceToken)
                 }
@@ -1006,7 +1008,8 @@ export const flagMigrations = {
             async function convertSource(data) {
                 let {menuType, name: animation, variant, color, enable, enableCustom, customPath, loops, loopDelay,
                     delayAfter, animLevel, ...rest} = data;
-
+                v5Flags.options ? v5Flags.options : v5Flags.options = {};
+                const newOptions = v5Flags.options;    
                 v5Flags.sourceToken = {
                     enable,
                     delayAfter,
@@ -1020,14 +1023,16 @@ export const flagMigrations = {
                     },
                     options: rest,
                 }
-                v5Flags.options.repeat = loops || 1;
-                v5Flags.options.delay = loopDelay || 250;
-                v5Flags.below = animLevel || false;
+                newOptions.repeat = loops || 1;
+                newOptions.delay = loopDelay || 250;
+                newOptions.below = animLevel || false;
             }
             async function convertTarget(data) {
                 let {menuType, name: animation, variant, color, enable, enableCustom, customPath, loops, loopDelay,
                     delayStart, animLevel, ...rest} = data;
-
+                v5Flags.options ? v5Flags.options : v5Flags.options = {};
+                const newOptions = v5Flags.options;    
+    
                 v5Flags.targetToken = {
                     enable,
                     delayStart,
@@ -1041,9 +1046,9 @@ export const flagMigrations = {
                     },
                     options: rest,
                 }
-                v5Flags.options.repeat = loops || 1;
-                v5Flags.options.delay = loopDelay || 250;
-                v5Flags.below = animLevel || false;
+                newOptions.repeat = loops || 1;
+                newOptions.delay = loopDelay || 250;
+                newOptions.below = animLevel || false;
             }
 
             async function mergePreset(preset) {

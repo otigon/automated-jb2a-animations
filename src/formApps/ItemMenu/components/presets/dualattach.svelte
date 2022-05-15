@@ -136,10 +136,10 @@
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
             <label for="">{localize("AUTOANIM.playbackRate")}</label>
             <input
-                type="Number"
+                type=number
                 bind:value={playbackRate}
-                placeholder="1"
-                step="0.01"
+                placeholder=1
+                step=0.01
             />
         </div>
     </div>

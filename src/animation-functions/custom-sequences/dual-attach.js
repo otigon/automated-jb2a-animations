@@ -11,23 +11,37 @@ export async function dualAttach(handler, animationData) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
+    const daData =  handler.flags?.preset?.dualattach;
+    if (!daData) { return; }
+    const cleanData = {
+        menuType: daData.menuType || "spell",
+        animation: daData.animation || "witchbolt",
+        variant: daData.variant || "01",
+        color: daData.color || "blue",
+        customPath: daData.enableCustom && daData.customPath ? daData.customPath : false,
+        below: daData.below || false,
+        onlyX: daData.onlyX || false,
+        playbackRate: daData.playbackRate || 1,
+    }
+
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
+    /*
     if (data.isAuto) {
         data.itemName = data.subAnimation || "";
     } else {
         data.itemName = data.options?.name || "";
     }
-
-    const animFile = await buildFile(false, data.menuType, data.itemName, "range", data.variant, data.color, data.customPath)
+    */
+    const animFile = await buildFile(false, cleanData.menuType, cleanData.animation, "range", cleanData.variant, cleanData.color, cleanData.customPath)
 
     if (handler.debug) { aaDebugger("Dual Attach Animation Start", animationData, animFile) }
 
-    const onlyX = data.enableCustom ? data.onlyX : false;
+    const onlyX = cleanData.enableCustom ? cleanData.onlyX : false;
 
     const sourceToken = handler.sourceToken;
     let effectExists = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid })
-    if (aaDebug) { aaDebugger("Dual Attach Animation Start", data, animFile) }
+    if (aaDebug) { aaDebugger("Dual Attach Animation Start", data, cleanData, animFile) }
     async function cast() {
 
         let aaSeq = new Sequence();
@@ -55,9 +69,9 @@ export async function dualAttach(handler, animationData) {
                 .attachTo(sourceToken)
                 .stretchTo(target, { attachTo: true, onlyX: onlyX })
                 .persist(true)
-                .playbackRate(data.playbackRate)
+                .playbackRate(cleanData.playbackRate)
                 .origin(handler.itemUuid)
-                .belowTokens(data.below)
+                .belowTokens(cleanData.below)
                 //.playIf(!checkTarget)
             }
         }

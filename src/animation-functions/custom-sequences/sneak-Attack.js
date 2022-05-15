@@ -8,7 +8,18 @@ export async function sneakAttack(handler, animationData) {
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
-    const sneak = await buildFile(true, "spell", data.animation, "static", "01", data.color)
+
+    const sneakData =  handler.flags?.preset?.sneakattack;
+    if (!sneakData) { return; }
+    const cleanData = {
+        color: sneakData.color || "darkgreen",
+        anchorX: sneakData.anchorX || 0.5,
+        anchorY: sneakData.anchorY || 0.5,
+        below: sneakData.below || false,
+        scale: sneakData.scale || 1,
+    }
+
+    const sneak = await buildFile(true, "spell", "sneakattack", "static", "01", cleanData.color)
     const sourceToken = handler.sourceToken;
 
     if (handler.debug) { aaDebugger("Sneak Attack Animation Start", animationData, sneak) }
@@ -33,9 +44,9 @@ export async function sneakAttack(handler, animationData) {
         aaSeq.effect()
             .file(sneak.file)
             .atLocation(sourceToken)
-            .size(sourceTokenGS * 2 * data.scale, {gridUnits: true})
-            .belowTokens(false)
-            .anchor({ x: data.anchorX, y: data.anchorY })
+            .size(sourceTokenGS * 2 * cleanData.scale, {gridUnits: true})
+            .belowTokens(cleanData.below)
+            .anchor({ x: cleanData.anchorX, y: cleanData.anchorY })
         if (data.playSound) {
             aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
         }

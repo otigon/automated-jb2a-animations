@@ -23,7 +23,7 @@ export async function meleeAnimation(handler, animationData) {
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
-
+    console.log(data)
     const returnWeapons = ['dagger', 'hammer', 'greatsword', 'chakram']
     const switchReturn = returnWeapons.some(el => data.switchAnimation.includes(el)) ? data.return : false;
     let returnDelay;

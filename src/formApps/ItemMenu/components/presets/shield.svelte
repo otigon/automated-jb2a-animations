@@ -47,9 +47,9 @@
         aaColorMenu.static.spell.shieldspell[variant]
     );
     let color = shieldColors.includes(flagData.color)
-        ? root.color
+        ? preset.color
         : shieldColors[0];
-    $: color = root.color = color;
+    $: color = preset.color = color;
 
     let endEffect = preset.endEffect || "outro_explode";
     $: endEffect = preset.endEffect = endEffect;
@@ -154,10 +154,10 @@
         <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
             <label for="">{localize("AUTOANIM.scale")}</label>
             <input
-                type="Number"
+                type=number
                 bind:value={scale}
-                placeholder="1"
-                step="0.01"
+                placeholder=1
+                step=0.01
             />
         </div>
     </div>

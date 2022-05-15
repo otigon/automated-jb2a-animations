@@ -48,7 +48,7 @@
     $: anchorX = preset.anchorX = anchorX > 1 ? 1 : anchorX;
 
     let anchorY = preset.anchorY || 0.5;
-    $: anchorY = preset.anchorY = anchorY > 1 ? 1 : anchorY;
+    $: anchorY = preset.anchorY = anchorY > 1 ? 1 :anchorY;
     let scale = preset.scale || 1;
     $: scale = preset.scale = scale;
 
@@ -81,28 +81,25 @@
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
             <label for="">{localize("AUTOANIM.scale")}</label>
             <input
-                type="Number"
+                type=number
                 bind:value={scale}
-                placeholder="1"
-                step="0.01"
+                step=0.01
             />
         </div>
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
             <label for="">{localize("AUTOANIM.anchorX")}</label>
             <input
-                type="Number"
+                type=number
                 bind:value={anchorX}
-                placeholder="1"
-                step="0.01"
+                step=0.01
             />
         </div>
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
             <label for="">{localize("AUTOANIM.anchorY")}</label>
             <input
-                type="Number"
+                type=number
                 bind:value={anchorY}
-                placeholder="1"
-                step="0.01"
+                step=0.01
             />
         </div>
     </div>
