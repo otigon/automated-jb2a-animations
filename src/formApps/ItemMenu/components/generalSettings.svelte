@@ -38,8 +38,22 @@
     $: flagData.override = isCustomized;
 
     export let overrideAuto = autoOverride.enable || false;
-    $: overrideAuto = overrideAuto;
-    $: autoOverride.enable = overrideAuto;
+    $: overrideAuto = autoOverride.enable = overrideAuto
+
+    function switchOverride() {
+        overrideAuto = !overrideAuto;
+        //autoOverride.enable = overrideAuto
+        let newOverrideAuto = overrideAuto;
+        if (!newOverrideAuto) {
+            console.log("Disabled");
+            flagData.autoOverride = {};
+            console.log(flagData)
+            flagData.autoOverride = {enable: false}
+            //autoOverride.enable = false;
+        } else {
+            console.log("Enabled");
+        }
+    }
 
     let fromAmmo = options.ammo || false;
     $: fromAmmo = fromAmmo;
@@ -77,7 +91,8 @@
                 for="addMacro"
                 class={enableMacro ? "selected" : "notSelected"}
                 style="border: 2px ridge rgb(172, 172, 172, .47);"
-                >{localize("autoanimations.menus.add")} {localize("autoanimations.menus.macro")}</label
+                >{localize("autoanimations.menus.add")}
+                {localize("autoanimations.menus.macro")}</label
             >
         </div>
     {/if}
@@ -95,7 +110,8 @@
         <label
             for="killAnim"
             class={!animationDisabled ? "selected" : "notSelected"}
-            style="border: 2px ridge rgb(172, 172, 172, .47);">{disabledLabel}</label
+            style="border: 2px ridge rgb(172, 172, 172, .47);"
+            >{disabledLabel}</label
         >
     </div>
     <div
@@ -117,28 +133,24 @@
         >
     </div>
     <div
-        class="flexcol button-labels {isCustomized || animationDisabled || !autoCheck
+        class="flexcol button-labels {isCustomized ||
+        animationDisabled ||
+        !autoCheck
             ? 'aa-disabled'
             : ''}"
         style="grid-row: 2 / 3; grid-column: 2 / 3;"
         transition:fade
     >
-        <input
-            type="checkbox"
-            id="overrideAuto"
-            hidden
-            bind:checked={overrideAuto}
-            disabled={isCustomized || animationDisabled || !autoCheck}
-        />
-        <label
-            for="overrideAuto"
+        <button
             class={overrideAuto ? "selected" : "notSelected"}
-            >{localize("autoanimations.menus.override")} Autorec</label
+            on:click={() => switchOverride()}
+            >{localize("autoanimations.menus.override")} Autorec</button
         >
     </div>
     <div
-        class="flexcol button-labels {(gameSystem === 'dnd5e' &&
-        !animationDisabled) && !disableAmmo
+        class="flexcol button-labels {gameSystem === 'dnd5e' &&
+        !animationDisabled &&
+        !disableAmmo
             ? ''
             : 'aa-disabled'}"
         style="grid-row: 2 / 3; grid-column: 3 / 4;"
@@ -149,7 +161,9 @@
             id="fromAmmo"
             hidden
             bind:checked={fromAmmo}
-            disabled={gameSystem !== "dnd5e" || animationDisabled || disableAmmo}
+            disabled={gameSystem !== "dnd5e" ||
+                animationDisabled ||
+                disableAmmo}
         />
         <label for="fromAmmo" class={fromAmmo ? "selected" : "notSelected"}
             >Animate from Ammo</label
@@ -160,12 +174,12 @@
 <style lang="scss">
     .selected {
         background-color: rgba(25, 175, 2, 0.4);
-        border: 2px ridge rgb(172, 172, 172, .60);
+        border: 2px ridge rgb(172, 172, 172, 0.6);
         transition: background-color 0.5s;
     }
     .notSelected {
         background-color: rgba(219, 132, 2, 0.4);
-        border: 2px ridge rgb(172, 172, 172, .60);
+        border: 2px ridge rgb(172, 172, 172, 0.6);
         transition: background-color 0.5s;
     }
     .aa-general-settings {
@@ -196,7 +210,7 @@
         transition: opacity 0.5s;
     }
     .aa-disabled label {
-        opacity:0.3;
+        opacity: 0.3;
         transition: opacity 0.5s;
     }
 </style>

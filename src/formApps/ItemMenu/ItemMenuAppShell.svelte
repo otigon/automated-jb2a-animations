@@ -114,6 +114,9 @@
                 },
             },
         };
+        if (!flagData.autoOverride?.enable) {
+            await item.unsetFlag("autoanimations", "autoOverride")
+        }
         await item.update(updatedFlags.data);
         application.close();
     }
@@ -589,14 +592,14 @@
                     <button
                         class="footer-button"
                         type="submit"
-                        on:click|preventDefault={applyFlags}
+                        on:click|preventDefault={() => applyFlags()}
                         >{localize("autoanimations.menus.submit")}</button
                     >
                 </div>
                 <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
                     <button
                         class="footer-button"
-                        on:click|preventDefault={closeApp}
+                        on:click|preventDefault={() => closeApp()}
                         >{localize("autoanimations.menus.close")}
                         {localize("autoanimations.menus.and")}
                         {localize("autoanimations.menus.submit")}</button

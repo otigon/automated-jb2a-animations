@@ -19,24 +19,25 @@
     export let animType;
     export let autoObject;
     export let autoSection;
-    autoSection.options ? autoSection.options : (autoSection.options = {});
+    //autoSection.options ? autoSection.options : (autoSection.options = {});
     const overrideOptions = autoSection.options;
-    const options = autoObject.options;
+    const options = autoSection.options;
     const menuSection = autoObject.menuSection;
+    const primarySection = autoSection.primary
 
-    export let menuType = overrideOptions.menuType || options.menuType;
-    $: menuType = overrideOptions.menuType = menuType;
-    export let animation = autoSection.animation || autoObject.animation;
-    $: animation = autoSection.animation = animation;
-    let variant = overrideOptions.variant || options.variant;
-    $: variant = overrideOptions.variant = variant;
-    let color = autoSection.color || autoObject.color;
-    $: color = autoSection.color = color;
+    export let menuType = primarySection.menuType || options.menuType;
+    $: menuType = primarySection.menuType = menuType;
+    export let animation = primarySection.animation;
+    $: animation = primarySection.animation = animation;
+    let variant = primarySection.variant;
+    $: variant = primarySection.variant = variant;
+    let color = primarySection.color;
+    $: color = primarySection.color = color;
 
-    let isCustom = overrideOptions.enableCustom || false;
-    $: isCustom = overrideOptions.enableCustom = isCustom;
-    let customPath = overrideOptions.customPath || options.customPath;
-    $: customPath = overrideOptions.customPath = customPath;
+    let isCustom = primarySection.enableCustom || false;
+    $: isCustom = primarySection.enableCustom = isCustom;
+    let customPath = primarySection.customPath;
+    $: customPath = primarySection.customPath = customPath;
 
     let primaryFilePath;
     $: primaryFilePath =
