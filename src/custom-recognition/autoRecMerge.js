@@ -589,30 +589,33 @@ export const autoRecMigration = {
                 }
             }
             async function primaryMenu(oldMO, newMO, type) {
-                let { name, animation, color, audio, macro, soundOnly, explosion, levels3d, ...rest } = oldMO
+
+                let { menuType, variant, custom, customPath, name, animation, color, audio, macro,
+                    soundOnly, explosion, levels3d, meleeSwitch, ...rest } = oldMO
                 newMO.id = randomID();
                 newMO.name = name;
                 newMO.hidden = true;
-                newMO.animation = animation;
-                newMO.color = color;
+                //newMO.animation = animation;
+                //newMO.color = color;
                 newMO.options = rest;
                 if (type) {
                     newMO.options.persistent = newMO.options.persist || false;
                 }
                 newMO.primary = {
-                    menuType: oldMO.options.menuType,
+                    menuType,
                     animation,
-                    variant: oldMO.options.variant,
+                    variant: variant,
                     color,
-                    enableCustom: oldMO.options.custom,
-                    customPath: oldMO.options.customPath,
+                    enableCustom: custom,
+                    customPath,
                 }
+                if (meleeSwitch) { newMO.meleeSwitch = meleeSwitch; }
                 newMO.audio = audio || {};
                 newMO.macro = macro || {};
                 newMO.levels3d = levels3d || {};
                 newMO.soundOnly = soundOnly?.enable || false;
                 newMO.explosions = explosion || {};
-                if (!newMO.options.menuType || !newMO.options.variant || !newMO.animation || !newMO.color) {
+                if (!newMO.primary.menuType || !newMO.primary.variant || !newMO.primary.animation || !newMO.primary.color) {
                     newMO.primary.menuType = "";
                     newMO.primary.variant = "";
                     newMO.primary.animation = "";

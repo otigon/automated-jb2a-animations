@@ -283,19 +283,19 @@ export class AutorecFunctions {
         const data = JSON.parse(json);
         console.warn("autoanimations | Import settings ", data);
 
-        const oldData = (game.settings.get('autoanimations', 'aaAutorec'))
-        const filename = `Overwritten-Menu-Recovery.json`;
-        saveDataToFile(JSON.stringify(oldData, null, 2), "text/json", filename);
-        ui.notifications.info("Exporting Menu Backup before Overwriting")
+        //const oldData = (game.settings.get('autoanimations', 'aaAutorec'))
+        //const filename = `Overwritten-Menu-Recovery.json`;
+        //saveDataToFile(JSON.stringify(oldData, null, 2), "text/json", filename);
+        //ui.notifications.info("Exporting Menu Backup before Overwriting")
 
         await autoRecMigration.handle(data)
     }
 
     static async _mergeAutorec(json) {
-        const currentMenuBackup = (game.settings.get('autoanimations', 'aaAutorec'))
-        const filename = `Merged-Menu-Recovery.json`;
-        saveDataToFile(JSON.stringify(currentMenuBackup, null, 2), "text/json", filename);
-        ui.notifications.info("Exporting Menu Backup before Merging")
+        //const currentMenuBackup = (game.settings.get('autoanimations', 'aaAutorec'))
+        //const filename = `Merged-Menu-Recovery.json`;
+        //saveDataToFile(JSON.stringify(currentMenuBackup, null, 2), "text/json", filename);
+        //ui.notifications.info("Exporting Menu Backup before Merging")
 
         // Imported Autorec Menu
         let newData = JSON.parse(json);

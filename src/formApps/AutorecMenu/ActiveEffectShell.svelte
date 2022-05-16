@@ -103,7 +103,6 @@
     $: showExtraFX = showExtraFX;
     function toggleExtraFX() {
         showExtraFX = !showExtraFX;
-        show3d = showExtraFX ? false : show3d;
     }
     let soundOnly = menuSection.soundOnly || false;
     $: soundOnly = menuSection.soundOnly = soundOnly;

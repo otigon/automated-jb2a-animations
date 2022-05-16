@@ -1,6 +1,7 @@
 import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application';
 import ItemMenuAppShell from './itemMenuAppShell.svelte';
 import { aaAutoRecognition } from '../../custom-recognition/auto-recognition';
+import AutorecShim from "../AutorecMenu/appShim.js"
 
 
 export default class AAItemMenu extends SvelteApplication {
@@ -58,7 +59,7 @@ export default class AAItemMenu extends SvelteApplication {
             onclick: function()
             {
                 if (game.user.isGM) {
-                    new aaAutoRecognition().render(true)
+                    new AutorecShim()
                 }
             }
          });

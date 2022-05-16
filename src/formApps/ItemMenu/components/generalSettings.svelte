@@ -136,12 +136,13 @@
         class="flexcol button-labels {isCustomized ||
         animationDisabled ||
         !autoCheck
-            ? 'aa-disabled'
-            : ''}"
+            ? 'aa-disabled aa-options'
+            : 'aa-options'}"
         style="grid-row: 2 / 3; grid-column: 2 / 3;"
         transition:fade
     >
         <button
+            disabled={isCustomized || animationDisabled || !autoCheck}
             class={overrideAuto ? "selected" : "notSelected"}
             on:click={() => switchOverride()}
             >{localize("autoanimations.menus.override")} Autorec</button
@@ -210,6 +211,18 @@
         transition: opacity 0.5s;
     }
     .aa-disabled label {
+        opacity: 0.3;
+        transition: opacity 0.5s;
+    }
+    .aa-options button {
+        border-radius: 10px;
+        border: 2px outset #8e8e8e;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-weight: bold;
+        font-size: large;
+        height: auto;
+    }
+    .aa-options button:disabled {
         opacity: 0.3;
         transition: opacity 0.5s;
     }
