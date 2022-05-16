@@ -450,6 +450,22 @@ export class AASystemData {
         return { item, token, targets };
     }
 
+    static async a5e(input) {
+        const itemId = input?.data?.flags?.itemId;
+        if (!itemId) { return {}; }
+
+        const tokenId = input?.data?.speaker?.token;
+        const token = canvas.scene.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId));
+        if (!token) { return {}; }
+        
+        const item = token.actor?.items?.get(itemId)
+        if (!item) { return {}; }
+
+        const targets = Array.from(game.users.get(input.data.user).targets);
+
+        return { item, token, targets };
+    }
+
     static _extractItemId(content) {
         try {
             return $(content).attr("data-item-id");

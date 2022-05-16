@@ -191,10 +191,12 @@ Hooks.once('ready', async function () {
         }
     } else {
         switch (game.system.id) {
+            case "a5e":
+                Hooks.on("createChatMessage", async (msg) => { setupA5ESystem(msg) });
+                break;
 			case "cyphersystem":
                 Hooks.on("createChatMessage", async (msg) => { setupCypherSystem(msg) });
                 break;
-				
             case "alienrpg":
                 Hooks.on("createChatMessage", async (msg) => { setupAlienRPG(msg) });
                 break;
@@ -845,6 +847,16 @@ async function pf2eReady(msg) {
             trafficCop(handler);
             break;
     }
+}
+
+async function setupA5ESystem(msg) {
+    if (killAllAnimations) { return; }
+    if (msg.user.id !== game.user.id) { return; }
+
+    const handler = await systemData.make(msg);
+    if (!handler.item || !handler.sourceToken) { return; } 
+
+    trafficCop(handler);
 }
 
 /*
