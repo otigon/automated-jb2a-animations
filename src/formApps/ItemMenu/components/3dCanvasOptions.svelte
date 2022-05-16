@@ -228,13 +228,13 @@
 <style lang="scss">
     .aa-3d-settings {
         display: grid;
-        grid-template-columns: 32.5% 22.5% 22.5% 22.5%;
-        grid-gap: 5px;
+        grid-template-columns: 32.5% 21.5% 21.5% 21.5%;
+        grid-gap: 1%;
         padding: 5px;
         align-items: center;
         color: black;
         text-align: center;
-        margin-right: 8%;
+        margin-right: 5%;
         margin-left: 5%;
     }
     .aa-3d-settings input {
@@ -252,10 +252,10 @@
     }
     .aa-customAnim-container {
         display: grid;
-        grid-template-columns: 25% 75%;
-        grid-gap: 5px;
+        grid-template-columns: 24% 75%;
+        grid-gap: 1%;
         padding: 5px;
-        margin-right: 8%;
+        margin-right: 5%;
         margin-left: 5%;
         font-size: small;
         font-weight: bold;

@@ -926,7 +926,7 @@ export const flagMigrations = {
             console.warn(`DEBUG | Automated Animations | Version 3 Flag Migration Complete`, v4Flags)
         },
         "5": async (item) => {
-            debugger
+
             if (!item.data?.flags?.autoanimations) { return; }
             const v4Flags = item.data?.flags?.autoanimations || {};
             const v5Flags = {}
@@ -1163,7 +1163,7 @@ export const flagMigrations = {
             }
 
             async function updateShield() {
-                const preset = v5Flags.shield;
+                const preset = v5Flags.preset;
                 const root = preset.shield;
 
                 let { audio, macro, sourceToken, options, color } = v4Flags;
@@ -1174,7 +1174,7 @@ export const flagMigrations = {
 
                 root.menuType = "spell";
                 root.animation = "shieldspell";
-                root.variant = variant;
+                root.variant = options.variant;
                 root.color = color;
 
                 root.endEffect = options.shieldVar;

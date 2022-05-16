@@ -45,11 +45,11 @@
 <style lang="scss">
     .aa-3wide {
         display: grid;
-        grid-template-columns: 33.3% 33.3% 33.3%;
-        grid-gap: 5px;
+        grid-template-columns: 32.67% 32.67% 32.67%;
+        grid-gap: 1%;
         padding: 5px;
         align-items: center;
-        margin-right: 8%;
+        margin-right: 5%;
         margin-left: 5%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;

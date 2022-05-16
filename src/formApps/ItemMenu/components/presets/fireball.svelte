@@ -241,6 +241,7 @@
         animType="range"
         {flagData}
     />
+    <div class="aa-options-border">
     <h2>Options</h2>
     <div class="aa-options">
         <!--Set Z-Index-->
@@ -285,6 +286,7 @@
             <input type=number bind:value={projectileWait} step=0.01 />
         </div>
     </div>
+    </div>
     <SoundSettings audioPath="a01" {flagData} />
 </div>
 <div class="aaMenu-section">
@@ -319,6 +321,7 @@
             animType="static"
             {flagData}
         />
+        <div class="aa-options-border">
         <h2>Options</h2>
         <div class="aa-options">
             <!--Set Z-Index-->
@@ -364,6 +367,7 @@
                 <input type=number bind:value={explosion01Wait} step=0.01 />
             </div>
         </div>
+        </div>
         <SoundSettings audioPath="e01" {flagData} />
     {/if}
 </div>
@@ -384,6 +388,7 @@
         animType="static"
         {flagData}
     />
+    <div class="aa-options-border">
     <h2>Options</h2>
     <div class="aa-options">
         <!--Set Z-Index-->
@@ -423,6 +428,7 @@
                 placeholder=250
             />
         </div>
+    </div>
     </div>
     <SoundSettings audioPath="e02" {flagData} />
 </div>
@@ -530,12 +536,12 @@
     }
     .aa-options {
         display: grid;
-        grid-template-columns: 25% 25% 25% 25%;
-        grid-gap: 5px;
+        grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
+        grid-gap: 1%;
         padding: 5px;
         align-items: center;
-        margin-right: 8%;
-        margin-left: 5%;
+        margin-right: 1%;
+        margin-left: 1%;
         font-weight: bold;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;

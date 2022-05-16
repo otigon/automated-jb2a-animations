@@ -176,6 +176,7 @@
             on:click={() => info()}
         />
     </h1>
+    <div class="aa-options-border">
     <h2 style="margin-top:10px;">Options</h2>
     <div class="aa-3wide">
         <!--Measurement Type-->
@@ -205,6 +206,7 @@
             >
         </div>
     </div>
+    </div>
 </div>
 <div class="aaMenu-section">
     <h1 style="margin-top:10px;">Start Animation</h1>
@@ -223,6 +225,7 @@
         animType="static"
         {flagData}
     />
+    <div class="aa-options-border">
     <h2>Options</h2>
     <div class="aa-options">
         <!--Set Z-Index-->
@@ -236,6 +239,7 @@
             <label for="">Scale</label>
             <input type="Number" bind:value={startScale} step="0.01" />
         </div>
+    </div>
     </div>
 </div>
 <div class="aaMenu-section">
@@ -271,6 +275,7 @@
             animType="range"
             {flagData}
         />
+        <div class="aa-options-border">
         <h2>Options</h2>
         <div class="aa-options">
             <!--Set Z-Index-->
@@ -289,6 +294,7 @@
                     step="0.01"
                 />
             </div>
+        </div>
         </div>
     {/if}
 </div>
@@ -309,6 +315,7 @@
         animType="static"
         {flagData}
     />
+    <div class="aa-options-border">
     <h2>Options</h2>
     <div class="aa-options">
         <!--Set Z-Index-->
@@ -326,6 +333,7 @@
             <label for="">Delay Token Alpha</label>
             <input type="number" bind:value={delayAlpha} step="0.01" />
         </div>
+    </div>
     </div>
     <SoundSettings audioPath="a01" {flagData} />
 </div>
@@ -352,11 +360,11 @@
     }
     .aa-3wide {
         display: grid;
-        grid-template-columns: 33.3% 33.3% 33.3%;
-        grid-gap: 5px;
+        grid-template-columns: 32.67% 32.67% 32.67%;
+        grid-gap: 1%;
         padding: 5px;
         align-items: center;
-        margin-right: 8%;
+        margin-right: 5%;
         margin-left: 5%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
@@ -399,12 +407,12 @@
     }
     .aa-options {
         display: grid;
-        grid-template-columns: 25% 25% 25% 25%;
-        grid-gap: 5px;
+        grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
+        grid-gap: 1%;
         padding: 5px;
         align-items: center;
-        margin-right: 8%;
-        margin-left: 5%;
+        margin-right: 1%;
+        margin-left: 1%;
         font-weight: bold;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;

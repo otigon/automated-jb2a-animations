@@ -197,12 +197,11 @@
 <style lang="scss">
     .aa-select-animation {
         display: grid;
-        grid-template-columns: 33.3% 33.3% 33.3%;
-        grid-gap: 5px;
-        padding: 5px;
+        grid-template-columns: 32.67% 32.67% 32.67%;
+        grid-gap: 1%;
         align-items: center;
-        margin-right: 8%;
-        margin-left: 5%;
+        margin-right: 2%;
+        margin-left: 2%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
@@ -233,11 +232,11 @@
     }
     .aa-4wide {
         display: grid;
-        grid-template-columns: 25% 25% 25% 25%;
-        grid-gap: 5px;
+        grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
+        grid-gap: 1%;
         padding: 5px;
         align-items: center;
-        margin-right: 8%;
+        margin-right: 5%;
         margin-left: 5%;
         font-weight: bold;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
@@ -266,11 +265,11 @@
     }
     .aa-header {
         display: grid;
-        grid-template-columns: 10% 80% 10%;
-        grid-gap: 5px;
+        grid-template-columns: 10% 78% 10%;
+        grid-gap: 1%;
         padding: 1px;
         align-items: center;
-        margin-right: 8%;
+        margin-right: 5%;
         margin-left: 5%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;

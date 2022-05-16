@@ -401,10 +401,9 @@
 <style lang="scss">
     .autorec-options {
         display: grid;
-        grid-template-columns: 20% 20% 20% 20% 20%;
-        grid-gap: 5px;
+        grid-template-columns: 19.2% 19.2% 19.2% 19.2% 19.2%;
+        grid-gap: 1%;
         padding: 5px;
-        margin-right: 8%;
         text-align: center;
         align-items: center;
     }

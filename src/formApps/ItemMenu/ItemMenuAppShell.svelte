@@ -613,11 +613,10 @@
 <style lang="scss">
     .aa-tabs {
         display: grid;
-        grid-template-columns: 40% 30% 30%;
-        grid-gap: 5px;
+        grid-template-columns: 40% 29% 29%;
+        grid-gap: 1%;
         padding: 5px;
         align-items: center;
-        margin-right: 2%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
@@ -663,14 +662,16 @@
         border-radius: 10px;
         margin-left: 2%;
         margin-right: 4%;
+        z-index: 2;
     }
     .aaMidSection {
         position: absolute;
         left: 0;
         right: 0;
-        top: 88px;
-        bottom: 51px;
+        top: 77px;
+        bottom: 47px;
         overflow: scroll;
+        z-index: 1;
     }
     .aaBottomSection {
         position: absolute;
@@ -682,6 +683,7 @@
         background: rgb(204, 204, 204);
         border: 2px solid black;
         border-radius: 10px;
+        z-index: 2;
     }
     .selected {
         background-color: rgba(25, 175, 2, 0.4);
@@ -710,12 +712,12 @@
     }
     .aa-pickAnim {
         display: grid;
-        grid-template-columns: 33.3% 33.3% 33.3%;
-        grid-gap: 5px;
+        grid-template-columns: 32.67% 32.67% 32.67%;
+        grid-gap: 1%;
         padding: 5px;
         align-items: center;
-        margin-right: 4%;
-        margin-left: 1%;
+        margin-right: 5%;
+        margin-left: 5%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;

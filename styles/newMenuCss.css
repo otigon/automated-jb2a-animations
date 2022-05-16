@@ -21,12 +21,10 @@
 }
 .aa-header {
     display: grid;
-    grid-template-columns: 10% 10% 60% 10% 10%;
-    grid-gap: 5px;
+    grid-template-columns: 10% 10% 56% 10% 10%;
+    grid-gap: 1%;
     padding: 1px;
     align-items: center;
-    margin-right: 8%;
-    margin-left: 5%;
     font-family: "Modesto Condensed", "Palatino Linotype", serif;
     font-size: large;
     font-weight: bold;
@@ -47,7 +45,6 @@
     margin-right: 5%;
     margin-left: 5%;
     margin-bottom: 5px;
-    margin-top: 5px;
 }
 .aa-red {
     color: red;
@@ -58,7 +55,7 @@
     transition: "color" 0.5s;
 }
 .aaMenu-section {
-    background: rgba(199, 199, 199, 0.85);
+    background: rgba(199, 199, 199);
     border: 2px solid black;
     border-radius: 10px;
     margin: 1.5% 3% 1.5% 3%;
@@ -78,14 +75,21 @@
     border-radius: 5px;
 }
 #AA-item-settings select {
-    background-color: rgba(210, 210, 210, 0.75);
+    background-color: rgba(160, 160, 160);
     text-align: center;
     font-weight: bold;
     min-height: 2em;
     border-radius: 7px;
 }
 #AA-autorec-settings select {
-    background-color: rgba(210, 210, 210, 0.75);
+    background-color: rgba(160, 160, 160);
+    text-align: center;
+    font-weight: bold;
+    min-height: 2em;
+    border-radius: 7px;
+}
+#AA-ae-settings select {
+    background-color: rgba(160, 160, 160);
     text-align: center;
     font-weight: bold;
     min-height: 2em;
@@ -112,4 +116,13 @@
 #AA-Full-Video-Preview .window-content{
     background: rgba(90, 90, 90, 0.3);
     border-radius: 20px;
+}
+.aa-options-border {
+    margin-right: 2%;
+    margin-left: 2%;
+    border: 1px solid rgba(109, 109, 109, 0.5);
+    border-radius: 5px;
+    background: rgb(186 185 185);
+    padding:5px;
+    margin-bottom: 5px;
 }

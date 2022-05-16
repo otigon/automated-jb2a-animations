@@ -369,10 +369,9 @@
 <style lang="scss">
     .autorec-options {
         display: grid;
-        grid-template-columns: 20% 20% 20% 20% 20%;
-        grid-gap: 5px;
+        grid-template-columns: 19.2% 19.2% 19.2% 19.2% 19.2%;
+        grid-gap: 1%;
         padding: 5px;
-        margin-right: 8%;
         text-align: center;
         align-items: center;
     }
@@ -392,12 +391,12 @@
     }
     .aa-pickAnim {
         display: grid;
-        grid-template-columns: 33.3% 33.3% 33.3%;
-        grid-gap: 5px;
+        grid-template-columns: 32.67% 32.67% 32.67%;
+        grid-gap: 1%;
         padding: 5px;
         align-items: center;
-        margin-right: 4%;
-        margin-left: 1%;
+        margin-right: 5%;
+        margin-left: 5%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;

@@ -180,6 +180,7 @@
             </div>
         </div>
         <div class="aaMidSection">
+            <div style="margin-left:3%;margin-right:3%;">
             {#each items as item}
                 {#if activeTabValue == item.value}
                     {#each menuListings[item.type] as menuSection, idx (menuSection.id)}
@@ -215,6 +216,7 @@
                     {/each}
                 {/if}
             {/each}
+            </div>
         </div>
         <div class="aaBottomSection" style="margin-bottom: 5px">
             <div class="aa-submit">
@@ -273,8 +275,8 @@
     }
     .aaMidSection {
         position: absolute;
-        left: 3%;
-        right: 3%;
+        left: 0;
+        right: 0;
         top: 100px;
         bottom: 85px;
         overflow: scroll;
@@ -292,11 +294,10 @@
     }
     .aa-submit {
         display: grid;
-        grid-template-columns: 50% 50%;
-        grid-gap: 5px;
+        grid-template-columns: 49.5% 49.5%;
+        grid-gap: 1%;
         padding: 5px;
         align-items: center;
-        margin-right: 2%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;

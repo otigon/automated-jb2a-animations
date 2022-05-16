@@ -87,6 +87,7 @@
             </select>
         </div>
     </div>
+    <div class="aa-options-border">
     <h2 style="margin-top:5px;">Options</h2>
     <div class="aa-options">
         <!--Persistent Setting-->
@@ -137,17 +138,18 @@
             />
         </div>
     </div>
+    </div>
     <SoundSettings audioPath="a01" {flagData} />
 </div>
 
 <style lang="scss">
     .aa-4wide {
         display: grid;
-        grid-template-columns: 16.5% 33.3% 33.3% 16.5%;
-        grid-gap: 5px;
+        grid-template-columns: 15% 33.3% 33.3% 15%;
+        grid-gap: 1%;
         padding: 5px;
         align-items: center;
-        margin-right: 8%;
+        margin-right: 5%;
         margin-left: 5%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
@@ -159,12 +161,12 @@
     }
     .aa-options {
         display: grid;
-        grid-template-columns: 25% 25% 25% 25%;
-        grid-gap: 5px;
+        grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
+        grid-gap: 1%;
         padding: 5px;
         align-items: center;
-        margin-right: 8%;
-        margin-left: 5%;
+        margin-right: 1%;
+        margin-left: 1%;
         font-weight: bold;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;

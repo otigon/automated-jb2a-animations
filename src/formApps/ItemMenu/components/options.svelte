@@ -101,7 +101,7 @@
     $: isDisabled = animType === "melee" || animType === "range" || menuSelection === "melee" || menuSelection === "range" ? false : persistent;
 </script>
 
-<div transition:fade={{duration: 500}}>
+<div class="aa-options-border" transition:fade={{duration: 500}}>
 <h2>Options</h2>
 <div class="aa-options"  in:fade={{duration: 500 }} out:fade={{duration: 500}}>
     <!--Persistent Setting-->
@@ -232,12 +232,12 @@
 <style lang="scss">
     .aa-options {
         display: grid;
-        grid-template-columns: 25% 25% 25% 25%;
-        grid-gap: 5px;
-        padding: 5px;
+        grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
+        grid-gap: 1%;
+        //padding: 5px;
         align-items: center;
-        margin-right: 8%;
-        margin-left: 5%;
+        margin-right: 1%;
+        margin-left: 1%;
         font-weight: bold;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
@@ -264,9 +264,10 @@
         font-size:x-large;
         font-weight: bold;
         text-align: center;
-        margin-right: 15%;
-        margin-left: 15%;
+        margin-right: 5%;
+        margin-left: 5%;
         color: black;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     }
     .oldCheck {
         align-self: bottom;

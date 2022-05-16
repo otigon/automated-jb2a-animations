@@ -9,17 +9,16 @@
         menuDBPath02,
         customFilePath02,
         customChecked02,
-        explosionEnabled
+        explosionEnabled,
     } from "../menuStore.js";
 
     export let flagData;
-    flagData.explosions ? flagData.explosions : flagData.explosions = {};
+    flagData.explosions ? flagData.explosions : (flagData.explosions = {});
     const root = flagData.explosions;
     let explosions = flagData.explosions;
 
     let radius = explosions.radius;
     $: radius = explosions.radius = Number(radius);
-    
 
     let delay = explosions.delay;
     $: delay = explosions.delay = Number(delay);
@@ -27,14 +26,16 @@
     let belowToken = explosions.below;
     $: belowToken = explosions.below = belowToken;
 
-    $: aboveBelow = belowToken ? game.i18n.localize("autoanimations.menus.below") : game.i18n.localize("autoanimations.menus.above");
+    $: aboveBelow = belowToken
+        ? game.i18n.localize("autoanimations.menus.below")
+        : game.i18n.localize("autoanimations.menus.above");
     function below() {
         belowToken = !belowToken;
     }
 
     let enableSection = root.enable || false;
     $: enableSection = enableSection;
-    $: explosionEnabled.set(enableSection)
+    $: explosionEnabled.set(enableSection);
     function switchEnable() {
         enableSection = !enableSection;
         root.enable = enableSection;
@@ -71,13 +72,13 @@
         }).render(true);
     }
     let explosionFilePath =
-            color === "random"
-                ? `autoanimations.static.${menuType}.${animation}.${variant}`
-                : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
+        color === "random"
+            ? `autoanimations.static.${menuType}.${animation}.${variant}`
+            : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
     $: explosionFilePath =
-            color === "random"
-                ? `autoanimations.static.${menuType}.${animation}.${variant}`
-                : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
+        color === "random"
+            ? `autoanimations.static.${menuType}.${animation}.${variant}`
+            : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
 
     $: {
         menuDBPath02.set(explosionFilePath);
@@ -85,14 +86,18 @@
         customChecked02.set(isCustom);
     }
     let customId = "customExplosion";
-
 </script>
 
 <div>
     <div class="aa-header-section">
         <div class="aa-header">
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
-                <label for="">{localize("autoanimations.menus.explosion")} {enableSection ? localize("autoanimations.menus.enabled") : localize("autoanimations.menus.disabled")}</label>
+                <label for=""
+                    >{localize("autoanimations.menus.explosion")}
+                    {enableSection
+                        ? localize("autoanimations.menus.enabled")
+                        : localize("autoanimations.menus.disabled")}</label
+                >
             </div>
             {#if enableSection}
                 <div
@@ -117,34 +122,53 @@
         </div>
     </div>
     {#if enableSection}
-    <ChooseAnimation
-        bind:menuType
-        bind:animation
-        bind:variant
-        bind:color
-        bind:isCustom
-        bind:customPath
-        bind:customId
-        animType="static"
-        previewType="explosion"
-        flagPath="explosions"
-        {flagData}
-    />
-        <h2 transition:fade>Options</h2>
-        <div class="aa-3wide" transition:fade>
-            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 3;">
-                <label for="">{localize("autoanimations.menus.radius")}</label>
-                <input type="Number" bind:value={radius} placeholder=1.5 />
-            </div>
-            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-                <label for="">{localize("autoanimations.menus.delay")}</label>
-                <input type="Number" bind:value={delay} placeholder=1 />
-            </div>
-            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-                <label for="">Z-Index</label>
-                <button class="oldCheck" on:click={() => below()}
-                    >{aboveBelow}</button
+        <ChooseAnimation
+            bind:menuType
+            bind:animation
+            bind:variant
+            bind:color
+            bind:isCustom
+            bind:customPath
+            bind:customId
+            animType="static"
+            previewType="explosion"
+            flagPath="explosions"
+            {flagData}
+        />
+        <div class="aa-options-border">
+            <h2 transition:fade>Options</h2>
+            <div class="aa-3wide" transition:fade>
+                <div
+                    class="flexcol"
+                    style="grid-row: 1 / 2; grid-column: 2 / 3;"
                 >
+                    <label for=""
+                        >{localize("autoanimations.menus.radius")}</label
+                    >
+                    <input
+                        type="number"
+                        bind:value={radius}
+                        placeholder="1.5"
+                    />
+                </div>
+                <div
+                    class="flexcol"
+                    style="grid-row: 1 / 2; grid-column: 3 / 4;"
+                >
+                    <label for=""
+                        >{localize("autoanimations.menus.delay")}</label
+                    >
+                    <input type="number" bind:value={delay} placeholder="1" />
+                </div>
+                <div
+                    class="flexcol"
+                    style="grid-row: 1 / 2; grid-column: 4 / 5;"
+                >
+                    <label for="">Z-Index</label>
+                    <button class="oldCheck" on:click={() => below()}
+                        >{aboveBelow}</button
+                    >
+                </div>
             </div>
         </div>
         <SoundSettings audioPath="e01" {flagData} />
@@ -154,11 +178,11 @@
 <style lang="scss">
     .aa-3wide {
         display: grid;
-        grid-template-columns: 12.5% 25% 25% 25% 12.5%;
-        grid-gap: 5px;
+        grid-template-columns: 12.5% 23% 25% 23% 12.5%;
+        grid-gap: 1%;
         padding: 5px;
         align-items: center;
-        margin-right: 8%;
+        margin-right: 5%;
         margin-left: 5%;
         font-size: medium;
         font-weight: bold;
@@ -188,7 +212,8 @@
         font-size: x-large;
         font-weight: bold;
         text-align: center;
-        margin-right: 15%;
-        margin-left: 15%;
+        margin-right: 5%;
+        margin-left: 5%;
+        border-bottom: 1px solid rgba(0, 0, 255, 0.4);
     }
 </style>

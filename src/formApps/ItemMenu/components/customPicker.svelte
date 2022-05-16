@@ -47,8 +47,8 @@
             type="text"
             bind:value={customPath}
             class={isCustom && customPath != ""
-                ? "isPopulated"
-                : "isNotPopulated opacityText"}
+                ? ""
+                : "opacityText"}
         />
         <button
             disabled={!isCustom}
@@ -62,10 +62,10 @@
 <style lang="scss">
     .aa-customAnim-container {
         display: grid;
-        grid-template-columns: 25% 25% 25% 25%;
+        grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
         grid-gap: 5px;
         padding: 5px;
-        margin-right: 8%;
+        margin-right: 5%;
         margin-left: 5%;
         font-size: small;
         font-weight: bold;
@@ -77,16 +77,8 @@
         font-size: large;
         font-weight: bold;
     }
-    .isPopulated {
-        box-shadow: 0 0 6px rgba(25, 175, 2, 0.6);
-        transition: box-shadow 0.5s;
-    }
-    .isNotPopulated {
-        box-shadow: 0 0 6px rgba(219, 132, 2, 0.7);
-        transition: box-shadow 0.5s;
-    }
     .opacityText {
-        opacity: 0.6;
+        opacity: 0.4;
     }
     .opacityButton button {
         border: 2px outset rgba(133, 133, 133, 0.418);

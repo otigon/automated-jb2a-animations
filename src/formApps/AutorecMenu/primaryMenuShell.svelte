@@ -47,8 +47,12 @@
     if (!menuType) {
         menuType = Object.keys(aaTypeMenu[menuSelection])[0];
         animation = Object.keys(aaNameMenu[menuSelection][menuType])[0];
-        variant = Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0];
-        color = Object.keys(aaColorMenu[menuSelection][menuType][animation][variant])[0];
+        variant = Object.keys(
+            aaVariantMenu[menuSelection][menuType][animation]
+        )[0];
+        color = Object.keys(
+            aaColorMenu[menuSelection][menuType][animation][variant]
+        )[0];
     }
     let isHidden = menuSection.hidden || false;
     $: isHidden = menuSection.hidden = isHidden;
@@ -68,7 +72,7 @@
         }
         flagData = flagData;
         //menuListings[type] = Object.values(flagData[type]);
-        menuListings = menuListings
+        menuListings = menuListings;
     }
     const showExplosions = ["melee", "range", "static"];
     function duplicateSection() {
@@ -169,14 +173,14 @@
             >
         </div>
         {#if type !== "templatefx" && type !== "aura"}
-        <div style="grid-row:1/2; grid-column:2/3">
-            <label for="" title="3D Canvas"
-                ><i
-                    on:click={() => toggle3D()}
-                    class="fas fa-cube aa-zoom"
-                /></label
-            >
-        </div>
+            <div style="grid-row:1/2; grid-column:2/3">
+                <label for="" title="3D Canvas"
+                    ><i
+                        on:click={() => toggle3D()}
+                        class="fas fa-cube aa-zoom"
+                    /></label
+                >
+            </div>
         {/if}
         <div style="grid-row:1/2; grid-column:3/4">
             <label for="" title="Extra FX"
@@ -312,44 +316,58 @@
                 {/if}
             {/if}
             {#if !show3d && !showExtraFX}
-                <div class="aa-header-section" transition:fade>
-                    <div class="aa-header">
-                        <div
-                            class="flexcol"
-                            style="grid-row:1/2; grid-column:3/4"
-                        >
-                            <label for=""
-                                >{localize("autoanimations.menus.primary")}
-                                {localize(
-                                    "autoanimations.menus.animation"
-                                )}</label
+                <div class="aa-section-border">
+                    <div class="aa-header-section" transition:fade>
+                        <div class="aa-header">
+                            <div
+                                class="flexcol"
+                                style="grid-row:1/2; grid-column:3/4"
                             >
+                                <label for=""
+                                    >{localize("autoanimations.menus.primary")}
+                                    {localize(
+                                        "autoanimations.menus.animation"
+                                    )}</label
+                                >
+                            </div>
                         </div>
                     </div>
+                    <ChooseAnimation
+                        bind:menuType
+                        bind:animation
+                        bind:variant
+                        bind:color
+                        bind:isCustom
+                        bind:customPath
+                        bind:staticType
+                        flagPath="PrimaryAnimation"
+                        animTypeSwitched={false}
+                        disablePlayOn={isOnSource}
+                        animType={type}
+                        flagData={menuSection}
+                        customId={`${type}-${idx}`}
+                    />
+                    <Options
+                        animType={type}
+                        {menuType}
+                        flagData={menuSection}
+                    />
+                    <SoundSettings audioPath="a01" flagData={menuSection} />
                 </div>
-                <ChooseAnimation
-                    bind:menuType
-                    bind:animation
-                    bind:variant
-                    bind:color
-                    bind:isCustom
-                    bind:customPath
-                    bind:staticType
-                    flagPath="PrimaryAnimation"
-                    animTypeSwitched={false}
-                    disablePlayOn={isOnSource}
-                    animType={type}
-                    flagData={menuSection}
-                    customId={`${type}-${idx}`}
-                />
-                <Options animType={type} {menuType} flagData={menuSection} />
-                <SoundSettings audioPath="a01" flagData={menuSection} />
-                {#if type === "melee"}
-                    <RangeSwitch primaryAnimation={animation} primaryMenuType={menuType} flagData={menuSection}/>
-                {/if}
-                {#if showExplosions.includes(type)}
-                    <AddExplosion flagData={menuSection} />
-                {/if}
+                    {#if type === "melee"}
+                    <div class="aa-section-border">
+                        <RangeSwitch
+                            primaryAnimation={animation}
+                            primaryMenuType={menuType}
+                            flagData={menuSection}
+                        />
+                    </div>
+                    {/if}
+                <div class="aa-section-border">
+                    {#if showExplosions.includes(type)}
+                        <AddExplosion flagData={menuSection} />
+                    {/if}
+                </div>
             {/if}
         {/if}
     {/if}
@@ -358,10 +376,9 @@
 <style lang="scss">
     .autorec-options {
         display: grid;
-        grid-template-columns: 20% 20% 20% 20% 20%;
-        grid-gap: 5px;
+        grid-template-columns: 19.2% 19.2% 19.2% 19.2% 19.2%;
+        grid-gap: 1%;
         padding: 5px;
-        margin-right: 8%;
         text-align: center;
         align-items: center;
     }
@@ -390,11 +407,11 @@
     }
     .aa-5wide {
         display: grid;
-        grid-template-columns: 30% 5% 30% 5% 30%;
-        grid-gap: 5px;
+        grid-template-columns: 28% 5% 30% 5% 28%;
+        grid-gap: 1%;
         padding: 5px;
         align-items: center;
-        margin-right: 8%;
+        margin-right: 5%;
         margin-left: 5%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
@@ -412,5 +429,13 @@
     .notSelected {
         background-color: rgba(219, 132, 2, 0.4);
         transition: background-color 0.5s;
+    }
+    .aa-section-border {
+        margin-right: 3%;
+        margin-left: 3%;
+        border: 1px solid rgba(109, 109, 109, 0.5);
+        border-radius: 5px;
+        background: rgb(200 200 200);
+        margin-bottom: 5px;
     }
 </style>

@@ -170,9 +170,6 @@
                 on:change={async () => await menuTypeChange()}
                 id="2"
                 disabled={isCustom}
-                class={menuType != "" && !isCustom
-                    ? "isPopulated"
-                    : "isNotPopulated"}
             >
                 {#if animType != ""}
                     {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
@@ -223,9 +220,6 @@
                 on:change={async () => await animationChange()}
                 id="3"
                 disabled={isCustom}
-                class={animation != "" && !isCustom
-                    ? "isPopulated"
-                    : "isNotPopulated"}
             >
                 {#if menuType != ""}
                     {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
@@ -245,9 +239,6 @@
                 on:change={async () => await variantChange()}
                 id="4"
                 disabled={isCustom}
-                class={variant != "" && !isCustom
-                    ? "isPopulated"
-                    : "isNotPopulated"}
             >
                 {#if (menuType != "") & (animation != "")}
                     {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
@@ -266,9 +257,6 @@
                 bind:value={color}
                 id="5"
                 disabled={isCustom}
-                class={color != "" && !isCustom
-                    ? "isPopulated"
-                    : "isNotPopulated"}
             >
                 {#if menuType != "" && animation != "" && variant != ""}
                     {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
@@ -314,12 +302,11 @@
 <style lang="scss">
     .aa-3wide {
         display: grid;
-        grid-template-columns: 33.3% 33.3% 33.3%;
-        grid-gap: 5px;
-        padding: 5px;
+        grid-template-columns: 32.67% 32.67% 32.67%;
+        grid-gap: 1%;
         align-items: center;
-        margin-right: 8%;
-        margin-left: 5%;
+        margin-right: 2%;
+        margin-left: 2%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
@@ -327,14 +314,6 @@
     }
     .aa-3wide label {
         align-self: center;
-    }
-    .isPopulated {
-        box-shadow: 0 0 6px rgba(25, 175, 2, 0.6);
-        transition: box-shadow 0.5s;
-    }
-    .isNotPopulated {
-        box-shadow: 0 0 6px rgba(219, 132, 2, 0.7);
-        transition: box-shadow 0.5s;
     }
     .selected {
         background-color: rgba(25, 175, 2, 0.18);

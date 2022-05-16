@@ -124,6 +124,7 @@
         animType="range"
         {flagData}
     />
+    <div class="aa-options-border">
     <h2 style="margin-top:5px;">Options</h2>
     <div class="aa-options">
         <!--Set Z-Index-->
@@ -143,17 +144,18 @@
             />
         </div>
     </div>
+    </div>
     <SoundSettings audioPath="a01" {flagData} />
 </div>
 
 <style lang="scss">
     .aa-options {
         display: grid;
-        grid-template-columns: 25% 25% 25% 25%;
-        grid-gap: 5px;
+        grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
+        grid-gap: 1%;
         padding: 5px;
         align-items: center;
-        margin-right: 8%;
+        margin-right: 5%;
         margin-left: 5%;
         font-weight: bold;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;

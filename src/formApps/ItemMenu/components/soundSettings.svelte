@@ -58,7 +58,7 @@
     }
 </script>
 
-<div transition:fade>
+<div class="aa-options-border" transition:fade>
     <div class="aa-header-section">
         <div class="aa-header">
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
@@ -96,14 +96,12 @@
                 <input
                     type="text"
                     bind:value={soundPath}
-                    class={soundEnabled && soundPath != ""
+                    class={soundPath
                         ? "isPopulated"
-                        : "isNotPopulated"}
+                        : ""}
                 />
                 <button
-                    class="file-picker {soundEnabled && soundPath != ''
-                        ? 'isPopulated'
-                        : 'isNotPopulated'}"
+                    class="file-picker"
                     on:click|preventDefault={() => selectCustom()}
                     ><i class="fas fa-file-import fa-fw" /></button
                 >
@@ -147,12 +145,11 @@
 <style lang="scss">
     .aa-3wide {
         display: grid;
-        grid-template-columns: 33.3% 33.3% 33.3%;
-        grid-gap: 5px;
+        grid-template-columns: 32.67% 32.67% 32.67%;
+        grid-gap: 1%;
         align-items: center;
-        margin-right: 8%;
-        margin-left: 5%;
-        padding-bottom: 10px;
+        margin-right: 1%;
+        margin-left: 1%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
@@ -170,10 +167,6 @@
         box-shadow: 0 0 6px rgba(25, 175, 2, 0.6);
         transition: box-shadow 0.5s;
     }
-    .isNotPopulated {
-        box-shadow: 0 0 6px rgba(219, 132, 2, 0.7);
-        transition: box-shadow 0.5s;
-    }
     .aa-customAnim-container {
         font-weight: bold;
         font-size: small;
@@ -186,16 +179,13 @@
         font-weight: bold;
     }
     .aa-header-section {
-        border-bottom: 1px solid rgba(120, 46, 34, 1);
-        margin-right: 15%;
-        margin-left: 15%;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
         margin-bottom: 10px;
     }
     .aa-header {
         display: grid;
         grid-template-columns: 10% 20% 40% 20% 10%;
         grid-gap: 5px;
-        padding: 1px;
         align-items: center;
         margin-right: 8%;
         margin-left: 5%;
