@@ -291,6 +291,10 @@ Hooks.once('ready', async function () {
                         var itemId = data.getFlag("betterrolls-swade2", "item_id");
                         var item = token.actor.items.get(itemId);
 
+                        if (item.data.flags?.autoanimations?.animType === "template" || (item.data.flags?.autoanimations?.animType === "preset" && item.data.flags?.autoanimations?.animation === "fireball")) {
+                            return
+                        }
+
                         swadeData(token, item)
                     } else {
                         var actorId = data.getFlag("betterrolls-swade2", "actor");
@@ -305,27 +309,11 @@ Hooks.once('ready', async function () {
                 Hooks.on("BRSW-BeforePreviewingTemplate", async (template, message, ev) => {
                     const tokenId = message.getFlag("betterrolls-swade2", "token");
 
-                    /*
-                    console.log("-----------TEMPLATE-----------")
-                    console.log(template)
-                    console.log("-----------Message-----------")
-                    console.log(message)
-                    console.log("-----------EV-----------")
-                    console.log(ev)
-                    */
-
                     if (tokenId) {
                         const token = canvas.tokens.get(tokenId);
 
                         const itemId = message.getFlag("betterrolls-swade2", "item_id");
                         const item = token.actor.items.get(itemId);
-
-                        /*
-                        console.log("-----------TOKEN-----------")
-                        console.log(token)
-                        console.log("-----------ITEM-----------")
-                        console.log(item)
-                        */
 
                         swadeData(token, item)
                     } else {
