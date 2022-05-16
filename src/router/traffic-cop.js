@@ -94,7 +94,7 @@ export async function trafficCop(handler) {
         let animType = isCustom ? handler.animType : isAutorec.menuSection;
         let presetType = isCustom ? handler.flags?.preset.presetType : isAutorec.presetType;
         if (!isCustom && animType === 'aefx') {
-            animType = isAutorec.aeType;
+            animType = isAutorec.animType;
             if (animType === 'preset') {
                 presetType = isAutorec.menuType;
             }

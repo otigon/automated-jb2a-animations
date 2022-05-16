@@ -51,6 +51,7 @@ export async function createActiveEffects5e(effect) {
         targets: [],
         item: effect,
     }
+
     let handler = await systemData.make(null, null, data);
 
     // Exits early if Item or Source Token returns null. Total Failure
