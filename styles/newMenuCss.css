@@ -11,10 +11,11 @@
     font-family: "Modesto Condensed", "Palatino Linotype", serif;
     font-weight: bold;
     font-size: large;
-    padding: 5px;
+    padding: 0.5em;
     text-align: center;
     width: 100%;
     border: 2px outset #dddddd;
+    color:black;
 }
 .aaCenterToggle {
     margin: 0 auto;
@@ -41,7 +42,7 @@
     color: black;
 }
 .aa-header-section {
-    border-bottom: 2px solid rgba(120, 46, 34, 1);
+    border-bottom: 2px solid rgba(181 70 52);
     margin-right: 5%;
     margin-left: 5%;
     margin-bottom: 5px;
@@ -88,6 +89,11 @@
     min-height: 2em;
     border-radius: 7px;
 }
+#AA-autorec-settings select option{
+    background-color: rgba(179, 179, 179, 0.5);
+    color: black;
+    font-weight: bold;
+}
 #AA-ae-settings select {
     background-color: rgba(160, 160, 160);
     text-align: center;
@@ -98,6 +104,17 @@
 #AA-autorec-settings .form-group label {
     border: none;
     background: none;
+    color: black;
+}
+#AA-autorec-settings .form-group input {
+    border: 1.5px outset rgba(0, 0, 0, 0.5);
+    background: none;
+    color: black;
+    box-shadow: none;
+    background-color: rgba(177 176 176);
+    font-weight: bold;
+    font-family: "Signika", sans-serif;
+    font-size: large;
 }
 .aaMidSection::-webkit-scrollbar {
     width: 6px;
@@ -118,11 +135,40 @@
     border-radius: 20px;
 }
 .aa-options-border {
-    margin-right: 2%;
-    margin-left: 2%;
+    margin-right: 3%;
+    margin-left: 3%;
     border: 1px solid rgba(109, 109, 109, 0.5);
     border-radius: 5px;
     background: rgb(186 185 185);
     padding:5px;
     margin-bottom: 5px;
+}
+.aa-3wide {
+    display: grid;
+    grid-template-columns: 32.67% 32.67% 32.67%;
+    grid-gap: 1%;
+    align-items: center;
+    margin-right: 3%;
+    margin-left: 3%;
+    font-family: "Modesto Condensed", "Palatino Linotype", serif;
+    font-size: large;
+    font-weight: bold;
+    color: black;
+}
+.aa-selected {
+    background-color: rgba(25, 175, 2, 0.18);
+    transition: background-color 0.5s;
+}
+.aa-notSelected {
+    background-color: rgba(219, 132, 2, 0.18);
+    transition: background-color 0.5s;
+}
+.aa-autorec-options {
+    display: grid;
+    grid-template-columns: 19.2% 19.2% 19.2% 19.2% 19.2%;
+    grid-gap: 1%;
+    padding: 5px;
+    text-align: center;
+    align-items: center;
+    color: black;
 }

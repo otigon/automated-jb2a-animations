@@ -284,9 +284,9 @@
     .aaBottomSection {
         position: absolute;
         bottom: 0;
-        left: 1%;
+        left: 0;
         right: 0;
-        margin-right: 4%;
+        margin-right: 2%;
         margin-left: 2%;
         background: rgb(204, 204, 204);
         border: 2px solid black;
@@ -322,6 +322,7 @@
         //border-radius: 10px;
         align-items: center;
         padding-top: 5px;
+        color: rgb(50, 50, 50);
     }
     li {
         margin-bottom: -1px;
@@ -356,12 +357,14 @@
         font-weight: bold;
         font-size: large;
         color: black;
-        box-shadow: 5px;
     }
     .aa-nameField:placeholder-shown {
         opacity: 0.4;
     }
     .aa-sort:hover {
         text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+    }
+    .aa-sort {
+        color: black
     }
 </style>

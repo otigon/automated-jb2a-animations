@@ -143,17 +143,6 @@
 </div>
 
 <style lang="scss">
-    .aa-3wide {
-        display: grid;
-        grid-template-columns: 32.67% 32.67% 32.67%;
-        grid-gap: 1%;
-        align-items: center;
-        margin-right: 1%;
-        margin-left: 1%;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
-    }
     .aa-3wide input {
         text-align: center;
         align-self: center;
@@ -181,18 +170,6 @@
     .aa-header-section {
         border-bottom: 1px solid rgba(0, 0, 0, 0.4);
         margin-bottom: 10px;
-    }
-    .aa-header {
-        display: grid;
-        grid-template-columns: 10% 20% 40% 20% 10%;
-        grid-gap: 5px;
-        align-items: center;
-        margin-right: 8%;
-        margin-left: 5%;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
-        color: black;
     }
     .aa-header label {
         align-self: center;

@@ -291,7 +291,7 @@
                 />
                 <label
                     for="constantY"
-                    class={onlyX ? "selected" : "notSelected"}
+                    class={onlyX ? "aa-selected" : "aa-notSelected"}
                     >{localize("autoanimations.menus.constantScaleY")}</label
                 >
             </div>
@@ -300,28 +300,8 @@
 </div>
 
 <style lang="scss">
-    .aa-3wide {
-        display: grid;
-        grid-template-columns: 32.67% 32.67% 32.67%;
-        grid-gap: 1%;
-        align-items: center;
-        margin-right: 2%;
-        margin-left: 2%;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
-        color: black;
-    }
     .aa-3wide label {
         align-self: center;
-    }
-    .selected {
-        background-color: rgba(25, 175, 2, 0.18);
-        transition: background-color 0.5s;
-    }
-    .notSelected {
-        background-color: rgba(219, 132, 2, 0.18);
-        transition: background-color 0.5s;
     }
     .aa-disabled label {
         opacity: 0.3;

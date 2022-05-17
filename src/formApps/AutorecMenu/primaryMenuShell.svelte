@@ -28,6 +28,7 @@
     menuSection.options ? menuSection.options : (menuSection.options = {});
     menuSection.audio ? menuSection.audio : (menuSection.audio = {});
     const options = menuSection.options;
+    menuSection.primary ? menuSection.primary : menuSection.primary = {};
     const primaryData = menuSection.primary;
 
     export let menuType = primaryData.menuType;
@@ -138,7 +139,7 @@
     }
 </script>
 
-<div class="form-group">
+<div class="form-group aa-text-input">
     <div style="max-width: 1.5rem;margin-left: .75rem;">
         <input type="checkbox" id={customId} hidden bind:checked={isHidden} />
         <label for={customId}
@@ -163,7 +164,7 @@
     </div>
 </div>
 {#if !isHidden}
-    <div class="autorec-options flexcol" transition:fade>
+    <div class="aa-autorec-options flexcol" transition:fade>
         <div style="grid-row:1/2; grid-column:1/2">
             <label for="" title="Duplicate"
                 ><i
@@ -360,6 +361,7 @@
                             primaryAnimation={animation}
                             primaryMenuType={menuType}
                             flagData={menuSection}
+                            customId={`switch-${idx}`}
                         />
                     </div>
                     {/if}
@@ -374,14 +376,6 @@
 {/if}
 
 <style lang="scss">
-    .autorec-options {
-        display: grid;
-        grid-template-columns: 19.2% 19.2% 19.2% 19.2% 19.2%;
-        grid-gap: 1%;
-        padding: 5px;
-        text-align: center;
-        align-items: center;
-    }
     .aa-nameField {
         background-color: rgba(210, 210, 210, 0.75);
         border: 1.5px outset rgba(0, 0, 0, 0.5);
@@ -433,7 +427,7 @@
     .aa-section-border {
         margin-right: 3%;
         margin-left: 3%;
-        border: 1px solid rgba(109, 109, 109, 0.5);
+        border: 1px solid rgba(109, 109, 109, 0.6);
         border-radius: 5px;
         background: rgb(200 200 200);
         margin-bottom: 5px;

@@ -34,7 +34,7 @@
 >
     <div class="flexcol aa-button-labels" style="grid-row:1/2; grid-column:1/2">
         <input type="checkbox" id={customId} hidden bind:checked={isCustom} />
-        <label for={customId} class={isCustom ? "selected" : "notSelected"}
+        <label for={customId} class={isCustom ? "aa-selected" : "aa-notSelected"}
             >Set {localize("autoanimations.menus.custom")}</label
         >
     </div>
@@ -49,6 +49,7 @@
             class={isCustom && customPath != ""
                 ? ""
                 : "opacityText"}
+            style="font-weight:normal; font-size:small"
         />
         <button
             disabled={!isCustom}
@@ -63,10 +64,11 @@
     .aa-customAnim-container {
         display: grid;
         grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
-        grid-gap: 5px;
-        padding: 5px;
-        margin-right: 5%;
-        margin-left: 5%;
+        grid-gap: 1%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        margin-right: 3%;
+        margin-left: 3%;
         font-size: small;
         font-weight: bold;
     }
@@ -86,13 +88,5 @@
     }
     .file-picker {
         max-width: fit-content;
-    }
-    .selected {
-        background-color: rgba(25, 175, 2, 0.18);
-        transition: background-color 0.5s;
-    }
-    .notSelected {
-        background-color: rgba(219, 132, 2, 0.18);
-        transition: background-color 0.5s;
     }
 </style>

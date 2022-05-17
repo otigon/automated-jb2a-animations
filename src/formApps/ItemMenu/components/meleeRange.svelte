@@ -16,6 +16,7 @@
 
     export let flagData;
     export let primaryMenuType;
+    export let customId;
     $: primaryMenuType = primaryMenuType;
     export let primaryAnimation;
     $: primaryAnimation = primaryAnimation;
@@ -124,7 +125,7 @@
         {/if}
     </div>
 </div>
-<div class="aa-select-animation" transition:fade>
+<div class="aa-3wide" style="padding-top:5px;padding-bottom:5px;" transition:fade>
     <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
         <label for="1"
             >{localize("autoanimations.menus.ranged")} {localize("autoanimations.menus.switch")}</label
@@ -147,8 +148,8 @@
         <button
             disabled={isDisabled}
             class="oldCheck {returnEnabled && !isDisabled
-                ? 'selected'
-                : 'notSelected'}"
+                ? 'aa-selected'
+                : 'aa-notSelected'}"
             on:click={() => switchLabel()}>{returnLabel}</button
         >
     </div>
@@ -161,6 +162,7 @@
     bind:color
     bind:isCustom
     bind:customPath
+    {customId}
     animType="range"
     flagPath="MeleeSwitch"
     {disablePlayOn}
@@ -195,40 +197,15 @@
 {/if}
 
 <style lang="scss">
-    .aa-select-animation {
-        display: grid;
-        grid-template-columns: 32.67% 32.67% 32.67%;
-        grid-gap: 1%;
-        align-items: center;
-        margin-right: 2%;
-        margin-left: 2%;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
-    }
-    .aa-select-animation select {
-        text-align: center;
-        font-weight: bold;
-        min-height: 2em;
-        border-radius: 10px;
-    }
-    .aa-select-animation label {
+    .aa-3wide label {
         align-self: center;
     }
-    .aa-select-animation button {
+    .aa-3wide button {
         border-radius: 10px;
         border: 2px solid black;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-weight: bold;
         font-size: large;
-    }
-    .selected {
-        background-color: rgba(25, 175, 2, 0.18);
-        transition: background-color 0.5s;
-    }
-    .notSelected {
-        background-color: rgba(219, 132, 2, 0.18);
-        transition: background-color 0.5s;
     }
     .aa-4wide {
         display: grid;
@@ -258,11 +235,6 @@
         font-weight: bold;
         font-size: large;
     }
-    .aa-header-section {
-        border-bottom: 2px solid rgba(120, 46, 34, 1);
-        margin-right: 5%;
-        margin-left: 5%;
-    }
     .aa-header {
         display: grid;
         grid-template-columns: 10% 78% 10%;
@@ -276,21 +248,11 @@
         font-weight: bold;
         color: black;
     }
-    .aa-header label {
-        align-self: center;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: x-large;
-        font-weight: bold;
-        text-align: center;
-        margin-right: 5%;
-        margin-left: 5%;
-        color: black;
-    }
     .aa-4wide input:disabled {
         opacity: 0.3;
         transition: opacity 0.5s;
     }
-    .aa-select-animation button:disabled {
+    .aa-3wide button:disabled {
         opacity: 0.3;
         transition: opacity 0.5s;
     }

@@ -101,7 +101,7 @@
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
             <label for="">{localize("AUTOANIM.remove")}</label>
             <button
-                class={removeTemplate ? "selected" : "notSelected"}
+                class={removeTemplate ? "aa-selected" : "aa-notSelected"}
                 on:click={() => switchRemove()}>{isRemove}</button
             >
         </div>
@@ -229,13 +229,5 @@
         margin-left: 5%;
         margin-top: 10px;
         color: black;
-    }
-    .selected {
-        background-color: rgba(25, 175, 2, 0.18);
-        transition: background-color 0.5s;
-    }
-    .notSelected {
-        background-color: rgba(219, 132, 2, 0.18);
-        transition: background-color 0.5s;
     }
 </style>

@@ -152,8 +152,8 @@
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
         <label for="aaOpacity">{localize("autoanimations.menus.opacity")}</label>
         <div class='form-group'>
-            <input type=number id="aaOpacity" bind:value={opacity} placeholder=1 min=0 max=1 step=0.01>
-            <input type="range" min=0 max=1 step=0.01 bind:value={opacity}>
+            <input style="font-weight: normal;font-size inherit;" type=number id="aaOpacity" bind:value={opacity} placeholder=1 min=0 max=1 step=0.01>
+            <input style="border:none" type="range" min=0 max=1 step=0.01 bind:value={opacity}>
         </div>
     </div>
     <!-- Aura Specific Setting-->
@@ -161,7 +161,7 @@
     <!--Ignore Targets-->
     <div class="flexcol" style="grid-row: 3 / 4; grid-column: 4 / 5;">
         <label for="">{localize("autoanimations.menus.ignoreTargets")}</label>
-        <button class="{ignoreTarget ? "selected" : "notSelected"}" on:click={() => switchIgnore()}>{isIgnore}</button>
+        <button class="{ignoreTarget ? "aa-selected" : "aa-notSelected"}" on:click={() => switchIgnore()}>{isIgnore}</button>
     </div>
     {/if}
     <!--Template Specific Settings-->
@@ -179,7 +179,7 @@
     <!--Remove Template option-->
     <div class="flexcol" style="grid-row: 3 / 4; grid-column: 4 / 5;">
         <label for="">{localize("autoanimations.menus.remove")}</label>
-        <button class="{removeTemplate ? "selected" : "notSelected"}" on:click={() => switchRemove()}>{isRemove}</button>
+        <button class="{removeTemplate ? "aa-selected" : "aa-notSelected"}" on:click={() => switchRemove()}>{isRemove}</button>
     </div>
     <!--Template Specific Persistent options-->
     {#if persistent}
@@ -240,7 +240,7 @@
         margin-left: 1%;
         font-weight: bold;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
+        font-size: medium;
         color: black;
     }
     .aa-options input {
@@ -279,14 +279,6 @@
         font-weight: bold;
         font-size: large;
         height: auto;
-    }
-    .selected {
-        background-color:rgba(25, 175, 2, 0.18);
-        transition: background-color 0.5s
-    }
-    .notSelected {
-        background-color: rgba(219, 132, 2, 0.18);
-        transition: background-color 0.5s
     }
     .aa-options input:disabled {
         opacity: 0.3;

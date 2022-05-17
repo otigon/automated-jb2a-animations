@@ -135,7 +135,7 @@
         </div>
     </div>
     {#if !isHidden}
-        <div class="autorec-options flexcol" transition:fade>
+        <div class="aa-autorec-options flexcol" transition:fade>
             <div style="grid-row:1/2; grid-column:1/2">
                 <label for=""
                     ><i
@@ -367,14 +367,6 @@
 </div>
 
 <style lang="scss">
-    .autorec-options {
-        display: grid;
-        grid-template-columns: 19.2% 19.2% 19.2% 19.2% 19.2%;
-        grid-gap: 1%;
-        padding: 5px;
-        text-align: center;
-        align-items: center;
-    }
     .aa-nameField {
         background-color: rgba(210, 210, 210, 0.75);
         border: 1.5px outset rgba(0, 0, 0, 0.5);
