@@ -31,7 +31,7 @@
     // TODO: Remove this and make `aaAutorec` setting store above the authority.
     //const data = game.settings.get("autoanimations", "aaAutorec");
     let flagData = $storeData;
-    $: flagData = $storeData;
+    $: flagData = flagData;
     /*
     let flagData = {
         melee: data.melee || {},
@@ -83,6 +83,7 @@
 
     async function applyFlags() {
         await game.settings.set("autoanimations", "aaAutorec", flagData);
+        //$storeData = $storeData;
     }
 
     async function closeApp() {
@@ -233,8 +234,7 @@
                 <div class="flexcol" style="grid-row:2/3; grid-column:1/2">
                     <button
                         class="aa-snclose"
-                        type="submit"
-                        on:click|preventDefault={applyFlags}
+                        on:click={applyFlags}
                         >{localize("autoanimations.menus.submit")}</button
                     >
                 </div>

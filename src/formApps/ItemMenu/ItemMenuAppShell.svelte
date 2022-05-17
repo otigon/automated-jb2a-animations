@@ -30,6 +30,8 @@
     } from "./menuStore.js";
 
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
+    import { gameSettings } from "../../gameSettings.js";
+    const storeData = gameSettings.getStore("aaAutorec");
 
     export let elementRoot;
     export let item;
@@ -37,7 +39,7 @@
     export const flags = itemFlags.autoanimations || {};
     const oldName = item.name || item.sourceName;
     const autoCheck = AutorecFunctions._checkAutoRec(oldName);
-    const autoObject = autoCheck ? AutorecFunctions._findObjectFromArray(game.settings.get('autoanimations', 'aaAutorec'), AutorecFunctions._rinseName(oldName)) : {};
+    $: autoObject = autoCheck ? AutorecFunctions._findObjectFromArray($storeData, AutorecFunctions._rinseName(oldName)) : {};
     console.log(autoCheck)
     console.log(autoObject)
 
@@ -103,6 +105,9 @@
                 },
             },
         };
+        if (!flagData.autoOverride?.enable) {
+            await item.unsetFlag("autoanimations", "autoOverride")
+        }
         await item.update(updatedFlags.data);
     }
 

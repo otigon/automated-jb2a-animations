@@ -52,6 +52,7 @@
             //autoOverride.enable = false;
         } else {
             console.log("Enabled");
+            flagData.autoOverride = {enable: true}
         }
     }
 
