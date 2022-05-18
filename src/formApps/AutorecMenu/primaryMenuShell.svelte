@@ -11,6 +11,11 @@
     import MacroField from "../ItemMenu/components/macro.svelte";
     import RangeSwitch from "../ItemMenu/components/meleeRange.svelte";
 
+    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
+    import { storeAutorec, closePreviewWindow } from "./autorecPreviews.js";
+    import FullAutoPreview from "./fullAutoPreview.js";
+    //import VideoPreview from "./autorecPreviews.svelte";
+
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import {
         aaTypeMenu,
@@ -24,11 +29,12 @@
     export let idx;
     export let menuSection;
     export let menuListings;
+    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
     menuSection.options ? menuSection.options : (menuSection.options = {});
     menuSection.audio ? menuSection.audio : (menuSection.audio = {});
     const options = menuSection.options;
-    menuSection.primary ? menuSection.primary : menuSection.primary = {};
+    menuSection.primary ? menuSection.primary : (menuSection.primary = {});
     const primaryData = menuSection.primary;
 
     export let menuType = primaryData.menuType;
@@ -45,6 +51,43 @@
     $: customPath = primaryData.customPath = customPath;
     //console.log(menuType)
     let menuSelection = type === "aura" ? "static" : type;
+
+    $: $storeAutorec[idx] = {
+        primaryCustomPath: isCustom && customPath ? customPath : "",
+        primaryDatabasePath:
+            color === "random"
+                ? `autoanimations.${type}.${menuType}.${animation}.${variant}`
+                : `autoanimations.${type}.${menuType}.${animation}.${variant}.${color}`,
+    };
+
+    async function onClick() {
+        console.log(TJSDialog)
+        if (Object.values(ui.windows).find(w=>w.id === `Autorec-Video-Preview`)) {
+            closePreviewWindow.set(true)
+            await wait(500)
+        }
+        new FullAutoPreview({idx, name: sectionName}).render(true);
+        //await wait(500)
+        //closePreviewWindow.set(false)
+
+        /*
+        new TJSDialog({
+            modal: false,
+            draggable: true,
+            resizable: true,
+            title: `${sectionName} Preview`,
+            stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
+            content: {
+                class: VideoPreview,
+                props: {
+                    idx,
+                },
+            },
+        }).render(true);
+        */
+    }
+
+    //console.log($storeAutorec);
     if (!menuType) {
         menuType = Object.keys(aaTypeMenu[menuSelection])[0];
         animation = Object.keys(aaNameMenu[menuSelection][menuType])[0];
@@ -331,6 +374,17 @@
                                     )}</label
                                 >
                             </div>
+                            <div
+                                class="flexcol"
+                                style="grid-row:1/2; grid-column:1/2"
+                                transition:fade
+                            >
+                                <i
+                                    class="fas fa-film aa-video-preview"
+                                    on:click={() => onClick()}
+                                    title="Video Preview"
+                                />
+                            </div>
                         </div>
                     </div>
                     <ChooseAnimation
@@ -355,7 +409,7 @@
                     />
                     <SoundSettings audioPath="a01" flagData={menuSection} />
                 </div>
-                    {#if type === "melee"}
+                {#if type === "melee"}
                     <div class="aa-section-border">
                         <RangeSwitch
                             primaryAnimation={animation}
@@ -364,7 +418,7 @@
                             customId={`switch-${idx}`}
                         />
                     </div>
-                    {/if}
+                {/if}
                 <div class="aa-section-border">
                     {#if showExplosions.includes(type)}
                         <AddExplosion flagData={menuSection} />

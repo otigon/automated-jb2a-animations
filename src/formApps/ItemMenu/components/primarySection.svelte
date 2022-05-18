@@ -88,18 +88,8 @@
             <label for="">{localize("autoanimations.menus.primary")} {localize("autoanimations.menus.animation")}</label>
         </div>
         <div
-            class="flexcol"
-            style="grid-row:1/2; grid-column:1/2"
-            transition:fade
-        >
-            <i
-                class="fas fa-video aa-video-preview"
-                on:click={() => onClick()}
-            />
-        </div>
-        <div
         class="flexcol"
-        style="grid-row:1/2; grid-column:5/6"
+        style="grid-row:1/2; grid-column:1/2"
         transition:fade
     >
         <i

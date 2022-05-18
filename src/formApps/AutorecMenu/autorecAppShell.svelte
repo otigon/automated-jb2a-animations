@@ -10,17 +10,25 @@
     import PrimaryMenuShell from "./primaryMenuShell.svelte";
     import PresetShell from "./PresetShell.svelte";
     import ActiveEffectShell from "./ActiveEffectShell.svelte";
+    import { storeAutorec } from "./autorecPreviews.js";
+    $storeAutorec = [];
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
     //import Tabs from "./Tabs.svelte";
 
     import { gameSettings } from "../../gameSettings.js";
-
+    import { closePreviewWindow } from "./autorecPreviews.js";
+    closePreviewWindow.set(false);
     import items from "./data/tabItems.js";
     console.log(items);
     export let elementRoot;
     export let activeTabValue = 1;
+    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-    const handleClick = (tabValue) => (activeTabValue = tabValue);
+    const handleClick = async (tabValue) => {
+        console.log(flagData)
+        $storeAutorec = [];
+        (activeTabValue = tabValue);
+    }
 
     const storeData = gameSettings.getStore("aaAutorec");
     storeData.set(game.settings.get("autoanimations", "aaAutorec"))
@@ -88,6 +96,7 @@
 
     async function closeApp() {
         await game.settings.set("autoanimations", "aaAutorec", flagData);
+        closePreviewWindow.set(true)
         application.close();
     }
     function addSection() {

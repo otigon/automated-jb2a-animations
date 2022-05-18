@@ -99,18 +99,6 @@
                         : localize("autoanimations.menus.disabled")}</label
                 >
             </div>
-            {#if enableSection}
-                <div
-                    class="flexcol"
-                    style="grid-row:1/2; grid-column:1/2"
-                    transition:fade
-                >
-                    <i
-                        class="fas fa-video aa-video-preview"
-                        on:click={() => onClick()}
-                    />
-                </div>
-            {/if}
             <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
                 <i
                     class="{enableSection
