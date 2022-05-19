@@ -5,13 +5,14 @@ import VideoPreview from "./autorecPreviews.svelte";
 export default class AutorecTotalPreview extends TJSDialog {
     constructor(data) {
         super({
-            title: `${data.name} Preview`,
+            title: `Autorec Preview`,
             draggable: true,
             modal: false,
             content: {
                 class: VideoPreview,
                 props: {
                     idx: data.idx,
+                    name: data.name,
                 }
             },
             //close: () => this.options.reject(),

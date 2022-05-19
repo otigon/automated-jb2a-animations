@@ -12,7 +12,7 @@
     import RangeSwitch from "../ItemMenu/components/meleeRange.svelte";
 
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
-    import { storeAutorec, closePreviewWindow } from "./autorecPreviews.js";
+    import { storeAutorec, closePreviewWindow, databaseType, index } from "./autorecPreviews.js";
     import FullAutoPreview from "./fullAutoPreview.js";
     //import VideoPreview from "./autorecPreviews.svelte";
 
@@ -38,20 +38,30 @@
     const primaryData = menuSection.primary;
 
     export let menuType = primaryData.menuType;
-    $: menuType = primaryData.menuType = menuType;
+    //$: menuType = primaryData.menuType = menuType;
     export let animation = primaryData.animation;
-    $: animation = primaryData.animation = animation;
+    //$: animation = primaryData.animation = animation;
     let variant = primaryData.variant;
-    $: variant = primaryData.variant = variant;
+    //$: variant = primaryData.variant = variant;
     let color = primaryData.color;
-    $: color = primaryData.color = color;
+    //$: color = primaryData.color = color;
     let isCustom = primaryData.enableCustom || false;
-    $: isCustom = primaryData.enableCustom = isCustom;
+    //$: isCustom = primaryData.enableCustom = isCustom;
     let customPath = primaryData.customPath;
-    $: customPath = primaryData.customPath = customPath;
+    //$: customPath = primaryData.customPath = customPath;
+
+    $: {
+        menuType = primaryData.menuType = menuType;
+        animation = primaryData.animation = animation;
+        variant = primaryData.variant = variant;
+        color = primaryData.color = color;
+        isCustom = primaryData.enableCustom = isCustom;
+        customPath = primaryData.customPath = customPath;
+        $storeAutorec = flagData
+    }
     //console.log(menuType)
     let menuSelection = type === "aura" ? "static" : type;
-
+    /*
     $: $storeAutorec[idx] = {
         primaryCustomPath: isCustom && customPath ? customPath : "",
         primaryDatabasePath:
@@ -59,14 +69,19 @@
                 ? `autoanimations.${type}.${menuType}.${animation}.${variant}`
                 : `autoanimations.${type}.${menuType}.${animation}.${variant}.${color}`,
     };
-
+    */
     async function onClick() {
         console.log(TJSDialog)
         if (Object.values(ui.windows).find(w=>w.id === `Autorec-Video-Preview`)) {
-            closePreviewWindow.set(true)
-            await wait(500)
+            //closePreviewWindow.set(true)
+            //await wait(500)
+            databaseType.set(type)
+            index.set(idx)
+        } else {
+            databaseType.set(type)
+            index.set(idx)
+            new FullAutoPreview({idx, name: sectionName}).render(true);
         }
-        new FullAutoPreview({idx, name: sectionName}).render(true);
         //await wait(500)
         //closePreviewWindow.set(false)
 

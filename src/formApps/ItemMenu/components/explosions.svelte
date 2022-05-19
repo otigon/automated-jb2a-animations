@@ -42,22 +42,32 @@
     }
 
     let menuType = root.menuType;
-    $: menuType = root.menuType = menuType;
+    //$: menuType = root.menuType = menuType;
 
     let animation = root.animation;
-    $: animation = root.animation = animation;
+    //$: animation = root.animation = animation;
 
     let variant = root.variant;
-    $: variant = root.variant = variant;
+    //$: variant = root.variant = variant;
 
     let color = root.color;
-    $: color = root.color = color;
+    //$: color = root.color = color;
 
     let isCustom = root.enableCustom || false;
-    $: isCustom = root.enableCustom = isCustom;
+    //$: isCustom = root.enableCustom = isCustom;
 
     let customPath = root.customPath || "";
-    $: customPath = root.customPath = customPath;
+    //$: customPath = root.customPath = customPath;
+
+    $: {
+        menuType = root.menuType = menuType;
+        animation = root.animation = animation;
+        variant = root.variant = variant;
+        color = root.color = color;
+        isCustom = root.enableCustom = isCustom;
+        customPath = root.customPath = customPath;
+        flagData = flagData;
+    }
 
     function onClick() {
         new TJSDialog({
