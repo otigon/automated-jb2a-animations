@@ -915,6 +915,7 @@ async function wfrpSkill(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
     if (data.result.outcome != "success" && game.settings.get('autoanimations', 'castOnlyOnSuccess')) { return }
+    if (!data.skill) { return }
     let handler = await systemData.make({ item: data.skill, targets: data.context?.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
