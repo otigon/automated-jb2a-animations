@@ -14,7 +14,7 @@
     padding: 0.5em;
     text-align: center;
     width: 100%;
-    border: 2px outset #dddddd;
+    border: 2px outset rgb(142, 142, 142);
     color:black;
 }
 .aaCenterToggle {
@@ -137,9 +137,9 @@
 .aa-options-border {
     margin-right: 3%;
     margin-left: 3%;
-    border: 1px solid rgba(109, 109, 109, 0.5);
+    border: 1px solid rgba(109, 109, 109, 0.75);
     border-radius: 5px;
-    background: rgb(186 185 185);
+    background: rgba(207, 171, 112, 0.09);
     padding:5px;
     margin-bottom: 5px;
 }
@@ -147,7 +147,7 @@
     display: grid;
     grid-template-columns: 32.67% 32.67% 32.67%;
     grid-gap: 1%;
-    align-items: center;
+    align-items: end;
     margin-right: 3%;
     margin-left: 3%;
     font-family: "Modesto Condensed", "Palatino Linotype", serif;

@@ -152,8 +152,8 @@
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
         <label for="aaOpacity">{localize("autoanimations.menus.opacity")}</label>
         <div class='form-group'>
-            <input style="font-weight: normal;font-size inherit;" type=number id="aaOpacity" bind:value={opacity} placeholder=1 min=0 max=1 step=0.01>
-            <input style="border:none" type="range" min=0 max=1 step=0.01 bind:value={opacity}>
+            <input style="font-weight: normal;background:rgb(191 187 182);font-size:medium;height:1.5em" type=number id="aaOpacity" bind:value={opacity} placeholder=1 min=0 max=1 step=0.01>
+            <input style="border:none; background:none" type="range" min=0 max=1 step=0.01 bind:value={opacity}>
         </div>
     </div>
     <!-- Aura Specific Setting-->
@@ -273,12 +273,12 @@
         align-self: bottom;
     }
     .aa-options button {
-        border-radius: 10px;
+        border-radius: 7px;
         border: 2px outset #8e8e8e;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-weight: bold;
-        font-size: large;
-        height: auto;
+        font-size: medium;
+        line-height: 1.25em;
+        width:95%;
     }
     .aa-options input:disabled {
         opacity: 0.3;

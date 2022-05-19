@@ -147,7 +147,7 @@
         <label for="">{localize("autoanimations.menus.return")} {localize("autoanimations.menus.animation")}</label>
         <button
             disabled={isDisabled}
-            class="oldCheck {returnEnabled && !isDisabled
+            class="aa-setDim {returnEnabled && !isDisabled
                 ? 'aa-selected'
                 : 'aa-notSelected'}"
             on:click={() => switchLabel()}>{returnLabel}</button
@@ -174,7 +174,7 @@
     <div class="aa-4wide" transition:fade={{ duration: 500 }}>
         <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
             <label for="">{localize("autoanimations.menus.rangeDetect")}</label>
-            <button class="oldCheck" on:click={() => switchDetect()}
+            <button  on:click={() => switchDetect()}
                 >{detectLabel}</button
             >
         </div>
@@ -202,7 +202,7 @@
     }
     .aa-3wide button {
         border-radius: 10px;
-        border: 2px solid black;
+        border: 2px outset rgb(142, 142, 142);
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-weight: bold;
         font-size: large;
@@ -230,7 +230,7 @@
     }
     .aa-4wide button {
         border-radius: 10px;
-        border: 2px solid black;
+        border: 2px outset rgb(142, 142, 142);
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-weight: bold;
         font-size: large;
@@ -259,5 +259,10 @@
     .aa-disabled label {
         opacity:0.3;
         transition: opacity 0.5s;
+    }
+    .aa-setDim {
+        line-height: 1.25em;
+        width: 75%;
+        align-self: center;
     }
 </style>

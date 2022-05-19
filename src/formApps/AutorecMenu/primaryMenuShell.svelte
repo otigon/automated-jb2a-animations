@@ -236,7 +236,7 @@
                 <label for="" title="3D Canvas"
                     ><i
                         on:click={() => toggle3D()}
-                        class="fas fa-cube aa-zoom"
+                        class="fas fa-cube aa-zoom {show3d ? "aa-green" : ""}"
                     /></label
                 >
             </div>
@@ -245,7 +245,7 @@
             <label for="" title="Extra FX"
                 ><i
                     on:click={() => toggleExtraFX()}
-                    class="fas fa-user-plus aa-zoom"
+                    class="fas fa-user-plus aa-zoom {showExtraFX ? "aa-green" : ""}"
                 /></label
             >
         </div>
@@ -253,7 +253,7 @@
             <label for="" title="Sound Only"
                 ><i
                     on:click={() => toggleSoundOnly()}
-                    class="fas fa-music aa-zoom"
+                    class="fas fa-music aa-zoom {soundOnly ? "aa-green" : ""}"
                 /></label
             >
         </div>

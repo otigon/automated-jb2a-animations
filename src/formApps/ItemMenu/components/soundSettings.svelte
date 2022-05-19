@@ -151,6 +151,7 @@
     }
     .aa-3wide label {
         align-self: center;
+        font-size:medium;
     }
     .isPopulated {
         box-shadow: 0 0 6px rgba(25, 175, 2, 0.6);

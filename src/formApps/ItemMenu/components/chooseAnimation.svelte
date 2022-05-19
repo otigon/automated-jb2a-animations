@@ -4,6 +4,7 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade, fly } from "svelte/transition";
     import CustomPicker from "./customPicker.svelte";
+    import CopyClipBoard from "./copyOnClick.svelte";
 
     import {
         aaTypeMenu,
@@ -37,7 +38,7 @@
             rootPath = customRoot = flagOptions = flagData.explosions;
             break;
         case "PrimaryAnimation":
-            rootPath =  customRoot = flagData.primary;
+            rootPath = customRoot = flagData.primary;
             flagOptions = flagData.options;
             break;
         case "sourceExtraFX":
@@ -50,14 +51,16 @@
             if (isAutoRec) {
                 rootPath = customRoot = flagOptions = flagData[presetType];
             } else {
-                rootPath = customRoot = flagOptions = flagData.preset[presetType];
+                rootPath =
+                    customRoot =
+                    flagOptions =
+                        flagData.preset[presetType];
             }
             break;
         case "MeleeSwitch":
             rootPath = customRoot = flagOptions = flagData.meleeSwitch;
             break;
         case "autoOverride":
-
             break;
     }
     // Sets the Flag Path depending on the section
@@ -154,11 +157,32 @@
                 ? `autoanimations.${animType}.${menuType}.${animation}.${variant}.${color}`
                 : `autoanimations.${animType}.${menuType}.${animation}.${variant}`;
     }
+    const copy = () => {
+        const app = new CopyClipBoard({
+            target: document.getElementById("clipboard"),
+            props: { dbPath },
+        });
+        app.$destroy();
+    };
 </script>
 
 <div transition:fade>
     <!--Unless spawned from "Explosions", Show the main Animation Type Select-->
     <div class="aa-3wide" transition:fade>
+        <!--Copy Button-->
+        <div class="flexcol" style="grid-row:2/3;grid-column:1/2">
+            <label
+                for=""
+                on:click={copy}
+                style="align-self: center; position:relative; bottom: 7px;"
+                title="Copy Database Path"
+                >Copy Path <i
+                    class="fas fa-database aa-zoom"
+                    style="color: rgba(50, 79, 245, 0.5);"
+                /></label
+            >
+            <div id="clipboard" />
+        </div>
         <!--Type Menu-->
         <div
             class="flexcol {isCustom ? 'aa-disabled' : ''}"
@@ -253,11 +277,7 @@
             style="grid-row: 3 / 4;grid-column: 3 / 4;"
         >
             <label for="5">{localize("autoanimations.menus.color")}</label>
-            <select
-                bind:value={color}
-                id="5"
-                disabled={isCustom}
-            >
+            <select bind:value={color} id="5" disabled={isCustom}>
                 {#if menuType != "" && animation != "" && variant != ""}
                     {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
                         <option value={key}>{name}</option>
@@ -310,5 +330,8 @@
     .aa-3wide select:disabled {
         opacity: 0.3;
         transition: opacity 0.5s;
+    }
+    .aa-zoom:hover {
+        transform: scale(1.2);
     }
 </style>

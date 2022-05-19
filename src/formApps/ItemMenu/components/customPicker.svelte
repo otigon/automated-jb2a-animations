@@ -5,10 +5,9 @@
     export let customPath;
     export let isCustom;
     export let customId;
-    export let dbPath;
     //const options = flagData.options || {};
     //let customPath = options.customPath || "";
-    $: customPath = isCustom ? customPath : dbPath;
+    $: customPath = isCustom ? customPath : "";
 
     $: isCustom = isCustom;
 
@@ -32,10 +31,10 @@
     class="aa-customAnim-container"
     transition:fade
 >
-    <div class="flexcol aa-button-labels" style="grid-row:1/2; grid-column:1/2">
+    <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
         <input type="checkbox" id={customId} hidden bind:checked={isCustom} />
-        <label for={customId} class={isCustom ? "aa-selected" : "aa-notSelected"}
-            >Set {localize("autoanimations.menus.custom")}</label
+        <label for={customId} class="aa-setDim {isCustom ? "aa-selected" : "aa-notSelected"}"
+            >{localize("autoanimations.menus.custom")}</label
         >
     </div>
     <div
@@ -67,6 +66,7 @@
         grid-gap: 1%;
         padding-top: 5px;
         padding-bottom: 5px;
+        align-items: center;
         margin-right: 3%;
         margin-left: 3%;
         font-size: small;
@@ -74,7 +74,7 @@
     }
     .aa-customAnim-container button {
         border-radius: 10px;
-        border: 2px outset #dddddd;
+        border: 2px outset rgb(142, 142, 142);
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
@@ -88,5 +88,18 @@
     }
     .file-picker {
         max-width: fit-content;
+    }
+    .aa-setDim {
+        line-height: 1.25em;
+        width:75%;
+        align-self: center;
+        padding: 0;
+        border-radius: 8px;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-weight: bold;
+        font-size: large;
+        text-align: center;
+        border: 2px outset rgb(142, 142, 142);
+        color:black;
     }
 </style>
