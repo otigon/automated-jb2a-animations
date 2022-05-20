@@ -348,15 +348,17 @@
         margin-left: 5%;
         margin-top: 10px;
         color: black;
+        border-bottom: 2px solid rgba(181 70 52);
     }
     h2 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: x-large;
         font-weight: bold;
         text-align: center;
-        margin-right: 15%;
-        margin-left: 15%;
+        margin-right: 5%;
+        margin-left: 5%;
         color: black;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     }
     .aa-3wide {
         display: grid;
@@ -388,37 +390,6 @@
         font-weight: bold;
         font-size: large;
         height: auto;
-    }
-    .aa-options button {
-        border-radius: 10px;
-        border: 2px outset #8e8e8e;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-weight: bold;
-        font-size: large;
-        height: auto;
-    }
-    .aa-options {
-        display: grid;
-        grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
-        grid-gap: 1%;
-        padding: 5px;
-        align-items: center;
-        margin-right: 1%;
-        margin-left: 1%;
-        font-weight: bold;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        color: black;
-    }
-    .aa-options input {
-        text-align: center;
-        align-self: center;
-        border-radius: 5px;
-        width: 3em;
-        color: black;
-    }
-    .aa-options label {
-        align-self: center;
     }
     .aa-info-icon {
         color: rgba(21, 154, 169, 0.75);

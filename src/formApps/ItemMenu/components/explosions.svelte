@@ -190,6 +190,12 @@
         align-self: center;
         border-radius: 5px;
         width: 3em;
+        color: black;
+        font-weight: normal;
+        background:rgb(191 187 182);
+        font-size:medium;
+        height:1.5em;
+        font-family: "Arial Narrow, sans-serif";
     }
     .aa-3wide label {
         align-self: center;
@@ -198,12 +204,12 @@
         font-weight: bold;
     }
     .aa-3wide button {
-        border-radius: 10px;
-        border: 2px outset #dddddd;
+        border-radius: 7px;
+        border: 2px outset #8e8e8e;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-weight: bold;
-        font-size: large;
-        height: auto;
+        font-size: medium;
+        line-height: 1.25em;
+        width:95%;
     }
     h2 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
@@ -212,6 +218,6 @@
         text-align: center;
         margin-right: 5%;
         margin-left: 5%;
-        border-bottom: 1px solid rgba(0, 0, 255, 0.4);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     }
 </style>

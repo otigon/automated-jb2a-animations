@@ -278,9 +278,8 @@
                         >
                         <option value="fireball"
                             >{localize(
-                                "autoanimations.presetTypes.fireball"
-                            )}</option
-                        >
+                                "autoanimations.presetTypes.proToTemp"
+                            )}</option>
                         <option value="huntersmark"
                             >{localize(
                                 "autoanimations.presetTypes.huntersmark"

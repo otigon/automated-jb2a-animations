@@ -94,7 +94,6 @@
 </script>
 
 <div class="aaMenu-section">
-    <h1>Shield Animation Preset</h1>
     <div class="aa-3wide">
         <div class="flexcol" style="grid-row: 1 / 2;grid-column: 1 / 2;">
             <label for="4">{localize("AUTOANIM.variant")}</label>
@@ -183,54 +182,14 @@
     .aa-3wide label {
         align-self: center;
     }
-    .aa-options {
-        display: grid;
-        grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
-        grid-gap: 1%;
-        padding: 5px;
-        align-items: center;
-        margin-right: 1%;
-        margin-left: 1%;
-        font-weight: bold;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        color: black;
-    }
-    .aa-options input {
-        text-align: center;
-        align-self: center;
-        border-radius: 5px;
-        width: 3em;
-        color: black;
-    }
-    .aa-options label {
-        align-self: center;
-    }
-    .aa-options button {
-        border-radius: 10px;
-        border: 2px outset #8e8e8e;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-weight: bold;
-        font-size: large;
-        height: auto;
-    }
     h2 {
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: x-large;
-        font-weight: bold;
-        text-align: center;
-        margin-right: 15%;
-        margin-left: 15%;
-        color: black;
-    }
-    h1 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: x-large;
         font-weight: bold;
         text-align: center;
         margin-right: 5%;
         margin-left: 5%;
-        margin-top: 10px;
         color: black;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     }
 </style>

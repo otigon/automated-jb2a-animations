@@ -168,7 +168,6 @@
 </script>
 
 <div class="aaMenu-section">
-    <h1 style="margin-bottom: 15px">Bardic Inspiration Preset</h1>
     <div class="aa-subheader-section">
         <div class="aa-subheader">
             <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
@@ -329,34 +328,36 @@
                 </select>
             </div>
         </div>
-        <div class="aa-options-border">
-            <h2 style="margin-top:5px;">Options</h2>
-            <div class="aa-options">
-                <!--Set Z-Index-->
-                <div
-                    class="flexcol"
-                    style="grid-row: 1 / 2; grid-column: 2 / 3;"
+    {/if}
+</div>
+<div class="aaMenu-section">
+    <div class="aa-options-border" style="margin-top:5px">
+        <h2 style="margin-top:5px;">Options</h2>
+        <div class="aa-options">
+            <!--Set Z-Index-->
+            <div
+                class="flexcol"
+                style="grid-row: 1 / 2; grid-column: 2 / 3;"
+            >
+                <label for="">Z-Index</label>
+                <button class="oldCheck" on:click={() => below()}
+                    >{aboveBelow}</button
                 >
-                    <label for="">Z-Index</label>
-                    <button class="oldCheck" on:click={() => below()}
-                        >{aboveBelow}</button
-                    >
-                </div>
-                <div
-                    class="flexcol"
-                    style="grid-row: 1 / 2; grid-column: 3 / 4;"
-                >
-                    <label for="">{localize("AUTOANIM.scale")}</label>
-                    <input
-                        type="number"
-                        bind:value={scale}
-                        placeholder="1"
-                        step="0.01"
-                    />
-                </div>
+            </div>
+            <div
+                class="flexcol"
+                style="grid-row: 1 / 2; grid-column: 3 / 4;"
+            >
+                <label for="">{localize("AUTOANIM.scale")}</label>
+                <input
+                    type="number"
+                    bind:value={scale}
+                    placeholder="1"
+                    step="0.01"
+                />
             </div>
         </div>
-    {/if}
+    </div>
     <SoundSettings audioPath="a01" {flagData} />
 </div>
 
@@ -376,16 +377,6 @@
     }
     .aa-3wide label {
         align-self: center;
-    }
-    h1 {
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: x-large;
-        font-weight: bold;
-        text-align: center;
-        margin-right: 5%;
-        margin-left: 5%;
-        margin-top: 10px;
-        color: black;
     }
     .aa-subheader {
         display: grid;
@@ -411,50 +402,20 @@
         color: black;
     }
     .aa-subheader-section {
-        border-bottom: 1px solid rgba(120, 46, 34, 1);
-        margin-right: 10%;
-        margin-left: 10%;
-        margin-bottom: 5px;
-        margin-top: 5px;
-    }
-    .aa-options {
-        display: grid;
-        grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
-        grid-gap: 1%;
-        padding: 5px;
-        align-items: center;
+        border-bottom: 2px solid rgba(181 70 52);
         margin-right: 5%;
         margin-left: 5%;
-        font-weight: bold;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        color: black;
-    }
-    .aa-options input {
-        text-align: center;
-        align-self: center;
-        border-radius: 5px;
-        width: 3em;
-        color: black;
-    }
-    .aa-options label {
-        align-self: center;
-    }
-    .aa-options button {
-        border-radius: 10px;
-        border: 2px outset #8e8e8e;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-weight: bold;
-        font-size: large;
-        height: auto;
+        margin-bottom: 5px;
+        margin-top: 5px;
     }
     h2 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: x-large;
         font-weight: bold;
         text-align: center;
-        margin-right: 15%;
-        margin-left: 15%;
+        margin-right: 5%;
+        margin-left: 5%;
         color: black;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     }
 </style>

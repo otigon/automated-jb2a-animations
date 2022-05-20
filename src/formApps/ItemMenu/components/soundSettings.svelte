@@ -148,6 +148,12 @@
         align-self: center;
         border-radius: 5px;
         width: 3em;
+        color: black;
+        font-weight: normal;
+        background:rgb(191 187 182);
+        font-size:medium;
+        height:1.5em;
+        font-family: "Arial Narrow, sans-serif";
     }
     .aa-3wide label {
         align-self: center;

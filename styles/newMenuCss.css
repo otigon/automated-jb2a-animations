@@ -172,3 +172,39 @@
     align-items: center;
     color: black;
 }
+.aa-options {
+    display: grid;
+    grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
+    grid-gap: 1%;
+    align-items: center;
+    margin-right: 1%;
+    margin-left: 1%;
+    font-weight: bold;
+    font-family: "Modesto Condensed", "Palatino Linotype", serif;
+    font-size: medium;
+    color: black;
+}
+.aa-options label {
+    align-self: center;
+}
+.aa-options input {
+    text-align: center;
+    align-self: center;
+    border-radius: 5px;
+    width: 3em;
+    color: black;
+    font-weight: normal;
+    background:rgb(191 187 182);
+    font-size:medium;
+    height:1.5em;
+    font-family: none;
+}
+.aa-options button {
+    border-radius: 7px;
+    border: 2px outset #8e8e8e;
+    font-family: "Modesto Condensed", "Palatino Linotype", serif;
+    font-size: medium;
+    line-height: 1.25em;
+    width:95%;
+}
+

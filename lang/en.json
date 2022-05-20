@@ -392,7 +392,8 @@
             "shieldspell":"Shield",
             "sneakattack": "Sneak Attack",
             "animTeleportation": "Teleportation",
-            "thunderwave":"Thunderwave"
+            "thunderwave":"Thunderwave",
+            "proToTemp": "Projectile to Template"
         },
         "menus": {
             "primary": "Primary",

@@ -152,7 +152,7 @@
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
         <label for="aaOpacity">{localize("autoanimations.menus.opacity")}</label>
         <div class='form-group'>
-            <input style="font-weight: normal;background:rgb(191 187 182);font-size:medium;height:1.5em" type=number id="aaOpacity" bind:value={opacity} placeholder=1 min=0 max=1 step=0.01>
+            <input style="font-weight: normal;background:rgb(191 187 182);font-size:medium;height:1.5em;max-width: 3em;" type=number id="aaOpacity" bind:value={opacity} placeholder=1 min=0 max=1 step=0.01>
             <input style="border:none; background:none" type="range" min=0 max=1 step=0.01 bind:value={opacity}>
         </div>
     </div>
@@ -219,8 +219,8 @@
     <div class="flexcol" style="grid-row: 4 / 5; grid-column: 3 / 4;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
         <label for="">{localize("autoanimations.menus.occlusionAlpha")}</label>
         <div class='form-group'>
-            <input type=number bind:value={occlusionAlpha} placeholder=1 min=0 max=1 step=0.01>
-            <input type=range min=0 max=1 step=0.01 bind:value={occlusionAlpha}>
+            <input type=number style="font-weight: normal;background:rgb(191 187 182);font-size:medium;height:1.5em;max-width: 3em;" bind:value={occlusionAlpha} placeholder=1 min=0 max=1 step=0.01>
+            <input type=range style="background:none;border:none" min=0 max=1 step=0.01 bind:value={occlusionAlpha}>
         </div>
     </div>
     {/if}
@@ -230,29 +230,6 @@
 </div>
 
 <style lang="scss">
-    .aa-options {
-        display: grid;
-        grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
-        grid-gap: 1%;
-        //padding: 5px;
-        align-items: center;
-        margin-right: 1%;
-        margin-left: 1%;
-        font-weight: bold;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: medium;
-        color: black;
-    }
-    .aa-options input {
-        text-align: center;
-        align-self: center;
-        border-radius: 5px;
-        width: 3em;
-        color: black;
-    }
-    .aa-options label {
-        align-self: center;
-    }
     .aa-options select {
         text-align: center;
         font-weight: bold;
@@ -271,14 +248,6 @@
     }
     .oldCheck {
         align-self: bottom;
-    }
-    .aa-options button {
-        border-radius: 7px;
-        border: 2px outset #8e8e8e;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: medium;
-        line-height: 1.25em;
-        width:95%;
     }
     .aa-options input:disabled {
         opacity: 0.3;

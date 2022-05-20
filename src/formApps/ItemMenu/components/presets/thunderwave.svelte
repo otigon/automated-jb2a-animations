@@ -148,6 +148,7 @@
                     min=0
                     max=1
                     step=0.01
+                    style="font-weight: normal;background:rgb(191 187 182);font-size:medium;height:1.5em;max-width: 3em;"
                 />
                 <input
                     type="range"
@@ -155,6 +156,7 @@
                     max=1
                     step=0.01
                     bind:value={opacity}
+                    style="border:none; background:none"
                 />
             </div>
         </div>
@@ -180,45 +182,15 @@
     .aa-3wide label {
         align-self: center;
     }
-    .aa-options {
-        display: grid;
-        grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
-        grid-gap: 1%;
-        padding: 5px;
-        align-items: center;
-        margin-right: 1%;
-        margin-left: 1%;
-        font-weight: bold;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        color: black;
-    }
-    .aa-options input {
-        text-align: center;
-        align-self: center;
-        border-radius: 5px;
-        width: 3em;
-        color: black;
-    }
-    .aa-options label {
-        align-self: center;
-    }
-    .aa-options button {
-        border-radius: 10px;
-        border: 2px outset #8e8e8e;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-weight: bold;
-        font-size: large;
-        height: auto;
-    }
     h2 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: x-large;
         font-weight: bold;
         text-align: center;
-        margin-right: 15%;
-        margin-left: 15%;
+        margin-right: 5%;
+        margin-left: 5%;
         color: black;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     }
     h1 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
@@ -229,5 +201,6 @@
         margin-left: 5%;
         margin-top: 10px;
         color: black;
+        border-bottom: 2px solid rgba(181 70 52);
     }
 </style>
