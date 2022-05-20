@@ -71,6 +71,7 @@ export class AAanimationData {
             preset: flags.preset,
 
             options: options,
+            isReturning: options.returning || false,
             below: options.below || false,
             aeDelay: options.aeDelay || 250,
             //variant: options.variant || "01",

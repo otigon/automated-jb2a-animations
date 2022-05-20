@@ -164,6 +164,36 @@
         });
         app.$destroy();
     };
+
+    const returningWeapons = [
+        "chakram",
+        "dagger",
+        "greatsword",
+        "hammer",
+        "javelin",
+        "spear",
+        "dart"
+    ];
+
+    let returnEnabled = flagOptions.returning || false;
+    $: flagOptions.returning = returnEnabled;
+
+    let returnLabel = returnEnabled ? game.i18n.localize("autoanimations.menus.enabled") : game.i18n.localize("autoanimations.menus.disabled");
+
+    function switchLabel() {
+        returnEnabled = !returnEnabled;
+        returnLabel = returnEnabled ? game.i18n.localize("autoanimations.menus.enabled") : game.i18n.localize("autoanimations.menus.disabled");
+    }
+    let isDisabled = false;
+    $: {
+        if (returningWeapons.includes(animation) && menuType === "weapon") {
+            isDisabled = false;
+        } else {
+            isDisabled = true;
+            returnEnabled = flagOptions.returning = false;
+            returnLabel = game.i18n.localize("autoanimations.menus.disabled")
+        }
+    }
 </script>
 
 <div transition:fade>
@@ -202,6 +232,23 @@
                 {/if}
             </select>
         </div>
+        {#if animType === "range"}
+            <div
+                class="flexcol aa-return"
+                style="grid-row: 2 / 3;grid-column: 3 / 4;"
+                in:fly={{ x: 200, duration: 500 }}
+                out:fly={{ x: 200, duration: 500 }}
+            >
+            <label for="">{localize("autoanimations.menus.return")} {localize("autoanimations.menus.animation")}</label>
+            <button
+                disabled={isDisabled}
+                class="aa-setDim {returnEnabled && !isDisabled
+                    ? 'aa-selected'
+                    : 'aa-notSelected'}"
+                on:click={() => switchLabel()}>{returnLabel}</button
+            >    
+            </div>
+        {/if}
         {#if animType === "static" && flagPath === "PrimaryAnimation" && !disablePlayOn}
             <!--"Play On" select for the Static option-->
             <div
@@ -333,5 +380,19 @@
     }
     .aa-zoom:hover {
         transform: scale(1.2);
+    }
+    .aa-return button {
+        border-radius: 10px;
+        border: 2px outset rgb(142, 142, 142);
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-weight: bold;
+        font-size: large;
+        line-height: 1.25em;
+        width: 75%;
+        align-self: center;
+    }
+    .aa-return button:disabled {
+        opacity: 0.3;
+        transition: opacity 0.5s;
     }
 </style>

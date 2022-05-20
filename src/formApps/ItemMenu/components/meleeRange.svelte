@@ -54,7 +54,8 @@
     let customPath = meleeSwitch.customPath;
     $: customPath = meleeSwitch.customPath = customPath;
 
-    let returnEnabled = meleeSwitch.enable || false;
+    let returnEnabled = meleeSwitch.returning || false;
+    $: returnEnabled = meleeSwitch.returning = returnEnabled
     let returnLabel = returnEnabled ? game.i18n.localize("autoanimations.menus.enabled") : game.i18n.localize("autoanimations.menus.disabled");
 
     function switchLabel() {

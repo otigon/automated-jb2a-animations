@@ -137,8 +137,8 @@
         class="flexcol button-labels {isCustomized ||
         animationDisabled ||
         !autoCheck
-            ? 'aa-disabled aa-options'
-            : 'aa-options'}"
+            ? 'aa-disabled aa-overrideButton'
+            : 'aa-overrideButton'}"
         style="grid-row: 2 / 3; grid-column: 2 / 3;"
         transition:fade
     >
@@ -213,7 +213,7 @@
         opacity: 0.3;
         transition: opacity 0.5s;
     }
-    .aa-options button {
+    .aa-overrideButton button {
         border-radius: 10px;
         border: 2px outset #8e8e8e;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
@@ -221,7 +221,7 @@
         font-size: large;
         height: auto;
     }
-    .aa-options button:disabled {
+    .aa-overrideButton button:disabled {
         opacity: 0.3;
         transition: opacity 0.5s;
     }

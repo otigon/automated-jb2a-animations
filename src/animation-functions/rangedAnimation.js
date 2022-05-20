@@ -5,6 +5,9 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function rangedAnimations(handler, animationData) {
+    function moduleIncludes(test) {
+        return !!game.modules.get(test);
+    }
 
     // Sets JB2A database and Global Delay
     //let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
@@ -16,11 +19,27 @@ export async function rangedAnimations(handler, animationData) {
     const targetFX = animationData.targetFX;
 
     const attack = await buildFile(false, data.menuType, data.animation, "range", data.variant, data.color, data.customPath)
-
+    console.log(attack)
     if (handler.debug) { aaDebugger("Ranged Animation Start", animationData, attack) }
 
     const sourceToken = handler.sourceToken;
     const onlyX = data.enableCustom ? data.onlyX : false;
+    let rangeSwitch;
+    if (moduleIncludes("jb2a_patreon")) {
+        rangeSwitch = ['sword', 'greatsword', 'mace', 'dagger', 'spear', 'greataxe', 'handaxe', 'lasersword', 'hammer', 'chakram']
+    } else {
+        rangeSwitch = ['dagger', 'lasersword']
+    }
+    const switchReturn = rangeSwitch.some(el => data.animation.includes(el)) ? data.isReturning : false;
+    let returnDelay;
+    switch (true) {
+        case data.animation.includes('dagger'):
+        case data.animation.includes('hammer'):
+            returnDelay = 1000;
+            break;
+        default:
+            returnDelay = 1500;
+    }
 
     async function cast() {
 
@@ -59,6 +78,15 @@ export async function rangedAnimations(handler, animationData) {
                 .missed(!hit)
                 .name("spot" + ` ${target.id}`)
                 .belowTokens(data.below)
+            if (switchReturn) {
+                aaSeq.effect()
+                    .file(attack.returnFile, true)
+                    .opacity(data.opacity)
+                    .delay(returnDelay)
+                    .atLocation(sourceToken)
+                    .repeats(data.repeat, data.delay)
+                    .stretchTo("spot" + ` ${target.id}`)
+            }
             if (data.explosion.enabled) {
                 aaSeq.effect()
                     .atLocation("spot" + ` ${target.id}`)
