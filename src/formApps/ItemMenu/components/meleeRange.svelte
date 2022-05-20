@@ -167,6 +167,7 @@
     animType="range"
     flagPath="MeleeSwitch"
     {disablePlayOn}
+    disableReturn={true}
     {flagData}
 />
 

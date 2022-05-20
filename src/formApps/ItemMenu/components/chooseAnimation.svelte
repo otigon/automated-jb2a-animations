@@ -23,6 +23,7 @@
     export let shouldShowOnlyX;
     export let disablePlayOn;
     export let isAutoRec;
+    export let disableReturn;
     $: {
         animType = animType;
     }
@@ -232,7 +233,7 @@
                 {/if}
             </select>
         </div>
-        {#if animType === "range"}
+        {#if animType === "range" && !disableReturn}
             <div
                 class="flexcol aa-return"
                 style="grid-row: 2 / 3;grid-column: 3 / 4;"
