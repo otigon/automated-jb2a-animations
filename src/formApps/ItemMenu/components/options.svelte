@@ -99,6 +99,14 @@
     $: menuSelection = menuSelection;
     $: disabled01 = animType === "melee" || animType === "range" || menuSelection === "melee" || menuSelection === 'range';
     $: isDisabled = animType === "melee" || animType === "range" || menuSelection === "melee" || menuSelection === "range" ? false : persistent;
+
+    let addToken = options.addTokenWidth || false;
+    $: addToken = options.addTokenWidth = addToken;
+    function switchAddToken() {
+        addToken = !addToken;
+    }
+    $: isAddToken = addToken ? "Yes" : "No";
+
 </script>
 
 <div class="aa-options-border" transition:fade={{duration: 500}}>
@@ -141,6 +149,11 @@
         <label for="">{localize("autoanimations.menus.radius")}</label>
         <input type=number bind:value={auraRadius} placeholder=3.5 step=0.01>
     </div>
+    <!--Add Token Width-->
+    <div class="flexcol" style="grid-row: 3 / 4; grid-column: 3 / 4;">
+        <label for="">Add Token Width</label>
+        <button class="{addToken ? "aa-selected" : "aa-notSelected"}" on:click={() => switchAddToken()}>{isAddToken}</button>
+    </div>    
     {:else}
     <div class="flexcol {animType === "range" ? "aa-disabled" : ""}" style="grid-row: 2 / 3; grid-column: 3 / 4;">
         <label for="">{localize("autoanimations.menus.scale")}</label>
@@ -152,7 +165,7 @@
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
         <label for="aaOpacity">{localize("autoanimations.menus.opacity")}</label>
         <div class='form-group'>
-            <input style="font-weight: normal;background:rgb(191 187 182);font-size:medium;height:1.5em;max-width: 3em;" type=number id="aaOpacity" bind:value={opacity} placeholder=1 min=0 max=1 step=0.01>
+            <input style="font-weight: bold;background:rgb(191 187 182);font-size:medium;height:1.5em;max-width: 3em;font-family: Noto Sans, serif;" type=number id="aaOpacity" bind:value={opacity} placeholder=1 min=0 max=1 step=0.01>
             <input style="border:none; background:none" type="range" min=0 max=1 step=0.01 bind:value={opacity}>
         </div>
     </div>
@@ -219,7 +232,7 @@
     <div class="flexcol" style="grid-row: 4 / 5; grid-column: 3 / 4;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
         <label for="">{localize("autoanimations.menus.occlusionAlpha")}</label>
         <div class='form-group'>
-            <input type=number style="font-weight: normal;background:rgb(191 187 182);font-size:medium;height:1.5em;max-width: 3em;" bind:value={occlusionAlpha} placeholder=1 min=0 max=1 step=0.01>
+            <input type=number style="font-weight: bold;background:rgb(191 187 182);font-size:medium;height:1.5em;max-width: 3em;font-family: Noto Sans, serif;" bind:value={occlusionAlpha} placeholder=1 min=0 max=1 step=0.01>
             <input type=range style="background:none;border:none" min=0 max=1 step=0.01 bind:value={occlusionAlpha}>
         </div>
     </div>

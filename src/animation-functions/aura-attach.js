@@ -51,20 +51,21 @@ export async function auras(handler, animationData) {
             aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
                 .play()
         }
-    
+        let adjustedSize = data.addTokenWidth ? data.size + (sourceToken.w / canvas.grid.size) : data.size;
+        console.log(adjustedSize)
         if (!checkAnim) {
             aaSeq.addSequence(sourceFX.sourceSeq)
             aaSeq.effect()
                 .persist()
                 .origin(handler.itemUuid)
-                .size(data.size, { gridUnits: true })
+                .size(adjustedSize, { gridUnits: true })
                 .belowTokens(data.below)
                 .file(aura.file)
                 .attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
                 .name(nameField)
                 .opacity(data.opacity)
-                .animateProperty("sprite", "width", { from: 0, to: data.size, duration: 2500, ease: randomEase, gridUnits: true })
-                .animateProperty("sprite", "height", { from: 0, to: data.size, duration: 2500, ease: randomEase, gridUnits: true })
+                .animateProperty("sprite", "width", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
+                .animateProperty("sprite", "height", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
                 .fadeIn(2500)
                 .fadeOut(500)
             AAanimationData.howToDelete("sequencerground")
@@ -93,19 +94,20 @@ export async function auras(handler, animationData) {
         aaSeq.addSequence(sourceFX.sourceSeq)
         for (let target of handler.allTargets) {
             let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0
+            let adjustedSize = data.addTokenWidth ? data.size + (target.w / canvas.grid.size) : data.size;
 
             if (!checkAnim) {
                 aaSeq.effect()
                     .persist()
                     .origin(handler.itemUuid)
-                    .size(data.size, { gridUnits: true })
+                    .size(adjustedSize, { gridUnits: true })
                     .belowTokens(data.below)
                     .file(aura.file)
                     .attachTo(target, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
                     .name(`${target.name}-${handler.itemName}`)
                     .opacity(data.opacity)
-                    .animateProperty("sprite", "width", { from: 0, to: data.size, duration: 2500, ease: randomEase, gridUnits: true })
-                    .animateProperty("sprite", "height", { from: 0, to: data.size, duration: 2500, ease: randomEase, gridUnits: true })
+                    .animateProperty("sprite", "width", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
+                    .animateProperty("sprite", "height", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
                     .fadeIn(2500)
                     .fadeOut(500)
             }

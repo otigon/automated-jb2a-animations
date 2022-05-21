@@ -207,7 +207,7 @@
                 on:click={copy}
                 style="align-self: center; position:relative; bottom: 7px;"
                 title="Copy Database Path"
-                >Copy Path <i
+                >Copy DB Path <i
                     class="fas fa-database aa-zoom"
                     style="color: rgba(50, 79, 245, 0.5);"
                 /></label

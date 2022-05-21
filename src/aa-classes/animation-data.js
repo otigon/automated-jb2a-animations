@@ -72,6 +72,7 @@ export class AAanimationData {
 
             options: options,
             isReturning: options.returning || false,
+            addTokenWidth: options.addTokenWidth || false,
             below: options.below || false,
             aeDelay: options.aeDelay || 250,
             //variant: options.variant || "01",

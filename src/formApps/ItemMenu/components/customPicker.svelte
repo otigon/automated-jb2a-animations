@@ -67,7 +67,7 @@
         padding-top: 5px;
         padding-bottom: 5px;
         align-items: center;
-        margin-right: 3%;
+        margin-right: 6%;
         margin-left: 3%;
         font-size: small;
         font-weight: bold;

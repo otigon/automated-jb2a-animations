@@ -191,11 +191,11 @@
         border-radius: 5px;
         width: 3em;
         color: black;
-        font-weight: normal;
+        font-weight: bold;
         background:rgb(191 187 182);
         font-size:medium;
         height:1.5em;
-        font-family: "Arial Narrow, sans-serif";
+        font-family: "Noto Sans", serif;
     }
     .aa-3wide label {
         align-self: center;
