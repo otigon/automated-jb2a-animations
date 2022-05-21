@@ -976,27 +976,25 @@ export const flagMigrations = {
                     meleeSwitch, killAnim, override, animType, animation, color, enableCustom, customPath, animLevel } = v4Flags;
                 v5Flags.options ? v5Flags.options : v5Flags.options = {};
                 const newOptions = v5Flags.options;
-                v5Flags = {
-                    killAnim,
-                    override,
-                    animType,
-                    primary: {
-                        menuType: options.menuType || "",
-                        animation,
-                        variant: options.variant || "",
-                        color,
-                        enableCustom,
-                        customPath,
-                    },
-                    version: 5,
-                    options,
-                    explosions,
-                    audio,
-                    macro,
-                    levels3d,
-                    meleeSwitch,
-                    preset: {},
-                }
+                v5Flags.killAnim = killAnim;
+                v5Flags.override = override;
+                v5Flags.animType = animType;
+                v5Flags.primary = {
+                    menuType: options.menuType || "",
+                    animation,
+                    variant: options.variant || "",
+                    color,
+                    enableCustom,
+                    customPath,
+                };
+                v5Flags.version = 5;
+                v5Flags.options = options;
+                v5Flags.explosions = explosions || {};
+                v5Flags.audio = audio || {};
+                v5Flags.macro = macro || {};
+                v5Flags.levels3d = levels3d || {};
+                v5Flags.meleeSwitch = meleeSwitch || {};
+                v5Flags.preset = {};
                 newOptions.below = animLevel;
                 if (sourceToken?.enable) {
                     await convertSource(sourceToken)
