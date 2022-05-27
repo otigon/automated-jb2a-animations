@@ -191,10 +191,12 @@ Hooks.once('ready', async function () {
         }
     } else {
         switch (game.system.id) {
+            case "a5e":
+                Hooks.on("createChatMessage", async (msg) => { setupA5ESystem(msg) });
+                break;
 			case "cyphersystem":
                 Hooks.on("createChatMessage", async (msg) => { setupCypherSystem(msg) });
                 break;
-				
             case "alienrpg":
                 Hooks.on("createChatMessage", async (msg) => { setupAlienRPG(msg) });
                 break;
@@ -332,12 +334,11 @@ Hooks.once('ready', async function () {
                     //let targets = game.user.targets;
                     wfrpTrait(data, info)
                 });
-                /*
                 Hooks.on("wfrp4e:rollTest", async (data, info) => {
-                    let targets = game.user.targets;
-                    wfrpSkill(data, targets, info)
+                    //let targets = game.user.targets;
+                    wfrpSkill(data, info)
                 });
-                */
+                
                 break;
             case 'ose':
                 Hooks.on("createChatMessage", async (msg) => { oseReady(msg) });
@@ -823,6 +824,16 @@ async function pf2eReady(msg) {
     }
 }
 
+async function setupA5ESystem(msg) {
+    if (killAllAnimations) { return; }
+    if (msg.user.id !== game.user.id) { return; }
+
+    const handler = await systemData.make(msg);
+    if (!handler.item || !handler.sourceToken) { return; } 
+
+    trafficCop(handler);
+}
+
 /*
 / WFRP Functions
 */
@@ -841,6 +852,7 @@ async function wfrpWeapon(data, info) {
 async function wfrpPrayer(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
+    if (data.result.outcome != "success" && game.settings.get('autoanimations', 'castOnlyOnSuccess')) { return }
     let handler = await systemData.make({ item: data.prayer, targets: data.context?.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
@@ -875,11 +887,12 @@ async function wfrpTrait(data, info) {
             trafficCop(handler);
     }
 }
-/*
 async function wfrpSkill(data, info) {
     if (killAllAnimations) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.skill, targets: data.targets, info: info });
+    if (data.result.outcome != "success" && game.settings.get('autoanimations', 'castOnlyOnSuccess')) { return }
+    if (!data.skill) { return }
+    let handler = await systemData.make({ item: data.skill, targets: data.context?.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
@@ -888,7 +901,7 @@ async function wfrpSkill(data, info) {
             trafficCop(handler);
     }
 }
-*/
+
 async function oseReady(input) {
     if (killAllAnimations) { return; }
     if (input.user.id !== game.user.id) { return };
