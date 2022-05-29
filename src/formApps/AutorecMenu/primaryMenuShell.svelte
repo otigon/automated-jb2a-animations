@@ -198,13 +198,14 @@
 </script>
 
 <div class="form-group aa-text-input">
-    <div style="max-width: 1.5rem;margin-left: .75rem;">
+    <div style="max-width: 22px;margin-left: 10px;">
         <input type="checkbox" id={customId} hidden bind:checked={isHidden} />
         <label for={customId}
             ><i
-                class={isHidden
-                    ? "fas fa-plus fa-lg aa-green aa-zoom"
-                    : "fas fa-minus fa-lg aa-red aa-zoom"}
+                class="{isHidden
+                    ? "fas fa-plus aa-green aa-zoom"
+                    : "fas fa-minus aa-red aa-zoom"}
+                    aa-expand"
             /></label
         >
     </div>
@@ -216,9 +217,9 @@
     />
     <div
         class="aa-deleteSection"
-        style="max-width: 1.5rem;margin-left: .75rem;"
+        style="max-width: 22px;margin-left: 10px;"
     >
-        <i class="far fa-trash-alt fa-lg" on:click={() => removeSection()} />
+        <i class="far fa-trash-alt aa-expand" on:click={() => removeSection()} />
     </div>
 </div>
 {#if !isHidden}
@@ -500,5 +501,8 @@
         border-radius: 5px;
         background: rgb(200 200 200);
         margin-bottom: 5px;
+    }
+    .aa-autorec-options label {
+        font-size:16.25px
     }
 </style>

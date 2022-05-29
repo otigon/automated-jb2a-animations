@@ -382,6 +382,7 @@
         text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
     }
     .aa-sort {
-        color: black
+        color: black;
+        font-size:12.25px;
     }
 </style>

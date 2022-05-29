@@ -207,4 +207,10 @@
     line-height: 1.25em;
     width:95%;
 }
+#AA-autorec-settings .aa-deleteSection {
+    font-size: 12.25px;
+}
+#AA-autorec-settings .aa-expand {
+    font-size: 16.25px;
+}
 

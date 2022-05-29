@@ -448,4 +448,7 @@
         border-radius: 10px;
         margin: 1.5% 3% 1.5% 3%;
     }
+    .aa-autorec-options label {
+        font-size:16.25px
+    }
 </style>

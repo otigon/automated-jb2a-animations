@@ -507,29 +507,6 @@ export class aaAutorec {
                         below: false,
                     }
                 },
-                2: {
-                    id:randomID(),
-                    hidden: true,
-                    name: game.i18n.localize("autoanimations.animations.thunderwave"),
-                    primary: {
-                        menuType: "square",
-                        animation: "thunderwave",
-                        variant: "01",
-                        color: "blue",
-                    },
-                    options: {
-                        opacity: 0.75,
-                        persist: false,
-                        removeTemplate: true,
-                        repeat: 3,
-                        type: "rect",
-                        scaleX: 1,
-                        scaleY: 1,
-                        custom: false,
-                        delay: 500,
-                        below: false,
-                    }
-                }
             },
             aura: {
                 0: {
