@@ -473,7 +473,8 @@
             "rate": "Rate",
             "sprite": "Sprite",
             "projectile": "Projectile",
-            "ignoreTargets": "Ignore Targets"
+            "ignoreTargets": "Ignore Targets",
+            "options": "Options"
         }
     },
 

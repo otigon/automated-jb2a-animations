@@ -206,6 +206,7 @@
                     ? "fas fa-plus aa-green aa-zoom"
                     : "fas fa-minus aa-red aa-zoom"}
                     aa-expand"
+                title={isHidden ? "Expand" : "Collapse"}
             /></label
         >
     </div>
@@ -219,11 +220,11 @@
         class="aa-deleteSection"
         style="max-width: 22px;margin-left: 10px;"
     >
-        <i class="far fa-trash-alt aa-expand" on:click={() => removeSection()} />
+        <i title="Delete Section" class="far fa-trash-alt aa-expand aa-zoom" on:click={() => removeSection()} />
     </div>
 </div>
 {#if !isHidden}
-    <div class="aa-autorec-options flexcol" transition:fade>
+    <div class="aa-autorec-options" transition:fade>
         <div style="grid-row:1/2; grid-column:1/2">
             <label for="" title="Duplicate"
                 ><i
@@ -396,7 +397,7 @@
                                 transition:fade
                             >
                                 <i
-                                    class="fas fa-film aa-video-preview"
+                                    class="fas fa-film aa-video-preview aa-zoom"
                                     on:click={() => onClick()}
                                     title="Video Preview"
                                 />

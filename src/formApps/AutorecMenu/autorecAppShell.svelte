@@ -174,7 +174,7 @@
                         class="flexrow"
                         class:active={activeTabValue === item.value}
                     >
-                        <span on:click={() => handleClick(item.value)}
+                        <span class="aa-zoom" on:click={() => handleClick(item.value)}
                             ><i class={item.icon} />{item.label}</span
                         >
                     </li>
@@ -182,7 +182,7 @@
             </div>
             <div class="form-group" style="margin-left: 3%;margin-right: 23%;">
                 <label
-                    class="aa-sort"
+                    class="aa-sort aa-zoom"
                     for=""
                     style="max-width: 25%;"
                     on:click={() => sortMenu()}
@@ -360,6 +360,9 @@
     li.active > span {
         text-shadow: 0 0 5px rgba(255, 0, 0, 0.687);
     }
+    .aa-nameField:hover {
+        text-shadow: 0 0 5px rgba(255, 0, 0, 0.687);
+    }
     .aaMenu-section {
         background: rgba(199, 199, 199, 0.85);
         border: 2px solid black;
@@ -384,5 +387,8 @@
     .aa-sort {
         color: black;
         font-size:12.25px;
+    }
+    .aa-zoom:hover {
+        transform: scale(1.1);
     }
 </style>

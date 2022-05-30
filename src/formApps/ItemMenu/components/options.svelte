@@ -1,7 +1,8 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade } from "svelte/transition";
-    import { menuAnimType } from '../menuStore.js';
+    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
+    import { menuAnimType } from "../menuStore.js";
 
     export let flagData;
     export let animType;
@@ -59,18 +60,29 @@
     $: occlusionMode = options.occlusionMode = occlusionMode;
 
     let occlusionAlpha = options.occlusionAlpha || 0.5;
-    $: occlusionAlpha = options.occlusionAlpha = occlusionAlpha > 1 ? 1 : occlusionAlpha;
+    $: occlusionAlpha = options.occlusionAlpha =
+        occlusionAlpha > 1 ? 1 : occlusionAlpha;
 
     function below() {
         belowToken = !belowToken;
-        console.log(menuSelection)
-        console.log(isDisabled)
+        console.log(menuSelection);
+        console.log(isDisabled);
     }
 
-    $: aboveBelow = belowToken ? game.i18n.localize("autoanimations.menus.below") : game.i18n.localize("autoanimations.menus.above");
-    $: bindAlpha = unbindAlpha ? game.i18n.localize("autoanimations.menus.unbound") : game.i18n.localize("autoanimations.menus.bound");
-    $: bindVisibility = unbindVisbility ? game.i18n.localize("autoanimations.menus.unbound") : game.i18n.localize("autoanimations.menus.bound");
-    $: isPersistent = persistent ? game.i18n.localize("autoanimations.menus.persistant") : game.i18n.localize("autoanimations.menus.not") + " " + game.i18n.localize("autoanimations.menus.persistant")
+    $: aboveBelow = belowToken
+        ? game.i18n.localize("autoanimations.menus.below")
+        : game.i18n.localize("autoanimations.menus.above");
+    $: bindAlpha = unbindAlpha
+        ? game.i18n.localize("autoanimations.menus.unbound")
+        : game.i18n.localize("autoanimations.menus.bound");
+    $: bindVisibility = unbindVisbility
+        ? game.i18n.localize("autoanimations.menus.unbound")
+        : game.i18n.localize("autoanimations.menus.bound");
+    $: isPersistent = persistent
+        ? game.i18n.localize("autoanimations.menus.persistant")
+        : game.i18n.localize("autoanimations.menus.not") +
+          " " +
+          game.i18n.localize("autoanimations.menus.persistant");
     function switchAlpha() {
         unbindAlpha = !unbindAlpha;
     }
@@ -93,12 +105,22 @@
     }
 
     let menuSelection = flagData.animType;
-    menuAnimType.subscribe(value => {
+    menuAnimType.subscribe((value) => {
         menuSelection = value;
-    })
+    });
     $: menuSelection = menuSelection;
-    $: disabled01 = animType === "melee" || animType === "range" || menuSelection === "melee" || menuSelection === 'range';
-    $: isDisabled = animType === "melee" || animType === "range" || menuSelection === "melee" || menuSelection === "range" ? false : persistent;
+    $: disabled01 =
+        animType === "melee" ||
+        animType === "range" ||
+        menuSelection === "melee" ||
+        menuSelection === "range";
+    $: isDisabled =
+        animType === "melee" ||
+        animType === "range" ||
+        menuSelection === "melee" ||
+        menuSelection === "range"
+            ? false
+            : persistent;
 
     let addToken = options.addTokenWidth || false;
     $: addToken = options.addTokenWidth = addToken;
@@ -107,139 +129,347 @@
     }
     $: isAddToken = addToken ? "Yes" : "No";
 
+    function optionsInfo() {
+        new TJSDialog({
+            modal: false,
+            draggable: true,
+            resizable: true,
+            height: 600,
+            width: 400,
+            title: "Options Information",
+        }).render(true);
+    }
+
 </script>
 
-<div class="aa-options-border" transition:fade={{duration: 500}}>
-<h2>Options</h2>
-<div class="aa-options"  in:fade={{duration: 500 }} out:fade={{duration: 500}}>
-    <!--Persistent Setting-->
-    <div class="flexcol {disabled01 ? "aa-disabled" : ""}" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-        <label for="">{localize("autoanimations.menus.persistence")}</label>
-        <button on:click={() => switchPersistence()} disabled="{disabled01}" >{isPersistent}</button>
-    </div>
-    <!--Set Z-Index-->
-    <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-        <label for="">{localize("autoanimations.menus.z-index")}</label>
-        <button class="oldCheck" on:click={() => below()}>{aboveBelow}</button>
-    </div>
-    <!--Bind/Unbind Visibility (for Persistent Effects)-->
-    <div class="flexcol {disabled01 || animType === 'templatefx' || !persistent ? "aa-disabled" : ""}" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-        <label for="">{localize("autoanimations.menus.visibility")}</label>
-        <button on:click={() => switchVisibility()} disabled="{disabled01 || animType === 'templatefx' || !persistent}" >{bindVisibility}</button>
-    </div>
-    <!--Bind/Unbind Opacity (for Persistent Effects)-->
-    <div class="flexcol {disabled01 || animType === 'templatefx' || !persistent ? "aa-disabled" : ""}" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-        <label for="">{localize("autoanimations.menus.alpha")}</label>
-        <button on:click={() => switchAlpha()} disabled="{disabled01 || animType === 'templatefx' || !persistent }" >{bindAlpha}</button>
-    </div>
-    <!--Set Number of times the animation plays-->
-    <div class="flexcol {isDisabled ? "aa-disabled" : ""}" style="grid-row: 2 / 3; grid-column: 1 / 2;">
-        <label for="">{localize("autoanimations.menus.repeat")}</label>
-        <input disabled={isDisabled} type=number bind:value={repeat} placeholder=1>
-    </div>
-    <!--Set delay between repeats-->
-    <div class="flexcol {isDisabled ? "aa-disabled" : ""}" style="grid-row: 2 / 3; grid-column: 2 / 3;">
-        <label for="">{localize("autoanimations.menus.repeat")} {localize("autoanimations.menus.delay")}</label>
-        <input disabled={isDisabled} type=number bind:value={delay} placeholder=250>
-    </div>
-    <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
-    {#if animType !== "templatefx"}
-    {#if animType === "aura"}
-    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
-        <label for="">{localize("autoanimations.menus.radius")}</label>
-        <input type=number bind:value={auraRadius} placeholder=3.5 step=0.01>
-    </div>
-    <!--Add Token Width-->
-    <div class="flexcol" style="grid-row: 3 / 4; grid-column: 3 / 4;">
-        <label for="">Add Token Width</label>
-        <button class="{addToken ? "aa-selected" : "aa-notSelected"}" on:click={() => switchAddToken()}>{isAddToken}</button>
-    </div>    
-    {:else}
-    <div class="flexcol {animType === "range" ? "aa-disabled" : ""}" style="grid-row: 2 / 3; grid-column: 3 / 4;">
-        <label for="">{localize("autoanimations.menus.scale")}</label>
-        <input type=number disabled={animType === "range"} bind:value={scale} placeholder=1 step=0.01>
-    </div>
-    {/if}
-    {/if}
-    <!--Set Animation Opacity-->
-    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
-        <label for="aaOpacity">{localize("autoanimations.menus.opacity")}</label>
-        <div class='form-group'>
-            <input style="font-weight: bold;background:rgb(191 187 182);font-size:medium;height:1.5em;max-width: 3em;font-family: Noto Sans, serif;" type=number id="aaOpacity" bind:value={opacity} placeholder=1 min=0 max=1 step=0.01>
-            <input style="border:none; background:none" type="range" min=0 max=1 step=0.01 bind:value={opacity}>
+<div class="aa-options-border" transition:fade={{ duration: 500 }}>
+    <div class="aa-header-section">
+        <div class="aa-header">
+            <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+                <label for="">{localize("autoanimations.menus.options")}</label>
+            </div>
+            <div class="flexcol" style="grid-row:1/2; grid-column:4/5;">
+                <i
+                    class="fas fa-info-circle aa-info-icon"
+                    on:click={() => optionsInfo()}
+                />
+            </div>
         </div>
     </div>
-    <!-- Aura Specific Setting-->
-    {#if animType === "aura"}
-    <!--Ignore Targets-->
-    <div class="flexcol" style="grid-row: 3 / 4; grid-column: 4 / 5;">
-        <label for="">{localize("autoanimations.menus.ignoreTargets")}</label>
-        <button class="{ignoreTarget ? "aa-selected" : "aa-notSelected"}" on:click={() => switchIgnore()}>{isIgnore}</button>
-    </div>
-    {/if}
-    <!--Template Specific Settings-->
-    {#if animType === "templatefx"}
-    <!--Set Scale in X-->
-    <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
-        <label for="">{localize("autoanimations.menus.scale")} X</label>
-        <input type=number bind:value={scaleX} placeholder=1>
-    </div>
-    <!--Set Scale in Y-->
-    <div class="flexcol" style="grid-row: 3 / 4; grid-column: 3 / 4;">
-        <label for="">{localize("autoanimations.menus.scale")} Y</label>
-        <input type=number bind:value={scaleY} placeholder=1>
-    </div>
-    <!--Remove Template option-->
-    <div class="flexcol" style="grid-row: 3 / 4; grid-column: 4 / 5;">
-        <label for="">{localize("autoanimations.menus.remove")}</label>
-        <button class="{removeTemplate ? "aa-selected" : "aa-notSelected"}" on:click={() => switchRemove()}>{isRemove}</button>
-    </div>
-    <!--Template Specific Persistent options-->
-    {#if persistent}
-    <!--Set Persistent Type-->
-    <div class="flexcol" style="grid-row: 3 / 4;grid-column: 1 / 3;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
-        <label for="1">{localize("autoanimations.menus.persistant")} {localize("autoanimations.menus.type")}</label>
-        <select
-            bind:value={persistType}
-            id="1"
-            style="text-align: center;justify-self: center;margin-right:15%; margin-left:15%"
+    <div
+        class="aa-options"
+        in:fade={{ duration: 500 }}
+        out:fade={{ duration: 500 }}
+    >
+        <!--Persistent Setting-->
+        <div
+            class="flexcol {disabled01 ? 'aa-disabled' : ''}"
+            style="grid-row: 1 / 2; grid-column: 1 / 2;"
         >
-            {#if menuType === "circle" || menuType === "square"}
-            <option value="overheadtile">{localize("autoanimations.menus.overheadtile")}</option>
-            <option value="groundtile">{localize("autoanimations.menus.groundtile")}</option>
+            <label for="">{localize("autoanimations.menus.persistence")}</label>
+            <button on:click={() => switchPersistence()} disabled={disabled01}
+                >{isPersistent}</button
+            >
+        </div>
+        <!--Set Z-Index-->
+        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+            <label for="">{localize("autoanimations.menus.z-index")}</label>
+            <button class="oldCheck" on:click={() => below()}
+                >{aboveBelow}</button
+            >
+        </div>
+        <!--Bind/Unbind Visibility (for Persistent Effects)-->
+        <div
+            class="flexcol {disabled01 ||
+            animType === 'templatefx' ||
+            !persistent
+                ? 'aa-disabled'
+                : ''}"
+            style="grid-row: 1 / 2; grid-column: 3 / 4;"
+        >
+            <label for="">{localize("autoanimations.menus.visibility")}</label>
+            <button
+                on:click={() => switchVisibility()}
+                disabled={disabled01 ||
+                    animType === "templatefx" ||
+                    !persistent}>{bindVisibility}</button
+            >
+        </div>
+        <!--Bind/Unbind Opacity (for Persistent Effects)-->
+        <div
+            class="flexcol {disabled01 ||
+            animType === 'templatefx' ||
+            !persistent
+                ? 'aa-disabled'
+                : ''}"
+            style="grid-row: 1 / 2; grid-column: 4 / 5;"
+        >
+            <label for="">{localize("autoanimations.menus.alpha")}</label>
+            <button
+                on:click={() => switchAlpha()}
+                disabled={disabled01 ||
+                    animType === "templatefx" ||
+                    !persistent}>{bindAlpha}</button
+            >
+        </div>
+        <!--Set Number of times the animation plays-->
+        <div
+            class="flexcol {isDisabled ? 'aa-disabled' : ''}"
+            style="grid-row: 2 / 3; grid-column: 1 / 2;"
+        >
+            <label for="">{localize("autoanimations.menus.repeat")}</label>
+            <input
+                disabled={isDisabled}
+                type="number"
+                bind:value={repeat}
+                placeholder="1"
+            />
+        </div>
+        <!--Set delay between repeats-->
+        <div
+            class="flexcol {isDisabled ? 'aa-disabled' : ''}"
+            style="grid-row: 2 / 3; grid-column: 2 / 3;"
+        >
+            <label for=""
+                >{localize("autoanimations.menus.repeat")}
+                {localize("autoanimations.menus.delay")}</label
+            >
+            <input
+                disabled={isDisabled}
+                type="number"
+                bind:value={delay}
+                placeholder="250"
+            />
+        </div>
+        <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
+        {#if animType !== "templatefx"}
+            {#if animType === "aura"}
+                <div
+                    class="flexcol"
+                    style="grid-row: 2 / 3; grid-column: 3 / 4;"
+                >
+                    <label for=""
+                        >{localize("autoanimations.menus.radius")}</label
+                    >
+                    <input
+                        type="number"
+                        bind:value={auraRadius}
+                        placeholder="3.5"
+                        step="0.01"
+                    />
+                </div>
+                <!--Add Token Width-->
+                <div
+                    class="flexcol"
+                    style="grid-row: 3 / 4; grid-column: 3 / 4;"
+                >
+                    <label for="">Add Token Width</label>
+                    <button
+                        class={addToken ? "aa-selected" : "aa-notSelected"}
+                        on:click={() => switchAddToken()}>{isAddToken}</button
+                    >
+                </div>
+            {:else}
+                <div
+                    class="flexcol {animType === 'range' ? 'aa-disabled' : ''}"
+                    style="grid-row: 2 / 3; grid-column: 3 / 4;"
+                >
+                    <label for=""
+                        >{localize("autoanimations.menus.scale")}</label
+                    >
+                    <input
+                        type="number"
+                        disabled={animType === "range"}
+                        bind:value={scale}
+                        placeholder="1"
+                        step="0.01"
+                    />
+                </div>
             {/if}
-            <option value="sequencerground">{localize("autoanimations.menus.sequencereffect")}</option>
-            <option value="attachtemplate">{localize("autoanimations.menus.attachtotemplate")}</option>
-        </select>
-    </div>
-    <!--Template Specific Persistent options for Overhead Tiles-->
-    {#if persistType === "overheadtile"}
-    <!--Set Occlusion Mode-->
-    <div class="flexcol" style="grid-row: 4 / 5;grid-column: 1 / 3;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
-        <label for="1">{localize("autoanimations.menus.occlusionMode")}</label>
-        <select
-            bind:value={occlusionMode}
-            id="1"
-            style="text-align: center;justify-self: center;"
+        {/if}
+        <!--Set Animation Opacity-->
+        <div
+            class="flexcol"
+            style="grid-row: 2 / 3; grid-column: 4 / 5;"
+            in:fade={{ duration: 500 }}
+            out:fade={{ duration: 500 }}
         >
-            <option value="3">{localize("autoanimations.menus.occlusion03")}</option>
-            <option value="1">{localize("autoanimations.menus.occlusion01")}</option>
-            <option value="2">{localize("autoanimations.menus.occlusion02")}</option>
-            <option value="0">{localize("autoanimations.menus.occlusion00")}</option>
-        </select>
-    </div>
-    <!--Set Occlusion Alpha-->
-    <div class="flexcol" style="grid-row: 4 / 5; grid-column: 3 / 4;" in:fade={{duration: 500 }} out:fade={{duration: 500}}>
-        <label for="">{localize("autoanimations.menus.occlusionAlpha")}</label>
-        <div class='form-group'>
-            <input type=number style="font-weight: bold;background:rgb(191 187 182);font-size:medium;height:1.5em;max-width: 3em;font-family: Noto Sans, serif;" bind:value={occlusionAlpha} placeholder=1 min=0 max=1 step=0.01>
-            <input type=range style="background:none;border:none" min=0 max=1 step=0.01 bind:value={occlusionAlpha}>
+            <label for="aaOpacity"
+                >{localize("autoanimations.menus.opacity")}</label
+            >
+            <div class="form-group">
+                <input
+                    style="font-weight: bold;background:rgb(191 187 182);font-size:medium;height:1.5em;max-width: 3em;font-family: Noto Sans, serif;"
+                    type="number"
+                    id="aaOpacity"
+                    bind:value={opacity}
+                    placeholder="1"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                />
+                <input
+                    style="border:none; background:none"
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    bind:value={opacity}
+                />
+            </div>
         </div>
+        <!-- Aura Specific Setting-->
+        {#if animType === "aura"}
+            <!--Ignore Targets-->
+            <div class="flexcol" style="grid-row: 3 / 4; grid-column: 4 / 5;">
+                <label for=""
+                    >{localize("autoanimations.menus.ignoreTargets")}</label
+                >
+                <button
+                    class={ignoreTarget ? "aa-selected" : "aa-notSelected"}
+                    on:click={() => switchIgnore()}>{isIgnore}</button
+                >
+            </div>
+        {/if}
+        <!--Template Specific Settings-->
+        {#if animType === "templatefx"}
+            <!--Set Scale in X-->
+            <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
+                <label for="">{localize("autoanimations.menus.scale")} X</label>
+                <input type="number" bind:value={scaleX} placeholder="1" />
+            </div>
+            <!--Set Scale in Y-->
+            <div class="flexcol" style="grid-row: 3 / 4; grid-column: 3 / 4;">
+                <label for="">{localize("autoanimations.menus.scale")} Y</label>
+                <input type="number" bind:value={scaleY} placeholder="1" />
+            </div>
+            <!--Remove Template option-->
+            <div class="flexcol" style="grid-row: 3 / 4; grid-column: 4 / 5;">
+                <label for="">{localize("autoanimations.menus.remove")}</label>
+                <button
+                    class={removeTemplate ? "aa-selected" : "aa-notSelected"}
+                    on:click={() => switchRemove()}>{isRemove}</button
+                >
+            </div>
+            <!--Template Specific Persistent options-->
+            {#if persistent}
+                <!--Set Persistent Type-->
+                <div
+                    class="flexcol"
+                    style="grid-row: 3 / 4;grid-column: 1 / 3;"
+                    in:fade={{ duration: 500 }}
+                    out:fade={{ duration: 500 }}
+                >
+                    <label for="1"
+                        >{localize("autoanimations.menus.persistant")}
+                        {localize("autoanimations.menus.type")}</label
+                    >
+                    <select
+                        bind:value={persistType}
+                        id="1"
+                        style="text-align: center;justify-self: center;margin-right:15%; margin-left:15%"
+                    >
+                        {#if menuType === "circle" || menuType === "square"}
+                            <option value="overheadtile"
+                                >{localize(
+                                    "autoanimations.menus.overheadtile"
+                                )}</option
+                            >
+                            <option value="groundtile"
+                                >{localize(
+                                    "autoanimations.menus.groundtile"
+                                )}</option
+                            >
+                        {/if}
+                        <option value="sequencerground"
+                            >{localize(
+                                "autoanimations.menus.sequencereffect"
+                            )}</option
+                        >
+                        <option value="attachtemplate"
+                            >{localize(
+                                "autoanimations.menus.attachtotemplate"
+                            )}</option
+                        >
+                    </select>
+                </div>
+                <!--Template Specific Persistent options for Overhead Tiles-->
+                {#if persistType === "overheadtile"}
+                    <!--Set Occlusion Mode-->
+                    <div
+                        class="flexcol"
+                        style="grid-row: 4 / 5;grid-column: 1 / 3;"
+                        in:fade={{ duration: 500 }}
+                        out:fade={{ duration: 500 }}
+                    >
+                        <label for="1"
+                            >{localize(
+                                "autoanimations.menus.occlusionMode"
+                            )}</label
+                        >
+                        <select
+                            bind:value={occlusionMode}
+                            id="1"
+                            style="text-align: center;justify-self: center;"
+                        >
+                            <option value="3"
+                                >{localize(
+                                    "autoanimations.menus.occlusion03"
+                                )}</option
+                            >
+                            <option value="1"
+                                >{localize(
+                                    "autoanimations.menus.occlusion01"
+                                )}</option
+                            >
+                            <option value="2"
+                                >{localize(
+                                    "autoanimations.menus.occlusion02"
+                                )}</option
+                            >
+                            <option value="0"
+                                >{localize(
+                                    "autoanimations.menus.occlusion00"
+                                )}</option
+                            >
+                        </select>
+                    </div>
+                    <!--Set Occlusion Alpha-->
+                    <div
+                        class="flexcol"
+                        style="grid-row: 4 / 5; grid-column: 3 / 4;"
+                        in:fade={{ duration: 500 }}
+                        out:fade={{ duration: 500 }}
+                    >
+                        <label for=""
+                            >{localize(
+                                "autoanimations.menus.occlusionAlpha"
+                            )}</label
+                        >
+                        <div class="form-group">
+                            <input
+                                type="number"
+                                style="font-weight: bold;background:rgb(191 187 182);font-size:medium;height:1.5em;max-width: 3em;font-family: Noto Sans, serif;"
+                                bind:value={occlusionAlpha}
+                                placeholder="1"
+                                min="0"
+                                max="1"
+                                step="0.01"
+                            />
+                            <input
+                                type="range"
+                                style="background:none;border:none"
+                                min="0"
+                                max="1"
+                                step="0.01"
+                                bind:value={occlusionAlpha}
+                            />
+                        </div>
+                    </div>
+                {/if}
+            {/if}
+        {/if}
     </div>
-    {/if}
-    {/if}
-    {/if}
-</div>
 </div>
 
 <style lang="scss">
@@ -248,16 +478,6 @@
         font-weight: bold;
         min-height: 2em;
         border-radius: 5px;
-    }
-    h2 {
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size:x-large;
-        font-weight: bold;
-        text-align: center;
-        margin-right: 5%;
-        margin-left: 5%;
-        color: black;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     }
     .oldCheck {
         align-self: bottom;
@@ -271,7 +491,27 @@
         transition: opacity 0.5s;
     }
     .aa-disabled label {
-        opacity:0.3;
+        opacity: 0.3;
         transition: opacity 0.5s;
+    }
+    .aa-info-icon {
+        color: rgba(21, 154, 169, 0.75);
+    }
+    .aa-info-icon:hover {
+        color: rgba(7, 132, 25, 0.6);
+    }
+    .aa-header-section {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+        margin-bottom: 10px;
+    }
+    .aa-header label {
+        align-self: center;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: x-large;
+        font-weight: bold;
+        text-align: center;
+        margin-right: 5%;
+        margin-left: 5%;
+        color: black;
     }
 </style>

@@ -25,6 +25,7 @@
     grid-template-columns: 10% 10% 56% 10% 10%;
     grid-gap: 1%;
     padding: 1px;
+    text-align: center;
     align-items: center;
     font-family: "Modesto Condensed", "Palatino Linotype", serif;
     font-size: large;
@@ -166,6 +167,7 @@
 .aa-autorec-options {
     display: grid;
     grid-template-columns: 19.2% 19.2% 19.2% 19.2% 19.2%;
+    grid-template-rows: 30px;
     grid-gap: 1%;
     padding: 5px;
     text-align: center;
