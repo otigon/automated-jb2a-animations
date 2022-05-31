@@ -38,16 +38,13 @@
         >
     </div>
     <div
-        class="form-group {isCustom ? '' : 'opacityBorder opacityButton'}"
+        class="form-group aa-custom"
         style="grid-row: 1/2; grid-column: 2/5"
     >
         <input
             disabled={!isCustom}
             type="text"
             bind:value={customPath}
-            class={isCustom && customPath != ""
-                ? ""
-                : "opacityText"}
             style="font-weight:normal; font-size:small"
         />
         <button
@@ -79,15 +76,14 @@
         font-size: large;
         font-weight: bold;
     }
-    .opacityText {
-        opacity: 0.4;
-    }
-    .opacityButton button {
-        border: 2px outset rgba(133, 133, 133, 0.418);
-        color: rgba(133, 133, 133, 0.418);
-    }
     .file-picker {
         max-width: fit-content;
+    }
+    .aa-custom button:disabled {
+        opacity:0.4;
+    }
+    .aa-custom input:disabled {
+        opacity:0.4;
     }
     .aa-setDim {
         line-height: 1.25em;

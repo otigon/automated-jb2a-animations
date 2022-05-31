@@ -74,9 +74,9 @@
             {/if}
             <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
                 <i
-                    class={soundEnabled
+                    class="{soundEnabled
                         ? "fas fa-minus aa-red"
-                        : "fas fa-plus aa-green"}
+                        : "fas fa-plus aa-green"} aa-zoom"
                     on:click={() => enableSound()}
                 />
             </div>
@@ -96,6 +96,7 @@
                 <input
                     type="text"
                     bind:value={soundPath}
+                    style="font-family:none; font-weight:normal; font-size:medium"
                     class={soundPath
                         ? "isPopulated"
                         : ""}
@@ -195,5 +196,8 @@
     .aa-green {
         color: green;
         transition: "color" 0.5s;
+    }
+    .aa-zoom:hover {
+        transform: scale(1.2);
     }
 </style>

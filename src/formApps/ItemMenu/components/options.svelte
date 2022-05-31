@@ -3,6 +3,7 @@
     import { fade } from "svelte/transition";
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import { menuAnimType } from "../menuStore.js";
+    import OptionsInformation from "../components/optionsInfo.svelte";
 
     export let flagData;
     export let animType;
@@ -130,13 +131,17 @@
     $: isAddToken = addToken ? "Yes" : "No";
 
     function optionsInfo() {
+        console.log(TJSDialog)
         new TJSDialog({
             modal: false,
             draggable: true,
             resizable: true,
             height: 600,
-            width: 400,
+            width: 550,
             title: "Options Information",
+            content: {
+                class: OptionsInformation,
+            },
         }).render(true);
     }
 
@@ -150,7 +155,7 @@
             </div>
             <div class="flexcol" style="grid-row:1/2; grid-column:4/5;">
                 <i
-                    class="fas fa-info-circle aa-info-icon"
+                    class="fas fa-info-circle aa-info-icon aa-zoom"
                     on:click={() => optionsInfo()}
                 />
             </div>
@@ -513,5 +518,8 @@
         margin-right: 5%;
         margin-left: 5%;
         color: black;
+    }
+    .aa-zoom:hover {
+        transform: scale(1.2);
     }
 </style>
