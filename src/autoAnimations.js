@@ -314,7 +314,9 @@ Hooks.once('ready', async function () {
                 })
                 Hooks.on("BRSW-CreateItemCardNoRoll", async (data) => {
                     const {actorOrToken, item} = await get_brsw_data (data)
-                    swadeData(actorOrToken, item)
+                    if (item.data.flags?.autoanimations?.animType === "template" || (item.data.flags?.autoanimations?.animType === "preset" && item.data.flags?.autoanimations?.animation === "fireball")) {
+                        return //Return to prevent duplicate effects on placing a template.
+                    } else { swadeData(actorOrToken, item) }
                 })
                 break;
             case "wfrp4e":
