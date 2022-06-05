@@ -197,9 +197,9 @@
     }
 </script>
 
-<div transition:fade>
+<div in:fade>
     <!--Unless spawned from "Explosions", Show the main Animation Type Select-->
-    <div class="aa-3wide" transition:fade>
+    <div class="aa-3wide" in:fade>
         <!--Copy Button-->
         <div class="flexcol" style="grid-row:2/3;grid-column:1/2">
             <label
@@ -238,7 +238,6 @@
                 class="flexcol aa-return"
                 style="grid-row: 2 / 3;grid-column: 3 / 4;"
                 in:fly={{ x: 200, duration: 500 }}
-                out:fly={{ x: 200, duration: 500 }}
             >
             <label for="">{localize("autoanimations.menus.return")} {localize("autoanimations.menus.animation")}</label>
             <button
@@ -256,7 +255,6 @@
                 class="flexcol"
                 style="grid-row: 2 / 3;grid-column: 3 / 4;"
                 in:fly={{ x: 200, duration: 500 }}
-                out:fly={{ x: 200, duration: 500 }}
             >
                 <label for="6">{localize("autoanimations.menus.playOn")}</label>
                 <select
@@ -349,7 +347,7 @@
             <div
                 class="flexcol aa-button-labels"
                 style="grid-row: 1 / 2; grid-column: 3 / 4;"
-                transition:fade={{ duration: 500 }}
+                in:fade
             >
                 <input
                     type="checkbox"

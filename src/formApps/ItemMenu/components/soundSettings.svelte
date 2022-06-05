@@ -58,7 +58,7 @@
     }
 </script>
 
-<div class="aa-options-border" transition:fade>
+<div class="aa-options-border" in:fade>
     <div class="aa-header-section">
         <div class="aa-header">
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
@@ -87,7 +87,7 @@
             class="aa-customAnim-container {!soundEnabled
                 ? 'opacityBorder'
                 : ''}"
-            transition:fade
+            in:fade
         >
             <div
                 class="form-group"
@@ -108,7 +108,7 @@
                 >
             </div>
         </div>
-        <div class="aa-3wide" transition:fade>
+        <div class="aa-3wide" in:fade>
             <div class="flexcol" style="grid-row: 3 / 4; grid-column: 1 / 2;">
                 <label for=""
                     >{localize("autoanimations.menus.start")}

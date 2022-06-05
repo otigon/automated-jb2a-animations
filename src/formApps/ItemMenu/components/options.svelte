@@ -138,7 +138,7 @@
 
 </script>
 
-<div class="aa-options-border" transition:fade={{ duration: 500 }}>
+<div class="aa-options-border" in:fade>
     <div class="aa-header-section">
         <div class="aa-header">
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
@@ -156,7 +156,6 @@
     <div
         class="aa-options"
         in:fade={{ duration: 500 }}
-        out:fade={{ duration: 500 }}
     >
         <!--Persistent Setting-->
         <div
@@ -289,7 +288,6 @@
             class="flexcol"
             style="grid-row: 2 / 3; grid-column: 4 / 5;"
             in:fade={{ duration: 500 }}
-            out:fade={{ duration: 500 }}
         >
             <label for="aaOpacity"
                 >{localize("autoanimations.menus.opacity")}</label
@@ -355,7 +353,6 @@
                     class="flexcol"
                     style="grid-row: 3 / 4;grid-column: 1 / 3;"
                     in:fade={{ duration: 500 }}
-                    out:fade={{ duration: 500 }}
                 >
                     <label for="1"
                         >{localize("autoanimations.menus.persistant")}
@@ -397,7 +394,6 @@
                         class="flexcol"
                         style="grid-row: 4 / 5;grid-column: 1 / 3;"
                         in:fade={{ duration: 500 }}
-                        out:fade={{ duration: 500 }}
                     >
                         <label for="1"
                             >{localize(
@@ -436,7 +432,6 @@
                         class="flexcol"
                         style="grid-row: 4 / 5; grid-column: 3 / 4;"
                         in:fade={{ duration: 500 }}
-                        out:fade={{ duration: 500 }}
                     >
                         <label for=""
                             >{localize(

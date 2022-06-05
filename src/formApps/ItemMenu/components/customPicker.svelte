@@ -30,7 +30,7 @@
 
 <div
     class="aa-customAnim-container"
-    transition:fade
+    in:fade
 >
     <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
         <input type="checkbox" id={customId} hidden bind:checked={isCustom} />

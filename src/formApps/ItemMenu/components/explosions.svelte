@@ -144,8 +144,8 @@
             {flagData}
         />
         <div class="aa-options-border">
-            <h2 transition:fade>Options</h2>
-            <div class="aa-3wide" transition:fade>
+            <h2 in:fade>Options</h2>
+            <div class="aa-3wide" in:fade>
                 <div
                     class="flexcol"
                     style="grid-row: 1 / 2; grid-column: 2 / 3;"

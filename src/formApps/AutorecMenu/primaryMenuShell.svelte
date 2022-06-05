@@ -235,7 +235,7 @@
     </div>
 </div>
 {#if !isHidden}
-    <div class="aa-autorec-options" transition:fade>
+    <div class="aa-autorec-options" in:fade>
         <div style="grid-row:1/2; grid-column:1/2">
             <label for="" title="Duplicate"
                 ><i
@@ -286,7 +286,7 @@
         </div>
     </div>
     {#if enableMacro}
-        <div class="aaMenu-section" transition:fade>
+        <div class="aaMenu-section" in:fade>
             <MacroField
                 bind:playWhen
                 isAutorec={true}
@@ -324,7 +324,7 @@
                             <label
                                 for=""
                                 style="align-self:center"
-                                transition:fade
+                                in:fade
                                 ><i class="fas fa-arrow-right fa-2xl" /></label
                             >
                         </div>
@@ -348,7 +348,7 @@
                             <label
                                 for=""
                                 style="align-self:center"
-                                transition:fade
+                                in:fade
                                 ><i class="fas fa-arrow-right fa-2xl" /></label
                             >
                         </div>
@@ -397,7 +397,7 @@
             {/if}
             {#if !show3d && !showExtraFX}
                 <div class="aa-section-border">
-                    <div class="aa-header-section" transition:fade>
+                    <div class="aa-header-section" in:fade>
                         <div class="aa-header">
                             <div
                                 class="flexcol"
@@ -413,7 +413,7 @@
                             <div
                                 class="flexcol"
                                 style="grid-row:1/2; grid-column:1/2"
-                                transition:fade
+                                in:fade
                             >
                                 <i
                                     class="fas fa-film aa-video-preview aa-zoom"

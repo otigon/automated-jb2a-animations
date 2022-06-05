@@ -126,7 +126,7 @@
         {/if}
     </div>
 </div>
-<div class="aa-3wide" style="padding-top:5px;padding-bottom:5px;" transition:fade>
+<div class="aa-3wide" style="padding-top:5px;padding-bottom:5px;" in:fade>
     <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
         <label for="1"
             >{localize("autoanimations.menus.ranged")} {localize("autoanimations.menus.switch")}</label
@@ -173,7 +173,7 @@
 
     {/if}
 {#if switchType === "custom"}
-    <div class="aa-4wide" transition:fade={{ duration: 500 }}>
+    <div class="aa-4wide" in:fade>
         <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
             <label for="">{localize("autoanimations.menus.rangeDetect")}</label>
             <button  on:click={() => switchDetect()}
