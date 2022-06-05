@@ -1597,6 +1597,23 @@ export async function jb2aAAFreeDatabase(path) {
                     green: [lg`Particles/ParticlesOutward01_05_Regular_GreenYellow_400x400.webm`],
                 },
             },
+            inwarddots: {
+                '01': {
+                    greenyellow: [lg`Particles/ParticlesInward01_01_Regular_GreenYellow_400x400.webm`],
+                },
+                '02': {
+                    greenyellow: [lg`Particles/ParticlesInward01_02_Regular_GreenYellow_400x400.webm`],
+                },
+                '03': {
+                    greenyellow: [lg`Particles/ParticlesInward01_03_Regular_GreenYellow_400x400.webm`],
+                },
+                '04': {
+                    greenyellow: [lg`Particles/ParticlesInward01_04_Regular_GreenYellow_400x400.webm`],
+                },
+                '05': {
+                    greenyellow: [lg`Particles/ParticlesInward01_05_Regular_GreenYellow_400x400.webm`],
+                },
+            },    
             stars: {
                 '01': {
                     green: [lg`Particles/ParticlesOutward02_01_Regular_GreenYellow_400x400.webm`],
@@ -1614,6 +1631,23 @@ export async function jb2aAAFreeDatabase(path) {
                     green: [lg`Particles/ParticlesOutward02_05_Regular_GreenYellow_400x400.webm`],
                 },
             },
+            inwardstars: {
+                '01': {
+                    greenyellow: [lg`Particles/ParticlesInward02_01_Regular_GreenYellow_400x400.webm`],
+                },
+                '02': {
+                    greenyellow: [lg`Particles/ParticlesInward02_02_Regular_GreenYellow_400x400.webm`],
+                },
+                '03': {
+                    greenyellow: [lg`Particles/ParticlesInward02_03_Regular_GreenYellow_400x400.webm`],
+                },
+                '04': {
+                    greenyellow: [lg`Particles/ParticlesInward02_04_Regular_GreenYellow_400x400.webm`],
+                },
+                '05': {
+                    greenyellow: [lg`Particles/ParticlesInward02_05_Regular_GreenYellow_400x400.webm`],
+                },
+            },    
             swirl: {
                 '01': {
                     greenyellow: [lg`Particles/ParticlesSwirl01_01_Regular_GreenYellow_400x400.webm`],
