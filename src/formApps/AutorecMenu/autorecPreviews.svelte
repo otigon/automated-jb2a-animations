@@ -11,7 +11,8 @@
     const { application } = getContext("external");
 
     //export let idx;
-    export let name;
+    //export let name;
+    $: name = $storeAutorec[dbType][idx].name;
 
     let closeNow = false;
     closePreviewWindow.subscribe((value) => {
@@ -44,18 +45,57 @@
 
     $: filePath = storeData.customPath || databaseFile;
     */
-    $: console.log(idx);
-    $: console.log(dbType);
-    let currentSection = $storeAutorec[dbType][idx];
+    //$: console.log(idx);
+    //$: console.log(dbType);
+    console.log($storeAutorec);
+    //let currentSection = $storeAutorec[dbType][idx];
     $: currentSection = $storeAutorec[dbType][idx];
+
+    $: sourceExtraFX = currentSection.sourceToken || {};
+    $: enableSource = sourceExtraFX.enable;
+    $: sourceMenuType = sourceExtraFX.primary?.menuType;
+    $: sourceAnimation = sourceExtraFX.primary?.animation;
+    $: sourceVariant = sourceExtraFX.primary?.variant;
+    $: sourceColor = sourceExtraFX.primary?.color;
+    $: sourceIsCustom = sourceExtraFX.primary?.enableCustom;
+    $: sourceCustomPath =
+        sourceIsCustom && sourceExtraFX.primary?.customPath
+            ? sourceExtraFX.primary?.customPath
+            : "";
+    $: sourceCustomPathIsDB = sourceCustomPath.split(".").length;
+    $: sourceCurrentPath =
+        sourceIsCustom && sourceCustomPath
+            ? sourceCustomPath
+            : color === "random"
+            ? `autoanimations.static.${sourceMenuType}.${sourceAnimation}.${sourceVariant}`
+            : `autoanimations.static.${sourceMenuType}.${sourceAnimation}.${sourceVariant}.${sourceColor}`;
+    $: sourceFilePath =
+        sourceIsCustom && sourceCustomPath && sourceCustomPathIsDB < 3
+            ? sourceCustomPath
+            : getPreviewFile(sourceCurrentPath);
 
     $: menuType = currentSection.primary?.menuType;
     $: animation = currentSection.primary?.animation;
     $: variant = currentSection.primary?.variant;
     $: color = currentSection.primary?.color;
+    $: isCustomPrimary = currentSection.primary?.enableCustom || false;
+    $: customPath =
+        isCustomPrimary && currentSection.primary?.customPath
+            ? currentSection.primary?.customPath
+            : "";
+    $: customPathIsDB = customPath.split(".").length;
+    $: currentPath =
+        isCustomPrimary && customPath
+            ? customPath
+            : color === "random"
+            ? `autoanimations.${dbType}.${menuType}.${animation}.${variant}`
+            : `autoanimations.${dbType}.${menuType}.${animation}.${variant}.${color}`;
+    $: filePath =
+        isCustomPrimary && customPath && customPathIsDB < 3
+            ? customPath
+            : getPreviewFile(currentPath);
 
-
-    let menuFields = ['aura', 'templatefx', 'preset']
+    let menuFields = ["aura", "templatefx", "preset"];
     let shouldShow;
     $: shouldShow = menuFields.includes(dbType) ? false : true;
     $: enableExplosion = currentSection.explosions?.enable || false;
@@ -63,14 +103,47 @@
     $: explodeAnimation = currentSection.explosions?.animation;
     $: explodeVariant = currentSection.explosions?.variant;
     $: explodeColor = currentSection.explosions?.color;
-    $: explosionDBPath = explodeColor === "random" ?`autoanimations.static.${explodeMenuType}.${explodeAnimation}.${explodeVariant}` : `autoanimations.static.${explodeMenuType}.${explodeAnimation}.${explodeVariant}.${explodeColor}`;
-    $: explosionFilePath = getPreviewFile(explosionDBPath)
+    $: isCustomExplosion = currentSection.explosions?.enableCustom || false;
+    $: customPathExplosion =
+        isCustomExplosion && currentSection.explosions?.customPath
+            ? currentSection.explosions?.customPath
+            : "";
+    $: customExplosionIsDB = customPathExplosion.split(".").length;
+    $: explosionDBPath =
+        isCustomExplosion && customPathExplosion
+            ? customPathExplosion
+            : explodeColor === "random"
+            ? `autoanimations.static.${explodeMenuType}.${explodeAnimation}.${explodeVariant}`
+            : `autoanimations.static.${explodeMenuType}.${explodeAnimation}.${explodeVariant}.${explodeColor}`;
+    $: explosionFilePath =
+        isCustomExplosion && customPathExplosion && customExplosionIsDB < 3
+            ? customPathExplosion
+            : enableExplosion && shouldShow
+            ? getPreviewFile(explosionDBPath)
+            : "";
 
-    $: currentPath =
-        color === "random"
-            ? `autoanimations.${dbType}.${menuType}.${animation}.${variant}`
-            : `autoanimations.${dbType}.${menuType}.${animation}.${variant}.${color}`;
-    $: filePath = getPreviewFile(currentPath);
+    $: targetExtraFX = currentSection.targetToken || {};
+    $: enableTarget = targetExtraFX.enable;
+    $: targetMenuType = targetExtraFX.primary?.menuType;
+    $: targetAnimation = targetExtraFX.primary?.animation;
+    $: targetVariant = targetExtraFX.primary?.variant;
+    $: targetColor = targetExtraFX.primary?.color;
+    $: targetIsCustom = targetExtraFX.primary?.enableCustom;
+    $: targetCustomPath =
+        targetIsCustom && targetExtraFX.primary?.customPath
+            ? targetExtraFX.primary?.customPath
+            : "";
+    $: targetCustomPathIsDB = targetCustomPath.split(".").length;
+    $: targetCurrentPath =
+        targetIsCustom && targetCustomPath
+            ? targetCustomPath
+            : color === "random"
+            ? `autoanimations.static.${targetMenuType}.${targetAnimation}.${targetVariant}`
+            : `autoanimations.static.${targetMenuType}.${targetAnimation}.${targetVariant}.${targetColor}`;
+    $: targetFilePath =
+        targetIsCustom && targetCustomPath && targetCustomPathIsDB < 3
+            ? targetCustomPath
+            : getPreviewFile(targetCurrentPath);
 
     /*
 <video class="aaVideoPreview" src={filePath} autoplay="autoplay" controls loop>
@@ -80,34 +153,70 @@
 </script>
 
 <div class="flexcol">
-    <label class='aa-section-label' for="">Preview -- <i>{name}</i></label>
+    <label class="aa-section-label" for=""><i>{name}</i> - Preview</label>
 </div>
 <div class="flexcol aa-full-preview">
+    {#if enableSource}
+        <div class="flexcol" style="grid-row:1/2">
+            <label for="">Source FX Animation</label>
+            <div class="aa-video-overlay">
+                <video
+                    class="aaVideoPreview"
+                    src={sourceFilePath}
+                    autoplay="autoplay"
+                    controls
+                    loop
+                >
+                    <track kind="captions" />
+                </video>
+            </div>
+        </div>
+    {/if}
     <div class="flexcol" style="grid-row:1/2">
         <label for="">Primary Animation</label>
-        <video
-            class="aaVideoPreview"
-            src={filePath}
-            autoplay="autoplay"
-            controls
-            loop
-        >
-            <track kind="captions" />
-        </video>
+        <div class="aa-video-overlay">
+            <video
+                class="aaVideoPreview"
+                src={filePath}
+                autoplay="autoplay"
+                controls
+                loop
+            >
+                <track kind="captions" />
+            </video>
+        </div>
     </div>
     {#if enableExplosion && shouldShow}
-    <div class="flexcol" style="grid-row:1/2">
-        <label for="">Explosion Animation</label>
-        <video
-            class="aaVideoPreview"
-            src={explosionFilePath}
-            autoplay="autoplay"
-            controls
-            loop
-        >
-            <track kind="captions" />
-        </video>
-    </div>
+        <div class="flexcol" style="grid-row:1/2">
+            <label for="">Explosion Animation</label>
+            <div class="aa-video-overlay">
+                <video
+                    class="aaVideoPreview"
+                    src={explosionFilePath}
+                    autoplay="autoplay"
+                    controls
+                    loop
+                >
+                    <track kind="captions" />
+                </video>
+            </div>
+        </div>
+    {/if}
+    {#if enableTarget}
+        <div class="flexcol" style="grid-row:1/2">
+            <label for="">Target FX Animation</label>
+            <div class="aa-video-overlay">
+                <video
+                    class="aaVideoPreview"
+                    src={targetFilePath}
+                    autoplay="autoplay"
+                    controls
+                    loop
+                >
+                    <track kind="captions" />
+                </video>
+            </div>
+        </div>
     {/if}
 </div>
 
@@ -115,6 +224,7 @@
     .aa-full-preview {
         display: grid;
         grid-template-columns: fit-content(225px) auto;
+        grid-template-rows: 250px;
         grid-gap: 5px;
         padding: 5px;
         align-items: center;
@@ -125,7 +235,7 @@
         font-weight: bold;
     }
     .aaVideoPreview {
-        border: 3px inset #a1a1a1;
+        border: 3px ridge #a1a1a1;
         border-radius: 30px;
         padding: 5px;
         margin-bottom: 5px;
@@ -133,12 +243,12 @@
         height: 225px;
         display: block;
         margin: 0 auto;
-        background: #363636;
+        background: rgb(78, 78, 78);
     }
     .aa-full-preview label {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: x-large;
-        font-weight: bold;
+        font-weight: normal;
         align-self: center;
     }
     .aa-section-label {
@@ -146,5 +256,9 @@
         font-size: x-large;
         font-weight: bold;
         align-self: center;
+    }
+    .aa-video-overlay {
+        border-radius: 30px;
+        box-shadow: 8px 11px 9px 0px rgb(0, 0, 0, 0.5);
     }
 </style>

@@ -11,20 +11,27 @@
         customChecked02,
         explosionEnabled,
     } from "../menuStore.js";
+    import {
+        storeAutorec,
+        closePreviewWindow,
+        databaseType,
+        index,
+    } from "../../AutorecMenu/autorecPreviews.js";
 
+    export let previewStoreData;
     export let flagData;
     flagData.explosions ? flagData.explosions : (flagData.explosions = {});
     const root = flagData.explosions;
-    let explosions = flagData.explosions;
+    //let explosions = flagData.explosions;
 
-    let radius = explosions.radius;
-    $: radius = explosions.radius = Number(radius);
+    let radius = root.radius;
+    $: radius = root.radius = radius;
 
-    let delay = explosions.delay;
-    $: delay = explosions.delay = Number(delay);
+    let delay = root.delay;
+    $: delay = root.delay = delay;
 
-    let belowToken = explosions.below;
-    $: belowToken = explosions.below = belowToken;
+    let belowToken = root.below;
+    $: belowToken = root.below = belowToken;
 
     $: aboveBelow = belowToken
         ? game.i18n.localize("autoanimations.menus.below")
@@ -34,11 +41,12 @@
     }
 
     let enableSection = root.enable || false;
-    $: enableSection = enableSection;
+    //$: enableSection = enableSection;
     $: explosionEnabled.set(enableSection);
     function switchEnable() {
         enableSection = !enableSection;
-        root.enable = enableSection;
+        //root.enable = enableSection;
+        //$storeAutorec = previewStoreData;
     }
 
     let menuType = root.menuType;
@@ -66,6 +74,8 @@
         color = root.color = color;
         isCustom = root.enableCustom = isCustom;
         customPath = root.customPath = customPath;
+        enableSection = root.enable = enableSection;
+        $storeAutorec = previewStoreData;
         flagData = flagData;
     }
 
@@ -144,9 +154,9 @@
                         >{localize("autoanimations.menus.radius")}</label
                     >
                     <input
-                        type="number"
+                        type=number
                         bind:value={radius}
-                        placeholder="1.5"
+                        placeholder=1.5
                     />
                 </div>
                 <div
@@ -156,7 +166,7 @@
                     <label for=""
                         >{localize("autoanimations.menus.delay")}</label
                     >
-                    <input type="number" bind:value={delay} placeholder="1" />
+                    <input type=number bind:value={delay} placeholder=1 />
                 </div>
                 <div
                     class="flexcol"

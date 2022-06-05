@@ -16,9 +16,13 @@
         extraSource,
         extraTarget,
     } from "../menuStore.js";
+    import {
+        storeAutorec,
+    } from "../../AutorecMenu/autorecPreviews.js";
 
     export let flagData;
     export let flagPath;
+    export let previewStoreData;
 
     let root;
     let audioPath;
@@ -125,22 +129,33 @@
     }
 
     let menuType = primary.menuType;
-    $: menuType = primary.menuType = menuType;
+    //$: menuType = primary.menuType = menuType;
 
     let animation = primary.animation;
-    $: animation = primary.animation = animation;
+    //$: animation = primary.animation = animation;
 
     let variant = primary.variant;
-    $: variant = primary.variant = variant;
+    //$: variant = primary.variant = variant;
 
     let color = primary.color;
-    $: color = primary.color = color;
+    //$: color = primary.color = color;
 
     let isCustom = primary.enableCustom || false;
-    $: isCustom = primary.enableCustom = isCustom;
+    //$: isCustom = primary.enableCustom = isCustom;
 
     let customPath = primary.customPath || "";
-    $: customPath = primary.customPath = customPath;
+    //$: customPath = primary.customPath = customPath;
+
+    $: {
+        menuType = primary.menuType = menuType;
+        animation = primary.animation = animation;
+        variant = primary.variant = variant;
+        color = primary.color = color;
+        isCustom = primary.enableCustom = isCustom;
+        customPath = primary.customPath = customPath;
+        enableSection = root.enable = enableSection;
+        $storeAutorec = previewStoreData;
+    }
 
     function onClick() {
         new TJSDialog({

@@ -77,7 +77,7 @@
     };
     */
     async function onClick() {
-        console.log(TJSDialog);
+        //console.log(TJSDialog);
         if (
             Object.values(ui.windows).find(
                 (w) => w.id === `Autorec-Video-Preview`
@@ -255,11 +255,7 @@
             </div>
         {:else}
             <div style="grid-row:1/2; grid-column:2/3">
-                <label for=""
-                    ><i
-                        class="fas fa-cube aa-disabled"
-                    /></label
-                >
+                <label for=""><i class="fas fa-cube aa-disabled" /></label>
             </div>
         {/if}
         <div style="grid-row:1/2; grid-column:3/4">
@@ -383,6 +379,7 @@
                         flagPath="sourceExtraFX"
                         bind:enableSection={enableSource}
                         flagData={menuSection}
+                        previewStoreData={flagData}
                         {staticType}
                     />
                 </div>
@@ -392,6 +389,7 @@
                             flagPath="targetExtraFX"
                             bind:enableSection={enableTarget}
                             flagData={menuSection}
+                            previewStoreData={flagData}
                             {staticType}
                         />
                     </div>
@@ -459,7 +457,7 @@
                 {/if}
                 <div class="aa-section-border">
                     {#if showExplosions.includes(type)}
-                        <AddExplosion flagData={menuSection} />
+                        <AddExplosion flagData={menuSection} previewStoreData={flagData} />
                     {/if}
                 </div>
             {/if}
@@ -528,6 +526,6 @@
         font-size: 16.25px;
     }
     .aa-disabled {
-        color:rgba(109, 109, 109, 0.4)
+        color: rgba(109, 109, 109, 0.4);
     }
 </style>

@@ -24,14 +24,16 @@
     //console.log(items);
     export let elementRoot;
     export let activeTabValue = 1;
-    const wait = (delay) =>
-        new Promise((resolve) => setTimeout(resolve, delay));
+    //const wait = (delay) =>
+        //new Promise((resolve) => setTimeout(resolve, delay));
 
     const handleClick = async (tabValue) => {
         let currentMenu = items.filter((obj) => {
             return obj.value === activeTabValue;
         })[0];
         databaseType.set(currentMenu.type);
+        Object.values(ui.windows).filter(app => app.id === "Autorec-Video-Preview").forEach(app => app.close())
+        /*
         if (
             Object.values(ui.windows).find(
                 (w) => w.id === `Autorec-Video-Preview`
@@ -40,7 +42,8 @@
             closePreviewWindow.set(true);
             await wait(500);
         }
-        $storeAutorec = [];
+        */
+        //$storeAutorec = [];
         activeTabValue = tabValue;
     };
 
@@ -114,7 +117,7 @@
     async function closeApp() {
         await game.settings.set("autoanimations", "aaAutorec", flagData);
         closePreviewWindow.set(true);
-        Object.values(ui.windows).filter(app => app.id === "Options-Information").forEach(app => app.close())
+        Object.values(ui.windows).filter(app => app.id === "Options-Information" || app.id === "Autorec-Video-Preview").forEach(app => app.close())
         application.close();
     }
     function addSection() {

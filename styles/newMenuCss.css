@@ -215,4 +215,9 @@
 #AA-autorec-settings .aa-expand {
     font-size: 16.25px;
 }
-
+#Autorec-Video-Preview .window-content {
+    background: rgba(238, 238, 238, 0.65)
+}
+#Options-Information .window-content {
+    background: rgba(238, 238, 238, 0.65)
+}

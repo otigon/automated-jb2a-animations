@@ -46,7 +46,7 @@
                 <strong>{localize("autoanimations.menus.repeat")}</strong>
             </td>
             <td>
-                Causes the effectto be repeated N times, with an optional delay.
+                Causes the effect to be repeated <strong>N</strong> times, with an optional delay.
                 A Repeat of 1 only plays the effect once.
             </td>
         </tr>
@@ -54,7 +54,7 @@
             <td class="aa-table">
                 <strong>{localize("autoanimations.menus.repeat")} {localize("autoanimations.menus.delay")}</strong>
             </td>
-            <td> Sets the Delay between each repeat in milliseconds. </td>
+            <td> Sets the Delay between each Repeat in milliseconds. </td>
         </tr>
         <tr>
             <td class="aa-table">

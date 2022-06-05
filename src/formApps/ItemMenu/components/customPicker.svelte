@@ -7,7 +7,8 @@
     export let customId;
     //const options = flagData.options || {};
     //let customPath = options.customPath || "";
-    $: customPath = isCustom ? customPath : "";
+    //$: customPath = isCustom ? customPath : "";
+    $: customPath = customPath;
 
     $: isCustom = isCustom;
 
