@@ -896,6 +896,10 @@
     "AUTOANIM.in": "In",
 
     "AUTOANIM.wfrp4eCastOnlyOnSuccess": "Spell Animation on successful Casting",
-    "AUTOANIM.wfrp4eCastOnlyOnSuccessHint": "Selecting this option will play spell animation only when spell was succesfully casted (passed test and CN number reached)"
+    "AUTOANIM.wfrp4eCastOnlyOnSuccessHint": "Selecting this option will play spell animation only when spell was succesfully casted (passed test and CN number reached)",
+
+    "AUTOANIM.leaves": "Leaves",
+    "AUTOANIM.inwarddots": "Inward Dots",
+    "AUTOANIM.inwardstars": "Inward Stars"
 
 }

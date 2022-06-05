@@ -195,10 +195,12 @@ Hooks.once('ready', async function () {
         }
     } else {
         switch (game.system.id) {
+            case "a5e":
+                Hooks.on("createChatMessage", async (msg) => { setupA5ESystem(msg) });
+                break;
 			case "cyphersystem":
                 Hooks.on("createChatMessage", async (msg) => { setupCypherSystem(msg) });
                 break;
-				
             case "alienrpg":
                 Hooks.on("createChatMessage", async (msg) => { setupAlienRPG(msg) });
                 break;
@@ -287,60 +289,38 @@ Hooks.once('ready', async function () {
                     if (token) { SwadeTokenOrActor = token; }
                     swadeData(SwadeTokenOrActor, SwadeItem)
                 });
-                Hooks.on("BRSW-RollItem", async (data, html) => {
+                async function get_brsw_data (data) {
                     var tokenId = data.getFlag("betterrolls-swade2", "token");
                     if (tokenId) {
                         var token = canvas.tokens.get(tokenId);
-
                         var itemId = data.getFlag("betterrolls-swade2", "item_id");
                         var item = token.actor.items.get(itemId);
-
-                        swadeData(token, item)
+                        const actorOrToken = token
+                        return {actorOrToken, item}
                     } else {
                         var actorId = data.getFlag("betterrolls-swade2", "actor");
                         var actor = game.actors.get(actorId);
-
                         var itemId = data.getFlag("betterrolls-swade2", "item_id");
                         var item = actor.items.get(itemId);
-
-                        swadeData(actor, item)
+                        const actorOrToken = actor
+                        return {actorOrToken, item}
                     }
+                }
+                Hooks.on("BRSW-RollItem", async (data, html) => {
+                    const {actorOrToken, item} = await get_brsw_data (data)
+                    if (item.data.flags?.autoanimations?.animType === "template" || (item.data.flags?.autoanimations?.animType === "preset" && item.data.flags?.autoanimations?.animation === "fireball")) {
+                        return //Return to prevent duplicate effects on placing a template.
+                    } else { swadeData(actorOrToken, item) }
                 });
-                Hooks.on("BRSW-BeforePreviewingTemplate", async (template, message, ev) => {
-                    const tokenId = message.getFlag("betterrolls-swade2", "token");
-
-                    /*
-                    console.log("-----------TEMPLATE-----------")
-                    console.log(template)
-                    console.log("-----------Message-----------")
-                    console.log(message)
-                    console.log("-----------EV-----------")
-                    console.log(ev)
-                    */
-
-                    if (tokenId) {
-                        const token = canvas.tokens.get(tokenId);
-
-                        const itemId = message.getFlag("betterrolls-swade2", "item_id");
-                        const item = token.actor.items.get(itemId);
-
-                        /*
-                        console.log("-----------TOKEN-----------")
-                        console.log(token)
-                        console.log("-----------ITEM-----------")
-                        console.log(item)
-                        */
-
-                        swadeData(token, item)
-                    } else {
-                        const actorId = message.getFlag("betterrolls-swade2", "actor");
-                        const actor = game.actors.get(actorId);
-
-                        const itemId = message.getFlag("betterrolls-swade2", "item_id");
-                        const item = actor.items.get(itemId);
-
-                        swadeData(actor, item)
-                    }
+                Hooks.on("BRSW-BeforePreviewingTemplate", async (template, data, ev) => {
+                    const {actorOrToken, item} = await get_brsw_data (data)
+                    swadeData(actorOrToken, item)
+                })
+                Hooks.on("BRSW-CreateItemCardNoRoll", async (data) => {
+                    const {actorOrToken, item} = await get_brsw_data (data)
+                    if (item.data.flags?.autoanimations?.animType === "template" || (item.data.flags?.autoanimations?.animType === "preset" && item.data.flags?.autoanimations?.animation === "fireball")) {
+                        return //Return to prevent duplicate effects on placing a template.
+                    } else { swadeData(actorOrToken, item) }
                 })
                 break;
             case "wfrp4e":
@@ -360,12 +340,11 @@ Hooks.once('ready', async function () {
                     //let targets = game.user.targets;
                     wfrpTrait(data, info)
                 });
-                /*
                 Hooks.on("wfrp4e:rollTest", async (data, info) => {
-                    let targets = game.user.targets;
-                    wfrpSkill(data, targets, info)
+                    //let targets = game.user.targets;
+                    wfrpSkill(data, info)
                 });
-                */
+                
                 break;
             case 'ose':
                 Hooks.on("createChatMessage", async (msg) => { oseReady(msg) });
@@ -850,6 +829,16 @@ async function pf2eReady(msg) {
     }
 }
 
+async function setupA5ESystem(msg) {
+    if (killAllAnimations) { return; }
+    if (msg.user.id !== game.user.id) { return; }
+
+    const handler = await systemData.make(msg);
+    if (!handler.item || !handler.sourceToken) { return; } 
+
+    trafficCop(handler);
+}
+
 /*
 / WFRP Functions
 */
@@ -868,6 +857,7 @@ async function wfrpWeapon(data, info) {
 async function wfrpPrayer(data, info) {
     if (!AnimationState.enabled) { return; }
     if (game.user.id !== info.user) { return }
+    if (data.result.outcome != "success" && game.settings.get('autoanimations', 'castOnlyOnSuccess')) { return }
     let handler = await systemData.make({ item: data.prayer, targets: data.context?.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
@@ -902,11 +892,12 @@ async function wfrpTrait(data, info) {
             trafficCop(handler);
     }
 }
-/*
 async function wfrpSkill(data, info) {
     if (!AnimationState.enabled) { return; }
     if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.skill, targets: data.targets, info: info });
+    if (data.result.outcome != "success" && game.settings.get('autoanimations', 'castOnlyOnSuccess')) { return }
+    if (!data.skill) { return }
+    let handler = await systemData.make({ item: data.skill, targets: data.context?.targets, info: info });
     switch (true) {
         case ((handler.animType === "t12") && (handler.isCustomized)):
             teleportation(handler);
@@ -915,7 +906,7 @@ async function wfrpSkill(data, info) {
             trafficCop(handler);
     }
 }
-*/
+
 async function oseReady(input) {
     if (!AnimationState.enabled) { return; }
     if (input.user.id !== game.user.id) { return };
