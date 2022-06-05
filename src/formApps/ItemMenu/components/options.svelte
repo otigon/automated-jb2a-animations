@@ -133,7 +133,6 @@
     $: isAddToken = addToken ? "Yes" : "No";
 
     function optionsInfo() {
-        console.log(TJSDialog)
         new OptionsDialog().render(true);
     }
 

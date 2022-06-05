@@ -167,6 +167,7 @@
             content: `<img src="modules/autoanimations/src/images/Teleportation.png" alt="">`,
         }).render(true);
     }
+    let isGM = game.user.isGM;
 </script>
 
 <div class="aaMenu-section">
@@ -198,6 +199,7 @@
             <label for="">Range</label>
             <input type="Number" bind:value={teleDist} step="0.01" />
         </div>
+        {#if isGM}
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
             <label for="">{localize("AUTOANIM.hideBorder")}</label>
             <button
@@ -205,6 +207,7 @@
                 on:click={() => switchHide()}>{isHidden}</button
             >
         </div>
+        {/if}
     </div>
     </div>
 </div>

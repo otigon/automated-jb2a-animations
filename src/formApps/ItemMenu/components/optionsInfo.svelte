@@ -9,6 +9,14 @@
         </tr>
         <tr>
             <td class="aa-table">
+                <strong>Add Token Width</strong>
+            </td>
+            <td>
+                Aura Menu only: Adds the Token width for Auras into the Radius calculation
+            </td>
+        </tr>
+        <tr>
+            <td class="aa-table">
                 <strong>{localize("autoanimations.menus.alpha")}</strong>
             </td>
             <td>

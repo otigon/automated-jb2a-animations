@@ -137,7 +137,7 @@
     {#if !isHidden}
         <div class="aa-autorec-options flexcol" transition:fade>
             <div style="grid-row:1/2; grid-column:1/2">
-                <label for=""
+                <label for="" title="Duplicate"
                     ><i
                         on:click={() => duplicateSection()}
                         class="far fa-clone aa-zoom"
@@ -152,7 +152,7 @@
                 >
             </div>
             <div style="grid-row:1/2; grid-column:3/4">
-                <label for=""
+                <label for="" title="Extra FX"
                     ><i
                         on:click={() => toggleExtraFX()}
                         class="fas fa-user-plus aa-zoom"
@@ -167,7 +167,7 @@
                 >
             </div>    
             <div style="grid-row:1/2; grid-column:5/6">
-                <label for=""
+                <label for="" title="Add Macro"
                     ><i
                         on:click={() => toggleMacro()}
                         class="far fa-keyboard aa-zoom"

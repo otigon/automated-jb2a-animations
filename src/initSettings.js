@@ -60,7 +60,7 @@ export function initSettings(gameSettings) {
          default: 'on',
          onChange: value => {
             if (value === 'off') {
-              AnimationState.enabled = false;
+               AnimationState.enabled = false;
             }
             if (value === 'on') {
                AnimationState.enabled = true;
@@ -181,6 +181,157 @@ export function initSettings(gameSettings) {
    });
 
    switch (game.system.id) {
+      case "cyphersystem":
+         settings.push({
+            moduleId,
+            key: 'EnableCritical',
+            options: {
+               name: 'autoanimations.settings.cypherCrit_name',
+               hint: 'autoanimations.settings.cypherCrit_hint',
+               scope: scope.world,
+               type: Boolean,
+               default: false,
+               config: true,
+            }
+         });
+
+         settings.push({
+            moduleId,
+            key: 'CriticalAnimation',
+            options: {
+               name: 'autoanimations.settings.CriticalAnimation',
+               scope: scope.world,
+               type: String,
+               config: true,
+               filePicker: "imagevideo"
+            }
+         });
+
+         settings.push({
+            moduleId,
+            key: 'EnableFumble',
+            options: {
+               name: 'autoanimations.settings.cypherFumble_name',
+               hint: 'autoanimations.settings.cypherFumble_hint',
+               scope: scope.world,
+               type: Boolean,
+               default: false,
+               config: true,
+            }
+         });
+
+         settings.push({
+            moduleId,
+            key: 'FumbleAnimation',
+            options: {
+               name: 'autoanimations.settings.cypherFumbleAnim_name',
+               scope: scope.world,
+               type: String,
+               config: true,
+               filePicker: "imagevideo"
+            }
+         });
+
+         settings.push({
+            moduleId,
+            key: 'EnableOnRecoveryRoll',
+            options: {
+               name: 'autoanimations.settings.recovery_name',
+               hint: 'autoanimations.settings.recovery_hint',
+               scope: scope.world,
+               type: Boolean,
+               default: false,
+               config: true,
+            }
+         });
+
+         settings.push({
+            moduleId,
+            key: 'RecoveryRollAnimation',
+            options: {
+               name: 'autoanimations.settings.recoveryAnim_name',
+               scope: scope.world,
+               type: String,
+               config: true,
+               filePicker: "imagevideo"
+            }
+         });
+
+         settings.push({
+            moduleId,
+            key: 'EnableOnMightRoll',
+            options: {
+               name: 'autoanimations.settings.mightroll_name',
+               hint: 'autoanimations.settings.mightroll_hint',
+               scope: scope.world,
+               type: Boolean,
+               default: false,
+               config: true,
+            }
+         });
+
+         settings.push({
+            moduleId,
+            key: 'MightRollAnimation',
+            options: {
+               name: 'autoanimations.settings.mightRollAnim_name',
+               scope: scope.world,
+               type: String,
+               config: true,
+               filePicker: "imagevideo"
+            }
+         });
+
+         settings.push({
+            moduleId,
+            key: 'EnableOnSpeedRoll',
+            options: {
+               name: 'autoanimations.settings.speedroll_name',
+               hint: 'autoanimations.settings.speedroll_hint',
+               scope: scope.world,
+               type: Boolean,
+               default: false,
+               config: true,
+            }
+         });
+
+         settings.push({
+            moduleId,
+            key: 'SpeedRollAnimation',
+            options: {
+               name: 'autoanimations.settings.speedRollAnim_name',
+               scope: scope.world,
+               type: String,
+               config: true,
+               filePicker: "imagevideo"
+            }
+         });
+
+         settings.push({
+            moduleId,
+            key: 'EnableOnIntellecRoll',
+            options: {
+               name: 'autoanimations.settings.intellectroll_name',
+               hint: 'autoanimations.settings.intellectroll_hint',
+               scope: scope.world,
+               type: Boolean,
+               default: false,
+               config: true,
+            }
+         });
+
+         settings.push({
+            moduleId,
+            key: 'IntellectRollAnimation',
+            options: {
+               name: 'autoanimations.settings.intellectRollAnim_name',
+               scope: scope.world,
+               type: String,
+               config: true,
+               filePicker: "imagevideo"
+            }
+         });
+         break;
       case 'demonlord':
          settings.push({
             moduleId,
@@ -391,6 +542,20 @@ export function initSettings(gameSettings) {
             options: {
                name: 'autoanimations.settings.disableAEAnimations',
                hint: 'autoanimations.settings.disableAEAnimationsHint',
+               scope: scope.world,
+               type: Boolean,
+               default: false,
+               config: true,
+            }
+         });
+         break;
+      case "wfrp4e":
+         settings.push({
+            moduleId,
+            key: 'castOnlyOnSuccess',
+            options: {
+               name: 'autoanimations.settings.wfrp4eCastOnlyOnSuccess',
+               hint: 'autoanimations.settings.wfrp4eCastOnlyOnSuccessHint',
                scope: scope.world,
                type: Boolean,
                default: false,
