@@ -2,6 +2,7 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade } from "svelte/transition";
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
+    import OptionsDialog from "../components/optionsInfoDialog.js";
     import { menuAnimType } from "../menuStore.js";
     import OptionsInformation from "../components/optionsInfo.svelte";
 
@@ -56,6 +57,7 @@
 
     let persistType = options.persistType || false;
     $: persistType = options.persistType = persistType;
+    $: removeTemplate = persistType === "attachtemplate" ? false : removeTemplate;
 
     let occlusionMode = options.occlusionMode || "3";
     $: occlusionMode = options.occlusionMode = occlusionMode;
@@ -132,17 +134,7 @@
 
     function optionsInfo() {
         console.log(TJSDialog)
-        new TJSDialog({
-            modal: false,
-            draggable: true,
-            resizable: true,
-            height: 600,
-            width: 550,
-            title: "Options Information",
-            content: {
-                class: OptionsInformation,
-            },
-        }).render(true);
+        new OptionsDialog().render(true);
     }
 
 </script>
@@ -156,6 +148,7 @@
             <div class="flexcol" style="grid-row:1/2; grid-column:4/5;">
                 <i
                     class="fas fa-info-circle aa-info-icon aa-zoom"
+                    title="Quick Reference"
                     on:click={() => optionsInfo()}
                 />
             </div>

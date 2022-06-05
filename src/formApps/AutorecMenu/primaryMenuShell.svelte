@@ -12,7 +12,12 @@
     import RangeSwitch from "../ItemMenu/components/meleeRange.svelte";
 
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
-    import { storeAutorec, closePreviewWindow, databaseType, index } from "./autorecPreviews.js";
+    import {
+        storeAutorec,
+        closePreviewWindow,
+        databaseType,
+        index,
+    } from "./autorecPreviews.js";
     import FullAutoPreview from "./fullAutoPreview.js";
     //import VideoPreview from "./autorecPreviews.svelte";
 
@@ -29,7 +34,8 @@
     export let idx;
     export let menuSection;
     export let menuListings;
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+    const wait = (delay) =>
+        new Promise((resolve) => setTimeout(resolve, delay));
 
     menuSection.options ? menuSection.options : (menuSection.options = {});
     menuSection.audio ? menuSection.audio : (menuSection.audio = {});
@@ -57,7 +63,7 @@
         color = primaryData.color = color;
         isCustom = primaryData.enableCustom = isCustom;
         customPath = primaryData.customPath = customPath;
-        $storeAutorec = flagData
+        $storeAutorec = flagData;
     }
     //console.log(menuType)
     let menuSelection = type === "aura" ? "static" : type;
@@ -71,16 +77,20 @@
     };
     */
     async function onClick() {
-        console.log(TJSDialog)
-        if (Object.values(ui.windows).find(w=>w.id === `Autorec-Video-Preview`)) {
+        console.log(TJSDialog);
+        if (
+            Object.values(ui.windows).find(
+                (w) => w.id === `Autorec-Video-Preview`
+            )
+        ) {
             //closePreviewWindow.set(true)
             //await wait(500)
-            databaseType.set(type)
-            index.set(idx)
+            databaseType.set(type);
+            index.set(idx);
         } else {
-            databaseType.set(type)
-            index.set(idx)
-            new FullAutoPreview({idx, name: sectionName}).render(true);
+            databaseType.set(type);
+            index.set(idx);
+            new FullAutoPreview({ idx, name: sectionName }).render(true);
         }
         //await wait(500)
         //closePreviewWindow.set(false)
@@ -203,8 +213,8 @@
         <label for={customId}
             ><i
                 class="{isHidden
-                    ? "fas fa-plus aa-green aa-zoom"
-                    : "fas fa-minus aa-red aa-zoom"}
+                    ? 'fas fa-plus aa-green aa-zoom'
+                    : 'fas fa-minus aa-red aa-zoom'}
                     aa-expand"
                 title={isHidden ? "Expand" : "Collapse"}
             /></label
@@ -216,11 +226,12 @@
         bind:value={sectionName}
         placeholder={localize("AUTOANIM.itemName")}
     />
-    <div
-        class="aa-deleteSection"
-        style="max-width: 22px;margin-left: 10px;"
-    >
-        <i title="Delete Section" class="far fa-trash-alt aa-expand aa-zoom" on:click={() => removeSection()} />
+    <div class="aa-deleteSection" style="max-width: 22px;margin-left: 10px;">
+        <i
+            title="Delete Section"
+            class="far fa-trash-alt aa-expand aa-zoom"
+            on:click={() => removeSection()}
+        />
     </div>
 </div>
 {#if !isHidden}
@@ -238,7 +249,15 @@
                 <label for="" title="3D Canvas"
                     ><i
                         on:click={() => toggle3D()}
-                        class="fas fa-cube aa-zoom {show3d ? "aa-green" : ""}"
+                        class="fas fa-cube aa-zoom {show3d ? 'aa-green' : ''}"
+                    /></label
+                >
+            </div>
+        {:else}
+            <div style="grid-row:1/2; grid-column:2/3">
+                <label for=""
+                    ><i
+                        class="fas fa-cube aa-disabled"
                     /></label
                 >
             </div>
@@ -247,7 +266,9 @@
             <label for="" title="Extra FX"
                 ><i
                     on:click={() => toggleExtraFX()}
-                    class="fas fa-user-plus aa-zoom {showExtraFX ? "aa-green" : ""}"
+                    class="fas fa-user-plus aa-zoom {showExtraFX
+                        ? 'aa-green'
+                        : ''}"
                 /></label
             >
         </div>
@@ -255,7 +276,7 @@
             <label for="" title="Sound Only"
                 ><i
                     on:click={() => toggleSoundOnly()}
-                    class="fas fa-music aa-zoom {soundOnly ? "aa-green" : ""}"
+                    class="fas fa-music aa-zoom {soundOnly ? 'aa-green' : ''}"
                 /></label
             >
         </div>
@@ -504,6 +525,9 @@
         margin-bottom: 5px;
     }
     .aa-autorec-options label {
-        font-size:16.25px
+        font-size: 16.25px;
+    }
+    .aa-disabled {
+        color:rgba(109, 109, 109, 0.4)
     }
 </style>

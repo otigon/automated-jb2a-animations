@@ -14,29 +14,38 @@
     //import Tabs from "./Tabs.svelte";
 
     import { gameSettings } from "../../gameSettings.js";
-    import { closePreviewWindow, storeAutorec, databaseType } from "./autorecPreviews.js";
+    import {
+        closePreviewWindow,
+        storeAutorec,
+        databaseType,
+    } from "./autorecPreviews.js";
     closePreviewWindow.set(false);
     import items from "./data/tabItems.js";
     //console.log(items);
     export let elementRoot;
     export let activeTabValue = 1;
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+    const wait = (delay) =>
+        new Promise((resolve) => setTimeout(resolve, delay));
 
     const handleClick = async (tabValue) => {
         let currentMenu = items.filter((obj) => {
             return obj.value === activeTabValue;
         })[0];
-        databaseType.set(currentMenu.type)
-        if (Object.values(ui.windows).find(w=>w.id === `Autorec-Video-Preview`)) {
-            closePreviewWindow.set(true)
-            await wait(500)
+        databaseType.set(currentMenu.type);
+        if (
+            Object.values(ui.windows).find(
+                (w) => w.id === `Autorec-Video-Preview`
+            )
+        ) {
+            closePreviewWindow.set(true);
+            await wait(500);
         }
         $storeAutorec = [];
-        (activeTabValue = tabValue);
-    }
+        activeTabValue = tabValue;
+    };
 
     const storeData = gameSettings.getStore("aaAutorec");
-    storeData.set(game.settings.get("autoanimations", "aaAutorec"))
+    storeData.set(game.settings.get("autoanimations", "aaAutorec"));
 
     // TODO: this is a test console.log showing updates to `aaAutorec` game settings.
     //$: console.log(`! autorecAppShell - storeData (aaAutorec): \n`, $storeData);
@@ -104,7 +113,8 @@
 
     async function closeApp() {
         await game.settings.set("autoanimations", "aaAutorec", flagData);
-        closePreviewWindow.set(true)
+        closePreviewWindow.set(true);
+        Object.values(ui.windows).filter(app => app.id === "Options-Information").forEach(app => app.close())
         application.close();
     }
     function addSection() {
@@ -134,16 +144,20 @@
         const keyLength = keys.length;
         for (var i = 0; i < keyLength; i++) {
             var currentObject = menuData[keys[i]];
-            if (!currentObject.name) { continue; }
-            currentObject.menuSection = keys[i]
-            mergedArray.push(currentObject)
+            if (!currentObject.name) {
+                continue;
+            }
+            currentObject.menuSection = keys[i];
+            mergedArray.push(currentObject);
         }
-        mergedArray.sort((a, b) => b.name.toLowerCase() > a.name.toLowerCase() ? -1 : 1)
+        mergedArray.sort((a, b) =>
+            b.name.toLowerCase() > a.name.toLowerCase() ? -1 : 1
+        );
 
         const sortedMenu = {};
         const newLength = mergedArray.length;
         for (var i = 0; i < newLength; i++) {
-            var currentKey = i.toString()
+            var currentKey = i.toString();
             sortedMenu[currentKey] = mergedArray[currentKey];
         }
 
@@ -151,9 +165,7 @@
         flagData = flagData;
 
         //menuListings[currentMenu.type] = Object.values(flagData[currentMenu.type])
-
     }
-
 </script>
 
 <ApplicationShell
@@ -174,7 +186,9 @@
                         class="flexrow"
                         class:active={activeTabValue === item.value}
                     >
-                        <span class="aa-zoom" on:click={() => handleClick(item.value)}
+                        <span
+                            class="aa-zoom"
+                            on:click={() => handleClick(item.value)}
                             ><i class={item.icon} />{item.label}</span
                         >
                     </li>
@@ -199,41 +213,79 @@
         </div>
         <div class="aaMidSection">
             <div style="margin-left:3%;margin-right:3%;">
-            {#each items as item}
-                {#if activeTabValue == item.value}
-                    {#each menuListings[item.type] as menuSection, idx (menuSection.id)}
-                        {#if item.type === "preset"}
-                            <PresetShell
-                                bind:menuSection
-                                {idx}
-                                type={item.type}
-                                {flagData}
-                                bind:menuListings
-                            />
-                        {:else if item.type === "aefx"}
-                            <div class="aaMenu-section">
-                                <ActiveEffectShell
-                                    bind:menuSection
-                                    {idx}
-                                    type={item.type}
-                                    {flagData}
-                                    bind:menuListings
-                                />
-                            </div>
+                {#each items as item}
+                    {#if activeTabValue == item.value}
+                        {#if searchValue}
+                            {#each menuListings[item.type] as menuSection, idx (menuSection.id)}
+                                {#if item.type === "preset"}
+                                    {#if menuSection.name && menuSection.name.toLowerCase().includes(searchValue.toLowerCase())}
+                                        <PresetShell
+                                            bind:menuSection
+                                            {idx}
+                                            type={item.type}
+                                            {flagData}
+                                            bind:menuListings
+                                        />
+                                    {/if}
+                                {:else if item.type === "aefx"}
+                                    {#if menuSection.name && menuSection.name.toLowerCase().includes(searchValue.toLowerCase())}
+                                        <div class="aaMenu-section">
+                                            <ActiveEffectShell
+                                                bind:menuSection
+                                                {idx}
+                                                type={item.type}
+                                                {flagData}
+                                                bind:menuListings
+                                            />
+                                        </div>
+                                    {/if}
+                                {:else if menuSection.name && menuSection.name.toLowerCase().includes(searchValue.toLowerCase())}
+                                    <div class="aaMenu-section">
+                                        <PrimaryMenuShell
+                                            bind:menuSection
+                                            {idx}
+                                            type={item.type}
+                                            {flagData}
+                                            bind:menuListings
+                                        />
+                                    </div>
+                                {/if}
+                            {/each}
                         {:else}
-                            <div class="aaMenu-section">
-                                <PrimaryMenuShell
-                                    bind:menuSection
-                                    {idx}
-                                    type={item.type}
-                                    {flagData}
-                                    bind:menuListings
-                                />
-                            </div>
+                            {#each menuListings[item.type] as menuSection, idx (menuSection.id)}
+                                {#if item.type === "preset"}
+                                    <PresetShell
+                                        bind:menuSection
+                                        {idx}
+                                        type={item.type}
+                                        {flagData}
+                                        bind:menuListings
+                                    />
+                                {:else if item.type === "aefx"}
+                                    <div class="aaMenu-section">
+                                        <ActiveEffectShell
+                                            bind:menuSection
+                                            {idx}
+                                            type={item.type}
+                                            {flagData}
+                                            bind:menuListings
+                                        />
+                                    </div>
+                                {:else}
+                                    <div class="aaMenu-section">
+                                        <PrimaryMenuShell
+                                            bind:menuSection
+                                            {idx}
+                                            type={item.type}
+                                            {flagData}
+                                            bind:menuListings
+                                        />
+                                    </div>
+                                {/if}
+                            {/each}
                         {/if}
-                    {/each}
-                {/if}
-            {/each}
+                    {/if}
+                {/each}
             </div>
         </div>
         <div class="aaBottomSection" style="margin-bottom: 5px">
@@ -249,9 +301,7 @@
                     >
                 </div>
                 <div class="flexcol" style="grid-row:2/3; grid-column:1/2">
-                    <button
-                        class="aa-snclose"
-                        on:click={applyFlags}
+                    <button class="aa-snclose" on:click={applyFlags}
                         >{localize("autoanimations.menus.submit")}</button
                     >
                 </div>
@@ -386,7 +436,7 @@
     }
     .aa-sort {
         color: black;
-        font-size:12.25px;
+        font-size: 12.25px;
     }
     .aa-zoom:hover {
         transform: scale(1.1);

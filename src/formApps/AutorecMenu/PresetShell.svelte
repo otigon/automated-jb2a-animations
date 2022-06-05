@@ -144,6 +144,13 @@
                     /></label
                 >
             </div>
+            <div style="grid-row:1/2; grid-column:2/3">
+                <label for=""
+                    ><i
+                        class="fas fa-cube aa-disabled"
+                    /></label
+                >
+            </div>
             <div style="grid-row:1/2; grid-column:3/4">
                 <label for=""
                     ><i
@@ -152,6 +159,13 @@
                     /></label
                 >
             </div>
+            <div style="grid-row:1/2; grid-column:4/5">
+                <label for=""
+                    ><i
+                        class="fas fa-music aa-disabled"
+                    /></label
+                >
+            </div>    
             <div style="grid-row:1/2; grid-column:5/6">
                 <label for=""
                     ><i
@@ -450,5 +464,8 @@
     }
     .aa-autorec-options label {
         font-size:16.25px
+    }
+    .aa-disabled {
+        color:rgba(109, 109, 109, 0.4)
     }
 </style>
