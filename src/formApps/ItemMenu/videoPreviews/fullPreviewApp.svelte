@@ -19,11 +19,11 @@
     });
 
     $: isAutoOverride = currentSection.autoOverride?.enable || false;
-    $: console.log(isAutoOverride)
+    $: console.log(isAutoOverride);
     // Extra Source FX Preview
     $: sourceExtraFX = currentSection.sourceToken || {};
     $: enableSource = sourceExtraFX.enable;
-    $: console.log(enableSource)
+    $: console.log(enableSource);
     $: sourceMenuType = sourceExtraFX.primary?.menuType;
     $: sourceAnimation = sourceExtraFX.primary?.animation;
     $: sourceVariant = sourceExtraFX.primary?.variant;
@@ -45,18 +45,25 @@
             ? sourceCustomPath
             : getPreviewFile(sourceCurrentPath);
 
-    $: sectionPath = isAutoOverride ? $storeItemData.autoOverride.primary : $storeItemData.primary;
+    $: sectionPath = isAutoOverride
+        ? $storeItemData.autoOverride?.primary
+        : $storeItemData.primary;
+
     // Primary Preview
-    $: animType = $storeItemData.animType === "aura" ? "static" : $storeItemData.animType;
+    $: animType = isAutoOverride
+        ? $storeItemData.autoOverride?.menuSection === "aura"
+            ? "static"
+            : $storeItemData.autoOverride?.menuSection
+        : $storeItemData.animType === "aura"
+        ? "static"
+        : $storeItemData.animType;
     $: menuType = sectionPath.menuType;
     $: animation = sectionPath.animation;
     $: variant = sectionPath.variant;
     $: color = sectionPath.color;
     $: isCustomPrimary = sectionPath.enableCustom || false;
     $: customPath =
-        isCustomPrimary && sectionPath.customPath
-            ? sectionPath.customPath
-            : "";
+        isCustomPrimary && sectionPath.customPath ? sectionPath.customPath : "";
     $: customPathIsDB = customPath.split(".").length;
     $: currentPath =
         isCustomPrimary && customPath
@@ -69,8 +76,34 @@
             ? customPath
             : getPreviewFile(currentPath);
 
+    // Switch Animation Preview
+
+    $: switchPath = isAutoOverride
+        ? $storeItemData.autoOverride?.meleeSwitch
+        : $storeItemData.meleeSwitch;
+    $: showSwitch =
+        switchPath.switchType === "custom" && animType === "melee"
+            ? true
+            : false;
+    $: switchMenuType = switchPath.menuType;
+    $: switchAnimation = switchPath.animation;
+    $: switchVariant = switchPath.variant;
+    $: switchColor = switchPath.color;
+    $: switchCurrentPath =
+        isCustomPrimary && customPath
+            ? customPath
+            : color === "random"
+            ? `autoanimations.range.${switchMenuType}.${switchAnimation}.${switchVariant}`
+            : `autoanimations.range.${switchMenuType}.${switchAnimation}.${switchVariant}.${switchColor}`;
+    $: switchFilePath =
+        isCustomPrimary && customPath && customPathIsDB < 3
+            ? customPath
+            : getPreviewFile(switchCurrentPath);
+
     // Explosions Preview
-    $: explosionPath = isAutoOverride ? $storeItemData.autoOverride.explosions : $storeItemData.explosions;
+    $: explosionPath = isAutoOverride
+        ? $storeItemData.autoOverride.explosions
+        : $storeItemData.explosions;
 
     $: enableExplosion = explosionPath.enable || false;
     $: explodeMenuType = explosionPath.menuType;
@@ -155,6 +188,22 @@
             </video>
         </div>
     </div>
+    {#if showSwitch}
+        <div class="flexcol" style="grid-row:1/2" transition:fade>
+            <label for="">Range Switch</label>
+            <div class="aa-video-overlay">
+                <video
+                    class="aaVideoPreview"
+                    src={switchFilePath}
+                    autoplay="autoplay"
+                    controls
+                    loop
+                >
+                    <track kind="captions" />
+                </video>
+            </div>
+        </div>
+    {/if}
     {#if enableExplosion && shouldShow}
         <div class="flexcol" style="grid-row:1/2" transition:fade>
             <label for="">Explosion Animation</label>

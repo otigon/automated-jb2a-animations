@@ -11,9 +11,6 @@
 
     const { application } = getContext("external");
 
-    //export let idx;
-    //export let name;
-    $: name = $storeAutorec[dbType][idx].name;
 
     let closeNow = false;
     closePreviewWindow.subscribe((value) => {
@@ -29,6 +26,8 @@
     databaseType.subscribe((value) => {
         dbType = value;
     });
+    $: console.log(dbType)
+    $: name = $storeAutorec[dbType][idx].name;
 
     $: if (closeNow) {
         console.log("Set to True");
@@ -97,6 +96,24 @@
         isCustomPrimary && customPath && customPathIsDB < 3
             ? customPath
             : getPreviewFile(currentPath);
+
+    // Switch Animation Preview
+    $: switchType = currentSection.meleeSwitch?.switchType === "custom" ? true : false;
+
+    $: switchMenuType = currentSection.meleeSwitch?.menuType;
+    $: switchAnimation = currentSection.meleeSwitch?.animation;
+    $: switchVariant = currentSection.meleeSwitch?.variant;
+    $: switchColor = currentSection.meleeSwitch?.color;
+    $: switchCurrentPath =
+                isCustomPrimary && customPath
+                    ? customPath
+                    : color === "random"
+                    ? `autoanimations.range.${switchMenuType}.${switchAnimation}.${switchVariant}`
+                    : `autoanimations.range.${switchMenuType}.${switchAnimation}.${switchVariant}.${switchColor}`;
+    $:  switchFilePath =
+                isCustomPrimary && customPath && customPathIsDB < 3
+                    ? customPath
+                    : getPreviewFile(switchCurrentPath);
 
     // Explosions Preview
     let menuFields = ["aura", "templatefx", "preset"];
@@ -191,6 +208,22 @@
             </video>
         </div>
     </div>
+    {#if dbType === "melee" && switchType}
+        <div class="flexcol" style="grid-row:1/2" transition:fade>
+            <label for="">Range Switch</label>
+            <div class="aa-video-overlay">
+                <video
+                    class="aaVideoPreview"
+                    src={switchFilePath}
+                    autoplay="autoplay"
+                    controls
+                    loop
+                >
+                    <track kind="captions" />
+                </video>
+            </div>
+        </div>
+    {/if}
     {#if enableExplosion && shouldShow}
         <div class="flexcol" style="grid-row:1/2" transition:fade>
             <label for="">Explosion Animation</label>

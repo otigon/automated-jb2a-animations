@@ -125,7 +125,9 @@
     <RangeSwitch
         primaryAnimation={animation}
         primaryMenuType={menuType}
-        flagData={autoSection}
+        {flagData}
+        previewStoreData={flagData}
+        isOverride={true}
     />
 </div>
 {/if}

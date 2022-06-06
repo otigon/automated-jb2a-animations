@@ -85,11 +85,13 @@
         ) {
             //closePreviewWindow.set(true)
             //await wait(500)
+            console.log($storeAutorec)
             databaseType.set(type);
             index.set(idx);
         } else {
             databaseType.set(type);
             index.set(idx);
+            console.log($storeAutorec)
             new FullAutoPreview({ idx, name: sectionName }).render(true);
         }
         //await wait(500)
@@ -453,6 +455,8 @@
                             primaryAnimation={animation}
                             primaryMenuType={menuType}
                             flagData={menuSection}
+                            previewStoreData={flagData}
+                            isAutoRec={true}
                             customId={`switch-${idx}`}
                         />
                     </div>

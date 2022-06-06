@@ -479,7 +479,9 @@
                             <RangeSwitch
                                 {primaryAnimation}
                                 {primaryMenuType}
+                                isAutoRec={false}
                                 {flagData}
+                                previewStoreData={flagData}
                             />
                         </div>
                     {/if}

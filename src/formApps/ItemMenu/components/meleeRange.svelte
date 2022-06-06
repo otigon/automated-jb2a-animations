@@ -1,10 +1,14 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade } from "svelte/transition";
-    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
-    import SwitchApp from "../videoPreviews/switchApp.svelte";
+    import { storeItemData } from "../itemPreviewStore.js"
     import ChooseAnimation from "./chooseAnimation.svelte";
     import SoundSettings from "./soundSettings.svelte";
+    import {
+        storeAutorec,
+        databaseType,
+        index,
+    } from "../../AutorecMenu/autorecPreviews.js";
 
     import {
         aaTypeMenu,
@@ -16,6 +20,10 @@
 
     export let flagData;
     export let primaryMenuType;
+    export let previewStoreData;
+    export let isAutoRec;
+    export let isOverride;
+
     export let customId;
     $: primaryMenuType = primaryMenuType;
     export let primaryAnimation;
@@ -27,52 +35,82 @@
         "hammer",
         "javelin",
         "spear",
-        "dart"
+        "dart",
     ];
-    flagData.meleeSwitch ? flagData.meleeSwitch : flagData.meleeSwitch = {};
-    let meleeSwitch = flagData.meleeSwitch;
+    flagData.meleeSwitch ? flagData.meleeSwitch : (flagData.meleeSwitch = {});
+    let meleeSwitch = isOverride ? flagData.autoOverride?.meleeSwitch : flagData.meleeSwitch;
 
     let switchType = meleeSwitch.switchType || "on";
-    $: switchType = switchType;
-    $: meleeSwitch.switchType = switchType;
+    //$: switchType = switchType;
+    //$: meleeSwitch.switchType = switchType;
 
     let menuType = meleeSwitch.menuType || Object.keys(aaTypeMenu.range)[0];
-    $: menuType = meleeSwitch.menuType = menuType;
+    //$: menuType = meleeSwitch.menuType = menuType;
     // Sets Initial animation for Menu - Assigns to Flag when updated
-    let animation = meleeSwitch.animation || Object.keys(aaNameMenu.range[menuType])[0];
-    $: animation = meleeSwitch.animation = animation;
+    let animation =
+        meleeSwitch.animation || Object.keys(aaNameMenu.range[menuType])[0];
+    //$: animation = meleeSwitch.animation = animation;
     // Sets Initial variant for Menu - Assigns to Flag when updated
-    let variant = meleeSwitch.variant || Object.keys(aaVariantMenu.range[menuType][animation])[0];
-    $: variant = meleeSwitch.variant = variant;
+    let variant =
+        meleeSwitch.variant ||
+        Object.keys(aaVariantMenu.range[menuType][animation])[0];
+    //$: variant = meleeSwitch.variant = variant;
     // Sets Initial color for Menu - Assigns to Flag when updated
-    let color = meleeSwitch.color || Object.keys(aaColorMenu.range[menuType][animation][variant])[0];
-    $: color = meleeSwitch.color = color;
+    let color =
+        meleeSwitch.color ||
+        Object.keys(aaColorMenu.range[menuType][animation][variant])[0];
+    //$: color = meleeSwitch.color = color;
 
     let isCustom = meleeSwitch.enableCustom || false;
-    $: isCustom = meleeSwitch.enableCustom = isCustom;
+    //$: isCustom = meleeSwitch.enableCustom = isCustom;
 
     let customPath = meleeSwitch.customPath;
-    $: customPath = meleeSwitch.customPath = customPath;
+    //$: customPath = meleeSwitch.customPath = customPath;
+
+    $: {
+        switchType = meleeSwitch.switchType = switchType;
+        menuType = meleeSwitch.menuType = menuType;
+        animation = meleeSwitch.animation = animation;
+        variant = meleeSwitch.variant = variant;
+        color = meleeSwitch.color = color;
+        isCustom = meleeSwitch.enableCustom = isCustom;
+        customPath = meleeSwitch.customPath = customPath;
+        console.log(flagData)
+        if (isAutoRec) {$storeAutorec = previewStoreData};
+        if (!isAutoRec) {storeItemData.set(previewStoreData)};
+    }
 
     let returnEnabled = meleeSwitch.returning || false;
-    $: returnEnabled = meleeSwitch.returning = returnEnabled
-    let returnLabel = returnEnabled ? game.i18n.localize("autoanimations.menus.enabled") : game.i18n.localize("autoanimations.menus.disabled");
+    $: returnEnabled = meleeSwitch.returning = returnEnabled;
+    let returnLabel = returnEnabled
+        ? game.i18n.localize("autoanimations.menus.enabled")
+        : game.i18n.localize("autoanimations.menus.disabled");
 
     function switchLabel() {
         returnEnabled = !returnEnabled;
-        returnLabel = returnEnabled ? game.i18n.localize("autoanimations.menus.enabled") : game.i18n.localize("autoanimations.menus.disabled");
+        returnLabel = returnEnabled
+            ? game.i18n.localize("autoanimations.menus.enabled")
+            : game.i18n.localize("autoanimations.menus.disabled");
     }
     $: meleeSwitch.returning = returnEnabled;
     let isDisabled = false;
     $: {
-        if (switchType === "custom" && returningWeapons.includes(animation) && menuType === "weapon") {
+        if (
+            switchType === "custom" &&
+            returningWeapons.includes(animation) &&
+            menuType === "weapon"
+        ) {
             isDisabled = false;
-        } else if (switchType === "on" && primaryMenuType === "weapon" && returningWeapons.includes(primaryAnimation)) {
+        } else if (
+            switchType === "on" &&
+            primaryMenuType === "weapon" &&
+            returningWeapons.includes(primaryAnimation)
+        ) {
             isDisabled = false;
         } else {
             isDisabled = true;
             returnEnabled = meleeSwitch.returning = false;
-            returnLabel = game.i18n.localize("autoanimations.menus.disabled")
+            returnLabel = game.i18n.localize("autoanimations.menus.disabled");
         }
     }
     let detect = meleeSwitch.detect || "auto";
@@ -88,18 +126,6 @@
     $: range = range;
     $: meleeSwitch.range = range;
 
-    function onClick() {
-        new TJSDialog({
-            modal: false,
-            draggable: true,
-            resizable: true,
-            title: "Range Switch Animation",
-            stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
-            content: {
-                class: SwitchApp,
-            },
-        }).render(true);
-    }
 
     /*
     let switchFilePath;
@@ -115,38 +141,44 @@
 <div class="aa-header-section">
     <div class="aa-header">
         <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-            <label for="">{localize("autoanimations.menus.melee")} {localize("autoanimations.menus.ranged")} {localize("autoanimations.menus.switch")}</label>
+            <label for=""
+                >{localize("autoanimations.menus.melee")}
+                {localize("autoanimations.menus.ranged")}
+                {localize("autoanimations.menus.switch")}</label
+            >
         </div>
-        {#if menuType && switchType === "custom"}
-            <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
-                <i
-                    class="fas fa-video aa-video-preview"
-                    on:click={() => onClick()}
-                />
-            </div>
-        {/if}
     </div>
 </div>
 <div class="aa-3wide" style="padding-top:5px;padding-bottom:5px;" in:fade>
     <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
         <label for="1"
-            >{localize("autoanimations.menus.ranged")} {localize("autoanimations.menus.switch")}</label
+            >{localize("autoanimations.menus.ranged")}
+            {localize("autoanimations.menus.switch")}</label
         >
         <select
             bind:value={switchType}
             id="1"
             style="text-align: center;justify-self: center"
         >
-            <option value="on">{localize("autoanimations.menus.enabled")}</option>
-            <option value="off">{localize("autoanimations.menus.disabled")}</option>
-            <option value="custom">{localize("autoanimations.menus.custom")}</option>
+            <option value="on"
+                >{localize("autoanimations.menus.enabled")}</option
+            >
+            <option value="off"
+                >{localize("autoanimations.menus.disabled")}</option
+            >
+            <option value="custom"
+                >{localize("autoanimations.menus.custom")}</option
+            >
         </select>
     </div>
     <div
         class="flexcol {isDisabled ? 'aa-disabled' : ''}"
         style="grid-row:1/2; grid-column:3/4"
     >
-        <label for="">{localize("autoanimations.menus.return")} {localize("autoanimations.menus.animation")}</label>
+        <label for=""
+            >{localize("autoanimations.menus.return")}
+            {localize("autoanimations.menus.animation")}</label
+        >
         <button
             disabled={isDisabled}
             class="aa-setDim {returnEnabled && !isDisabled
@@ -156,30 +188,27 @@
         >
     </div>
 </div>
-    {#if switchType === "custom"}
+{#if switchType === "custom"}
     <ChooseAnimation
-    bind:menuType
-    bind:animation
-    bind:variant
-    bind:color
-    bind:isCustom
-    bind:customPath
-    {customId}
-    animType="range"
-    flagPath="MeleeSwitch"
-    {disablePlayOn}
-    disableReturn={true}
-    {flagData}
-/>
-
-    {/if}
+        bind:menuType
+        bind:animation
+        bind:variant
+        bind:color
+        bind:isCustom
+        bind:customPath
+        {customId}
+        animType="range"
+        flagPath="MeleeSwitch"
+        {disablePlayOn}
+        disableReturn={true}
+        {flagData}
+    />
+{/if}
 {#if switchType === "custom"}
     <div class="aa-4wide" in:fade>
         <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
             <label for="">{localize("autoanimations.menus.rangeDetect")}</label>
-            <button  on:click={() => switchDetect()}
-                >{detectLabel}</button
-            >
+            <button on:click={() => switchDetect()}>{detectLabel}</button>
         </div>
         <div
             class="flexcol {detect === 'auto' ? 'aa-disabled' : ''}"
@@ -190,13 +219,13 @@
                 disabled={detect === "auto"}
                 type="Number"
                 bind:value={range}
-                placeholder=2
+                placeholder="2"
             />
         </div>
     </div>
 {/if}
 {#if switchType !== "off"}
-<SoundSettings audioPath="a02" {flagData} />
+    <SoundSettings audioPath="a02" {flagData} />
 {/if}
 
 <style lang="scss">
@@ -260,7 +289,7 @@
         transition: opacity 0.5s;
     }
     .aa-disabled label {
-        opacity:0.3;
+        opacity: 0.3;
         transition: opacity 0.5s;
     }
     .aa-setDim {
