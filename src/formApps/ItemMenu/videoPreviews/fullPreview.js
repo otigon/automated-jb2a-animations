@@ -6,9 +6,10 @@ export default class TotalPreview extends TJSDialog {
     constructor(data) {
         super({
             title: 'A-A Full Preview',
-            id: `AA-Full-Video-Preview`,
             draggable: true,
+            resizeable: true,
             modal: false,
+            zIndex:null,
             content: {
                 class: FullVideoPreview,
                 props: {
@@ -26,6 +27,7 @@ export default class TotalPreview extends TJSDialog {
             width: "auto",
             height: "auto",
             closeOnSubmit: true,
+            id: `Item-Video-Preview`,
         })
     }
 

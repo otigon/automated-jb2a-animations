@@ -12,7 +12,7 @@
         aaVariantMenu,
         aaColorMenu,
     } from "../../../animation-functions/databases/jb2a-menu-options.js";
-    import { menuDBPathSwitch } from "../menuStore.js";
+    //import { menuDBPathSwitch } from "../menuStore.js";
 
     export let flagData;
     export let primaryMenuType;
@@ -101,13 +101,14 @@
         }).render(true);
     }
 
+    /*
     let switchFilePath;
     $: switchFilePath =
         color === "random"
             ? `autoanimations.range.${menuType}.${animation}.${variant}`
             : `autoanimations.range.${menuType}.${animation}.${variant}.${color}`;
-
-    $: menuDBPathSwitch.set(switchFilePath);
+    */
+    //$: menuDBPathSwitch.set(switchFilePath);
     const disablePlayOn = true;
 </script>
 

@@ -4,7 +4,7 @@ let data = "";
 export const menuAnimType = writable(data);
 
 export const menuSelection = writable(data);
-
+/*
 let customPath01;
 export const customFilePath01 = writable(customPath01);
 let isCustom01;
@@ -43,3 +43,4 @@ export const extraSource = writable(sourceEnabled);
 
 let targetEnabled;
 export const extraTarget = writable(targetEnabled);
+*/

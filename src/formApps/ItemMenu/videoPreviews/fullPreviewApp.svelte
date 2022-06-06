@@ -1,166 +1,185 @@
 <script>
-    import {
-        menuDBPathSourceFX,
-        customCheckedSourceFX,
-        customFilePathSourceFX,
-        menuDBPathTargetFX,
-        customCheckedTargetFX,
-        customFilePathTargetFX,
-        menuDBPath01,
-        customChecked01,
-        customFilePath01,
-        menuDBPath02,
-        customChecked02,
-        customFilePath02,
-        explosionEnabled,
-        extraSource,
-        extraTarget,
-        menuAnimType,
-    } from "../menuStore.js";
+    import { fade } from "svelte/transition";
+    //import { menuAnimType } from "../menuStore.js";
+    import { storeItemData } from "../itemPreviewStore.js";
     import { getPreviewFile } from "./getPreviewFile.js";
-
+    /*
     let animType;
     menuAnimType.subscribe((value) => {
-        animType = value
-    })
-    let menuFields = ['aura', 'templatefx', 'preset']
+        animType = value;
+    });
+    */
+    let menuFields = ["aura", "templatefx", "preset"];
     let shouldShow;
     $: shouldShow = menuFields.includes(animType) ? false : true;
+
+    $: currentSection = $storeItemData;
+    storeItemData.subscribe((value) => {
+        currentSection = value;
+    });
+
+    // Extra Source FX Preview
+    $: sourceExtraFX = currentSection.sourceToken || {};
+    $: enableSource = sourceExtraFX.enable;
+    $: sourceMenuType = sourceExtraFX.primary?.menuType;
+    $: sourceAnimation = sourceExtraFX.primary?.animation;
+    $: sourceVariant = sourceExtraFX.primary?.variant;
+    $: sourceColor = sourceExtraFX.primary?.color;
+    $: sourceIsCustom = sourceExtraFX.primary?.enableCustom;
+    $: sourceCustomPath =
+        sourceIsCustom && sourceExtraFX.primary?.customPath
+            ? sourceExtraFX.primary?.customPath
+            : "";
+    $: sourceCustomPathIsDB = sourceCustomPath.split(".").length;
+    $: sourceCurrentPath =
+        sourceIsCustom && sourceCustomPath
+            ? sourceCustomPath
+            : color === "random"
+            ? `autoanimations.static.${sourceMenuType}.${sourceAnimation}.${sourceVariant}`
+            : `autoanimations.static.${sourceMenuType}.${sourceAnimation}.${sourceVariant}.${sourceColor}`;
+    $: sourceFilePath =
+        sourceIsCustom && sourceCustomPath && sourceCustomPathIsDB < 3
+            ? sourceCustomPath
+            : getPreviewFile(sourceCurrentPath);
+
     // Primary Preview
-    let primaryDbPath;
-    menuDBPath01.subscribe((value) => {
-        primaryDbPath = value;
-    });
-    let primaryIsCustom;
-    customChecked01.subscribe((value) => {
-        primaryIsCustom = value;
-    });
-    let primaryCustomPath;
-    customFilePath01.subscribe((value) => {
-        primaryCustomPath = value;
-    });
-    $: primaryDatabaseFile = !primaryDbPath.includes("undefined") ? getPreviewFile(primaryDbPath) : "";
-    $: primaryFilePath = primaryIsCustom
-        ? primaryCustomPath
-        : primaryDatabaseFile;
+    $: animType = $storeItemData.animType === "aura" ? "static" : $storeItemData.animType;
+    $: menuType = currentSection.primary?.menuType;
+    $: animation = currentSection.primary?.animation;
+    $: variant = currentSection.primary?.variant;
+    $: color = currentSection.primary?.color;
+    $: isCustomPrimary = currentSection.primary?.enableCustom || false;
+    $: customPath =
+        isCustomPrimary && currentSection.primary?.customPath
+            ? currentSection.primary?.customPath
+            : "";
+    $: customPathIsDB = customPath.split(".").length;
+    $: currentPath =
+        isCustomPrimary && customPath
+            ? customPath
+            : color === "random"
+            ? `autoanimations.${animType}.${menuType}.${animation}.${variant}`
+            : `autoanimations.${animType}.${menuType}.${animation}.${variant}.${color}`;
+    $: filePath =
+        isCustomPrimary && customPath && customPathIsDB < 3
+            ? customPath
+            : getPreviewFile(currentPath);
 
-    // Explosion Preview
-    let enableExplosion;
-    explosionEnabled.subscribe((value) => {
-        enableExplosion = value
-    })
-    let explosionDbPath;
-    menuDBPath02.subscribe((value) => {
-        explosionDbPath = value;
-    });
-    let explosionIsCustom;
-    customChecked02.subscribe((value) => {
-        explosionIsCustom = value;
-    });
-    let explosionCustomPath;
-    customFilePath02.subscribe((value) => {
-        explosionCustomPath = value;
-    });
-    $: explosionDatabaseFile = enableExplosion && !explosionDbPath.includes("undefined") ? getPreviewFile(explosionDbPath) : "";
-    $: explosionFilePath = explosionIsCustom
-        ? explosionCustomPath
-        : explosionDatabaseFile;
+    // Explosions Preview
+    $: enableExplosion = currentSection.explosions?.enable || false;
+    $: explodeMenuType = currentSection.explosions?.menuType;
+    $: explodeAnimation = currentSection.explosions?.animation;
+    $: explodeVariant = currentSection.explosions?.variant;
+    $: explodeColor = currentSection.explosions?.color;
+    $: isCustomExplosion = currentSection.explosions?.enableCustom || false;
+    $: customPathExplosion =
+        isCustomExplosion && currentSection.explosions?.customPath
+            ? currentSection.explosions?.customPath
+            : "";
+    $: customExplosionIsDB = customPathExplosion.split(".").length;
+    $: explosionDBPath =
+        isCustomExplosion && customPathExplosion
+            ? customPathExplosion
+            : explodeColor === "random"
+            ? `autoanimations.static.${explodeMenuType}.${explodeAnimation}.${explodeVariant}`
+            : `autoanimations.static.${explodeMenuType}.${explodeAnimation}.${explodeVariant}.${explodeColor}`;
+    $: explosionFilePath =
+        isCustomExplosion && customPathExplosion && customExplosionIsDB < 3
+            ? customPathExplosion
+            : enableExplosion && shouldShow
+            ? getPreviewFile(explosionDBPath)
+            : "";
 
-    // Source FX
-    let enableSource;
-    extraSource.subscribe((value) => {
-        enableSource = value;
-    })
-    let sourceDbPath;
-    menuDBPathSourceFX.subscribe((value) => {
-        sourceDbPath = value;
-    });
-    let sourceIsCustom;
-    customCheckedSourceFX.subscribe((value) => {
-        sourceIsCustom = value;
-    });
-    let sourceCustomPath;
-    customFilePathSourceFX.subscribe((value) => {
-        sourceCustomPath = value;
-    });
-    $: sourceDatabaseFile = enableSource && !sourceDbPath.includes("undefined") ? getPreviewFile(sourceDbPath) : "";
-    $: sourceFilePath = sourceIsCustom ? sourceCustomPath : sourceDatabaseFile;
-
-    // Target FX
-    let enableTarget;
-    extraTarget.subscribe((value) => {
-        enableTarget = value;
-    })
-    let targetDbPath;
-    menuDBPathTargetFX.subscribe((value) => {
-        targetDbPath = value;
-    });
-    let targetIsCustom;
-    customCheckedTargetFX.subscribe((value) => {
-        targetIsCustom = value;
-    });
-    let targetCustomPath;
-    customFilePathTargetFX.subscribe((value) => {
-        targetCustomPath = value;
-    });
-    $: targetDatabaseFile = enableTarget && !targetDbPath.includes("undefined") ? getPreviewFile(targetDbPath) : "";
-    $: targetFilePath = targetIsCustom ? targetCustomPath : targetDatabaseFile;
+    // Extra Target FX Preview
+    $: targetExtraFX = currentSection.targetToken || {};
+    $: enableTarget = targetExtraFX.enable;
+    $: targetMenuType = targetExtraFX.primary?.menuType;
+    $: targetAnimation = targetExtraFX.primary?.animation;
+    $: targetVariant = targetExtraFX.primary?.variant;
+    $: targetColor = targetExtraFX.primary?.color;
+    $: targetIsCustom = targetExtraFX.primary?.enableCustom;
+    $: targetCustomPath =
+        targetIsCustom && targetExtraFX.primary?.customPath
+            ? targetExtraFX.primary?.customPath
+            : "";
+    $: targetCustomPathIsDB = targetCustomPath.split(".").length;
+    $: targetCurrentPath =
+        targetIsCustom && targetCustomPath
+            ? targetCustomPath
+            : color === "random"
+            ? `autoanimations.static.${targetMenuType}.${targetAnimation}.${targetVariant}`
+            : `autoanimations.static.${targetMenuType}.${targetAnimation}.${targetVariant}.${targetColor}`;
+    $: targetFilePath =
+        targetIsCustom && targetCustomPath && targetCustomPathIsDB < 3
+            ? targetCustomPath
+            : getPreviewFile(targetCurrentPath);
 </script>
 
+<div class="flexcol">
+    <label class="aa-section-label" for="">Preview</label>
+</div>
 <div class="flexcol aa-full-preview">
     {#if enableSource}
-    <div class="flexcol" style="grid-row:1/2">
-        <label for="">Source FX Animation</label>
-        <video
-            class="aaVideoPreview"
-            src={sourceFilePath}
-            autoplay="autoplay"
-            controls
-            loop
-        >
-            <track kind="captions" />
-        </video>
-    </div>
+        <div class="flexcol" style="grid-row:1/2" transition:fade>
+            <label for="">Source FX Animation</label>
+            <div class="aa-video-overlay">
+                <video
+                    class="aaVideoPreview"
+                    src={sourceFilePath}
+                    autoplay="autoplay"
+                    controls
+                    loop
+                >
+                    <track kind="captions" />
+                </video>
+            </div>
+        </div>
     {/if}
-    <div class="flexcol" style="grid-row:1/2">
+    <div class="flexcol" style="grid-row:1/2" transition:fade>
         <label for="">Primary Animation</label>
-        <video
-            class="aaVideoPreview"
-            src={primaryFilePath}
-            autoplay="autoplay"
-            controls
-            loop
-        >
-            <track kind="captions" />
-        </video>
+        <div class="aa-video-overlay">
+            <video
+                class="aaVideoPreview"
+                src={filePath}
+                autoplay="autoplay"
+                controls
+                loop
+            >
+                <track kind="captions" />
+            </video>
+        </div>
     </div>
     {#if enableExplosion && shouldShow}
-    <div class="flexcol" style="grid-row:1/2">
-        <label for="">Explosion Animation</label>
-        <video
-            class="aaVideoPreview"
-            src={explosionFilePath}
-            autoplay="autoplay"
-            controls
-            loop
-        >
-            <track kind="captions" />
-        </video>
-    </div>
+        <div class="flexcol" style="grid-row:1/2" transition:fade>
+            <label for="">Explosion Animation</label>
+            <div class="aa-video-overlay">
+                <video
+                    class="aaVideoPreview"
+                    src={explosionFilePath}
+                    autoplay="autoplay"
+                    controls
+                    loop
+                >
+                    <track kind="captions" />
+                </video>
+            </div>
+        </div>
     {/if}
     {#if enableTarget}
-    <div class="flexcol" style="grid-row:1/2">
-        <label for="">Target FX Animation</label>
-        <video
-            class="aaVideoPreview"
-            src={targetFilePath}
-            autoplay="autoplay"
-            controls
-            loop
-        >
-            <track kind="captions" />
-        </video>
-    </div>
+        <div class="flexcol" style="grid-row:1/2" transition:fade>
+            <label for="">Target FX Animation</label>
+            <div class="aa-video-overlay">
+                <video
+                    class="aaVideoPreview"
+                    src={targetFilePath}
+                    autoplay="autoplay"
+                    controls
+                    loop
+                >
+                    <track kind="captions" />
+                </video>
+            </div>
+        </div>
     {/if}
 </div>
 
@@ -168,17 +187,18 @@
     .aa-full-preview {
         display: grid;
         grid-template-columns: fit-content(225px) auto;
+        grid-template-rows: 250px;
         grid-gap: 5px;
         padding: 5px;
         align-items: center;
-        width:100%;
+        width: 100%;
         margin-right: 2%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: large;
         font-weight: bold;
     }
     .aaVideoPreview {
-        border: 3px inset #a1a1a1;
+        border: 3px ridge #a1a1a1;
         border-radius: 30px;
         padding: 5px;
         margin-bottom: 5px;
@@ -186,12 +206,22 @@
         height: 225px;
         display: block;
         margin: 0 auto;
-        background: #363636;
+        background: rgb(78, 78, 78);
     }
     .aa-full-preview label {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: x-large;
+        font-weight: normal;
+        align-self: center;
+    }
+    .aa-section-label {
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: x-large;
         font-weight: bold;
         align-self: center;
+    }
+    .aa-video-overlay {
+        border-radius: 30px;
+        box-shadow: 8px 11px 9px 0px rgb(0, 0, 0, 0.5);
     }
 </style>

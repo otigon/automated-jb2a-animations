@@ -1,25 +1,25 @@
 <script>
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
-    import ExplosionApp from "../videoPreviews/explosionApp.svelte";
+    //import ExplosionApp from "../videoPreviews/explosionApp.svelte";
     import ChooseAnimation from "./chooseAnimation.svelte";
     import SoundSettings from "./soundSettings.svelte";
     import { fade } from "svelte/transition";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    /*
     import {
         menuDBPath02,
         customFilePath02,
         customChecked02,
         explosionEnabled,
     } from "../menuStore.js";
+    */
     import {
         storeAutorec,
-        closePreviewWindow,
-        databaseType,
-        index,
     } from "../../AutorecMenu/autorecPreviews.js";
-
+    import { storeItemData } from "../itemPreviewStore.js"
     export let previewStoreData;
     export let flagData;
+    export let isAutoRec;
     flagData.explosions ? flagData.explosions : (flagData.explosions = {});
     const root = flagData.explosions;
     //let explosions = flagData.explosions;
@@ -42,7 +42,7 @@
 
     let enableSection = root.enable || false;
     //$: enableSection = enableSection;
-    $: explosionEnabled.set(enableSection);
+    //$: explosionEnabled.set(enableSection);
     function switchEnable() {
         enableSection = !enableSection;
         //root.enable = enableSection;
@@ -75,10 +75,12 @@
         isCustom = root.enableCustom = isCustom;
         customPath = root.customPath = customPath;
         enableSection = root.enable = enableSection;
-        $storeAutorec = previewStoreData;
+        if (isAutoRec) {$storeAutorec = previewStoreData};
+        if (!isAutoRec) {storeItemData.set(flagData)};
         flagData = flagData;
     }
 
+    /*
     function onClick() {
         new TJSDialog({
             modal: false,
@@ -105,6 +107,7 @@
         customFilePath02.set(customPath);
         customChecked02.set(isCustom);
     }
+    */
     let customId = "customExplosion";
 </script>
 

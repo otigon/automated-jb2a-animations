@@ -381,6 +381,7 @@
                         flagData={menuSection}
                         previewStoreData={flagData}
                         {staticType}
+                        isAutoRec={true}
                     />
                 </div>
                 {#if shouldShowTargetFX}
@@ -391,6 +392,7 @@
                             flagData={menuSection}
                             previewStoreData={flagData}
                             {staticType}
+                            isAutoRec={true}
                         />
                     </div>
                 {/if}
@@ -457,7 +459,7 @@
                 {/if}
                 <div class="aa-section-border">
                     {#if showExplosions.includes(type)}
-                        <AddExplosion flagData={menuSection} previewStoreData={flagData} />
+                        <AddExplosion flagData={menuSection} previewStoreData={flagData} isAutoRec={true} />
                     {/if}
                 </div>
             {/if}

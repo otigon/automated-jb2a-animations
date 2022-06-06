@@ -14,13 +14,14 @@
         aaVariantMenu,
         aaColorMenu,
     } from "../../../animation-functions/databases/jb2a-menu-options.js";
-
+    import { storeItemData } from "../itemPreviewStore.js"
+    /*
     import {
         menuDBPath01,
         customFilePath01,
         customChecked01,
     } from "../menuStore.js";
-
+    */
     export let flagData;
     export let animType;
     export let animTypeSwitched;
@@ -34,23 +35,35 @@
     $: menuSelection = menuSelection;
 
     export let menuType = !primaryData.menuType ? Object.keys(aaTypeMenu[menuSelection])[0] : primaryData.menuType;
-    $: menuType = primaryData.menuType = menuType;
+    //$: menuType = primaryData.menuType = menuType;
 
     export let animation = !primaryData.animation ? Object.keys(aaNameMenu[menuSelection][menuType])[0] : primaryData.animation;
-    $: animation = primaryData.animation = animation;
+    //$: animation = primaryData.animation = animation;
 
     let variant = !primaryData.variant ? Object.keys(aaVariantMenu[menuSelection][menuType][animation])[0] : primaryData.variant;
-    $: variant = primaryData.variant = variant;
+    //$: variant = primaryData.variant = variant;
 
     let color = !primaryData.color ? Object.keys(aaColorMenu[menuSelection][menuType][animation][variant])[0] : primaryData.color;
-    $: color = primaryData.color = color;
+    //$: color = primaryData.color = color;
 
     let isCustom = primaryData.enableCustom || false;
-    $: isCustom = primaryData.enableCustom = isCustom;
+    //$: isCustom = primaryData.enableCustom = isCustom;
 
     let customPath = primaryData.customPath;
-    $: customPath = primaryData.customPath = customPath;
+    //$: customPath = primaryData.customPath = customPath;
 
+    $: {
+        menuType = primaryData.menuType = menuType;
+        animation = primaryData.animation = animation;
+        variant = primaryData.variant = variant;
+        color = primaryData.color = color;
+        isCustom = primaryData.enableCustom = isCustom;
+        customPath = primaryData.customPath = customPath;
+        //flagData = flagData;
+        storeItemData.set(flagData);
+    }
+
+    /*
     let primaryFilePath;
     $: primaryFilePath =
             color === "random"
@@ -62,21 +75,8 @@
         customFilePath01.set(customPath);
         customChecked01.set(isCustom);
     }
-    function onClick() {
-        new TJSDialog({
-            modal: false,
-            draggable: true,
-            resizable: true,
-            title: "Primary Animation",
-            stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
-            content: {
-                class: PrimaryApp,
-            },
-        }).render(true);
-    }
+    */
     function fullPreview() {
-        console.log(TJSDialog)
-        
         new TotalPreview().render(true);
     }
 
@@ -112,7 +112,7 @@
     customId="PrimaryCustom"
     flagPath="PrimaryAnimation"
     {disablePlayOn}
-    {animTypeSwitched}
+    bind:animTypeSwitched
     {animType}
     {flagData}
 />

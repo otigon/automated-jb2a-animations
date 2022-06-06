@@ -17,6 +17,7 @@
     import Menu3d from "./components/3dMenuShell.svelte";
     import PresetMenu from "./components/presetShell.svelte";
     import AutoOverride from "./AutoOverrideShell.svelte";
+    /*
     import {
         extraSource,
         extraTarget,
@@ -28,6 +29,8 @@
         customCheckedTargetFX,
         menuAnimType,
     } from "./menuStore.js";
+    */
+    import { storeItemData } from "./itemPreviewStore.js"
 
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
     import { gameSettings } from "../../gameSettings.js";
@@ -84,6 +87,7 @@
         meleeSwitch: flags.meleeSwitch || {},
         preset: flags.preset || {},
     };
+    $: storeItemData.set(flagData);
     export let staticType = flagData.options.staticType;
     $: staticType = staticType;
     const preset = flagData.preset;
@@ -122,6 +126,7 @@
         if (!flagData.autoOverride?.enable) {
             await item.unsetFlag("autoanimations", "autoOverride")
         }
+        Object.values(ui.windows).filter(app => app.id === "Item-Video-Preview").forEach(app => app.close())
         await item.update(updatedFlags.data);
         application.close();
     }
@@ -153,34 +158,37 @@
 
     let enableSource = flagData.sourceToken.enable || false;
     $: enableSource = enableSource;
+    /*
     extraSource.set(flagData.sourceToken.enable);
     extraSource.subscribe((value) => {
         enableSource = value;
     });
-
+    */
     let enableTarget = flagData.targetToken.enable || false;
     $: enableTarget = enableTarget;
+    /*
     extraTarget.set(flagData.targetToken.enable);
     extraTarget.subscribe((value) => {
         enableTarget = value;
     });
-
+    */
     // Sets Initial animType for Menu - Assigns to Flag when updated
     let animType = flagData.animType || "melee";
     $: {
         animType = animType;
         flagData.animType = animType;
-        menuAnimType.set(animType === "aura" ? "static" : animType);
+        //menuAnimType.set(animType === "aura" ? "static" : animType);
     }
     let presetType = preset.presetType;
     $: presetType = preset.presetType = presetType;
     let animTypeSwitched = false;
     async function typeSwitch() {
+        Object.values(ui.windows).filter(app => app.id === "Item-Video-Preview").forEach(app => app.close())
         animTypeSwitched = true;
-        await wait(150);
-        animTypeSwitched = false;
+        //await wait(150);
+        //animTypeSwitched = false;
     }
-
+    /*
     let sourceFilePath;
     if (flagData.sourceToken.enable) {
         sourceFilePath =
@@ -202,7 +210,7 @@
     menuDBPathTargetFX.set(targetFilePath);
     customFilePathTargetFX.set(flagData.targetToken.customPath);
     customCheckedTargetFX.set(flagData.targetToken.enableCustom);
-
+    */
     let primaryMenuType;
     $: primaryMenuType = primaryMenuType;
 
@@ -460,7 +468,7 @@
                                 bind:menuType={primaryMenuType}
                                 bind:animation={primaryAnimation}
                                 bind:staticType
-                                {animTypeSwitched}
+                                bind:animTypeSwitched
                                 {animType}
                                 {flagData}
                             />
@@ -477,7 +485,7 @@
                     {/if}
                     {#if animType === "melee" || animType === "range" || animType === "static"}
                         <div class="aaMenu-section">
-                            <ExplosionSettings {flagData} />
+                            <ExplosionSettings {flagData} isAutoRec={false} />
                         </div>
                     {/if}
                 {/if}
@@ -575,11 +583,11 @@
                     </div>
                 </div>
                 <div class="aaMenu-section">
-                    <ExtraFX flagPath="sourceExtraFX" {flagData} />
+                    <ExtraFX flagPath="sourceExtraFX" {flagData} isAutoRec={false} />
                 </div>
                 {#if shouldShowTargetFX}
                     <div class="aaMenu-section">
-                        <ExtraFX flagPath="targetExtraFX" {flagData} />
+                        <ExtraFX flagPath="targetExtraFX" {flagData} isAutoRec={false} />
                     </div>
                 {/if}
             </div>

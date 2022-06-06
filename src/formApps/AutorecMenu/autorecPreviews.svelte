@@ -1,4 +1,5 @@
 <script>
+    import { fade } from "svelte/transition";
     import { getPreviewFile } from "../ItemMenu/videoPreviews/getPreviewFile.js";
     import {
         storeAutorec,
@@ -161,7 +162,7 @@
 </div>
 <div class="flexcol aa-full-preview">
     {#if enableSource}
-        <div class="flexcol" style="grid-row:1/2">
+        <div class="flexcol" style="grid-row:1/2" transition:fade>
             <label for="">Source FX Animation</label>
             <div class="aa-video-overlay">
                 <video
@@ -176,7 +177,7 @@
             </div>
         </div>
     {/if}
-    <div class="flexcol" style="grid-row:1/2">
+    <div class="flexcol" style="grid-row:1/2" transition:fade>
         <label for="">Primary Animation</label>
         <div class="aa-video-overlay">
             <video
@@ -191,7 +192,7 @@
         </div>
     </div>
     {#if enableExplosion && shouldShow}
-        <div class="flexcol" style="grid-row:1/2">
+        <div class="flexcol" style="grid-row:1/2" transition:fade>
             <label for="">Explosion Animation</label>
             <div class="aa-video-overlay">
                 <video
@@ -207,7 +208,7 @@
         </div>
     {/if}
     {#if enableTarget}
-        <div class="flexcol" style="grid-row:1/2">
+        <div class="flexcol" style="grid-row:1/2" transition:fade>
             <label for="">Target FX Animation</label>
             <div class="aa-video-overlay">
                 <video

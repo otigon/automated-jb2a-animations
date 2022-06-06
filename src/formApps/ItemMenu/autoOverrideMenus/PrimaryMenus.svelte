@@ -10,12 +10,13 @@
     import RangeSwitch from "../components/meleeRange.svelte";
     import ExplosionSettings from "../components/explosions.svelte";
 
+    /*
     import {
         menuDBPath01,
         customFilePath01,
         customChecked01,
     } from "../menuStore.js";
-
+    */
     export let animType;
     export let autoObject;
     export let autoSection;
@@ -38,18 +39,19 @@
     $: isCustom = primarySection.enableCustom = isCustom;
     let customPath = primarySection.customPath;
     $: customPath = primarySection.customPath = customPath;
-
+    /*
     let primaryFilePath;
     $: primaryFilePath =
         color === "random"
             ? `autoanimations.${animType}.${menuType}.${animation}.${variant}`
             : `autoanimations.${animType}.${menuType}.${animation}.${variant}.${color}`;
-
+    
     $: {
         menuDBPath01.set(primaryFilePath);
         customFilePath01.set(customPath);
         customChecked01.set(isCustom);
     }
+    */
 
     function onClick() {
         new TJSDialog({

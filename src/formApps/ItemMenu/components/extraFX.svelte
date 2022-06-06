@@ -6,6 +6,7 @@
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import SourceFxApp from "../videoPreviews/sourceFXApp.svelte";
     import TargetFxApp from "../videoPreviews/targetFXApp.svelte";
+    /*
     import {
         menuDBPathSourceFX,
         customFilePathSourceFX,
@@ -16,13 +17,16 @@
         extraSource,
         extraTarget,
     } from "../menuStore.js";
+    */
     import {
         storeAutorec,
     } from "../../AutorecMenu/autorecPreviews.js";
+    import { storeItemData } from "../itemPreviewStore.js"
 
     export let flagData;
     export let flagPath;
     export let previewStoreData;
+    export let isAutoRec;
 
     let root;
     let audioPath;
@@ -154,7 +158,8 @@
         isCustom = primary.enableCustom = isCustom;
         customPath = primary.customPath = customPath;
         enableSection = root.enable = enableSection;
-        $storeAutorec = previewStoreData;
+        if (isAutoRec) {$storeAutorec = previewStoreData};
+        if (!isAutoRec) {storeItemData.set(flagData)};
     }
 
     function onClick() {
@@ -172,6 +177,7 @@
             },
         }).render(true);
     }
+    /*
     let sourceFilePath;
     $: if (flagPath === "sourceExtraFX") {
         sourceFilePath =
@@ -198,6 +204,7 @@
         customCheckedTargetFX.set(isCustom);
         extraTarget.set(enableSection);
     }
+    */
     /*
     $: {
         if (flagPath === "sourceExtraFX") {

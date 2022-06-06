@@ -19,7 +19,7 @@
     export let animType;
     export let presetType;
     export let presetSubType;
-    export let animTypeSwitched = false;
+    export let animTypeSwitched;
     export let shouldShowOnlyX;
     export let disablePlayOn;
     export let isAutoRec;
@@ -29,6 +29,7 @@
     }
     $: if (animTypeSwitched) {
         animTypeChange(flagPath);
+        animTypeSwitched = false;
     }
     // Defines the initial Flag path depending on the Section calling this Component
     let rootPath;
