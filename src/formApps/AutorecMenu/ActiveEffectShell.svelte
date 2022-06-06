@@ -381,7 +381,7 @@
                         customId={`${type}-${idx}`}
                     />
                     <Options
-                        animType={type}
+                        animType={animType}
                         {menuType}
                         flagData={menuSection}
                     />

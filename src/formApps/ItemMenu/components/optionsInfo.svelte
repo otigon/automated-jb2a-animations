@@ -27,6 +27,14 @@
         </tr>
         <tr>
             <td class="aa-table">
+                <strong>Masking</strong>
+            </td>
+            <td>
+                If enabled, the effect will be masked to the given Object
+            </td>
+        </tr>
+        <tr>
+            <td class="aa-table">
                 <strong>{localize("autoanimations.menus.opacity")}</strong>
             </td>
             <td> Set the Alpha (transparency) level of the Animation </td>

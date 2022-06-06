@@ -3,7 +3,7 @@ import { TJSDialog } from '@typhonjs-fvtt/runtime/svelte/application';
 import VideoPreview from "./autorecPreviews.svelte";
 
 export default class AutorecTotalPreview extends TJSDialog {
-    constructor(data) {
+    constructor() {
         super({
             title: `Autorec Preview`,
             draggable: true,
@@ -12,10 +12,6 @@ export default class AutorecTotalPreview extends TJSDialog {
             zIndex:null,
             content: {
                 class: VideoPreview,
-                props: {
-                    idx: data.idx,
-                    name: data.name,
-                }
             },
             //close: () => this.options.reject(),
             //...options

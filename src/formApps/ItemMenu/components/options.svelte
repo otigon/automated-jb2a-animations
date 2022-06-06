@@ -57,7 +57,8 @@
 
     let persistType = options.persistType || false;
     $: persistType = options.persistType = persistType;
-    $: removeTemplate = persistType === "attachtemplate" ? false : removeTemplate;
+    $: removeTemplate =
+        persistType === "attachtemplate" ? false : removeTemplate;
 
     let occlusionMode = options.occlusionMode || "3";
     $: occlusionMode = options.occlusionMode = occlusionMode;
@@ -136,6 +137,12 @@
         new OptionsDialog().render(true);
     }
 
+    let isMasked = options.isMasked || false;
+    $: isMasked = options.isMasked = isMasked;
+    $: maskLabel = isMasked ? "Enabled" : "Disabled";
+    function switchMask() {
+        isMasked = !isMasked;
+    }
 </script>
 
 <div class="aa-options-border" in:fade>
@@ -153,17 +160,14 @@
             </div>
         </div>
     </div>
-    <div
-        class="aa-options"
-        in:fade={{ duration: 500 }}
-    >
+    <div class="aa-options" in:fade={{ duration: 500 }}>
         <!--Persistent Setting-->
         <div
-            class="flexcol {disabled01 ? 'aa-disabled' : ''}"
+            class="flexcol {disabled01 || animType === "aura" ? 'aa-disabled' : ''}"
             style="grid-row: 1 / 2; grid-column: 1 / 2;"
         >
             <label for="">{localize("autoanimations.menus.persistence")}</label>
-            <button on:click={() => switchPersistence()} disabled={disabled01}
+            <button on:click={() => switchPersistence()} disabled={disabled01 || animType === "aura"}
                 >{isPersistent}</button
             >
         </div>
@@ -178,7 +182,7 @@
         <div
             class="flexcol {disabled01 ||
             animType === 'templatefx' ||
-            !persistent
+            (!persistent && animType !== "aura")
                 ? 'aa-disabled'
                 : ''}"
             style="grid-row: 1 / 2; grid-column: 3 / 4;"
@@ -188,14 +192,14 @@
                 on:click={() => switchVisibility()}
                 disabled={disabled01 ||
                     animType === "templatefx" ||
-                    !persistent}>{bindVisibility}</button
+                    (!persistent && animType !== "aura")}>{bindVisibility}</button
             >
         </div>
         <!--Bind/Unbind Opacity (for Persistent Effects)-->
         <div
             class="flexcol {disabled01 ||
             animType === 'templatefx' ||
-            !persistent
+            (!persistent && animType !== "aura")
                 ? 'aa-disabled'
                 : ''}"
             style="grid-row: 1 / 2; grid-column: 4 / 5;"
@@ -205,17 +209,30 @@
                 on:click={() => switchAlpha()}
                 disabled={disabled01 ||
                     animType === "templatefx" ||
-                    !persistent}>{bindAlpha}</button
+                    (!persistent && animType !== "aura")}>{bindAlpha}</button
             >
         </div>
+        <!--Set the Masking Boolean-->
+        <div
+            class="flexcol {disabled01 ? 'aa-disabled' : ''}"
+            style="grid-row: 2 / 3; grid-column: 1 / 2;"
+        >
+            <label for="">{localize("autoanimations.menus.masking")}</label>
+            <button
+                class={isMasked ? "aa-selected" : "aa-notSelected"}
+                disabled={disabled01}
+                on:click={() => switchMask()}
+                >{maskLabel}</button
+            >
+        </div> 
         <!--Set Number of times the animation plays-->
         <div
-            class="flexcol {isDisabled ? 'aa-disabled' : ''}"
-            style="grid-row: 2 / 3; grid-column: 1 / 2;"
+            class="flexcol {isDisabled || animType === "aura" ? 'aa-disabled' : ''}"
+            style="grid-row: 2 / 3; grid-column: 2 / 3;"
         >
             <label for="">{localize("autoanimations.menus.repeat")}</label>
             <input
-                disabled={isDisabled}
+                disabled={isDisabled || animType === "aura"}
                 type="number"
                 bind:value={repeat}
                 placeholder="1"
@@ -223,15 +240,15 @@
         </div>
         <!--Set delay between repeats-->
         <div
-            class="flexcol {isDisabled ? 'aa-disabled' : ''}"
-            style="grid-row: 2 / 3; grid-column: 2 / 3;"
+            class="flexcol {isDisabled || animType === "aura" ? 'aa-disabled' : ''}"
+            style="grid-row: 2 / 3; grid-column: 3 / 4;"
         >
             <label for=""
                 >{localize("autoanimations.menus.repeat")}
                 {localize("autoanimations.menus.delay")}</label
             >
             <input
-                disabled={isDisabled}
+                disabled={isDisabled || animType === "aura"}
                 type="number"
                 bind:value={delay}
                 placeholder="250"
@@ -242,7 +259,7 @@
             {#if animType === "aura"}
                 <div
                     class="flexcol"
-                    style="grid-row: 2 / 3; grid-column: 3 / 4;"
+                    style="grid-row: 2 / 3; grid-column: 4 / 5;"
                 >
                     <label for=""
                         >{localize("autoanimations.menus.radius")}</label
@@ -268,7 +285,7 @@
             {:else}
                 <div
                     class="flexcol {animType === 'range' ? 'aa-disabled' : ''}"
-                    style="grid-row: 2 / 3; grid-column: 3 / 4;"
+                    style="grid-row: 2 / 3; grid-column: 4 / 5;"
                 >
                     <label for=""
                         >{localize("autoanimations.menus.scale")}</label
@@ -286,7 +303,7 @@
         <!--Set Animation Opacity-->
         <div
             class="flexcol"
-            style="grid-row: 2 / 3; grid-column: 4 / 5;"
+            style="grid-row: 3 / 4; grid-column: 1 / 2;"
             in:fade={{ duration: 500 }}
         >
             <label for="aaOpacity"
@@ -329,17 +346,17 @@
         <!--Template Specific Settings-->
         {#if animType === "templatefx"}
             <!--Set Scale in X-->
-            <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
+            <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;">
                 <label for="">{localize("autoanimations.menus.scale")} X</label>
                 <input type="number" bind:value={scaleX} placeholder="1" />
             </div>
             <!--Set Scale in Y-->
-            <div class="flexcol" style="grid-row: 3 / 4; grid-column: 3 / 4;">
+            <div class="flexcol" style="grid-row: 3 / 4; grid-column: 4 / 5;">
                 <label for="">{localize("autoanimations.menus.scale")} Y</label>
                 <input type="number" bind:value={scaleY} placeholder="1" />
             </div>
             <!--Remove Template option-->
-            <div class="flexcol" style="grid-row: 3 / 4; grid-column: 4 / 5;">
+            <div class="flexcol" style="grid-row: 3 / 4; grid-column: 3 / 4;">
                 <label for="">{localize("autoanimations.menus.remove")}</label>
                 <button
                     class={removeTemplate ? "aa-selected" : "aa-notSelected"}
@@ -351,7 +368,7 @@
                 <!--Set Persistent Type-->
                 <div
                     class="flexcol"
-                    style="grid-row: 3 / 4;grid-column: 1 / 3;"
+                    style="grid-row: 4 / 5;grid-column: 2 / 4;"
                     in:fade={{ duration: 500 }}
                 >
                     <label for="1"
@@ -392,7 +409,7 @@
                     <!--Set Occlusion Mode-->
                     <div
                         class="flexcol"
-                        style="grid-row: 4 / 5;grid-column: 1 / 3;"
+                        style="grid-row: 5 / 6;grid-column: 1 / 3;"
                         in:fade={{ duration: 500 }}
                     >
                         <label for="1"
@@ -430,7 +447,7 @@
                     <!--Set Occlusion Alpha-->
                     <div
                         class="flexcol"
-                        style="grid-row: 4 / 5; grid-column: 3 / 4;"
+                        style="grid-row: 5 / 6; grid-column: 3 / 4;"
                         in:fade={{ duration: 500 }}
                     >
                         <label for=""

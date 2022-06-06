@@ -126,6 +126,8 @@
             "orangeyellow": "Orange Yellow"
         },
         "animations": {
+            "inwarddots": "Inward Dots",
+            "inwardstars": "Inward Stars",
             "curewounds": "Cure Wounds",
             "generichealing": "Generic Healing",
             "itemHealingWord": "Healing Word",
@@ -393,7 +395,8 @@
             "cone": "Cone",
             "square": "Square",
             "circle": "Circle",
-            "ray": "Ray"        
+            "ray": "Ray",
+            "leaves": "Leaves"
         },
         "animTypes": {
             "melee": "Melee",
@@ -416,6 +419,7 @@
             "proToTemp": "Projectile to Template"
         },
         "menus": {
+            "masking": "Masking",
             "primary": "Primary",
             "animation": "Animation",
             "extra": "Extra",

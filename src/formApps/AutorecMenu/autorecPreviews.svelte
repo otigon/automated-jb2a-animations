@@ -51,6 +51,7 @@
     //let currentSection = $storeAutorec[dbType][idx];
     $: currentSection = $storeAutorec[dbType][idx];
 
+    // Extra Source FX Preview
     $: sourceExtraFX = currentSection.sourceToken || {};
     $: enableSource = sourceExtraFX.enable;
     $: sourceMenuType = sourceExtraFX.primary?.menuType;
@@ -74,6 +75,7 @@
             ? sourceCustomPath
             : getPreviewFile(sourceCurrentPath);
 
+    // Primary Preview
     $: menuType = currentSection.primary?.menuType;
     $: animation = currentSection.primary?.animation;
     $: variant = currentSection.primary?.variant;
@@ -95,6 +97,7 @@
             ? customPath
             : getPreviewFile(currentPath);
 
+    // Explosions Preview
     let menuFields = ["aura", "templatefx", "preset"];
     let shouldShow;
     $: shouldShow = menuFields.includes(dbType) ? false : true;
@@ -122,6 +125,7 @@
             ? getPreviewFile(explosionDBPath)
             : "";
 
+    // Extra Target FX Preview
     $: targetExtraFX = currentSection.targetToken || {};
     $: enableTarget = targetExtraFX.enable;
     $: targetMenuType = targetExtraFX.primary?.menuType;
