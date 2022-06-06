@@ -43,8 +43,8 @@
     const oldName = item.name || item.sourceName;
     const autoCheck = AutorecFunctions._checkAutoRec(oldName);
     $: autoObject = autoCheck ? AutorecFunctions._findObjectFromArray($storeData, AutorecFunctions._rinseName(oldName)) : {};
-    console.log(autoCheck)
-    console.log(autoObject)
+    //console.log(autoCheck)
+    //console.log(autoObject)
 
     const wait = (delay) =>
         new Promise((resolve) => setTimeout(resolve, delay));

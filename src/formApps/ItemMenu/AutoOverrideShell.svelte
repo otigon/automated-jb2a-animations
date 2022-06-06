@@ -8,6 +8,7 @@
 
     let animType = autoObject.menuSection;
     Object.keys(flagData.autoOverride).length > 1 ? flagData.autoOverride : flagData.autoOverride = {...flagData.autoOverride, ...autoObject};
+    $: console.log(flagData)
     const autoSection = flagData.autoOverride;
 
 
@@ -16,7 +17,7 @@
 {#if animType === "preset"}
     <PresetMenus {autoSection}/>
 {:else}
-    <PrimaryMenus {animType} {autoObject} {autoSection}/>
+    <PrimaryMenus {animType} flagPath="autoOverride" {flagData} />
 {/if}
 
 <style lang='scss'>

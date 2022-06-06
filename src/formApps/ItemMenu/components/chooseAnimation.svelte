@@ -63,6 +63,8 @@
             rootPath = customRoot = flagOptions = flagData.meleeSwitch;
             break;
         case "autoOverride":
+            rootPath = customRoot = flagData.autoOverride?.primary || {};
+            flagOptions = flagData.autoOverride?.options || {}
             break;
     }
     // Sets the Flag Path depending on the section

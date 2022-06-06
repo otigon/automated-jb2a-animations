@@ -20,17 +20,18 @@
     export let previewStoreData;
     export let flagData;
     export let isAutoRec;
+    export let isOverride;
     flagData.explosions ? flagData.explosions : (flagData.explosions = {});
-    const root = flagData.explosions;
+    const root = isOverride ? flagData.autoOverride?.explosions : flagData.explosions;
     //let explosions = flagData.explosions;
 
-    let radius = root.radius;
+    let radius = root.radius || 1.5;
     $: radius = root.radius = radius;
 
-    let delay = root.delay;
+    let delay = root.delay || 250;
     $: delay = root.delay = delay;
 
-    let belowToken = root.below;
+    let belowToken = root.below || false;
     $: belowToken = root.below = belowToken;
 
     $: aboveBelow = belowToken
@@ -160,6 +161,7 @@
                         type=number
                         bind:value={radius}
                         placeholder=1.5
+                        step=0.01
                     />
                 </div>
                 <div

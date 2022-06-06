@@ -18,9 +18,12 @@
         currentSection = value;
     });
 
+    $: isAutoOverride = currentSection.autoOverride?.enable || false;
+    $: console.log(isAutoOverride)
     // Extra Source FX Preview
     $: sourceExtraFX = currentSection.sourceToken || {};
     $: enableSource = sourceExtraFX.enable;
+    $: console.log(enableSource)
     $: sourceMenuType = sourceExtraFX.primary?.menuType;
     $: sourceAnimation = sourceExtraFX.primary?.animation;
     $: sourceVariant = sourceExtraFX.primary?.variant;
@@ -42,16 +45,17 @@
             ? sourceCustomPath
             : getPreviewFile(sourceCurrentPath);
 
+    $: sectionPath = isAutoOverride ? $storeItemData.autoOverride.primary : $storeItemData.primary;
     // Primary Preview
     $: animType = $storeItemData.animType === "aura" ? "static" : $storeItemData.animType;
-    $: menuType = currentSection.primary?.menuType;
-    $: animation = currentSection.primary?.animation;
-    $: variant = currentSection.primary?.variant;
-    $: color = currentSection.primary?.color;
-    $: isCustomPrimary = currentSection.primary?.enableCustom || false;
+    $: menuType = sectionPath.menuType;
+    $: animation = sectionPath.animation;
+    $: variant = sectionPath.variant;
+    $: color = sectionPath.color;
+    $: isCustomPrimary = sectionPath.enableCustom || false;
     $: customPath =
-        isCustomPrimary && currentSection.primary?.customPath
-            ? currentSection.primary?.customPath
+        isCustomPrimary && sectionPath.customPath
+            ? sectionPath.customPath
             : "";
     $: customPathIsDB = customPath.split(".").length;
     $: currentPath =
@@ -66,15 +70,17 @@
             : getPreviewFile(currentPath);
 
     // Explosions Preview
-    $: enableExplosion = currentSection.explosions?.enable || false;
-    $: explodeMenuType = currentSection.explosions?.menuType;
-    $: explodeAnimation = currentSection.explosions?.animation;
-    $: explodeVariant = currentSection.explosions?.variant;
-    $: explodeColor = currentSection.explosions?.color;
-    $: isCustomExplosion = currentSection.explosions?.enableCustom || false;
+    $: explosionPath = isAutoOverride ? $storeItemData.autoOverride.explosions : $storeItemData.explosions;
+
+    $: enableExplosion = explosionPath.enable || false;
+    $: explodeMenuType = explosionPath.menuType;
+    $: explodeAnimation = explosionPath.animation;
+    $: explodeVariant = explosionPath.variant;
+    $: explodeColor = explosionPath.color;
+    $: isCustomExplosion = explosionPath.enableCustom || false;
     $: customPathExplosion =
-        isCustomExplosion && currentSection.explosions?.customPath
-            ? currentSection.explosions?.customPath
+        isCustomExplosion && explosionPath.customPath
+            ? explosionPath.customPath
             : "";
     $: customExplosionIsDB = customPathExplosion.split(".").length;
     $: explosionDBPath =

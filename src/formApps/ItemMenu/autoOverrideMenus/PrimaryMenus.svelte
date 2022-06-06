@@ -1,9 +1,10 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade } from "svelte/transition";
-    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
-
-    import PrimaryApp from "../videoPreviews/primaryApp.svelte";
+    //import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
+    import TotalPreview from "../videoPreviews/fullPreview.js";
+    import { storeItemData } from "../itemPreviewStore.js";
+    //import PrimaryApp from "../videoPreviews/primaryApp.svelte";
     import ChooseAnimation from "../components/chooseAnimation.svelte";
     import Options from "../components/options.svelte";
     import SoundSettings from "../components/soundSettings.svelte";
@@ -18,27 +19,40 @@
     } from "../menuStore.js";
     */
     export let animType;
-    export let autoObject;
-    export let autoSection;
+    //export let autoObject;
+    export let flagData;
+    const autoSection = flagData.autoOverride;
+
     //autoSection.options ? autoSection.options : (autoSection.options = {});
-    const overrideOptions = autoSection.options;
+    //const overrideOptions = autoSection.options;
     const options = autoSection.options;
-    const menuSection = autoObject.menuSection;
+    //const menuSection = autoObject.menuSection;
     const primarySection = autoSection.primary
 
     export let menuType = primarySection.menuType || options.menuType;
-    $: menuType = primarySection.menuType = menuType;
+    //$: menuType = primarySection.menuType = menuType;
     export let animation = primarySection.animation;
-    $: animation = primarySection.animation = animation;
+    //$: animation = primarySection.animation = animation;
     let variant = primarySection.variant;
-    $: variant = primarySection.variant = variant;
+    //$: variant = primarySection.variant = variant;
     let color = primarySection.color;
-    $: color = primarySection.color = color;
+    //$: color = primarySection.color = color;
 
     let isCustom = primarySection.enableCustom || false;
-    $: isCustom = primarySection.enableCustom = isCustom;
+    //$: isCustom = primarySection.enableCustom = isCustom;
     let customPath = primarySection.customPath;
-    $: customPath = primarySection.customPath = customPath;
+    //$: customPath = primarySection.customPath = customPath;
+
+    $: {
+        menuType = primarySection.menuType = menuType;
+        animation = primarySection.animation = animation;
+        variant = primarySection.variant = variant;
+        color = primarySection.color = color;
+        isCustom = primarySection.enableCustom = isCustom;
+        customPath = primarySection.customPath = customPath;
+        console.log(flagData)
+        storeItemData.set(flagData);
+    }
     /*
     let primaryFilePath;
     $: primaryFilePath =
@@ -53,6 +67,7 @@
     }
     */
 
+    /*
     function onClick() {
         new TJSDialog({
             modal: false,
@@ -64,6 +79,11 @@
                 class: PrimaryApp,
             },
         }).render(true);
+    }
+    */
+    function fullPreview() {
+        console.log($storeItemData)
+        new TotalPreview().render(true);
     }
 </script>
 
@@ -79,8 +99,8 @@
                 transition:fade
             >
                 <i
-                    class="fas fa-video aa-video-preview"
-                    on:click={() => onClick()}
+                    class="fas fa-film aa-video-preview"
+                    on:click={() => fullPreview()}
                 />
             </div>
         </div>
@@ -95,7 +115,7 @@
         customId="AutoOverride"
         flagPath="PrimaryAnimation"
         {animType}
-        flagData={autoSection}
+        {flagData}
     />
     <Options {animType} {menuType} flagData={autoSection} />
     <SoundSettings audioPath="a01" flagData={autoSection} />
@@ -111,7 +131,7 @@
 {/if}
 {#if animType === "melee" || animType === "range" || animType === "static"}
 <div class="aaMenu-section">
-    <ExplosionSettings flagData={autoSection} />
+    <ExplosionSettings isOverride={true} {flagData} />
 </div>
 {/if}
 

@@ -1,6 +1,7 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade } from "svelte/transition";
+    import { storeItemData } from "../itemPreviewStore.js";
 
     export let flagData;
     export let disableAmmo;
@@ -35,24 +36,36 @@
 
     export let isCustomized = flagData.override || false;
     $: isCustomized = isCustomized;
-    $: flagData.override = isCustomized;
+    function switchCustomize() {
+        isCustomized = !isCustomized;
+        let newCustomize = isCustomized;
+        flagData.override = newCustomize;
+
+        if (!newCustomize) {
+            Object.values(ui.windows)
+                .filter((app) => app.id === "Item-Video-Preview")
+                .forEach((app) => app.close());
+        }
+    }
 
     export let overrideAuto = autoOverride.enable || false;
-    $: overrideAuto = autoOverride.enable = overrideAuto
-
+    $: overrideAuto = autoOverride.enable = overrideAuto;
     function switchOverride() {
         overrideAuto = !overrideAuto;
         //autoOverride.enable = overrideAuto
         let newOverrideAuto = overrideAuto;
         if (!newOverrideAuto) {
-            console.log("Disabled");
+            Object.values(ui.windows)
+                .filter((app) => app.id === "Item-Video-Preview")
+                .forEach((app) => app.close());
+            //console.log("Disabled");
             flagData.autoOverride = {};
-            console.log(flagData)
-            flagData.autoOverride = {enable: false}
+            //console.log(flagData)
+            flagData.autoOverride = { enable: false };
             //autoOverride.enable = false;
         } else {
-            console.log("Enabled");
-            flagData.autoOverride = {enable: true}
+            flagData.autoOverride = { enable: true };
+            storeItemData.set(flagData);
         }
     }
 
@@ -116,23 +129,22 @@
         >
     </div>
     <div
-        class="flexcol button-labels {overrideAuto || animationDisabled
-            ? 'aa-disabled'
-            : ''}"
+        class="flexcol button-labels {!isCustomized ||
+        animationDisabled ||
+        !autoCheck
+            ? 'aa-disabled aa-overrideButton'
+            : 'aa-overrideButton'}"
         style="grid-row: 2 / 3; grid-column: 1 / 2;"
         transition:fade
     >
-        <input
-            type="checkbox"
-            id="override"
-            hidden
-            bind:checked={isCustomized}
+        <button
             disabled={overrideAuto || animationDisabled}
-        />
-        <label for="override" class={isCustomized ? "selected" : "notSelected"}
-            >{localize("autoanimations.menus.customize")}</label
+            class={isCustomized ? "selected" : "notSelected"}
+            on:click={() => switchCustomize()}
+            >{localize("autoanimations.menus.customize")}</button
         >
     </div>
+
     <div
         class="flexcol button-labels {isCustomized ||
         animationDisabled ||
