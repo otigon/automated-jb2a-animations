@@ -6,7 +6,7 @@
     import {
         aaColorMenu,
         aaVariantMenu,
-    } from "../../../../animation-functions/databases/jb2a-menu-options.js";
+    } from "../../../animation-functions/databases/jb2a-menu-options.js";
 
     export let flagData;
     export let isAutoRec;

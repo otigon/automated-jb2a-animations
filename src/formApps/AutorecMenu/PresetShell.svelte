@@ -2,17 +2,17 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade } from "svelte/transition";
 
-    import Bards from "../ItemMenu/components/presets/bardicInspiration.svelte";
-    import Bless from "../ItemMenu/components/presets/bless.svelte";
-    import DualAttach from "../ItemMenu/components/presets/dualattach.svelte";
-    import Fireball from "../ItemMenu/components/presets/fireball.svelte";
-    import HuntersMark from "../ItemMenu/components/presets/huntersmark.svelte";
-    import Shield from "../ItemMenu/components/presets/shield.svelte";
-    import SneakAttack from "../ItemMenu/components/presets/sneakAttack.svelte";
-    import Teleportation from "../ItemMenu/components/presets/teleportation.svelte";
-    import Thunderwave from "../ItemMenu/components/presets/thunderwave.svelte";
-    import ExtraFX from "../ItemMenu/components/extraFX.svelte";
-    import MacroField from "../ItemMenu/components/macro.svelte";
+    import Bards from "../components/presets/bardicInspiration.svelte";
+    import Bless from "../components/presets/bless.svelte";
+    import DualAttach from "../components/presets/dualattach.svelte";
+    import Fireball from "../components/presets/fireball.svelte";
+    import HuntersMark from "../components/presets/huntersmark.svelte";
+    import Shield from "../components/presets/shield.svelte";
+    import SneakAttack from "../components/presets/sneakAttack.svelte";
+    import Teleportation from "../components/presets/teleportation.svelte";
+    import Thunderwave from "../components/presets/thunderwave.svelte";
+    import ExtraFX from "../components/extraFX.svelte";
+    import MacroField from "../components/macro.svelte";
 
     export let flagData;
     export let menuSection;

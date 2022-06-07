@@ -7,12 +7,12 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { AutorecFunctions } from "../../aa-classes/autorecFunctions.js"
 
-    import ExplosionSettings from "../ItemMenu/components/explosions.svelte"
-    import GeneralSettings from "../ItemMenu/components/generalSettings.svelte";
-    import SoundSettings from "../ItemMenu/components/soundSettings.svelte";
-    import MacroField from "../ItemMenu/components/macro.svelte";
-    import PrimarySection from "../ItemMenu/components/primarySection.svelte";
-    import PresetMenu from "../ItemMenu/components/presetShell.svelte";
+    import ExplosionSettings from "../components/explosions.svelte"
+    import GeneralSettings from "../components/generalSettings.svelte";
+    import SoundSettings from "../components/soundSettings.svelte";
+    import MacroField from "../components/macro.svelte";
+    import PrimarySection from "../components/primarySection.svelte";
+    import PresetMenu from "../components/presetShell.svelte";
 
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
 

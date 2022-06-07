@@ -2,15 +2,15 @@
 
 <script>
     import { fade } from "svelte/transition";
-    import ChooseAnimation from "../ItemMenu/components/chooseAnimation.svelte";
-    import Options from "../ItemMenu/components/options.svelte";
-    import SoundSettings from "../ItemMenu/components/soundSettings.svelte";
-    import ExtraFX from "../ItemMenu/components/extraFX.svelte";
-    import MacroField from "../ItemMenu/components/macro.svelte";
+    import ChooseAnimation from "../components/chooseAnimation.svelte";
+    import Options from "../components/options.svelte";
+    import SoundSettings from "../components/soundSettings.svelte";
+    import ExtraFX from "../components/extraFX.svelte";
+    import MacroField from "../components/macro.svelte";
 
-    import AddExplosion from "../ItemMenu/components/explosions.svelte";
-    import Bless from "../ItemMenu/components/presets/bless.svelte";
-    import Shield from "../ItemMenu/components/presets/shield.svelte";
+    import AddExplosion from "../components/explosions.svelte";
+    import Bless from "../components/presets/bless.svelte";
+    import Shield from "../components/presets/shield.svelte";
 
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import {

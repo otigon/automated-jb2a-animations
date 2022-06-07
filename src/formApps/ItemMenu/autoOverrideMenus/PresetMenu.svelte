@@ -1,15 +1,15 @@
 <script>
     import { fade } from "svelte/transition";
 
-    import Bards from "../components/presets/bardicInspiration.svelte";
-    import Bless from "../components/presets/bless.svelte";
-    import DualAttach from "../components/presets/dualattach.svelte";
-    import Fireball from "../components/presets/fireball.svelte";
-    import HuntersMark from "../components/presets/huntersmark.svelte";
-    import Shield from "../components/presets/shield.svelte";
-    import SneakAttack from "../components/presets/sneakAttack.svelte";
-    import Teleportation from "../components/presets/teleportation.svelte";
-    import Thunderwave from "../components/presets/thunderwave.svelte";
+    import Bards from "../../components/presets/bardicInspiration.svelte";
+    import Bless from "../../components/presets/bless.svelte";
+    import DualAttach from "../../components/presets/dualattach.svelte";
+    import Fireball from "../../components/presets/fireball.svelte";
+    import HuntersMark from "../../components/presets/huntersmark.svelte";
+    import Shield from "../../components/presets/shield.svelte";
+    import SneakAttack from "../../components/presets/sneakAttack.svelte";
+    import Teleportation from "../../components/presets/teleportation.svelte";
+    import Thunderwave from "../../components/presets/thunderwave.svelte";
 
     export let autoSection;
     export let presetType = autoSection.presetType;

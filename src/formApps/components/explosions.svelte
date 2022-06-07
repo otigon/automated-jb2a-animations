@@ -13,8 +13,8 @@
         explosionEnabled,
     } from "../menuStore.js";
     */
-    import { storeAutorec } from "../../AutorecMenu/autorecPreviews.js";
-    import { storeItemData } from "../itemPreviewStore.js";
+    import { storeAutorec } from "../AutorecMenu/autorecPreviews.js";
+    import { storeItemData } from "../ItemMenu/itemPreviewStore.js";
     export let previewStoreData;
     export let flagData;
     export let isAutoRec;

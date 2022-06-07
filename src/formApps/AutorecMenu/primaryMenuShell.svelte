@@ -2,14 +2,14 @@
 
 <script>
     import { fade } from "svelte/transition";
-    import ChooseAnimation from "../ItemMenu/components/chooseAnimation.svelte";
-    import Options from "../ItemMenu/components/options.svelte";
-    import SoundSettings from "../ItemMenu/components/soundSettings.svelte";
-    import AddExplosion from "../ItemMenu/components/explosions.svelte";
-    import Canvas3D from "../ItemMenu/components/3dMenuShell.svelte";
-    import ExtraFX from "../ItemMenu/components/extraFX.svelte";
-    import MacroField from "../ItemMenu/components/macro.svelte";
-    import RangeSwitch from "../ItemMenu/components/meleeRange.svelte";
+    import ChooseAnimation from "../components/chooseAnimation.svelte";
+    import Options from "../components/options.svelte";
+    import SoundSettings from "../components/soundSettings.svelte";
+    import AddExplosion from "../components/explosions.svelte";
+    import Canvas3D from "../components/3dMenuShell.svelte";
+    import ExtraFX from "../components/extraFX.svelte";
+    import MacroField from "../components/macro.svelte";
+    import RangeSwitch from "../components/meleeRange.svelte";
 
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import {

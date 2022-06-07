@@ -7,15 +7,15 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { AutorecFunctions } from "../../aa-classes/autorecFunctions.js";
 
-    import ExplosionSettings from "./components/explosions.svelte";
-    import GeneralSettings from "./components/generalSettings.svelte";
-    import SoundSettings from "./components/soundSettings.svelte";
-    import RangeSwitch from "./components/meleeRange.svelte";
-    import MacroField from "./components/macro.svelte";
-    import PrimarySection from "./components/primarySection.svelte";
-    import ExtraFX from "./components/extraFX.svelte";
-    import Menu3d from "./components/3dMenuShell.svelte";
-    import PresetMenu from "./components/presetShell.svelte";
+    import ExplosionSettings from "../components/explosions.svelte";
+    import GeneralSettings from "../components/generalSettings.svelte";
+    import SoundSettings from "../components/soundSettings.svelte";
+    import RangeSwitch from "../components/meleeRange.svelte";
+    import MacroField from "../components/macro.svelte";
+    import PrimarySection from "../components/primarySection.svelte";
+    import ExtraFX from "../components/extraFX.svelte";
+    import Menu3d from "../components/3dMenuShell.svelte";
+    import PresetMenu from "../components/presetShell.svelte";
     import AutoOverride from "./AutoOverrideShell.svelte";
     /*
     import {

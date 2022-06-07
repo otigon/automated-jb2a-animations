@@ -3,7 +3,7 @@
     import { fade } from "svelte/transition";
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import OptionsDialog from "../components/optionsInfoDialog.js";
-    import { menuAnimType } from "../menuStore.js";
+    import { menuAnimType } from "../ItemMenu/menuStore.js";
     import OptionsInformation from "../components/optionsInfo.svelte";
 
     export let flagData;

@@ -1,7 +1,7 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade } from "svelte/transition";
-    import { storeItemData } from "../itemPreviewStore.js";
+    import { storeItemData } from "../ItemMenu/itemPreviewStore.js";
 
     export let flagData;
     export let disableAmmo;

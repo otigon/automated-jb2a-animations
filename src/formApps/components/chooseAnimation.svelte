@@ -11,7 +11,7 @@
         aaNameMenu,
         aaVariantMenu,
         aaColorMenu,
-    } from "../../../animation-functions/databases/jb2a-menu-options.js";
+    } from "../../animation-functions/databases/jb2a-menu-options.js";
 
     // Receiving data from Parent
     export let flagData;

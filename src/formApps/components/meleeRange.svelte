@@ -1,21 +1,21 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade } from "svelte/transition";
-    import { storeItemData } from "../itemPreviewStore.js"
+    import { storeItemData } from "../ItemMenu/itemPreviewStore.js"
     import ChooseAnimation from "./chooseAnimation.svelte";
     import SoundSettings from "./soundSettings.svelte";
     import {
         storeAutorec,
         databaseType,
         index,
-    } from "../../AutorecMenu/autorecPreviews.js";
+    } from "../AutorecMenu/autorecPreviews.js";
 
     import {
         aaTypeMenu,
         aaNameMenu,
         aaVariantMenu,
         aaColorMenu,
-    } from "../../../animation-functions/databases/jb2a-menu-options.js";
+    } from "../../animation-functions/databases/jb2a-menu-options.js";
     //import { menuDBPathSwitch } from "../menuStore.js";
 
     export let flagData;

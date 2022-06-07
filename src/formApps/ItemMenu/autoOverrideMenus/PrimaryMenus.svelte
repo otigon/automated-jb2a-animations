@@ -5,11 +5,11 @@
     import TotalPreview from "../videoPreviews/fullPreview.js";
     import { storeItemData } from "../itemPreviewStore.js";
     //import PrimaryApp from "../videoPreviews/primaryApp.svelte";
-    import ChooseAnimation from "../components/chooseAnimation.svelte";
-    import Options from "../components/options.svelte";
-    import SoundSettings from "../components/soundSettings.svelte";
-    import RangeSwitch from "../components/meleeRange.svelte";
-    import ExplosionSettings from "../components/explosions.svelte";
+    import ChooseAnimation from "../../components/chooseAnimation.svelte";
+    import Options from "../../components/options.svelte";
+    import SoundSettings from "../../components/soundSettings.svelte";
+    import RangeSwitch from "../../components/meleeRange.svelte";
+    import ExplosionSettings from "../../components/explosions.svelte";
 
     /*
     import {

@@ -5,14 +5,14 @@
     import ChooseAnimation from "./chooseAnimation.svelte";
     import Options from "./options.svelte";
     //import FullPreview from "../videoPreviews/fullPreviewApp.svelte";
-    import TotalPreview from "../videoPreviews/fullPreview.js";
+    import TotalPreview from "../ItemMenu/videoPreviews/fullPreview.js";
     import {
         aaTypeMenu,
         aaNameMenu,
         aaVariantMenu,
         aaColorMenu,
-    } from "../../../animation-functions/databases/jb2a-menu-options.js";
-    import { storeItemData } from "../itemPreviewStore.js"
+    } from "../../animation-functions/databases/jb2a-menu-options.js";
+    import { storeItemData } from "../ItemMenu/itemPreviewStore.js"
     /*
     import {
         menuDBPath01,
