@@ -117,7 +117,7 @@
     async function closeApp() {
         await game.settings.set("autoanimations", "aaAutorec", flagData);
         closePreviewWindow.set(true);
-        Object.values(ui.windows).filter(app => app.id === "Options-Information" || app.id === "Autorec-Video-Preview").forEach(app => app.close())
+        //Object.values(ui.windows).filter(app => app.id === "Options-Information" || app.id === "Autorec-Video-Preview").forEach(app => app.close())
         application.close();
     }
     function addSection() {

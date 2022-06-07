@@ -24,14 +24,9 @@ export default class AAItemMenu extends SvelteApplication {
             //close: () => this.options.reject(),
             //...options
         });
-        /*
-        this.hookId = Hooks.on('updateActor', (changedActor) => {
-            if (changedActor !== actor) return;
-            setTimeout(() => {
-                this.svelte.applicationShell.updateHealthBar();
-            }, 100);
+        this.hookId = Hooks.once('closeAAItemMenu', () => {
+            Object.values(ui.windows).filter(app => app.id === "Options-Information" || app.id === "Item-Video-Preview").forEach(app => app.close())
         });
-        */
     }
     /**
      * 

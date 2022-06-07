@@ -126,7 +126,7 @@
         if (!flagData.autoOverride?.enable) {
             await item.unsetFlag("autoanimations", "autoOverride")
         }
-        Object.values(ui.windows).filter(app => app.id === "Item-Video-Preview").forEach(app => app.close())
+        //Object.values(ui.windows).filter(app => app.id === "Item-Video-Preview").forEach(app => app.close())
         await item.update(updatedFlags.data);
         application.close();
     }
@@ -183,7 +183,7 @@
     $: presetType = preset.presetType = presetType;
     let animTypeSwitched = false;
     async function typeSwitch() {
-        Object.values(ui.windows).filter(app => app.id === "Item-Video-Preview").forEach(app => app.close())
+        //Object.values(ui.windows).filter(app => app.id === "Item-Video-Preview").forEach(app => app.close())
         animTypeSwitched = true;
         //await wait(150);
         //animTypeSwitched = false;
