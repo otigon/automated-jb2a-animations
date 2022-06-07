@@ -146,6 +146,9 @@ export async function templateAnimation(handler, animationData, config) {
             coneRaySeq.opacity(data.opacity)
             coneRaySeq.origin(handler.itemUuid)
             coneRaySeq.belowTokens(data.below)
+            if (data.isMasked) {
+                coneRaySeq.mask(template)
+            }
             if (data.persistent) {
                 coneRaySeq.persist(true)
                 if (data.persistType === 'attachtemplate') {
@@ -182,6 +185,9 @@ export async function templateAnimation(handler, animationData, config) {
             circRectSeq.opacity(data.opacity)
             circRectSeq.origin(handler.itemUuid)
             circRectSeq.belowTokens(data.below)
+            if (data.isMasked) {
+                circRectSeq.mask(template)
+            }
             if (data.persistent) {
                 circRectSeq.persist(true)
                 if (data.persistType === 'attachtemplate') {

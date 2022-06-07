@@ -55,6 +55,9 @@ export async function staticAnimation(handler, animationData) {
             bottomEffect.opacity(data.opacity)
             bottomEffect.size(sourceTokenGS * 1.5 * data.scale, {gridUnits: true})
             bottomEffect.belowTokens(true)
+            if (data.isMasked) {
+                bottomEffect.mask(sourceToken)
+            }
             bottomEffect.rotate(180)
             bottomEffect.fadeIn(250)
             bottomEffect.fadeOut(500)
@@ -72,6 +75,9 @@ export async function staticAnimation(handler, animationData) {
             topEffect.opacity(data.opacity)
             topEffect.size(sourceTokenGS * 1.5 * data.scale, {gridUnits: true})
             topEffect.belowTokens(false)
+            if (data.isMasked) {
+                topEffect.mask(sourceToken)
+            }
             topEffect.fadeIn(250)
             topEffect.fadeOut(500)
             if (!data.persistent) { topEffect.atLocation(sourceToken); topEffect.repeats(data.repeat, data.delay) }
@@ -89,6 +95,9 @@ export async function staticAnimation(handler, animationData) {
             aaEffect.opacity(data.opacity)
             aaEffect.size(sourceTokenGS * 1.5 * data.scale, {gridUnits: true})
             aaEffect.belowTokens(data.below)
+            if (data.isMasked) {
+                aaEffect.mask(sourceToken)
+            }
             aaEffect.fadeIn(250)
             aaEffect.fadeOut(500)
             if (!data.persistent) { aaEffect.atLocation(sourceToken); aaEffect.repeats(data.repeat, data.delay) }
@@ -134,6 +143,9 @@ export async function staticAnimation(handler, animationData) {
                     bottomEffect.opacity(data.opacity)
                     bottomEffect.size(targetTokenGS * 1.5 * data.scale, {gridUnits: true})
                     bottomEffect.belowTokens(true)
+                    if (data.isMasked) {
+                        bottomEffect.mask(target)
+                    }
                     bottomEffect.rotate(180)
                     bottomEffect.fadeIn(250)
                     bottomEffect.fadeOut(500)
@@ -146,6 +158,9 @@ export async function staticAnimation(handler, animationData) {
                     topEffect.opacity(data.opacity)
                     topEffect.size(targetTokenGS * 1.5 * data.scale, {gridUnits: true})
                     topEffect.belowTokens(false)
+                    if (data.isMasked) {
+                        topEffect.mask(target)
+                    }
                     topEffect.fadeIn(250)
                     topEffect.fadeOut(500)
                     if (!data.persistent) { topEffect.atLocation(target); topEffect.missed(!hit); topEffect.repeats(data.repeat, data.delay) }
@@ -161,6 +176,9 @@ export async function staticAnimation(handler, animationData) {
                     //aaEffect.scale(scale * data.scale)
                     aaEffect.size(effectScale * 1.5 * data.scale, {gridUnits: true})
                     aaEffect.belowTokens(data.below)
+                    if (data.isMasked) {
+                        aaEffect.mask(target)
+                    }
                     aaEffect.fadeIn(250)
                     aaEffect.fadeOut(500)
                     if (!data.persistent) { aaEffect.atLocation(target); aaEffect.missed(!hit); aaEffect.repeats(data.repeat, data.delay) }
@@ -168,15 +186,17 @@ export async function staticAnimation(handler, animationData) {
                 }
 
                 if (data.explosion.enabled) {
-                    aaSeq.effect()
-                        .atLocation("spot" + ` ${target.id}`)
-                        .file(data.explosion?.data?.file, true)
+                    let explosionSeq = aaSeq.effect()
+                    explosionSeq.atLocation("spot" + ` ${target.id}`)
+                    explosionSeq.file(data.explosion?.data?.file, true)
                         //.scale({ x: data.explosion?.scale, y: data.explosion?.scale })
-                        .size(data.explosion?.radius * 2, {gridUnits: true})
-                        .delay(data.explosion?.delay)
-                        .repeats(data.repeat, data.delay)
-                        .belowTokens(data.explosion?.below)
-                        .playIf(data.explosion?.enabled)
+                        explosionSeq.size(data.explosion?.radius * 2, {gridUnits: true})
+                        explosionSeq.delay(data.explosion?.delay)
+                        explosionSeq.repeats(data.repeat, data.delay)
+                        explosionSeq.belowTokens(data.explosion?.below)
+                        if (data.explosion?.isMasked) {
+                            explosionSeq.mask(target)
+                        }        
                 }
                 explosionSound = true;
             }

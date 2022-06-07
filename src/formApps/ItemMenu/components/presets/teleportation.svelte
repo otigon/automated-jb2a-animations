@@ -98,6 +98,14 @@
     }
     $: startAboveBelow = startBelowToken ? "Below Token" : "Above Token";
     let startCustomId = "customPresetStart";
+    let startIsMasked = start.isMasked || false;
+    $: startIsMasked = start.isMasked = startIsMasked;
+    $: startMaskLabel = startIsMasked ? "Enabled" : "Disabled";
+    function switchStartMask() {
+        startIsMasked = !startIsMasked;
+    }
+    let startOpacity = start.opacity || 0;
+    $: startOpacity = start.opacity = startOpacity > 1 ? 1 : startOpacity;
 
     //Set End Animation variables
     preset.end ? preset.end : (preset.end = {});
@@ -125,6 +133,12 @@
     let delayAlpha = end.delay || 250;
     $: delayAlpha = end.delay = delayAlpha;
     let endCustomId = "customPresetEnd";
+    let endIsMasked = end.isMasked || false;
+    $: endIsMasked = end.isMasked = endIsMasked;
+    $: endMaskLabel = endIsMasked ? "Enabled" : "Disabled";
+    function switchEndMask() {
+        endIsMasked = !endIsMasked;
+    }
 
     //Set Between Animation variables
     preset.between ? preset.between : (preset.between = {});
@@ -178,37 +192,42 @@
         />
     </h1>
     <div class="aa-options-border">
-    <h2 style="margin-top:10px;">Options</h2>
-    <div class="aa-3wide">
-        <!--Measurement Type-->
-        <div class="flexcol" style="grid-row: 1 / 2;grid-column: 1 / 2;">
-            <label for="">{localize("AUTOANIM.animation")}</label>
-            <select
-                name="flags.autoanimations.animation"
-                bind:value={measureType}
-            >
-                <option value="alternating"
-                    >{localize("AUTOANIM.circle")}</option
+        <h2 style="margin-top:10px;">Options</h2>
+        <div class="aa-3wide">
+            <!--Measurement Type-->
+            <div class="flexcol" style="grid-row: 1 / 2;grid-column: 1 / 2;">
+                <label for="">{localize("AUTOANIM.animation")}</label>
+                <select
+                    name="flags.autoanimations.animation"
+                    bind:value={measureType}
                 >
-                <option value="equidistant"
-                    >{localize("AUTOANIM.square")}</option
+                    <option value="alternating"
+                        >{localize("AUTOANIM.circle")}</option
+                    >
+                    <option value="equidistant"
+                        >{localize("AUTOANIM.square")}</option
+                    >
+                </select>
+            </div>
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+                <label for="">Range</label>
+                <input type="Number" bind:value={teleDist} step="0.01" />
+            </div>
+            {#if isGM}
+                <div
+                    class="flexcol"
+                    style="grid-row: 1 / 2; grid-column: 3 / 4;"
                 >
-            </select>
+                    <label for="">{localize("AUTOANIM.hideBorder")}</label>
+                    <button
+                        class={hideFromPlayers
+                            ? "aa-selected"
+                            : "aa-notSelected"}
+                        on:click={() => switchHide()}>{isHidden}</button
+                    >
+                </div>
+            {/if}
         </div>
-        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-            <label for="">Range</label>
-            <input type="Number" bind:value={teleDist} step="0.01" />
-        </div>
-        {#if isGM}
-        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-            <label for="">{localize("AUTOANIM.hideBorder")}</label>
-            <button
-                class={hideFromPlayers ? "aa-selected" : "aa-notSelected"}
-                on:click={() => switchHide()}>{isHidden}</button
-            >
-        </div>
-        {/if}
-    </div>
     </div>
 </div>
 <div class="aaMenu-section">
@@ -229,20 +248,57 @@
         {flagData}
     />
     <div class="aa-options-border">
-    <h2>Options</h2>
-    <div class="aa-options">
-        <!--Set Z-Index-->
-        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-            <label for="">Z-Index</label>
-            <button class="oldCheck" on:click={() => startBelow()}
-                >{startAboveBelow}</button
+        <h2>Options</h2>
+        <div class="aa-options">
+            <!--Set the Masking Boolean-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
+                <label for="">{localize("autoanimations.menus.masking")}</label>
+                <button
+                    class={startIsMasked ? "aa-selected" : "aa-notSelected"}
+                    on:click={() => switchStartMask()}>{startMaskLabel}</button
+                >
+            </div>
+            <!--Set Z-Index-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+                <label for="">Z-Index</label>
+                <button class="oldCheck" on:click={() => startBelow()}
+                    >{startAboveBelow}</button
+                >
+            </div>
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+                <label for="">Scale</label>
+                <input type="Number" bind:value={startScale} step="0.01" />
+            </div>
+            <div
+                class="flexcol"
+                style="grid-row: 1 / 2; grid-column: 4 / 5;"
+                in:fade={{ duration: 500 }}
             >
+                <label for="aaOpacity"
+                    >{localize("autoanimations.menus.opacity")}</label
+                >
+                <div class="form-group">
+                    <input
+                        style="font-weight: bold;background:rgb(191 187 182);font-size:medium;height:1.5em;max-width: 3em;font-family: Noto Sans, serif;"
+                        type="number"
+                        id="aaOpacity"
+                        bind:value={startOpacity}
+                        placeholder="1"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                    />
+                    <input
+                        style="border:none; background:none"
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        bind:value={startOpacity}
+                    />
+                </div>
+            </div>
         </div>
-        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-            <label for="">Scale</label>
-            <input type="Number" bind:value={startScale} step="0.01" />
-        </div>
-    </div>
     </div>
 </div>
 <div class="aaMenu-section">
@@ -279,25 +335,31 @@
             {flagData}
         />
         <div class="aa-options-border">
-        <h2>Options</h2>
-        <div class="aa-options">
-            <!--Set Z-Index-->
-            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-                <label for="">Z-Index</label>
-                <button class="oldCheck" on:click={() => betweenBelow()}
-                    >{betweenAboveBelow}</button
+            <h2>Options</h2>
+            <div class="aa-options">
+                <!--Set Z-Index-->
+                <div
+                    class="flexcol"
+                    style="grid-row: 1 / 2; grid-column: 2 / 3;"
                 >
+                    <label for="">Z-Index</label>
+                    <button class="oldCheck" on:click={() => betweenBelow()}
+                        >{betweenAboveBelow}</button
+                    >
+                </div>
+                <div
+                    class="flexcol"
+                    style="grid-row: 1 / 2; grid-column: 3 / 4;"
+                >
+                    <label for="">{localize("AUTOANIM.playbackRate")}</label>
+                    <input
+                        type="Number"
+                        bind:value={betweenPlaybackRate}
+                        placeholder="1"
+                        step="0.01"
+                    />
+                </div>
             </div>
-            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-                <label for="">{localize("AUTOANIM.playbackRate")}</label>
-                <input
-                    type="Number"
-                    bind:value={betweenPlaybackRate}
-                    placeholder="1"
-                    step="0.01"
-                />
-            </div>
-        </div>
         </div>
     {/if}
 </div>
@@ -319,24 +381,32 @@
         {flagData}
     />
     <div class="aa-options-border">
-    <h2>Options</h2>
-    <div class="aa-options">
-        <!--Set Z-Index-->
-        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-            <label for="">Z-Index</label>
-            <button class="oldCheck" on:click={() => endBelow()}
-                >{endAboveBelow}</button
-            >
+        <h2>Options</h2>
+        <div class="aa-options">
+            <!--Set the Masking Boolean-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
+                <label for="">{localize("autoanimations.menus.masking")}</label>
+                <button
+                    class={endIsMasked ? "aa-selected" : "aa-notSelected"}
+                    on:click={() => switchEndMask()}>{endMaskLabel}</button
+                >
+            </div>
+            <!--Set Z-Index-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+                <label for="">Z-Index</label>
+                <button class="oldCheck" on:click={() => endBelow()}
+                    >{endAboveBelow}</button
+                >
+            </div>
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+                <label for="">Scale</label>
+                <input type="Number" bind:value={endScale} step="0.01" />
+            </div>
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+                <label for="">Delay Token Alpha</label>
+                <input type="number" bind:value={delayAlpha} step="0.01" />
+            </div>
         </div>
-        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-            <label for="">Scale</label>
-            <input type="Number" bind:value={endScale} step="0.01" />
-        </div>
-        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-            <label for="">Delay Token Alpha</label>
-            <input type="number" bind:value={delayAlpha} step="0.01" />
-        </div>
-    </div>
     </div>
     <SoundSettings audioPath="a01" {flagData} />
 </div>

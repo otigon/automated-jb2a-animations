@@ -13,17 +13,24 @@
         explosionEnabled,
     } from "../menuStore.js";
     */
-    import {
-        storeAutorec,
-    } from "../../AutorecMenu/autorecPreviews.js";
-    import { storeItemData } from "../itemPreviewStore.js"
+    import { storeAutorec } from "../../AutorecMenu/autorecPreviews.js";
+    import { storeItemData } from "../itemPreviewStore.js";
     export let previewStoreData;
     export let flagData;
     export let isAutoRec;
     export let isOverride;
     flagData.explosions ? flagData.explosions : (flagData.explosions = {});
-    const root = isOverride ? flagData.autoOverride?.explosions : flagData.explosions;
+    const root = isOverride
+        ? flagData.autoOverride?.explosions
+        : flagData.explosions;
     //let explosions = flagData.explosions;
+
+    let isMasked = root.isMasked || false;
+    $: isMasked = root.isMasked = isMasked;
+    $: maskLabel = isMasked ? "Enabled" : "Disabled";
+    function switchMask() {
+        isMasked = !isMasked;
+    }
 
     let radius = root.radius || 1.5;
     $: radius = root.radius = radius;
@@ -76,8 +83,12 @@
         isCustom = root.enableCustom = isCustom;
         customPath = root.customPath = customPath;
         enableSection = root.enable = enableSection;
-        if (isAutoRec) {$storeAutorec = previewStoreData};
-        if (!isAutoRec) {storeItemData.set(flagData)};
+        if (isAutoRec) {
+            $storeAutorec = previewStoreData;
+        }
+        if (!isAutoRec) {
+            storeItemData.set(flagData);
+        }
         flagData = flagData;
     }
 
@@ -149,7 +160,20 @@
         />
         <div class="aa-options-border">
             <h2 in:fade>Options</h2>
-            <div class="aa-3wide" in:fade>
+            <div class="aa-options" in:fade>
+                <!--Set the Masking Boolean-->
+                <div
+                    class="flexcol"
+                    style="grid-row: 1 / 2; grid-column: 1 / 2;"
+                >
+                    <label for=""
+                        >{localize("autoanimations.menus.masking")}</label
+                    >
+                    <button
+                        class={isMasked ? "aa-selected" : "aa-notSelected"}
+                        on:click={() => switchMask()}>{maskLabel}</button
+                    >
+                </div>
                 <div
                     class="flexcol"
                     style="grid-row: 1 / 2; grid-column: 2 / 3;"
@@ -158,10 +182,10 @@
                         >{localize("autoanimations.menus.radius")}</label
                     >
                     <input
-                        type=number
+                        type="number"
                         bind:value={radius}
-                        placeholder=1.5
-                        step=0.01
+                        placeholder="1.5"
+                        step="0.01"
                     />
                 </div>
                 <div
@@ -171,7 +195,7 @@
                     <label for=""
                         >{localize("autoanimations.menus.delay")}</label
                     >
-                    <input type=number bind:value={delay} placeholder=1 />
+                    <input type="number" bind:value={delay} placeholder="1" />
                 </div>
                 <div
                     class="flexcol"
@@ -189,43 +213,6 @@
 </div>
 
 <style lang="scss">
-    .aa-3wide {
-        display: grid;
-        grid-template-columns: 12.5% 23% 25% 23% 12.5%;
-        grid-gap: 1%;
-        padding: 5px;
-        align-items: center;
-        margin-right: 5%;
-        margin-left: 5%;
-        font-size: medium;
-        font-weight: bold;
-    }
-    .aa-3wide input {
-        text-align: center;
-        align-self: center;
-        border-radius: 5px;
-        width: 3em;
-        color: black;
-        font-weight: bold;
-        background:rgb(191 187 182);
-        font-size:medium;
-        height:1.5em;
-        font-family: "Noto Sans", serif;
-    }
-    .aa-3wide label {
-        align-self: center;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
-    }
-    .aa-3wide button {
-        border-radius: 7px;
-        border: 2px outset #8e8e8e;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: medium;
-        line-height: 1.25em;
-        width:95%;
-    }
     h2 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: x-large;

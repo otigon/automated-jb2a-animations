@@ -71,6 +71,7 @@ export class AAanimationData {
             preset: flags.preset,
 
             options: options,
+            isMasked: options.isMasked || false,
             isReturning: options.returning || false,
             addTokenWidth: options.addTokenWidth || false,
             below: options.below || false,
@@ -371,6 +372,7 @@ export class AAanimationData {
                 enableCustom: explosions.custom || false,
                 customPath: explosions.custom ? explosions.customPath : false,
                 below: explosions.below || false,
+                isMasked: explosions.isMasked || false,
                 audio: {
                     enable: autorec.audio?.e01?.enable || false,
                     file: autorec.audio?.e01?.file ?? "",
@@ -397,6 +399,7 @@ export class AAanimationData {
                 enableCustom: explosions.enableCustom || false,
                 customPath: explosions.enableCustom ? explosions.customPath : false,
                 below: explosions.below || false,
+                isMasked: explosions.isMasked || false,
                 audio: {
                     enabled: handler.flags.audio?.e01?.enable || false,
                     file: handler.flags.audio?.e01?.file,
@@ -430,6 +433,7 @@ export class AAanimationData {
             repeat: options.repeat || 1,
             delay: options.delay || 250,
             below: options.below || false,
+            isMasked: options.isMasked || false,
             startDelay: options.delayAfter || 500,
             scale: options.scale || 1,
             opacity: options.opacity || 1,
@@ -460,15 +464,19 @@ export class AAanimationData {
                 .startTime(sourceFX.itemAudio.startTime)
         }
         if (sourceFX.enabled) {
-            sourceFX.sourceSeq.effect()
-                .file(sourceFX.data.file, true)
-                .atLocation(handler.sourceToken)
-                //.scale(sourceFX.sFXScale * sourceFX.scale)
-                .size(sourceTokenGS * 1.5 * sourceFX.scale, { gridUnits: true })
-                .repeats(sourceFX.repeat, sourceFX.delay)
-                .belowTokens(sourceFX.below)
-                .opacity(sourceFX.opacity)
-                .waitUntilFinished(sourceFX.startDelay)
+            let sourceEffect = sourceFX.sourceSeq.effect()
+            sourceEffect.file(sourceFX.data.file, true)
+            sourceEffect.atLocation(handler.sourceToken)
+            //.scale(sourceFX.sFXScale * sourceFX.scale)
+            sourceEffect.size(sourceTokenGS * 1.5 * sourceFX.scale, { gridUnits: true })
+            sourceEffect.repeats(sourceFX.repeat, sourceFX.delay)
+            sourceEffect.belowTokens(sourceFX.below)
+            if (sourceFX.isMasked) {
+                sourceEffect.mask(handler.sourceToken)
+            }
+            sourceEffect.opacity(sourceFX.opacity)
+            sourceEffect.fadeOut(500)
+            sourceEffect.waitUntilFinished(sourceFX.startDelay)
             //.playIf(sourceFX.enabled)
         }
 
@@ -491,6 +499,7 @@ export class AAanimationData {
             repeat: options.repeat || 1,
             delay: options.delay || 250,
             below: options.below || false,
+            isMasked: options.isMasked || false,
             startDelay: options.delayStart || 500,
             scale: options.scale || 1,
             persistent: options.persistent || false,
@@ -538,16 +547,20 @@ export class AAanimationData {
                 return targetFX.itemAudio?.enable && targetFX.itemAudio?.file && targetFX.enabled;
             })
         */
-        targetFX.targetSeq.effect()
-            .delay(targetFX.startDelay)
-            .file(targetFX.data?.file, true)
-            .atLocation(target)
-            //.scale(targetFX.tFXScale * targetFX.scale)
-            .size(targetTokenGS * 1.5 * targetFX.scale, { gridUnits: true })
-            .repeats(targetFX.repeat, targetFX.delay)
-            .belowTokens(targetFX.below)
-            .persist(targetFX.persistent)
-            .opacity(targetFX.opacity)
+        let targetEffect = targetFX.targetSeq.effect()
+        targetEffect.delay(targetFX.startDelay)
+        targetEffect.file(targetFX.data?.file, true)
+        targetEffect.atLocation(target)
+        //.scale(targetFX.tFXScale * targetFX.scale)
+        targetEffect.size(targetTokenGS * 1.5 * targetFX.scale, { gridUnits: true })
+        targetEffect.repeats(targetFX.repeat, targetFX.delay)
+        targetEffect.belowTokens(targetFX.below)
+        if (targetFX.isMasked) {
+            targetEffect.mask(target)
+        }
+        targetEffect.persist(targetFX.persistent)
+        targetEffect.fadeOut(500)
+        targetEffect.opacity(targetFX.opacity)
         //.playIf(playNow)
 
         return targetFX;

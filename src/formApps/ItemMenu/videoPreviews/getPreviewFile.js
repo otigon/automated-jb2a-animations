@@ -1,6 +1,6 @@
 export function getPreviewFile(data) {
     if (data.includes("undefined")) { return; }
-    let seqFiles = Sequencer.Database.getEntry(data);
+    let seqFiles = Sequencer.Database.getEntry(data, {softFail: true});
     if (Array.isArray(seqFiles)) {
         seqFiles = seqFiles[0].file;
         if (Array.isArray(seqFiles)) {

@@ -146,6 +146,7 @@ export async function meleeAnimation(handler, animationData) {
                         .opacity(data.opacity)
                         .atLocation(sourceToken)
                         .rotateTowards(target)
+                        .zIndex(9)
                         .size(sourceTokenGS * data.scale, {gridUnits: true})
                         .repeats(data.repeat, data.delay)
                         .randomizeMirrorY()
@@ -158,14 +159,17 @@ export async function meleeAnimation(handler, animationData) {
 
             // add-on Explosion Animation effect sections
             if (data.explosion.enabled) {
-                aaSeq.effect()
-                    .atLocation("spot" + ` ${target.id}`)
-                    .file(data.explosion?.data?.file, true)
+                let explosionSeq = aaSeq.effect()
+                explosionSeq.atLocation("spot" + ` ${target.id}`)
+                explosionSeq.file(data.explosion?.data?.file, true)
                     //.scale({ x: data.explosion?.scale, y: data.explosion?.scale })
-                    .size(data.explosion?.radius * 2, {gridUnits: true})
-                    .delay(data.explosion?.delay)
-                    .repeats(data.repeat, data.delay)
-                    .belowTokens(data.explosion?.below)
+                    explosionSeq.size(data.explosion?.radius * 2, {gridUnits: true})
+                    explosionSeq.delay(data.explosion?.delay)
+                    explosionSeq.repeats(data.repeat, data.delay)
+                    explosionSeq.belowTokens(data.explosion?.below)
+                    if (data.explosion?.isMasked) {
+                        explosionSeq.mask(target)
+                    }        
             }
 
             // Extra Effects => Target effect section

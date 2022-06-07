@@ -55,7 +55,7 @@
     let scaleY = options.scaleY;
     $: scaleY = options.scaleY = scaleY;
 
-    let persistType = options.persistType || false;
+    let persistType = options.persistType || "sequencerground";
     $: persistType = options.persistType = persistType;
     $: removeTemplate =
         persistType === "attachtemplate" ? false : removeTemplate;
@@ -102,6 +102,7 @@
     }
     function switchRemove() {
         removeTemplate = !removeTemplate;
+        isMasked = removeTemplate ? false : isMasked;
     }
 
     function switchIgnore() {
@@ -214,13 +215,13 @@
         </div>
         <!--Set the Masking Boolean-->
         <div
-            class="flexcol {disabled01 ? 'aa-disabled' : ''}"
+            class="flexcol {disabled01 || removeTemplate ? 'aa-disabled' : ''}"
             style="grid-row: 2 / 3; grid-column: 1 / 2;"
         >
             <label for="">{localize("autoanimations.menus.masking")}</label>
             <button
                 class={isMasked ? "aa-selected" : "aa-notSelected"}
-                disabled={disabled01}
+                disabled={disabled01 || removeTemplate}
                 on:click={() => switchMask()}
                 >{maskLabel}</button
             >

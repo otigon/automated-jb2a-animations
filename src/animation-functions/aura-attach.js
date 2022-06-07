@@ -23,7 +23,7 @@ export async function auras(handler, animationData) {
     const aura = await buildFile(true, data.menuType, data.animation, "static", data.variant, data.color, data.customPath);
 
     if (handler.debug) { aaDebugger("Aura Animation Start", animationData, aura) }
-    
+
     if (handler.isActiveEffect) {
         await wait(data.aeDelay)
     }
@@ -54,20 +54,23 @@ export async function auras(handler, animationData) {
         let adjustedSize = data.addTokenWidth ? data.size + (sourceToken.w / canvas.grid.size) : data.size;
         console.log(adjustedSize)
         if (!checkAnim) {
+            let newEffect = aaSeq.effect();
             aaSeq.addSequence(sourceFX.sourceSeq)
-            aaSeq.effect()
-                .persist()
-                .origin(handler.itemUuid)
-                .size(adjustedSize, { gridUnits: true })
-                .belowTokens(data.below)
-                .file(aura.file)
-                .attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
-                .name(nameField)
-                .opacity(data.opacity)
-                .animateProperty("sprite", "width", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
-                .animateProperty("sprite", "height", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
-                .fadeIn(2500)
-                .fadeOut(500)
+            newEffect.persist()
+            newEffect.origin(handler.itemUuid)
+            newEffect.size(adjustedSize, { gridUnits: true })
+            newEffect.belowTokens(data.below)
+            if (data.isMasked) {
+                newEffect.mask(sourceToken)
+            }
+            newEffect.file(aura.file)
+            newEffect.attachTo(sourceToken, { bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility })
+            newEffect.name(nameField)
+            newEffect.opacity(data.opacity)
+            newEffect.animateProperty("sprite", "width", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
+            newEffect.animateProperty("sprite", "height", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
+            newEffect.fadeIn(2500)
+            newEffect.fadeOut(500)
             AAanimationData.howToDelete("sequencerground")
         }
         if (data.playMacro && data.macro.playWhen === "0") {
@@ -97,19 +100,22 @@ export async function auras(handler, animationData) {
             let adjustedSize = data.addTokenWidth ? data.size + (target.w / canvas.grid.size) : data.size;
 
             if (!checkAnim) {
-                aaSeq.effect()
-                    .persist()
-                    .origin(handler.itemUuid)
-                    .size(adjustedSize, { gridUnits: true })
-                    .belowTokens(data.below)
-                    .file(aura.file)
-                    .attachTo(target, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility})
-                    .name(`${target.name}-${handler.itemName}`)
-                    .opacity(data.opacity)
-                    .animateProperty("sprite", "width", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
-                    .animateProperty("sprite", "height", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
-                    .fadeIn(2500)
-                    .fadeOut(500)
+                let newEffect = aaSeq.effect();
+                newEffect.persist()
+                newEffect.origin(handler.itemUuid)
+                newEffect.size(adjustedSize, { gridUnits: true })
+                newEffect.belowTokens(data.below)
+                if (data.isMasked) {
+                    newEffect.mask(target)
+                }    
+                newEffect.file(aura.file)
+                newEffect.attachTo(target, { bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility })
+                newEffect.name(`${target.name}-${handler.itemName}`)
+                newEffect.opacity(data.opacity)
+                newEffect.animateProperty("sprite", "width", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
+                newEffect.animateProperty("sprite", "height", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
+                newEffect.fadeIn(2500)
+                newEffect.fadeOut(500)
             }
 
         }

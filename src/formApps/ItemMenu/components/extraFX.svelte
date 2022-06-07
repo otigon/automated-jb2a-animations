@@ -18,10 +18,8 @@
         extraTarget,
     } from "../menuStore.js";
     */
-    import {
-        storeAutorec,
-    } from "../../AutorecMenu/autorecPreviews.js";
-    import { storeItemData } from "../itemPreviewStore.js"
+    import { storeAutorec } from "../../AutorecMenu/autorecPreviews.js";
+    import { storeItemData } from "../itemPreviewStore.js";
 
     export let flagData;
     export let flagPath;
@@ -110,6 +108,13 @@
         : game.i18n.localize("autoanimations.menus.not") +
           " " +
           game.i18n.localize("autoanimations.menus.persistant");
+    let isMasked = options.isMasked || false;
+    $: isMasked = options.isMasked = isMasked;
+    $: maskLabel = isMasked ? "Enabled" : "Disabled";
+    function switchMask() {
+        isMasked = !isMasked;
+    }
+
     function switchAlpha() {
         unbindAlpha = !unbindAlpha;
     }
@@ -158,8 +163,12 @@
         isCustom = primary.enableCustom = isCustom;
         customPath = primary.customPath = customPath;
         enableSection = root.enable = enableSection;
-        if (isAutoRec) {$storeAutorec = previewStoreData};
-        if (!isAutoRec) {storeItemData.set(flagData)};
+        if (isAutoRec) {
+            $storeAutorec = previewStoreData;
+        }
+        if (!isAutoRec) {
+            storeItemData.set(flagData);
+        }
     }
 
     function onClick() {
@@ -313,10 +322,23 @@
                         on:click={() => switchAlpha()}>{bindAlpha}</button
                     >
                 </div>
+                <!--Set the Masking Boolean-->
+                <div
+                    class="flexcol"
+                    style="grid-row: 2 / 3; grid-column: 1 / 2;"
+                >
+                    <label for=""
+                        >{localize("autoanimations.menus.masking")}</label
+                    >
+                    <button
+                        class={isMasked ? "aa-selected" : "aa-notSelected"}
+                        on:click={() => switchMask()}>{maskLabel}</button
+                    >
+                </div>
                 <!--Set Number of times the animation plays-->
                 <div
                     class="flexcol {persistent ? 'aa-opacityButton' : ''}"
-                    style="grid-row: 2 / 3; grid-column: 1 / 2;"
+                    style="grid-row: 2 / 3; grid-column: 2 / 3;"
                 >
                     <label for="aaRepeat"
                         >{localize("autoanimations.menus.repeat")}</label
@@ -332,7 +354,7 @@
                 <!--Set delay between repeats-->
                 <div
                     class="flexcol {persistent ? 'aa-opacityButton' : ''}"
-                    style="grid-row: 2 / 3; grid-column: 2 / 3;"
+                    style="grid-row: 2 / 3; grid-column: 3 / 4;"
                 >
                     <label for="aaDelay"
                         >{localize("autoanimations.menus.repeat")}
@@ -348,7 +370,7 @@
                 <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
                 <div
                     class="flexcol"
-                    style="grid-row: 2 / 3; grid-column: 3 / 4;"
+                    style="grid-row: 2 / 3; grid-column: 4 / 5;"
                 >
                     <label for=""
                         >{localize("autoanimations.menus.scale")}</label
@@ -363,7 +385,7 @@
                 <!--Set Animation Opacity-->
                 <div
                     class="flexcol"
-                    style="grid-row: 2 / 3; grid-column: 4 / 5;"
+                    style="grid-row: 3 / 4; grid-column: 1 / 2;"
                     in:fade={{ duration: 500 }}
                     out:fade={{ duration: 500 }}
                 >
@@ -391,7 +413,7 @@
                     </div>
                 </div>
                 {#if flagPath === "sourceExtraFX"}
-                    <div class="flexcol" style="grid-row:3/4; grid-column:2/4">
+                    <div class="flexcol" style="grid-row:3/4; grid-column:3/5">
                         <label for=""
                             >{localize("autoanimations.menus.delay")}
                             {localize("autoanimations.menus.primary")}
@@ -405,7 +427,7 @@
                         />
                     </div>
                 {:else}
-                    <div class="flexcol" style="grid-row:3/4; grid-column:2/4">
+                    <div class="flexcol" style="grid-row:3/4; grid-column:3/5">
                         <label for=""
                             >{localize("autoanimations.menus.delay")}
                             {localize("autoanimations.menus.start")}</label
@@ -427,7 +449,7 @@
 <style lang="scss">
     h2 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size:x-large;
+        font-size: x-large;
         font-weight: bold;
         text-align: center;
         margin-right: 5%;

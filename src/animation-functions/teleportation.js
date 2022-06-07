@@ -29,6 +29,8 @@ export async function teleportation(handler, animationData) {
         color: rootStart.color,
         scale: rootStart.scale || 1,
         below: rootStart.below || false,
+        isMasked: rootStart.isMasked || false,
+        opacity: rootStart.opacity || 0,
         customPath: rootStart.enableCustom ? rootStart.customPath || "" : false,
     }
     const rootEnd = root.end;
@@ -39,6 +41,7 @@ export async function teleportation(handler, animationData) {
         color: rootEnd.color,
         scale: rootEnd.scale,
         below: rootEnd.below || false,
+        isMasked: rootEnd.isMasked || false,
         delay: rootEnd.delay || 0,
         customPath: rootEnd.enableCustom ? rootEnd.customPath || "" : false,
     }
@@ -136,34 +139,42 @@ export async function teleportation(handler, animationData) {
         if (data.playSound) {
             aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
         }
-        aaSeq.effect()
-            .file(startFile.file)
-            .atLocation(sourceToken)
-            .belowTokens(startData.below)
-            .size(sourceTokenGS * 1.5 * startData.scale, {gridUnits: true})
-            .randomRotation()
+        let startEffect = aaSeq.effect()
+            startEffect.file(startFile.file)
+            startEffect.atLocation(sourceToken)
+            startEffect.belowTokens(startData.below)
+            startEffect.size(sourceTokenGS * 1.5 * startData.scale, { gridUnits: true })
+            startEffect.randomRotation()
+            if (startData.isMasked) {
+                startEffect.mask(sourceToken)
+            }
         aaSeq.wait(250)
         if (betweenData.enable) {
-            aaSeq.effect()
-                .file(betweenFile.file)
-                .atLocation(sourceToken)
-                .stretchTo({ x: centerPos[0], y: centerPos[1] })
-                .playbackRate(betweenData.playbackRate)
+        let betweenEffect = aaSeq.effect()
+            betweenEffect.file(betweenFile.file)
+            betweenEffect.atLocation(sourceToken)
+            betweenEffect.stretchTo({ x: centerPos[0], y: centerPos[1] })
+            betweenEffect.playbackRate(betweenData.playbackRate)
         }
         aaSeq.animation()
             .on(sourceToken)
-            .opacity(0)
+            .opacity(startData.opacity)
+            //.fadeOut(500)
             .teleportTo({ x: gridPos[0], y: gridPos[1] })
-        aaSeq.effect()
-            .file(endFile.file)
-            .atLocation({ x: centerPos[0], y: centerPos[1] })
-            .belowTokens(endData.below)
-            .size(sourceTokenGS * 1.5 * endData.scale, {gridUnits: true})
-            .randomRotation()
+        let endEffect = aaSeq.effect()
+            endEffect.file(endFile.file)
+            endEffect.atLocation({ x: centerPos[0], y: centerPos[1] })
+            endEffect.belowTokens(endData.below)
+            endEffect.size(sourceTokenGS * 1.5 * endData.scale, { gridUnits: true })
+            endEffect.randomRotation()
+            if (endData.isMasked) {
+                endEffect.mask(sourceToken)
+            }
         aaSeq.wait(1250 + endData.delay)
         aaSeq.animation()
             .on(sourceToken)
-            .opacity(1)
+            .fadeIn(500)
+            //.opacity(1)
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;
             new Sequence()

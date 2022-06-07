@@ -88,14 +88,17 @@ export async function rangedAnimations(handler, animationData) {
                     .stretchTo("spot" + ` ${target.id}`)
             }
             if (data.explosion.enabled) {
-                aaSeq.effect()
-                    .atLocation("spot" + ` ${target.id}`)
-                    .file(data.explosion?.data?.file, true)
+                let explosionSeq = aaSeq.effect()
+                explosionSeq.atLocation("spot" + ` ${target.id}`)
+                explosionSeq.file(data.explosion?.data?.file, true)
                     //.scale({ x: data.explosion?.scale, y: data.explosion?.scale })
-                    .size(data.explosion?.radius * 2, {gridUnits: true})
-                    .delay(data.explosion?.delay)
-                    .repeats(data.repeat, data.delay)
-                    .belowTokens(data.explosion?.below)
+                    explosionSeq.size(data.explosion?.radius * 2, {gridUnits: true})
+                    explosionSeq.delay(data.explosion?.delay)
+                    explosionSeq.repeats(data.repeat, data.delay)
+                    explosionSeq.belowTokens(data.explosion?.below)
+                    if (data.explosion?.isMasked) {
+                        explosionSeq.mask(target)
+                    }        
             }
             if (targetFX.enabled && hit) {
                 let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
