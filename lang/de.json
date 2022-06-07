@@ -1,440 +1,562 @@
 {
-    "AUTOANIM.initpopup_name": "Deaktivere das Popup-Startfenster",
-    "AUTOANIM.initpopup_hint": "Aktiviere dieses Kontrollkästchens um zu verhindern, dass das Popup-Fenster angezeigt wird.",
-    "AUTOANIM.animtab_name": "Verstecke den Animationsreiter vor den Spielern",
-    "AUTOANIM.animtab_hint": "Durch Aktivieren dieses Kontrollkästchens wird verhindert, dass der Animationsreiter von Spielern gesehen wird.",
-    "AUTOANIM.tarassist_name": "Zielassistent",
-    "AUTOANIM.tarassist_hint": "Aktiviere diese Einstellung um den Zielassistenten zu aktivieren",
-    "AUTOANIM.tfmxenable_name": "Aktiviere Magic-FX Token",
-    "AUTOANIM.tfmxenable_hint": "Aktiviert alle Figuren-Magie-Effekt mit den Animationen",
-    "AUTOANIM.midionhit_name": "Animationen beim Treffen abspielen",
-    "AUTOANIM.midionhit_hint": "Benötigt Midi-QOL Arbeitseinstellungen um zu überprüfen ob der Angriff getroffen hat",
-    "AUTOANIM.midionmiss_name": "Animationen beim Treffen und Verfehlen abspielen",
-    "AUTOANIM.midionmiss_hint": "Wenn das Ziel verfehlt wird, weicht die Animation vom Ziel ab. Benötigt MIDI-Arbeitablauf um zu überprüfen ob es zutrifft.",
-    "AUTOANIM.midiondmg_name":  "Animation nur bei Schadenswürfen",
-    "AUTOANIM.midiondmg_hint": "Benötigt eine Aktualisierung. Wenn aktiviert, wird die Animation NUR bei Schadenswürfen abgespielt",
-    "AUTOANIM.demonlordtrigger_name":"Auslösen um die Animationen abzuspielen",
-    "AUTOANIM.demonlordtrigger_hint":"Wähle die Bedingung um die Animationen abzuspielen",
-    "AUTOANIM.demonlordtrigger_rollattack":"Animationen beim Angriffswurf abspielen",
-    "AUTOANIM.demonlordtrigger_hits":"Animationen beim Treffen abspielen",
-    "AUTOANIM.demonlordtrigger_misses": "Animationen beim Treffen und Verfehlen abspielen",
-    "AUTOANIM.demonlordtrigger_rolldamage":"Animationen bei Schadenswürfen abspielen",
-    "AUTOANIM.demonlordtrigger_applydamage":"Animationen beim Schaden verursachen abspielen",
-    "AUTOANIM.coreondmg_name": "Angriffsanimation nur bei Schadenswürfen",
-    "AUTOANIM.coreondmg_hint": "In der Grundeinstellung, Animation nur bei Angriffswürfen",
-    "AUTOANIM.enableshield_name": "Aktiviert Schild-Spruch-Animation",
-    "AUTOANIM.enableshield_hint": "Das Schild ist auf eine Test-Animation eingestellt, aber es sieht immer noch cool aus. Einschalten zum Aktivieren",
-
-    "AUTOANIM.error": "Ein JB2A-Modul (gratis oder Patreon) wird benötigt, damit die automatischen Animationen funktionieren",
-
-    "AUTOANIM.blue":"Blau",
-    "AUTOANIM.bluegrey": "Blau grau",
-    "AUTOANIM.blueorange": "Blau orange",
-    "AUTOANIM.blueyellow": "Blau gelb",
-    "AUTOANIM.bluewhite": "Blau weiß",
-    "AUTOANIM.darkblue":"Dunkelblau",
-    "AUTOANIM.lightblue": "Hellblau",
-    "AUTOANIM.green":"Grün",
-    "AUTOANIM.greenyellow": "Grün gelb",
-    "AUTOANIM.greenorange": "Grün orange",
-    "AUTOANIM.palegreen": "Blassgrün",
-    "AUTOANIM.lightgreen": "Hellgrün",
-    "AUTOANIM.darkgreen":"Dunkelgrün",
-    "AUTOANIM.orange":"Orange",
-    "AUTOANIM.orangepink":"Orange pink",
-    "AUTOANIM.pink":"Pink",
-    "AUTOANIM.pinkyellow": "Pink gelb",
-    "AUTOANIM.purple":"Violett",
-    "AUTOANIM.purpleblue":"Lila blau",
-    "AUTOANIM.purpleteal":"Lila blaugrün",
-    "AUTOANIM.purplepink": "Pink lila",
-    "AUTOANIM.darkpurple":"Dunkelviolett",
-    "AUTOANIM.red":"Rot",
-    "AUTOANIM.darkred":"Dunkelrot",
-    "AUTOANIM.tealyellow": "Blaugrün gelb",
-    "AUTOANIM.brown": "Braun",
-    "AUTOANIM.black": "Schwarz",
-    "AUTOANIM.grey": "Grau",
-    "AUTOANIM.white": "Weiß",
-    "AUTOANIM.whiteblue": "Weiß blau",
-    "AUTOANIM.yellow":"Gelb",
-    "AUTOANIM.yellowblue":"Gelb blau",
-    "AUTOANIM.yellowwhite": "Weiß",
-    "AUTOANIM.darkwhiteblue": "Dunkel Weiß Blau",
-    "AUTOANIM.regular":"Regulär",
-    "AUTOANIM.rainbow": "Regenbogen",
-    "AUTOANIM.rainbow01": "Regenbogen 01",
-    "AUTOANIM.rainbow02": "Regenbogen 02",
-    "AUTOANIM.random":"Zufällig",
-
-    "AUTOANIM.poison": "Gift",
-    "AUTOANIM.acid": "Säure",
-    "AUTOANIM.fire": "Feuer",
-    "AUTOANIM.lightning": "Blitz",
-    "AUTOANIM.cold": "Kälte",
-    "AUTOANIM.magical": "Magisch",
-    "AUTOANIM.physical": "Physisch",
-    "AUTOANIM.1": "01",
-    "AUTOANIM.2": "02",
-    "AUTOANIM.3": "03",
-    "AUTOANIM.01":"01",
-    "AUTOANIM.02":"02",
-    "AUTOANIM.03":"03",
-    "AUTOANIM.05":"05",
-    "AUTOANIM.06":"06",
-    "AUTOANIM.07":"07",
-    "AUTOANIM.08":"08",
-    "AUTOANIM.09":"09",
-    "AUTOANIM.10":"10",
-    "AUTOANIM.11":"11",
-    "AUTOANIM.12":"12",
-    "AUTOANIM.13":"13",
-
-    "AUTOANIM.kunai":"Kunai",
+    "autoanimations": {
+        "settings": {
+            "initpopup_name": "Deaktivere das Popup-Startfenster",
+            "initpopup_hint": "Aktiviere dieses Kontrollkästchens um zu verhindern, dass das Popup-Fenster angezeigt wird.",
+            "animtab_name": "Verstecke den Animationsreiter vor den Spielern",
+            "animtab_hint": "Durch Aktivieren dieses Kontrollkästchens wird verhindert, dass der Animationsreiter von Spielern gesehen wird.",
+            "midionhit_name": "Animationen beim Treffen abspielen",
+            "midionhit_hint": "Benötigt Midi-QOL Arbeitseinstellungen um zu überprüfen ob der Angriff getroffen hat",
+            "midionmiss_name": "Animationen beim Treffen und Verfehlen abspielen",
+            "midionmiss_hint": "Wenn das Ziel verfehlt wird, weicht die Animation vom Ziel ab. Benötigt MIDI-Arbeitablauf um zu überprüfen ob es zutrifft.",
+            "midiondmg_name":  "Animation nur bei Schadenswürfen",
+            "midiondmg_hint": "Benötigt eine Aktualisierung. Wenn aktiviert, wird die Animation NUR bei Schadenswürfen abgespielt",
+            "demonlordtrigger_name":"Auslösen um die Animationen abzuspielen",
+            "demonlordtrigger_hint":"Wähle die Bedingung um die Animationen abzuspielen",
+            "demonlordtrigger_rollattack":"Animationen beim Angriffswurf abspielen",
+            "demonlordtrigger_hits":"Animationen beim Treffen abspielen",
+            "demonlordtrigger_misses": "Animationen beim Treffen und Verfehlen abspielen",
+            "demonlordtrigger_rolldamage":"Animationen bei Schadenswürfen abspielen",
+            "demonlordtrigger_applydamage":"Animationen beim Schaden verursachen abspielen",
+            "coreondmg_name": "Angriffsanimation nur bei Schadenswürfen",
+            "coreondmg_hint": "In der Grundeinstellung, Animation nur bei Angriffswürfen",
+            "error": "Ein JB2A-Modul (gratis oder Patreon) wird benötigt, damit die automatischen Animationen funktionieren",
+            "animPreview": "Animationsvorschau",
+            "animPreviewHint": "Videovorschau im A-A Reiter",
+            "autoRecSetting": "Automatische Erkennung konfigurieren",
+            "toggleAnimations": "Animationen umschalten",
+            "toggleAnimations_hint": "Benötigt Neuladen beim Einschalten",
+            "ON": "An",
+            "OFF": "Aus",
+            "settingDisableAutoRec": "Deaktiviere die automatische Erkennung",
+            "settingDisableAutoRecHint": "Nur benutzerdefiniert konfigurierte Gegenstände werden eine Animation abspielen",
+            "globaldelay_name": "Globale Verzögerung",
+            "globaldelay_hint": "Verzögere den Start aller Animationen in Millisekunden",
 
 
-    "AUTOANIM.spell":"Zauber",
-    "AUTOANIM.weapon":"Waffe",
-    "AUTOANIM.itemFeat":"Merkmal",
-    "AUTOANIM.itemConsumable":"Verbrauchbar",
-
-    "AUTOANIM.itemCure":"Heilen",
-    "AUTOANIM.itemWound":"Wunde",
-    "AUTOANIM.curewounds": "Wunden heilen",
-    "AUTOANIM.itemGeneric": "Generisch",
-    "AUTOANIM.itemHeal":"Heilen",
-    "AUTOANIM.generichealing": "Generische Heilung",
-    "AUTOANIM.itemWord":"Wort",
-    "AUTOANIM.itemHealingWord": "Heilendes Wort",
-    "AUTOANIM.disintegrate":"Auflösung",
-    "AUTOANIM.eldritchblast":"Schauriger Strahl",
-    "AUTOANIM.firebolt":"Feuerpfeil",
-    "AUTOANIM.magicmissile":"Magisches Geschoss",
-    "AUTOANIM.rayoffrost":"Kältestrahl",
-    "AUTOANIM.scorchingray":"Sengender Strahl",
-    "AUTOANIM.witchbolt":"Hexenpfeil",
-    "AUTOANIM.thunderwave":"Donnerwoge",
-    "AUTOANIM.shatter":"Zerbersten",
-    "AUTOANIM.shieldspell":"Schild",
-    "AUTOANIM.itemCatapult":"Katapult",
-
-    "AUTOANIM.itemBattleaxe": "Streitaxt",
-    "AUTOANIM.dagger":"Dolch",
-    "AUTOANIM.greataxe":"Zweihandaxt",
-    "AUTOANIM.greatclub":"Zweihandknüppel",
-    "AUTOANIM.greatsword":"Zweihandschwert",
-    "AUTOANIM.handaxe":"Beil",
-    "AUTOANIM.lasersword":"Laserschwert",
-    "AUTOANIM.mace":"Streitkolben",
-    "AUTOANIM.maul":"Zweihandhammer",
-    "AUTOANIM.rapier":"Rapier",
-    "AUTOANIM.spear":"Speer",
-    "AUTOANIM.sword":"Schwert",
-    "AUTOANIM.itemLongsword": "Langschwert",
-    "AUTOANIM.itemShortsword": "Kurzschwert",
-    "AUTOANIM.itemScimitar": "Krummsäbel",
-
-    "AUTOANIM.arrow":"Pfeil",
-    "AUTOANIM.itemLongbow":"Langbogen",
-    "AUTOANIM.itemShortbow":"Kurzbogen",
-    "AUTOANIM.boulder":"Felsblock",
-    "AUTOANIM.javelin":"Wurfspeer",
-    "AUTOANIM.lasershot":"Laserstrahl",
-    "AUTOANIM.siegeboulder":"Belagerungsblock",
-    "AUTOANIM.itemThrowingHammer":"Hammer werfen",
-    "AUTOANIM.sling":"Schleuder",
-
-    "AUTOANIM.unarmedstrike":"waffenloser Schlag",
-    "AUTOANIM.1hb":"1 einhändiges knüppeln",
-    "AUTOANIM.1hp":"1 einhändiges stechen",
-    "AUTOANIM.1hs":"1 einhändiges aufschlitzt",
-    "AUTOANIM.2hb":"2 zweihändiges knüppeln",
-    "AUTOANIM.2hp":"2 zweihändiges stechen",
-    "AUTOANIM.2hs":"2 zweihändiges aufschlitzen",
-
-    "AUTOANIM.claw":"Klaue",
-    "AUTOANIM.bite":"Biss",
 
 
-    "AUTOANIM.itemGrenade":"Granate",
-    "AUTOANIM.itemBomb":"Bombe",
-
-    "AUTOANIM.variant01":"01",
-    "AUTOANIM.variant02":"02",
+            "settingRangeSwitch": "Deaktiviere Nah- und Fernkampf Wechsel",
+            "settingRangeSwitchhint": "Deaktiviere den Wechsel zwischen Nahkampf Animation und Fernkampfanimation",
+        
 
 
-    "AUTOANIM.itemAlchemist":"Alchimist",
-    "AUTOANIM.itemPotion":"Trank",
-    "AUTOANIM.itemSecond":"Zweite",
-    "AUTOANIM.itemWind":"Wind",
 
-    "AUTOANIM.raceBugbear":"Grottenschrat",
+            "crithit_name": "Kritische Treffer",
+            "crithit_hint": "Aktiviere diese Option, damit Animationen mit kritischen Treffern auf der Ausgangsfigur abgespielt werden können",
+            "crithitAnim_name": "Kritische Trefferanimationn",
+            "critmiss_name": "Kritischer Fehlschlag",
+            "critmiss_hint": "Aktiviere diese Option, damit kritische Fehlschlag-Animationen auf dem Ausgangsfigur abgespielt werden können",
+            "critmissAnim_name": "Kritischer-Fehlschlag-Animation",
+        
 
-    "AUTOANIM.radius02": "02",
-    "AUTOANIM.radius05": "05",
-    "AUTOANIM.radius10": "10",
-    "AUTOANIM.radius15": "15",
-    "AUTOANIM.radius20": "20",
-    "AUTOANIM.radius25": "25",
-    "AUTOANIM.radius30": "30",
-    "AUTOANIM.radius35": "35",
-    "AUTOANIM.radius40": "40",
-    "AUTOANIM.radius45": "45",
-    "AUTOANIM.radius50": "50",
-    "AUTOANIM.radiusNuke": "Nuklear",
-
-    "AUTOANIM.explodeLoop01":"1",
-    "AUTOANIM.explodeLoop02":"2",
-    "AUTOANIM.explodeLoop03":"3",
-    "AUTOANIM.explodeLoop04":"4",
-    "AUTOANIM.explodeLoop05":"5",
+            "debugging": "Debugging aktivieren",
 
 
-    "AUTOANIM.typeMelee": "Nahkampfwaffe",
-    "AUTOANIM.typeGenMelee": "Generischer Nahkampfschaden",
-    "AUTOANIM.typeRanged": "Fernwaffe",
-    "AUTOANIM.creature": "Kreaturenangriff",
-    "AUTOANIM.typeAttackSpell": "Angriffszauber",
-    "AUTOANIM.typeHealingSpell": "Heilzauber",
-    "AUTOANIM.typeExplosiveCT": "Sprengstoff (Kreisvorlage",
-    "AUTOANIM.typeExplosiveOT": "Sprengstoff (zielgerichtet)",
-
-    "AUTOANIM.blank": "",
-
-    "AUTOANIM.menuKillAnim": "Aktiviere dieses Kontrollkästchen, um Animationen zu deaktivieren",
-    "AUTOANIM.menuOverride": "Animation überschreiben?",
-    "AUTOANIM.menuAnimType": "Wähle einen Animationstyp",
-    "AUTOANIM.menuAnimName": "Wähle eine Animation",
-    "AUTOANIM.menuAnimColor": "Wähle eine Farbe",
-    "AUTOANIM.menuNoRangeColor": "Farbe gilt NUR für den Nahkampfangriff, NICHT für den Fernkampfangriff",
-    "AUTOANIM.menuThrownVariant": "Wähle eine geworfene Variante",
-    "AUTOANIM.menuEnableExplode": "Aktivere Explosion?",
-    "AUTOANIM.menuExplodeVariant": "Wähle eine Explosionsvariante",
-    "AUTOANIM.menuExplodeColor": "Wähle eine Explosionsfarbe",
-    "AUTOANIM.menuExplodeRadius": "Wähle einen Explosionsradius",
-    "AUTOANIM.menuExplodeLoops": "Anzahl der Wiederholungen der Explosionen",
-
-    "AUTOANIM.typeSelfEffects": "Selbstausstrahlun",
-    "AUTOANIM.typeAuras": "Aura",
-
-    "AUTOANIM.calllightning":"Blitze herbeirufen",
-    "AUTOANIM.darkness":"Dunkelheit",
-    "AUTOANIM.fogcloud":"Nebelwolke",
-    "AUTOANIM.sleetstorm":"Schneesturm",
-    "AUTOANIM.spiritguardians":"Schutzgeister",
-    "AUTOANIM.wallofforce":"Energiewand",
-    "AUTOANIM.whirlwind":"Wirbelwind",
-    "AUTOANIM.antilifeshell":"Schutzhülle gegen Lebendes",
-
-    "AUTOANIM.menuChooseRadius":"Wähle einen Radius",
-    "AUTOANIM.removeAura": "CTA-Effekt entfernen",
-    "AUTOANIM.auraTint": "Farbton Aura:",
-    "AUTOANIM.auraOpacity": "Aurasichtbarkeit (0-1):",
-    "AUTOANIM.huntersmark": "Zeichen des Jägers",
-    "AUTOANIM.hmAnim": "Zeichen des Jägers-Animation",
-    "AUTOANIM.tabName": "Animation",
-    "AUTOANIM.crithit_name": "Kritische Treffer",
-    "AUTOANIM.crithit_hint": "Aktiviere diese Option, damit Animationen mit kritischen Treffern auf der Ausgangsfigur abgespielt werden können",
-    "AUTOANIM.crithitAnim_name": "Kritische Trefferanimationn",
-    "AUTOANIM.critmiss_name": "Kritischer Fehlschlag",
-    "AUTOANIM.critmiss_hint": "Aktiviere diese Option, damit kritische Fehlschlag-Animationen auf dem Ausgangsfigur abgespielt werden können",
-    "AUTOANIM.critmissAnim_name": "Kritischer-Fehlschlag-Animation",
-
-    "AUTOANIM.globaldelay_name": "Globale Verzögerung",
-    "AUTOANIM.globaldelay_hint": "Verzögere den Start aller Animationen in Millisekunden",
-
-    "AUTOANIM.uaType": "Waffenloser Typ",
-    "AUTOANIM.flurryofblows": "Schlaghagel",
-    "AUTOANIM.guidingbolt": "Lenkendes Geschoss",
-    "AUTOANIM.animTeleportation": "Teleportation",
-    "AUTOANIM.range": "Trage eine Reichweite ein",
-    "AUTOANIM.mistystep": "Nebelschritt",
-
-    "AUTOANIM.variantChoice": "Wähle eine Variante",
-    "AUTOANIM.variant03":"03",
-    "AUTOANIM.variant04":"04",
-    "AUTOANIM.variant05":"05",
-    "AUTOANIM.variant06":"06",
-    "AUTOANIM.variant07":"07",
-    "AUTOANIM.classFeatures": "Klassenmerkmal",
-    "AUTOANIM.bardicinspiration": "Bardische Inspiration",
-    "AUTOANIM.musicnote": "Musiknoten",
-    "AUTOANIM.bardAnimation": "Bardische Animation",
-    "AUTOANIM.bardTarget": "Animiere beim Ziel?",
-    "AUTOANIM.bardSelf": "Animiere bei sich selbst?",
-
-    "AUTOANIM.typeExplosiveSelf": "Sprengstoffe (selbst)",
-    "AUTOANIM.spellLoops": "Animation wiederholen (1-10)",
-
-    "AUTOANIM.itemAudio": "Aktiviere Gegenstands-Audio",
-    "AUTOANIM.explosionAudio": "Aktiviere Explosions-Audio",
-    "AUTOANIM.chooseAudio": "Wähle Audio Datei",
-    "AUTOANIM.audioDelay": "Audio Verzögerung (Millisekunden)",
-    "AUTOANIM.markerColor": "Marker Farbe selbst",
-    
-    "AUTOANIM.breathweapon": "Odemwaffe",
-    "AUTOANIM.bwWarning": "Geht von einem 30 Fuß Linien Schablone aus",
-    "AUTOANIM.selfColor": "Selbst-Animationsfarbe",
-    "AUTOANIM.targetColor": "Ziel-Animationsfarbe",
-    "AUTOANIM.ctaStatic": "Aktiviere, um das CTA Bild statisch zu machen",
-
-    "AUTOANIM.templates": "Schablone",
-    "AUTOANIM.cone": "Kegel",
-    "AUTOANIM.square": "Rechteck",
-    "AUTOANIM.circle": "Kreis",
-    "AUTOANIM.ray": "Strahl",
-    "AUTOANIM.coneofcold": "Kältekegel",
-    "AUTOANIM.fire01": "Feuer v01",
-    "AUTOANIM.fire02": "Feuer v02",
-    "AUTOANIM.burninghands01": "Brennende Hände 01",
-    "AUTOANIM.burninghands02": "Brennende Hände 02",
-    "AUTOANIM.templateType": "Schablonentyp",
-    "AUTOANIM.explosion01": "Explosion 01",
-    "AUTOANIM.explosion02": "Explosion 02",
-    "AUTOANIM.explosion03": "Explosion 03",
-    "AUTOANIM.explosion04": "Explosion 04",
-    "AUTOANIM.snowflake": "Schneeflockenausbruch",
-    "AUTOANIM.entangle": "Verstricken",
-
-    "AUTOANIM.customAnim": "Benutzerdefinierte Animation?",
-
-    "AUTOANIM.impact": "Aufprall",
-    "AUTOANIM.impactVariant": "Aufprallvariante",
-    "AUTOANIM.underToken": "Animation unter der Figur abspielen?",
-
-    "AUTOANIM.markerEnable": "Aktiviere Marker",
 
 
-    "AUTOANIM.sneakattack": "Hinterhältiger Angriff",
-    "AUTOANIM.bullet": "Patrone",
-    "AUTOANIM.bolt": "Bolzen",
-    "AUTOANIM.snipe": "Snipe",
-    "AUTOANIM.damageType": "Schadensart",
 
-    "AUTOANIM.tabTitle": "Gegenstandsanimationseinstellungen",
-    "AUTOANIM.targetAnim": "Ziel Animation",
-    "AUTOANIM.markerColorTarget": "Markerfarbe Ziel",
 
-    "AUTOANIM.musicMarker": "Musik",
-    "AUTOANIM.crossbow": "Armbrust",
-    "AUTOANIM.loops": "Wiederholt",
-    "AUTOANIM.loopDelay": "Wiederholungsverzögerung",
-    "AUTOANIM.scale": "Skalierung",
-    "AUTOANIM.radius": "Radius (Rasterfelder)",
-    "AUTOANIM.delayMS": "Verzögerung (ms)",
-    "AUTOANIM.placeTile": "Als Kachel platzieren",
-    "AUTOANIM.socketLibAA": "Module erfordert",
-    "AUTOANIM.opacity": "Deckkraft",
-    "AUTOANIM.overhead": "Zu Überkopf machen",
-    "AUTOANIM.sourceToken": "Aktiviere Ausgangsfigur-Animation",
-    "AUTOANIM.targetToken": "Aktiviere Zielfigur-Animation",
-    "AUTOANIM.after": "Danach",
-    "AUTOANIM.animation": "Animation",
-    "AUTOANIM.source": "Ursprung",
-    "AUTOANIM.target": "Ziel",
-    "AUTOANIM.primary": "Primär",
-    "AUTOANIM.start": "Start",
-    "AUTOANIM.thrown": "Geworfen",
-    "AUTOANIM.customSequences": "Benutzerdefinierte Sequenz",
-    "AUTOANIM.explode": "Explodieren",
-    "AUTOANIM.fade": "Ausblenden",
-    "AUTOANIM.itemLaserSwordDB": "Doppeltes Laserschwert",
-    "AUTOANIM.eye": "Auge",
-    "AUTOANIM.paw": "Pfote",
-    "AUTOANIM.explosion": "Explosion",
-    "AUTOANIM.selfEffect": "Selbsteffekte",
-    "AUTOANIM.targetEffect": "Zieleffekte",
-    "AUTOANIM.animPreview": "Animationsvorschau",
-    "AUTOANIM.animPreviewHint": "Videovorschau im A-A Reiter",
-    "AUTOANIM.icespikes": "Ice Spikes",
-    "AUTOANIM.divinesmite": "Göttliches Niederstrecken",
-    "AUTOANIM.stars": "Sterne",
-    "AUTOANIM.marker": "Marker",
-    "AUTOANIM.magicsign": "Magisches Symbol",
-    "AUTOANIM.customize": "Anpassen",
-    "AUTOANIM.ctaScale": "Skalierung",
-    "AUTOANIM.volume": "Lautstärke (0-1)",
-    "AUTOANIM.teleport": "Du hast einen Punkt außerhalb der Reichweite ausgewählt. Wähle erneut",
 
-    "AUTOANIM.cloudofdaggers": "Dolchwolke",
-    "AUTOANIM.auraScale": "Im Verhältnis zur Figurengröße",
-    "AUTOANIM.removeTemplate": "Entferne Schablone nach der Platzierung?",
-    "AUTOANIM.occlusionMode": "Ausblendungs-Modus",
-    "AUTOANIM.occlusion01": "Ausblenden (gesamte Kachel)",
-    "AUTOANIM.occlusion02": "Dach (blockiert Sicht und Beleuchtung)",
-    "AUTOANIM.occlusion03": "Kreisförmig (um die Figur)",
-    "AUTOANIM.occlusion00": "Keiner (immer sichtbar)",
-    "AUTOANIM.occlusionAlpha": "Ausblendungstransparenz",
 
-    "AUTOANIM.lightningbolt": "Blitz",
-    "AUTOANIM.chakram": "Chakram",
-    "AUTOANIM.bless": "Segnen",
 
-    "AUTOANIM.single": "Einzel",
-    "AUTOANIM.double": "Doppel",
-    "AUTOANIM.settingRangeSwitch": "Deaktiviere Nah- und Fernkampf Wechsel",
-    "AUTOANIM.settingRangeSwitchhint": "Deaktiviere den Wechsel zwischen Nahkampf Animation und Fernkampfanimation",
-    "AUTOANIM.settingDisableAutoRec": "Deaktiviere die automatische Erkennung",
-    "AUTOANIM.settingDisableAutoRecHint": "Nur benutzerdefiniert konfigurierte Gegenstände werden eine Animation abspielen",
 
-    "AUTOANIM.returning": "Wiederkehrende Waffe",
-    "AUTOANIM.rangeDetect": "Fernkampferkennung",
-    "AUTOANIM.gridSquares": "Rasterfelder für den Wechsel auf Fernkampf",
 
-    "AUTOANIM.toggleAnimations": "Animationen umschalten",
-    "AUTOANIM.toggleAnimations_hint": "Benötigt Neuladen beim Einschalten",
-    "AUTOANIM.ON": "An",
-    "AUTOANIM.OFF": "Aus",
-    "AUTOANIM.ignoreTargets": "Ziele ignorieren",
-    "AUTOANIM.scaleToToken": "Skalierung anhand Figurengröße",
-    "AUTOANIM.noTemplate": "Schablone nicht platzieren",
-    "AUTOANIM.anchorX": "Anker X",
-    "AUTOANIM.anchorY": "Anker Y",
 
-    "AUTOANIM.lightningbolt02": "Blitz 02",
-    "AUTOANIM.cloudofkunais": "Kunaiwolke",
 
-    "AUTOANIM.web": "Netz",
 
-    "AUTOANIM.ammoAnimate": "Animation der Munition",
 
-    "AUTOANIM.tollthedead": "Totenläuten",
-    "AUTOANIM.bell": "Glocke",
-    "AUTOANIM.shockwave": "Schockwelle",
-    "AUTOANIM.skull": "Schädel",
-    "AUTOANIM.complete": "Abgeschlossen",
 
-    "AUTOANIM.itemName": "Gegenstandsname",
-    "AUTOANIM.search": "Suche",
-    "AUTOANIM.variant": "Variante",
-    "AUTOANIM.color": "Farbe",
-    "AUTOANIM.repeat": "Wiederholen",
-    "AUTOANIM.delay": "Verzögerung",
-    "AUTOANIM.below": "Unter Figur",
-    "AUTOANIM.custom": "Eigene",
-    "AUTOANIM.switch": "Wechsel",
-    "AUTOANIM.return": "Zurückkehrend",
-    "AUTOANIM.addItem": "Gegenstand hinzufügen",
-    "AUTOANIM.type": "Typ",
-    "AUTOANIM.remove": "Schablone entfernen",
-    "AUTOANIM.static": "Statisch",
-    "AUTOANIM.playOn": "Abspielen bei",
-    "AUTOANIM.tint": "Farbton",
-    "AUTOANIM.melee": "Nahkampf",
-    "AUTOANIM.ranged": "Reichweite",
-    "AUTOANIM.onToken": "Auf Figur",
-    "AUTOANIM.presets": "Voreinstellungen",
-    "AUTOANIM.submit": "Speichern",
-    "AUTOANIM.import": "Einstellungen Importieren",
-    "AUTOANIM.export": "Einstellungen Exportieren",
-    "AUTOANIM.preset": "Voreinstellung",
-    "AUTOANIM.autoRecSetting": "Automatische Erkennung konfigurieren",
-    "AUTOANIM.debugging": "Debugging aktivieren",
 
-    "AUTOANIM.darkorangepurple": "Dunkelorange Lila ",
-    "AUTOANIM.halberd": "Hellebarde",
-    "AUTOANIM.quarterstaff": "Kampfstab",
-    "AUTOANIM.04": "04",
-    "AUTOANIM.sleep01": "Schlaf 01",
-    "AUTOANIM.sleep02": "Schlaf 02"
+
+
+
+            "teleport": "Du hast einen Punkt außerhalb der Reichweite ausgewählt. Wähle erneut"
+
+
+
+
+
+
+        },
+        "colors": {
+
+
+            "palegreen": "Blassgrün",
+            "blue":"Blau",
+            "green":"Grün",
+            "orange":"Orange",
+            "pink":"Pink",
+            "purple":"Violett",
+            "red":"Rot",
+            "regular":"Regulär",
+            "yellow":"Gelb",
+            "darkred":"Dunkelrot",
+            "darkgreen":"Dunkelgrün",
+            "darkpurple":"Dunkelviolett",
+            "orangepink":"Orange pink",
+            "purpleblue":"Lila blau",
+            "purpleteal":"Lila blaugrün",
+            "yellowblue":"Gelb blau",
+            "random":"Zufällig",
+            "grey": "Grau",
+            "bluegrey": "Blau grau",
+            "darkblue":"Dunkelblau",
+            "tealyellow": "Blaugrün gelb",
+            "purplepink": "Pink lila",
+            "pinkyellow": "Pink gelb",
+            "blueorange": "Blau orange",
+            "greenorange": "Grün orange",
+            "black": "Schwarz",
+            "darkwhiteblue": "Dunkel Weiß Blau",
+            "whiteblue": "Weiß blau",
+            "rainbow01": "Regenbogen 01",
+            "rainbow02": "Regenbogen 02",
+            "lightgreen": "Hellgrün",
+            "greenyellow": "Grün gelb",
+            "brown": "Braun",
+            "lightblue": "Hellblau",
+            "rainbow": "Regenbogen",
+            "white": "Weiß",
+            "yellowwhite": "Weiß",
+            "darkorangepurple": "Dunkelorange Lila "
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+        },
+        "animations": {
+            "coneofcold": "Kältekegel",
+
+
+
+            "complete": "Abgeschlossen",
+
+
+
+
+
+            "curewounds": "Wunden heilen",
+            "generichealing": "Generische Heilung",
+            "itemHealingWord": "Heilendes Wort",
+            "disintegrate":"Auflösung",
+            "eldritchblast":"Schauriger Strahl",
+            "firebolt":"Feuerpfeil",
+            "magicmissile":"Magisches Geschoss",
+            "rayoffrost":"Kältestrahl",
+            "scorchingray":"Sengender Strahl",
+            "witchbolt":"Hexenpfeil",
+            "thunderwave":"Donnerwoge",
+            "shatter":"Zerbersten",
+            "shieldspell":"Schild",
+            "calllightning":"Blitze herbeirufen",
+            "darkness":"Dunkelheit",
+            "fogcloud":"Nebelwolke",
+            "sleetstorm":"Schneesturm",
+            "spiritguardians":"Schutzgeister",
+            "wallofforce":"Energiewand",
+            "whirlwind":"Wirbelwind",
+            "antilifeshell":"Schutzhülle gegen Lebendes",
+            "guidingbolt": "Lenkendes Geschoss",
+            "mistystep": "Nebelschritt",
+            "bardicinspiration": "Bardische Inspiration",
+            "musicnote": "Musiknoten",
+            "breathweapon": "Odemwaffe",
+            "snowflake": "Schneeflockenausbruch",
+            "entangle": "Verstricken",
+            "impact": "Aufprall",
+            "icespikes": "Ice Spikes",
+            "divinesmite": "Göttliches Niederstrecken",
+            "stars": "Sterne",
+            "marker": "Marker",
+            "magicsign": "Magisches Symbol",
+            "cloudofdaggers": "Dolchwolke",
+            "lightningbolt": "Blitz",
+            "bless": "Segnen",
+            "lightningbolt02": "Blitz 02",
+            "cloudofkunais": "Kunaiwolke",
+            "web": "Netz",
+            "tollthedead": "Totenläuten",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            "huntersmark": "Zeichen des Jägers",
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            "poison": "Gift",
+            "explosion": "Explosion",
+
+
+
+
+
+
+
+            "fire": "Feuer",
+
+
+            "static": "Statisch",
+
+            "sleep": "Schlaf 01",
+
+
+
+
+            "skull": "Schädel",
+            "dagger":"Dolch",
+            "greataxe":"Zweihandaxt",
+            "greatclub":"Zweihandknüppel",
+            "greatsword":"Zweihandschwert",
+            "handaxe":"Beil",
+            "lasersword":"Laserschwert",
+            "mace":"Streitkolben",
+            "maul":"Zweihandhammer",
+            "rapier":"Rapier",
+            "spear":"Speer",
+            "sword":"Schwert",
+            "itemLongsword": "Langschwert",
+            "scimitar": "Krummsäbel",
+            "shortsword": "Kurzschwert",
+            "arrow":"Pfeil",
+            "boulder":"Felsblock",
+            "javelin":"Wurfspeer",
+            "lasershot":"Laserstrahl",
+            "siegeboulder":"Belagerungsblock",
+            "sling":"Schleuder",
+            "unarmedstrike":"waffenloser Schlag",
+            "1hb":"1 einhändiges knüppeln",
+            "1hp":"1 einhändiges stechen",
+            "1hs":"1 einhändiges aufschlitzt",
+            "2hb":"2 zweihändiges knüppeln",
+            "2hp":"2 zweihändiges stechen",
+            "2hs":"2 zweihändiges aufschlitzen",
+            "claw":"Klaue",
+            "bite":"Biss",
+            "flurryofblows": "Schlaghagel",
+            "sneakattack": "Hinterhältiger Angriff",
+            "bullet": "Patrone",
+            "bolt": "Bolzen",
+            "snipe": "Snipe",
+            "chakram": "Chakram",
+
+
+
+
+
+
+
+            "halberd": "Hellebarde",
+            "quarterstaff": "Kampfstab",
+            "crossbow": "Armbrust"
+
+        },
+        "variants": {
+            "1": "01",
+            "2": "02",
+            "3": "03",
+            "01":"01",
+            "02":"02",
+            "03":"03",
+            "04":"04",
+            "05":"05",
+            "06":"06",
+            "07":"07",
+            "08":"08",
+            "09":"09",
+            "10":"10",
+            "11":"11",
+            "12":"12",
+            "13":"13",
+            "magical": "Magisch",
+            "physical": "Physisch",
+
+            "fire": "Feuer",
+            "regular":"Regulär",
+            "poison": "Gift",
+            "cold": "Kälte",
+            "lightning": "Blitz",
+            "kunai":"Kunai",
+            "primary": "Primär",
+
+            "square": "Rechteck",
+            "circle": "Kreis",
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            "skull": "Schädel",
+
+            "snowflake": "Schneeflockenausbruch",
+
+
+
+
+            "marker": "Marker",
+            "source": "Ursprung",
+            "target": "Ziel",
+            "explode": "Explodieren",
+            "fade": "Ausblenden",
+
+            "eye": "Auge",
+
+            "paw": "Pfote",
+        
+
+
+
+
+
+
+            "bell": "Glocke",
+            "shockwave": "Schockwelle",
+            "complete": "Abgeschlossen",
+            "single": "Einzel",
+            "double": "Doppel",
+        
+
+            "fire01": "Feuer v01",
+            "fire02": "Feuer v02",
+        
+            "acid": "Säure"
+
+
+
+        },
+        "menuTypes": {
+            "creature": "Kreaturenangriff",
+            "generic": "Generisch",
+            "weapon":"Waffe",
+            "spell":"Zauber",
+
+            "fire": "Feuer",
+
+            "lightning": "Blitz",
+
+            "magicsign": "Magisches Symbol",
+            "marker": "Marker",
+            "music": "Musik",
+
+
+
+
+            "cone": "Kegel",
+            "square": "Rechteck",
+            "circle": "Kreis",
+            "ray": "Strahl"
+        
+        },
+        "animTypes": {
+            "melee": "Nahkampfwaffe",
+            "ranged": "Fernwaffe",
+            "onToken": "Auf Figur",
+            "presets": "Voreinstellungen",
+            "templates": "Schablone",
+            "typeAuras": "Aura"
+        },
+        "presetTypes": {
+            "bardicinspiration": "Bardische Inspiration",
+            "bless": "Segnen",
+
+
+            "huntersmark": "Zeichen des Jägers",
+            "shieldspell":"Schild",
+            "sneakattack": "Hinterhältiger Angriff",
+            "animTeleportation": "Teleportation",
+            "thunderwave":"Donnerwoge"
+
+        },
+        "menus": {
+
+            "primary": "Primär",
+            "animation": "Animation",
+
+
+            "preset": "Voreinstellung",
+            "type": "Typ",
+            "source": "Ursprung",
+            "target": "Ziel",
+            "submit": "Speichern",
+
+            "and": "und",
+
+
+
+
+            "customize": "Anpassen",
+
+
+
+
+
+
+
+
+            "melee": "Nahkampfwaffe",
+            "ranged": "Fernwaffe",
+            "switch": "Wechsel",
+            "custom": "Eigene",
+            "return": "Zurückkehrend",
+            "variant": "Variante",
+            "color": "Farbe",
+            "rangeDetect": "Fernkampferkennung",
+            "gridSquares": "Rasterfelder für den Wechsel auf Fernkampf",
+            "below": "Unter Figur",
+
+            "explosion": "Explosion",
+            "radius": "Radius",
+
+            "start": "Start",
+
+            "volume": "Lautstärke (0-1)",
+            "delay": "Verzögerung",
+
+
+
+
+
+
+
+
+            "repeat": "Wiederholen",
+            "scale": "Skalierung",
+            "opacity": "Deckkraft",
+            "playOn": "Abspielen bei",
+
+
+
+            "remove": "Schablone entfernen",
+
+
+
+
+            "occlusionMode": "Ausblendungs-Modus",
+            "occlusion01": "Ausblenden (gesamte Kachel)",
+            "occlusion02": "Dach (blockiert Sicht und Beleuchtung)",
+            "occlusion03": "Kreisförmig (um die Figur)",
+            "occlusion00": "Keiner (immer sichtbar)",
+            "occlusionAlpha": "Ausblendungstransparenz",
+        
+
+
+
+
+
+
+
+
+            "ignoreTargets": "Ziele ignorieren",
+
+            "markerColor": "Marker Farbe selbst",
+            "markerColorTarget": "Markerfarbe Ziel",
+
+            "anchorX": "Anker X",
+            "anchorY": "Anker Y",
+        
+
+            "itemName": "Gegenstandsname",
+
+            "search": "Suche",
+
+
+
+
+
+
+
+
+            "yes": "Ja",
+            "no": "Nein",
+
+
+
+
+
+
+
+
+            "export": "Einstellungen Exportieren"
+
+
+
+        },
+        "optionsInfo": {
+
+        }
+    }
 }
