@@ -58,7 +58,19 @@ export default class AAItemMenu extends SvelteApplication {
                 }
             }
          });
-      
+         /*
+         buttons.unshift({
+            class: 'addToAutorec',
+            icon: 'far fa-clone aa-zoom',
+            title: 'Copy to Autorec Menu',
+            label: "Copy",
+            styles: { color: 'lightblue', position: "relative", right: "45px" },
+   
+            onclick: function()
+            {
+            }
+         });
+         */
          return buttons;
        }
 }

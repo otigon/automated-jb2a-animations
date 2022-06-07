@@ -112,7 +112,7 @@ export async function trafficCop(handler) {
                 let aaSeq = new Sequence();
                 let play = false;
 
-                if (animType === 'templates' || (animType === 'preset' && presetType === 'fireball') || (animType === 'preset' && presetType === 'thunderwave')) {
+                if (animType === 'templatefx' || (animType === 'preset' && presetType === 'fireball') || (animType === 'preset' && presetType === 'thunderwave')) {
                     switch (game.system.id) {
                         case "dnd5e":
                         case "pf2e":
