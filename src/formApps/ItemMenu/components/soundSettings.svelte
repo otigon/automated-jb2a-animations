@@ -112,7 +112,7 @@
             <div class="flexcol" style="grid-row: 3 / 4; grid-column: 1 / 2;">
                 <label for=""
                     >{localize("autoanimations.menus.start")}
-                    {localize("autoanimations.menus.time")}</label
+                    {localize("autoanimations.menus.time")} (ms)</label
                 >
                 <input
                     type="Number"

@@ -210,7 +210,7 @@
                 on:click={copy}
                 style="align-self: center; position:relative; bottom: 7px;"
                 title="Copy Database Path"
-                >Copy DB Path <i
+                >{localize("autoanimations.menus.copy")} DB {localize("autoanimations.menus.path")} <i
                     class="fas fa-database aa-zoom"
                     style="color: rgba(50, 79, 245, 0.5);"
                 /></label

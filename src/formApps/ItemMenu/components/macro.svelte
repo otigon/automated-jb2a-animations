@@ -20,7 +20,7 @@
 </script>
 
 <div style="padding-top: 10px">
-    <h1>{localize("AUTOANIM.macro")}</h1>
+    <h1>{localize("autoanimations.menus.macro")}</h1>
 </div>
 <div class="aa-2wide">
     <div class="flexcol {animationDisabled ? "aa-disabled" : ""}" style="grid-row: 1 / 2;grid-column: 1 / 2;">

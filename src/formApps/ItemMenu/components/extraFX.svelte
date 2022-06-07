@@ -3,9 +3,6 @@
     import { fade } from "svelte/transition";
     import SoundSettings from "./soundSettings.svelte";
     import ChooseAnimation from "./chooseAnimation.svelte";
-    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
-    import SourceFxApp from "../videoPreviews/sourceFXApp.svelte";
-    import TargetFxApp from "../videoPreviews/targetFXApp.svelte";
     /*
     import {
         menuDBPathSourceFX,
@@ -110,7 +107,7 @@
           game.i18n.localize("autoanimations.menus.persistant");
     let isMasked = options.isMasked || false;
     $: isMasked = options.isMasked = isMasked;
-    $: maskLabel = isMasked ? "Enabled" : "Disabled";
+    $: maskLabel = isMasked ? game.i18n.localize("autoanimations.menus.enabled") : game.i18n.localize("autoanimations.menus.disabled");
     function switchMask() {
         isMasked = !isMasked;
     }
@@ -171,21 +168,6 @@
         }
     }
 
-    function onClick() {
-        new TJSDialog({
-            modal: false,
-            draggable: true,
-            resizable: true,
-            title:
-                flagPath === "sourceExtraFX"
-                    ? "Extra Source Effect"
-                    : "Extra Target Effect",
-            stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
-            content: {
-                class: flagPath === "sourceExtraFX" ? SourceFxApp : TargetFxApp,
-            },
-        }).render(true);
-    }
     /*
     let sourceFilePath;
     $: if (flagPath === "sourceExtraFX") {
@@ -261,7 +243,7 @@
             {flagData}
         />
         <div class="aa-options-border" transition:fade={{ duration: 500 }}>
-            <h2 style="margin-top:5px" transition:fade>Options</h2>
+            <h2 style="margin-top:5px" transition:fade>{localize("autoanimations.menus.options")}</h2>
             <div class="aa-options" transition:fade>
                 <!--Persistent Setting-->
                 <div

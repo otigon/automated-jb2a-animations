@@ -70,15 +70,15 @@
 <div class="aaMenu-section">
     <div class="aa-4wide">
         <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
-            <label for="">{localize("AUTOANIM.variant")}</label>
+            <label for="">{localize("autoanimations.menus.variant")}</label>
             <select bind:value={variant}>
                 <option value="" />
-                <option value="eye">{localize("AUTOANIM.eye")}</option>
-                <option value="paw">{localize("AUTOANIM.paw")}</option>
+                <option value="eye">{localize("autoanimations.variants.eye")}</option>
+                <option value="paw">{localize("autoanimations.variants.paw")}</option>
             </select>
         </div>
         <div class="flexcol" style="grid-row: 1 / 2;grid-column: 3 / 4;">
-            <label for="">{localize("AUTOANIM.color")}</label>
+            <label for="">{localize("autoanimations.menus.color")}</label>
             <select bind:value={color}>
                 {#each Object.entries(aaColorMenu.static.spell.huntersmark.eye) as [key, name]}
                     <option value={key}>{name}</option>
@@ -87,22 +87,22 @@
         </div>
     </div>
     <div class="aa-options-border">
-    <h2 style="margin-top:5px;">Options</h2>
+    <h2 style="margin-top:5px;">{localize("autoanimations.menus.options")}</h2>
     <div class="aa-options">
         <!--Persistent Setting-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-            <label for="">Persistence</label>
+            <label for="">{localize("autoanimations.menus.persistence")}</label>
             <button on:click={() => switchPersistence()}>{isPersistent}</button>
         </div>
         <!--Set Z-Index-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-            <label for="">Z-Index</label>
+            <label for="">{localize("autoanimations.menus.z-index")}</label>
             <button class="oldCheck" on:click={() => below()}
                 >{aboveBelow}</button
             >
         </div>
         <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
-            <label for="">{localize("AUTOANIM.scale")}</label>
+            <label for="">{localize("autoanimations.menus.scale")}</label>
             <input
                 type=number
                 bind:value={scale}
@@ -114,7 +114,7 @@
             class="flexcol {persistent ? '' : 'aa-disabled'}"
             style="grid-row: 1 / 2; grid-column: 3 / 4;"
         >
-            <label for="">{localize("AUTOANIM.anchorX")}</label>
+            <label for="">{localize("autoanimations.menus.anchorX")}</label>
             <input
                 disabled={!persistent}
                 type=number
@@ -127,7 +127,7 @@
             class="flexcol {persistent ? '' : 'aa-disabled'}"
             style="grid-row: 1 / 2; grid-column: 4 / 5;"
         >
-            <label for="">{localize("AUTOANIM.anchorY")}</label>
+            <label for="">{localize("autoanimations.menus.anchorY")}</label>
             <input
                 disabled={!persistent}
                 type=number

@@ -1,5 +1,7 @@
 <script>
     import { fade } from "svelte/transition";
+    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+
     //import { menuAnimType } from "../menuStore.js";
     import { storeItemData } from "../itemPreviewStore.js";
     import { getPreviewFile } from "./getPreviewFile.js";
@@ -155,12 +157,12 @@
 </script>
 
 <div class="flexcol">
-    <label class="aa-section-label" for="">Preview</label>
+    <label class="aa-section-label" for="">{localize("autoanimations.menus.preview")}</label>
 </div>
 <div class="flexcol aa-full-preview">
     {#if enableSource}
         <div class="flexcol" style="grid-row:1/2" transition:fade>
-            <label for="">Source FX Animation</label>
+            <label for="">{localize("autoanimations.menus.source")} FX {localize("autoanimations.menus.animation")}</label>
             <div class="aa-video-overlay">
                 <video
                     class="aaVideoPreview"
@@ -175,7 +177,7 @@
         </div>
     {/if}
     <div class="flexcol" style="grid-row:1/2" transition:fade>
-        <label for="">Primary Animation</label>
+        <label for="">{localize("autoanimations.menus.primary")} {localize("autoanimations.menus.animation")}</label>
         <div class="aa-video-overlay">
             <video
                 class="aaVideoPreview"
@@ -190,7 +192,7 @@
     </div>
     {#if showSwitch}
         <div class="flexcol" style="grid-row:1/2" transition:fade>
-            <label for="">Range Switch</label>
+            <label for="">{localize("autoanimations.menus.ranged")} {localize("autoanimations.menus.switch")}</label>
             <div class="aa-video-overlay">
                 <video
                     class="aaVideoPreview"
@@ -206,7 +208,7 @@
     {/if}
     {#if enableExplosion && shouldShow}
         <div class="flexcol" style="grid-row:1/2" transition:fade>
-            <label for="">Explosion Animation</label>
+            <label for="">{localize("autoanimations.menus.explosion")} {localize("autoanimations.menus.animation")}</label>
             <div class="aa-video-overlay">
                 <video
                     class="aaVideoPreview"
@@ -222,7 +224,7 @@
     {/if}
     {#if enableTarget}
         <div class="flexcol" style="grid-row:1/2" transition:fade>
-            <label for="">Target FX Animation</label>
+            <label for="">{localize("autoanimations.menus.target")} FX {localize("autoanimations.menus.animation")}</label>
             <div class="aa-video-overlay">
                 <video
                     class="aaVideoPreview"

@@ -96,11 +96,11 @@
     function startBelow() {
         startBelowToken = !startBelowToken;
     }
-    $: startAboveBelow = startBelowToken ? "Below Token" : "Above Token";
+    $: startAboveBelow = startBelowToken ? game.i18n.localize("autoanimations.menus.below") : game.i18n.localize("autoanimations.menus.above");
     let startCustomId = "customPresetStart";
     let startIsMasked = start.isMasked || false;
     $: startIsMasked = start.isMasked = startIsMasked;
-    $: startMaskLabel = startIsMasked ? "Enabled" : "Disabled";
+    $: startMaskLabel = startIsMasked ? game.i18n.localize("autoanimations.menus.enabled") : game.i18n.localize("autoanimations.menus.disabled");
     function switchStartMask() {
         startIsMasked = !startIsMasked;
     }
@@ -115,7 +115,7 @@
     function endBelow() {
         endBelowToken = !endBelowToken;
     }
-    $: endAboveBelow = endBelowToken ? "Below Token" : "Above Token";
+    $: endAboveBelow = endBelowToken ? game.i18n.localize("autoanimations.menus.below") : game.i18n.localize("autoanimations.menus.above");
     let endMenuType = end.menuType;
     $: endMenuType = end.menuType = endMenuType;
     let endAnimation = end.animation;
@@ -135,7 +135,7 @@
     let endCustomId = "customPresetEnd";
     let endIsMasked = end.isMasked || false;
     $: endIsMasked = end.isMasked = endIsMasked;
-    $: endMaskLabel = endIsMasked ? "Enabled" : "Disabled";
+    $: endMaskLabel = endIsMasked ? game.i18n.localize("autoanimations.menus.enabled") : game.i18n.localize("autoanimations.menus.disabled");
     function switchEndMask() {
         endIsMasked = !endIsMasked;
     }
@@ -167,7 +167,7 @@
     function betweenBelow() {
         betweenBelowToken = !betweenBelowToken;
     }
-    $: betweenAboveBelow = betweenBelowToken ? "Below Token" : "Above Token";
+    $: betweenAboveBelow = betweenBelowToken ? game.i18n.localize("autoanimations.menus.below") : game.i18n.localize("autoanimations.menus.above");
     let betweenCustomId = "customPresetBetween";
     let shouldShowOnlyX = true;
     function info() {
@@ -177,7 +177,7 @@
             resizable: true,
             height: 200,
             width: 200,
-            title: "Teleportation Preset",
+            title: game.i18n.localize("autoanimations.presetTypes.animTeleportation") + game.i18n.localize("autoanimations.menus.preset"),
             content: `<img src="modules/autoanimations/src/images/Teleportation.png" alt="">`,
         }).render(true);
     }
@@ -192,25 +192,25 @@
         />
     </h1>
     <div class="aa-options-border">
-        <h2 style="margin-top:10px;">Options</h2>
+        <h2 style="margin-top:10px;">{localize("autoanimations.menus.options")}</h2>
         <div class="aa-3wide">
             <!--Measurement Type-->
             <div class="flexcol" style="grid-row: 1 / 2;grid-column: 1 / 2;">
-                <label for="">{localize("AUTOANIM.animation")}</label>
+                <label for="">{localize("autoanimations.menus.animation")}</label>
                 <select
                     name="flags.autoanimations.animation"
                     bind:value={measureType}
                 >
                     <option value="alternating"
-                        >{localize("AUTOANIM.circle")}</option
+                        >{localize("autoanimations.menuTypes.circle")}</option
                     >
                     <option value="equidistant"
-                        >{localize("AUTOANIM.square")}</option
+                        >{localize("autoanimations.menuTypes.square")}</option
                     >
                 </select>
             </div>
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-                <label for="">Range</label>
+                <label for="">{localize("autoanimations.menus.ranged")}</label>
                 <input type="Number" bind:value={teleDist} step="0.01" />
             </div>
             {#if isGM}
@@ -218,7 +218,7 @@
                     class="flexcol"
                     style="grid-row: 1 / 2; grid-column: 3 / 4;"
                 >
-                    <label for="">{localize("AUTOANIM.hideBorder")}</label>
+                    <label for="">{localize("autoanimations.menus.hideBorder")}</label>
                     <button
                         class={hideFromPlayers
                             ? "aa-selected"
@@ -248,7 +248,7 @@
         {flagData}
     />
     <div class="aa-options-border">
-        <h2>Options</h2>
+        <h2>{localize("autoanimations.menus.options")}</h2>
         <div class="aa-options">
             <!--Set the Masking Boolean-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
@@ -260,13 +260,13 @@
             </div>
             <!--Set Z-Index-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-                <label for="">Z-Index</label>
+                <label for="">{localize("autoanimations.menus.z-index")}</label>
                 <button class="oldCheck" on:click={() => startBelow()}
                     >{startAboveBelow}</button
                 >
             </div>
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-                <label for="">Scale</label>
+                <label for="">{localize("autoanimations.menus.scale")}</label>
                 <input type="Number" bind:value={startScale} step="0.01" />
             </div>
             <div
@@ -305,7 +305,7 @@
     <div class="aa-header-section">
         <div class="aa-header">
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
-                <label for="">Between Animation</label>
+                <label for="">{localize("autoanimations.menus.between")} {localize("autoanimations.menus.animation")}</label>
             </div>
             <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
                 <i
@@ -335,14 +335,14 @@
             {flagData}
         />
         <div class="aa-options-border">
-            <h2>Options</h2>
+            <h2>{localize("autoanimations.menus.options")}</h2>
             <div class="aa-options">
                 <!--Set Z-Index-->
                 <div
                     class="flexcol"
                     style="grid-row: 1 / 2; grid-column: 2 / 3;"
                 >
-                    <label for="">Z-Index</label>
+                    <label for="">{localize("autoanimations.menus.z-index")}</label>
                     <button class="oldCheck" on:click={() => betweenBelow()}
                         >{betweenAboveBelow}</button
                     >
@@ -351,7 +351,7 @@
                     class="flexcol"
                     style="grid-row: 1 / 2; grid-column: 3 / 4;"
                 >
-                    <label for="">{localize("AUTOANIM.playbackRate")}</label>
+                    <label for="">{localize("autoanimations.menus.playbackRate")}</label>
                     <input
                         type="Number"
                         bind:value={betweenPlaybackRate}

@@ -44,7 +44,7 @@
 
     let belowToken = preset.below || false;
     $: belowToken = preset.below = belowToken;
-    $: aboveBelow = belowToken ? "Below Token" : "Above Token";
+    $: aboveBelow = belowToken ? game.i18n.localize("autoanimations.menus.below") : game.i18n.localize("autoanimations.menus.above");
 
     let scaleX = preset.scaleX;
     $: scaleX = preset.scaleX = scaleX;
@@ -69,17 +69,17 @@
     let removeTemplate = preset.removeTemplate || false;
     $: removeTemplate = removeTemplate;
     $: preset.removeTemplate = removeTemplate;
-    $: isRemove = removeTemplate ? "Yes" : "No";
+    $: isRemove = removeTemplate ? game.i18n.localize("autoanimations.menus.yes") : game.i18n.localize("autoanimations.menus.no");
     function switchRemove() {
         removeTemplate = !removeTemplate;
     }
 </script>
 
 <div class="aaMenu-section">
-    <h1>Thunderwave 5e Preset</h1>
+    <h1>{localize("autoanimations.animations.thunderwave")} 5e {localize("autoanimations.menus.preset")}</h1>
     <div class="aa-3wide">
         <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
-            <label for="">{localize("AUTOANIM.color")}</label>
+            <label for="">{localize("autoanimations.menus.color")}</label>
             <select bind:value={color}>
                 {#each Object.entries(aaColorMenu.static.spell.sneakattack["01"]) as [key, name]}
                     <option value={key}>{name}</option>
@@ -88,25 +88,25 @@
         </div>
     </div>
     <div class="aa-options-border">
-    <h2 style="margin-top:5px;">Options</h2>
+    <h2 style="margin-top:5px;">{localize("autoanimations.menus.options")}</h2>
     <div class="aa-options">
         <!--Set Z-Index-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-            <label for="">Z-Index</label>
+            <label for="">{localize("autoanimations.menus.z-index")}</label>
             <button class="oldCheck" on:click={() => below()}
                 >{aboveBelow}</button
             >
         </div>
         <!--Remove Template option-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-            <label for="">{localize("AUTOANIM.remove")}</label>
+            <label for="">{localize("autoanimations.menus.remove")}</label>
             <button
                 class={removeTemplate ? "aa-selected" : "aa-notSelected"}
                 on:click={() => switchRemove()}>{isRemove}</button
             >
         </div>
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-            <label for="">{localize("AUTOANIM.scale")} X</label>
+            <label for="">{localize("autoanimations.menus.scale")} X</label>
             <input
                 type=number
                 bind:value={scaleX}
@@ -115,7 +115,7 @@
             />
         </div>
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-            <label for="">{localize("AUTOANIM.scale")} Y</label>
+            <label for="">{localize("autoanimations.menus.scale")} Y</label>
             <input
                 type=number
                 bind:value={scaleY}
@@ -125,20 +125,20 @@
         </div>
         <!--Set Number of times the animation plays-->
         <div class="flexcol" style="grid-row: 2 / 3; grid-column: 1 / 2;">
-            <label for="">{localize("AUTOANIM.repeat")}</label>
+            <label for="">{localize("autoanimations.menus.repeat")}</label>
             <input type=number bind:value={repeat} placeholder=1 />
         </div>
         <!--Set delay between repeats-->
         <div class="flexcol" style="grid-row: 2 / 3; grid-column: 2 / 3;">
             <label for=""
-                >{localize("AUTOANIM.repeat")}
-                {localize("AUTOANIM.delay")}</label
+                >{localize("autoanimations.menus.repeat")}
+                {localize("autoanimations.menus.delay")}</label
             >
             <input type=number bind:value={delay} placeholder=250 />
         </div>
         <!--Set Animation Opacity-->
         <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
-            <label for="aaOpacity">{localize("AUTOANIM.opacity")}</label>
+            <label for="aaOpacity">{localize("autoanimations.menus.opacity")}</label>
             <div class="form-group">
                 <input
                     type=number

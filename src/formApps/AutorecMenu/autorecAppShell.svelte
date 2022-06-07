@@ -204,13 +204,13 @@
                     style="max-width: 25%;"
                     on:click={() => sortMenu()}
                     ><i class="fas fa-sort-alpha-down fa-lg aa-green" />
-                    {localize("AUTOANIM.sortmenu")}</label
+                    {localize("autoanimations.menus.sortmenu")}</label
                 >
                 <input
                     type="text"
                     class="aa-nameField"
                     bind:value={searchValue}
-                    placeholder={localize("AUTOANIM.search")}
+                    placeholder={localize("autoanimations.menus.search")}
                 />
             </div>
         </div>
@@ -295,12 +295,12 @@
             <div class="aa-submit">
                 <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
                     <button class="aa-addSection" on:click={() => addSection()}
-                        >Add Section</button
+                        >{localize("autoanimations.menus.add")} {localize("autoanimations.menus.section")}</button
                     >
                 </div>
                 <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
                     <button class="aa-manageMenu" on:click={() => manageMenu()}
-                        >Menu Manager</button
+                        >{localize("autoanimations.menus.menuManager")}</button
                     >
                 </div>
                 <div class="flexcol" style="grid-row:2/3; grid-column:1/2">

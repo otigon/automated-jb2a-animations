@@ -158,7 +158,7 @@
         type="text"
         class="aa-nameField"
         bind:value={sectionName}
-        placeholder={localize("AUTOANIM.itemName")}
+        placeholder={localize("autoanimations.menus.itemName")}
     />
     <div
         class="aa-deleteSection"
@@ -290,7 +290,9 @@
                     style="grid-row:2/3; grid-column:1/6"
                 >
                     <label for="" style="align-self:center"
-                        >Requires use of a Primary Animation</label
+                        >{localize(
+                            "autoanimations.settings.extraexplain"
+                        )}</label
                     >
                 </div>
 
@@ -310,8 +312,8 @@
                         style="grid-row: 1 / 2;grid-column: 2 / 3;"
                     >
                         <label for="1"
-                            >{localize("AUTOANIM.animation")}
-                            {localize("AUTOANIM.type")}</label
+                            >{localize("autoanimations.menus.animation")}
+                            {localize("autoanimations.menus.type")}</label
                         >
                         <select
                             bind:value={animType}
@@ -343,8 +345,8 @@
                             transition:fade
                         >
                             <label for="1"
-                                >{localize("AUTOANIM.preset")}
-                                {localize("AUTOANIM.type")}</label
+                                >{localize("autoanimations.menus.preset")}
+                                {localize("autoanimations.menus.type")}</label
                             >
                             <select
                                 bind:value={presetType}

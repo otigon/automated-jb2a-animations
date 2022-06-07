@@ -4,8 +4,6 @@
     import SoundSettings from "./soundSettings.svelte";
     import ChooseAnimation from "./chooseAnimation.svelte";
     import Options from "./options.svelte";
-    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
-    import PrimaryApp from "../videoPreviews/primaryApp.svelte";
     //import FullPreview from "../videoPreviews/fullPreviewApp.svelte";
     import TotalPreview from "../videoPreviews/fullPreview.js";
     import {

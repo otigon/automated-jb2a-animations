@@ -131,8 +131,8 @@
                     <button
                         class="selected"
                         ><i class="fas fa-bomb" />
-                        {localize("AUTOANIM.primary")}
-                        {localize("AUTOANIM.animation")}</button
+                        {localize("autoanimations.menus.primary")}
+                        {localize("autoanimations.menus.animation")}</button
                     >
                 </div>
             </div>
@@ -150,7 +150,7 @@
                     {#if autoCheck && !isCustomized && !animationDisabled}
                     <div class="aa-pickAnim" transition:fade>
                         <div class="flexcol" style="grid-row:1/2; grid-column:1/4">
-                            <label for="" style="font-size:x-large"><strong>{oldName}</strong> {localize("AUTOANIM.autorecognized")} </label>
+                            <label for="" style="font-size:x-large"><strong>{oldName}</strong> {localize("autoanimations.menus.autorecognized")} </label>
                         </div>
                     </div>
                     {/if}
@@ -161,8 +161,8 @@
                                 style="grid-row: 1 / 2;grid-column: 2 / 3;"
                             >
                                 <label for="1"
-                                    >{localize("AUTOANIM.animation")}
-                                    {localize("AUTOANIM.type")}</label
+                                    >{localize("autoanimations.menus.animation")}
+                                    {localize("autoanimations.menus.type")}</label
                                 >
                                 <select
                                     bind:value={animType}
@@ -194,8 +194,8 @@
                                     transition:fade
                                 >
                                     <label for="1"
-                                        >{localize("AUTOANIM.preset")}
-                                        {localize("AUTOANIM.type")}</label
+                                        >{localize("autoanimations.menus.preset")}
+                                        {localize("autoanimations.menus.type")}</label
                                     >
                                     <select
                                         bind:value={presetType}
@@ -254,14 +254,14 @@
                     <button
                         class="footer-button"
                         type="submit"
-                        on:click|preventDefault={applyFlags}>Submit</button
+                        on:click|preventDefault={applyFlags}>{localize("autoanimations.menus.submit")}</button
                     >
                 </div>
                 <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
                     <button
                         class="footer-button"
                         on:click|preventDefault={closeApp}
-                        >Close and Submit</button
+                        >{localize("autoanimations.menus.close")} {localize("autoanimations.menus.and")} {localize("autoanimations.menus.submit")}</button
                     >
                 </div>
             </div>

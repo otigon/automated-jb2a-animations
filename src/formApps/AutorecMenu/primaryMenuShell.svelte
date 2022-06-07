@@ -226,7 +226,7 @@
         type="text"
         class="aa-nameField"
         bind:value={sectionName}
-        placeholder={localize("AUTOANIM.itemName")}
+        placeholder={localize("autoanimations.menus.itemName")}
     />
     <div class="aa-deleteSection" style="max-width: 22px;margin-left: 10px;">
         <i

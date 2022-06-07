@@ -43,11 +43,11 @@
 
     let removeTemplate = options.removeTemplate || false;
     $: removeTemplate = options.removeTemplate = removeTemplate;
-    $: isRemove = removeTemplate ? "Yes" : "No";
+    $: isRemove = removeTemplate ? game.i18n.localize("autoanimations.menus.yes") : game.i18n.localize("autoanimations.menus.no");
 
     let ignoreTarget = options.ignoreTarget || false;
     $: ignoreTarget = options.ignoreTarget = ignoreTarget;
-    $: isIgnore = ignoreTarget ? "Yes" : "No";
+    $: isIgnore = ignoreTarget ? game.i18n.localize("autoanimations.menus.yes") : game.i18n.localize("autoanimations.menus.no");
 
     let scaleX = options.scaleX;
     $: scaleX = options.scaleX = scaleX;
@@ -132,7 +132,7 @@
     function switchAddToken() {
         addToken = !addToken;
     }
-    $: isAddToken = addToken ? "Yes" : "No";
+    $: isAddToken = addToken ? game.i18n.localize("autoanimations.menus.yes") : game.i18n.localize("autoanimations.menus.no");
 
     function optionsInfo() {
         new OptionsDialog().render(true);
@@ -140,7 +140,7 @@
 
     let isMasked = options.isMasked || false;
     $: isMasked = options.isMasked = isMasked;
-    $: maskLabel = isMasked ? "Enabled" : "Disabled";
+    $: maskLabel = isMasked ? game.i18n.localize("autoanimations.menus.enabled") : game.i18n.localize("autoanimations.menus.disabled");
     function switchMask() {
         isMasked = !isMasked;
     }
@@ -277,7 +277,7 @@
                     class="flexcol"
                     style="grid-row: 3 / 4; grid-column: 3 / 4;"
                 >
-                    <label for="">Add Token Width</label>
+                    <label for="">{localize("autoanimations.menus.add")} {localize("autoanimations.menus.token")} {localize("autoanimations.menus.width")}</label>
                     <button
                         class={addToken ? "aa-selected" : "aa-notSelected"}
                         on:click={() => switchAddToken()}>{isAddToken}</button

@@ -1,6 +1,8 @@
 <script>
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import { getContext } from "svelte";
+    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+
     import { AutorecFunctions } from "../../aa-classes/autorecFunctions.js";
     //import { autoRecMigration } from "../../custom-recognition/autoRecMerge";
     const { application } = getContext("external");
@@ -124,12 +126,12 @@
     <div style="grid-row:1/2;grid-column:1/2">
         <button
             on:click|preventDefault={() => restoreDefault()}
-            class="aa-orange">Restore Default Menu</button
+            class="aa-orange">{localize("autoanimations.settings.restoreDefault")}</button
         >
     </div>
     <div style="grid-row:1/2;grid-column:2/3">
         <label for=""
-            >Erase current Menu and restore default configuration</label
+            >{localize("autoanimations.menus.restoreHint")}</label
         >
     </div>
 </div>
@@ -139,11 +141,11 @@
 >
     <div style="grid-row:2/3;grid-column:1/2">
         <button on:click|preventDefault={() => mergeMenu()} class="aa-green"
-            >Merge Menus</button
+            >{localize("autoanimations.menus.merge")} {localize("autoanimations.menus.menu")}</button
         >
     </div>
     <div style="grid-row:2/3;grid-column:2/3">
-        <label for="">Merge a new Menu into your existing Menu</label>
+        <label for="">{localize("autoanimations.menus.mergeHint")}</label>
     </div>
 </div>
 <div
@@ -152,21 +154,21 @@
 >
     <div style="grid-row:3/4;grid-column:1/2">
         <button on:click|preventDefault={() => overwriteMenu()} class="aa-red"
-            >Overwrite Menu</button
+            >{localize("autoanimations.menus.overwrite")} {localize("autoanimations.menus.menu")}</button
         >
     </div>
     <div style="grid-row:3/4;grid-column:2/3">
-        <label for="">Erase current Menu and import a new Menu</label>
+        <label for="">{localize("autoanimations.menus.overwriteHint")}</label>
     </div>
 </div>
 <div class="flexcol aa-tabs">
     <div style="grid-row:4/5;grid-column:1/2">
         <button on:click|preventDefault={() => exportMenu()} class="aa-blue"
-            >Export Menu</button
+            >{localize("autoanimations.menus.export")} {localize("autoanimations.menus.menu")}</button
         >
     </div>
     <div style="grid-row:4/5;grid-column:2/3">
-        <label for="">Export your Menu to a JSON file</label>
+        <label for="">{localize("autoanimations.menus.exportHint")}</label>
     </div>
 </div>
 

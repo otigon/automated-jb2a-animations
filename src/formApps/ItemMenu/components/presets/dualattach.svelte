@@ -3,8 +3,6 @@
     import { fade } from "svelte/transition";
     import SoundSettings from "../soundSettings.svelte";
     import ChooseAnimation from "../chooseAnimation.svelte";
-    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
-    import PrimaryApp from "../../videoPreviews/primaryApp.svelte";
     /*
         import {
         menuDBPath01,
@@ -84,18 +82,6 @@
         customChecked01.set(isCustom);
     }
     */
-    function onClick() {
-        new TJSDialog({
-            modal: false,
-            draggable: true,
-            resizable: true,
-            title: "Primary Animation",
-            stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
-            content: {
-                class: PrimaryApp,
-            },
-        }).render(true);
-    }
 </script>
 
 <div class="aaMenu-section">
@@ -103,12 +89,6 @@
         <div class="aa-header">
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
                 <label for="">Dual Attach Preset</label>
-            </div>
-            <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
-                <i
-                    class="fas fa-video aa-video-preview"
-                    on:click={() => onClick()}
-                />
             </div>
         </div>
     </div>
@@ -128,17 +108,17 @@
         {flagData}
     />
     <div class="aa-options-border">
-    <h2 style="margin-top:5px;">Options</h2>
+    <h2 style="margin-top:5px;">{localize("autoanimations.menus.options")}</h2>
     <div class="aa-options">
         <!--Set Z-Index-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-            <label for="">Z-Index</label>
+            <label for="">{localize("autoanimations.menus.z-index")}</label>
             <button class="oldCheck" on:click={() => below()}
                 >{aboveBelow}</button
             >
         </div>
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-            <label for="">{localize("AUTOANIM.playbackRate")}</label>
+            <label for="">{localize("autoanimations.menus.playbackRate")}</label>
             <input
                 type=number
                 bind:value={playbackRate}

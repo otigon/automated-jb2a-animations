@@ -170,7 +170,7 @@ Hooks.once('ready', async function () {
 
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
         if (s3Check && (s3Check.includes('jb2a_patreon') || s3Check.includes('JB2A_DnD5e'))) { } else {
-            ui.notifications.error(game.i18n.format("AUTOANIM.error"));
+            ui.notifications.error(game.i18n.format("autoanimation.settings.error"));
         }
     }
     autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'))

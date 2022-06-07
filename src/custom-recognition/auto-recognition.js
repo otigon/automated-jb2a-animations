@@ -496,12 +496,12 @@ async function importFromJSONDialog() {
 	const content = await renderTemplate("modules/autoanimations/src/custom-recognition/import-data.html", { entity: "autoanimations", name: "aaAutorec" });
 	let dialog = new Promise((resolve, reject) => {
 		new Dialog({
-			title: game.i18n.format("AUTOANIM.menuImport"),
+			title: game.i18n.format("autoanimations.menus.menuImport"),
 			content: content,
 			buttons: {
 				import: {
 					icon: '<i class="fas fa-file-import"></i>',
-					label: game.i18n.format("AUTOANIM.overwrite"),
+					label: game.i18n.format("autoanimations.menus.overwrite"),
 					callback: html => {
 						//@ts-ignore
 						const form = html.find("form")[0];
@@ -515,7 +515,7 @@ async function importFromJSONDialog() {
 				},
                 merge: {
                     icon: '<i class="fas fa-file-import"></i>',
-                    label: game.i18n.format("AUTOANIM.merge"),
+                    label: game.i18n.format("autoanimations.menus.merge"),
                     callback: html => {
                         //@ts-ignore
                         const form = html.find("form")[0];
@@ -545,7 +545,7 @@ async function importJSONAndMerge() {
     const content = await renderTemplate("templates/apps/import-data.html", { entity: "autoanimations", name: "aaAutorec" });
     let dialog = new Promise((resolve, reject) => {
         new Dialog({
-            title: game.i18n.format("AUTOANIM.mergeMenu"),
+            title: "",
             content: content,
             buttons: {
                 import: {

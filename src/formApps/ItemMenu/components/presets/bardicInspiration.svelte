@@ -187,23 +187,23 @@
         <div class="aa-3wide" transition:fade>
             <!--Animation Menu-->
             <div class="flexcol" style="grid-row: 3 / 4;grid-column: 1 / 2;">
-                <label for="">{localize("AUTOANIM.animation")}</label>
+                <label for="">{localize("autoanimations.menus.animation")}</label>
                 <select
                     name="flags.autoanimations.animation"
                     bind:value={sourceAnimation}
                     on:change={async () => await sourceAnimationChange()}
                 >
                     <option value="bardicinspiration"
-                        >{localize("AUTOANIM.bardicinspiration")}</option
+                        >{localize("autoanimations.animations.bardicinspiration")}</option
                     >
                     <option value="notes"
-                        >{localize("AUTOANIM.musicnote")}</option
+                        >{localize("autoanimations.menus.musicnote")}</option
                     >
                 </select>
             </div>
             <!--Variant Menu-->
             <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
-                <label for="">{localize("AUTOANIM.variant")}</label>
+                <label for="">{localize("autoanimations.menus.variant")}</label>
                 <select
                     name="flags.autoanimations.options.variant"
                     bind:value={sourceVariant}
@@ -216,7 +216,7 @@
             </div>
             <!--Color Menu-->
             <div class="flexcol" style="grid-row: 3 / 4;grid-column: 3 / 4;">
-                <label for="">{localize("AUTOANIM.color")}</label>
+                <label for="">{localize("autoanimations.menus.color")}</label>
                 <select
                     name="flags.autoanimations.color"
                     bind:value={sourceColor}
@@ -233,7 +233,7 @@
     <div class="aa-subheader-section">
         <div class="aa-subheader">
             <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-                <label for="">Target Animation</label>
+                <label for="">{localize("autoanimations.menus.target")} {localize("autoanimations.menus.animation")}</label>
             </div>
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
                 <i
@@ -249,23 +249,23 @@
         <div class="aa-3wide" transition:fade>
             <!--Animation Menu-->
             <div class="flexcol" style="grid-row: 3 / 4;grid-column: 1 / 2;">
-                <label for="">{localize("AUTOANIM.animation")}</label>
+                <label for="">{localize("autoanimations.menus.animation")}</label>
                 <select
                     name="flags.autoanimations.animation"
                     bind:value={targetAnimation}
                     on:change={async () => await targetAnimationChange()}
                 >
                     <option value="bardicinspiration"
-                        >{localize("AUTOANIM.bardicinspiration")}</option
+                        >{localize("autoanimations.animation.bardicinspiration")}</option
                     >
                     <option value="notes"
-                        >{localize("AUTOANIM.musicnote")}</option
+                        >{localize("autoanimations.animation.musicnote")}</option
                     >
                 </select>
             </div>
             <!--Variant Menu-->
             <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
-                <label for="">{localize("AUTOANIM.variant")}</label>
+                <label for="">{localize("autoanimations.menus.variant")}</label>
                 <select
                     name="flags.autoanimations.options.variant"
                     bind:value={targetVariant}
@@ -278,7 +278,7 @@
             </div>
             <!--Color Menu-->
             <div class="flexcol" style="grid-row: 3 / 4;grid-column: 3 / 4;">
-                <label for="">{localize("AUTOANIM.color")}</label>
+                <label for="">{localize("autoanimations.menus.color")}</label>
                 <select
                     name="flags.autoanimations.color"
                     bind:value={targetColor}
@@ -295,7 +295,7 @@
     <div class="aa-subheader-section">
         <div class="aa-subheader">
             <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-                <label for="">Marker Animation</label>
+                <label for="">{localize("autoanimations.variants.marker")} {localize("autoanimations.menus.animation")}</label>
             </div>
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
                 <i
@@ -311,7 +311,7 @@
         <div class="aa-3wide" transition:fade>
             <!--Color Menu-->
             <div class="flexcol" style="grid-row: 1 / 2;grid-column: 1 / 2;">
-                <label for="">{localize("AUTOANIM.markerColor")}</label>
+                <label for="">{localize("autoanimations.menus.markerColor")}</label>
                 <select bind:value={markerColorSelf}>
                     {#each Object.entries(aaColorMenu.static.spell.bardicinspiration.marker) as [key, name]}
                         <option value={key}>{name}</option>
@@ -320,7 +320,7 @@
             </div>
             <!--Color Menu-->
             <div class="flexcol" style="grid-row: 1 / 2;grid-column: 3 / 4;">
-                <label for="">{localize("AUTOANIM.markerColorTarget")}</label>
+                <label for="">{localize("autoanimations.menus.markerColorTarget")}</label>
                 <select bind:value={markerColorTarget}>
                     {#each Object.entries(aaColorMenu.static.spell.bardicinspiration.marker) as [key, name]}
                         <option value={key}>{name}</option>
@@ -339,7 +339,7 @@
                 class="flexcol"
                 style="grid-row: 1 / 2; grid-column: 2 / 3;"
             >
-                <label for="">Z-Index</label>
+                <label for="">{localize("autoanimations.menus.z-index")}</label>
                 <button class="oldCheck" on:click={() => below()}
                     >{aboveBelow}</button
                 >
@@ -348,7 +348,7 @@
                 class="flexcol"
                 style="grid-row: 1 / 2; grid-column: 3 / 4;"
             >
-                <label for="">{localize("AUTOANIM.scale")}</label>
+                <label for="">{localize("autoanimations.menus.scale")}</label>
                 <input
                     type="number"
                     bind:value={scale}

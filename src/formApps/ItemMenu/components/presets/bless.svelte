@@ -76,7 +76,7 @@
 <div class="aaMenu-section">
     <div class="aa-3wide">
         <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
-            <label for="">{localize("AUTOANIM.color")}</label>
+            <label for="">{localize("autoanimations.menus.color")}</label>
             <select bind:value={color}>
                 {#each Object.entries(aaColorMenu.static.spell.bless.intro) as [key, name]}
                     <option value={key}>{name}</option>
@@ -85,33 +85,33 @@
         </div>
     </div>
     <div class="aa-options-border">
-        <h2 style="margin-top:5px;">Options</h2>
+        <h2 style="margin-top:5px;">{localize("autoanimations.menus.options")}</h2>
     <div class="aa-options">
         <!--Persistent Setting-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-            <label for="">Persistence</label>
+            <label for="">{localize("autoanimations.menus.persistence")}</label>
             <button on:click={() => switchPersistence()}>{isPersistent}</button>
         </div>
         <!--Set Z-Index-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-            <label for="">Z-Index</label>
+            <label for="">{localize("autoanimations.menus.z-index")}</label>
             <button class="oldCheck" on:click={() => below()}
                 >{aboveBelow}</button
             >
         </div>
         <!--Bind/Unbind Visibility (for Persistent Effects)-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-            <label for="">Visibility</label>
+            <label for="">{localize("autoanimations.menus.visibility")}</label>
             <button on:click={() => switchVisibility()}>{bindVisibility}</button
             >
         </div>
         <!--Bind/Unbind Opacity (for Persistent Effects)-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-            <label for="">Alpha</label>
+            <label for="">{localize("autoanimations.menus.alpha")}</label>
             <button on:click={() => switchAlpha()}>{bindAlpha}</button>
         </div>
         <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
-            <label for="">{localize("AUTOANIM.scale")}</label>
+            <label for="">{localize("autoanimations.menus.scale")}</label>
             <input
                 type=number
                 bind:value={scale}

@@ -113,7 +113,7 @@ export async function teleportation(handler, animationData) {
             deleteTemplatesAndMove();
             canvas.app.stage.removeListener('pointerdown');
         } else {
-            ui.notifications.error(game.i18n.format("AUTOANIM.teleport"))
+            ui.notifications.error(game.i18n.format("autoanimations.settings.teleport"))
         }
     });
 

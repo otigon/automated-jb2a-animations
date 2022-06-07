@@ -115,11 +115,11 @@
     }
     let detect = meleeSwitch.detect || "auto";
     $: meleeSwitch.detect = detect;
-    let detectLabel = detect === "auto" ? "Automatic" : "Manual";
+    let detectLabel = detect === "auto" ? game.i18n.localize("autoanimations.menus.automatic") : game.i18n.localize("autoanimations.menus.manual");
     $: detectLabel = detectLabel;
     function switchDetect() {
         detect = detect === "auto" ? "manual" : "auto";
-        detectLabel = detect === "auto" ? "Automatic" : "Manual";
+        detectLabel = detect === "auto" ? game.i18n.localize("autoanimations.menus.automatic") : game.i18n.localize("autoanimations.menus.manual");
     }
 
     let range = meleeSwitch.range || 2;

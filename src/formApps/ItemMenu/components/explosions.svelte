@@ -27,7 +27,7 @@
 
     let isMasked = root.isMasked || false;
     $: isMasked = root.isMasked = isMasked;
-    $: maskLabel = isMasked ? "Enabled" : "Disabled";
+    $: maskLabel = isMasked ? game.i18n.localize("autoanimations.menus.enabled") : game.i18n.localize("autoanimations.menus.disabled");
     function switchMask() {
         isMasked = !isMasked;
     }
@@ -159,7 +159,7 @@
             {flagData}
         />
         <div class="aa-options-border">
-            <h2 in:fade>Options</h2>
+            <h2 in:fade>{localize("autoanimations.menus.options")}</h2>
             <div class="aa-options" in:fade>
                 <!--Set the Masking Boolean-->
                 <div
@@ -201,7 +201,7 @@
                     class="flexcol"
                     style="grid-row: 1 / 2; grid-column: 4 / 5;"
                 >
-                    <label for="">Z-Index</label>
+                    <label for="">{localize("autoanimations.menus.z-index")}</label>
                     <button class="oldCheck" on:click={() => below()}
                         >{aboveBelow}</button
                     >

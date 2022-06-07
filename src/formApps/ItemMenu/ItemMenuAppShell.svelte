@@ -579,8 +579,9 @@
                         style="grid-row:2/3; grid-column:1/6"
                     >
                         <label for="" style="align-self:center"
-                            >Requires use of a Primary Animation, either
-                            Customized or Autorec</label
+                            >{localize(
+                                "autoanimations.settings.extraexplain"
+                            )}</label
                         >
                     </div>
                 </div>
