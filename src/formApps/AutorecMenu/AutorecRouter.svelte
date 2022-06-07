@@ -1,6 +1,4 @@
 <script>
-    import MeleeMenuShell from "./meleeMenuShell.svelte";
-    import RangeMenuShell from "./rangeMenuShell.svelte";
     import PrimaryMenuShell from "./primaryMenuShell.svelte";
 
     export let flags;

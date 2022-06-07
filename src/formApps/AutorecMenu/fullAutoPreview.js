@@ -13,8 +13,6 @@ export default class AutorecTotalPreview extends TJSDialog {
             content: {
                 class: VideoPreview,
             },
-            //close: () => this.options.reject(),
-            //...options
         });
     }
 

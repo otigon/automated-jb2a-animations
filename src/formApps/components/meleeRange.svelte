@@ -6,8 +6,6 @@
     import SoundSettings from "./soundSettings.svelte";
     import {
         storeAutorec,
-        databaseType,
-        index,
     } from "../AutorecMenu/autorecPreviews.js";
 
     import {
@@ -16,7 +14,6 @@
         aaVariantMenu,
         aaColorMenu,
     } from "../../animation-functions/databases/jb2a-menu-options.js";
-    //import { menuDBPathSwitch } from "../menuStore.js";
 
     export let flagData;
     export let primaryMenuType;
@@ -41,31 +38,27 @@
     let meleeSwitch = isOverride ? flagData.autoOverride?.meleeSwitch : flagData.meleeSwitch;
 
     let switchType = meleeSwitch.switchType || "on";
-    //$: switchType = switchType;
-    //$: meleeSwitch.switchType = switchType;
 
+    // Sets Initial Menu Type for Menu - Assigns to Flag when updated
     let menuType = meleeSwitch.menuType || Object.keys(aaTypeMenu.range)[0];
-    //$: menuType = meleeSwitch.menuType = menuType;
+
     // Sets Initial animation for Menu - Assigns to Flag when updated
     let animation =
         meleeSwitch.animation || Object.keys(aaNameMenu.range[menuType])[0];
-    //$: animation = meleeSwitch.animation = animation;
+
     // Sets Initial variant for Menu - Assigns to Flag when updated
     let variant =
         meleeSwitch.variant ||
         Object.keys(aaVariantMenu.range[menuType][animation])[0];
-    //$: variant = meleeSwitch.variant = variant;
+
     // Sets Initial color for Menu - Assigns to Flag when updated
     let color =
         meleeSwitch.color ||
         Object.keys(aaColorMenu.range[menuType][animation][variant])[0];
-    //$: color = meleeSwitch.color = color;
 
     let isCustom = meleeSwitch.enableCustom || false;
-    //$: isCustom = meleeSwitch.enableCustom = isCustom;
 
     let customPath = meleeSwitch.customPath;
-    //$: customPath = meleeSwitch.customPath = customPath;
 
     $: {
         switchType = meleeSwitch.switchType = switchType;
@@ -126,15 +119,6 @@
     $: range = range;
     $: meleeSwitch.range = range;
 
-
-    /*
-    let switchFilePath;
-    $: switchFilePath =
-        color === "random"
-            ? `autoanimations.range.${menuType}.${animation}.${variant}`
-            : `autoanimations.range.${menuType}.${animation}.${variant}.${color}`;
-    */
-    //$: menuDBPathSwitch.set(switchFilePath);
     const disablePlayOn = true;
 </script>
 

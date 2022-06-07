@@ -16,8 +16,6 @@ export default class OptionsInformation extends TJSDialog {
                     ...data
                 }
             },
-            //close: () => this.options.reject(),
-            //...options
         });
     }
 

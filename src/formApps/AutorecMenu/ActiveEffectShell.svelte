@@ -7,11 +7,9 @@
     import SoundSettings from "../components/soundSettings.svelte";
     import ExtraFX from "../components/extraFX.svelte";
     import MacroField from "../components/macro.svelte";
-
     import AddExplosion from "../components/explosions.svelte";
     import Bless from "../components/presets/bless.svelte";
     import Shield from "../components/presets/shield.svelte";
-
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import {
         aaTypeMenu,
@@ -41,18 +39,23 @@
     const primaryData = menuSection.primary;
 
     export let menuType = primaryData.menuType;
-    $: menuType = primaryData.menuType = menuType;
     export let animation = primaryData.animation;
-    $: animation = primaryData.animation = animation;
+
     let variant = primaryData.variant;
-    $: variant = primaryData.variant = variant;
     let color = primaryData.color;
-    $: color = primaryData.color = color;
     let isCustom = primaryData.enableCustom || false;
-    $: isCustom = primaryData.enableCustom = isCustom;
     let customPath = primaryData.customPath;
-    $: customPath = primaryData.customPath = customPath;
-    //console.log(menuType)
+
+    $: {
+        menuType = primaryData.menuType = menuType;
+        animation = primaryData.animation = animation;
+        variant = primaryData.variant = variant;
+        color = primaryData.color = color;
+        isCustom = primaryData.enableCustom = isCustom;
+        customPath = primaryData.customPath = customPath;
+
+    }
+
     if (!menuType) {
         menuType = Object.keys(aaTypeMenu.static)[0];
         animation = Object.keys(aaNameMenu.static[menuType])[0];
@@ -126,7 +129,7 @@
     playWhen = macroField.playWhen;
     $: playWhen = playWhen;
 
-    let isOnSource = type === "static" ? false : true;
+    //let isOnSource = type === "static" ? false : true;
     let staticType =
         type === "static" ? options.staticType || "source" : undefined;
     $: staticType = staticType;

@@ -3,18 +3,6 @@
     import { fade } from "svelte/transition";
     import SoundSettings from "./soundSettings.svelte";
     import ChooseAnimation from "./chooseAnimation.svelte";
-    /*
-    import {
-        menuDBPathSourceFX,
-        customFilePathSourceFX,
-        customCheckedSourceFX,
-        menuDBPathTargetFX,
-        customFilePathTargetFX,
-        customCheckedTargetFX,
-        extraSource,
-        extraTarget,
-    } from "../menuStore.js";
-    */
     import { storeAutorec } from "../AutorecMenu/autorecPreviews.js";
     import { storeItemData } from "../ItemMenu/itemPreviewStore.js";
 
@@ -135,22 +123,11 @@
     }
 
     let menuType = primary.menuType;
-    //$: menuType = primary.menuType = menuType;
-
     let animation = primary.animation;
-    //$: animation = primary.animation = animation;
-
     let variant = primary.variant;
-    //$: variant = primary.variant = variant;
-
     let color = primary.color;
-    //$: color = primary.color = color;
-
     let isCustom = primary.enableCustom || false;
-    //$: isCustom = primary.enableCustom = isCustom;
-
     let customPath = primary.customPath || "";
-    //$: customPath = primary.customPath = customPath;
 
     $: {
         menuType = primary.menuType = menuType;
@@ -168,47 +145,6 @@
         }
     }
 
-    /*
-    let sourceFilePath;
-    $: if (flagPath === "sourceExtraFX") {
-        sourceFilePath =
-            color === "random"
-                ? `autoanimations.static.${menuType}.${animation}.${variant}`
-                : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
-    }
-    let targetFilePath;
-    $: if (flagPath === "targetExtraFX") {
-        targetFilePath =
-            color === "random"
-                ? `autoanimations.static.${menuType}.${animation}.${variant}`
-                : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
-    }
-    $: if (flagPath === "sourceExtraFX") {
-        menuDBPathSourceFX.set(sourceFilePath);
-        customFilePathSourceFX.set(customPath);
-        customCheckedSourceFX.set(isCustom);
-        extraSource.set(enableSection);
-    }
-    $: if (flagPath === "targetExtraFX") {
-        menuDBPathTargetFX.set(targetFilePath);
-        customFilePathTargetFX.set(customPath);
-        customCheckedTargetFX.set(isCustom);
-        extraTarget.set(enableSection);
-    }
-    */
-    /*
-    $: {
-        if (flagPath === "sourceExtraFX") {
-            extraSource.set(enableSection);
-        }
-    }
-
-    $: {
-        if (flagPath === "targetExtraFX") {
-            extraTarget.set(enableSection);
-        }
-    }
-    */
     let customId =
         flagPath === "sourceExtraFX" ? "customSource" : "customTarget";
 </script>

@@ -6,13 +6,10 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import MenuManager from "./menuManager.svelte";
-
     import PrimaryMenuShell from "./primaryMenuShell.svelte";
     import PresetShell from "./PresetShell.svelte";
     import ActiveEffectShell from "./ActiveEffectShell.svelte";
-    import { flagMigrations } from "../../system-handlers/flagMerge.js";
-    //import Tabs from "./Tabs.svelte";
-
+    //import { flagMigrations } from "../../system-handlers/flagMerge.js";
     import { gameSettings } from "../../gameSettings.js";
     import {
         closePreviewWindow,
@@ -21,11 +18,9 @@
     } from "./autorecPreviews.js";
     closePreviewWindow.set(false);
     import items from "./data/tabItems.js";
-    //console.log(items);
+
     export let elementRoot;
     export let activeTabValue = 1;
-    //const wait = (delay) =>
-        //new Promise((resolve) => setTimeout(resolve, delay));
 
     const handleClick = async (tabValue) => {
         let currentMenu = items.filter((obj) => {
@@ -33,28 +28,12 @@
         })[0];
         databaseType.set(currentMenu.type);
         Object.values(ui.windows).filter(app => app.id === "Autorec-Video-Preview").forEach(app => app.close())
-        /*
-        if (
-            Object.values(ui.windows).find(
-                (w) => w.id === `Autorec-Video-Preview`
-            )
-        ) {
-            closePreviewWindow.set(true);
-            await wait(500);
-        }
-        */
-        //$storeAutorec = [];
         activeTabValue = tabValue;
     };
 
     const storeData = gameSettings.getStore("aaAutorec");
     storeData.set(game.settings.get("autoanimations", "aaAutorec"));
 
-    // TODO: this is a test console.log showing updates to `aaAutorec` game settings.
-    //$: console.log(`! autorecAppShell - storeData (aaAutorec): \n`, $storeData);
-
-    // TODO: Remove this and make `aaAutorec` setting store above the authority.
-    //const data = game.settings.get("autoanimations", "aaAutorec");
     let flagData = $storeData;
     $: flagData = flagData;
 
@@ -86,7 +65,6 @@
         preset: Object.values(flagData.preset),
         aefx: Object.values(flagData.aefx),
     };
-    //$: menuListings = menuListings;
     let form = void 0;
 
     function manageMenu() {
@@ -117,7 +95,6 @@
     async function closeApp() {
         await game.settings.set("autoanimations", "aaAutorec", flagData);
         closePreviewWindow.set(true);
-        //Object.values(ui.windows).filter(app => app.id === "Options-Information" || app.id === "Autorec-Video-Preview").forEach(app => app.close())
         application.close();
     }
     function addSection() {
@@ -130,13 +107,8 @@
             hidden: true,
         };
         flagData = flagData;
-        /*
-        menuListings[currentMenu.type] = Object.values(
-            flagData[currentMenu.type]
-        );
-        menuListings = menuListings;
-        */
     }
+
     async function sortMenu() {
         let currentMenu = items.filter((obj) => {
             return obj.value === activeTabValue;
@@ -167,7 +139,6 @@
         flagData[currentMenu.type] = sortedMenu;
         flagData = flagData;
 
-        //menuListings[currentMenu.type] = Object.values(flagData[currentMenu.type])
     }
 </script>
 

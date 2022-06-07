@@ -1,15 +1,8 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { fade } from "svelte/transition";
     import SoundSettings from "../soundSettings.svelte";
     import ChooseAnimation from "../chooseAnimation.svelte";
-    /*
-        import {
-        menuDBPath01,
-        customFilePath01,
-        customChecked01,
-    } from "../../menuStore";
-    */
+
     export let flagData;
     export let presetType;
     export let isAutoRec;
@@ -74,14 +67,6 @@
         color === "random"
             ? `autoanimations.range.${menuType}.${animation}.${variant}`
             : `autoanimations.range.${menuType}.${animation}.${variant}.${color}`;
-    /*
-    // Sets Store variables for sending to the Video Previewer
-    $: {
-        menuDBPath01.set(filePath);
-        customFilePath01.set(customPath);
-        customChecked01.set(isCustom);
-    }
-    */
 </script>
 
 <div class="aaMenu-section">

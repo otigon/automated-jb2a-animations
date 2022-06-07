@@ -17,19 +17,6 @@
     import Menu3d from "../components/3dMenuShell.svelte";
     import PresetMenu from "../components/presetShell.svelte";
     import AutoOverride from "./AutoOverrideShell.svelte";
-    /*
-    import {
-        extraSource,
-        extraTarget,
-        menuDBPathSourceFX,
-        customFilePathSourceFX,
-        customCheckedSourceFX,
-        menuDBPathTargetFX,
-        customFilePathTargetFX,
-        customCheckedTargetFX,
-        menuAnimType,
-    } from "./menuStore.js";
-    */
     import { storeItemData } from "./itemPreviewStore.js"
 
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
@@ -43,11 +30,6 @@
     const oldName = item.name || item.sourceName;
     const autoCheck = AutorecFunctions._checkAutoRec(oldName);
     $: autoObject = autoCheck ? AutorecFunctions._findObjectFromArray($storeData, AutorecFunctions._rinseName(oldName)) : {};
-    //console.log(autoCheck)
-    //console.log(autoObject)
-
-    const wait = (delay) =>
-        new Promise((resolve) => setTimeout(resolve, delay));
 
     let animationDisabled = flags.killAnim;
     $: {
@@ -64,11 +46,8 @@
 
     export const flagData = {
         killAnim: flags.killAnim,
-        //animLevel: flags.animLevel,
         override: flags.override,
         animType: flags.animType,
-        //animation: flags.animation,
-        //color: flags.color,
         primary: flags.primary || {},
         version: flags.version
             ? flags.version
@@ -126,7 +105,6 @@
         if (!flagData.autoOverride?.enable) {
             await item.unsetFlag("autoanimations", "autoOverride")
         }
-        //Object.values(ui.windows).filter(app => app.id === "Item-Video-Preview").forEach(app => app.close())
         await item.update(updatedFlags.data);
         application.close();
     }
@@ -158,59 +136,23 @@
 
     let enableSource = flagData.sourceToken.enable || false;
     $: enableSource = enableSource;
-    /*
-    extraSource.set(flagData.sourceToken.enable);
-    extraSource.subscribe((value) => {
-        enableSource = value;
-    });
-    */
+
     let enableTarget = flagData.targetToken.enable || false;
     $: enableTarget = enableTarget;
-    /*
-    extraTarget.set(flagData.targetToken.enable);
-    extraTarget.subscribe((value) => {
-        enableTarget = value;
-    });
-    */
+
     // Sets Initial animType for Menu - Assigns to Flag when updated
     let animType = flagData.animType || "melee";
     $: {
         animType = animType;
         flagData.animType = animType;
-        //menuAnimType.set(animType === "aura" ? "static" : animType);
     }
     let presetType = preset.presetType;
     $: presetType = preset.presetType = presetType;
     let animTypeSwitched = false;
     async function typeSwitch() {
-        //Object.values(ui.windows).filter(app => app.id === "Item-Video-Preview").forEach(app => app.close())
         animTypeSwitched = true;
-        //await wait(150);
-        //animTypeSwitched = false;
-    }
-    /*
-    let sourceFilePath;
-    if (flagData.sourceToken.enable) {
-        sourceFilePath =
-            flagData.sourceToken.color === "random"
-                ? `autoanimations.static.${flagData.sourceToken.menuType}.${flagData.sourceToken.animation}.${flagData.sourceToken.variant}`
-                : `autoanimations.static.${flagData.sourceToken.menuType}.${flagData.sourceToken.animation}.${flagData.sourceToken.variant}.${flagData.sourceToken.color}`;
-    }
-    let targetFilePath;
-    if (flagData.targetToken.enable) {
-        targetFilePath =
-            flagData.targetToken.color === "random"
-                ? `autoanimations.static.${flagData.targetToken.menuType}.${flagData.targetToken.animation}.${flagData.targetToken.variant}`
-                : `autoanimations.static.${flagData.targetToken.menuType}.${flagData.targetToken.animation}.${flagData.targetToken.variant}.${flagData.targetToken.color}`;
     }
 
-    menuDBPathSourceFX.set(sourceFilePath);
-    customFilePathSourceFX.set(flagData.sourceToken.customPath);
-    customCheckedSourceFX.set(flagData.sourceToken.enableCustom);
-    menuDBPathTargetFX.set(targetFilePath);
-    customFilePathTargetFX.set(flagData.targetToken.customPath);
-    customCheckedTargetFX.set(flagData.targetToken.enableCustom);
-    */
     let primaryMenuType;
     $: primaryMenuType = primaryMenuType;
 

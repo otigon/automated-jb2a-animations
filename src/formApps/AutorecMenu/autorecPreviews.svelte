@@ -40,17 +40,8 @@
         console.log("Set to False");
     }
 
-    /*
-    $: storeData = $storeAutorec[idx];
+    //console.log($storeAutorec);
 
-    $: databaseFile = getPreviewFile($storeAutorec[idx].primaryDatabasePath);
-
-    $: filePath = storeData.customPath || databaseFile;
-    */
-    //$: console.log(idx);
-    //$: console.log(dbType);
-    console.log($storeAutorec);
-    //let currentSection = $storeAutorec[dbType][idx];
     $: currentSection = $storeAutorec[dbType][idx];
 
     // Extra Source FX Preview
@@ -168,12 +159,6 @@
         targetIsCustom && targetCustomPath && targetCustomPathIsDB < 3
             ? targetCustomPath
             : getPreviewFile(targetCurrentPath);
-
-    /*
-<video class="aaVideoPreview" src={filePath} autoplay="autoplay" controls loop>
-    <track kind="captions" />
-</video>
-*/
 </script>
 
 <div class="flexcol">

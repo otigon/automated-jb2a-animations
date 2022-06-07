@@ -13,7 +13,6 @@
         aaColorMenu,
     } from "../../animation-functions/databases/jb2a-menu-options.js";
 
-    // Receiving data from Parent
     export let flagData;
     export let flagPath;
     export let animType;
@@ -24,6 +23,7 @@
     export let disablePlayOn;
     export let isAutoRec;
     export let disableReturn;
+
     $: {
         animType = animType;
     }
@@ -31,6 +31,7 @@
         animTypeChange(flagPath);
         animTypeSwitched = false;
     }
+
     // Defines the initial Flag path depending on the Section calling this Component
     let rootPath;
     let customRoot;
@@ -67,10 +68,10 @@
             flagOptions = flagData.autoOverride?.options || {}
             break;
     }
+
     // Sets the Flag Path depending on the section
     const options = flagOptions;
-    // Sets Initial menuType for Menu - Assigns to Flag when updated
-    // For Database path
+
     export let menuSelection = animType === "aura" ? "static" : animType;
     $: menuSelection = animType === "aura" ? "static" : animType;
     export let menuType =

@@ -52,17 +52,13 @@
     $: overrideAuto = autoOverride.enable = overrideAuto;
     function switchOverride() {
         overrideAuto = !overrideAuto;
-        //autoOverride.enable = overrideAuto
         let newOverrideAuto = overrideAuto;
         if (!newOverrideAuto) {
             Object.values(ui.windows)
                 .filter((app) => app.id === "Item-Video-Preview")
                 .forEach((app) => app.close());
-            //console.log("Disabled");
             flagData.autoOverride = {};
-            //console.log(flagData)
             flagData.autoOverride = { enable: false };
-            //autoOverride.enable = false;
         } else {
             flagData.autoOverride = { enable: true };
             storeItemData.set(flagData);
@@ -72,18 +68,7 @@
     let fromAmmo = options.ammo || false;
     $: fromAmmo = fromAmmo;
     $: options.ammo = fromAmmo;
-    /*
-    export const generalFlagData = {
-        killAnim: animationDisabled,
-        override: isCustomized,
-        autoOverride: {
-            enable: overrideAuto,
-        },
-        options: {
-            ammo: fromAmmo,
-        }
-    }
-    */
+
     export let enableMacro = macros.enable || false;
     $: macros.enable = enableMacro = enableMacro;
 </script>

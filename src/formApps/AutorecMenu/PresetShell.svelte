@@ -1,7 +1,6 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade } from "svelte/transition";
-
     import Bards from "../components/presets/bardicInspiration.svelte";
     import Bless from "../components/presets/bless.svelte";
     import DualAttach from "../components/presets/dualattach.svelte";

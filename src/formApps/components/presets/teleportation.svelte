@@ -24,6 +24,7 @@
                     customPath: String,
                     scale: Number,
                     below: Boolean,
+                    isMasked: Boolean,
                 },
                 between: {
                     enable: Boolean,
@@ -45,6 +46,7 @@
                     customPath: String,
                     scale: Number,
                     below: Boolean,
+                    isMasked: Boolean,
                     delay: Number,
                 }
             }

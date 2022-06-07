@@ -1,20 +1,11 @@
 <script>
-    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
-    //import ExplosionApp from "../videoPreviews/explosionApp.svelte";
     import ChooseAnimation from "./chooseAnimation.svelte";
     import SoundSettings from "./soundSettings.svelte";
     import { fade } from "svelte/transition";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    /*
-    import {
-        menuDBPath02,
-        customFilePath02,
-        customChecked02,
-        explosionEnabled,
-    } from "../menuStore.js";
-    */
     import { storeAutorec } from "../AutorecMenu/autorecPreviews.js";
     import { storeItemData } from "../ItemMenu/itemPreviewStore.js";
+
     export let previewStoreData;
     export let flagData;
     export let isAutoRec;
@@ -23,7 +14,6 @@
     const root = isOverride
         ? flagData.autoOverride?.explosions
         : flagData.explosions;
-    //let explosions = flagData.explosions;
 
     let isMasked = root.isMasked || false;
     $: isMasked = root.isMasked = isMasked;
@@ -49,31 +39,17 @@
     }
 
     let enableSection = root.enable || false;
-    //$: enableSection = enableSection;
-    //$: explosionEnabled.set(enableSection);
+
     function switchEnable() {
         enableSection = !enableSection;
-        //root.enable = enableSection;
-        //$storeAutorec = previewStoreData;
     }
 
     let menuType = root.menuType;
-    //$: menuType = root.menuType = menuType;
-
     let animation = root.animation;
-    //$: animation = root.animation = animation;
-
     let variant = root.variant;
-    //$: variant = root.variant = variant;
-
     let color = root.color;
-    //$: color = root.color = color;
-
     let isCustom = root.enableCustom || false;
-    //$: isCustom = root.enableCustom = isCustom;
-
     let customPath = root.customPath || "";
-    //$: customPath = root.customPath = customPath;
 
     $: {
         menuType = root.menuType = menuType;
@@ -92,34 +68,6 @@
         flagData = flagData;
     }
 
-    /*
-    function onClick() {
-        new TJSDialog({
-            modal: false,
-            draggable: true,
-            resizable: true,
-            title: "Explosion Preview",
-            stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
-            content: {
-                class: ExplosionApp,
-            },
-        }).render(true);
-    }
-    let explosionFilePath =
-        color === "random"
-            ? `autoanimations.static.${menuType}.${animation}.${variant}`
-            : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
-    $: explosionFilePath =
-        color === "random"
-            ? `autoanimations.static.${menuType}.${animation}.${variant}`
-            : `autoanimations.static.${menuType}.${animation}.${variant}.${color}`;
-
-    $: {
-        menuDBPath02.set(explosionFilePath);
-        customFilePath02.set(customPath);
-        customChecked02.set(isCustom);
-    }
-    */
     let customId = "customExplosion";
 </script>
 

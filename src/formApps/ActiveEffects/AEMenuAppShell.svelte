@@ -6,16 +6,13 @@
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { AutorecFunctions } from "../../aa-classes/autorecFunctions.js"
-
     import ExplosionSettings from "../components/explosions.svelte"
     import GeneralSettings from "../components/generalSettings.svelte";
     import SoundSettings from "../components/soundSettings.svelte";
     import MacroField from "../components/macro.svelte";
     import PrimarySection from "../components/primarySection.svelte";
     import PresetMenu from "../components/presetShell.svelte";
-
     import { flagMigrations } from "../../system-handlers/flagMerge.js";
-
 
     export let elementRoot;
     export let item;
@@ -34,11 +31,8 @@
 
     export const flagData = {
         killAnim: flags.killAnim,
-        //animLevel: flags.animLevel,
         override: flags.override,
         animType: flags.animType,
-        //animation: flags.animation,
-        //color: flags.color,
         primary: flags.primary || {},
         version: flags.version
             ? flags.version

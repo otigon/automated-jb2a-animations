@@ -1,6 +1,5 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { fade, fly } from "svelte/transition";
 
     export let flagData;
     export let type;

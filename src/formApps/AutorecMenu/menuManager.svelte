@@ -2,12 +2,9 @@
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import { getContext } from "svelte";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-
     import { AutorecFunctions } from "../../aa-classes/autorecFunctions.js";
-    //import { autoRecMigration } from "../../custom-recognition/autoRecMerge";
-    const { application } = getContext("external");
 
-    //export let app;
+    const { application } = getContext("external");
 
     async function restoreDefault() {
         let d = TJSDialog.confirm({
@@ -34,10 +31,7 @@
             );
 
             game.settings.set("autoanimations", "aaAutorec");
-            //app.close();
             application.close();
-            //await wait(1000);
-            //new AutorecShim();
         }
     }
 
@@ -69,7 +63,6 @@
                         );
                     readTextFromFile(form.data.files[0]).then(async (json) => {
                         await application.close();
-                        //await app.close();
                         AutorecFunctions._mergeAutorec(json);
                     });
                 },
@@ -98,7 +91,6 @@
                 content: content,
                 modal: true,
                 callback: (html) => {
-                    //@ts-ignore
                     const form = html.find("form")[0];
                     if (!form.data.files.length)
                         return ui.notifications?.error(
@@ -106,7 +98,6 @@
                         );
                     readTextFromFile(form.data.files[0]).then(async (json) => {
                         await application.close();
-                        //await app.close();
                         AutorecFunctions._importAutorecFromJSON(json);
                     });
                 },

@@ -1,5 +1,4 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import PrimaryMenus from "./autoOverrideMenus/PrimaryMenus.svelte";
     import PresetMenus from "./autoOverrideMenus/PresetMenu.svelte";
 

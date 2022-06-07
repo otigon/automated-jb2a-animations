@@ -1,8 +1,6 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { fade } from "svelte/transition";
     import SoundSettings from "../soundSettings.svelte";
-
     import { aaColorMenu } from "../../../animation-functions/databases/jb2a-menu-options.js";
 
     export let flagData;

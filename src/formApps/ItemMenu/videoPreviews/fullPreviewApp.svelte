@@ -1,16 +1,9 @@
 <script>
     import { fade } from "svelte/transition";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-
-    //import { menuAnimType } from "../menuStore.js";
     import { storeItemData } from "../itemPreviewStore.js";
     import { getPreviewFile } from "./getPreviewFile.js";
-    /*
-    let animType;
-    menuAnimType.subscribe((value) => {
-        animType = value;
-    });
-    */
+
     let menuFields = ["aura", "templatefx", "preset"];
     let shouldShow;
     $: shouldShow = menuFields.includes(animType) ? false : true;
@@ -22,6 +15,7 @@
 
     $: isAutoOverride = currentSection.autoOverride?.enable || false;
     $: console.log(isAutoOverride);
+
     // Extra Source FX Preview
     $: sourceExtraFX = currentSection.sourceToken || {};
     $: enableSource = sourceExtraFX.enable;
@@ -79,7 +73,6 @@
             : getPreviewFile(currentPath);
 
     // Switch Animation Preview
-
     $: switchPath = isAutoOverride
         ? $storeItemData.autoOverride?.meleeSwitch
         : $storeItemData.meleeSwitch;

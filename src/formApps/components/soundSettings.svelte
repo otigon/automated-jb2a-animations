@@ -1,6 +1,6 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { fade, scale } from "svelte/transition";
+    import { fade } from "svelte/transition";
 
     export let flagData;
     export let audioPath;
