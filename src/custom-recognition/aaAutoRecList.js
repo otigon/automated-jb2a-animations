@@ -1,5 +1,4 @@
 
-import { autoRecMigration } from "./autoRecMerge.js";
 export class aaAutorec {
     static get defaultConfiguration() {
         const defaultConfig = {

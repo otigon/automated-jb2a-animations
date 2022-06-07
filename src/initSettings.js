@@ -1,4 +1,3 @@
-import { aaAutoRecognition } from './custom-recognition/auto-recognition.js';
 import AutorecShim from './formApps/AutorecMenu/appShim.js'
 import { aaAutorec } from './custom-recognition/aaAutoRecList.js';
 import { AnimationState } from './AnimationState.js';

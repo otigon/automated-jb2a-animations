@@ -555,7 +555,8 @@
             "menu": "Menu",
             "export": "Export",
             "copy": "Copy",
-            "path": "Path"
+            "path": "Path",
+            "quickReference": " Quick Reference"
         },
         "optionsInfo": {
 

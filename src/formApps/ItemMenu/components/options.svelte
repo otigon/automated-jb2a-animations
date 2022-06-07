@@ -155,7 +155,7 @@
             <div class="flexcol" style="grid-row:1/2; grid-column:4/5;">
                 <i
                     class="fas fa-info-circle aa-info-icon aa-zoom"
-                    title="Quick Reference"
+                    title={localize("autoanimations.menus.quickReference")}
                     on:click={() => optionsInfo()}
                 />
             </div>

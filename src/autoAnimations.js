@@ -10,12 +10,10 @@ import { createActiveEffects5e, deleteActiveEffects5e, checkConcentration, toggl
 import { createActiveEffectsPF2e, deleteActiveEffectsPF2e } from "./active-effects/pf2e/aepf2e.js";
 import { createActiveEffectsPF1, deleteActiveEffectsPF1 } from "./active-effects/pf1/aePF1.js";
 
-import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import AAActiveEffectMenu from "./formApps/ActiveEffects/activeEffectMenu.js";
 import AAAutorecMenu from "./formApps/AutorecMenu/aaAutorecMenu.js";
 
 import AAItemMenu from "./formApps/ItemMenu/itemMenu.js";
-import { aaAutoRecognition } from "./custom-recognition/auto-recognition.js"
 
 import { teleportation } from "./animation-functions/teleportation.js";
 import { setupSocket } from "./socketset.js";
@@ -59,31 +57,6 @@ Hooks.on('init', () => {
         }
         return options.inverse(this);
     });
-    loadTemplates([
-        'modules/autoanimations/src/custom-recognition/settings.html',
-        'modules/autoanimations/src/custom-recognition/autorec-templates/aa-melee-autorec.html',
-        'modules/autoanimations/src/custom-recognition/autorec-templates/aa-ranged-autorec.html',
-        'modules/autoanimations/src/custom-recognition/autorec-templates/aa-static-autorec.html',
-        'modules/autoanimations/src/custom-recognition/autorec-templates/aa-templates-autorec.html',
-        'modules/autoanimations/src/custom-recognition/autorec-templates/aa-auras-autorec.html',
-        'modules/autoanimations/src/custom-recognition/autorec-templates/aa-presets-autorec.html',
-        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animations.html',
-        'modules/autoanimations/src/item-sheet-handlers/aa-templates/pre-postfx.html',
-        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-melee.html',
-        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-ranged.html',
-        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-ontoken.html',
-        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-templates.html',
-        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-auras.html',
-        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-presets.html',
-        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/item-autoOverride.html',
-        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-explosion.html',
-        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/levels3d.html',
-        'modules/autoanimations/src/item-sheet-handlers/aa-templates/animation-menus/add-3Dexplosion.html',
-        'modules/autoanimations/src/item-sheet-handlers/aa-templates/macrocall.html',
-        'modules/autoanimations/src/active-effects/aeMenus/ae-animations.html',
-        'modules/autoanimations/src/active-effects/aeMenus/ae-autorecMenu.html',
-        'modules/autoanimations/src/custom-recognition/import-data.html',
-    ]);
 
 })
 

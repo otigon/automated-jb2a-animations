@@ -1,6 +1,5 @@
 import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application';
 import ItemMenuAppShell from './itemMenuAppShell.svelte';
-import { aaAutoRecognition } from '../../custom-recognition/auto-recognition';
 import AutorecShim from "../AutorecMenu/appShim.js"
 
 
