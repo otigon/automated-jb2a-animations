@@ -220,7 +220,6 @@
             "music": "Music",
             "notes": "Notes",
             "huntersmark": "Hunter's Mark",
-
             "energy": "Energy",
             "conduit": "Conduit",
             "liquid": "Liquid",
@@ -258,14 +257,12 @@
             "earth": "Earth",
             "static": "Static",
             "spinning": "Spinning",
-
             "sleep": "Sleep 01",
             "smoke": "Smoke",
             "particles": "Particles",
             "dots": "Dots",
             "swirl": "Swirl",
             "skull": "Skull",
-
             "dagger":"Dagger",
             "greataxe":"Greataxe",
             "greatclub":"Greatclub",
@@ -397,8 +394,8 @@
             "fire02": "Fire 02",
             "burst": "Burst",
             "acid": "Acid",
-            "AUTOANIM.slow": "Slow",
-            "AUTOANIM.fast": "Fast"
+            "slow": "Slow",
+            "fast": "Fast"
         },
         "menuTypes": {
             "creature": "Creature Attack",
