@@ -1,549 +1,563 @@
 {
-    "Localization Provided By": "touge",
-    "AUTOANIM.initpopup_name":"スタート時のポップアップウィンドウを表示しない",
-    "AUTOANIM.initpopup_hint":"有効にするとポップアップウィンドウが表示されなくなります。",
-    "AUTOANIM.animtab_name": "プレイヤーのAnimateタブを隠す",
-    "AUTOANIM.animtab_hint": "有効にするとAnimateタブがプレイヤーに表示されません。",
-    "AUTOANIM.tarassist_name": "ターゲット補助を有効にする",
-    "AUTOANIM.tarassist_hint": "有効にすると、ターゲットが必要なアニメーションを設定した攻撃をターゲットなしでロールしたとき、自身のコマの上でアニメーションを再生します。",
-    "AUTOANIM.tfmxenable_name":"Token Magic FXを有効にする",
-    "AUTOANIM.tfmxenable_hint":"Token Magic FXによるすべてのアニメーション効果を有効にします。",
-    "AUTOANIM.midionhit_name":"ヒット時のみアニメーションを再生する",
-    "AUTOANIM.midionhit_hint":"Midi-QOLのワークフローの設定で、ヒット確認を自動化する必要があります。",
-    "AUTOANIM.midionmiss_name": "ヒットとミスでアニメーションを再生する",
-    "AUTOANIM.midionmiss_hint": "ミスの場合、アニメーションは目標を外して再生されます。ヒットを確認するにはMidi-QOLのワークフロー設定が必要です。",
-    "AUTOANIM.midiondmg_name":"ダメージロール時にのみアニメーションを再生する",
-    "AUTOANIM.midiondmg_hint":"【要再読み込み】有効にすると、ダメージロール時にのみアニメーションを再生します。",
-    "AUTOANIM.demonlordtrigger_name":"アニメーションのトリガー",
-    "AUTOANIM.demonlordtrigger_hint":"アニメーションを開始する条件を設定します。",
-    "AUTOANIM.demonlordtrigger_rollattack":"攻撃ロール時にのみアニメーションを再生する",
-    "AUTOANIM.demonlordtrigger_hits":"ヒット時のみアニメーションを再生する",
-    "AUTOANIM.demonlordtrigger_misses": "ヒットとミスでアニメーションを再生する",
-    "AUTOANIM.demonlordtrigger_rolldamage":"ダメージロール時にのみアニメーションを再生する",
-    "AUTOANIM.demonlordtrigger_applydamage":"ダメージ適用時にのみアニメーションを再生する",
-    "AUTOANIM.coreondmg_name":"ダメージロールでのみ攻撃アニメーションを再生する",
-    "AUTOANIM.coreondmg_hint":"デフォルトでは、アニメーションは攻撃ロールで再生されます。",
-    "AUTOANIM.enableshield_name":"シールド呪文のアニメーションを有効にする",
-    "AUTOANIM.enableshield_hint":"シールドのアニメーションは今のところテスト版です。でもかっこいいよね。",
-
-    "AUTOANIM.error":"Automated Animationsを動作させるには、JB2Aモジュール（無料版かPatreon版）が必要です。",
-
-    "AUTOANIM.palegreen": "ペール・グリーン",
-    "AUTOANIM.blue":"ブルー",
-    "AUTOANIM.green":"グリーン",
-    "AUTOANIM.orange":"オレンジ",
-    "AUTOANIM.pink":"ピンク",
-    "AUTOANIM.purple":"パープル",
-    "AUTOANIM.red":"レッド",
-    "AUTOANIM.regular":"規定",
-    "AUTOANIM.yellow":"イエロー",
-    "AUTOANIM.darkred":"ダーク・レッド",
-    "AUTOANIM.darkgreen":"ダーク・グリーン",
-    "AUTOANIM.darkpurple":"ダーク・パープル",
-    "AUTOANIM.orangepink":"オレンジ・ピンク",
-    "AUTOANIM.purpleblue":"パープル・ブルー",
-    "AUTOANIM.purpleteal":"パープル・ティール",
-    "AUTOANIM.yellowblue":"イエロー・ブルー",
-    "AUTOANIM.random":"ランダム",
-    "AUTOANIM.grey": "グレー",
-    "AUTOANIM.bluegrey": "ブルー・グレー",
-    "AUTOANIM.darkblue":"ダーク・ブルー",
-    "AUTOANIM.tealyellow": "ティール・イエロー",
-    "AUTOANIM.purplepink": "ピンク・パープル",
-    "AUTOANIM.pinkyellow": "ピンク・イエロー",
-    "AUTOANIM.blueorange": "ブルー・オレンジ",
-    "AUTOANIM.greenorange": "グリーン・オレンジ",
-    "AUTOANIM.black": "ブラック",
-    "AUTOANIM.darkwhiteblue": "ダーク・ホワイト・ブルー",
-    "AUTOANIM.whiteblue": "ホワイト・ブルー",
-    "AUTOANIM.rainbow01": "レインボー01",
-    "AUTOANIM.rainbow02": "レインボー02",
-    "AUTOANIM.lightgreen": "ライト・グリーン",
-    "AUTOANIM.greenyellow": "グリーン・イエロー",
-    "AUTOANIM.brown": "ブラウン",
-    "AUTOANIM.lightblue": "ライト・ブルー",
-    "AUTOANIM.rainbow": "レインボー",
-    "AUTOANIM.white": "ホワイト",
-    "AUTOANIM.yellowwhite": "ホワイト",
-
-    "AUTOANIM.poison": "毒",
-    "AUTOANIM.acid": "酸",
-    "AUTOANIM.fire": "火",
-    "AUTOANIM.lightning": "電撃",
-    "AUTOANIM.cold": "冷気",
-    "AUTOANIM.magical": "魔法的",
-    "AUTOANIM.physical": "物理",
-    "AUTOANIM.1": "01",
-    "AUTOANIM.2": "02",
-    "AUTOANIM.3": "03",
-    "AUTOANIM.01":"01",
-    "AUTOANIM.02":"02",
-    "AUTOANIM.03":"03",
-    "AUTOANIM.05":"05",
-    "AUTOANIM.06":"06",
-    "AUTOANIM.07":"07",
-    "AUTOANIM.08":"08",
-    "AUTOANIM.09":"09",
-    "AUTOANIM.10":"10",
-    "AUTOANIM.11":"11",
-    "AUTOANIM.12":"12",
-    "AUTOANIM.13":"13",
-
-    "AUTOANIM.kunai":"クナイ",
+    "autoanimations": {
+        "Localization Provided By": "touge",
+        "settings": {
+            "initpopup_name":"スタート時のポップアップウィンドウを表示しない",
+            "initpopup_hint":"有効にするとポップアップウィンドウが表示されなくなります。",
+            "animtab_name": "プレイヤーのAnimateタブを隠す",
+            "animtab_hint": "有効にするとAnimateタブがプレイヤーに表示されません。",
+            "midionhit_name":"ヒット時のみアニメーションを再生する",
+            "midionhit_hint":"Midi-QOLのワークフローの設定で、ヒット確認を自動化する必要があります。",
+            "midionmiss_name": "ヒットとミスでアニメーションを再生する",
+            "midionmiss_hint": "ミスの場合、アニメーションは目標を外して再生されます。ヒットを確認するにはMidi-QOLのワークフロー設定が必要です。",
+            "midiondmg_name":"ダメージロール時にのみアニメーションを再生する",
+            "midiondmg_hint":"【要再読み込み】有効にすると、ダメージロール時にのみアニメーションを再生します。",
+            "demonlordtrigger_name":"アニメーションのトリガー",
+            "demonlordtrigger_hint":"アニメーションを開始する条件を設定します。",
+            "demonlordtrigger_rollattack":"攻撃ロール時にのみアニメーションを再生する",
+            "demonlordtrigger_hits":"ヒット時のみアニメーションを再生する",
+            "demonlordtrigger_misses": "ヒットとミスでアニメーションを再生する",
+            "demonlordtrigger_rolldamage":"ダメージロール時にのみアニメーションを再生する",
+            "demonlordtrigger_applydamage":"ダメージ適用時にのみアニメーションを再生する",
+            "coreondmg_name":"ダメージロールでのみ攻撃アニメーションを再生する",
+            "coreondmg_hint":"デフォルトでは、アニメーションは攻撃ロールで再生されます。",
+            "error":"Automated Animationsを動作させるには、JB2Aモジュール（無料版かPatreon版）が必要です。",
+            "animPreview": "アニメーションのプレビュー",
+            "animPreviewHint": "A-Aタブ内で映像のプレビューを表示します。",
+            "autoRecSetting": "自動認識設定",
+            "toggleAnimations": "アニメーションの切り換え",
+            "toggleAnimations_hint": "アニメーションを有効にするには再読み込みが必要です。",
+            "ON": "オン",
+            "OFF": "オフ",
+            "settingDisableAutoRec": "自動認識を無効にする",
+            "settingDisableAutoRecHint": "個別のアイテムに設定されたアニメーションのみが再生されるようになります。",
+            "globaldelay_name": "全体ディレイ",
+            "globaldelay_hint": "すべてのアニメーションの開始をミリ秒単位で遅らせます。",
 
 
-    "AUTOANIM.spell":"呪文",
-    "AUTOANIM.weapon":"武器",
-    "AUTOANIM.itemFeat":"特技",
-    "AUTOANIM.itemConsumable":"消耗品",
-
-    "AUTOANIM.itemCure":"キュア",
-    "AUTOANIM.itemWound":"ウーンズ",
-    "AUTOANIM.curewounds": "キュア・ウーンズ",
-    "AUTOANIM.itemGeneric": "汎用",
-    "AUTOANIM.itemHeal":"回復",
-    "AUTOANIM.generichealing": "汎用回復",
-    "AUTOANIM.itemWord":"ワード",
-    "AUTOANIM.itemHealingWord": "ヒーリング・ワード",
-    "AUTOANIM.disintegrate":"ディスインテグレイト",
-    "AUTOANIM.eldritchblast":"エルドリッチ・ブラスト",
-    "AUTOANIM.firebolt":"ファイアー・ボルト",
-    "AUTOANIM.magicmissile":"マジック・ミサイル",
-    "AUTOANIM.rayoffrost":"レイ・オブ・フロスト",
-    "AUTOANIM.scorchingray":"スコーチング・レイ",
-    "AUTOANIM.witchbolt":"ウィッチ・ボルト",
-    "AUTOANIM.thunderwave":"サンダーウェイブ",
-    "AUTOANIM.shatter":"シャター",
-    "AUTOANIM.shieldspell":"シールド",
-    "AUTOANIM.itemCatapult":"カタパルト",
-
-    "AUTOANIM.itemBattleaxe": "バトルアックス",
-    "AUTOANIM.dagger":"ダガー",
-    "AUTOANIM.greataxe":"グレートアックス",
-    "AUTOANIM.greatclub":"グレートクラブ",
-    "AUTOANIM.greatsword":"グレートソード",
-    "AUTOANIM.handaxe":"ハンドアックス",
-    "AUTOANIM.lasersword":"レーザーソード",
-    "AUTOANIM.mace":"メイス",
-    "AUTOANIM.maul":"モール",
-    "AUTOANIM.rapier":"レイピア",
-    "AUTOANIM.spear":"スピア",
-    "AUTOANIM.sword":"ソード",
-    "AUTOANIM.itemLongsword": "ロングソード",
-    "AUTOANIM.itemShortsword": "ショートソード",
-    "AUTOANIM.itemScimitar": "シミター",
-
-    "AUTOANIM.arrow":"矢",
-    "AUTOANIM.itemLongbow":"ロングボウ",
-    "AUTOANIM.itemShortbow":"ショートボウ",
-    "AUTOANIM.boulder":"投石",
-    "AUTOANIM.javelin":"ジャヴェリン",
-    "AUTOANIM.lasershot":"レーザー銃",
-    "AUTOANIM.siegeboulder":"投石機",
-    "AUTOANIM.itemThrowingHammer":"スローイング・ハンマー",
-    "AUTOANIM.sling":"スリング",
-
-    "AUTOANIM.unarmedstrike":"素手攻撃",
-    "AUTOANIM.1hb":"片手［殴打］攻撃",
-    "AUTOANIM.1hp":"片手［刺突］攻撃",
-    "AUTOANIM.1hs":"片手［斬撃］攻撃",
-    "AUTOANIM.2hb":"両手［殴打］攻撃",
-    "AUTOANIM.2hp":"両手［刺突］攻撃",
-    "AUTOANIM.2hs":"両手［斬撃］攻撃",
-
-    "AUTOANIM.claw":"爪",
-    "AUTOANIM.bite":"噛みつき",
 
 
-    "AUTOANIM.itemGrenade":"グレネード",
-    "AUTOANIM.itemBomb":"爆弾",
-
-    "AUTOANIM.variant01":"01",
-    "AUTOANIM.variant02":"02",
+            "settingRangeSwitch": "近接攻撃を遠隔に切り換える",
+            "settingRangeSwitchhint": "近接攻撃アニメーションを無効にし、遠隔攻撃アニメーションに変更します。",
+        
 
 
-    "AUTOANIM.itemAlchemist":"アルケミスト",
-    "AUTOANIM.itemPotion":"ポーション",
-    "AUTOANIM.itemSecond":"セカンド",
-    "AUTOANIM.itemWind":"ウィンド",
 
-    "AUTOANIM.raceBugbear":"バグベア",
+            "crithit_name": "クリティカルヒット",
+            "crithit_hint": "自身のコマでクリティカルヒットのアニメーションを再生します。",
+            "crithitAnim_name": "クリティカルヒットのアニメーション",
+            "critmiss_name": "ファンブル",
+            "critmiss_hint": "自身のコマでファンブルのアニメーションを再生します。",
+            "critmissAnim_name": "ファンブルのアニメーション",
+        
 
-    "AUTOANIM.radius02": "02",
-    "AUTOANIM.radius05": "05",
-    "AUTOANIM.radius10": "10",
-    "AUTOANIM.radius15": "15",
-    "AUTOANIM.radius20": "20",
-    "AUTOANIM.radius25": "25",
-    "AUTOANIM.radius30": "30",
-    "AUTOANIM.radius35": "35",
-    "AUTOANIM.radius40": "40",
-    "AUTOANIM.radius45": "45",
-    "AUTOANIM.radius50": "50",
-    "AUTOANIM.radiusNuke": "核爆発",
-
-    "AUTOANIM.explodeLoop01":"1",
-    "AUTOANIM.explodeLoop02":"2",
-    "AUTOANIM.explodeLoop03":"3",
-    "AUTOANIM.explodeLoop04":"4",
-    "AUTOANIM.explodeLoop05":"5",
+            "debugging": "デバッグの有効化",
 
 
-    "AUTOANIM.typeMelee": "近接武器",
-    "AUTOANIM.typeGenMelee": "近接ダメージ",
-    "AUTOANIM.typeRanged": "遠隔武器",
-    "AUTOANIM.creature": "肉体武器",
-    "AUTOANIM.typeAttackSpell": "攻撃呪文",
-    "AUTOANIM.typeHealingSpell": "回復呪文",
-    "AUTOANIM.typeExplosiveCT": "爆発 (円形テンプレート)",
-    "AUTOANIM.typeExplosiveOT": "爆発（ターゲット）",
-
-    "AUTOANIM.blank": "",
-
-    "AUTOANIM.menuKillAnim": "アニメーションを無効にする",
-    "AUTOANIM.menuOverride": "アニメーションを上書きする",
-    "AUTOANIM.menuAnimType": "アニメーションタイプ",
-    "AUTOANIM.menuAnimName": "アニメーションの選択",
-    "AUTOANIM.menuAnimColor": "色の選択",
-    "AUTOANIM.menuNoRangeColor": "色が反映されるのは近接攻撃のみで、遠隔攻撃時には適用されません。",
-    "AUTOANIM.menuThrownVariant": "投げ物の種別",
-    "AUTOANIM.menuEnableExplode": "爆発を有効にする？",
-    "AUTOANIM.menuExplodeVariant": "爆発の種別",
-    "AUTOANIM.menuExplodeColor": "爆発の色",
-    "AUTOANIM.menuExplodeRadius": "爆発の範囲",
-    "AUTOANIM.menuExplodeLoops": "爆発のループ数",
-
-    "AUTOANIM.typeSelfEffects": "放出系",
-    "AUTOANIM.typeAuras": "オーラ",
-
-    "AUTOANIM.calllightning":"コール・ライトニング",
-    "AUTOANIM.darkness":"ダークネス",
-    "AUTOANIM.fogcloud":"フォッグ・クラウド",
-    "AUTOANIM.sleetstorm":"スリート・ストーム",
-    "AUTOANIM.spiritguardians":"スピリット・ガーディアンズ",
-    "AUTOANIM.wallofforce":"ウォール・オヴ・フォース",
-    "AUTOANIM.whirlwind":"ワールウィンド",
-    "AUTOANIM.antilifeshell":"アンティライフ・シェル",
-
-    "AUTOANIM.menuChooseRadius":"半径の選択",
-    "AUTOANIM.removeAura": "CTAエフェクト削除",
-    "AUTOANIM.auraTint": "オーラの色合い:",
-    "AUTOANIM.auraOpacity": "オーラの不透明度 (0-1):",
-    "AUTOANIM.huntersmark": "ハンターズ・マーク",
-    "AUTOANIM.hmAnim": "ハンターズ・マーク アニメーション",
-    "AUTOANIM.tabName": "演出",
-    "AUTOANIM.crithit_name": "クリティカルヒット",
-    "AUTOANIM.crithit_hint": "自身のコマでクリティカルヒットのアニメーションを再生します。",
-    "AUTOANIM.crithitAnim_name": "クリティカルヒットのアニメーション",
-    "AUTOANIM.critmiss_name": "ファンブル",
-    "AUTOANIM.critmiss_hint": "自身のコマでファンブルのアニメーションを再生します。",
-    "AUTOANIM.critmissAnim_name": "ファンブルのアニメーション",
-
-    "AUTOANIM.globaldelay_name": "全体ディレイ",
-    "AUTOANIM.globaldelay_hint": "すべてのアニメーションの開始をミリ秒単位で遅らせます。",
-
-    "AUTOANIM.uaType": "素手",
-    "AUTOANIM.flurryofblows": "連打",
-    "AUTOANIM.guidingbolt": "ガイディング・ボルト",
-    "AUTOANIM.animTeleportation": "テレポーテーション",
-    "AUTOANIM.range": "移動範囲",
-    "AUTOANIM.mistystep": "ミスティ・ステップ",
-
-    "AUTOANIM.variantChoice": "バリアント選択",
-    "AUTOANIM.variant03":"03",
-    "AUTOANIM.variant04":"04",
-    "AUTOANIM.variant05":"05",
-    "AUTOANIM.variant06":"06",
-    "AUTOANIM.variant07":"07",
-    "AUTOANIM.classFeatures": "クラス特徴",
-    "AUTOANIM.bardicinspiration": "バードの声援",
-    "AUTOANIM.musicnote": "音符",
-    "AUTOANIM.bardAnimation": "バードのアニメーション",
-    "AUTOANIM.bardTarget": "対象アニメーションの有効化",
-    "AUTOANIM.bardSelf": "自アニメーションの有効化",
-
-    "AUTOANIM.typeExplosiveSelf": "爆発（自身）",
-    "AUTOANIM.spellLoops": "アニメーションのループ（1-10）",
-
-    "AUTOANIM.itemAudio": "アイテムサウンドの有効化",
-    "AUTOANIM.explosionAudio": "爆発音の有効化",
-    "AUTOANIM.chooseAudio": "サウンドファイル選択",
-    "AUTOANIM.audioDelay": "サウンド遅延 (ms)",
-    "AUTOANIM.markerColor": "マーカーの色（自身）",
-
-    "AUTOANIM.breathweapon": "ブレス武器",
-    "AUTOANIM.bwWarning": "30フィートの円錐テンプレ時",
-    "AUTOANIM.selfColor": "アニメーションの色（自身）",
-    "AUTOANIM.targetColor": "アニメーション色（対象）",
-    "AUTOANIM.ctaStatic": "CTAを静止画にする",
-
-    "AUTOANIM.templates": "テンプレート",
-    "AUTOANIM.cone": "円錐",
-    "AUTOANIM.square": "矩形",
-    "AUTOANIM.circle": "球形",
-    "AUTOANIM.ray": "直線",
-    "AUTOANIM.coneofcold": "コーン・オヴ・コールド",
-    "AUTOANIM.burninghands01": "バーニング・ハンズ 01",
-    "AUTOANIM.burninghands02": "バーニング・ハンズ 02",
-    "AUTOANIM.templateType": "テンプレ種別",
-    "AUTOANIM.explosion01": "爆発 01",
-    "AUTOANIM.explosion02": "爆発 02",
-    "AUTOANIM.explosion03": "爆発 03",
-    "AUTOANIM.explosion04": "爆発 04",
-    "AUTOANIM.snowflake": "雪の拡散",
-    "AUTOANIM.entangle": "エンタングル",
-
-    "AUTOANIM.customAnim": "カスタム・アニメーション？",
-
-    "AUTOANIM.impact": "衝撃",
-    "AUTOANIM.impactVariant": "衝撃の種類",
-    "AUTOANIM.underToken": "コマの下でアニメーションを再生する？",
-
-    "AUTOANIM.markerEnable": "マーカーの有効化",
 
 
-    "AUTOANIM.sneakattack": "急所攻撃",
-    "AUTOANIM.bullet": "弾丸",
-    "AUTOANIM.bolt": "ボルト",
-    "AUTOANIM.snipe": "狙撃",
-    "AUTOANIM.damageType": "ダメージ種別",
 
-    "AUTOANIM.tabTitle": "アイテムのアニメーション設定",
-    "AUTOANIM.targetAnim": "対象のアニメーション",
-    "AUTOANIM.markerColorTarget": "マーカーの色（対象）",
 
-    "AUTOANIM.musicMarker": "音楽",
-    "AUTOANIM.crossbow": "クロスボウ",
-    "AUTOANIM.loops": "ループ",
-    "AUTOANIM.loopDelay": "ループの遅延",
-    "AUTOANIM.scale": "サイズ",
-    "AUTOANIM.radius": "半径（マス）",
-    "AUTOANIM.delayMS": "遅延（ms）",
-    "AUTOANIM.placeTile": "タイルとして配置",
-    "AUTOANIM.socketLibAA": "モジュールが必要です",
-    "AUTOANIM.opacity": "不透明度",
-    "AUTOANIM.overhead": "前景にする",
-    "AUTOANIM.sourceToken": "自身のコマのアニメーションを有効にする",
-    "AUTOANIM.targetToken": "対象コマのアニメーションを有効にする",
-    "AUTOANIM.after": "終了時",
-    "AUTOANIM.animation": "アニメーション",
-    "AUTOANIM.source": "自身の",
-    "AUTOANIM.target": "対象の",
-    "AUTOANIM.primary": "基本の",
-    "AUTOANIM.start": "発生時",
-    "AUTOANIM.thrown": "投擲",
-    "AUTOANIM.customSequences": "カスタムSequences",
-    "AUTOANIM.explode": "爆発",
-    "AUTOANIM.fade": "フェード",
-    "AUTOANIM.itemLaserSwordDB": "ダブルレーザーソード",
-    "AUTOANIM.eye": "眼",
-    "AUTOANIM.paw": "足",
-    "AUTOANIM.explosion": "爆発",
-    "AUTOANIM.selfEffect": "自身の効果",
-    "AUTOANIM.targetEffect": "対象の効果",
-    "AUTOANIM.animPreview": "アニメーションのプレビュー",
-    "AUTOANIM.animPreviewHint": "A-Aタブ内で映像のプレビューを表示します。",
-    "AUTOANIM.icespikes": "アイス・スパイク",
-    "AUTOANIM.divinesmite": "神聖なる一撃",
-    "AUTOANIM.stars": "星",
-    "AUTOANIM.marker": "マーカー",
-    "AUTOANIM.magicsign": "魔法陣",
-    "AUTOANIM.customize": "特別に設定した",
-    "AUTOANIM.ctaScale": "サイズ",
-    "AUTOANIM.volume": "音量（0-1）",
-    "AUTOANIM.teleport": "範囲外を選択しました。もう一度選択し直してください。",
-    
-    "AUTOANIM.cloudofdaggers": "クラウド・オヴ・ダガーズ",
-    "AUTOANIM.auraScale": "コマのサイズと比較",
-    "AUTOANIM.removeTemplate": "設置後にテンプレートを削除する？",
-    "AUTOANIM.occlusionMode": "干渉モード",
-    "AUTOANIM.occlusion01": "フェード (タイル全体)",
-    "AUTOANIM.occlusion02": "屋根 (視覚と照明を遮る)",
-    "AUTOANIM.occlusion03": "放射 (周囲のトークン)",
-    "AUTOANIM.occlusion00": "なし (常に目に見える)",
-    "AUTOANIM.occlusionAlpha": "干渉アルファ値",
 
-    "AUTOANIM.lightningbolt": "ライトニング・ボルト",
-    "AUTOANIM.chakram": "チャクラム",
-    "AUTOANIM.bless": "ブレス",
 
-    "AUTOANIM.single": "シングル",
-    "AUTOANIM.double": "ダブル",
-    "AUTOANIM.settingRangeSwitch": "近接攻撃を遠隔に切り換える",
-    "AUTOANIM.settingRangeSwitchhint": "近接攻撃アニメーションを無効にし、遠隔攻撃アニメーションに変更します。",
-    "AUTOANIM.settingDisableAutoRec": "自動認識を無効にする",
-    "AUTOANIM.settingDisableAutoRecHint": "個別のアイテムに設定されたアニメーションのみが再生されるようになります。",
 
-    "AUTOANIM.returning": "リターニング",
-    "AUTOANIM.rangeDetect": "遠隔攻撃の検出",
-    "AUTOANIM.gridSquares": "遠隔に切り替わるマス数",
 
-    "AUTOANIM.toggleAnimations": "アニメーションの切り換え",
-    "AUTOANIM.toggleAnimations_hint": "アニメーションを有効にするには再読み込みが必要です。",
-    "AUTOANIM.ON": "オン",
-    "AUTOANIM.OFF": "オフ",
-    "AUTOANIM.ignoreTargets": "対象を無視",
-    "AUTOANIM.scaleToToken": "コマのサイズに合わせる",
-    "AUTOANIM.noTemplate": "テンプレートを配置しない",
-    "AUTOANIM.anchorX": "相対座標X",
-    "AUTOANIM.anchorY": "相対座標Y",
 
-    "AUTOANIM.lightningbolt02": "ライトニングボルト02",
-    "AUTOANIM.cloudofkunais": "クラウド・オブ・クナイズ",
 
-    "AUTOANIM.web": "ウェブ",
 
-    "AUTOANIM.ammoAnimate": "矢弾のアニメーション",
 
-    "AUTOANIM.tollthedead": "トウル・ザ・デッド",
-    "AUTOANIM.bell": "ベル",
-    "AUTOANIM.shockwave": "ショックウェーブ",
-    "AUTOANIM.skull": "ドクロ",
-    "AUTOANIM.complete": "完全",
 
-    "AUTOANIM.itemName": "アイテム名",
-    "AUTOANIM.search": "検索",
-    "AUTOANIM.variant": "種別",
-    "AUTOANIM.color": "色",
-    "AUTOANIM.repeat": "繰り返し",
-    "AUTOANIM.delay": "ディレイ",
-    "AUTOANIM.below": "コマの下",
-    "AUTOANIM.custom": "カスタム",
-    "AUTOANIM.switch": "切換",
-    "AUTOANIM.return": "リターニング",
-    "AUTOANIM.addItem": "アイテム追加",
-    "AUTOANIM.type": "タイプ",
-    "AUTOANIM.remove": "テンプレート削除",
-    "AUTOANIM.static": "固定",
-    "AUTOANIM.playOn": "再生位置",
-    "AUTOANIM.tint": "色合い",
-    "AUTOANIM.melee": "近接攻撃",
-    "AUTOANIM.ranged": "遠隔攻撃",
-    "AUTOANIM.onToken": "コマ効果",
-    "AUTOANIM.presets": "プリセット",
-    "AUTOANIM.submit": "適用",
-    "AUTOANIM.import": "設定のインポート",
-    "AUTOANIM.export": "設定のエクスポート",
-    "AUTOANIM.preset": "プリセット",
-    "AUTOANIM.autoRecSetting": "自動認識設定",
-    "AUTOANIM.debugging": "デバッグの有効化",
 
-    "AUTOANIM.darkorangepurple": "ダーク・オレンジ・パープル",
-    "AUTOANIM.halberd": "ハルバード",
-    "AUTOANIM.quarterstaff": "クォータースタッフ",
-    "AUTOANIM.04": "04",
-    "AUTOANIM.sleep01": "スリープ01",
-    "AUTOANIM.sleep02": "スリープ02",
-    "AUTOANIM.persistant": "持続させる",
-    "AUTOANIM.fireball": "ファイアー・ボール",
-    "AUTOANIM.projectile": "飛翔体",
-    "AUTOANIM.addAfterImage": "事後画像の追加",
-    "AUTOANIM.wait": "ウェイト",
 
-    "AUTOANIM.falchion": "ファルシオン",
-    "AUTOANIM.glaive": "グレイヴ",
-    "AUTOANIM.vortex": "ボルテックス",
-    "AUTOANIM.whirl": "渦巻き",
-    "AUTOANIM.energystrands": "念糸",
-    "AUTOANIM.loop": "ループ",
-    "AUTOANIM.intro": "イントロ",
-    "AUTOANIM.outro": "アウトロ",
-    "AUTOANIM.scimitar": "シミター",
-    "AUTOANIM.shortsword": "ショートソード",
 
-    "AUTOANIM.disable": "アニメーション無効化",
-    "AUTOANIM.playBelow": "コマの下に再生",
-    "AUTOANIM.both": "両方",
-    "AUTOANIM.targetDefault": "自身 自動ターゲット",
-    "AUTOANIM.generic": "汎用",
-    "AUTOANIM.addExplosion": "爆発を追加",
-    "AUTOANIM.endEffect": "効果終了",
-    "AUTOANIM.burninghands": "バーニング・ハンズ",
-    "AUTOANIM.fire01": "火 v01",
-    "AUTOANIM.fire02": "火 v02",
-    "AUTOANIM.gustofwind": "ガスト・オヴ・ウィンド",
-    "AUTOANIM.slow": "低速",
-    "AUTOANIM.fast": "高速",
-    "AUTOANIM.left": "左",
-    "AUTOANIM.mid": "中",
-    "AUTOANIM.center": "中央",
-    "AUTOANIM.inspire": "声援",
-    "AUTOANIM.chainlightning": "チェイン・ライトニング",
-    "AUTOANIM.choosePreset": "プリセット選択",
-    "AUTOANIM.overheadtile": "天井タイル",
-    "AUTOANIM.groundtile": "床タイル",
-    "AUTOANIM.sequencereffect": "Sequencer効果",
 
-    "AUTOANIM.energystrand": "エネルギーの糸",
-    "AUTOANIM.energybeam": "エネルギーの光線",
-    "AUTOANIM.club": "クラブ",
-    "AUTOANIM.hammer": "ハンマー",
-    "AUTOANIM.warhammer": "ウォーハンマー",
-    "AUTOANIM.wrench": "レンチ",
-    "AUTOANIM.bluegreen": "ブルー・グリーン",
-    "AUTOANIM.moonbeam": "ムーン・ビーム",
-    "AUTOANIM.nopulse": "波波パルス無し",
 
-    "AUTOANIM.nohit": "命中せず",
-    "AUTOANIM.pumpkin": "かぼちゃ",
-    "AUTOANIM.secondary": "二次",
-    "AUTOANIM.reverse": "反転",
-    "AUTOANIM.lightorange": "ライト・オレンジ",
-    "AUTOANIM.noring": "リング無し",
-    "AUTOANIM.staticelectricity": "静電気",
-    "AUTOANIM.simple": "シンプル",
-    "AUTOANIM.rolled": "回転",
-    "AUTOANIM.runeabove": "ルーン（上）",
-    "AUTOANIM.runebelow": "ルーン（下）",
-    "AUTOANIM.skullabove": "ドクロ（上）",
-    "AUTOANIM.skullbelow": "ドクロ（下）",
-    "AUTOANIM.starabove": "星（上）",
-    "AUTOANIM.starbelow": "星（下）",
-    "AUTOANIM.darkgreenpurple": "ダーク・グリーン（波形）",
-    "AUTOANIM.dodecahedron": "12面体",
-    "AUTOANIM.bubble": "バブル",
-    "AUTOANIM.teal": "ティール",
-    "AUTOANIM.darkteal": "ダーク・ティール",
-    "AUTOANIM.pulse": "波形",
-    "AUTOANIM.darkorange": "ダーク・オレンジ",
-    "AUTOANIM.drop": "ドロップ",
-    "AUTOANIM.fear": "恐怖",
-    "AUTOANIM.heart": "ハート",
-    "AUTOANIM.horror": "ホラー",
-    "AUTOANIM.light": "光",
-    "AUTOANIM.runes": "ルーン",
-    "AUTOANIM.shield": "シールド",
-    "AUTOANIM.crackedshield": "欠けたシールド",
-    "AUTOANIM.snowflakes": "雪花",
-    "AUTOANIM.stun": "朦朧",
-    "AUTOANIM.conditions": "状態",
-    "AUTOANIM.bluepink": "ブルー・ピンク",
-    "AUTOANIM.orangepurple": "オレンジ・パープル",
-    "AUTOANIM.nodebris": "破片無し",
-    "AUTOANIM.fireballbeam": "ファイアー・ボールの光線",
-    
-    "AUTOANIM.attachtotemplate": "テンプレートに貼り付け",
-    "AUTOANIM.grease": "グリース",
-    "AUTOANIM.shieldfx": "シールド効果",
-    "AUTOANIM.armsofhadar": "アームズ・オヴ・ハダル",
-    "AUTOANIM.blacktentacles": "ブラック・テンタクルズ",
-    "AUTOANIM.ice": "アイス",
-    "AUTOANIM.earth": "アース",
-    "AUTOANIM.eldritch": "エルドリッチ",
-    "AUTOANIM.snow": "スノー",
-    "AUTOANIM.ball": "球形",
-    "AUTOANIM.border": "枠",
-    "AUTOANIM.token": "コマ",
-    "AUTOANIM.spinning": "回転",
+            "teleport": "範囲外を選択しました。もう一度選択し直してください。",
+            "extraexplain": "メインとなるアニメーションが必要です。手動でも自動認識でも構いませんので設定をお願いします。"
 
-    "AUTOANIM.autorecognized": "は自動認識されています",
-    "AUTOANIM.overrideauto": "自動認識設定を上書き",
-    "AUTOANIM.sound": "音声",
-    "AUTOANIM.enabled": "有効化",
-    "AUTOANIM.disabled": "無効化",
-    "AUTOANIM.close": "閉じる",
-    "AUTOANIM.and": "＆",
-    "AUTOANIM.extra": "追加",
-    "AUTOANIM.effects": "効果",
-    "AUTOANIM.extraexplain": "メインとなるアニメーションが必要です。手動でも自動認識でも構いませんので設定をお願いします。"
+
+
+
+
+        },
+        "colors": {
+            "lightorange": "ライト・オレンジ",
+            "bluegreen": "ブルー・グリーン",
+            "palegreen": "ペール・グリーン",
+            "blue":"ブルー",
+            "green":"グリーン",
+            "orange":"オレンジ",
+            "pink":"ピンク",
+            "purple":"パープル",
+            "red":"レッド",
+            "regular":"規定",
+            "yellow":"イエロー",
+            "darkred":"ダーク・レッド",
+            "darkgreen":"ダーク・グリーン",
+            "darkpurple":"ダーク・パープル",
+            "orangepink":"オレンジ・ピンク",
+            "purpleblue":"パープル・ブルー",
+            "purpleteal":"パープル・ティール",
+            "yellowblue":"イエロー・ブルー",
+            "random":"ランダム",
+            "grey": "グレー",
+            "bluegrey": "ブルー・グレー",
+            "darkblue":"ダーク・ブルー",
+            "tealyellow": "ティール・イエロー",
+            "purplepink": "ピンク・パープル",
+            "pinkyellow": "ピンク・イエロー",
+            "blueorange": "ブルー・オレンジ",
+            "greenorange": "グリーン・オレンジ",
+            "black": "ブラック",
+            "darkwhiteblue": "ダーク・ホワイト・ブルー",
+            "whiteblue": "ホワイト・ブルー",
+            "rainbow01": "レインボー01",
+            "rainbow02": "レインボー02",
+            "lightgreen": "ライト・グリーン",
+            "greenyellow": "グリーン・イエロー",
+            "brown": "ブラウン",
+            "lightblue": "ライト・ブルー",
+            "rainbow": "レインボー",
+            "white": "ホワイト",
+            "yellowwhite": "ホワイト",
+            "darkorangepurple": "ダーク・オレンジ・パープル",
+            "darkgreenpurple": "ダーク・グリーン（波形）",
+            "darkteal": "ダーク・ティール",
+            "darkorange": "ダーク・オレンジ",
+            "teal": "ティール",
+            "bluepink": "ブルー・ピンク",
+            "orangepurple": "オレンジ・パープル"
+        
+
+
+
+
+
+
+        },
+        "animations": {
+            "coneofcold": "コーン・オヴ・コールド",
+
+
+
+            "loop": "ループ",
+            "complete": "完全",
+
+
+
+
+
+            "curewounds": "キュア・ウーンズ",
+            "generichealing": "汎用回復",
+            "itemHealingWord": "ヒーリング・ワード",
+            "disintegrate":"ディスインテグレイト",
+            "eldritchblast":"エルドリッチ・ブラスト",
+            "firebolt":"ファイアー・ボルト",
+            "magicmissile":"マジック・ミサイル",
+            "rayoffrost":"レイ・オブ・フロスト",
+            "scorchingray":"スコーチング・レイ",
+            "witchbolt":"ウィッチ・ボルト",
+            "thunderwave":"サンダーウェイブ",
+            "shatter":"シャター",
+            "shieldspell":"シールド",
+            "calllightning":"コール・ライトニング",
+            "darkness":"ダークネス",
+            "fogcloud":"フォッグ・クラウド",
+            "sleetstorm":"スリート・ストーム",
+            "spiritguardians":"スピリット・ガーディアンズ",
+            "wallofforce":"ウォール・オヴ・フォース",
+            "whirlwind":"ワールウィンド",
+            "antilifeshell":"アンティライフ・シェル",
+            "guidingbolt": "ガイディング・ボルト",
+            "mistystep": "ミスティ・ステップ",
+            "bardicinspiration": "バードの声援",
+            "musicnote": "音符",
+            "breathweapon": "ブレス武器",
+            "snowflake": "雪の拡散",
+            "entangle": "エンタングル",
+            "impact": "衝撃",
+            "icespikes": "アイス・スパイク",
+            "divinesmite": "神聖なる一撃",
+            "stars": "星",
+            "marker": "マーカー",
+            "magicsign": "魔法陣",
+            "cloudofdaggers": "クラウド・オヴ・ダガーズ",
+            "lightningbolt": "ライトニング・ボルト",
+            "bless": "ブレス",
+            "lightningbolt02": "ライトニングボルト02",
+            "cloudofkunais": "クラウド・オブ・クナイズ",
+            "web": "ウェブ",
+            "tollthedead": "トウル・ザ・デッド",
+            "fireball": "ファイアー・ボール",
+            "vortex": "ボルテックス",
+            "whirl": "渦巻き",
+            "energystrands": "念糸",
+            "burninghands": "バーニング・ハンズ",
+            "gustofwind": "ガスト・オヴ・ウィンド",
+            "chainlightning": "チェイン・ライトニング",
+            "energystrand": "エネルギーの糸",
+            "energybeam": "エネルギーの光線",
+            "moonbeam": "ムーン・ビーム",
+            "staticelectricity": "静電気",
+            "dodecahedron": "12面体",
+            "drop": "ドロップ",
+            "fear": "恐怖",
+            "heart": "ハート",
+            "horror": "ホラー",
+            "light": "光",
+            "runes": "ルーン",
+            "shield": "シールド",
+            "crackedshield": "欠けたシールド",
+            "snowflakes": "雪花",
+            "stun": "朦朧",
+            "fireballbeam": "ファイアー・ボールの光線",
+            "grease": "グリース",
+            "armsofhadar": "アームズ・オヴ・ハダル",
+            "blacktentacles": "ブラック・テンタクルズ",
+        
+
+
+
+
+
+            "huntersmark": "ハンターズ・マーク",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            "poison": "毒",
+            "explosion": "爆発",
+
+
+
+            "ball": "球形",
+
+            "bubble": "バブル",
+
+            "fire": "火",
+            "ice": "アイス",
+            "earth": "アース",
+            "static": "固定",
+            "spinning": "回転",
+
+
+
+
+
+            "skull": "ドクロ",
+            "dagger":"ダガー",
+            "greataxe":"グレートアックス",
+            "greatclub":"グレートクラブ",
+            "greatsword":"グレートソード",
+            "handaxe":"ハンドアックス",
+            "lasersword":"レーザーソード",
+            "mace":"メイス",
+            "maul":"モール",
+            "rapier":"レイピア",
+            "spear":"スピア",
+            "sword":"ソード",
+            "itemLongsword": "ロングソード",
+            "scimitar": "シミター",
+            "shortsword": "ショートソード",
+            "arrow":"矢",
+            "boulder":"投石",
+            "javelin":"ジャヴェリン",
+            "lasershot":"レーザー銃",
+            "siegeboulder":"投石機",
+            "sling":"スリング",
+            "unarmedstrike":"素手攻撃",
+            "1hb":"片手［殴打］攻撃",
+            "1hp":"片手［刺突］攻撃",
+            "1hs":"片手［斬撃］攻撃",
+            "2hb":"両手［殴打］攻撃",
+            "2hp":"両手［刺突］攻撃",
+            "2hs":"両手［斬撃］攻撃",
+            "claw":"爪",
+            "bite":"噛みつき",
+            "flurryofblows": "連打",
+            "sneakattack": "急所攻撃",
+            "bullet": "弾丸",
+            "bolt": "ボルト",
+            "snipe": "狙撃",
+            "chakram": "チャクラム",
+            "falchion": "ファルシオン",
+            "glaive": "グレイヴ",
+            "club": "クラブ",
+            "hammer": "ハンマー",
+            "warhammer": "ウォーハンマー",
+            "wrench": "レンチ",
+            "pumpkin": "かぼちゃ",
+            "halberd": "ハルバード",
+            "quarterstaff": "クォータースタッフ",
+            "crossbow": "クロスボウ"
+
+        },
+        "variants": {
+            "1":"01",
+            "2":"02",
+            "3":"03",
+            "01":"01",
+            "02":"02",
+            "03":"03",
+            "04":"04",
+            "05":"05",
+            "06":"06",
+            "07":"07",
+            "08":"08",
+            "09":"09",
+            "10":"10",
+            "11":"11",
+            "12":"12",
+            "13":"13",
+            "magical": "魔法的",
+            "physical": "物理",
+            "nohit": "命中せず",
+            "fire": "火",
+            "regular":"規定",
+            "poison": "毒",
+            "cold": "冷気",
+            "lightning": "電撃",
+            "kunai":"クナイ",
+            "primary": "基本の",
+            "secondary": "二次",
+            "square": "矩形",
+            "circle": "球形",
+            "reverse": "反転",
+            "simple": "シンプル",
+            "rolled": "回転",
+            "runeabove": "ルーン（上）",
+            "runebelow": "ルーン（下）",
+            "skullabove": "ドクロ（上）",
+            "skullbelow": "ドクロ（下）",
+            "starabove": "星（上）",
+            "starbelow": "星（下）",
+            "drop": "ドロップ",
+            "fear": "恐怖",
+            "heart": "ハート",
+            "horror": "ホラー",
+
+
+
+
+
+
+            "crackedshield": "欠けたシールド",
+            "skull": "ドクロ",
+            "stun": "朦朧",
+            "snowflake": "雪の拡散",
+            "loop": "ループ",
+            "intro": "イントロ",
+            "outro": "アウトロ",
+            "inspire": "声援",
+            "marker": "マーカー",
+            "source": "自身の",
+            "target": "対象の",
+            "explode": "爆発",
+            "fade": "フェード",
+            "nodebris": "破片無し",
+            "eye": "眼",
+
+            "paw": "足",
+
+            "nopulse": "波波パルス無し",
+            "left": "左",
+            "mid": "中",
+            "center": "中央",
+        
+            "noring": "リング無し",
+            "bell": "ベル",
+            "shockwave": "ショックウェーブ",
+            "complete": "完全",
+            "single": "シングル",
+            "double": "ダブル",
+            "pulse": "波形",
+
+            "fire01": "火 v01",
+            "fire02": "火 v02",
+        
+            "acid": "酸",
+            "slow": "低速",
+            "fast": "高速"        
+        },
+        "menuTypes": {
+            "creature": "肉体武器",
+            "generic": "汎用",
+            "weapon":"武器",
+            "spell":"呪文",
+            "conditions": "状態",
+
+            "fire": "火",
+            "ice": "アイス",
+            "lightning": "電撃",
+
+            "magicsign": "魔法陣",
+            "marker": "マーカー",
+
+
+            "shieldfx": "シールド効果",
+
+
+            "cone": "円錐",
+            "square": "矩形",
+            "circle": "球形",
+            "ray": "直線"
+        
+        },
+        "animTypes": {
+            "melee": "近接攻撃",
+            "ranged": "遠隔攻撃",
+            "onToken": "コマ効果",
+            "presets": "プリセット",
+            "templates": "テンプレート",
+            "typeAuras": "オーラ"
+        },
+        "presetTypes": {
+            "bardicinspiration": "バードの声援",
+            "bless": "ブレス",
+
+            "fireball": "ファイアー・ボール",
+            "huntersmark": "ハンターズ・マーク",
+            "shieldspell":"シールド",
+            "sneakattack": "急所攻撃",
+            "animTeleportation": "テレポーテーション",
+            "thunderwave":"サンダーウェイブ",
+            "preset": "プリセット"
+
+        },
+        "menus": {
+
+            "primary": "基本の",
+            "animation": "アニメーション",
+            "extra": "追加",
+            "effects": "効果",
+            "type": "タイプ",
+            "source": "自身の",
+            "target": "対象の",
+            "submit": "適用",
+            "close": "閉じる",
+            "and": "＆",
+            "enabled": "有効化",
+            "disabled": "無効化",
+        
+
+            "customize": "特別に設定した",
+
+            "autorecognized": "は自動認識されています",
+
+
+
+
+
+
+            "melee": "近接攻撃",
+            "ranged": "遠隔攻撃",
+            "switch": "切換",
+            "custom": "カスタム",
+            "return": "リターニング",
+            "variant": "種別",
+            "color": "色",
+            "rangeDetect": "遠隔攻撃の検出",
+            "gridSquares": "遠隔に切り替わるマス数",
+            "below": "コマの下",
+
+            "explosion": "爆発",
+            "radius": "半径",
+            "sound": "音声",
+            "start": "発生時",
+
+            "volume": "音量（0-1）",
+            "delay": "ディレイ",
+            "persistant": "持続させる",
+
+
+
+
+
+
+
+            "repeat": "繰り返し",
+            "scale": "サイズ",
+            "opacity": "不透明度",
+            "playOn": "再生位置",
+            "targetDefault": "自身 自動ターゲット",
+            "both": "両方",
+        
+            "remove": "テンプレート削除",
+            "overheadtile": "天井タイル",
+            "groundtile": "床タイル",
+            "sequencereffect": "Sequencer効果",
+            "attachtotemplate": "テンプレートに貼り付け",
+            "occlusionMode": "干渉モード",
+            "occlusion01": "フェード (タイル全体)",
+            "occlusion02": "屋根 (視覚と照明を遮る)",
+            "occlusion03": "放射 (周囲のトークン)",
+            "occlusion00": "なし (常に目に見える)",
+            "occlusionAlpha": "干渉アルファ値",
+        
+
+
+
+
+
+
+
+            "projectile": "飛翔体",
+            "ignoreTargets": "対象を無視",
+
+            "markerColor": "マーカーの色（自身）",
+            "markerColorTarget": "マーカーの色（対象）",
+
+            "anchorX": "相対座標X",
+            "anchorY": "相対座標Y",
+            "endEffect": "効果終了",
+
+            "itemName": "アイテム名",
+
+            "search": "検索",
+
+
+
+
+
+
+
+
+
+
+
+
+            "token": "コマ"
+
+
+
+
+
+
+
+
+
+        },
+        "optionsInfo": {
+
+        }
     }
+}
