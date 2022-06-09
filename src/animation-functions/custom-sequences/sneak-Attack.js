@@ -26,7 +26,7 @@ export async function sneakAttack(handler, animationData) {
 
     if (handler.debug) { aaDebugger("Sneak Attack Animation Start", animationData, sneak) }
 
-    const sourceTokenGS = sourceToken.width / canvas.grid.size;
+    const sourceTokenGS = sourceToken.w / canvas.grid.size;
 
     async function cast() {
         let aaSeq = await new Sequence()

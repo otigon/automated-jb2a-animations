@@ -47,7 +47,7 @@ export async function huntersMark(handler, animationData) {
 
     const scale = cleanData.scale || 1
 
-    const sourceTokenGS = sourceToken.width / canvas.grid.size;
+    const sourceTokenGS = sourceToken.w / canvas.grid.size;
 
     if (handler.debug) { aaDebugger("Aura Animation Start", data, cleanData) }
 
@@ -75,7 +75,7 @@ export async function huntersMark(handler, animationData) {
         .belowTokens(cleanData.below)
         .size(sourceTokenGS * cleanData.scale, {gridUnits: true})
     for (let target of handler.allTargets) {
-        let targetTokenGS = target.width / canvas.grid.size;
+        let targetTokenGS = target.w / canvas.grid.size;
         let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0
 
         aaSeq.effect()

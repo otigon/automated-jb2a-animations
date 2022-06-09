@@ -65,11 +65,7 @@ export async function teleportation(handler, animationData) {
 
     if (handler.debug) { aaDebugger("Teleportation Animation Start", animationData, startFile, endFile) }
 
-    const sourceScale = sourceToken.w;
-    let sourceTokenGS = sourceToken.width / canvas.grid.size;
-
-    //let Scale = ((sourceScale / onToken.metadata.width) * data.scale) * 1.75;
-    //let Scale02 = ((sourceScale / onToken02.metadata.width) * data.scale02) * 1.75;
+    let sourceTokenGS = sourceToken.w / canvas.grid.size;
 
     const drawingSize = (sourceToken.data?.width * canvas.grid.size) + (2 * ((data.teleDist / canvas.dimensions.distance) * canvas.grid.size));
 

@@ -451,7 +451,7 @@ export class AAanimationData {
             sourceFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
-        const sourceTokenGS = handler.sourceToken.width / canvas.grid.size;
+        const sourceTokenGS = handler.sourceToken.w / canvas.grid.size;
         //const sourceScale = handler.sourceToken.w;
         sourceFX.data = sourceFX.enabled ? await buildFile(true, sourceFX.menuType, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
         //sourceFX.sFXScale = sourceFX.enabled ? 2 * sourceScale / sourceFX.data?.metadata?.width : 1;
@@ -533,7 +533,7 @@ export class AAanimationData {
         }
 
         //const playNow = (targetFX.enabled && hit) ? true : false;
-        let targetTokenGS = target.width / canvas.grid.size
+        let targetTokenGS = target.w / canvas.grid.size
 
         //targetFX.tFXScale = targetFX.enable ? 2 * target.w / targetFX.data.metadata?.width : 1;
         targetFX.targetSeq = new Sequence();

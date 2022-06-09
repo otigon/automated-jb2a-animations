@@ -39,7 +39,8 @@ export async function staticAnimation(handler, animationData) {
     aaSeq.thenDo(function () {
         Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
     })
-    let sourceTokenGS = sourceToken.width / canvas.grid.size;
+    let sourceTokenGS = sourceToken.w / canvas.grid.size;
+    console.log(sourceTokenGS)
     let explosionSound = false;
     if (data.staticType === "source" || data.staticType === "sourcetarget" || (data.staticType === "targetDefault" && handler.allTargets.length < 1)) {
         const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
@@ -126,7 +127,7 @@ export async function staticAnimation(handler, animationData) {
         //for (var i = 0; i < handler.allTargets.length; i++) {
         //let target = handler.allTargets[i]
         for (let target of handler.allTargets) {
-            let targetTokenGS = target.width / canvas.grid.size
+            let targetTokenGS = target.w / canvas.grid.size
             let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0
             let hit;
             if (handler.playOnMiss) {
