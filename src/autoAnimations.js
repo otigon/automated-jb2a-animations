@@ -253,14 +253,14 @@ Hooks.once('ready', async function () {
                 Hooks.on("createChatMessage", async (msg) => { swffgReady(msg) });
                 break;
             case "swade":
-                Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem) => {
+                Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem, action, roll, userId) => {
                     const controlledTokens = canvas.tokens.controlled;
                     let token;
                     if (controlledTokens.length > 0) {
                         token = controlledTokens.find(token => token.data.actorId === SwadeTokenOrActor.id);
                     }
                     if (token) { SwadeTokenOrActor = token; }
-                    swadeData(SwadeTokenOrActor, SwadeItem)
+                    swadeData(SwadeTokenOrActor, SwadeItem, action, roll, userId)
                 });
                 async function get_brsw_data (data) {
                     var tokenId = data.getFlag("betterrolls-swade2", "token");
@@ -628,9 +628,9 @@ async function swffgReady(msg) {
 /*
 / Sets Handler for SWADE
 */
-async function swadeData(SwadeTokenOrActor, SwadeItem) {
+async function swadeData(SwadeTokenOrActor, SwadeItem, action, roll, userId) {
     if (!AnimationState.enabled) { return; }
-    let data = { SwadeTokenOrActor, SwadeItem }
+    let data = { SwadeTokenOrActor, SwadeItem, action, roll, userId }
     let handler = await systemData.make(data);
     if (!handler.item || !handler.sourceToken) {
         return;
