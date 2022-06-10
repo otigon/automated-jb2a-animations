@@ -40,7 +40,7 @@ export async function staticAnimation(handler, animationData) {
         Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
     })
     let sourceTokenGS = sourceToken.w / canvas.grid.size;
-    console.log(sourceTokenGS)
+
     let explosionSound = false;
     if (data.staticType === "source" || data.staticType === "sourcetarget" || (data.staticType === "targetDefault" && handler.allTargets.length < 1)) {
         const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0

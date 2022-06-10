@@ -737,6 +737,9 @@ async function pf2eReady(msg) {
         return;
     }
     if (handler.shouldPlayImmediately) { return };
+
+    if (itemType === "feat" && handler.item?.data?.data?.actionType.value !== "passive") { return; }
+
     switch (itemType) {
         case "spell":
             damage = handler.item?.data?.data?.damage?.value["0"]?.value;

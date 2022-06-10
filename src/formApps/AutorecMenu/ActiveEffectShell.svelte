@@ -36,6 +36,7 @@
     menuSection.options ? menuSection.options : (menuSection.options = {});
     menuSection.audio ? menuSection.audio : (menuSection.audio = {});
     const options = menuSection.options;
+    menuSection.primary ? menuSection.primary : (menuSection.primary = {});
     const primaryData = menuSection.primary;
 
     export let menuType = primaryData.menuType;
