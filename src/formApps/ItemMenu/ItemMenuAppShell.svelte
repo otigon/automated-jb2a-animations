@@ -23,14 +23,20 @@
     import { gameSettings } from "../../gameSettings.js";
     const storeData = gameSettings.getStore("aaAutorec");
 
+    // TO-DO: Not entirely certain what this is doing
     export let elementRoot;
+    
+    // Export Item and Item Flags Props
     export let item;
     export let itemFlags;
     export const flags = itemFlags.autoanimations || {};
-    const oldName = item.name || item.sourceName;
-    const autoCheck = AutorecFunctions._checkAutoRec(oldName);
-    $: autoObject = autoCheck ? AutorecFunctions._findObjectFromArray($storeData, AutorecFunctions._rinseName(oldName)) : {};
 
+    // Check if an Autorec Section contains this Item Name
+    const currentName = item.name || item.sourceName;
+    const autoCheck = AutorecFunctions._checkAutoRec(currentName);
+    $: autoObject = autoCheck ? AutorecFunctions._findObjectFromArray($storeData, AutorecFunctions._rinseName(currentName)) : {};
+
+    // Are Animations disabled on the Item?
     let animationDisabled = flags.killAnim;
     $: {
         if (animationDisabled) {
@@ -41,9 +47,12 @@
             flags.macro?.enable ? (flags.macro.enable = false) : null;
         }
     }
+    // Is an animation defined and Customized on the Item?
+    // TO-DO: Disable Extra Effects if not Customized or AutoOverride
     let isCustomized = flags.override;
     $: isCustomized = isCustomized;
 
+    // Sets the Default flag-data Structure
     export const flagData = {
         killAnim: flags.killAnim,
         override: flags.override,
@@ -66,20 +75,26 @@
         meleeSwitch: flags.meleeSwitch || {},
         preset: flags.preset || {},
     };
+    // Sets the Item store to the current flags
     $: storeItemData.set(flagData);
+    // Exports and Binds the Static Type (Static Menu)
+    // TO-DO: Does this really need to be exported and bound?
     export let staticType = flagData.options.staticType;
     $: staticType = staticType;
-    const preset = flagData.preset;
+    // Macro and Sound Button bindings. 
     let enableMacro;
     $: enableMacro = enableMacro;
     let showSound;
     $: showSound = animationDisabled ? true : false;
-    let menuType;
-    $: menuType = menuType;
+
+    // Below not required anymore
+    //let menuType;
+    //$: menuType = menuType;
 
     let form = void 0;
     const { application } = getContext("external");
 
+    // Applies flags on Item Update
     async function applyFlags() {
         const updatedFlags = {
             data: {
@@ -94,6 +109,7 @@
         await item.update(updatedFlags.data);
     }
 
+    // Applies flags on Item Update and Close the menu
     async function closeApp() {
         const updatedFlags = {
             data: {
@@ -109,15 +125,13 @@
         application.close();
     }
 
+    // Handles the "Tab" Switching
     let primaryTab = true;
     $: focusPrimary = primaryTab;
-
     let extraTab = false;
     $: focusExtra = extraTab;
-
     let tab3d = false;
     $: focus3d = tab3d;
-
     function switchPrimary() {
         primaryTab = !extraTab && !tab3d ? primaryTab : !primaryTab;
         extraTab = false;
@@ -134,18 +148,21 @@
         extraTab = false;
     }
 
+    // Handles that activation of a Source or Target Extra Effect
     let enableSource = flagData.sourceToken.enable || false;
     $: enableSource = enableSource;
-
     let enableTarget = flagData.targetToken.enable || false;
     $: enableTarget = enableTarget;
 
-    // Sets Initial animType for Menu - Assigns to Flag when updated
+    // Sets Initial animType for Menu
     let animType = flagData.animType || "melee";
     $: {
         animType = animType;
         flagData.animType = animType;
     }
+    
+    // Grabs the Preset Type for routing
+    const preset = flagData.preset;
     let presetType = preset.presetType;
     $: presetType = preset.presetType = presetType;
     let animTypeSwitched = false;
@@ -153,12 +170,13 @@
         animTypeSwitched = true;
     }
 
+    // Bound: Menu Type and Animation selects. Used for the "Range Switch" menu Return button
     let primaryMenuType;
     $: primaryMenuType = primaryMenuType;
-
     let primaryAnimation;
     $: primaryAnimation = primaryAnimation;
 
+    // Should the Extra Target FX menu show?
     const targetFXNoShow = ["templatefx", "aura"];
     const targetFXNoShowPreset = [
         "bless",
@@ -170,7 +188,6 @@
         "thunderwave",
     ];
     let shouldShowTargetFX = true;
-
     $: {
         if (
             targetFXNoShow.includes(animType) ||
@@ -179,11 +196,13 @@
             (animType === "static" && staticType === "source")
         ) {
             shouldShowTargetFX = false;
+            flagData.targetToken.enable = false;
         } else {
             shouldShowTargetFX = true;
         }
     }
 
+    // Sets the value of the Autorec Override button
     let overrideAuto = flagData.autoOverride.enable || false;
     $: overrideAuto = overrideAuto;
 </script>
@@ -257,7 +276,7 @@
                                 style="grid-row:1/2; grid-column:1/4"
                             >
                                 <label for="" style="font-size:x-large"
-                                    ><strong>{oldName}</strong>
+                                    ><strong>{currentName}</strong>
                                     {localize(
                                         "autoanimations.menus.autorecognized"
                                     )}

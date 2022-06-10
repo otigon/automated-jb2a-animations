@@ -550,10 +550,12 @@
 
 
 
-            "export": "내보내기 설정"
+            "export": "내보내기 설정",
 
 
 
+            
+            "musicnote": "음표"
         },
         "optionsInfo": {
 

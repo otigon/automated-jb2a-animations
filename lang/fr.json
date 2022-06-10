@@ -550,10 +550,12 @@
 
 
 
-			"export": "Exporter les options"
+			"export": "Exporter les options",
 
 
+			
 
+			"musicnote": "Notes de musique"
         },
         "optionsInfo": {
 

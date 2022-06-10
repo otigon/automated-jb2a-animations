@@ -79,12 +79,13 @@
             ? currentSection.primary?.customPath
             : "";
     $: customPathIsDB = customPath.split(".").length;
+    $: dbSection = dbType === "aefx" ? "static" : dbType;
     $: currentPath =
         isCustomPrimary && customPath
             ? customPath
             : color === "random"
-            ? `autoanimations.${dbType}.${menuType}.${animation}.${variant}`
-            : `autoanimations.${dbType}.${menuType}.${animation}.${variant}.${color}`;
+            ? `autoanimations.${dbSection}.${menuType}.${animation}.${variant}`
+            : `autoanimations.${dbSection}.${menuType}.${animation}.${variant}.${color}`;
     $: filePath =
         isCustomPrimary && customPath && customPathIsDB < 3
             ? customPath

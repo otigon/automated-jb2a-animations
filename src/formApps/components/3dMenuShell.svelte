@@ -20,7 +20,7 @@
                     >{localize("autoanimations.menus.projectile")}</option
                 >
                 <option value="sprite">{localize("autoanimations.menus.sprite")}</option>
-                <option value="ray">{localize("autoanimations.menus.ray")}</option>
+                <option value="ray">{localize("autoanimations.menuTypes.ray")}</option>
                 <option value="explosion"
                     >{localize("autoanimations.menus.explosion")}</option
                 >

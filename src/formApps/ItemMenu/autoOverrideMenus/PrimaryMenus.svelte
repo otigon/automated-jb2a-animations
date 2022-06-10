@@ -10,25 +10,17 @@
 
     export let animType;
     export let flagData;
+    
     const autoSection = flagData.autoOverride;
-
     const options = autoSection.options;
-
     const primarySection = autoSection.primary
 
     export let menuType = primarySection.menuType || options.menuType;
-
     export let animation = primarySection.animation;
-
     let variant = primarySection.variant;
-
     let color = primarySection.color;
-
-    
     let isCustom = primarySection.enableCustom || false;
-
     let customPath = primarySection.customPath;
-
     
     $: {
         menuType = primarySection.menuType = menuType;

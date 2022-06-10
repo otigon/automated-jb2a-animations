@@ -63,13 +63,11 @@
                 (w) => w.id === `Autorec-Video-Preview`
             )
         ) {
-            console.log($storeAutorec)
             databaseType.set(type);
             index.set(idx);
         } else {
             databaseType.set(type);
             index.set(idx);
-            console.log($storeAutorec)
             new FullAutoPreview({ idx, name: sectionName }).render(true);
         }
     }

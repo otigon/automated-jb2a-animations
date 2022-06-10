@@ -76,7 +76,13 @@
 </script>
 
 <div class="aaMenu-section">
-    <h1>{localize("autoanimations.animations.thunderwave")} 5e {localize("autoanimations.menus.preset")}</h1>
+    <div class="aa-preset-header">
+        <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+            <label for="" style="font-size:xx-large; color: rgba(0, 0, 0, 0.6)"
+                >{localize("autoanimations.animations.thunderwave")} 5e {localize("autoanimations.menus.preset")}</label
+            >
+        </div>
+    </div>    
     <div class="aa-3wide">
         <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
             <label for="">{localize("autoanimations.menus.color")}</label>
@@ -191,16 +197,5 @@
         margin-left: 5%;
         color: black;
         border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-    }
-    h1 {
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: x-large;
-        font-weight: bold;
-        text-align: center;
-        margin-right: 5%;
-        margin-left: 5%;
-        margin-top: 10px;
-        color: black;
-        border-bottom: 2px solid rgba(181 70 52);
     }
 </style>

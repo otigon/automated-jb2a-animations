@@ -545,7 +545,7 @@
 
 
 
-            "token": "コマ"
+            "token": "コマ",
 
 
 
@@ -554,7 +554,8 @@
 
 
 
-
+            
+            "musicnote": "音符"
         },
         "optionsInfo": {
 

@@ -70,13 +70,13 @@
 </script>
 
 <div class="aaMenu-section">
-    <div class="aa-header-section">
-        <div class="aa-header">
-            <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
-                <label for="">Dual Attach Preset</label>
-            </div>
+    <div class="aa-preset-header">
+        <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+            <label for="" style="font-size:xx-large; color: rgba(0, 0, 0, 0.6)"
+                >{localize("autoanimations.presetTypes.dualattach")}</label
+            >
         </div>
-    </div>
+    </div>    
     <ChooseAnimation
         bind:menuType
         bind:animation

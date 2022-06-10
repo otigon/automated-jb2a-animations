@@ -553,7 +553,9 @@
             "export": "Export",
             "copy": "Copy",
             "path": "Path",
-            "quickReference": " Quick Reference"
+            "quickReference": "Quick Reference",
+            "ammunition": "Ammunition",
+            "musicnote": "Music Notes"
         },
         "optionsInfo": {
 

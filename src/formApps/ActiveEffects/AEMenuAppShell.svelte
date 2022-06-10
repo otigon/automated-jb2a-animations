@@ -5,8 +5,8 @@
     import { fade, scale } from "svelte/transition";
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { AutorecFunctions } from "../../aa-classes/autorecFunctions.js"
-    import ExplosionSettings from "../components/explosions.svelte"
+    import { AutorecFunctions } from "../../aa-classes/autorecFunctions.js";
+    import ExplosionSettings from "../components/explosions.svelte";
     import GeneralSettings from "../components/generalSettings.svelte";
     import SoundSettings from "../components/soundSettings.svelte";
     import MacroField from "../components/macro.svelte";
@@ -49,7 +49,7 @@
         sourceToken: flags.sourceToken || {},
         targetToken: flags.targetToken || {},
         meleeSwitch: flags.meleeSwitch || {},
-        preset: flags.preset || {}
+        preset: flags.preset || {},
     };
     const preset = flagData.preset;
     let enableMacro;
@@ -88,8 +88,8 @@
     // Sets Initial animType for Menu - Assigns to Flag when updated
     let animType = flagData.animType || "static";
     $: {
-        animType = animType;
-        flagData.animType = animType;
+        animType = flagData.animType = animType;
+        if (animType === "preset") { Object.values(ui.windows).filter(app => app.id === "Item-Video-Preview").forEach(app => app.close()) }
     }
     let presetType = preset.presetType;
     $: presetType = preset.presetType = presetType;
@@ -122,8 +122,7 @@
                     class="flexcol"
                     style="grid-row: 1 / 2; grid-column: 2 / 3;"
                 >
-                    <button
-                        class="selected"
+                    <button class="selected"
                         ><i class="fas fa-bomb" />
                         {localize("autoanimations.menus.primary")}
                         {localize("autoanimations.menus.animation")}</button
@@ -131,131 +130,139 @@
                 </div>
             </div>
         </div>
-            <div class="aaMidSection" transition:fade>
-                <div class="aaMenu-section" transition:fade>
-                    <GeneralSettings
-                        bind:animationDisabled
-                        bind:isCustomized
-                        bind:enableMacro
-                        {autoCheck}
-                        {disableAmmo}
-                        {flagData}
-                    />
-                    {#if autoCheck && !isCustomized && !animationDisabled}
+        <div class="aaMidSection" transition:fade>
+            <div class="aaMenu-section" transition:fade>
+                <GeneralSettings
+                    bind:animationDisabled
+                    bind:isCustomized
+                    bind:enableMacro
+                    {autoCheck}
+                    {disableAmmo}
+                    {flagData}
+                />
+                {#if autoCheck && !isCustomized && !animationDisabled}
                     <div class="aa-pickAnim" transition:fade>
-                        <div class="flexcol" style="grid-row:1/2; grid-column:1/4">
-                            <label for="" style="font-size:x-large"><strong>{oldName}</strong> {localize("autoanimations.menus.autorecognized")} </label>
+                        <div
+                            class="flexcol"
+                            style="grid-row:1/2; grid-column:1/4"
+                        >
+                            <label for="" style="font-size:x-large"
+                                ><strong>{oldName}</strong>
+                                {localize(
+                                    "autoanimations.menus.autorecognized"
+                                )}
+                            </label>
                         </div>
                     </div>
-                    {/if}
-                    {#if isCustomized}
-                        <div class="aa-pickAnim" transition:fade>
+                {/if}
+                {#if isCustomized}
+                    <div class="aa-pickAnim" transition:fade>
+                        <div
+                            class="flexcol"
+                            style="grid-row: 1 / 2;grid-column: 2 / 3;"
+                        >
+                            <label for="1"
+                                >{localize("autoanimations.menus.animation")}
+                                {localize("autoanimations.menus.type")}</label
+                            >
+                            <select
+                                bind:value={animType}
+                                on:change={() => typeSwitch()}
+                                id="1"
+                                style="text-align: center;justify-self: center;background-color: rgba(21, 154, 169, 0.4);"
+                            >
+                                <option value="static"
+                                    >{localize(
+                                        "autoanimations.animTypes.onToken"
+                                    )}</option
+                                >
+                                <option value="aura"
+                                    >{localize(
+                                        "autoanimations.animTypes.typeAuras"
+                                    )}</option
+                                >
+                                <option value="preset"
+                                    >{localize(
+                                        "autoanimations.animTypes.presets"
+                                    )}</option
+                                >
+                            </select>
+                        </div>
+                        {#if animType === "preset"}
                             <div
                                 class="flexcol"
-                                style="grid-row: 1 / 2;grid-column: 2 / 3;"
+                                style="grid-row: 2 / 3;grid-column: 2 / 3;"
+                                transition:fade
                             >
                                 <label for="1"
-                                    >{localize("autoanimations.menus.animation")}
-                                    {localize("autoanimations.menus.type")}</label
+                                    >{localize("autoanimations.menus.preset")}
+                                    {localize(
+                                        "autoanimations.menus.type"
+                                    )}</label
                                 >
                                 <select
-                                    bind:value={animType}
-                                    on:change={() => typeSwitch()}
+                                    bind:value={presetType}
                                     id="1"
-                                    style="text-align: center;justify-self: center;background-color: rgba(21, 154, 169, 0.4);"
+                                    style="text-align: center;justify-self: center; background-color: rgba(21, 154, 169, 0.4);"
                                 >
-                                    <option value="static"
+                                    <option value="bless"
                                         >{localize(
-                                            "autoanimations.animTypes.onToken"
+                                            "autoanimations.presetTypes.bless"
                                         )}</option
                                     >
-                                    <option value="aura"
+                                    <option value="shieldspell"
                                         >{localize(
-                                            "autoanimations.animTypes.typeAuras"
-                                        )}</option
-                                    >
-                                    <option value="preset"
-                                        >{localize(
-                                            "autoanimations.animTypes.presets"
+                                            "autoanimations.presetTypes.shieldspell"
                                         )}</option
                                     >
                                 </select>
                             </div>
-                            {#if animType === "preset"}
-                                <div
-                                    class="flexcol"
-                                    style="grid-row: 2 / 3;grid-column: 2 / 3;"
-                                    transition:fade
-                                >
-                                    <label for="1"
-                                        >{localize("autoanimations.menus.preset")}
-                                        {localize("autoanimations.menus.type")}</label
-                                    >
-                                    <select
-                                        bind:value={presetType}
-                                        id="1"
-                                        style="text-align: center;justify-self: center; background-color: rgba(21, 154, 169, 0.4);"
-                                    >
-                                        <option value="bless"
-                                            >{localize(
-                                                "autoanimations.presetTypes.bless"
-                                            )}</option
-                                        >
-                                        <option value="shieldspell"
-                                            >{localize(
-                                                "autoanimations.presetTypes.shieldspell"
-                                            )}</option
-                                        >
-                                    </select>
-                                </div>
-                            {/if}
-                        </div>
-                    {/if}
-                </div>
-                {#if enableMacro}
-                    <div class="aaMenu-section" transition:fade>
-                        <MacroField {flagData} />
-                    </div>
-                {/if}
-                {#if showSound}
-                    <div class="aaMenu-section" transition:fade>
-                        <SoundSettings audioPath="a01" {flagData} />
-                    </div>
-                {/if}
-                {#if !animationDisabled && isCustomized}
-                        {#if animType === "preset"}
-                            <PresetMenu {animTypeSwitched} {flagData} {presetType} />
-                        {:else}
-                        <div class="aaMenu-section">
-                            <PrimarySection
-                                {animTypeSwitched}
-                                {animType}
-                                {disablePlayOn}
-                                {flagData}
-                            />
-                        </div>
                         {/if}
-                    {#if animType === "static"}
-                        <div class="aaMenu-section">
-                            <ExplosionSettings {flagData} />
-                        </div>
-                    {/if}
+                    </div>
                 {/if}
             </div>
+            {#if enableMacro}
+                <div class="aaMenu-section" transition:fade>
+                    <MacroField {flagData} />
+                </div>
+            {/if}
+            {#if showSound}
+                <div class="aaMenu-section" transition:fade>
+                    <SoundSettings audioPath="a01" {flagData} />
+                </div>
+            {/if}
+            {#if !animationDisabled && isCustomized}
+                {#if animType === "preset"}
+                    <PresetMenu {animTypeSwitched} {flagData} {presetType} />
+                {:else}
+                    <div class="aaMenu-section">
+                        <PrimarySection
+                            {animTypeSwitched}
+                            {animType}
+                            {disablePlayOn}
+                            {flagData}
+                        />
+                    </div>
+                {/if}
+            {/if}
+        </div>
         <div class="aaBottomSection" style="margin-bottom: 5px">
             <div class="aa-submit">
                 <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
                     <button
                         class="footer-button"
                         type="submit"
-                        on:click|preventDefault={applyFlags}>{localize("autoanimations.menus.submit")}</button
+                        on:click|preventDefault={applyFlags}
+                        >{localize("autoanimations.menus.submit")}</button
                     >
                 </div>
                 <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
                     <button
                         class="footer-button"
                         on:click|preventDefault={closeApp}
-                        >{localize("autoanimations.menus.close")} {localize("autoanimations.menus.and")} {localize("autoanimations.menus.submit")}</button
+                        >{localize("autoanimations.menus.close")}
+                        {localize("autoanimations.menus.and")}
+                        {localize("autoanimations.menus.submit")}</button
                     >
                 </div>
             </div>

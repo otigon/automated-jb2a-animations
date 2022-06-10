@@ -72,6 +72,13 @@
 </script>
 
 <div class="aaMenu-section">
+    <div class="aa-preset-header">
+        <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+            <label for="" style="font-size:xx-large; color: rgba(0, 0, 0, 0.6)"
+                >{localize("autoanimations.presetTypes.bless")}</label
+            >
+        </div>
+    </div>    
     <div class="aa-3wide">
         <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
             <label for="">{localize("autoanimations.menus.color")}</label>

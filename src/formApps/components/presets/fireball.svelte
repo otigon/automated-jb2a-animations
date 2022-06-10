@@ -224,6 +224,13 @@
 </script>
 
 <div class="aaMenu-section">
+    <div class="aa-preset-header">
+        <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+            <label for="" style="font-size:xx-large; color: rgba(0, 0, 0, 0.6)"
+                >{localize("autoanimations.presetTypes.fireball")}</label
+            >
+        </div>
+    </div>    
     <h1 style="margin-top:10px;">Projectile Animation</h1>
     <ChooseAnimation
         bind:menuType={projectileMenuType}

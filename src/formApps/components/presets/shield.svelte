@@ -94,6 +94,13 @@
 </script>
 
 <div class="aaMenu-section">
+    <div class="aa-preset-header">
+        <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+            <label for="" style="font-size:xx-large; color: rgba(0, 0, 0, 0.6)"
+                >{localize("autoanimations.presetTypes.shieldspell")}</label
+            >
+        </div>
+    </div>    
     <div class="aa-3wide">
         <div class="flexcol" style="grid-row: 1 / 2;grid-column: 1 / 2;">
             <label for="4">{localize("autoanimations.menus.variant")}</label>

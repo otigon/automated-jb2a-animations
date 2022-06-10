@@ -187,12 +187,16 @@
 </script>
 
 <div class="aaMenu-section">
-    <h1 style="margin-bottom: 15px">
-        Teleportation Preset<i
-            class="fas fa-info-circle aa-info-icon"
-            on:click={() => info()}
-        />
-    </h1>
+    <div class="aa-preset-header">
+        <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+            <label for="" style="font-size:xx-large; color: rgba(0, 0, 0, 0.6)"
+                >{localize("autoanimations.presetTypes.animTeleportation")}</label
+            >
+        </div>
+        <div class="flexcol" style="grid-row:1/2; grid-column: 4/5">
+            <label for=""><i class="fas fa-info-circle aa-info-icon" on:click={() => info()}></i></label>
+        </div>
+    </div>    
     <div class="aa-options-border">
         <h2 style="margin-top:10px;">{localize("autoanimations.menus.options")}</h2>
         <div class="aa-3wide">

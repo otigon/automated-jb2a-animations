@@ -17,6 +17,12 @@
         aaVariantMenu,
         aaColorMenu,
     } from "../../animation-functions/databases/jb2a-menu-options.js";
+    import FullAutoPreview from "./fullAutoPreview.js";
+    import {
+        storeAutorec,
+        databaseType,
+        index,
+    } from "./autorecPreviews.js";
 
     const wait = (delay) =>
         new Promise((resolve) => setTimeout(resolve, delay));
@@ -28,7 +34,10 @@
     export let menuListings;
 
     let animType = menuSection.animType || "static";
-    $: animType = menuSection.animType = animType;
+    $: {
+        animType = menuSection.animType = animType;
+        if (animType === "preset") { Object.values(ui.windows).filter(app => app.id === "Autorec-Video-Preview").forEach(app => app.close()) }
+    }
 
     let presetType = menuSection.presetType;
     $: presetType = menuSection.presetType = presetType;
@@ -54,14 +63,16 @@
         color = primaryData.color = color;
         isCustom = primaryData.enableCustom = isCustom;
         customPath = primaryData.customPath = customPath;
-
+        $storeAutorec = flagData;
     }
 
     if (!menuType) {
         menuType = Object.keys(aaTypeMenu.static)[0];
         animation = Object.keys(aaNameMenu.static[menuType])[0];
         variant = Object.keys(aaVariantMenu.static[menuType][animation])[0];
-        color = Object.keys(aaColorMenu.static[menuType][animation][variant])[0];
+        color = Object.keys(
+            aaColorMenu.static[menuType][animation][variant]
+        )[0];
     }
     let isHidden = menuSection.hidden || false;
     $: isHidden = menuSection.hidden = isHidden;
@@ -80,7 +91,7 @@
             flagData[type] = compacted;
         }
         flagData = flagData;
-        menuListings = menuListings
+        menuListings = menuListings;
     }
     const showExplosions = ["melee", "range", "static"];
 
@@ -144,6 +155,22 @@
             shouldShowTargetFX = true;
         }
     }
+
+    async function onClick() {
+        if (
+            Object.values(ui.windows).find(
+                (w) => w.id === `Autorec-Video-Preview`
+            )
+        ) {
+            databaseType.set("aefx");
+            index.set(idx);
+        } else {
+            console.log($storeAutorec)
+            databaseType.set("aefx");
+            index.set(idx);
+            new FullAutoPreview({ idx, name: sectionName }).render(true);
+        }
+    }
 </script>
 
 <div class="form-group">
@@ -152,8 +179,8 @@
         <label for={customId}
             ><i
                 class="{isHidden
-                    ? "fas fa-plus aa-green aa-zoom"
-                    : "fas fa-minus aa-red aa-zoom"}
+                    ? 'fas fa-plus aa-green aa-zoom'
+                    : 'fas fa-minus aa-red aa-zoom'}
                     aa-expand"
             /></label
         >
@@ -164,11 +191,11 @@
         bind:value={sectionName}
         placeholder={localize("autoanimations.menus.itemName")}
     />
-    <div
-        class="aa-deleteSection"
-        style="max-width: 22px;margin-left: 10px;"
-    >
-        <i class="far fa-trash-alt aa-expand" on:click={() => removeSection()} />
+    <div class="aa-deleteSection" style="max-width: 22px;margin-left: 10px;">
+        <i
+            class="far fa-trash-alt aa-expand"
+            on:click={() => removeSection()}
+        />
     </div>
 </div>
 {#if !isHidden}
@@ -182,17 +209,13 @@
             >
         </div>
         <div style="grid-row:1/2; grid-column:2/3">
-            <label for=""
-                ><i
-                    class="fas fa-cube aa-disabled"
-                /></label
-            >
+            <label for=""><i class="fas fa-cube aa-disabled" /></label>
         </div>
         <div style="grid-row:1/2; grid-column:3/4">
             <label for=""
                 ><i
                     on:click={() => toggleExtraFX()}
-                    class="fas fa-user-plus aa-zoom"
+                    class="fas fa-user-plus aa-zoom {showExtraFX ? 'aa-green' : ''}"
                 /></label
             >
         </div>
@@ -200,7 +223,7 @@
             <label for=""
                 ><i
                     on:click={() => toggleSoundOnly()}
-                    class="fas fa-music aa-zoom"
+                    class="fas fa-music aa-zoom {soundOnly ? 'aa-green' : ''}"
                 /></label
             >
         </div>
@@ -208,7 +231,7 @@
             <label for=""
                 ><i
                     on:click={() => toggleMacro()}
-                    class="far fa-keyboard aa-zoom"
+                    class="far fa-keyboard aa-zoom {enableMacro ? 'aa-green' : ''}"
                 /></label
             >
         </div>
@@ -310,6 +333,34 @@
                 </div>
             {/if}
             {#if !showExtraFX}
+                <div class="aa-header-section" in:fade>
+                    <div class="aa-header">
+                        <div
+                            class="flexcol"
+                            style="grid-row:1/2; grid-column:3/4"
+                        >
+                            <label for=""
+                                >{localize("autoanimations.menus.primary")}
+                                {localize(
+                                    "autoanimations.menus.animation"
+                                )}</label
+                            >
+                        </div>
+                        {#if animType !== "preset"}
+                        <div
+                            class="flexcol"
+                            style="grid-row:1/2; grid-column:1/2"
+                            in:fade
+                        >
+                            <i
+                                class="fas fa-film aa-video-preview aa-zoom"
+                                on:click={() => onClick()}
+                                title="Video Preview"
+                            />
+                        </div>
+                        {/if}
+                    </div>
+                </div>
                 <div class="aa-pickAnim" transition:fade>
                     <div
                         class="flexcol"
@@ -386,11 +437,7 @@
                         flagData={menuSection}
                         customId={`${type}-${idx}`}
                     />
-                    <Options
-                        animType={animType}
-                        {menuType}
-                        flagData={menuSection}
-                    />
+                    <Options {animType} {menuType} flagData={menuSection} />
                     <SoundSettings audioPath="a01" flagData={menuSection} />
                     {#if showExplosions.includes(type)}
                         <AddExplosion flagData={menuSection} />
@@ -484,9 +531,9 @@
         transition: background-color 0.5s;
     }
     .aa-autorec-options label {
-        font-size:16.25px
+        font-size: 16.25px;
     }
     .aa-disabled {
-        color:rgba(109, 109, 109, 0.4)
+        color: rgba(109, 109, 109, 0.4);
     }
 </style>

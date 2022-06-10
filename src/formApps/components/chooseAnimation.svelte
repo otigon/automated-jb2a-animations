@@ -5,7 +5,6 @@
     import { fade, fly } from "svelte/transition";
     import CustomPicker from "./customPicker.svelte";
     import CopyClipBoard from "./copyOnClick.svelte";
-
     import {
         aaTypeMenu,
         aaNameMenu,

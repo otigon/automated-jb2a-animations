@@ -165,7 +165,7 @@
                 disableAmmo}
         />
         <label for="fromAmmo" class={fromAmmo ? "selected" : "notSelected"}
-            >Animate from Ammo</label
+            >{localize("autoanimations.menus.ammunition")}</label
         >
     </div>
 </div>

@@ -550,10 +550,12 @@
 
 
 
-            "export": "Exportar Ajustes"
+            "export": "Exportar Ajustes",
 
 
+            
 
+            "musicnote": "Notas Musicales"
         },
         "optionsInfo": {
 

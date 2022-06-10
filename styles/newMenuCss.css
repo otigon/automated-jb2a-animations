@@ -48,6 +48,18 @@
     margin-left: 5%;
     margin-bottom: 5px;
 }
+.aa-preset-header {
+    display: grid;
+    grid-template-columns: 5% 5% 76% 5% 5%;
+    grid-gap: 1%;
+    padding: 1px;
+    text-align: center;
+    align-items: center;
+    font-family: "Modesto Condensed", "Palatino Linotype", serif;
+    font-size: large;
+    font-weight: bold;
+    color: black;
+}
 .aa-red {
     color: red;
     transition: "color" 0.5s;
