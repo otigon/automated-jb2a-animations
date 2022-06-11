@@ -988,19 +988,19 @@ export const flagMigrations = {
             }
             async function mergePrimary() {
                 let { options, explosions, audio, macro, levels3d, sourceToken, targetToken,
-                    meleeSwitch, killAnim, override, animType, animation, color, enableCustom, customPath, animLevel } = v4Flags;
+                    meleeSwitch, killAnim, override, animType, animation, color, animLevel } = v4Flags;
                 v5Flags.options ? v5Flags.options : v5Flags.options = {};
                 const newOptions = v5Flags.options;
                 v5Flags.killAnim = killAnim;
                 v5Flags.override = override;
                 v5Flags.animType = animType;
                 v5Flags.primary = {
-                    menuType: options.menuType || "",
+                    menuType: options?.menuType || "",
                     animation,
-                    variant: options.variant || "",
+                    variant: options?.variant || "",
                     color,
-                    enableCustom,
-                    customPath,
+                    enableCustom: options?.enableCustom || false,
+                    customPath: options?.customPath || "",
                 };
                 v5Flags.version = 5;
                 v5Flags.options = options;
