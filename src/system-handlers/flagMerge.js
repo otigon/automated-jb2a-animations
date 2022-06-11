@@ -960,6 +960,7 @@ export const flagMigrations = {
                     return;    
                 }
                 if (v4Flags.animType === "preset") {
+                    v5Flags.version = 5;
                     v5Flags.preset = {};
                     v5Flags.animType = 'preset';
                     v5Flags.override = true;

@@ -5,7 +5,6 @@ import { AAanimationData } from "../aa-classes/animation-data.js";
 export async function teleportation(handler, animationData) {
 
     const sourceToken = handler.sourceToken;
-
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
     /*
@@ -21,6 +20,8 @@ export async function teleportation(handler, animationData) {
     //const root = handler.flags.preset?.teleportation;
     const root = data.isAuto ? handler.autorecObject?.teleportation : handler.flags?.preset?.teleportation;
     if (!root) { return; }
+    const measureType = root.measureType || "alternating";
+    const range = root.range || 30;
     const rootStart = root.start;
     const startData = {
         menuType: rootStart.menuType,
@@ -39,7 +40,7 @@ export async function teleportation(handler, animationData) {
         animation: rootEnd.animation,
         variant: rootEnd.variant,
         color: rootEnd.color,
-        scale: rootEnd.scale,
+        scale: rootEnd.scale || 1,
         below: rootEnd.below || false,
         isMasked: rootEnd.isMasked || false,
         delay: rootEnd.delay || 0,
@@ -59,6 +60,9 @@ export async function teleportation(handler, animationData) {
     const startFile = await buildFile(true, startData.menuType, startData.animation, "static", startData.variant, startData.color, startData.customPath);
     const endFile = await buildFile(true, endData.menuType, endData.animation, "static", endData.variant, endData.color, endData.customPath);
     const betweenFile = await buildFile(false, betweenData.menuType, betweenData.animation, "range", betweenData.variant, betweenData.color, betweenData.customPath);
+    console.log(startFile)
+    console.log(endFile)
+    console.log(betweenFile)
 
     //const onToken = await buildFile(true, data.menuType, data.itemName01, "static", data.variant, data.color, data.customPath);
     //const onToken02 = await buildFile(true, data.menuType02, data.itemName02, "static", data.variant02, data.color02, data.customPath02);
@@ -67,14 +71,14 @@ export async function teleportation(handler, animationData) {
 
     let sourceTokenGS = sourceToken.w / canvas.grid.size;
 
-    const drawingSize = (sourceToken.data?.width * canvas.grid.size) + (2 * ((data.teleDist / canvas.dimensions.distance) * canvas.grid.size));
+    const drawingSize = (sourceToken.data?.width * canvas.grid.size) + (2 * ((range / canvas.dimensions.distance) * canvas.grid.size));
 
     let userIDs = Array.from(game.users).map(user => user.id);
     let gmIDs = Array.from(game.users).filter(i => i.isGM).map(user => user.id)
 
     const hideBorder = data.hideFromPlayers ? gmIDs : userIDs;
     const userColor = game.user?.data?.color ? "0x" + game.user.data.color.replace(/^#/, '') : 0x0D26FF;
-    const filePath = data.measureType === 'equidistant' ? "modules/autoanimations/src/images/teleportSquare.png" : "modules/autoanimations/src/images/teleportCircle.png"
+    const filePath = measureType === 'equidistant' ? "modules/autoanimations/src/images/teleportSquare.png" : "modules/autoanimations/src/images/teleportCircle.png"
 
     let aaSeq01 = new Sequence()
     aaSeq01.effect()
@@ -105,7 +109,7 @@ export async function teleportation(handler, animationData) {
 
         let topLeft = canvas.grid.getTopLeft(pos.x, pos.y);
 
-        if (checkDistance(sourceToken, { x: topLeft[0], y: topLeft[1] }) <= data.teleDist) {
+        if (checkDistance(sourceToken, { x: topLeft[0], y: topLeft[1] }) <= range) {
             deleteTemplatesAndMove();
             canvas.app.stage.removeListener('pointerdown');
         } else {
