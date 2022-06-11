@@ -77,7 +77,8 @@
             "restoreHint": "Erase current Menu and restore default configuration",
             "mergeHint": "Merge a new Menu into your existing Menu",
             "overwriteHint": "Erase current Menu and import a new Menu",
-            "exportHint": "Export your Menu to a JSON file"
+            "exportHint": "Export your Menu to a JSON file",
+            "overwriteWarn": "Overwrite will delete your existing Menu"
         },
         "colors": {
             "lightorange": "Light Orange",
