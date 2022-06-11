@@ -14,12 +14,10 @@
     });
 
     $: isAutoOverride = currentSection.autoOverride?.enable || false;
-    $: console.log(isAutoOverride);
 
     // Extra Source FX Preview
     $: sourceExtraFX = currentSection.sourceToken || {};
     $: enableSource = sourceExtraFX.enable;
-    $: console.log(enableSource);
     $: sourceMenuType = sourceExtraFX.primary?.menuType;
     $: sourceAnimation = sourceExtraFX.primary?.animation;
     $: sourceVariant = sourceExtraFX.primary?.variant;

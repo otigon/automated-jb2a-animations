@@ -78,9 +78,6 @@
     let rate = root.rate;
     $: rate = root.rate = rate;
 
-    function logFlags() {
-        console.log(flagData);
-    }
     async function selectCustom() {
         const current = spritePath;
         const picker = new FilePicker({
@@ -119,7 +116,6 @@
             step=.01
             bind:value={speed}
             placeholder=5
-            on:change={() => logFlags()}
         />
     </div>
     <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">

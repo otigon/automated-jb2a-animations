@@ -28,19 +28,12 @@
     databaseType.subscribe((value) => {
         dbType = value;
     });
-    $: console.log(dbType)
     $: name = $storeAutorec[dbType][idx].name;
 
     $: if (closeNow) {
-        console.log("Set to True");
         application.close();
         closePreviewWindow.set(false);
     }
-    $: if (!closeNow) {
-        console.log("Set to False");
-    }
-
-    //console.log($storeAutorec);
 
     $: currentSection = $storeAutorec[dbType][idx];
 

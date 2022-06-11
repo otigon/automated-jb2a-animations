@@ -52,7 +52,7 @@ export async function auras(handler, animationData) {
                 .play()
         }
         let adjustedSize = data.addTokenWidth ? data.size + (sourceToken.w / canvas.grid.size) : data.size;
-        console.log(adjustedSize)
+
         if (!checkAnim) {
             let newEffect = aaSeq.effect();
             aaSeq.addSequence(sourceFX.sourceSeq)

@@ -7,7 +7,6 @@ export default class AAAutorecMenu extends SvelteApplication {
 
     //constructor(options = {}) { super(options); }
     constructor(data) {
-        //console.log(Object.entries(aaNameMenu.melee.weapon))
         super({
             title: `A-A Automatic Recognition Menu`,
             id: `AA-autorec-settings`,

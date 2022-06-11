@@ -1122,8 +1122,7 @@ export const flagMigrations = {
                 if (sourceToken?.enable) { convertSource(sourceToken) };
                 if (targetToken?.enable) { convertTarget(targetToken) }
                 preset.presetType = "bardicinspiration";
-                root.below = below;
-                root.scale = scale;
+                root.scale = v5Flags.options?.scale || 1;
                 root.self = {
                     enable: bardSelf || false,
                     animation: bardAnim === "music" ? "notes" : bardAnim,
@@ -1160,15 +1159,15 @@ export const flagMigrations = {
                 const preset = v5Flags.preset;
                 const root = preset.bless;
                 preset.presetType = "bless";
+
+                let { color, options, audio, macro, sourceToken, targetToken, animLevel, scale } = v4Flags;
                 if (sourceToken?.enable) { convertSource(sourceToken) };
                 if (targetToken?.enable) { convertTarget(targetToken) };
-
-                let { color, options, audio, macro, sourceToken, targetToken, animLevel } = v4Flags;
 
                 v5Flags.audio = audio || {};
                 v5Flags.macro = macro || {};
                 root.below = animLevel;
-                root.scale = scale;
+                root.scale = scale || 1;
                 root.menuType = "spell";
                 root.animation = "bless";
                 root.variant = "01";
@@ -1259,10 +1258,10 @@ export const flagMigrations = {
                 root.variant = variant;
                 root.color = color;
                 root.enableCustom = enableCustom || false;
-                root.customPath = customPath;
-                root.playbackRate = playbackRate;
-                root.onlyX = onlyX;
-                root.below = animLevel;
+                root.customPath = customPath || "";
+                root.playbackRate = playbackRate || 1;
+                root.onlyX = onlyX || false;
+                root.below = animLevel || false;
             }
 
             async function updateFireball() {
@@ -1327,10 +1326,10 @@ export const flagMigrations = {
 
             async function updateHM() {
                 const preset = v5Flags.preset;
-                const root = preset.dualattach;
+                const root = preset.huntersmark;
 
                 let { audio, macro, sourceToken, targetToken, options, animLevel } = v4Flags;
-                let { variant, scale, persistent, anchorX, anchorY } = options;
+                let { variant, scale, persistent, anchorX, anchorY, color } = options;
                 root.audio = audio || {};
                 root.macro = macro || {};
                 preset.presetType = "huntersmark";

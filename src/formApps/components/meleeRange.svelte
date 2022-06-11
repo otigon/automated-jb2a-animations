@@ -63,7 +63,6 @@
         color = meleeSwitch.color = color;
         isCustom = meleeSwitch.enableCustom = isCustom;
         customPath = meleeSwitch.customPath = customPath;
-        console.log(flagData)
         if (isAutoRec) {$storeAutorec = previewStoreData};
         if (!isAutoRec) {storeItemData.set(previewStoreData)};
     }

@@ -60,9 +60,6 @@ export async function teleportation(handler, animationData) {
     const startFile = await buildFile(true, startData.menuType, startData.animation, "static", startData.variant, startData.color, startData.customPath);
     const endFile = await buildFile(true, endData.menuType, endData.animation, "static", endData.variant, endData.color, endData.customPath);
     const betweenFile = await buildFile(false, betweenData.menuType, betweenData.animation, "range", betweenData.variant, betweenData.color, betweenData.customPath);
-    console.log(startFile)
-    console.log(endFile)
-    console.log(betweenFile)
 
     //const onToken = await buildFile(true, data.menuType, data.itemName01, "static", data.variant, data.color, data.customPath);
     //const onToken02 = await buildFile(true, data.menuType02, data.itemName02, "static", data.variant02, data.color02, data.customPath02);

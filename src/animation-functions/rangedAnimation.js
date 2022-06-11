@@ -19,7 +19,7 @@ export async function rangedAnimations(handler, animationData) {
     const targetFX = animationData.targetFX;
 
     const attack = await buildFile(false, data.menuType, data.animation, "range", data.variant, data.color, data.customPath)
-    console.log(attack)
+
     if (handler.debug) { aaDebugger("Ranged Animation Start", animationData, attack) }
 
     const sourceToken = handler.sourceToken;

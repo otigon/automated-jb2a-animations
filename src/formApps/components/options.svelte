@@ -67,8 +67,6 @@
 
     function below() {
         belowToken = !belowToken;
-        console.log(menuSelection);
-        console.log(isDisabled);
     }
 
     $: aboveBelow = belowToken

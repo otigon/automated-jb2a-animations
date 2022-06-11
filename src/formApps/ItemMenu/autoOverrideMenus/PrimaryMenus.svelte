@@ -29,12 +29,10 @@
         color = primarySection.color = color;
         isCustom = primarySection.enableCustom = isCustom;
         customPath = primarySection.customPath = customPath;
-        console.log(flagData)
         storeItemData.set(flagData);
     }
 
     function fullPreview() {
-        console.log($storeItemData)
         new TotalPreview().render(true);
     }
 </script>

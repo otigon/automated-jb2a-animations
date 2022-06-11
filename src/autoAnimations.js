@@ -471,7 +471,7 @@ async function midiAOE(workflow) {
     } else { return; }
 }
 */
-// Special cases required when using Midi-QOL. Houses only the Template Animations right now
+// Special cases required when using Midi-QOL. Templates, Fireball/Thunderwave/Teleportation/Aura presets
 async function midiTemplateAnimations(msg) {
     if (!AnimationState.enabled) { return; }
     if (game.user.id !== msg.user?.id) {
