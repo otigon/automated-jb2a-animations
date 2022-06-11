@@ -972,16 +972,16 @@ export const flagMigrations = {
             }
 
             async function new3d(data) {
-                let { type, ...rest} = data;
-                switch (type) {
+                let spriteType = data?.type || "";
+                switch (spriteType) {
                     case "sprite": 
-                        return {type, sprites: rest}
+                        return {type: data.type || "" , sprites: data || {}}
                     case "explosion":
-                        return {type, explosion: rest}
+                        return {type: data.type || "" , explosion: data || {}}
                     case "ray":
-                        return {type, ray: rest}
+                        return {type: data.type || "" , ray: data || {}}
                     case "projectile":
-                        return {type, projectile: rest}
+                        return {type: data.type || "" , projectile: data || {}}
                     default:
                         return {type: ""}
                 }
