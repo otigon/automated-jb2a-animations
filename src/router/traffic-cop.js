@@ -91,7 +91,7 @@ export async function trafficCop(handler) {
     if (isCustom || (isAutorec && !game.settings.get("autoanimations", "disableAutoRec"))) {
 
         let animType = isCustom ? handler.animType : isAutorec.menuSection;
-        let presetType = isCustom ? handler.flags?.preset.presetType : isAutorec.presetType;
+        let presetType = isCustom ? handler.flags?.preset?.presetType : isAutorec.presetType;
         if (!isCustom && animType === 'aefx') {
             animType = isAutorec.animType;
             if (animType === 'preset') {

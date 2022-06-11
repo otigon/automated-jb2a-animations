@@ -964,7 +964,7 @@ export const flagMigrations = {
                     v5Flags.animType = 'preset';
                     v5Flags.override = true;
                     v5Flags.killAnim = false;    
-                    await mergePreset(v5Flags.preset);
+                    await mergePreset();
                     await item.update({ 'flags.-=autoanimations': null })
                     await item.update({ 'flags.autoanimations': v5Flags })
                     return;    
@@ -1036,9 +1036,10 @@ export const flagMigrations = {
                     },
                     options: rest,
                 }
-                newOptions.repeat = loops || 1;
-                newOptions.delay = loopDelay || 250;
-                newOptions.below = animLevel || false;
+                
+                v5Flags.sourceToken.options.repeat = loops || 1;
+                v5Flags.sourceToken.options.delay = loopDelay || 250;
+                v5Flags.sourceToken.options.below = animLevel || false;
             }
             async function convertTarget(data) {
                 let {menuType, name: animation, variant, color, enable, enableCustom, customPath, loops, loopDelay,
@@ -1059,12 +1060,13 @@ export const flagMigrations = {
                     },
                     options: rest,
                 }
-                newOptions.repeat = loops || 1;
-                newOptions.delay = loopDelay || 250;
-                newOptions.below = animLevel || false;
+                v5Flags.targetToken.options.repeat = loops || 1;
+                v5Flags.targetToken.options.delay = loopDelay || 250;
+                v5Flags.targetToken.options.below = animLevel || false;
             }
 
-            async function mergePreset(preset) {
+            async function mergePreset() {
+                const preset = v5Flags.preset
                 switch (v4Flags.animation) {
                     case "bardicinspiration":
                         preset.bardicinspiration = {};
@@ -1199,7 +1201,8 @@ export const flagMigrations = {
             }
 
             async function updateTele() {
-                const preset = v5Flags.teleportation;
+                const preset = v5Flags.preset;
+                preset.teleportation = {};
                 const root = preset.teleportation;
 
                 let { audio, macro, sourceToken, options, color, color02, animLevel} = v4Flags;
@@ -1231,7 +1234,7 @@ export const flagMigrations = {
                     animation: name02,
                     variant: variant02,
                     color: color02,
-                    below,
+                    below: animLevel,
                     enableCustom: enableCustom02 || false,
                     customPath: customPath02,
                     scale: scale02,
@@ -1240,7 +1243,7 @@ export const flagMigrations = {
             }
 
             async function updateDAttach() {
-                const preset = v5Flags.dualattach;
+                const preset = v5Flags.preset;
                 const root = preset.dualattach;
 
                 let { audio, macro, sourceToken, options, color, animLevel } = v4Flags;
@@ -1262,7 +1265,7 @@ export const flagMigrations = {
             }
 
             async function updateFireball() {
-                const preset = v5Flags.fireball;
+                const preset = v5Flags.preset;
                 const root = preset.fireball;
 
                 let { audio, macro, options, sourceToken, animLevel } = v4Flags;
@@ -1322,7 +1325,7 @@ export const flagMigrations = {
             }
 
             async function updateHM() {
-                const preset = v5Flags.dualattach;
+                const preset = v5Flags.preset;
                 const root = preset.dualattach;
 
                 let { audio, macro, sourceToken, targetToken, options, animLevel } = v4Flags;
@@ -1343,7 +1346,7 @@ export const flagMigrations = {
             }
 
             async function updateSneak() {
-                const preset = v5Flags.sneakattack;
+                const preset = v5Flags.preset;
                 const root = preset.sneakattack;
 
                 let { audio, macro, sourceToken, options, color, animLevel } = v4Flags;
@@ -1362,7 +1365,7 @@ export const flagMigrations = {
             }
 
             async function updateThunderwave() {
-                const preset = v5Flags.thunderwave;
+                const preset = v5Flags.preset;
                 const root = preset.thunderwave;
 
                 let { audio, macro, sourceToken, options, color, animLevel } = v4Flags;
