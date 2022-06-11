@@ -3,9 +3,9 @@ const aaTypeMenu = {};
 const aaNameMenu = {};
 const aaColorMenu = {};
 const aaVariantMenu = {};
-
+let aaReturnWeapons;
 async function menuOptions(database) {
-
+aaReturnWeapons = Object.keys(database.return.weapon)
 const jb2a = database;
 
 const menuSets = ['range', 'return', 'melee', 'static', 'templatefx']
@@ -21,7 +21,7 @@ await remove_Template(aaTypeMenu)
 
 }
 
-export {aaTypeMenu, aaNameMenu, aaVariantMenu, aaColorMenu}
+export {aaTypeMenu, aaNameMenu, aaVariantMenu, aaColorMenu, aaReturnWeapons}
 
 async function addRandom(menu) {
     const menuSection = Object.keys(menu);

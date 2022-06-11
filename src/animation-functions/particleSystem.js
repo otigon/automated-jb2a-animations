@@ -149,7 +149,7 @@ export async function particleEffects(handler, autoObject) {
                 .start()
         }
     
-        static sprite(data, sourceToken, targets) {
+        static sprites(data, sourceToken, targets) {
             if (data.explosion.enable) {
                 new Particle3D(data.type)
                     .from(sourceToken)

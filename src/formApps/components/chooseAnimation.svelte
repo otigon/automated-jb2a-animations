@@ -202,13 +202,13 @@
 
 <div in:fade>
     <!--Unless spawned from "Explosions", Show the main Animation Type Select-->
-    <div class="aa-3wide" in:fade>
+    <div class="aa-3wide aa-select-label" in:fade>
         <!--Copy Button-->
         <div class="flexcol" style="grid-row:2/3;grid-column:1/2">
             <label
                 for=""
                 on:click={copy}
-                style="align-self: center; position:relative; bottom: 7px;"
+                style="align-self: center; position:relative; bottom: 7px;font-size:large"
                 title="Copy Database Path"
                 >{localize("autoanimations.menus.copy")} DB {localize("autoanimations.menus.path")} <i
                     class="fas fa-database aa-zoom"
@@ -396,5 +396,8 @@
     .aa-return button:disabled {
         opacity: 0.3;
         transition: opacity 0.5s;
+    }
+    .aa-select-label label{
+        font-size: medium
     }
 </style>

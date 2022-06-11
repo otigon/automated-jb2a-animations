@@ -12,6 +12,8 @@ export async function dualAttach(handler, animationData) {
     await wait(globalDelay);
 
     //const daData =  handler.flags?.preset?.dualattach;
+    const data = animationData.primary;
+
     const daData = data.isAuto ? handler.autorecObject?.dualattach : handler.flags?.preset?.dualattach;
 
     if (!daData) { return; }
@@ -26,7 +28,6 @@ export async function dualAttach(handler, animationData) {
         playbackRate: daData.playbackRate || 1,
     }
 
-    const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
     /*
     if (data.isAuto) {

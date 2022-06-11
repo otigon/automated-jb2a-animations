@@ -971,6 +971,21 @@ export const flagMigrations = {
                 }
             }
 
+            async function new3d(data) {
+                let { type, ...rest} = data;
+                switch (type) {
+                    case "sprite": 
+                        return {type, sprites: rest}
+                    case "explosion":
+                        return {type, explosion: rest}
+                    case "ray":
+                        return {type, ray: rest}
+                    case "projectile":
+                        return {type, projectile: rest}
+                    default:
+                        return {type: ""}
+                }
+            }
             async function mergePrimary() {
                 let { options, explosions, audio, macro, levels3d, sourceToken, targetToken,
                     meleeSwitch, killAnim, override, animType, animation, color, enableCustom, customPath, animLevel } = v4Flags;
@@ -992,7 +1007,7 @@ export const flagMigrations = {
                 v5Flags.explosions = explosions || {};
                 v5Flags.audio = audio || {};
                 v5Flags.macro = macro || {};
-                v5Flags.levels3d = levels3d || {};
+                v5Flags.levels3d = await new3d(levels3d);
                 v5Flags.meleeSwitch = meleeSwitch || {};
                 v5Flags.preset = {};
                 newOptions.below = animLevel;

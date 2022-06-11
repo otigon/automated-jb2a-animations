@@ -55,6 +55,9 @@
     let color = primaryData.color;
     let isCustom = primaryData.enableCustom || false;
     let customPath = primaryData.customPath;
+    let isEnabled = menuSection.sourceToken?.enable;
+    let enableSource = menuSection.sourceToken?.enable || false;
+    //$: enableSource = isEnabled = enableSource;
 
     $: {
         menuType = primaryData.menuType = menuType;
@@ -63,6 +66,7 @@
         color = primaryData.color = color;
         isCustom = primaryData.enableCustom = isCustom;
         customPath = primaryData.customPath = customPath;
+        enableSource = isEnabled = enableSource;
         $storeAutorec = flagData;
     }
 
@@ -124,9 +128,6 @@
     function toggleSoundOnly() {
         soundOnly = !soundOnly;
     }
-
-    let enableSource = menuSection.sourceToken?.enable || false;
-    $: enableSource = enableSource;
 
     let enableTarget = false;
 
@@ -328,7 +329,9 @@
                         flagPath="sourceExtraFX"
                         bind:enableSection={enableSource}
                         flagData={menuSection}
+                        previewStoreData={flagData}
                         {staticType}
+                        isAutoRec={true}
                     />
                 </div>
             {/if}

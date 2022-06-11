@@ -91,26 +91,36 @@
 #AA-item-settings select {
     background-color: rgba(160, 160, 160);
     text-align: center;
-    font-weight: bold;
+    font-weight: normal;
+    font-family: "Signika", sans-serif;
+    font-size: 14px;
+    color: black;
     min-height: 2em;
     border-radius: 7px;
 }
 #AA-autorec-settings select {
     background-color: rgba(160, 160, 160);
     text-align: center;
-    font-weight: bold;
+    font-weight: normal;
+    font-family: "Signika", sans-serif;
+    font-size: 14px;
+    color: black;
     min-height: 2em;
     border-radius: 7px;
 }
 #AA-autorec-settings select option{
     background-color: rgba(179, 179, 179, 0.5);
     color: black;
-    font-weight: bold;
+    font-weight: normal;
+    font-family: "Signika", sans-serif;
 }
 #AA-ae-settings select {
     background-color: rgba(160, 160, 160);
     text-align: center;
-    font-weight: bold;
+    font-weight: normal;
+    font-family: "Signika", sans-serif;
+    font-size: 14px;
+    color: black;
     min-height: 2em;
     border-radius: 7px;
 }
@@ -125,9 +135,7 @@
     color: black;
     box-shadow: none;
     background-color: rgba(177 176 176);
-    font-weight: bold;
     font-family: "Signika", sans-serif;
-    font-size: large;
 }
 .aaMidSection::-webkit-scrollbar {
     width: 6px;
@@ -164,7 +172,6 @@
     margin-right: 3%;
     margin-left: 3%;
     font-family: "Modesto Condensed", "Palatino Linotype", serif;
-    font-size: large;
     font-weight: bold;
     color: black;
 }
@@ -193,13 +200,13 @@
     align-items: center;
     margin-right: 1%;
     margin-left: 1%;
-    font-weight: bold;
+    font-weight: normal;
     font-family: "Modesto Condensed", "Palatino Linotype", serif;
-    font-size: medium;
     color: black;
 }
 .aa-options label {
     align-self: center;
+    font-size: large;
 }
 .aa-options input {
     text-align: center;
@@ -207,17 +214,18 @@
     border-radius: 5px;
     width: 3em;
     color: black;
-    font-weight: bold;
+    font-weight: normal;
     background:rgb(191 187 182);
-    font-size:medium;
+    font-size:14px;
     height:1.5em;
-    font-family: "Noto Sans", serif;
+    font-family: "Signika", sans-serif;
 }
 .aa-options button {
     border-radius: 7px;
     border: 2px outset #8e8e8e;
-    font-family: "Modesto Condensed", "Palatino Linotype", serif;
-    font-size: medium;
+    font-family: "Signika", sans-serif;
+    color: black;
+    font-size: 14px;
     line-height: 1.25em;
     width:95%;
 }

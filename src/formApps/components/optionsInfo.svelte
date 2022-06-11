@@ -27,6 +27,12 @@
         </tr>
         <tr>
             <td class="aa-table">
+                <strong>{localize("autoanimations.menus.level")}</strong>
+            </td>
+            <td> Choose whether the effect plays Above or Below the tokens </td>
+        </tr>
+        <tr>
+            <td class="aa-table">
                 <strong>Masking</strong>
             </td>
             <td>
@@ -89,12 +95,6 @@
                 If set to Bound, the Visibility of the Effect will match that of
                 the Token or Object. Unbound will make the effect always visible
             </td>
-        </tr>
-        <tr>
-            <td class="aa-table">
-                <strong>{localize("autoanimations.menus.z-index")}</strong>
-            </td>
-            <td> Choose whether the effect plays Above or Below the tokens </td>
         </tr>
         <tr>
             <th colspan="2">{localize("autoanimations.animTypes.templates")} Menu </th>

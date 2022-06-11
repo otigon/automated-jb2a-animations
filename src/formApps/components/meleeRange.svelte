@@ -4,6 +4,7 @@
     import { storeItemData } from "../ItemMenu/itemPreviewStore.js"
     import ChooseAnimation from "./chooseAnimation.svelte";
     import SoundSettings from "./soundSettings.svelte";
+    import { aaReturnWeapons } from "../../animation-functions/databases/jb2a-menu-options.js"
     import {
         storeAutorec,
     } from "../AutorecMenu/autorecPreviews.js";
@@ -25,15 +26,9 @@
     $: primaryMenuType = primaryMenuType;
     export let primaryAnimation;
     $: primaryAnimation = primaryAnimation;
-    const returningWeapons = [
-        "chakram",
-        "dagger",
-        "greatsword",
-        "hammer",
-        "javelin",
-        "spear",
-        "dart",
-    ];
+
+    const returningWeapons = aaReturnWeapons;
+    
     flagData.meleeSwitch ? flagData.meleeSwitch : (flagData.meleeSwitch = {});
     let meleeSwitch = isOverride ? flagData.autoOverride?.meleeSwitch : flagData.meleeSwitch;
 
@@ -134,7 +129,7 @@
     </div>
 </div>
 <div class="aa-3wide" style="padding-top:5px;padding-bottom:5px;" in:fade>
-    <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
+    <div class="flexcol aa-select-label" style="grid-row: 1 / 2;grid-column: 2 / 3;">
         <label for="1"
             >{localize("autoanimations.menus.ranged")}
             {localize("autoanimations.menus.switch")}</label
@@ -219,9 +214,10 @@
     .aa-3wide button {
         border-radius: 10px;
         border: 2px outset rgb(142, 142, 142);
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-weight: bold;
-        font-size: large;
+        font-family: "Signika", sans-serif;
+        font-weight: normal;
+        color: black;
+        font-size: 14px;
     }
     .aa-4wide {
         display: grid;
@@ -280,5 +276,8 @@
         line-height: 1.25em;
         width: 75%;
         align-self: center;
+    }
+    .aa-select-label label{
+        font-size: large
     }
 </style>

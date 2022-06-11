@@ -588,6 +588,21 @@ export const autoRecMigration = {
                     }
                 }
             }
+            async function new3d(data) {
+                let { type, ...rest} = data;
+                switch (type) {
+                    case "sprite": 
+                        return {type, sprites: rest}
+                    case "explosion":
+                        return {type, explosion: rest}
+                    case "ray":
+                        return {type, ray: rest}
+                    case "projectile":
+                        return {type, projectile: rest}
+                    default:
+                        return {type: ""}
+                }
+            }
             async function primaryMenu(oldMO, newMO, type) {
 
                 let { menuType, variant, custom, customPath, name, animation, color, audio, macro,
@@ -612,7 +627,7 @@ export const autoRecMigration = {
                 if (meleeSwitch) { newMO.meleeSwitch = meleeSwitch; }
                 newMO.audio = audio || {};
                 newMO.macro = macro || {};
-                newMO.levels3d = levels3d || {};
+                newMO.levels3d = await new3d(levels3d);
                 newMO.soundOnly = soundOnly?.enable || false;
                 newMO.explosions = explosion || {};
                 if (!newMO.primary.menuType || !newMO.primary.variant || !newMO.primary.animation || !newMO.primary.color) {

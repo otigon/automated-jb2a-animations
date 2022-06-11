@@ -98,7 +98,7 @@
     <div class="aa-options">
         <!--Set Z-Index-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-            <label for="">{localize("autoanimations.menus.z-index")}</label>
+            <label for="">{localize("autoanimations.menus.level")}</label>
             <button class="oldCheck" on:click={() => below()}
                 >{aboveBelow}</button
             >

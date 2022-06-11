@@ -172,7 +172,7 @@
         </div>
         <!--Set Z-Index-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-            <label for="">{localize("autoanimations.menus.z-index")}</label>
+            <label for="">{localize("autoanimations.menus.level")}</label>
             <button class="oldCheck" on:click={() => below()}
                 >{aboveBelow}</button
             >
@@ -310,7 +310,7 @@
             >
             <div class="form-group">
                 <input
-                    style="font-weight: bold;background:rgb(191 187 182);font-size:medium;height:1.5em;max-width: 3em;font-family: Noto Sans, serif;"
+                    style="font-weight: normal;background:rgb(191 187 182);font-size:14px;height:1.5em;max-width: 3.5em;font-family: Signika, sans-serif;"
                     type="number"
                     id="aaOpacity"
                     bind:value={opacity}
@@ -457,7 +457,7 @@
                         <div class="form-group">
                             <input
                                 type="number"
-                                style="font-weight: bold;background:rgb(191 187 182);font-size:medium;height:1.5em;max-width: 3em;font-family: Noto Sans, serif;"
+                                style="font-weight: normal;background:rgb(191 187 182);font-size:14px;height:1.5em;max-width: 3.5em;font-family: Signika, sans-serif;"
                                 bind:value={occlusionAlpha}
                                 placeholder="1"
                                 min="0"

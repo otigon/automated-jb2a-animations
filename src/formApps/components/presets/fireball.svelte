@@ -253,7 +253,7 @@
     <div class="aa-options">
         <!--Set Z-Index-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-            <label for="">{localize("autoanimations.menus.z-index")}</label>
+            <label for="">{localize("autoanimations.menus.level")}</label>
             <button class="oldCheck" on:click={() => projectileBelow()}
                 >{projectileAboveBelow}</button
             >
@@ -333,7 +333,7 @@
         <div class="aa-options">
             <!--Set Z-Index-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-                <label for="">{localize("autoanimations.menus.z-index")}</label>
+                <label for="">{localize("autoanimations.menus.level")}</label>
                 <button class="oldCheck" on:click={() => explosion01Below()}
                     >{explosion01AboveBelow}</button
                 >
@@ -400,7 +400,7 @@
     <div class="aa-options">
         <!--Set Z-Index-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-            <label for="">{localize("autoanimations.menus.z-index")}</label>
+            <label for="">{localize("autoanimations.menus.level")}</label>
             <button class="oldCheck" on:click={() => explosion02Below()}
                 >{explosion02AboveBelow}</button
             >
@@ -475,7 +475,7 @@
         <div class="aa-options">
             <!--Set Z-Index-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-                <label for="">{localize("autoanimations.menus.z-index")}</label>
+                <label for="">{localize("autoanimations.menus.level")}</label>
                 <button class="oldCheck" on:click={() => afterImageBelow()}
                     >{afterImageAboveBelow}</button
                 >

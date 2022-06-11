@@ -149,7 +149,7 @@
                     class="flexcol"
                     style="grid-row: 1 / 2; grid-column: 4 / 5;"
                 >
-                    <label for="">{localize("autoanimations.menus.z-index")}</label>
+                    <label for="">{localize("autoanimations.menus.level")}</label>
                     <button class="oldCheck" on:click={() => below()}
                         >{aboveBelow}</button
                     >

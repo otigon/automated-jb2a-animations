@@ -555,7 +555,8 @@
             "path": "Path",
             "quickReference": "Quick Reference",
             "ammunition": "Ammunition",
-            "musicnote": "Music Notes"
+            "musicnote": "Music Notes",
+            "level": "Level"
         },
         "optionsInfo": {
 

@@ -11,6 +11,7 @@
     const root = flagData.levels3d[type];
 
     let spritePath;
+    $: spritePath = root.sprite = spritePath;
     switch (type) {
         case "projectile":
             spritePath =
@@ -22,7 +23,7 @@
                 root.sprite ||
                 "modules/levels-3d-preview/assets/particles/emberssmall.png";
             break;
-        case "sprite":
+        case "sprites":
             spritePath =
                 root.sprite ||
                 "modules/levels-3d-preview/assets/particles/emberssmall.png";
@@ -83,7 +84,7 @@
     async function selectCustom() {
         const current = spritePath;
         const picker = new FilePicker({
-            type: "imagevideo",
+            type: "folder",
             current,
             callback: (path) => {
                 spritePath = path;

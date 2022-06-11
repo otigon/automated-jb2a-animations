@@ -26,8 +26,7 @@ export async function trafficCop(handler) {
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     if (game.Levels3DPreview?._active) {
-
-        if (handler.flags?.levels3d?.type) {
+        if (handler.flags?.levels3d?.type && handler.isCustomized) {
             if (aaDebug) { aaDebugger("Beginning Particle Animation for Custom Item Setting") }
             particleEffects(handler);
             return;

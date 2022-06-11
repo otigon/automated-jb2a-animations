@@ -150,15 +150,15 @@
         border-radius: 5px;
         width: 3em;
         color: black;
-        font-weight: bold;
+        font-weight: normal;
         background:rgb(191 187 182);
-        font-size:medium;
+        font-size:14px;
         height:1.5em;
-        font-family: "Noto Sans", serif;
+        font-family: "Signika", sans-serif;
     }
     .aa-3wide label {
         align-self: center;
-        font-size:medium;
+        font-size:large;
     }
     .isPopulated {
         box-shadow: 0 0 6px rgba(25, 175, 2, 0.6);
@@ -183,7 +183,7 @@
         align-self: center;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: x-large;
-        font-weight: bold;
+        font-weight: normal;
         text-align: center;
         margin-right: 5%;
         margin-left: 5%;

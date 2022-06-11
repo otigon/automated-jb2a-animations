@@ -19,7 +19,7 @@
                 <option value="projectile"
                     >{localize("autoanimations.menus.projectile")}</option
                 >
-                <option value="sprite">{localize("autoanimations.menus.sprite")}</option>
+                <option value="sprites">3D Object</option>
                 <option value="ray">{localize("autoanimations.menuTypes.ray")}</option>
                 <option value="explosion"
                     >{localize("autoanimations.menus.explosion")}</option
@@ -30,8 +30,8 @@
 {#if type3d === "projectile"}
 <Options3d type="projectile" {flagData} />
 {/if}
-{#if type3d === "sprite"}
-<Options3d type="sprite" {flagData} />
+{#if type3d === "sprites"}
+<Options3d type="sprites" {flagData} />
 {/if}
 {#if type3d === "ray"}
 <Options3d type="ray" {flagData} />

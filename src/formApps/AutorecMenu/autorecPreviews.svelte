@@ -60,7 +60,7 @@
     $: sourceCurrentPath =
         sourceIsCustom && sourceCustomPath
             ? sourceCustomPath
-            : color === "random"
+            : sourceColor === "random"
             ? `autoanimations.static.${sourceMenuType}.${sourceAnimation}.${sourceVariant}`
             : `autoanimations.static.${sourceMenuType}.${sourceAnimation}.${sourceVariant}.${sourceColor}`;
     $: sourceFilePath =
@@ -101,7 +101,7 @@
     $: switchCurrentPath =
                 isCustomPrimary && customPath
                     ? customPath
-                    : color === "random"
+                    : switchColor === "random"
                     ? `autoanimations.range.${switchMenuType}.${switchAnimation}.${switchVariant}`
                     : `autoanimations.range.${switchMenuType}.${switchAnimation}.${switchVariant}.${switchColor}`;
     $:  switchFilePath =
@@ -153,7 +153,7 @@
     $: targetCurrentPath =
         targetIsCustom && targetCustomPath
             ? targetCustomPath
-            : color === "random"
+            : targetColor === "random"
             ? `autoanimations.static.${targetMenuType}.${targetAnimation}.${targetVariant}`
             : `autoanimations.static.${targetMenuType}.${targetAnimation}.${targetVariant}.${targetColor}`;
     $: targetFilePath =
