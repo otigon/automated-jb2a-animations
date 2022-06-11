@@ -46,7 +46,9 @@
     const shieldColors = Object.keys(
         aaColorMenu.static.spell.shieldspell[variant]
     );
-    let color = shieldColors.includes(flagData.color)
+    console.log(shieldColors)
+    console.log(preset)
+    let color = shieldColors.includes(preset.color)
         ? preset.color
         : shieldColors[0];
     $: color = preset.color = color;

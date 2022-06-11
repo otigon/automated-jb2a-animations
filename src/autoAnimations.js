@@ -146,7 +146,7 @@ Hooks.once('ready', async function () {
             ui.notifications.error(game.i18n.format("autoanimation.settings.error"));
         }
     }
-    autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'))
+    autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'), true)
     if (game.modules.get("midi-qol")?.active) {
         log("midi IS active");
         switch (game.settings.get("autoanimations", "playonDamage")) {

@@ -300,7 +300,7 @@
     <div class="aa-preheader-section">
         <div class="aa-preheader">
             <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-                <label for="">{localize("autoanimations.menus.pre")}-{localize("autoanimations.menus.repeat")} {localize("autoanimations.menus.animation")}</label>
+                <label for="">{localize("autoanimations.menus.pre")}-{localize("autoanimations.menus.explosion")} {localize("autoanimations.menus.animation")}</label>
             </div>
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
                 <i
@@ -439,7 +439,7 @@
     </div>
     <SoundSettings audioPath="e02" {flagData} />
 </div>
-<div class="aaMenu-section">
+<div class="aaMenu-section" style='padding:5px'>
     <div class="aa-preheader-section">
         <div class="aa-preheader">
             <div class="flexcol" style="grid-row:1/2; grid-column:2/3">

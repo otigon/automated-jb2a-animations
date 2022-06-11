@@ -105,15 +105,15 @@
             >
         </div>
         <!--Bind/Unbind Visibility (for Persistent Effects)-->
-        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+        <div class="flexcol {!persistent ? 'aa-disabled' : ''}" style="grid-row: 1 / 2; grid-column: 3 / 4;">
             <label for="">{localize("autoanimations.menus.visibility")}</label>
-            <button on:click={() => switchVisibility()}>{bindVisibility}</button
+            <button disabled={!persistent} on:click={() => switchVisibility()}>{bindVisibility}</button
             >
         </div>
         <!--Bind/Unbind Opacity (for Persistent Effects)-->
-        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+        <div class="flexcol {!persistent ? 'aa-disabled' : ''}" style="grid-row: 1 / 2; grid-column: 4 / 5;">
             <label for="">{localize("autoanimations.menus.alpha")}</label>
-            <button on:click={() => switchAlpha()}>{bindAlpha}</button>
+            <button disabled={!persistent} on:click={() => switchAlpha()}>{bindAlpha}</button>
         </div>
         <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
             <label for="">{localize("autoanimations.menus.scale")}</label>
@@ -155,5 +155,13 @@
         margin-left: 5%;
         color: black;
         border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    }
+    .aa-disabled label {
+        opacity: 0.3;
+        transition: opacity 0.5s;
+    }
+    .aa-options button:disabled {
+        opacity: 0.3;
+        transition: opacity 0.5s;
     }
 </style>

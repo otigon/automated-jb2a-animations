@@ -1,3 +1,4 @@
+import { storeAutorec } from "../formApps/AutorecMenu/autorecPreviews.js"
 export const autoRecMigration = {
 
     async handle(autoObject, shouldSubmit) {
@@ -14,7 +15,7 @@ export const autoRecMigration = {
 
             currentAutorec = await migration(currentAutorec)
         }
-        if (shouldSubmit) {
+        if (!shouldSubmit) {
             return currentAutorec;
         } else {
             await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
@@ -589,16 +590,16 @@ export const autoRecMigration = {
                 }
             }
             async function new3d(data) {
-                let { type, ...rest} = data;
-                switch (type) {
+                let spriteType = data?.type || "";
+                switch (spriteType) {
                     case "sprite": 
-                        return {type, sprites: rest}
+                        return {type: data.type || "" , sprites: data || {}}
                     case "explosion":
-                        return {type, explosion: rest}
+                        return {type: data.type || "" , explosion: data || {}}
                     case "ray":
-                        return {type, ray: rest}
+                        return {type: data.type || "" , ray: data || {}}
                     case "projectile":
-                        return {type, projectile: rest}
+                        return {type: data.type || "" , projectile: data || {}}
                     default:
                         return {type: ""}
                 }
@@ -665,7 +666,7 @@ export const autoRecMigration = {
                     newMenu.static[i] = {};
                     const newMO = newMenu.static[i];
                     await primaryMenu(oldMO, newMO)
-                    newMO.staticType = oldMO.type;
+                    newMO.options.staticType = oldMO.type;
                 }
                 //await compileNewMenu(staticObject, "static")
             }
@@ -676,6 +677,9 @@ export const autoRecMigration = {
                     newMenu.templatefx[i] = {};
                     const newMO = newMenu.templatefx[i];
                     await primaryMenu(oldMO, newMO, true)
+                    if (newMO.options?.persistent && newMO.options?.persistType === "attachtemplate" && newMO.options?.removeTemplate) {
+                        newMO.options.removeTemplate = false;
+                    }
                 }
                 //await compileNewMenu(templateObject, "templatefx")
             }

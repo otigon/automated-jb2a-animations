@@ -21,11 +21,13 @@
         async function setDefault() {
             const oldData = game.settings.get("autoanimations", "aaAutorec");
             const filename = `Default-Restore-Menu-Recovery.json`;
+            /*
             saveDataToFile(
                 JSON.stringify(oldData, null, 2),
                 "text/json",
                 filename
             );
+            */
             ui.notifications.info(
                 "Exporting Menu Backup before Restoring Default"
             );

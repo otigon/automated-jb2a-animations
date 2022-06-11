@@ -36,6 +36,7 @@
 
     let flagData = $storeData;
     $: flagData = flagData;
+    $: flagData = $storeData;
 
     $: storeAutorec.set(flagData);
 

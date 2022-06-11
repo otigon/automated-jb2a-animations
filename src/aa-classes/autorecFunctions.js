@@ -288,7 +288,7 @@ export class AutorecFunctions {
         //saveDataToFile(JSON.stringify(oldData, null, 2), "text/json", filename);
         //ui.notifications.info("Exporting Menu Backup before Overwriting")
 
-        await autoRecMigration.handle(data)
+        await autoRecMigration.handle(data, true)
     }
 
     static async _mergeAutorec(json) {
@@ -300,7 +300,7 @@ export class AutorecFunctions {
         // Imported Autorec Menu
         let newData = JSON.parse(json);
 
-        newData = await autoRecMigration.handle(newData, true)
+        newData = await autoRecMigration.handle(newData, false)
         // Existing Autorec Menu
         const oldData = game.settings.get('autoanimations', 'aaAutorec');
         // New Autorec Menu
@@ -491,7 +491,7 @@ export class AutorecFunctions {
 
         //await game.settings.set("autoanimations", "aaAutorec", oldData);
         debugger
-        await autoRecMigration.handle(oldData)
+        await autoRecMigration.handle(oldData, true)
     }
 
     static _autoPreview(name, patreon, flags) {
