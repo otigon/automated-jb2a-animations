@@ -5,6 +5,7 @@
     import ChooseAnimation from "./chooseAnimation.svelte";
     import { storeAutorec } from "../AutorecMenu/autorecPreviews.js";
     import { storeItemData } from "../ItemMenu/itemPreviewStore.js";
+    import OptionsDialog from "../components/optionsInfoDialog.js";
 
     export let flagData;
     export let flagPath;
@@ -120,13 +121,11 @@
     }
 
     export let enableSection = root.enable || false;
-    $: enableSection = enableSection;
-
-    function switchEnable() {
-        enableSection = !enableSection;
-        root.enable = enableSection;
-    }
-
+    $: enableSection = root.enable = enableSection;
+    
+    let showOptions = options.showOptions ?? false;
+    $: showOptions = options.showOptions = showOptions;
+    
     let menuType = primary.menuType;
     let animation = primary.animation;
     let variant = primary.variant;
@@ -150,6 +149,10 @@
         }
     }
 
+    function optionsInfo() {
+        new OptionsDialog().render(true);
+    }
+
     let customId =
         flagPath === "sourceExtraFX" ? "customSource" : "customTarget";
 </script>
@@ -160,12 +163,16 @@
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
                 <label for="">{sectionTitle}</label>
             </div>
-            <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
-                <i
-                    class="{enableSection
-                        ? 'fas fa-minus aa-red'
-                        : 'fas fa-plus aa-green'} aaCenterToggle"
-                    on:click={() => switchEnable()}
+            <div
+                class="flexcol aa-checkbox"
+                style="grid-row:1/2; grid-column:5/6"
+            >
+                <input
+                    type="checkbox"
+                    style="align-self:center"
+                    title="Toggle Sound On/Off"
+                    on:click={() => (enableSection = !enableSection)}
+                    bind:checked={enableSection}
                 />
             </div>
         </div>
@@ -184,9 +191,30 @@
             {flagData}
         />
         <div class="aa-options-border" transition:fade={{ duration: 500 }}>
-            <h2 style="margin-top:5px" transition:fade>
-                {localize("autoanimations.menus.options")}
-            </h2>
+            <div class="aa-header-section">
+                <div class="aa-header">
+                    <div class="flexcol" style="grid-row:1/2; grid-column:1/2;">
+                        <i
+                            class="{showOptions
+                                ? "fas fa-caret-down fa-lg aa-greyScale"
+                                : "fas fa-caret-right fa-lg aa-greyScale"} aa-zoom"
+                            title={showOptions ? "collapse" : "expand"}
+                            on:click={() => showOptions = !showOptions}
+                        />
+                    </div>
+                    <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+                        <label for="">{localize("autoanimations.menus.options")}</label>
+                    </div>
+                    <div class="flexcol" style="grid-row:1/2; grid-column:4/5;">
+                        <i
+                            class="fas fa-info-circle aa-info-icon aa-zoom"
+                            title={localize("autoanimations.menus.quickReference")}
+                            on:click={() => optionsInfo()}
+                        />
+                    </div>        
+                </div>
+            </div>
+            {#if showOptions}
             <div class="aa-options" transition:fade>
                 <!--Persistent Setting-->
                 <div
@@ -383,22 +411,13 @@
                     </div>
                 {/if}
             </div>
+            {/if}
         </div>
         <SoundSettings {audioPath} {flagData} />
     {/if}
 </div>
 
 <style lang="scss">
-    h2 {
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: x-large;
-        font-weight: bold;
-        text-align: center;
-        margin-right: 5%;
-        margin-left: 5%;
-        color: black;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-    }
     .oldCheck {
         align-self: bottom;
     }
@@ -413,5 +432,19 @@
         border: 2px outset #dddddd86;
         color: rgba(133, 133, 133, 0.3);
         transition: color 0.5s, border 0.5s;
+    }
+    .aa-header-section {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+        margin-bottom: 10px;
+    }
+    .aa-header label {
+        align-self: center;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-size: x-large;
+        font-weight: bold;
+        text-align: center;
+        margin-right: 5%;
+        margin-left: 5%;
+        color: black;
     }
 </style>

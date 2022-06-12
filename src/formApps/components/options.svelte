@@ -151,13 +151,24 @@
     function switchMask() {
         isMasked = !isMasked;
     }
+    let optionsShown = options.showOptions ?? false;
+    $: optionsShown = options.showOptions = optionsShown
 </script>
 
 <div class="aa-options-border" in:fade>
     <div class="aa-header-section">
         <div class="aa-header">
+            <div class="flexcol" style="grid-row:1/2; grid-column:1/2;">
+                <i
+                    class="{optionsShown
+                        ? "fas fa-caret-down fa-lg aa-greyScale"
+                        : "fas fa-caret-right fa-lg aa-greyScale"} aa-zoom"
+                    title={optionsShown ? "collapse" : "expand"}
+                    on:click={() => optionsShown = !optionsShown}
+                />
+            </div>
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
-                <label for="">{localize("autoanimations.menus.options")}</label>
+                <label for="" style="font-size:22px">{localize("autoanimations.menus.options")}</label>
             </div>
             <div class="flexcol" style="grid-row:1/2; grid-column:4/5;">
                 <i
@@ -168,7 +179,8 @@
             </div>
         </div>
     </div>
-    <div class="aa-options" in:fade={{ duration: 500 }}>
+    {#if optionsShown}
+    <div class="aa-options" hidden in:fade={{ duration: 500 }}>
         <!--Persistent Setting-->
         <div
             class="flexcol {disabled01 || animType === 'aura'
@@ -514,6 +526,7 @@
             {/if}
         {/if}
     </div>
+    {/if}
 </div>
 
 <style lang="scss">
@@ -538,12 +551,6 @@
         opacity: 0.3;
         transition: opacity 0.5s;
     }
-    .aa-info-icon {
-        color: rgba(21, 154, 169, 0.75);
-    }
-    .aa-info-icon:hover {
-        color: rgba(7, 132, 25, 0.6);
-    }
     .aa-header-section {
         border-bottom: 1px solid rgba(0, 0, 0, 0.4);
         margin-bottom: 10px;
@@ -557,8 +564,5 @@
         margin-right: 5%;
         margin-left: 5%;
         color: black;
-    }
-    .aa-zoom:hover {
-        transform: scale(1.2);
     }
 </style>

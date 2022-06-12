@@ -100,7 +100,9 @@
                 >{localize("autoanimations.presetTypes.shieldspell")}</label
             >
         </div>
-    </div>    
+    </div>
+</div>
+<div class="aaMenu-section">
     <div class="aa-3wide">
         <div class="flexcol" style="grid-row: 1 / 2;grid-column: 1 / 2;">
             <label for="4">{localize("autoanimations.menus.variant")}</label>
@@ -133,7 +135,7 @@
         </div>
     </div>
     <div class="aa-options-border">
-    <h2 style="margin-top:5px;">{localize("autoanimations.menus.options")}</h2>
+    <h2 style="margin-top:5px; font-size:22px">{localize("autoanimations.menus.options")}</h2>
     <div class="aa-options">
         <!--Persistent Setting-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">

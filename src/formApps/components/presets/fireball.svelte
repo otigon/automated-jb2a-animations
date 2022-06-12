@@ -144,7 +144,9 @@
     let enablePreExplosion = explosion01.enable || false;
     $: enablePreExplosion = explosion01.enable = enablePreExplosion;
     function switchPreExplosionEnable() {
-        enablePreExplosion = !enablePreExplosion;
+        if (enablePreExplosion) {
+            showPreExplosion = true;
+        }
     }
     let explosion01CustomId = "customPresetExplosion01";
 
@@ -221,17 +223,25 @@
     $: afterImageScale = afterImage.scale = afterImageScale;
     let afterImageWait = afterImage.wait || 0;
     $: afterImageWait = afterImage.wait = afterImageWait;
+
+    let showPreExplosion = explosion01.showPreExplosion ?? false;
+    $: showPreExplosion = explosion01.showPreExplosion = showPreExplosion;
 </script>
 
 <div class="aaMenu-section">
     <div class="aa-preset-header">
         <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
             <label for="" style="font-size:xx-large; color: rgba(0, 0, 0, 0.6)"
-                >{localize("autoanimations.presetTypes.fireball")}</label
+                >{localize("autoanimations.presetTypes.proToTemp")}</label
             >
         </div>
-    </div>    
-    <h1 style="margin-top:10px;">Projectile Animation</h1>
+    </div>
+</div>
+<div class="aaMenu-section">
+    <h1 style="margin-top:10px;">
+        {localize("autoanimations.menus.projectile")}
+        {localize("autoanimations.menus.animation")}
+    </h1>
     <ChooseAnimation
         bind:menuType={projectileMenuType}
         bind:animation={projectileAnimation}
@@ -249,111 +259,32 @@
         {flagData}
     />
     <div class="aa-options-border">
-    <h2>{localize("autoanimations.menus.options")}</h2>
-    <div class="aa-options">
-        <!--Set Z-Index-->
-        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-            <label for="">{localize("autoanimations.menus.level")}</label>
-            <button class="oldCheck" on:click={() => projectileBelow()}
-                >{projectileAboveBelow}</button
-            >
-        </div>
-        <!--Remove Template option-->
-        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-            <label for="">{localize("autoanimations.menus.remove")}</label>
-            <button
-                class={removeTemplate ? "aa-selected" : "aa-notSelected"}
-                on:click={() => switchRemove()}>{isRemove}</button
-            >
-        </div>
-        <!--Set Number of times the animation plays-->
-        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-            <label for="">{localize("autoanimations.menus.repeat")}</label>
-            <input
-                type=number
-                bind:value={projectileRepeat}
-                placeholder=1
-            />
-        </div>
-        <!--Set delay between repeats-->
-        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-            <label for=""
-                >{localize("autoanimations.menus.repeat")}
-                {localize("autoanimations.menus.delay")}</label
-            >
-            <input
-                type=number
-                bind:value={projectileDelay}
-                placeholder=250
-            />
-        </div>
-        <!--Set Delay before Next Explosion-->
-        <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;">
-            <label for="">{localize("autoanimations.menus.wait")}</label>
-            <input type=number bind:value={projectileWait} step=0.01 />
-        </div>
-    </div>
-    </div>
-    <SoundSettings audioPath="a01" {flagData} />
-</div>
-<div class="aaMenu-section">
-    <div class="aa-preheader-section">
-        <div class="aa-preheader">
-            <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-                <label for="">{localize("autoanimations.menus.pre")}-{localize("autoanimations.menus.explosion")} {localize("autoanimations.menus.animation")}</label>
-            </div>
-            <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
-                <i
-                    class="{enablePreExplosion
-                        ? 'fas fa-minus aa-red'
-                        : 'fas fa-plus aa-green'} aaCenterToggle"
-                    on:click={() => switchPreExplosionEnable()}
-                />
-            </div>
-        </div>
-    </div>
-    {#if enablePreExplosion}
-        <ChooseAnimation
-            bind:menuType={explosion01MenuType}
-            bind:animation={explosion01Animation}
-            bind:variant={explosion01Variant}
-            bind:color={explosion01Color}
-            bind:isCustom={explosion01IsCustom}
-            bind:customPath={explosion01CustomPath}
-            bind:customId={explosion01CustomId}
-            {isAutoRec}
-            {presetType}
-            presetSubType="FireballExplosion01"
-            flagPath="preset"
-            animType="static"
-            {flagData}
-        />
-        <div class="aa-options-border">
-        <h2>{localize("autoanimations.menus.options")}</h2>
+        <h2 style="font-size:22px">
+            {localize("autoanimations.menus.options")}
+        </h2>
         <div class="aa-options">
             <!--Set Z-Index-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
                 <label for="">{localize("autoanimations.menus.level")}</label>
-                <button class="oldCheck" on:click={() => explosion01Below()}
-                    >{explosion01AboveBelow}</button
+                <button class="oldCheck" on:click={() => projectileBelow()}
+                    >{projectileAboveBelow}</button
                 >
             </div>
-            <!--Set the Scale of the Animation-->
+            <!--Remove Template option-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-                <label for="">{localize("autoanimations.menus.scale")}</label>
-                <input
-                    type=number
-                    bind:value={explosion01Scale}
-                    placeholder=1
-                />
+                <label for="">{localize("autoanimations.menus.remove")}</label>
+                <button
+                    class={removeTemplate ? "aa-selected" : "aa-notSelected"}
+                    on:click={() => switchRemove()}>{isRemove}</button
+                >
             </div>
             <!--Set Number of times the animation plays-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
                 <label for="">{localize("autoanimations.menus.repeat")}</label>
                 <input
-                    type=number
-                    bind:value={explosion01Repeat}
-                    placeholder=1
+                    type="number"
+                    bind:value={projectileRepeat}
+                    placeholder="1"
                 />
             </div>
             <!--Set delay between repeats-->
@@ -363,23 +294,160 @@
                     {localize("autoanimations.menus.delay")}</label
                 >
                 <input
-                    type=number
-                    bind:value={explosion01Delay}
-                    placeholder=250
+                    type="number"
+                    bind:value={projectileDelay}
+                    placeholder="250"
                 />
             </div>
             <!--Set Delay before Next Explosion-->
             <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;">
                 <label for="">{localize("autoanimations.menus.wait")}</label>
-                <input type=number bind:value={explosion01Wait} step=0.01 />
+                <input type="number" bind:value={projectileWait} step="0.01" />
             </div>
         </div>
+    </div>
+    <SoundSettings audioPath="a01" {flagData} />
+</div>
+<div class="aaMenu-section">
+    <div class="aa-preheader-section">
+        <div class="aa-preheader">
+            <div class="flexcol" style="grid-row:1/2; grid-column:1/2;">
+                <i
+                    class="{showPreExplosion
+                        ? 'fas fa-caret-down fa-lg aa-greyScale'
+                        : 'fas fa-caret-right fa-lg aa-greyScale'} aa-zoom"
+                    title={showPreExplosion ? "collapse" : "expand"}
+                    on:click={() => (showPreExplosion = !showPreExplosion)}
+                />
+            </div>
+            <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
+                <label for=""
+                    >{localize("autoanimations.menus.pre")}-{localize(
+                        "autoanimations.menus.explosion"
+                    )}
+                    {localize("autoanimations.menus.animation")}</label
+                >
+            </div>
+            <div
+                class="flexcol aa-checkbox"
+                style="grid-row:1/2; grid-column:3/4"
+            >
+                <input
+                    type="checkbox"
+                    style="align-self:center"
+                    title="Toggle Explosion On/Off"
+                    on:click={() => (enablePreExplosion = !enablePreExplosion)}
+                    on:change={() => switchPreExplosionEnable()}
+                    bind:checked={enablePreExplosion}
+                />
+            </div>
         </div>
-        <SoundSettings audioPath="e01" {flagData} />
+    </div>
+    {#if showPreExplosion}
+        <div class={!enablePreExplosion ? "isDisabled" : ""}>
+            <ChooseAnimation
+                bind:menuType={explosion01MenuType}
+                bind:animation={explosion01Animation}
+                bind:variant={explosion01Variant}
+                bind:color={explosion01Color}
+                bind:isCustom={explosion01IsCustom}
+                bind:customPath={explosion01CustomPath}
+                bind:customId={explosion01CustomId}
+                {isAutoRec}
+                {presetType}
+                presetSubType="FireballExplosion01"
+                flagPath="preset"
+                animType="static"
+                {flagData}
+            />
+            <div class="aa-options-border">
+                <h2 style="font-size:22px">
+                    {localize("autoanimations.menus.options")}
+                </h2>
+                <div class="aa-options">
+                    <!--Set Z-Index-->
+                    <div
+                        class="flexcol"
+                        style="grid-row: 1 / 2; grid-column: 1 / 2;"
+                    >
+                        <label for=""
+                            >{localize("autoanimations.menus.level")}</label
+                        >
+                        <button
+                            class="oldCheck"
+                            on:click={() => explosion01Below()}
+                            >{explosion01AboveBelow}</button
+                        >
+                    </div>
+                    <!--Set the Scale of the Animation-->
+                    <div
+                        class="flexcol"
+                        style="grid-row: 1 / 2; grid-column: 2 / 3;"
+                    >
+                        <label for=""
+                            >{localize("autoanimations.menus.scale")}</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={explosion01Scale}
+                            placeholder="1"
+                        />
+                    </div>
+                    <!--Set Number of times the animation plays-->
+                    <div
+                        class="flexcol"
+                        style="grid-row: 1 / 2; grid-column: 3 / 4;"
+                    >
+                        <label for=""
+                            >{localize("autoanimations.menus.repeat")}</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={explosion01Repeat}
+                            placeholder="1"
+                        />
+                    </div>
+                    <!--Set delay between repeats-->
+                    <div
+                        class="flexcol"
+                        style="grid-row: 1 / 2; grid-column: 4 / 5;"
+                    >
+                        <label for=""
+                            >{localize("autoanimations.menus.repeat")}
+                            {localize("autoanimations.menus.delay")}</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={explosion01Delay}
+                            placeholder="250"
+                        />
+                    </div>
+                    <!--Set Delay before Next Explosion-->
+                    <div
+                        class="flexcol"
+                        style="grid-row: 2 / 3; grid-column: 4 / 5;"
+                    >
+                        <label for=""
+                            >{localize("autoanimations.menus.wait")}</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={explosion01Wait}
+                            step="0.01"
+                        />
+                    </div>
+                </div>
+            </div>
+            <SoundSettings audioPath="e01" {flagData} />
+        </div>
     {/if}
 </div>
 <div class="aaMenu-section">
-    <h1 style="margin-top:10px;">{localize("autoanimations.menus.primary")} {localize("autoanimations.menus.explosion")} {localize("autoanimations.menus.animation")}</h1>
+    <h1 style="margin-top:10px;">
+        {localize("autoanimations.menus.primary")}
+        {localize("autoanimations.menus.explosion")}
+        {localize("autoanimations.menus.animation")}
+    </h1>
     <ChooseAnimation
         bind:menuType={explosion02MenuType}
         bind:animation={explosion02Animation}
@@ -396,54 +464,60 @@
         {flagData}
     />
     <div class="aa-options-border">
-    <h2>{localize("autoanimations.menus.options")}</h2>
-    <div class="aa-options">
-        <!--Set Z-Index-->
-        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-            <label for="">{localize("autoanimations.menus.level")}</label>
-            <button class="oldCheck" on:click={() => explosion02Below()}
-                >{explosion02AboveBelow}</button
-            >
+        <h2 style="font-size:22px">
+            {localize("autoanimations.menus.options")}
+        </h2>
+        <div class="aa-options">
+            <!--Set Z-Index-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
+                <label for="">{localize("autoanimations.menus.level")}</label>
+                <button class="oldCheck" on:click={() => explosion02Below()}
+                    >{explosion02AboveBelow}</button
+                >
+            </div>
+            <!--Set the Scale of the Animation-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+                <label for="">{localize("autoanimations.menus.scale")}</label>
+                <input
+                    type="number"
+                    bind:value={explosion02Scale}
+                    placeholder="1"
+                />
+            </div>
+            <!--Set Number of times the animation plays-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+                <label for="">{localize("autoanimations.menus.repeat")}</label>
+                <input
+                    type="number"
+                    bind:value={explosion02Repeat}
+                    placeholder="1"
+                />
+            </div>
+            <!--Set delay between repeats-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+                <label for=""
+                    >{localize("autoanimations.menus.repeat")}
+                    {localize("autoanimations.menus.delay")}</label
+                >
+                <input
+                    type="number"
+                    bind:value={explosion02Delay}
+                    placeholder="250"
+                />
+            </div>
         </div>
-        <!--Set the Scale of the Animation-->
-        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-            <label for="">{localize("autoanimations.menus.scale")}</label>
-            <input
-                type=number
-                bind:value={explosion02Scale}
-                placeholder=1
-            />
-        </div>
-        <!--Set Number of times the animation plays-->
-        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-            <label for="">{localize("autoanimations.menus.repeat")}</label>
-            <input
-                type=number
-                bind:value={explosion02Repeat}
-                placeholder=1
-            />
-        </div>
-        <!--Set delay between repeats-->
-        <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-            <label for=""
-                >{localize("autoanimations.menus.repeat")}
-                {localize("autoanimations.menus.delay")}</label
-            >
-            <input
-                type=number
-                bind:value={explosion02Delay}
-                placeholder=250
-            />
-        </div>
-    </div>
     </div>
     <SoundSettings audioPath="e02" {flagData} />
 </div>
-<div class="aaMenu-section" style='padding:5px'>
+<div class="aaMenu-section" style="padding:5px">
     <div class="aa-preheader-section">
         <div class="aa-preheader">
             <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-                <label for="">{localize("autoanimations.menus.addAfterImage")}/{localize("autoanimations.menus.video")}</label>
+                <label for=""
+                    >{localize("autoanimations.menus.addAfterImage")}/{localize(
+                        "autoanimations.menus.video"
+                    )}</label
+                >
             </div>
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
                 <i
@@ -482,7 +556,9 @@
             </div>
             <!--Persistent Setting-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-                <label for="">{localize("autoanimations.menus.persistence")}</label>
+                <label for=""
+                    >{localize("autoanimations.menus.persistence")}</label
+                >
                 <button on:click={() => switchPersistence()}
                     >{isPersistent}</button
                 >
@@ -491,15 +567,15 @@
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
                 <label for="">{localize("autoanimations.menus.scale")}</label>
                 <input
-                    type=number
+                    type="number"
                     bind:value={afterImageScale}
-                    placeholder=1
+                    placeholder="1"
                 />
             </div>
             <!--Set Delay before Next Explosion-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
                 <label for="">{localize("autoanimations.menus.wait")}</label>
-                <input type=number bind:value={afterImageWait} step=0.01 />
+                <input type="number" bind:value={afterImageWait} step="0.01" />
             </div>
         </div>
     {/if}
@@ -581,5 +657,9 @@
         margin-left: 5%;
         margin-bottom: 5px;
         margin-top: 5px;
+    }
+    .isDisabled {
+        pointer-events: none;
+        opacity: 0.4;
     }
 </style>

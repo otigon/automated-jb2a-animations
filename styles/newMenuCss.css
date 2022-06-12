@@ -242,3 +242,19 @@
 #Options-Information .window-content {
     background: rgba(238, 238, 238, 0.65)
 }
+.aa-greyScale {
+    color: rgb(102 102 102)
+}
+.aa-checkbox input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+}
+.aa-zoom:hover {
+    transform: scale(1.2);
+}
+.aa-info-icon {
+    color: rgba(21, 154, 169, 0.75);
+}
+.aa-info-icon:hover {
+    color: rgba(7, 132, 25, 0.6);
+}

@@ -1,7 +1,14 @@
 import { storeAutorec } from "../formApps/AutorecMenu/autorecPreviews.js"
 export const autoRecMigration = {
 
-    async handle(autoObject, shouldSubmit) {
+    async handle(autoObject, shouldSubmit, updateMerge) {
+
+        if (updateMerge) {
+            ui.notifications.info("Exporting your Autorec Menu before running Migration")
+            const data = (game.settings.get('autoanimations', 'aaAutorec'))
+            const filename = `Autorec-Menu-Backup`;
+            saveDataToFile(JSON.stringify(data, null, 2), "text/json", filename);    
+        }
 
         if (!autoObject) { return; }
         if (this.upToDate(autoObject)) { return; }

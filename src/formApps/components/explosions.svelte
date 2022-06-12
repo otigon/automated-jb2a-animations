@@ -48,10 +48,6 @@
 
     let enableSection = root.enable || false;
 
-    function switchEnable() {
-        enableSection = !enableSection;
-    }
-
     let menuType = root.menuType;
     let animation = root.animation;
     let variant = root.variant;
@@ -76,12 +72,29 @@
         flagData = flagData;
     }
 
+    let showSection = enableSection && !menuType ? true : root.showExplosion;
+    $: showSection = root.showExplosion = showSection;
+    function checkShowed() {
+        if (enableSection) {
+            showSection = true;
+        }
+    }
+
     let customId = "customExplosion";
 </script>
 
 <div>
     <div class="aa-header-section">
         <div class="aa-header">
+            <div class="flexcol" style="grid-row:1/2; grid-column:1/2;">
+                <i
+                    class="{showSection
+                        ? 'fas fa-caret-down fa-lg aa-greyScale'
+                        : 'fas fa-caret-right fa-lg aa-greyScale'} aa-zoom"
+                    title={showSection ? "collapse" : "expand"}
+                    on:click={() => (showSection = !showSection)}
+                />
+            </div>
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
                 <label for=""
                     >{localize("autoanimations.menus.explosion")}
@@ -90,130 +103,145 @@
                         : localize("autoanimations.menus.disabled")}</label
                 >
             </div>
-            <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
-                <i
-                    class="{enableSection
-                        ? 'fas fa-minus aa-red'
-                        : 'fas fa-plus aa-green'} aaCenterToggle"
-                    on:click={() => switchEnable()}
+            <div
+                class="flexcol aa-checkbox"
+                style="grid-row:1/2; grid-column:5/6"
+            >
+                <input
+                    type="checkbox"
+                    style="align-self:center"
+                    title="Toggle Explosion On/Off"
+                    on:click={() => (enableSection = !enableSection)}
+                    on:change={() => checkShowed()}
+                    bind:checked={enableSection}
                 />
             </div>
         </div>
     </div>
-    {#if enableSection}
-        <ChooseAnimation
-            bind:menuType
-            bind:animation
-            bind:variant
-            bind:color
-            bind:isCustom
-            bind:customPath
-            bind:customId
-            animType="static"
-            previewType="explosion"
-            flagPath="explosions"
-            {flagData}
-        />
-        <div class="aa-options-border">
-            <h2 in:fade>{localize("autoanimations.menus.options")}</h2>
-            <div class="aa-options" in:fade>
-                <!--Set the Masking Boolean-->
-                <div
-                    class="flexcol"
-                    style="grid-row: 1 / 2; grid-column: 1 / 2;"
-                >
-                    <label for=""
-                        >{localize("autoanimations.menus.masking")}</label
-                    >
-                    <button
-                        class={isMasked ? "aa-selected" : "aa-notSelected"}
-                        on:click={() => switchMask()}>{maskLabel}</button
-                    >
-                </div>
-                <div
-                    class="flexcol"
-                    style="grid-row: 1 / 2; grid-column: 2 / 3;"
-                >
-                    <label for=""
-                        >{localize("autoanimations.menus.radius")}</label
-                    >
-                    <input
-                        type="number"
-                        bind:value={radius}
-                        placeholder="1.5"
-                        step="0.01"
-                    />
-                </div>
-                <div
-                    class="flexcol"
-                    style="grid-row: 1 / 2; grid-column: 3 / 4;"
-                >
-                    <label for=""
-                        >{localize("autoanimations.menus.delay")}</label
-                    >
-                    <input type="number" bind:value={delay} placeholder="1" />
-                </div>
-                <div
-                    class="flexcol"
-                    style="grid-row: 1 / 2; grid-column: 4 / 5;"
-                >
-                    <label for=""
-                        >{localize("autoanimations.menus.level")}</label
-                    >
-                    <button class="oldCheck" on:click={() => below()}
-                        >{aboveBelow}</button
-                    >
-                </div>
-                <!--Set Animation Opacity-->
-                <div
-                    class="flexcol"
-                    style="grid-row: 2 / 3; grid-column: 2 / 3;"
-                    in:fade={{ duration: 500 }}
-                >
-                    <label for="aaOpacity"
-                        >{localize("autoanimations.menus.opacity")}</label
-                    >
-                    <div class="form-group">
-                        <input
-                            style="font-weight: normal;background:rgb(191 187 182);font-size:14px;height:1.5em;max-width: 3.5em;font-family: Signika, sans-serif;"
-                            type="number"
-                            id="aaOpacity"
-                            bind:value={opacity}
-                            placeholder="1"
-                            min="0"
-                            max="1"
-                            step="0.01"
-                        />
-                        <input
-                            style="border:none; background:none"
-                            type="range"
-                            min="0"
-                            max="1"
-                            step="0.01"
-                            bind:value={opacity}
-                        />
-                    </div>
-                </div>
-                <!--Set Z-Index of Animation-->
-                <div>
+    {#if showSection}
+        <div class={!enableSection ? "isDisabled" : ""}>
+            <ChooseAnimation
+                bind:menuType
+                bind:animation
+                bind:variant
+                bind:color
+                bind:isCustom
+                bind:customPath
+                bind:customId
+                animType="static"
+                previewType="explosion"
+                flagPath="explosions"
+                {flagData}
+            />
+            <div class="aa-options-border">
+                <h2 in:fade style="font-size:22px">
+                    {localize("autoanimations.menus.options")}
+                </h2>
+                <div class="aa-options" in:fade>
+                    <!--Set the Masking Boolean-->
                     <div
                         class="flexcol"
-                        style="grid-row: 2 / 3; grid-column: 3 / 4;"
+                        style="grid-row: 1 / 2; grid-column: 1 / 2;"
                     >
                         <label for=""
-                            >{localize("autoanimations.menus.z-index")}</label
+                            >{localize("autoanimations.menus.masking")}</label
+                        >
+                        <button
+                            class={isMasked ? "aa-selected" : "aa-notSelected"}
+                            on:click={() => switchMask()}>{maskLabel}</button
+                        >
+                    </div>
+                    <div
+                        class="flexcol"
+                        style="grid-row: 1 / 2; grid-column: 2 / 3;"
+                    >
+                        <label for=""
+                            >{localize("autoanimations.menus.radius")}</label
                         >
                         <input
                             type="number"
-                            bind:value={zIndex}
-                            placeholder="1"
-                            step="1"
+                            bind:value={radius}
+                            placeholder="1.5"
+                            step="0.01"
                         />
+                    </div>
+                    <div
+                        class="flexcol"
+                        style="grid-row: 1 / 2; grid-column: 3 / 4;"
+                    >
+                        <label for=""
+                            >{localize("autoanimations.menus.delay")}</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={delay}
+                            placeholder="1"
+                        />
+                    </div>
+                    <div
+                        class="flexcol"
+                        style="grid-row: 1 / 2; grid-column: 4 / 5;"
+                    >
+                        <label for=""
+                            >{localize("autoanimations.menus.level")}</label
+                        >
+                        <button class="oldCheck" on:click={() => below()}
+                            >{aboveBelow}</button
+                        >
+                    </div>
+                    <!--Set Animation Opacity-->
+                    <div
+                        class="flexcol"
+                        style="grid-row: 2 / 3; grid-column: 2 / 3;"
+                        in:fade={{ duration: 500 }}
+                    >
+                        <label for="aaOpacity"
+                            >{localize("autoanimations.menus.opacity")}</label
+                        >
+                        <div class="form-group">
+                            <input
+                                style="font-weight: normal;background:rgb(191 187 182);font-size:14px;height:1.5em;max-width: 3.5em;font-family: Signika, sans-serif;"
+                                type="number"
+                                id="aaOpacity"
+                                bind:value={opacity}
+                                placeholder="1"
+                                min="0"
+                                max="1"
+                                step="0.01"
+                            />
+                            <input
+                                style="border:none; background:none"
+                                type="range"
+                                min="0"
+                                max="1"
+                                step="0.01"
+                                bind:value={opacity}
+                            />
+                        </div>
+                    </div>
+                    <!--Set Z-Index of Animation-->
+                    <div>
+                        <div
+                            class="flexcol"
+                            style="grid-row: 2 / 3; grid-column: 3 / 4;"
+                        >
+                            <label for=""
+                                >{localize(
+                                    "autoanimations.menus.z-index"
+                                )}</label
+                            >
+                            <input
+                                type="number"
+                                bind:value={zIndex}
+                                placeholder="1"
+                                step="1"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
+            <SoundSettings audioPath="e01" {flagData} />
         </div>
-        <SoundSettings audioPath="e01" {flagData} />
     {/if}
 </div>
 
@@ -226,5 +254,9 @@
         margin-right: 5%;
         margin-left: 5%;
         border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    }
+    .isDisabled {
+        pointer-events: none;
+        opacity: 0.4;
     }
 </style>

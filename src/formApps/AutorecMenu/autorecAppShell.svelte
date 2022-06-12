@@ -18,6 +18,7 @@
     } from "./autorecPreviews.js";
     closePreviewWindow.set(false);
     import items from "./data/tabItems.js";
+    import { fix_and_outro_and_destroy_block } from "svelte/internal";
 
     export let elementRoot;
     export let activeTabValue = 1;
@@ -27,7 +28,9 @@
             return obj.value === activeTabValue;
         })[0];
         databaseType.set(currentMenu.type);
-        Object.values(ui.windows).filter(app => app.id === "Autorec-Video-Preview").forEach(app => app.close())
+        Object.values(ui.windows)
+            .filter((app) => app.id === "Autorec-Video-Preview")
+            .forEach((app) => app.close());
         activeTabValue = tabValue;
     };
 
@@ -109,8 +112,9 @@
         };
         flagData = flagData;
     }
-
-    async function sortMenu() {
+    /*
+    let searchFunction = foundry.utils.debounce(() => {
+        console.log("SEARCHING");
         let currentMenu = items.filter((obj) => {
             return obj.value === activeTabValue;
         })[0];
@@ -139,8 +143,8 @@
 
         flagData[currentMenu.type] = sortedMenu;
         flagData = flagData;
-
-    }
+    }, 300);
+    */
 </script>
 
 <ApplicationShell
@@ -174,7 +178,6 @@
                     class="aa-sort aa-zoom"
                     for=""
                     style="max-width: 25%;"
-                    on:click={() => sortMenu()}
                     ><i class="fas fa-sort-alpha-down fa-lg aa-green" />
                     {localize("autoanimations.menus.sortmenu")}</label
                 >
@@ -192,8 +195,10 @@
                     {#if activeTabValue == item.value}
                         {#if searchValue}
                             {#each menuListings[item.type] as menuSection, idx (menuSection.id)}
-                                {#if item.type === "preset"}
-                                    {#if menuSection.name && menuSection.name.toLowerCase().includes(searchValue.toLowerCase())}
+                                {#if menuSection.name && menuSection.name
+                                        .toLowerCase()
+                                        .includes(searchValue.toLowerCase())}
+                                    {#if item.type === "preset"}
                                         <PresetShell
                                             bind:menuSection
                                             {idx}
@@ -201,9 +206,7 @@
                                             {flagData}
                                             bind:menuListings
                                         />
-                                    {/if}
-                                {:else if item.type === "aefx"}
-                                    {#if menuSection.name && menuSection.name.toLowerCase().includes(searchValue.toLowerCase())}
+                                    {:else if item.type === "aefx"}
                                         <div class="aaMenu-section">
                                             <ActiveEffectShell
                                                 bind:menuSection
@@ -213,17 +216,17 @@
                                                 bind:menuListings
                                             />
                                         </div>
+                                    {:else}
+                                        <div class="aaMenu-section">
+                                            <PrimaryMenuShell
+                                                bind:menuSection
+                                                {idx}
+                                                type={item.type}
+                                                {flagData}
+                                                bind:menuListings
+                                            />
+                                        </div>
                                     {/if}
-                                {:else if menuSection.name && menuSection.name.toLowerCase().includes(searchValue.toLowerCase())}
-                                    <div class="aaMenu-section">
-                                        <PrimaryMenuShell
-                                            bind:menuSection
-                                            {idx}
-                                            type={item.type}
-                                            {flagData}
-                                            bind:menuListings
-                                        />
-                                    </div>
                                 {/if}
                             {/each}
                         {:else}
@@ -267,7 +270,8 @@
             <div class="aa-submit">
                 <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
                     <button class="aa-addSection" on:click={() => addSection()}
-                        >{localize("autoanimations.menus.add")} {localize("autoanimations.menus.section")}</button
+                        >{localize("autoanimations.menus.add")}
+                        {localize("autoanimations.menus.section")}</button
                     >
                 </div>
                 <div class="flexcol" style="grid-row:1/2; grid-column:2/3">

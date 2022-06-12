@@ -397,6 +397,6 @@
         transition: opacity 0.5s;
     }
     .aa-select-label label{
-        font-size: medium
+        font-size: large;
     }
 </style>

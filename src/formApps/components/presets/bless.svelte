@@ -75,10 +75,14 @@
     <div class="aa-preset-header">
         <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
             <label for="" style="font-size:xx-large; color: rgba(0, 0, 0, 0.6)"
-                >{localize("autoanimations.presetTypes.bless")}</label
+                >{localize(
+                    "autoanimations.presetTypes.bless"
+                )}</label
             >
         </div>
-    </div>    
+    </div>
+</div>
+<div class="aaMenu-section">
     <div class="aa-3wide">
         <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
             <label for="">{localize("autoanimations.menus.color")}</label>
@@ -90,7 +94,7 @@
         </div>
     </div>
     <div class="aa-options-border">
-        <h2 style="margin-top:5px;">{localize("autoanimations.menus.options")}</h2>
+        <h2 style="margin-top:5px; font-size:22px">{localize("autoanimations.menus.options")}</h2>
     <div class="aa-options">
         <!--Persistent Setting-->
         <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">

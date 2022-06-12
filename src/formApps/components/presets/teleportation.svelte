@@ -196,8 +196,10 @@
         <div class="flexcol" style="grid-row:1/2; grid-column: 4/5">
             <label for=""><i class="fas fa-info-circle aa-info-icon" on:click={() => info()}></i></label>
         </div>
-    </div>    
-    <div class="aa-options-border">
+    </div>
+</div>
+<div class="aaMenu-section">
+    <div class="aa-options-border" style="margin-top:5px">
         <h2 style="margin-top:10px;">{localize("autoanimations.menus.options")}</h2>
         <div class="aa-3wide">
             <!--Measurement Type-->
@@ -254,7 +256,7 @@
         {flagData}
     />
     <div class="aa-options-border">
-        <h2>{localize("autoanimations.menus.options")}</h2>
+        <h2 style="font-size:22px">{localize("autoanimations.menus.options")}</h2>
         <div class="aa-options">
             <!--Set the Masking Boolean-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
@@ -341,7 +343,7 @@
             {flagData}
         />
         <div class="aa-options-border">
-            <h2>{localize("autoanimations.menus.options")}</h2>
+            <h2 style="font-size:22px">{localize("autoanimations.menus.options")}</h2>
             <div class="aa-options">
                 <!--Set Z-Index-->
                 <div

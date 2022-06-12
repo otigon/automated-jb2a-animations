@@ -18,7 +18,9 @@
     }
 
     function enableSound() {
-        soundEnabled = !soundEnabled;
+        if (soundEnabled) {
+            showSound = true;
+        }
     }
 
     $: section01.enable = soundEnabled;
@@ -26,14 +28,17 @@
     let startTime = section01.startTime;
     $: startTime = section01.startTime = Number(startTime);
 
-    let volume = section01.volume;
+    let volume = section01.volume || 0.75;
     $: volume = section01.volume = Number(volume);
 
-    let delay = section01.delay;
+    let delay = section01.delay || 0;
     $: delay = section01.delay = Number(delay);
 
     let soundPath = section01.file || "";
     $: soundPath = section01.file = soundPath;
+
+    let showSound = soundEnabled && !soundPath ? true : section01.showSound;
+    $: showSound = section01.showSound = showSound;
 
     async function selectCustom() {
         const current = soundPath;
@@ -51,42 +56,57 @@
     }
 
     function playSound() {
-        AudioHelper.play(
-            { src: soundPath, volume: volume, autoplay: true, loop: false },
-            true
-        );
+        new Sequence().sound().file(soundPath).volume(volume).play();
     }
 </script>
 
 <div class="aa-options-border" in:fade>
     <div class="aa-header-section">
         <div class="aa-header">
+            <div class="flexcol" style="grid-row:1/2; grid-column:1/2;">
+                <i
+                    class="{showSound
+                        ? 'fas fa-caret-down fa-lg aa-greyScale'
+                        : 'fas fa-caret-right fa-lg aa-greyScale'} aa-zoom"
+                    title={showSound ? "collapse" : "expand"}
+                    on:click={() => (showSound = !showSound)}
+                />
+            </div>
             <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
-                <label for="">{localize("autoanimations.menus.sound")}</label>
+                <label for=""  style="font-size:22px"
+                    >{localize("autoanimations.menus.sound")}
+                    {soundEnabled
+                        ? localize("autoanimations.menus.enabled")
+                        : localize("autoanimations.menus.disabled")}</label
+                >
+            </div>
+            <div
+                class="flexcol aa-checkbox"
+                style="grid-row:1/2; grid-column:5/6"
+            >
+                <input
+                    type="checkbox"
+                    style="align-self:center"
+                    title="Toggle Sound On/Off"
+                    on:click={() => soundEnabled = !soundEnabled}
+                    on:change={() => enableSound()}
+                    bind:checked={soundEnabled}
+                />
             </div>
             {#if soundEnabled && soundPath}
-                <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
+                <div class="flexcol" style="grid-row:1/2; grid-column:4/5">
                     <i
                         class="fas fa-music aa-video-preview"
                         on:click={() => playSound()}
                     />
                 </div>
             {/if}
-            <div class="flexcol" style="grid-row:1/2; grid-column:5/6;">
-                <i
-                    class="{soundEnabled
-                        ? "fas fa-minus aa-red"
-                        : "fas fa-plus aa-green"} aa-zoom"
-                    on:click={() => enableSound()}
-                />
-            </div>
         </div>
     </div>
-    {#if soundEnabled}
+    {#if showSound}
+        <div class={!soundEnabled ? 'isDisabled' : ""}>
         <div
-            class="aa-customAnim-container {!soundEnabled
-                ? 'opacityBorder'
-                : ''}"
+            class="aa-customAnim-container"
             in:fade
         >
             <div
@@ -96,10 +116,8 @@
                 <input
                     type="text"
                     bind:value={soundPath}
-                    style="font-family:none; font-weight:normal; font-size:medium"
-                    class={soundPath
-                        ? "isPopulated"
-                        : ""}
+                    style="font-weight:normal; font-size:small"
+                    class={soundPath ? "isPopulated" : ""}
                 />
                 <button
                     class="file-picker"
@@ -115,7 +133,7 @@
                     {localize("autoanimations.menus.time")} (ms)</label
                 >
                 <input
-                    type="Number"
+                    type="number"
                     bind:value={startTime}
                     placeholder="0"
                     step="0.01"
@@ -124,7 +142,7 @@
             <div class="flexcol" style="grid-row: 3 / 4; grid-column: 2 / 3;">
                 <label for="">{localize("autoanimations.menus.volume")}</label>
                 <input
-                    type="Number"
+                    type="number"
                     bind:value={volume}
                     placeholder="0.5"
                     step="0.01"
@@ -133,13 +151,14 @@
             <div class="flexcol" style="grid-row: 3 / 4; grid-column: 3 / 4;">
                 <label for="">{localize("autoanimations.menus.delay")}</label>
                 <input
-                    type="Number"
+                    type="number"
                     bind:value={delay}
                     placeholder="0"
                     step="0.01"
                 />
             </div>
         </div>
+    </div>
     {/if}
 </div>
 
@@ -151,14 +170,14 @@
         width: 3em;
         color: black;
         font-weight: normal;
-        background:rgb(191 187 182);
-        font-size:14px;
-        height:1.5em;
+        background: rgb(191 187 182);
+        font-size: 14px;
+        height: 1.5em;
         font-family: "Signika", sans-serif;
     }
     .aa-3wide label {
         align-self: center;
-        font-size:large;
+        font-size: large;
     }
     .isPopulated {
         box-shadow: 0 0 6px rgba(25, 175, 2, 0.6);
@@ -189,15 +208,8 @@
         margin-left: 5%;
         color: black;
     }
-    .aa-red {
-        color: red;
-        transition: "color" 0.5s;
-    }
-    .aa-green {
-        color: green;
-        transition: "color" 0.5s;
-    }
-    .aa-zoom:hover {
-        transform: scale(1.2);
+    .isDisabled {
+        pointer-events: none;
+        opacity: 0.4;
     }
 </style>

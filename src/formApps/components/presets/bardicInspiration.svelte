@@ -119,10 +119,6 @@
         belowToken = !belowToken;
     }
 
-    function switchSourceEnable() {
-        bardSelf = !bardSelf;
-        self.enable = bardSelf;
-    }
     async function sourceAnimationChange() {
         let newAnimation = sourceAnimation;
         let newSourceType =
@@ -139,10 +135,6 @@
         sourceColor = Object.keys(
             aaColorMenu.static[sourceType][sourceAnimation][newVariant]
         )[0];
-    }
-    function switchTargetEnable() {
-        bardTarget = !bardTarget;
-        target.enable = bardTarget;
     }
     async function targetAnimationChange() {
         let newAnimation = targetAnimation;
@@ -167,25 +159,36 @@
     }
 </script>
 
-<div class="aa-preset-header">
-    <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
-        <label for="" style="font-size:xx-large; color: rgba(0, 0, 0, 0.6)"
-            >{localize("autoanimations.presetTypes.bardicinspiration")}</label
-        >
+<div class="aaMenu-section">
+    <div class="aa-preset-header">
+        <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
+            <label for="" style="font-size:xx-large; color: rgba(0, 0, 0, 0.6)"
+                >{localize(
+                    "autoanimations.presetTypes.bardicinspiration"
+                )}</label
+            >
+        </div>
     </div>
 </div>
 <div class="aaMenu-section">
     <div class="aa-subheader-section">
         <div class="aa-subheader">
             <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-                <label for="">Source Animation</label>
+                <label for=""
+                    >{localize("autoanimations.menus.source")}
+                    {localize("autoanimations.menus.animation")}</label
+                >
             </div>
-            <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
-                <i
-                    class="{bardSelf
-                        ? 'fas fa-minus aa-red'
-                        : 'fas fa-plus aa-green'} aaCenterToggle"
-                    on:click={() => switchSourceEnable()}
+            <div
+                class="flexcol aa-checkbox"
+                style="grid-row:1/2; grid-column:3/4"
+            >
+                <input
+                    type="checkbox"
+                    style="align-self:center"
+                    title="Toggle Sound On/Off"
+                    on:click={() => (bardSelf = !bardSelf)}
+                    bind:checked={bardSelf}
                 />
             </div>
         </div>
@@ -249,12 +252,16 @@
                     {localize("autoanimations.menus.animation")}</label
                 >
             </div>
-            <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
-                <i
-                    class="{bardTarget
-                        ? 'fas fa-minus aa-red'
-                        : 'fas fa-plus aa-green'} aaCenterToggle"
-                    on:click={() => switchTargetEnable()}
+            <div
+                class="flexcol aa-checkbox"
+                style="grid-row:1/2; grid-column:3/4"
+            >
+                <input
+                    type="checkbox"
+                    style="align-self:center"
+                    title="Toggle Sound On/Off"
+                    on:click={() => (bardTarget = !bardTarget)}
+                    bind:checked={bardTarget}
                 />
             </div>
         </div>
@@ -318,12 +325,16 @@
                     {localize("autoanimations.menus.animation")}</label
                 >
             </div>
-            <div class="flexcol" style="grid-row:1/2; grid-column:3/4;">
-                <i
-                    class="{markerEnable
-                        ? 'fas fa-minus aa-red'
-                        : 'fas fa-plus aa-green'} aaCenterToggle"
-                    on:click={() => switchMarkerEnable()}
+            <div
+                class="flexcol aa-checkbox"
+                style="grid-row:1/2; grid-column:3/4"
+            >
+                <input
+                    type="checkbox"
+                    style="align-self:center"
+                    title="Toggle Sound On/Off"
+                    on:click={() => (markerEnable = !markerEnable)}
+                    bind:checked={markerEnable}
                 />
             </div>
         </div>
@@ -357,7 +368,7 @@
 </div>
 <div class="aaMenu-section">
     <div class="aa-options-border" style="margin-top:5px">
-        <h2 style="margin-top:5px;">Options</h2>
+        <h2 style="margin-top:5px; font-size:22px">Options</h2>
         <div class="aa-options">
             <!--Set Z-Index-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
