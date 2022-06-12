@@ -112,6 +112,7 @@ export async function meleeAnimation(handler, animationData) {
                     .atLocation(sourceToken)
                     .stretchTo(target)
                     .opacity(data.opacity)
+                    .zIndex(data.zIndex)
                     .randomizeMirrorY()
                     .repeats(data.repeat, data.delay)
                     .missed(!hit)
@@ -140,6 +141,7 @@ export async function meleeAnimation(handler, animationData) {
                         .missed(!hit)
                         .name("spot" + ` ${target.id}`)
                         .belowTokens(data.below)
+                        .zIndex(data.zIndex)
                 } else {
                     aaSeq.effect()
                         .file(attack.file)
@@ -154,6 +156,7 @@ export async function meleeAnimation(handler, animationData) {
                         .name("spot" + ` ${target.id}`)
                         .belowTokens(data.below)
                         .anchor({ x: 0.4, y: 0.5 })
+                        .zIndex(data.zIndex)
                 }
             }
 
@@ -167,6 +170,8 @@ export async function meleeAnimation(handler, animationData) {
                     explosionSeq.delay(data.explosion?.delay)
                     explosionSeq.repeats(data.repeat, data.delay)
                     explosionSeq.belowTokens(data.explosion?.below)
+                    explosionSeq.zIndex(data.explosion.zIndex)
+                    explosionSeq.opacity(data.explosion.opacity)
                     if (data.explosion?.isMasked) {
                         explosionSeq.mask(target)
                     }        

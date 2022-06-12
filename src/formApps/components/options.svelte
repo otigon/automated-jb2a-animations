@@ -30,6 +30,9 @@
     let opacity = options.opacity || 1;
     $: opacity = options.opacity = opacity > 1 ? 1 : opacity;
 
+    let zIndex = options.zIndex || 1;
+    $: zIndex = options.zIndex = zIndex;
+
     let unbindAlpha = options.unbindAlpha || false;
     $: unbindAlpha = options.unbindAlpha = unbindAlpha;
 
@@ -41,11 +44,15 @@
 
     let removeTemplate = options.removeTemplate || false;
     $: removeTemplate = options.removeTemplate = removeTemplate;
-    $: isRemove = removeTemplate ? game.i18n.localize("autoanimations.menus.yes") : game.i18n.localize("autoanimations.menus.no");
+    $: isRemove = removeTemplate
+        ? game.i18n.localize("autoanimations.menus.yes")
+        : game.i18n.localize("autoanimations.menus.no");
 
     let ignoreTarget = options.ignoreTarget || false;
     $: ignoreTarget = options.ignoreTarget = ignoreTarget;
-    $: isIgnore = ignoreTarget ? game.i18n.localize("autoanimations.menus.yes") : game.i18n.localize("autoanimations.menus.no");
+    $: isIgnore = ignoreTarget
+        ? game.i18n.localize("autoanimations.menus.yes")
+        : game.i18n.localize("autoanimations.menus.no");
 
     let scaleX = options.scaleX;
     $: scaleX = options.scaleX = scaleX;
@@ -128,7 +135,9 @@
     function switchAddToken() {
         addToken = !addToken;
     }
-    $: isAddToken = addToken ? game.i18n.localize("autoanimations.menus.yes") : game.i18n.localize("autoanimations.menus.no");
+    $: isAddToken = addToken
+        ? game.i18n.localize("autoanimations.menus.yes")
+        : game.i18n.localize("autoanimations.menus.no");
 
     function optionsInfo() {
         new OptionsDialog().render(true);
@@ -136,7 +145,9 @@
 
     let isMasked = options.isMasked || false;
     $: isMasked = options.isMasked = isMasked;
-    $: maskLabel = isMasked ? game.i18n.localize("autoanimations.menus.enabled") : game.i18n.localize("autoanimations.menus.disabled");
+    $: maskLabel = isMasked
+        ? game.i18n.localize("autoanimations.menus.enabled")
+        : game.i18n.localize("autoanimations.menus.disabled");
     function switchMask() {
         isMasked = !isMasked;
     }
@@ -160,11 +171,15 @@
     <div class="aa-options" in:fade={{ duration: 500 }}>
         <!--Persistent Setting-->
         <div
-            class="flexcol {disabled01 || animType === "aura" ? 'aa-disabled' : ''}"
+            class="flexcol {disabled01 || animType === 'aura'
+                ? 'aa-disabled'
+                : ''}"
             style="grid-row: 1 / 2; grid-column: 1 / 2;"
         >
             <label for="">{localize("autoanimations.menus.persistence")}</label>
-            <button on:click={() => switchPersistence()} disabled={disabled01 || animType === "aura"}
+            <button
+                on:click={() => switchPersistence()}
+                disabled={disabled01 || animType === "aura"}
                 >{isPersistent}</button
             >
         </div>
@@ -179,7 +194,7 @@
         <div
             class="flexcol {disabled01 ||
             animType === 'templatefx' ||
-            (!persistent && animType !== "aura")
+            (!persistent && animType !== 'aura')
                 ? 'aa-disabled'
                 : ''}"
             style="grid-row: 1 / 2; grid-column: 3 / 4;"
@@ -189,14 +204,15 @@
                 on:click={() => switchVisibility()}
                 disabled={disabled01 ||
                     animType === "templatefx" ||
-                    (!persistent && animType !== "aura")}>{bindVisibility}</button
+                    (!persistent && animType !== "aura")}
+                >{bindVisibility}</button
             >
         </div>
         <!--Bind/Unbind Opacity (for Persistent Effects)-->
         <div
             class="flexcol {disabled01 ||
             animType === 'templatefx' ||
-            (!persistent && animType !== "aura")
+            (!persistent && animType !== 'aura')
                 ? 'aa-disabled'
                 : ''}"
             style="grid-row: 1 / 2; grid-column: 4 / 5;"
@@ -218,13 +234,14 @@
             <button
                 class={isMasked ? "aa-selected" : "aa-notSelected"}
                 disabled={disabled01 || removeTemplate}
-                on:click={() => switchMask()}
-                >{maskLabel}</button
+                on:click={() => switchMask()}>{maskLabel}</button
             >
-        </div> 
+        </div>
         <!--Set Number of times the animation plays-->
         <div
-            class="flexcol {isDisabled || animType === "aura" ? 'aa-disabled' : ''}"
+            class="flexcol {isDisabled || animType === 'aura'
+                ? 'aa-disabled'
+                : ''}"
             style="grid-row: 2 / 3; grid-column: 2 / 3;"
         >
             <label for="">{localize("autoanimations.menus.repeat")}</label>
@@ -237,7 +254,9 @@
         </div>
         <!--Set delay between repeats-->
         <div
-            class="flexcol {isDisabled || animType === "aura" ? 'aa-disabled' : ''}"
+            class="flexcol {isDisabled || animType === 'aura'
+                ? 'aa-disabled'
+                : ''}"
             style="grid-row: 2 / 3; grid-column: 3 / 4;"
         >
             <label for=""
@@ -273,7 +292,11 @@
                     class="flexcol"
                     style="grid-row: 3 / 4; grid-column: 3 / 4;"
                 >
-                    <label for="">{localize("autoanimations.menus.add")} {localize("autoanimations.menus.token")} {localize("autoanimations.menus.width")}</label>
+                    <label for=""
+                        >{localize("autoanimations.menus.add")}
+                        {localize("autoanimations.menus.token")}
+                        {localize("autoanimations.menus.width")}</label
+                    >
                     <button
                         class={addToken ? "aa-selected" : "aa-notSelected"}
                         on:click={() => switchAddToken()}>{isAddToken}</button
@@ -324,6 +347,21 @@
                     max="1"
                     step="0.01"
                     bind:value={opacity}
+                />
+            </div>
+        </div>
+        <!--Set Z-Index of Animation-->
+        <div>
+            <div
+                class="flexcol"
+                style="grid-row: 3 /4; grid-column: 2 / 3;"
+            >
+                <label for="">{localize("autoanimations.menus.z-index")}</label>
+                <input
+                    type="number"
+                    bind:value={zIndex}
+                    placeholder="1"
+                    step="1"
                 />
             </div>
         </div>

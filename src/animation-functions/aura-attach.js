@@ -71,6 +71,7 @@ export async function auras(handler, animationData) {
             newEffect.animateProperty("sprite", "height", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
             newEffect.fadeIn(2500)
             newEffect.fadeOut(500)
+            newEffect.zIndex(data.zIndex)
             AAanimationData.howToDelete("sequencerground")
         }
         if (data.playMacro && data.macro.playWhen === "0") {
@@ -116,6 +117,7 @@ export async function auras(handler, animationData) {
                 newEffect.animateProperty("sprite", "height", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
                 newEffect.fadeIn(2500)
                 newEffect.fadeOut(500)
+                newEffect.zIndex(data.zIndex)
             }
 
         }

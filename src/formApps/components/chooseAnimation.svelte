@@ -386,9 +386,8 @@
     .aa-return button {
         border-radius: 10px;
         border: 2px outset rgb(142, 142, 142);
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-weight: bold;
-        font-size: large;
+        font-family: "Signika", sans-serif;
+        font-size: 14px;
         line-height: 1.25em;
         width: 75%;
         align-self: center;

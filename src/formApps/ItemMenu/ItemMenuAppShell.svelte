@@ -221,7 +221,7 @@
         class="overview"
     >
         <div class="aaTopSection" style="margin-top:5px" transition:fade>
-            <div class="aa-tabs">
+            <div class="aa-tabs {!isCustomized && !overrideAuto ? 'aa-disabled' : ""}">
                 <div
                     class="flexcol"
                     style="grid-row: 1 / 2; grid-column: 1 / 2;"
@@ -241,6 +241,7 @@
                     <button
                         class={focusExtra ? "selected" : "notSelected"}
                         on:click={() => switchExtra()}
+                        disabled={!isCustomized && !overrideAuto}
                         ><i class="fas fa-user-plus" />
                         {localize("autoanimations.menus.extra")}
                         {localize("autoanimations.menus.effects")}</button
@@ -253,6 +254,7 @@
                     <button
                         class={focus3d ? "selected" : "notSelected"}
                         on:click={() => switch3d()}
+                        disabled={!isCustomized && !overrideAuto}
                         ><i class="fas fa-vr-cardboard" /> 3D Canvas</button
                     >
                 </div>
@@ -708,5 +710,9 @@
     }
     .aa-pickAnim label {
         align-self: center;
+    }
+    .aa-disabled button:disabled {
+        opacity: 0.3;
+        transition: opacity 0.5s;
     }
 </style>

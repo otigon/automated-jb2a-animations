@@ -97,6 +97,14 @@
             </td>
         </tr>
         <tr>
+            <td class="aa-table">
+                <strong>{localize("autoanimations.menus.z-index")}</strong>
+            </td>
+            <td>
+                Sets the z-index of the effect. Best used when chaining multiple effects.
+            </td>
+        </tr>
+        <tr>
             <th colspan="2">{localize("autoanimations.animTypes.templates")} Menu </th>
         </tr>
         <tr>

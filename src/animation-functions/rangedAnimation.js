@@ -78,6 +78,7 @@ export async function rangedAnimations(handler, animationData) {
                 .missed(!hit)
                 .name("spot" + ` ${target.id}`)
                 .belowTokens(data.below)
+                .zIndex(data.zIndex)
             if (switchReturn) {
                 aaSeq.effect()
                     .file(attack.returnFile, true)
@@ -86,6 +87,7 @@ export async function rangedAnimations(handler, animationData) {
                     .atLocation(sourceToken)
                     .repeats(data.repeat, data.delay)
                     .stretchTo("spot" + ` ${target.id}`)
+                    .zIndex(data.zIndex)
             }
             if (data.explosion.enabled) {
                 let explosionSeq = aaSeq.effect()
@@ -96,6 +98,8 @@ export async function rangedAnimations(handler, animationData) {
                     explosionSeq.delay(data.explosion?.delay)
                     explosionSeq.repeats(data.repeat, data.delay)
                     explosionSeq.belowTokens(data.explosion?.below)
+                    explosionSeq.zIndex(data.explosion.zIndex)
+                    explosionSeq.opacity(data.explosion.opacity)
                     if (data.explosion?.isMasked) {
                         explosionSeq.mask(target)
                     }        

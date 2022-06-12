@@ -101,23 +101,26 @@ export async function staticAnimation(handler, animationData) {
             }
             aaEffect.fadeIn(250)
             aaEffect.fadeOut(500)
+            aaEffect.zIndex(data.zIndex)
             if (!data.persistent) { aaEffect.atLocation(sourceToken); aaEffect.repeats(data.repeat, data.delay) }
             if (playPersist) { aaEffect.attachTo(sourceToken, {bindAlpha: data.unbindAlpha, bindVisibility: data.unbindVisibility}); aaEffect.persist(true); aaEffect.origin(handler.itemUuid) }
             if (checkAnim) { aaEffect.playIf(false); }
 
         }
-
         if (data.explosion.enabled) {
-            aaSeq.effect()
-                .atLocation("spot" + ` ${sourceToken.id}`)
-                .file(data.explosion?.data?.file, true)
+            let explosionSeq = aaSeq.effect()
+            explosionSeq.atLocation("spot" + ` ${sourceToken.id}`)
+            explosionSeq.file(data.explosion?.data?.file, true)
                 //.scale({ x: data.explosion?.scale, y: data.explosion?.scale })
-                .size(data.explosion?.radius * 2, {gridUnits: true})
-                .delay(data.explosion?.delay)
-                .repeats(data.repeat, data.delay)
-                .belowTokens(data.explosion?.below)
-                .fadeOut(500)
-                .playIf(data.explosion?.enabled)
+                explosionSeq.size(data.explosion?.radius * 2, {gridUnits: true})
+                explosionSeq.delay(data.explosion?.delay)
+                explosionSeq.repeats(data.repeat, data.delay)
+                explosionSeq.belowTokens(data.explosion?.below)
+                explosionSeq.zIndex(data.explosion.zIndex)
+                explosionSeq.opacity(data.explosion.opacity)
+                if (data.explosion?.isMasked) {
+                    explosionSeq.mask(target)
+                }        
         }
         explosionSound = true;
     }
@@ -182,6 +185,7 @@ export async function staticAnimation(handler, animationData) {
                     }
                     aaEffect.fadeIn(250)
                     aaEffect.fadeOut(500)
+                    aaEffect.zIndex(data.zIndex)
                     if (!data.persistent) { aaEffect.atLocation(target); aaEffect.missed(!hit); aaEffect.repeats(data.repeat, data.delay) }
                     else { aaEffect.attachTo(target, {bindAlpha: data.unbindAlpha, bindVisibility: false}); aaEffect.persist(true); aaEffect.origin(handler.itemUuid) }
                 }
@@ -195,6 +199,8 @@ export async function staticAnimation(handler, animationData) {
                         explosionSeq.delay(data.explosion?.delay)
                         explosionSeq.repeats(data.repeat, data.delay)
                         explosionSeq.belowTokens(data.explosion?.below)
+                        explosionSeq.zIndex(data.explosion.zIndex)
+                        explosionSeq.opacity(data.explosion.opacity)        
                         if (data.explosion?.isMasked) {
                             explosionSeq.mask(target)
                         }        

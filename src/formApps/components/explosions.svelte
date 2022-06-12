@@ -17,7 +17,9 @@
 
     let isMasked = root.isMasked || false;
     $: isMasked = root.isMasked = isMasked;
-    $: maskLabel = isMasked ? game.i18n.localize("autoanimations.menus.enabled") : game.i18n.localize("autoanimations.menus.disabled");
+    $: maskLabel = isMasked
+        ? game.i18n.localize("autoanimations.menus.enabled")
+        : game.i18n.localize("autoanimations.menus.disabled");
     function switchMask() {
         isMasked = !isMasked;
     }
@@ -37,6 +39,12 @@
     function below() {
         belowToken = !belowToken;
     }
+
+    let opacity = root.opacity || 1;
+    $: opacity = root.opacity = opacity > 1 ? 1 : opacity;
+
+    let zIndex = root.zIndex || 1;
+    $: zIndex = root.zIndex = zIndex;
 
     let enableSection = root.enable || false;
 
@@ -149,10 +157,59 @@
                     class="flexcol"
                     style="grid-row: 1 / 2; grid-column: 4 / 5;"
                 >
-                    <label for="">{localize("autoanimations.menus.level")}</label>
+                    <label for=""
+                        >{localize("autoanimations.menus.level")}</label
+                    >
                     <button class="oldCheck" on:click={() => below()}
                         >{aboveBelow}</button
                     >
+                </div>
+                <!--Set Animation Opacity-->
+                <div
+                    class="flexcol"
+                    style="grid-row: 2 / 3; grid-column: 2 / 3;"
+                    in:fade={{ duration: 500 }}
+                >
+                    <label for="aaOpacity"
+                        >{localize("autoanimations.menus.opacity")}</label
+                    >
+                    <div class="form-group">
+                        <input
+                            style="font-weight: normal;background:rgb(191 187 182);font-size:14px;height:1.5em;max-width: 3.5em;font-family: Signika, sans-serif;"
+                            type="number"
+                            id="aaOpacity"
+                            bind:value={opacity}
+                            placeholder="1"
+                            min="0"
+                            max="1"
+                            step="0.01"
+                        />
+                        <input
+                            style="border:none; background:none"
+                            type="range"
+                            min="0"
+                            max="1"
+                            step="0.01"
+                            bind:value={opacity}
+                        />
+                    </div>
+                </div>
+                <!--Set Z-Index of Animation-->
+                <div>
+                    <div
+                        class="flexcol"
+                        style="grid-row: 2 / 3; grid-column: 3 / 4;"
+                    >
+                        <label for=""
+                            >{localize("autoanimations.menus.z-index")}</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={zIndex}
+                            placeholder="1"
+                            step="1"
+                        />
+                    </div>
                 </div>
             </div>
         </div>

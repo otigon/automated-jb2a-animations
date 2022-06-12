@@ -59,6 +59,9 @@
     let opacity = options.opacity || 1;
     $: opacity = options.opacity = opacity > 1 ? 1 : Number(opacity);
 
+    let zIndex = options.zIndex || 1;
+    $: zIndex = options.zIndex = zIndex;
+
     let unbindAlpha = options.unbindAlpha || false;
     $: unbindAlpha = options.unbindAlpha = unbindAlpha;
 
@@ -95,7 +98,9 @@
           game.i18n.localize("autoanimations.menus.persistant");
     let isMasked = options.isMasked || false;
     $: isMasked = options.isMasked = isMasked;
-    $: maskLabel = isMasked ? game.i18n.localize("autoanimations.menus.enabled") : game.i18n.localize("autoanimations.menus.disabled");
+    $: maskLabel = isMasked
+        ? game.i18n.localize("autoanimations.menus.enabled")
+        : game.i18n.localize("autoanimations.menus.disabled");
     function switchMask() {
         isMasked = !isMasked;
     }
@@ -179,7 +184,9 @@
             {flagData}
         />
         <div class="aa-options-border" transition:fade={{ duration: 500 }}>
-            <h2 style="margin-top:5px" transition:fade>{localize("autoanimations.menus.options")}</h2>
+            <h2 style="margin-top:5px" transition:fade>
+                {localize("autoanimations.menus.options")}
+            </h2>
             <div class="aa-options" transition:fade>
                 <!--Persistent Setting-->
                 <div
@@ -197,7 +204,7 @@
                         >{isPersistent}</button
                     >
                 </div>
-                <!--Set Z-Index-->
+                <!--Set Animation Level-->
                 <div
                     class="flexcol"
                     style="grid-row: 1 / 2; grid-column: 2 / 3;"
@@ -327,6 +334,23 @@
                             step="0.01"
                             bind:value={opacity}
                             style="border:none; background:none"
+                        />
+                    </div>
+                </div>
+                <!--Set Z-Index of Animation-->
+                <div>
+                    <div
+                        class="flexcol"
+                        style="grid-row: 3 /4; grid-column: 2 / 3;"
+                    >
+                        <label for=""
+                            >{localize("autoanimations.menus.z-index")}</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={zIndex}
+                            placeholder="1"
+                            step="1"
                         />
                     </div>
                 </div>
