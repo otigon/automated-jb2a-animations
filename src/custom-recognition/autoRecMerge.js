@@ -3,15 +3,15 @@ export const autoRecMigration = {
 
     async handle(autoObject, shouldSubmit, updateMerge) {
 
+        if (!autoObject) { return; }
+        if (this.upToDate(autoObject)) { return; }
+
         if (updateMerge) {
             ui.notifications.info("Exporting your Autorec Menu before running Migration")
             const data = (game.settings.get('autoanimations', 'aaAutorec'))
             const filename = `Autorec-Menu-Backup`;
             saveDataToFile(JSON.stringify(data, null, 2), "text/json", filename);    
         }
-
-        if (!autoObject) { return; }
-        if (this.upToDate(autoObject)) { return; }
 
         ui.notifications.info("Automated Animations: Updating the Automatic Recognition Menu")
         let currentAutorec = autoObject;
