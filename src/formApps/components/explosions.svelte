@@ -10,7 +10,11 @@
     export let flagData;
     export let isAutoRec;
     export let isOverride;
+    const autoOverride = flagData.autoOverride;
     flagData.explosions ? flagData.explosions : (flagData.explosions = {});
+    if (isOverride) {
+        autoOverride.explosions ? autoOverride.explosions : autoOverride.explosions = {};
+    }
     const root = isOverride
         ? flagData.autoOverride?.explosions
         : flagData.explosions;

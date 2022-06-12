@@ -28,10 +28,13 @@
     $: primaryAnimation = primaryAnimation;
 
     const returningWeapons = aaReturnWeapons;
-    
+    const autoOverride = flagData.autoOverride;
     flagData.meleeSwitch ? flagData.meleeSwitch : (flagData.meleeSwitch = {});
+    if (isOverride) {
+        autoOverride.meleeSwitch ? autoOverride.meleeSwitch : autoOverride.meleeSwitch = {};
+    }
     let meleeSwitch = isOverride ? flagData.autoOverride?.meleeSwitch : flagData.meleeSwitch;
-
+    console.log(flagData)
     let switchType = meleeSwitch.switchType || "on";
 
     // Sets Initial Menu Type for Menu - Assigns to Flag when updated
