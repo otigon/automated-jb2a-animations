@@ -1,0 +1,66 @@
+{
+    "name": "autoanimations",
+    "title": "Automated Animations",
+    "description": "This will automatically run most JB2A Animations such as Melee/Ranged Attacks, Spell Attacks, and Instant Spells",
+    "version": "3.2.!2",
+    "author": "Otigon",
+    "url": "https://github.com/otigon/automated-jb2a-animations",
+    "minimumCoreVersion": "0.8.1",
+    "compatibleCoreVersion": "9",
+    "styles": [
+        "./dist/module.css",
+        "./styles/newMenuCss.css"
+    ],
+    "esmodules": [
+        "./dist/module.js"
+    ],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "lang/en.json"
+        },
+        {
+            "lang": "es",
+            "name": "Español",
+            "path": "lang/es.json"
+        },
+        {
+            "lang": "ko",
+            "name": "Korean",
+            "path": "lang/ko.json"
+        },
+        {
+            "lang": "ja",
+            "name": "日本語",
+            "path": "lang/ja.json"
+        },
+        {
+            "lang": "fr",
+            "name": "Français",
+            "path": "lang/fr.json"
+        },
+        {
+            "lang": "pt-BR",
+            "name": "Português (Brasil)",
+            "path": "lang/pt-br.json"
+        },
+        {
+            "lang": "de",
+            "name": "Deutsch",
+            "path": "lang/de.json"
+        }
+    ],
+    "dependencies": [
+        {
+            "name": "sequencer",
+            "manifest": "https://github.com/fantasycalendar/FoundryVTT-Sequencer/releases/latest/download/module.json"
+        },
+        {
+            "name": "socketlib"
+        }
+    ],
+    "socket": true,
+    "manifest": "https://raw.githubusercontent.com/otigon/automated-jb2a-animations/next/module.json",
+    "download": "https://github.com/otigon/automated-jb2a-animations/releases/download/3.2.!2/module.zip"
+}
