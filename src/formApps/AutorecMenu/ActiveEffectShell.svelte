@@ -210,7 +210,7 @@
         <div style="grid-row:1/2; grid-column:2/3">
             <label for=""><i class="fas fa-cube aa-disabled" /></label>
         </div>
-        <div style="grid-row:1/2; grid-column:3/4">
+        <div style="grid-row:1/2; grid-column:3/4" class={enableMacro && playWhen === "2" ? "isDisabled" : ""}>
             <label for=""
                 ><i
                     on:click={() => toggleExtraFX()}
@@ -536,5 +536,9 @@
     }
     .aa-disabled {
         color: rgba(109, 109, 109, 0.4);
+    }
+    .isDisabled {
+        pointer-events: none;
+        opacity: 0.3;
     }
 </style>

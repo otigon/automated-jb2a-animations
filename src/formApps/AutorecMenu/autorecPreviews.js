@@ -8,3 +8,5 @@ export const closePreviewWindow = writable(shouldClose)
 export const index = writable()
 
 export const databaseType = writable()
+
+export let autorecData = writable();

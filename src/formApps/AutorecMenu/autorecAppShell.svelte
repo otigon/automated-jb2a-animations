@@ -14,6 +14,7 @@
     import {
         closePreviewWindow,
         storeAutorec,
+        autorecData,
         databaseType,
     } from "./autorecPreviews.js";
     closePreviewWindow.set(false);
@@ -34,12 +35,13 @@
         activeTabValue = tabValue;
     };
 
-    const storeData = gameSettings.getStore("aaAutorec");
-    storeData.set(game.settings.get("autoanimations", "aaAutorec"));
+    //const storeData = gameSettings.getStore("aaAutorec");
 
-    let flagData = $storeData;
-    $: flagData = flagData;
-    $: flagData = $storeData;
+    //storeData.set(game.settings.get("autoanimations", "aaAutorec"));
+    autorecData.set(game.settings.get("autoanimations", "aaAutorec"))
+    let flagData = $autorecData;
+    $: flagData = $autorecData = flagData;
+    //$: flagData = $autorecData;
 
     $: storeAutorec.set(flagData);
 
@@ -266,36 +268,39 @@
                 {/each}
             </div>
         </div>
-        <div class="aaBottomSection" style="margin-bottom: 5px">
-            <div class="aa-submit">
-                <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
-                    <button class="aa-addSection" on:click={() => addSection()}
-                        >{localize("autoanimations.menus.add")}
-                        {localize("autoanimations.menus.section")}</button
-                    >
-                </div>
-                <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-                    <button class="aa-manageMenu" on:click={() => manageMenu()}
-                        >{localize("autoanimations.menus.menuManager")}</button
-                    >
-                </div>
-                <div class="flexcol" style="grid-row:2/3; grid-column:1/2">
-                    <button class="aa-snclose" on:click={applyFlags}
-                        >{localize("autoanimations.menus.submit")}</button
-                    >
-                </div>
-                <div class="flexcol" style="grid-row:2/3; grid-column:2/3;">
-                    <button
-                        class="aa-casubmit"
-                        on:click|preventDefault={closeApp}
-                        >{localize("autoanimations.menus.close")}
-                        {localize("autoanimations.menus.and")}
-                        {localize("autoanimations.menus.submit")}</button
-                    >
-                </div>
+    </form>
+    <div class="aaBottomSection" style="margin-bottom: 5px">
+        <div class="aa-submit">
+            <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
+                <button class="aa-addSection" on:click={() => addSection()}
+                    >{localize("autoanimations.menus.add")}
+                    {localize("autoanimations.menus.section")}</button
+                >
+            </div>
+            <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
+                <button class="aa-manageMenu" on:click={() => manageMenu()}
+                    >{localize("autoanimations.menus.menuManager")}</button
+                >
+            </div>
+            <div class="flexcol" style="grid-row:2/3; grid-column:1/2">
+                <button
+                    class="footer-button aa-snclose"
+                    type="submit"
+                    on:click|preventDefault={() => applyFlags()}
+                    >{localize("autoanimations.menus.submit")}</button
+                >
+            </div>
+            <div class="flexcol" style="grid-row:2/3; grid-column:2/3;">
+                <button
+                    class="aa-casubmit"
+                    on:click|preventDefault={closeApp}
+                    >{localize("autoanimations.menus.close")}
+                    {localize("autoanimations.menus.and")}
+                    {localize("autoanimations.menus.submit")}</button
+                >
             </div>
         </div>
-    </form>
+    </div>
 </ApplicationShell>
 
 <style lang="scss">
