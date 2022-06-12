@@ -124,7 +124,7 @@
     </div>
     <div style="grid-row:1/2;grid-column:2/3">
         <label for=""
-            >{localize("autoanimations.menus.restoreHint")}</label
+            >{localize("autoanimations.settings.restoreHint")}</label
         >
     </div>
 </div>
@@ -138,7 +138,7 @@
         >
     </div>
     <div style="grid-row:2/3;grid-column:2/3">
-        <label for="">{localize("autoanimations.menus.mergeHint")}</label>
+        <label for="">{localize("autoanimations.settings.mergeHint")}</label>
     </div>
 </div>
 <div
@@ -151,7 +151,7 @@
         >
     </div>
     <div style="grid-row:3/4;grid-column:2/3">
-        <label for="">{localize("autoanimations.menus.overwriteHint")}</label>
+        <label for="">{localize("autoanimations.settings.overwriteHint")}</label>
     </div>
 </div>
 <div class="flexcol aa-tabs">
@@ -161,7 +161,7 @@
         >
     </div>
     <div style="grid-row:4/5;grid-column:2/3">
-        <label for="">{localize("autoanimations.menus.exportHint")}</label>
+        <label for="">{localize("autoanimations.settings.exportHint")}</label>
     </div>
 </div>
 

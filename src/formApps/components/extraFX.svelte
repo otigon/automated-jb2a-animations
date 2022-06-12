@@ -121,7 +121,7 @@
     }
 
     export let enableSection = root.enable || false;
-    $: enableSection = root.enable = enableSection;
+    //$: enableSection = root.enable = enableSection;
     
     let showOptions = options.showOptions ?? false;
     $: showOptions = options.showOptions = showOptions;
@@ -141,6 +141,7 @@
         isCustom = primary.enableCustom = isCustom;
         customPath = primary.customPath = customPath;
         enableSection = root.enable = enableSection;
+        flagData = flagData
         if (isAutoRec) {
             $storeAutorec = previewStoreData;
         }

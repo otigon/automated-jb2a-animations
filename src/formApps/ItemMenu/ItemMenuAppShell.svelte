@@ -549,11 +549,11 @@
                     </div>
                 </div>
                 <div class="aaMenu-section">
-                    <ExtraFX flagPath="sourceExtraFX" {flagData} isAutoRec={false} />
+                    <ExtraFX flagPath="sourceExtraFX" {flagData} bind:enableSection={enableSource} isAutoRec={false} />
                 </div>
                 {#if shouldShowTargetFX}
                     <div class="aaMenu-section">
-                        <ExtraFX flagPath="targetExtraFX" {flagData} isAutoRec={false} />
+                        <ExtraFX flagPath="targetExtraFX" {flagData} bind:enableSection={enableTarget} isAutoRec={false} />
                     </div>
                 {/if}
             </div>
