@@ -684,6 +684,12 @@ export const autoRecMigration = {
                     newMenu.templatefx[i] = {};
                     const newMO = newMenu.templatefx[i];
                     await primaryMenu(oldMO, newMO, true)
+                    let thunderwaveVariants = ['left', 'mid', 'center'];
+                    if (newMO.primary.animation === "thunderwave") {
+                        if (thunderwaveVariants.some(el => !newMO.primary.variant.includes(el))) {
+                            newMO.primary.variant = 'center'
+                        }
+                    }
                     if (newMO.options?.persistent && newMO.options?.persistType === "attachtemplate" && newMO.options?.removeTemplate) {
                         newMO.options.removeTemplate = false;
                     }
