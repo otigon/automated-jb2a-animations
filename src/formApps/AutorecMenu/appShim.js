@@ -1,4 +1,4 @@
-import AAAutorecMenu from "./aaAutorecMenu.js";
+import { showMainMenu } from './showMainUI.js';
 
 export default class AutorecShim extends FormApplication
 {
@@ -9,7 +9,7 @@ export default class AutorecShim extends FormApplication
    {
       super({}, options);
 
-      new AAAutorecMenu().render(true, { focus: true });
+      showMainMenu();
    }
 
    async _updateObject(event, formData) {}
