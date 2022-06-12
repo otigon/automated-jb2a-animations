@@ -1,5 +1,5 @@
 import { SvelteApplication } from '@typhonjs-fvtt/runtime/svelte/application';
-import ItemMenuAppShell from './itemMenuAppShell.svelte';
+import ItemMenuAppShell from './ItemMenuAppShell.svelte';
 import AutorecShim from "../AutorecMenu/appShim.js"
 
 
