@@ -97,24 +97,6 @@ export function initSettings(gameSettings) {
 
    settings.push({
       moduleId,
-      key: 'videoLoop',
-      options: {
-         name: 'autoanimations.settings.animPreview',
-         hint: 'autoanimations.settings.animPreviewHint',
-         scope: scope.world,
-         type: String,
-         choices: {
-            '0': 'No Video Preview',
-            '1': 'Manually Play Video Preview',
-            '2': 'Autoplay Video Preview'
-         },
-         default: '0',
-         config: true
-      }
-   });
-
-   settings.push({
-      moduleId,
       key: 'jb2aLocation',
       options: {
          name: 'autoanimations.settings.s3Name',
