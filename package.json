@@ -9,10 +9,10 @@
     "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)"
   ],
   "dependencies": {
-    "@typhonjs-fvtt/runtime": "^0.0.12",
-    "@typhonjs-fvtt/svelte-standard": "^0.0.0",
-    "svelte": "^3.46.4",
-    "svelte-preprocess": "^4.10.3"
+    "@typhonjs-fvtt/runtime": "^0.0.14",
+    "@typhonjs-fvtt/svelte-standard": "^0.0.1",
+    "svelte": "^3.48.0",
+    "svelte-preprocess": "^4.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7",
@@ -23,19 +23,6 @@
     "@typhonjs-fvtt/eslint-config-foundry.js": "^0.8.0",
     "eslint": "^8",
     "rollup": "^2"
-  },
-  "peerDependencies": {
-    "@rollup/plugin-node-resolve": "^13",
-    "autoprefixer": "^10",
-    "cssnano": "^5",
-    "postcss": "^8",
-    "postcss-preset-env": "^7",
-    "rollup-plugin-postcss": "^4",
-    "rollup-plugin-sourcemaps": "^0.6",
-    "rollup-plugin-svelte": "^7",
-    "rollup-plugin-terser": "^7",
-    "sass": "^1",
-    "svelte-preprocess": "^4.10.0"
   },
   "browserslist": [
     ">5%",
