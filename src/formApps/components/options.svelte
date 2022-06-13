@@ -180,7 +180,7 @@
         </div>
     </div>
     {#if optionsShown}
-    <div class="aa-options" hidden in:fade={{ duration: 500 }}>
+    <div class="aa-options" hidden in:fade>
         <!--Persistent Setting-->
         <div
             class="flexcol {disabled01 || animType === 'aura'
@@ -336,7 +336,7 @@
         <div
             class="flexcol"
             style="grid-row: 3 / 4; grid-column: 1 / 2;"
-            in:fade={{ duration: 500 }}
+            in:fade
         >
             <label for="aaOpacity"
                 >{localize("autoanimations.menus.opacity")}</label
@@ -416,7 +416,7 @@
                 <div
                     class="flexcol"
                     style="grid-row: 4 / 5;grid-column: 2 / 4;"
-                    in:fade={{ duration: 500 }}
+                    in:fade
                 >
                     <label for="1"
                         >{localize("autoanimations.menus.persistant")}
@@ -457,7 +457,7 @@
                     <div
                         class="flexcol"
                         style="grid-row: 5 / 6;grid-column: 1 / 3;"
-                        in:fade={{ duration: 500 }}
+                        in:fade
                     >
                         <label for="1"
                             >{localize(
@@ -495,7 +495,7 @@
                     <div
                         class="flexcol"
                         style="grid-row: 5 / 6; grid-column: 3 / 4;"
-                        in:fade={{ duration: 500 }}
+                        in:fade
                     >
                         <label for=""
                             >{localize(

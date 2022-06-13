@@ -180,7 +180,7 @@
             height: 200,
             width: 200,
             title: game.i18n.localize("autoanimations.presetTypes.animTeleportation") + game.i18n.localize("autoanimations.menus.preset"),
-            content: `<img src="modules/autoanimations/src/images/Teleportation.png" alt="">`,
+            content: `<img src="modules/autoanimations/styles/Teleportation.png" alt="">`,
         }).render(true);
     }
     let isGM = game.user.isGM;

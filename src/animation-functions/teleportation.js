@@ -75,7 +75,7 @@ export async function teleportation(handler, animationData) {
 
     const hideBorder = data.hideFromPlayers ? gmIDs : userIDs;
     const userColor = game.user?.data?.color ? "0x" + game.user.data.color.replace(/^#/, '') : 0x0D26FF;
-    const filePath = measureType === 'equidistant' ? "modules/autoanimations/src/images/teleportSquare.png" : "modules/autoanimations/src/images/teleportCircle.png"
+    const filePath = measureType === 'equidistant' ? "modules/autoanimations/styles/teleportSquare.png" : "modules/autoanimations/styles/teleportCircle.png"
 
     let aaSeq01 = new Sequence()
     aaSeq01.effect()
@@ -141,6 +141,8 @@ export async function teleportation(handler, animationData) {
             startEffect.atLocation(sourceToken)
             startEffect.belowTokens(startData.below)
             startEffect.size(sourceTokenGS * 1.5 * startData.scale, { gridUnits: true })
+            startEffect.fadeIn(500)
+            startEffect.fadeOut(500)
             startEffect.randomRotation()
             if (startData.isMasked) {
                 startEffect.mask(sourceToken)
@@ -163,6 +165,8 @@ export async function teleportation(handler, animationData) {
             endEffect.atLocation({ x: centerPos[0], y: centerPos[1] })
             endEffect.belowTokens(endData.below)
             endEffect.size(sourceTokenGS * 1.5 * endData.scale, { gridUnits: true })
+            startEffect.fadeIn(500)
+            startEffect.fadeOut(500)
             endEffect.randomRotation()
             if (endData.isMasked) {
                 endEffect.mask(sourceToken)
