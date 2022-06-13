@@ -41,6 +41,7 @@
     autorecData.set(game.settings.get("autoanimations", "aaAutorec"));
     let flagData = $autorecData;
     $: flagData = $autorecData = flagData;
+    $: flagData = $autorecData;
     //$: flagData = $autorecData;
 
     $: storeAutorec.set(flagData);

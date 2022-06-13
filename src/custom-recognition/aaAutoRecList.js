@@ -576,7 +576,7 @@ export class aaAutorec {
                     shield: {
                         below: false,
                         color: "blue",
-                        endeffect: "outro_explode",
+                        endEffect: "outro_explode",
                         scale: 1,
                         variant: "01",
                     }

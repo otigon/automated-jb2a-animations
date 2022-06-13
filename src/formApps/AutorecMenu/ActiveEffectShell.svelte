@@ -18,11 +18,7 @@
         aaColorMenu,
     } from "../../animation-functions/databases/jb2a-menu-options.js";
     import FullAutoPreview from "./fullAutoPreview.js";
-    import {
-        storeAutorec,
-        databaseType,
-        index,
-    } from "./autorecPreviews.js";
+    import { storeAutorec, databaseType, index } from "./autorecPreviews.js";
 
     const wait = (delay) =>
         new Promise((resolve) => setTimeout(resolve, delay));
@@ -36,7 +32,11 @@
     let animType = menuSection.animType || "static";
     $: {
         animType = menuSection.animType = animType;
-        if (animType === "preset") { Object.values(ui.windows).filter(app => app.id === "Autorec-Video-Preview").forEach(app => app.close()) }
+        if (animType === "preset") {
+            Object.values(ui.windows)
+                .filter((app) => app.id === "Autorec-Video-Preview")
+                .forEach((app) => app.close());
+        }
     }
 
     let presetType = menuSection.presetType;
@@ -200,37 +200,49 @@
 {#if !isHidden}
     <div class="aa-autorec-options flexcol" transition:fade>
         <div style="grid-row:1/2; grid-column:1/2">
-            <label for="" title="Duplicate"
-                ><i
-                    on:click={() => duplicateSection()}
-                    class="far fa-clone aa-zoom"
-                /></label
+            <label for="" title="Duplicate" on:click={() => duplicateSection()}
+                >{localize("autoanimations.menus.duplicate")}
+                <i class="far fa-clone fa-lg aa-zoom" /></label
             >
         </div>
         <div style="grid-row:1/2; grid-column:2/3">
-            <label for=""><i class="fas fa-cube aa-disabled" /></label>
+            <label for="" class="aa-disabled"
+                >{localize("autoanimations.menus.3dcanvas")}
+                <i class="fas fa-cube fa-lg" /></label
+            >
         </div>
-        <div style="grid-row:1/2; grid-column:3/4" class={enableMacro && playWhen === "2" ? "isDisabled" : ""}>
-            <label for=""
-                ><i
-                    on:click={() => toggleExtraFX()}
-                    class="fas fa-user-plus aa-zoom {showExtraFX ? 'aa-green' : ''}"
+        <div
+            style="grid-row:1/2; grid-column:3/4"
+            class={enableMacro && playWhen === "2" ? "isDisabled" : ""}
+        >
+            <label for="" on:click={() => toggleExtraFX()}
+                >{localize("autoanimations.menus.extra")} FX
+                <i
+                    class="fas fa-user-plus fa-lg aa-zoom {showExtraFX
+                        ? 'aa-green'
+                        : ''}"
                 /></label
             >
         </div>
         <div style="grid-row:1/2; grid-column:4/5">
-            <label for=""
-                ><i
-                    on:click={() => toggleSoundOnly()}
-                    class="fas fa-music aa-zoom {soundOnly ? 'aa-green' : ''}"
+            <label for="" on:click={() => toggleSoundOnly()}
+                >{localize("autoanimations.menus.sound")}
+                {localize("autoanimations.menus.only")}
+                <i
+                    class="fas fa-music fa-lg aa-zoom {soundOnly
+                        ? 'aa-green'
+                        : ''}"
                 /></label
             >
         </div>
         <div style="grid-row:1/2; grid-column:5/6">
-            <label for=""
-                ><i
-                    on:click={() => toggleMacro()}
-                    class="far fa-keyboard aa-zoom {enableMacro ? 'aa-green' : ''}"
+            <label for="" on:click={() => toggleMacro()}
+                >{localize("autoanimations.menus.add")}
+                {localize("autoanimations.menus.macro")}
+                <i
+                    class="far fa-keyboard fa-lg aa-zoom {enableMacro
+                        ? 'aa-green'
+                        : ''}"
                 /></label
             >
         </div>
@@ -348,17 +360,17 @@
                             >
                         </div>
                         {#if animType !== "preset"}
-                        <div
-                            class="flexcol"
-                            style="grid-row:1/2; grid-column:1/2"
-                            in:fade
-                        >
-                            <i
-                                class="fas fa-film aa-video-preview aa-zoom"
-                                on:click={() => onClick()}
-                                title="Video Preview"
-                            />
-                        </div>
+                            <div
+                                class="flexcol"
+                                style="grid-row:1/2; grid-column:1/2"
+                                in:fade
+                            >
+                                <i
+                                    class="fas fa-film aa-video-preview aa-zoom"
+                                    on:click={() => onClick()}
+                                    title="Video Preview"
+                                />
+                            </div>
                         {/if}
                     </div>
                 </div>
@@ -532,7 +544,7 @@
         transition: background-color 0.5s;
     }
     .aa-autorec-options label {
-        font-size: 16.25px;
+        font-size: small;
     }
     .aa-disabled {
         color: rgba(109, 109, 109, 0.4);

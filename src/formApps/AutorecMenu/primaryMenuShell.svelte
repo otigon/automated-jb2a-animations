@@ -13,11 +13,7 @@
     import ExtraFX from "../components/extraFX.svelte";
     import MacroField from "../components/macro.svelte";
     import RangeSwitch from "../components/meleeRange.svelte";
-    import {
-        storeAutorec,
-        databaseType,
-        index,
-    } from "./autorecPreviews.js";
+    import { storeAutorec, databaseType, index } from "./autorecPreviews.js";
     import FullAutoPreview from "./fullAutoPreview.js";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import {
@@ -192,32 +188,44 @@
 
     <div class="aa-autorec-options" in:fade>
         <div style="grid-row:1/2; grid-column:1/2">
-            <label for="" title="Duplicate"
-            ><i
-                    on:click={() => duplicateSection()}
-                    class="far fa-clone aa-zoom"
-            /></label
+            <label for="" title="Duplicate" on:click={() => duplicateSection()}
+                >{localize("autoanimations.menus.duplicate")}
+                <i class="far fa-clone fa-lg aa-zoom" /></label
             >
         </div>
         {#if type !== "templatefx" && type !== "aura"}
-            <div style="grid-row:1/2; grid-column:2/3" class={enableMacro && playWhen === "2" ? "isDisabled" : ""}>
-                <label for="" title="3D Canvas"
-                ><i
-                        on:click={() => toggle3D()}
-                        class="fas fa-cube aa-zoom {show3d ? 'aa-green' : ''}"
-                /></label
+            <div
+                style="grid-row:1/2; grid-column:2/3"
+                class={enableMacro && playWhen === "2" ? "isDisabled" : ""}
+            >
+                <label for="" title="3D Canvas" on:click={() => toggle3D()}
+                    >{localize("autoanimations.menus.3dcanvas")}
+                    <i
+                        class="fas fa-cube fa-lg aa-zoom {show3d
+                            ? 'aa-green'
+                            : ''}"
+                    /></label
                 >
             </div>
         {:else}
-            <div style="grid-row:1/2; grid-column:2/3" class={enableMacro && playWhen === "2" ? "isDisabled" : ""}>
-                <label for=""><i class="fas fa-cube aa-disabled" /></label>
+            <div
+                style="grid-row:1/2; grid-column:2/3"
+                class={enableMacro && playWhen === "2" ? "isDisabled" : ""}
+            >
+                <label for=""
+                    >{localize("autoanimations.menus.3dcanvas")}
+                    <i class="fas fa-cube aa-disabled" /></label
+                >
             </div>
         {/if}
-        <div style="grid-row:1/2; grid-column:3/4" class={enableMacro && playWhen === "2" ? "isDisabled" : ""}>
-            <label for="" title="Extra FX"
-            ><i
-                    on:click={() => toggleExtraFX()}
-                    class="fas fa-user-plus aa-zoom {showExtraFX
+        <div
+            style="grid-row:1/2; grid-column:3/4"
+            class={enableMacro && playWhen === "2" ? "isDisabled" : ""}
+        >
+            <label for="" title="Extra FX" on:click={() => toggleExtraFX()}
+                >{localize("autoanimations.menus.extra")} FX
+                <i
+                    class="fas fa-user-plus fa-lg aa-zoom {showExtraFX
                         ? 'aa-green'
                         : ''}"
             /></label
@@ -228,15 +236,33 @@
             ><i
                     on:click={() => toggleSoundOnly()}
                     class="fas fa-music aa-zoom {soundOnly ? 'aa-green' : ''}"
-            /></label
-            >
+            /></label>
         </div>
         <div style="grid-row:1/2; grid-column:5/6">
             <label for="" title="Add Macro"
             ><i
                     on:click={() => toggleMacro()}
                     class="far fa-keyboard aa-zoom"
-            /></label
+            /></label>
+            <label for="" title="Sound Only" on:click={() => toggleSoundOnly()}
+                >{localize("autoanimations.menus.sound")}
+                {localize("autoanimations.menus.only")}
+                <i
+                    class="fas fa-music fa-lg aa-zoom {soundOnly
+                        ? 'aa-green'
+                        : ''}"
+                /></label
+            >
+        </div>
+        <div style="grid-row:1/2; grid-column:5/6">
+            <label for="" title="Add Macro" on:click={() => toggleMacro()}
+                >{localize("autoanimations.menus.add")}
+                {localize("autoanimations.menus.macro")}
+                <i
+                    class="far fa-keyboard fa-lg aa-zoom {enableMacro
+                        ? 'aa-green'
+                        : ''}"
+                /></label
             >
         </div>
     </div>
@@ -276,11 +302,8 @@
                                 class="flexcol"
                                 style="grid-row:1/2; grid-column:2/3"
                         >
-                            <label
-                                    for=""
-                                    style="align-self:center"
-                                    in:fade
-                            ><i class="fas fa-arrow-right fa-2xl" /></label
+                            <label for="" style="align-self:center" in:fade
+                                ><i class="fas fa-arrow-right fa-2xl" /></label
                             >
                         </div>
                     {/if}
@@ -300,11 +323,8 @@
                                 class="flexcol"
                                 style="grid-row:1/2; grid-column:4/5"
                         >
-                            <label
-                                    for=""
-                                    style="align-self:center"
-                                    in:fade
-                            ><i class="fas fa-arrow-right fa-2xl" /></label
+                            <label for="" style="align-self:center" in:fade
+                                ><i class="fas fa-arrow-right fa-2xl" /></label
                             >
                         </div>
                     {/if}
@@ -416,7 +436,11 @@
                 {/if}
                 <div class="aa-section-border">
                     {#if showExplosions.includes(type)}
-                        <AddExplosion flagData={menuSection} previewStoreData={flagData} isAutoRec={true} />
+                        <AddExplosion
+                            flagData={menuSection}
+                            previewStoreData={flagData}
+                            isAutoRec={true}
+                        />
                     {/if}
                 </div>
             {/if}
@@ -482,7 +506,7 @@
         margin-bottom: 5px;
     }
     .aa-autorec-options label {
-        font-size: 16.25px;
+        font-size: small;
     }
     .aa-disabled {
         color: rgba(109, 109, 109, 0.4);
