@@ -1,4 +1,6 @@
-import { storeAutorec } from "../formApps/AutorecMenu/autorecPreviews.js"
+import {
+    autorecData,
+} from "../formApps/AutorecMenu/autorecPreviews.js";
 export const autoRecMigration = {
 
     async handle(autoObject, shouldSubmit, updateMerge) {
@@ -26,6 +28,7 @@ export const autoRecMigration = {
             return currentAutorec;
         } else {
             await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
+            autorecData.set(currentAutorec)
         }
         ui.notifications.info("Automatic Recognition Menu update is Complete!")
     },

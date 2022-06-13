@@ -557,7 +557,10 @@
             "quickReference": "Quick Reference",
             "ammunition": "Ammunition",
             "musicnote": "Music Notes",
-            "level": "Level"
+            "level": "Level",
+            "duplicate": "Duplicate",
+            "3dcanvas": "3d Canvas",
+            "only": "Only"
         },
         "optionsInfo": {
 

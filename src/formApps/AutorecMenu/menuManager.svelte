@@ -3,6 +3,9 @@
     import { getContext } from "svelte";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { AutorecFunctions } from "../../aa-classes/autorecFunctions.js";
+    import {
+        autorecData,
+    } from "./autorecPreviews.js";
 
     const { application } = getContext("external");
 
@@ -32,7 +35,8 @@
                 "Exporting Menu Backup before Restoring Default"
             );
 
-            game.settings.set("autoanimations", "aaAutorec");
+            await game.settings.set("autoanimations", "aaAutorec");
+            autorecData.set(game.settings.get("autoanimations", "aaAutorec"))
             application.close();
         }
     }
@@ -100,11 +104,12 @@
                         );
                     readTextFromFile(form.data.files[0]).then(async (json) => {
                         await application.close();
-                        AutorecFunctions._importAutorecFromJSON(json);
+                        await AutorecFunctions._importAutorecFromJSON(json);
                     });
                 },
             });
-            return await d;
+            await d;
+            autorecData.set(game.settings.get("autoanimations", "aaAutorec"))
         }
     }
     function exportMenu() {

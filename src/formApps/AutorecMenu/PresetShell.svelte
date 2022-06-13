@@ -12,6 +12,7 @@
     import Thunderwave from "../components/presets/thunderwave.svelte";
     import ExtraFX from "../components/extraFX.svelte";
     import MacroField from "../components/macro.svelte";
+    import PresetSelector from "./presetSelect.svelte";
 
     export let flagData;
     export let menuSection;
@@ -28,7 +29,7 @@
             audio: {},
         }
     */
- 
+
     export let isAutoRec = true;
     let presetType = menuSection.presetType;
     $: presetType = menuSection.presetType = presetType;
@@ -49,7 +50,7 @@
             flagData[type] = compacted;
         }
         flagData = flagData;
-        menuListings = menuListings
+        menuListings = menuListings;
     }
 
     menuSection.macro ? menuSection.macro : (menuSection.macro = {});
@@ -89,7 +90,21 @@
 
     function duplicateSection() {
         let currentLength = Object.keys(flagData[type]).length;
+        console.log(currentLength)
         flagData[type][currentLength] = {};
+        console.log(flagData[type][currentLength])
+        let {id, name, hidden, ...rest} = menuSection;
+        flagData.preset[currentLength] = rest;
+        console.log(flagData[type][currentLength])
+        let newSection = flagData[type][currentLength];
+        console.log(newSection)
+        newSection.id = randomID();
+        newSection.name = `${menuSection.name}` + ` - (COPY)`;
+        newSection.hidden = true;
+        flagData = flagData;
+        menuListings[type] = Object.values(flagData[type]);
+
+        /*
         Object.assign(flagData[type][currentLength], menuSection);
         let newSection = flagData[type][currentLength];
         newSection.id = randomID();
@@ -97,6 +112,7 @@
         newSection.hidden = true;
         flagData = flagData;
         menuListings[type] = Object.values(flagData[type]);
+        */
     }
 </script>
 
@@ -136,41 +152,38 @@
     {#if !isHidden}
         <div class="aa-autorec-options flexcol" transition:fade>
             <div style="grid-row:1/2; grid-column:1/2">
-                <label for="" title="Duplicate"
-                    ><i
-                        on:click={() => duplicateSection()}
-                        class="far fa-clone aa-zoom"
-                    /></label
+                <label
+                    for=""
+                    title="Duplicate"
+                    on:click={() => duplicateSection()}
+                    >{localize("autoanimations.menus.duplicate")}
+                    <i class="far fa-clone fa-lg aa-zoom" /></label
                 >
             </div>
             <div style="grid-row:1/2; grid-column:2/3">
-                <label for=""
-                    ><i
-                        class="fas fa-cube aa-disabled"
-                    /></label
+                <label for="" class="aa-disabled"
+                    >{localize("autoanimations.menus.3dcanvas")}
+                    <i class="fas fa-cube fa-lg" /></label
                 >
             </div>
             <div style="grid-row:1/2; grid-column:3/4">
-                <label for="" title="Extra FX"
-                    ><i
-                        on:click={() => toggleExtraFX()}
-                        class="fas fa-user-plus aa-zoom"
-                    /></label
+                <label for="" title="Extra FX" on:click={() => toggleExtraFX()}
+                    >{localize("autoanimations.menus.extra")} FX
+                    <i class="fas fa-user-plus fa-lg aa-zoom" /></label
                 >
             </div>
             <div style="grid-row:1/2; grid-column:4/5">
-                <label for=""
-                    ><i
-                        class="fas fa-music aa-disabled"
-                    /></label
+                <label for="" class="aa-disabled"
+                    >{localize("autoanimations.menus.sound")}
+                    {localize("autoanimations.menus.only")}
+                    <i class="fas fa-music fa-lg" /></label
                 >
-            </div>    
+            </div>
             <div style="grid-row:1/2; grid-column:5/6">
-                <label for="" title="Add Macro"
-                    ><i
-                        on:click={() => toggleMacro()}
-                        class="far fa-keyboard aa-zoom"
-                    /></label
+                <label for="" title="Add Macro" on:click={() => toggleMacro()}
+                    >{localize("autoanimations.menus.add")}
+                    {localize("autoanimations.menus.macro")}
+                    <i class="far fa-keyboard fa-lg aa-zoom" /></label
                 >
             </div>
         </div>
@@ -259,68 +272,7 @@
                     />
                 </div>
             {/if}
-            <div class="aa-pickAnim" transition:fade>
-                <div
-                    class="flexcol"
-                    style="grid-row: 2 / 3;grid-column: 2 / 3;"
-                    transition:fade
-                >
-                    <label for="1"
-                        >{localize("autoanimations.menus.preset")}
-                        {localize("autoanimations.menus.type")}</label
-                    >
-                    <select
-                        bind:value={presetType}
-                        id="1"
-                        style="text-align: center;justify-self: center; background-color: rgba(21, 154, 169, 0.4);"
-                    >
-                        <option value="bardicinspiration"
-                            >{localize(
-                                "autoanimations.presetTypes.bardicinspiration"
-                            )}</option
-                        >
-                        <option value="bless"
-                            >{localize(
-                                "autoanimations.presetTypes.bless"
-                            )}</option
-                        >
-                        <option value="dualattach"
-                            >{localize(
-                                "autoanimations.presetTypes.dualattach"
-                            )}</option
-                        >
-                        <option value="fireball"
-                            >{localize(
-                                "autoanimations.presetTypes.proToTemp"
-                            )}</option>
-                        <option value="huntersmark"
-                            >{localize(
-                                "autoanimations.presetTypes.huntersmark"
-                            )}</option
-                        >
-                        <option value="shieldspell"
-                            >{localize(
-                                "autoanimations.presetTypes.shieldspell"
-                            )}</option
-                        >
-                        <option value="sneakattack"
-                            >{localize(
-                                "autoanimations.presetTypes.sneakattack"
-                            )}</option
-                        >
-                        <option value="teleportation"
-                            >{localize(
-                                "autoanimations.presetTypes.animTeleportation"
-                            )}</option
-                        >
-                        <option value="thunderwave"
-                            >{localize(
-                                "autoanimations.presetTypes.thunderwave"
-                            )} D&D 5e</option
-                        >
-                    </select>
-                </div>
-            </div>
+            <PresetSelector bind:presetType {menuSection}/>
             {#if presetType === "bardicinspiration"}
                 <div transition:fade>
                     <Bards {isAutoRec} flagData={menuSection} />
@@ -393,28 +345,6 @@
         opacity: 0.4;
         color: black;
     }
-    .aa-pickAnim {
-        display: grid;
-        grid-template-columns: 32.67% 32.67% 32.67%;
-        grid-gap: 1%;
-        padding: 5px;
-        align-items: center;
-        margin-right: 5%;
-        margin-left: 5%;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
-        color: black;
-    }
-    .aa-pickAnim select {
-        text-align: center;
-        font-weight: bold;
-        min-height: 2em;
-        border-radius: 10px;
-    }
-    .aa-pickAnim label {
-        align-self: center;
-    }
     .aa-deleteSection {
         color: rgba(74, 74, 74, 0.824);
     }
@@ -462,9 +392,9 @@
         margin: 1.5% 3% 1.5% 3%;
     }
     .aa-autorec-options label {
-        font-size:16.25px
+        font-size: small;
     }
     .aa-disabled {
-        color:rgba(109, 109, 109, 0.4)
+        color: rgba(109, 109, 109, 0.4);
     }
 </style>

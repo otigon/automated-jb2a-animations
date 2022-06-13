@@ -29,10 +29,7 @@ export async function shieldSpell(handler, animationData) {
         const file02 = `autoanimations.static.spell.shieldspell.${variant}.${color}.loop`;
         const file03 = `autoanimations.static.spell.shieldspell.${variant}.${color}.${endeffect}`;
 
-        const fileData = jb2a.static.spell.shieldspell["01"]["blue"]["intro"];
-        const metadata = await getVideoDimensionsOf(fileData);
-
-        return { file01, file02, file03, metadata };
+        return { file01, file02, file03 };
     }
 
     const data = animationData.primary;
@@ -131,7 +128,7 @@ export async function shieldSpell(handler, animationData) {
         cast()
     }
 }
-
+/*
 function getVideoDimensionsOf(url) {
     return new Promise(resolve => {
         // create the video element
@@ -151,3 +148,4 @@ function getVideoDimensionsOf(url) {
 
     });
 }
+*/
