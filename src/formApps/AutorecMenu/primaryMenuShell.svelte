@@ -29,8 +29,6 @@
     export let idx;
     export let menuSection;
     export let menuListings;
-    const wait = (delay) =>
-        new Promise((resolve) => setTimeout(resolve, delay));
 
     menuSection.options ? menuSection.options : (menuSection.options = {});
     menuSection.audio ? menuSection.audio : (menuSection.audio = {});
