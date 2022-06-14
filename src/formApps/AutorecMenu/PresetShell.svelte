@@ -1,6 +1,9 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+
     import { fade } from "svelte/transition";
+    import { TJSIconFolder } from "@typhonjs-fvtt/svelte-standard/component";
+
     import Bards from "../components/presets/bardicInspiration.svelte";
     import Bless from "../components/presets/bless.svelte";
     import DualAttach from "../components/presets/dualattach.svelte";
@@ -13,6 +16,8 @@
     import ExtraFX from "../components/extraFX.svelte";
     import MacroField from "../components/macro.svelte";
     import PresetSelector from "./presetSelect.svelte";
+    import HeaderButtons from "./autorecComponents/headerButtons.svelte";
+    import ExtraFXHeader from "./autorecComponents/extraEffectsHeader.svelte";
 
     export let flagData;
     export let menuSection;
@@ -53,25 +58,14 @@
         menuListings = menuListings;
     }
 
-    menuSection.macro ? menuSection.macro : (menuSection.macro = {});
-    let macroField = menuSection.macro;
-    let enableMacro = macroField.enable || false;
-    $: enableMacro = macroField.enable = enableMacro;
-    function toggleMacro() {
-        enableMacro = !enableMacro;
-    }
+    let enableMacro;
+    let showExtraFX;
 
     const targetFXNoShowPreset = ["bardicinspiration", "huntersmark"];
     let enableSource = menuSection.sourceToken?.enable || false;
     $: enableSource = enableSource;
     let enableTarget = menuSection.targetToken?.enable || false;
     $: enableTarget = enableTarget;
-
-    let showExtraFX = false;
-    $: showExtraFX = showExtraFX;
-    function toggleExtraFX() {
-        showExtraFX = !showExtraFX;
-    }
 
     let shouldShowTargetFX = targetFXNoShowPreset.includes(presetType)
         ? true
@@ -88,149 +82,48 @@
         }
     }
 
-    function duplicateSection() {
-        let currentLength = Object.keys(flagData[type]).length;
-        const newSection = {
-            id: randomID(),
-            hidden: true,
-            name: `${menuSection.name} + (COPY)`,
-        };
-        mergeObject(newSection, menuSection, { overwrite: false });
-        (flagData[type][currentLength] = newSection), (flagData = flagData);
-        menuListings[type] = Object.values(flagData[type]);
-    }
+    const folder = {
+        iconOpen: "fas fa-minus aa-red aa-zoom",
+        iconClosed: "fas fa-plus aa-green aa-zoom",
+        styles: {
+            "--tjs-summary-width": "97%",
+            "--tjs-summary-margin": "0 0 0 1%",
+        },
+    };
 </script>
 
-<div class="aaMenu-section">
-    <div class="form-group">
-        <div style="max-width: 1.5rem;margin-left: .75rem;">
-            <input
-                type="checkbox"
-                id={customId}
-                hidden
-                bind:checked={isHidden}
-            />
-            <label for={customId}
-                ><i
-                    class={isHidden
-                        ? "fas fa-plus fa-lg aa-green aa-zoom"
-                        : "fas fa-minus fa-lg aa-red aa-zoom"}
-                /></label
-            >
-        </div>
+<div class="aa-Menu-section">
+    <TJSIconFolder {folder}>
         <input
+            slot="label"
             type="text"
             class="aa-nameField"
             bind:value={sectionName}
             placeholder={localize("autoanimations.menus.itemName")}
         />
+
         <div
+            slot="summary-end"
             class="aa-deleteSection"
-            style="max-width: 1.5rem;margin-left: .75rem;"
+            style="max-width: 22px;margin-left: 10px;"
         >
             <i
-                class="far fa-trash-alt fa-lg"
+                title="Delete Section"
+                class="far fa-trash-alt aa-expand aa-zoom"
                 on:click={() => removeSection()}
             />
         </div>
-    </div>
-    {#if !isHidden}
-        <div class="aa-autorec-options flexcol" transition:fade>
-            <div style="grid-row:1/2; grid-column:1/2">
-                <label
-                    for=""
-                    title="Duplicate"
-                    on:click={() => duplicateSection()}
-                    >{localize("autoanimations.menus.duplicate")}
-                    <i class="far fa-clone fa-lg aa-zoom" /></label
-                >
-            </div>
-            <div style="grid-row:1/2; grid-column:2/3">
-                <label for="" class="aa-disabled"
-                    >{localize("autoanimations.menus.3dcanvas")}
-                    <i class="fas fa-cube fa-lg" /></label
-                >
-            </div>
-            <div style="grid-row:1/2; grid-column:3/4">
-                <label for="" title="Extra FX" on:click={() => toggleExtraFX()}
-                    >{localize("autoanimations.menus.extra")} FX
-                    <i class="fas fa-user-plus fa-lg aa-zoom" /></label
-                >
-            </div>
-            <div style="grid-row:1/2; grid-column:4/5">
-                <label for="" class="aa-disabled"
-                    >{localize("autoanimations.menus.sound")}
-                    {localize("autoanimations.menus.only")}
-                    <i class="fas fa-music fa-lg" /></label
-                >
-            </div>
-            <div style="grid-row:1/2; grid-column:5/6">
-                <label for="" title="Add Macro" on:click={() => toggleMacro()}
-                    >{localize("autoanimations.menus.add")}
-                    {localize("autoanimations.menus.macro")}
-                    <i class="far fa-keyboard fa-lg aa-zoom" /></label
-                >
-            </div>
-        </div>
-        {#if showExtraFX}
-            <div class="aa-5wide">
-                <div
-                    class="flexcol aa-button-labels"
-                    style="grid-row: 1 / 2; grid-column: 1 / 2"
-                >
-                    <label
-                        for=""
-                        class={enableSource ? "selected" : "notSelected"}
-                        style="border: 1px outset black; border-radius: 10px 20px"
-                        >{localize("autoanimations.menus.source")}</label
-                    >
-                </div>
-                {#if enableSource}
-                    <div class="flexcol" style="grid-row:1/2; grid-column:2/3">
-                        <label for="" style="align-self:center" transition:fade
-                            ><i class="fas fa-arrow-right fa-2xl" /></label
-                        >
-                    </div>
-                {/if}
-                <div
-                    class="flexcol aa-button-labels"
-                    style="grid-row: 1 / 2; grid-column: 3 / 4"
-                >
-                    <label
-                        for=""
-                        class="selected"
-                        style="border: 1px outset black"
-                        >{localize("autoanimations.menus.primary")}</label
-                    >
-                </div>
-                {#if enableTarget}
-                    <div class="flexcol" style="grid-row:1/2; grid-column:4/5">
-                        <label for="" style="align-self:center" transition:fade
-                            ><i class="fas fa-arrow-right fa-2xl" /></label
-                        >
-                    </div>
-                {/if}
-                <div
-                    class="flexcol aa-button-labels"
-                    style="grid-row: 1 / 2; grid-column: 5 / 6"
-                >
-                    <label
-                        for=""
-                        class={enableTarget ? "selected" : "notSelected"}
-                        style="border: 1px outset black; border-radius: 20px 10px"
-                        >{localize("autoanimations.menus.target")}</label
-                    >
-                </div>
-            </div>
-            <div
-                class="flexcol aa-extraFX-hint"
-                style="grid-row:2/3; grid-column:1/6"
-            >
-                <label for="" style="align-self:center"
-                    >Requires use of a Primary Animation</label
-                >
-            </div>
 
+        <HeaderButtons
+            {type}
+            {menuSection}
+            {flagData}
+            bind:showExtraFX
+            bind:enableMacro
+            bind:menuListings
+        />
+        {#if showExtraFX}
+            <ExtraFXHeader {enableSource} {enableTarget} />
             <div class="aaMenu-section">
                 <ExtraFX
                     flagPath="sourceExtraFX"
@@ -312,7 +205,7 @@
                 </div>
             {/if}
         {/if}
-    {/if}
+    </TJSIconFolder>
 </div>
 
 <style lang="scss">
@@ -339,47 +232,16 @@
     .aa-zoom:hover {
         transform: scale(1.2);
     }
-    .aa-5wide {
-        display: grid;
-        grid-template-columns: 30% 5% 30% 5% 30%;
-        grid-gap: 5px;
-        padding: 5px;
-        align-items: center;
-        margin-right: 8%;
-        margin-left: 5%;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
-    }
-    .aa-extraFX-hint label {
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
-    }
-    .selected {
-        background-color: rgba(25, 175, 2, 0.4);
-        transition: background-color 0.5s;
-    }
-    .notSelected {
-        background-color: rgba(219, 132, 2, 0.4);
-        transition: background-color 0.5s;
-    }
-    .aaMenu-section {
-        background: rgba(199, 199, 199, 0.85);
-        border: 2px solid black;
-        border-radius: 10px;
-        margin: 2px 0 2px 0;
-    }
     .aaMenu-subSection {
         background: rgba(199, 199, 199, 0.85);
         border: 2px solid black;
         border-radius: 10px;
         margin: 1.5% 3% 1.5% 3%;
     }
-    .aa-autorec-options label {
-        font-size: small;
-    }
-    .aa-disabled {
-        color: rgba(109, 109, 109, 0.4);
+    .aa-Menu-section {
+        background: rgba(199, 199, 199, 0.85);
+        border: 2px solid black;
+        border-radius: 10px;
+        margin: 2px 0 2px 0;
     }
 </style>

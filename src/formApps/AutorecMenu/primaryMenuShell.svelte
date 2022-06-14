@@ -13,6 +13,8 @@
     import ExtraFX from "../components/extraFX.svelte";
     import MacroField from "../components/macro.svelte";
     import RangeSwitch from "../components/meleeRange.svelte";
+    import HeaderButtons from "./autorecComponents/headerButtons.svelte";
+    import ExtraFXHeader from "./autorecComponents/extraEffectsHeader.svelte";
     import { storeAutorec, databaseType, index } from "./autorecPreviews.js";
     import FullAutoPreview from "./fullAutoPreview.js";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
@@ -98,36 +100,11 @@
         menuListings = menuListings;
     }
     const showExplosions = ["melee", "range", "static"];
-    
-    function duplicateSection() {
-        let currentLength = Object.keys(flagData[type]).length;
-        const newSection = {
-            id: randomID(),
-            hidden: true,
-            name: `${menuSection.name} + (COPY)`,
-        };
-        mergeObject(newSection, menuSection, { overwrite: false });
-        (flagData[type][currentLength] = newSection), (flagData = flagData);
-        menuListings[type] = Object.values(flagData[type]);
-    }
 
-    let show3d = false;
-    $: show3d = show3d;
-    function toggle3D() {
-        show3d = !show3d;
-        showExtraFX = show3d ? false : showExtraFX;
-    }
-    let showExtraFX = false;
-    $: showExtraFX = showExtraFX;
-    function toggleExtraFX() {
-        showExtraFX = !showExtraFX;
-        show3d = showExtraFX ? false : show3d;
-    }
-    let soundOnly = menuSection.soundOnly || false;
-    $: soundOnly = menuSection.soundOnly = soundOnly;
-    function toggleSoundOnly() {
-        soundOnly = !soundOnly;
-    }
+    let show3d;
+    let showExtraFX ;
+    let soundOnly;
+    let enableMacro;
 
     let enableSource = menuSection.sourceToken?.enable || false;
     $: enableSource = enableSource;
@@ -137,12 +114,6 @@
 
     menuSection.macro ? menuSection.macro : (menuSection.macro = {});
     let macroField = menuSection.macro;
-    let enableMacro = macroField.enable || false;
-    $: enableMacro = macroField.enable = enableMacro;
-    function toggleMacro() {
-        enableMacro = !enableMacro;
-    }
-
     playWhen = macroField.playWhen;
     $: playWhen = playWhen;
 
@@ -150,23 +121,15 @@
     let staticType =
         type === "static" ? options.staticType || "source" : undefined;
     $: staticType = staticType;
-    let shouldShowTargetFX =
-        type === "static" && staticType === "source" ? false : true;
-    $: {
-        if (type === "static" && staticType === "source") {
-            shouldShowTargetFX = false;
-            enableTarget = false;
-        } else {
-            shouldShowTargetFX = true;
-        }
-    }
+    let isDisabled =
+        (type === "static" && staticType === "source") || type === "templatefx" ? true : false;
 
     /**
      * @type {object} Defines folder data for TJSIconFolder.
      */
     const folder = {
-        iconOpen: "fas fa-minus aa-red aa-zoom",
-        iconClosed: "fas fa-plus aa-green aa-zoom",
+        iconOpen: "fas fa-minus aa-zoom",
+        iconClosed: "fas fa-plus aa-zoom",
         styles: {
             "--tjs-summary-width": "97%",
             "--tjs-summary-margin": "0 0 0 1%",
@@ -174,102 +137,37 @@
     };
 </script>
 
-<div class="form-group aa-text-input">
-    <div style="max-width: 22px;margin-left: 10px;">
-        <input type="checkbox" id={customId} hidden bind:checked={isHidden} />
-        <label for={customId}
-            ><i
-                class="{isHidden
-                    ? 'fas fa-plus aa-green aa-zoom'
-                    : 'fas fa-minus aa-red aa-zoom'}
-                    aa-expand"
-                title={isHidden ? "Expand" : "Collapse"}
-            /></label
-        >
-    </div>
+<TJSIconFolder {folder}>
     <input
+        slot="label"
         type="text"
         class="aa-nameField"
         bind:value={sectionName}
         placeholder={localize("autoanimations.menus.itemName")}
-        />
-        <div class="aa-deleteSection" style="max-width: 22px;margin-left: 10px;">
-            <i
+    />
+
+    <div
+        slot="summary-end"
+        class="aa-deleteSection"
+        style="max-width: 22px;margin-left: 10px;"
+    >
+        <i
             title="Delete Section"
             class="far fa-trash-alt aa-expand aa-zoom"
             on:click={() => removeSection()}
-            />
-        </div>
+        />
     </div>
-    {#if !isHidden}
-    <div class="aa-autorec-options" in:fade>
-        <div style="grid-row:1/2; grid-column:1/2">
-            <label for="" title="Duplicate" on:click={() => duplicateSection()}
-                >{localize("autoanimations.menus.duplicate")}
-                <i class="far fa-clone fa-lg aa-zoom" /></label
-            >
-        </div>
-        {#if type !== "templatefx" && type !== "aura"}
-            <div
-                style="grid-row:1/2; grid-column:2/3"
-                class={enableMacro && playWhen === "2" ? "isDisabled" : ""}
-            >
-                <label for="" title="3D Canvas" on:click={() => toggle3D()}
-                    >{localize("autoanimations.menus.3dcanvas")}
-                    <i
-                        class="fas fa-cube fa-lg aa-zoom {show3d
-                            ? 'aa-green'
-                            : ''}"
-                    /></label
-                >
-            </div>
-        {:else}
-            <div
-                style="grid-row:1/2; grid-column:2/3"
-                class={enableMacro && playWhen === "2" ? "isDisabled" : ""}
-            >
-                <label for=""
-                    >{localize("autoanimations.menus.3dcanvas")}
-                    <i class="fas fa-cube aa-disabled" /></label
-                >
-            </div>
-        {/if}
-        <div
-            style="grid-row:1/2; grid-column:3/4"
-            class={enableMacro && playWhen === "2" ? "isDisabled" : ""}
-        >
-            <label for="" title="Extra FX" on:click={() => toggleExtraFX()}
-                >{localize("autoanimations.menus.extra")} FX
-                <i
-                    class="fas fa-user-plus fa-lg aa-zoom {showExtraFX
-                        ? 'aa-green'
-                        : ''}"
-                /></label
-            >
-        </div>
-        <div style="grid-row:1/2; grid-column:4/5">
-            <label for="" title="Sound Only" on:click={() => toggleSoundOnly()}
-                >{localize("autoanimations.menus.sound")}
-                {localize("autoanimations.menus.only")}
-                <i
-                    class="fas fa-music fa-lg aa-zoom {soundOnly
-                        ? 'aa-green'
-                        : ''}"
-                /></label
-            >
-        </div>
-        <div style="grid-row:1/2; grid-column:5/6">
-            <label for="" title="Add Macro" on:click={() => toggleMacro()}
-                >{localize("autoanimations.menus.add")}
-                {localize("autoanimations.menus.macro")}
-                <i
-                    class="far fa-keyboard fa-lg aa-zoom {enableMacro
-                        ? 'aa-green'
-                        : ''}"
-                /></label
-            >
-        </div>
-    </div>
+    <HeaderButtons
+        {type}
+        {menuSection}
+        {flagData}
+        {playWhen}
+        bind:show3d
+        bind:showExtraFX
+        bind:soundOnly
+        bind:enableMacro
+        bind:menuListings
+    />
     {#if enableMacro}
         <div class="aaMenu-section" in:fade>
             <MacroField
@@ -289,73 +187,10 @@
                 <Canvas3D flagData={menuSection} />
             {/if}
             {#if showExtraFX}
-                <div class="aa-5wide">
-                    <div
-                        class="flexcol aa-button-labels"
-                        style="grid-row: 1 / 2; grid-column: 1 / 2"
-                    >
-                        <label
-                            for=""
-                            class={enableSource ? "selected" : "notSelected"}
-                            style="border: 1px outset black; border-radius: 10px 20px"
-                            >{localize("autoanimations.menus.source")}</label
-                        >
-                    </div>
-                    {#if enableSource}
-                        <div
-                            class="flexcol"
-                            style="grid-row:1/2; grid-column:2/3"
-                        >
-                            <label for="" style="align-self:center" in:fade
-                                ><i class="fas fa-arrow-right fa-2xl" /></label
-                            >
-                        </div>
-                    {/if}
-                    <div
-                        class="flexcol aa-button-labels"
-                        style="grid-row: 1 / 2; grid-column: 3 / 4"
-                    >
-                        <label
-                            for=""
-                            class="selected"
-                            style="border: 1px outset black"
-                            >{localize("autoanimations.menus.primary")}</label
-                        >
-                    </div>
-                    {#if enableTarget}
-                        <div
-                            class="flexcol"
-                            style="grid-row:1/2; grid-column:4/5"
-                        >
-                            <label for="" style="align-self:center" in:fade
-                                ><i class="fas fa-arrow-right fa-2xl" /></label
-                            >
-                        </div>
-                    {/if}
-                    <div
-                        class="flexcol aa-button-labels"
-                        style="grid-row: 1 / 2; grid-column: 5 / 6"
-                    >
-                        <label
-                            for=""
-                            class={enableTarget ? "selected" : "notSelected"}
-                            style="border: 1px outset black; border-radius: 20px 10px"
-                            >{localize("autoanimations.menus.target")}</label
-                        >
-                    </div>
-                </div>
-                <div
-                    class="flexcol aa-extraFX-hint"
-                    style="grid-row:2/3; grid-column:1/6"
-                >
-                    <label for="" style="align-self:center"
-                        >Requires use of a Primary Animation</label
-                    >
-                </div>
-
+                <ExtraFXHeader {enableSource} {enableTarget} {isDisabled}/>
                 <div class="aaMenu-section">
                     <ExtraFX
-                        flagPath="sourceExtraFX"
+                        flagPath="sourceExtraFX" 
                         bind:enableSection={enableSource}
                         flagData={menuSection}
                         previewStoreData={flagData}
@@ -363,7 +198,7 @@
                         isAutoRec={true}
                     />
                 </div>
-                {#if shouldShowTargetFX}
+                {#if !isDisabled}
                     <div class="aaMenu-section">
                         <ExtraFX
                             flagPath="targetExtraFX"
@@ -450,7 +285,7 @@
             {/if}
         {/if}
     {/if}
-{/if}
+</TJSIconFolder>
 
 <style lang="scss">
     .aa-nameField {
@@ -476,31 +311,6 @@
     .aa-zoom:hover {
         transform: scale(1.2);
     }
-    .aa-5wide {
-        display: grid;
-        grid-template-columns: 28% 5% 30% 5% 28%;
-        grid-gap: 1%;
-        padding: 5px;
-        align-items: center;
-        margin-right: 5%;
-        margin-left: 5%;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
-    }
-    .aa-extraFX-hint label {
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
-    }
-    .selected {
-        background-color: rgba(25, 175, 2, 0.4);
-        transition: background-color 0.5s;
-    }
-    .notSelected {
-        background-color: rgba(219, 132, 2, 0.4);
-        transition: background-color 0.5s;
-    }
     .aa-section-border {
         margin-right: 3%;
         margin-left: 3%;
@@ -508,15 +318,5 @@
         border-radius: 5px;
         background: rgb(200 200 200);
         margin-bottom: 5px;
-    }
-    .aa-autorec-options label {
-        font-size: small;
-    }
-    .aa-disabled {
-        color: rgba(109, 109, 109, 0.4);
-    }
-    .isDisabled {
-        pointer-events: none;
-        opacity: 0.3;
     }
 </style>

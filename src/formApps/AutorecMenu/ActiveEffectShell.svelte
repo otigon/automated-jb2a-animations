@@ -2,6 +2,9 @@
 
 <script>
     import { fade } from "svelte/transition";
+
+    import { TJSIconFolder } from "@typhonjs-fvtt/svelte-standard/component";
+
     import ChooseAnimation from "../components/chooseAnimation.svelte";
     import Options from "../components/options.svelte";
     import SoundSettings from "../components/soundSettings.svelte";
@@ -10,6 +13,9 @@
     import AddExplosion from "../components/explosions.svelte";
     import Bless from "../components/presets/bless.svelte";
     import Shield from "../components/presets/shield.svelte";
+    import HeaderButtons from "./autorecComponents/headerButtons.svelte";
+    import ExtraFXHeader from "./autorecComponents/extraEffectsHeader.svelte";
+
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import {
         aaTypeMenu,
@@ -105,39 +111,14 @@
         animTypeSwitched = false;
     }
 
-    function duplicateSection() {
-        let currentLength = Object.keys(flagData[type]).length;
-        const newSection = {
-            id: randomID(),
-            hidden: true,
-            name: `${menuSection.name} + (COPY)`,
-        };
-        mergeObject(newSection, menuSection, { overwrite: false });
-        (flagData[type][currentLength] = newSection), (flagData = flagData);
-        menuListings[type] = Object.values(flagData[type]);
-    }
-
-    let showExtraFX = false;
-    $: showExtraFX = showExtraFX;
-    function toggleExtraFX() {
-        showExtraFX = !showExtraFX;
-    }
-    let soundOnly = menuSection.soundOnly || false;
-    $: soundOnly = menuSection.soundOnly = soundOnly;
-    function toggleSoundOnly() {
-        soundOnly = !soundOnly;
-    }
-
     let enableTarget = false;
 
     menuSection.macro ? menuSection.macro : (menuSection.macro = {});
-    let macroField = menuSection.macro;
-    let enableMacro = macroField.enable || false;
-    $: enableMacro = macroField.enable = enableMacro;
-    function toggleMacro() {
-        enableMacro = !enableMacro;
-    }
+    let enableMacro;
+    let showExtraFX ;
+    let soundOnly;
 
+    let macroField = menuSection.macro;
     playWhen = macroField.playWhen;
     $: playWhen = playWhen;
 
@@ -170,83 +151,47 @@
             new FullAutoPreview({ idx, name: sectionName }).render(true);
         }
     }
+
+    const folder = {
+        iconOpen: "fas fa-minus aa-zoom",
+        iconClosed: "fas fa-plus aa-zoom",
+        styles: {
+            "--tjs-summary-width": "97%",
+            "--tjs-summary-margin": "0 0 0 1%",
+        },
+    };
+
 </script>
 
-<div class="form-group">
-    <div style="max-width: 22px;margin-left: 10px;">
-        <input type="checkbox" id={customId} hidden bind:checked={isHidden} />
-        <label for={customId}
-            ><i
-                class="{isHidden
-                    ? 'fas fa-plus aa-green aa-zoom'
-                    : 'fas fa-minus aa-red aa-zoom'}
-                    aa-expand"
-            /></label
-        >
-    </div>
+<TJSIconFolder {folder}>
     <input
+        slot="label"
         type="text"
         class="aa-nameField"
         bind:value={sectionName}
         placeholder={localize("autoanimations.menus.itemName")}
     />
-    <div class="aa-deleteSection" style="max-width: 22px;margin-left: 10px;">
+
+    <div
+        slot="summary-end"
+        class="aa-deleteSection"
+        style="max-width: 22px;margin-left: 10px;"
+    >
         <i
-            class="far fa-trash-alt aa-expand"
+            title="Delete Section"
+            class="far fa-trash-alt aa-expand aa-zoom"
             on:click={() => removeSection()}
         />
     </div>
-</div>
-{#if !isHidden}
-    <div class="aa-autorec-options flexcol" transition:fade>
-        <div style="grid-row:1/2; grid-column:1/2">
-            <label for="" title="Duplicate" on:click={() => duplicateSection()}
-                >{localize("autoanimations.menus.duplicate")}
-                <i class="far fa-clone fa-lg aa-zoom" /></label
-            >
-        </div>
-        <div style="grid-row:1/2; grid-column:2/3">
-            <label for="" class="aa-disabled"
-                >{localize("autoanimations.menus.3dcanvas")}
-                <i class="fas fa-cube fa-lg" /></label
-            >
-        </div>
-        <div
-            style="grid-row:1/2; grid-column:3/4"
-            class={enableMacro && playWhen === "2" ? "isDisabled" : ""}
-        >
-            <label for="" on:click={() => toggleExtraFX()}
-                >{localize("autoanimations.menus.extra")} FX
-                <i
-                    class="fas fa-user-plus fa-lg aa-zoom {showExtraFX
-                        ? 'aa-green'
-                        : ''}"
-                /></label
-            >
-        </div>
-        <div style="grid-row:1/2; grid-column:4/5">
-            <label for="" on:click={() => toggleSoundOnly()}
-                >{localize("autoanimations.menus.sound")}
-                {localize("autoanimations.menus.only")}
-                <i
-                    class="fas fa-music fa-lg aa-zoom {soundOnly
-                        ? 'aa-green'
-                        : ''}"
-                /></label
-            >
-        </div>
-        <div style="grid-row:1/2; grid-column:5/6">
-            <label for="" on:click={() => toggleMacro()}
-                >{localize("autoanimations.menus.add")}
-                {localize("autoanimations.menus.macro")}
-                <i
-                    class="far fa-keyboard fa-lg aa-zoom {enableMacro
-                        ? 'aa-green'
-                        : ''}"
-                /></label
-            >
-        </div>
-    </div>
+    <HeaderButtons
+        {type}
+        {menuSection}
+        {flagData}
+        bind:showExtraFX
+        bind:enableMacro
+        bind:menuListings
+        bind:soundOnly
+    />
     {#if enableMacro}
         <div class="aaMenu-section" transition:fade>
             <MacroField
@@ -263,77 +208,7 @@
         {/if}
         {#if !soundOnly}
             {#if showExtraFX}
-                <div class="aa-5wide">
-                    <div
-                        class="flexcol aa-button-labels"
-                        style="grid-row: 1 / 2; grid-column: 1 / 2"
-                    >
-                        <label
-                            for=""
-                            class={enableSource ? "selected" : "notSelected"}
-                            style="border: 1px outset black; border-radius: 10px 20px"
-                            >{localize("autoanimations.menus.source")}</label
-                        >
-                    </div>
-                    {#if enableSource}
-                        <div
-                            class="flexcol"
-                            style="grid-row:1/2; grid-column:2/3"
-                        >
-                            <label
-                                for=""
-                                style="align-self:center"
-                                transition:fade
-                                ><i class="fas fa-arrow-right fa-2xl" /></label
-                            >
-                        </div>
-                    {/if}
-                    <div
-                        class="flexcol aa-button-labels"
-                        style="grid-row: 1 / 2; grid-column: 3 / 4"
-                    >
-                        <label
-                            for=""
-                            class="selected"
-                            style="border: 1px outset black"
-                            >{localize("autoanimations.menus.primary")}</label
-                        >
-                    </div>
-                    {#if enableTarget}
-                        <div
-                            class="flexcol"
-                            style="grid-row:1/2; grid-column:4/5"
-                        >
-                            <label
-                                for=""
-                                style="align-self:center"
-                                transition:fade
-                                ><i class="fas fa-arrow-right fa-2xl" /></label
-                            >
-                        </div>
-                    {/if}
-                    <div
-                        class="flexcol aa-button-labels"
-                        style="grid-row: 1 / 2; grid-column: 5 / 6"
-                    >
-                        <label
-                            for=""
-                            style="border: 1px outset black; border-radius: 20px 10px;background-color: rgba(219, 2, 2, 0.4);"
-                            >{localize("autoanimations.menus.target")}</label
-                        >
-                    </div>
-                </div>
-                <div
-                    class="flexcol aa-extraFX-hint"
-                    style="grid-row:2/3; grid-column:1/6"
-                >
-                    <label for="" style="align-self:center"
-                        >{localize(
-                            "autoanimations.settings.extraexplain"
-                        )}</label
-                    >
-                </div>
-
+                <ExtraFXHeader {enableSource} {enableTarget} isDisabled={true}/>
                 <div class="aaMenu-section">
                     <ExtraFX
                         flagPath="sourceExtraFX"
@@ -470,7 +345,7 @@
             {/if}
         {/if}
     {/if}
-{/if}
+</TJSIconFolder>
 
 <style lang="scss">
     .aa-nameField {
@@ -517,40 +392,5 @@
     }
     .aa-zoom:hover {
         transform: scale(1.2);
-    }
-    .aa-5wide {
-        display: grid;
-        grid-template-columns: 30% 5% 30% 5% 30%;
-        grid-gap: 5px;
-        padding: 5px;
-        align-items: center;
-        margin-right: 8%;
-        margin-left: 5%;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
-    }
-    .aa-extraFX-hint label {
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
-    }
-    .selected {
-        background-color: rgba(25, 175, 2, 0.4);
-        transition: background-color 0.5s;
-    }
-    .notSelected {
-        background-color: rgba(219, 132, 2, 0.4);
-        transition: background-color 0.5s;
-    }
-    .aa-autorec-options label {
-        font-size: small;
-    }
-    .aa-disabled {
-        color: rgba(109, 109, 109, 0.4);
-    }
-    .isDisabled {
-        pointer-events: none;
-        opacity: 0.3;
     }
 </style>
