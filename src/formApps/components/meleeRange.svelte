@@ -34,7 +34,7 @@
         autoOverride.meleeSwitch ? autoOverride.meleeSwitch : autoOverride.meleeSwitch = {};
     }
     let meleeSwitch = isOverride ? flagData.autoOverride?.meleeSwitch : flagData.meleeSwitch;
-    console.log(flagData)
+
     let switchType = meleeSwitch.switchType || "on";
 
     // Sets Initial Menu Type for Menu - Assigns to Flag when updated
@@ -245,9 +245,10 @@
     .aa-4wide button {
         border-radius: 10px;
         border: 2px outset rgb(142, 142, 142);
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-weight: bold;
-        font-size: large;
+        font-family: "Signika", sans-serif;
+        line-height: 1.25em;
+        font-size: 14px;
+        color:black
     }
     .aa-header {
         display: grid;

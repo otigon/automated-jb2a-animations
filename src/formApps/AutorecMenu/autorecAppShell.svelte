@@ -169,9 +169,8 @@
                         class:active={activeTabValue === item.value}
                     >
                         <span
-                            class="aa-zoom"
                             on:click={() => handleClick(item.value)}
-                            ><i class={item.icon} />{item.label}</span
+                            ><i class="{item.icon} aa-zoom" />{item.label}</span
                         >
                     </li>
                 {/each}

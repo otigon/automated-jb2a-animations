@@ -62,91 +62,106 @@
     }
 
     const folderOptions = {
-       styles: {
-          '--tjs-summary-font-family': '"Modesto Condensed", "Palatino Linotype", serif',
-          '--tjs-summary-font-size': '1.5em',
-          '--tjs-summary-chevron-size': '0.8em',
-       }
-    }
+        styles: {
+            "--tjs-summary-font-family":
+                '"Modesto Condensed", "Palatino Linotype", serif',
+            "--tjs-summary-font-size": "1.5em",
+            "--tjs-summary-chevron-size": "0.8em",
+        },
+    };
 </script>
 
 <div class="aa-options-border" in:fade>
-    <TJSSvgFolder folder={folderOptions}
-                  label={`${localize("autoanimations.menus.sound")} ${soundEnabled
-                      ? localize("autoanimations.menus.enabled")
-                      : localize("autoanimations.menus.disabled")}`}>
+    <TJSSvgFolder
+        folder={folderOptions}
+        label={`${localize("autoanimations.menus.sound")} ${
+            soundEnabled
+                ? localize("autoanimations.menus.enabled")
+                : localize("autoanimations.menus.disabled")
+        }`}
+    >
         <div slot="summary-end">
             <input
-                    type="checkbox"
-                    style="align-self:center"
-                    title="Toggle Sound On/Off"
-                    on:click={() => soundEnabled = !soundEnabled}
-                    on:change={() => enableSound()}
-                    bind:checked={soundEnabled}
+                type="checkbox"
+                style="align-self:center"
+                title="Toggle Sound On/Off"
+                on:click={() => (soundEnabled = !soundEnabled)}
+                on:change={() => enableSound()}
+                bind:checked={soundEnabled}
             />
 
             {#if soundEnabled && soundPath}
                 <i
-                        class="fas fa-music aa-video-preview"
-                        on:click={() => playSound()}
+                    class="fas fa-music aa-video-preview"
+                    on:click={() => playSound()}
                 />
             {/if}
         </div>
 
-        <div class={!soundEnabled ? 'isDisabled' : ""}>
-        <div
-            class="aa-customAnim-container"
-            in:fade
-        >
-            <div
-                class="form-group"
-                style="grid-row: 1/2; grid-column: 2/5; margin-right:10%; margin-left:10%"
-            >
-                <input
-                    type="text"
-                    bind:value={soundPath}
-                    style="font-weight:normal; font-size:small"
-                    class={soundPath ? "isPopulated" : ""}
-                />
-                <button
-                    class="file-picker"
-                    on:click|preventDefault={() => selectCustom()}
-                    ><i class="fas fa-file-import fa-fw" /></button
+        <div class={!soundEnabled ? "isDisabled" : ""}>
+            <div class="aa-customAnim-container" in:fade>
+                <div
+                    class="form-group"
+                    style="grid-row: 1/2; grid-column: 2/5; margin-right:10%; margin-left:10%"
                 >
+                    <input
+                        type="text"
+                        bind:value={soundPath}
+                        style="font-weight:normal; font-size:small"
+                        class={soundPath ? "isPopulated" : ""}
+                    />
+                    <button
+                        class="file-picker"
+                        on:click|preventDefault={() => selectCustom()}
+                        ><i class="fas fa-file-import fa-fw" /></button
+                    >
+                </div>
             </div>
-        </div>
-        <div class="aa-3wide" in:fade>
-            <div class="flexcol" style="grid-row: 3 / 4; grid-column: 1 / 2;">
-                <label for=""
-                    >{localize("autoanimations.menus.start")}
-                    {localize("autoanimations.menus.time")} (ms)</label
+            <div class="aa-3wide" in:fade>
+                <div
+                    class="flexcol"
+                    style="grid-row: 3 / 4; grid-column: 1 / 2;"
                 >
-                <input
-                    type="number"
-                    bind:value={startTime}
-                    placeholder="0"
-                    step="0.01"
-                />
+                    <label for=""
+                        >{localize("autoanimations.menus.start")}
+                        {localize("autoanimations.menus.time")} (ms)</label
+                    >
+                    <input
+                        type="number"
+                        bind:value={startTime}
+                        placeholder="0"
+                        step="0.01"
+                    />
+                </div>
+                <div
+                    class="flexcol"
+                    style="grid-row: 3 / 4; grid-column: 2 / 3;"
+                >
+                    <label for=""
+                        >{localize("autoanimations.menus.volume")}</label
+                    >
+                    <input
+                        type="number"
+                        bind:value={volume}
+                        placeholder="0.5"
+                        step="0.01"
+                    />
+                </div>
+                <div
+                    class="flexcol"
+                    style="grid-row: 3 / 4; grid-column: 3 / 4;"
+                >
+                    <label for=""
+                        >{localize("autoanimations.menus.delay")}</label
+                    >
+                    <input
+                        type="number"
+                        bind:value={delay}
+                        placeholder="0"
+                        step="0.01"
+                    />
+                </div>
             </div>
-            <div class="flexcol" style="grid-row: 3 / 4; grid-column: 2 / 3;">
-                <label for="">{localize("autoanimations.menus.volume")}</label>
-                <input
-                    type="number"
-                    bind:value={volume}
-                    placeholder="0.5"
-                    step="0.01"
-                />
-            </div>
-            <div class="flexcol" style="grid-row: 3 / 4; grid-column: 3 / 4;">
-                <label for="">{localize("autoanimations.menus.delay")}</label>
-                <input
-                    type="number"
-                    bind:value={delay}
-                    placeholder="0"
-                    step="0.01"
-                />
-            </div>
-        </div>
         </div>
     </TJSSvgFolder>
 </div>

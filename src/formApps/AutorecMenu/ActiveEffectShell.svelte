@@ -107,13 +107,13 @@
 
     function duplicateSection() {
         let currentLength = Object.keys(flagData[type]).length;
-        flagData[type][currentLength] = {};
-        Object.assign(flagData[type][currentLength], menuSection);
-        let newSection = flagData[type][currentLength];
-        newSection.id = randomID();
-        newSection.name = `${newSection.name}` + ` - (COPY)`;
-        newSection.hidden = true;
-        flagData = flagData;
+        const newSection = {
+            id: randomID(),
+            hidden: true,
+            name: `${menuSection.name} + (COPY)`,
+        };
+        mergeObject(newSection, menuSection, { overwrite: false });
+        (flagData[type][currentLength] = newSection), (flagData = flagData);
         menuListings[type] = Object.values(flagData[type]);
     }
 

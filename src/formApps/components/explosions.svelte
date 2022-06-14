@@ -1,8 +1,11 @@
 <script>
+    import { fade } from "svelte/transition";
+
+    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
+
     import ChooseAnimation from "./chooseAnimation.svelte";
     import SoundSettings from "./soundSettings.svelte";
-    import { fade } from "svelte/transition";
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { storeAutorec } from "../AutorecMenu/autorecPreviews.js";
     import { storeItemData } from "../ItemMenu/itemPreviewStore.js";
 
@@ -13,7 +16,9 @@
     const autoOverride = flagData.autoOverride;
     flagData.explosions ? flagData.explosions : (flagData.explosions = {});
     if (isOverride) {
-        autoOverride.explosions ? autoOverride.explosions : autoOverride.explosions = {};
+        autoOverride.explosions
+            ? autoOverride.explosions
+            : (autoOverride.explosions = {});
     }
     const root = isOverride
         ? flagData.autoOverride?.explosions
@@ -85,44 +90,36 @@
     }
 
     let customId = "customExplosion";
+
+    const folderOptions = {
+        styles: {
+            "--tjs-summary-font-family":
+                '"Modesto Condensed", "Palatino Linotype", serif',
+            "--tjs-summary-font-size": "1.5em",
+            "--tjs-summary-chevron-size": "0.8em",
+        },
+    };
 </script>
 
 <div>
-    <div class="aa-header-section">
-        <div class="aa-header">
-            <div class="flexcol" style="grid-row:1/2; grid-column:1/2;">
-                <i
-                    class="{showSection
-                        ? 'fas fa-caret-down fa-lg aa-greyScale'
-                        : 'fas fa-caret-right fa-lg aa-greyScale'} aa-zoom"
-                    title={showSection ? "collapse" : "expand"}
-                    on:click={() => (showSection = !showSection)}
-                />
-            </div>
-            <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
-                <label for=""
-                    >{localize("autoanimations.menus.explosion")}
-                    {enableSection
-                        ? localize("autoanimations.menus.enabled")
-                        : localize("autoanimations.menus.disabled")}</label
-                >
-            </div>
-            <div
-                class="flexcol aa-checkbox"
-                style="grid-row:1/2; grid-column:5/6"
-            >
-                <input
-                    type="checkbox"
-                    style="align-self:center"
-                    title="Toggle Explosion On/Off"
-                    on:click={() => (enableSection = !enableSection)}
-                    on:change={() => checkShowed()}
-                    bind:checked={enableSection}
-                />
-            </div>
+    <TJSSvgFolder
+        folder={folderOptions}
+        label={`${localize("autoanimations.menus.explosion")} ${
+            enableSection
+                ? localize("autoanimations.menus.enabled")
+                : localize("autoanimations.menus.disabled")
+        }`}
+    >
+        <div slot="summary-end">
+            <input
+                type="checkbox"
+                style="align-self:center"
+                title="Toggle Sound On/Off"
+                on:click={() => (enableSection = !enableSection)}
+                on:change={() => checkShowed()}
+                bind:checked={enableSection}
+            />
         </div>
-    </div>
-    {#if showSection}
         <div class={!enableSection ? "isDisabled" : ""}>
             <ChooseAnimation
                 bind:menuType
@@ -246,7 +243,7 @@
             </div>
             <SoundSettings audioPath="e01" {flagData} />
         </div>
-    {/if}
+    </TJSSvgFolder>
 </div>
 
 <style lang="scss">

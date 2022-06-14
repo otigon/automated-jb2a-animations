@@ -90,29 +90,14 @@
 
     function duplicateSection() {
         let currentLength = Object.keys(flagData[type]).length;
-        console.log(currentLength)
-        flagData[type][currentLength] = {};
-        console.log(flagData[type][currentLength])
-        let {id, name, hidden, ...rest} = menuSection;
-        flagData.preset[currentLength] = rest;
-        console.log(flagData[type][currentLength])
-        let newSection = flagData[type][currentLength];
-        console.log(newSection)
-        newSection.id = randomID();
-        newSection.name = `${menuSection.name}` + ` - (COPY)`;
-        newSection.hidden = true;
-        flagData = flagData;
+        const newSection = {
+            id: randomID(),
+            hidden: true,
+            name: `${menuSection.name} + (COPY)`,
+        };
+        mergeObject(newSection, menuSection, { overwrite: false });
+        (flagData[type][currentLength] = newSection), (flagData = flagData);
         menuListings[type] = Object.values(flagData[type]);
-
-        /*
-        Object.assign(flagData[type][currentLength], menuSection);
-        let newSection = flagData[type][currentLength];
-        newSection.id = randomID();
-        newSection.name = `${newSection.name}` + ` - (COPY)`;
-        newSection.hidden = true;
-        flagData = flagData;
-        menuListings[type] = Object.values(flagData[type]);
-        */
     }
 </script>
 
@@ -272,7 +257,7 @@
                     />
                 </div>
             {/if}
-            <PresetSelector bind:presetType {menuSection}/>
+            <PresetSelector bind:presetType {menuSection} />
             {#if presetType === "bardicinspiration"}
                 <div transition:fade>
                     <Bards {isAutoRec} flagData={menuSection} />
