@@ -1,6 +1,8 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { fade } from "svelte/transition";
+
+    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
     export let flagData;
     export let audioPath;
@@ -58,52 +60,39 @@
     function playSound() {
         new Sequence().sound().file(soundPath).volume(volume).play();
     }
+
+    const folderOptions = {
+       styles: {
+          '--tjs-summary-font-family': '"Modesto Condensed", "Palatino Linotype", serif',
+          '--tjs-summary-font-size': '1.5em',
+          '--tjs-summary-chevron-size': '0.8em',
+       }
+    }
 </script>
 
 <div class="aa-options-border" in:fade>
-    <div class="aa-header-section">
-        <div class="aa-header">
-            <div class="flexcol" style="grid-row:1/2; grid-column:1/2;">
-                <i
-                    class="{showSound
-                        ? 'fas fa-caret-down fa-lg aa-greyScale'
-                        : 'fas fa-caret-right fa-lg aa-greyScale'} aa-zoom"
-                    title={showSound ? "collapse" : "expand"}
-                    on:click={() => (showSound = !showSound)}
-                />
-            </div>
-            <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
-                <label for=""  style="font-size:22px"
-                    >{localize("autoanimations.menus.sound")}
-                    {soundEnabled
-                        ? localize("autoanimations.menus.enabled")
-                        : localize("autoanimations.menus.disabled")}</label
-                >
-            </div>
-            <div
-                class="flexcol aa-checkbox"
-                style="grid-row:1/2; grid-column:5/6"
-            >
-                <input
+    <TJSSvgFolder folder={folderOptions}
+                  label={`${localize("autoanimations.menus.sound")} ${soundEnabled
+                      ? localize("autoanimations.menus.enabled")
+                      : localize("autoanimations.menus.disabled")}`}>
+        <div slot="summary-end">
+            <input
                     type="checkbox"
                     style="align-self:center"
                     title="Toggle Sound On/Off"
                     on:click={() => soundEnabled = !soundEnabled}
                     on:change={() => enableSound()}
                     bind:checked={soundEnabled}
-                />
-            </div>
+            />
+
             {#if soundEnabled && soundPath}
-                <div class="flexcol" style="grid-row:1/2; grid-column:4/5">
-                    <i
+                <i
                         class="fas fa-music aa-video-preview"
                         on:click={() => playSound()}
-                    />
-                </div>
+                />
             {/if}
         </div>
-    </div>
-    {#if showSound}
+
         <div class={!soundEnabled ? 'isDisabled' : ""}>
         <div
             class="aa-customAnim-container"
@@ -158,8 +147,8 @@
                 />
             </div>
         </div>
-    </div>
-    {/if}
+        </div>
+    </TJSSvgFolder>
 </div>
 
 <style lang="scss">
@@ -194,20 +183,20 @@
         font-size: large;
         font-weight: bold;
     }
-    .aa-header-section {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-        margin-bottom: 10px;
-    }
-    .aa-header label {
-        align-self: center;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: x-large;
-        font-weight: normal;
-        text-align: center;
-        margin-right: 5%;
-        margin-left: 5%;
-        color: black;
-    }
+    //.aa-header-section {
+    //    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    //    margin-bottom: 10px;
+    //}
+    //.aa-header label {
+    //    align-self: center;
+    //    font-family: "Modesto Condensed", "Palatino Linotype", serif;
+    //    font-size: x-large;
+    //    font-weight: normal;
+    //    text-align: center;
+    //    margin-right: 5%;
+    //    margin-left: 5%;
+    //    color: black;
+    //}
     .isDisabled {
         pointer-events: none;
         opacity: 0.4;

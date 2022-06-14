@@ -3,6 +3,8 @@
 <script>
     import { fade } from "svelte/transition";
 
+    import { TJSIconFolder } from '@typhonjs-fvtt/svelte-standard/component';
+
     import ChooseAnimation from "../components/chooseAnimation.svelte";
     import Options from "../components/options.svelte";
     import SoundSettings from "../components/soundSettings.svelte";
@@ -157,36 +159,33 @@
             shouldShowTargetFX = true;
         }
     }
+
+    /**
+     * @type {object} Defines folder data for TJSIconFolder.
+     */
+    const folder = {
+       iconOpen: 'fas fa-minus aa-red aa-zoom',
+       iconClosed: 'fas fa-plus aa-green aa-zoom',
+       styles: { '--tjs-summary-width': '97%', '--tjs-summary-margin': '0 0 0 1%'}
+    }
 </script>
 
-<div class="form-group aa-text-input">
-    <div style="max-width: 22px;margin-left: 10px;">
-        <input type="checkbox" id={customId} hidden bind:checked={isHidden} />
-        <label for={customId}
-            ><i
-                class="{isHidden
-                    ? 'fas fa-plus aa-green aa-zoom'
-                    : 'fas fa-minus aa-red aa-zoom'}
-                    aa-expand"
-                title={isHidden ? "Expand" : "Collapse"}
-            /></label
-        >
-    </div>
-    <input
-        type="text"
-        class="aa-nameField"
-        bind:value={sectionName}
-        placeholder={localize("autoanimations.menus.itemName")}
+<TJSIconFolder {folder}>
+    <input slot="label"
+           type="text"
+           class="aa-nameField"
+           bind:value={sectionName}
+           placeholder={localize("autoanimations.menus.itemName")}
     />
-    <div class="aa-deleteSection" style="max-width: 22px;margin-left: 10px;">
+
+    <div slot="summary-end" class="aa-deleteSection" style="max-width: 22px;margin-left: 10px;">
         <i
-            title="Delete Section"
-            class="far fa-trash-alt aa-expand aa-zoom"
-            on:click={() => removeSection()}
+                title="Delete Section"
+                class="far fa-trash-alt aa-expand aa-zoom"
+                on:click={() => removeSection()}
         />
     </div>
-</div>
-{#if !isHidden}
+
     <div class="aa-autorec-options" in:fade>
         <div style="grid-row:1/2; grid-column:1/2">
             <label for="" title="Duplicate" on:click={() => duplicateSection()}
@@ -229,10 +228,22 @@
                     class="fas fa-user-plus fa-lg aa-zoom {showExtraFX
                         ? 'aa-green'
                         : ''}"
-                /></label
+            /></label
             >
         </div>
         <div style="grid-row:1/2; grid-column:4/5">
+            <label for="" title="Sound Only"
+            ><i
+                    on:click={() => toggleSoundOnly()}
+                    class="fas fa-music aa-zoom {soundOnly ? 'aa-green' : ''}"
+            /></label>
+        </div>
+        <div style="grid-row:1/2; grid-column:5/6">
+            <label for="" title="Add Macro"
+            ><i
+                    on:click={() => toggleMacro()}
+                    class="far fa-keyboard aa-zoom"
+            /></label>
             <label for="" title="Sound Only" on:click={() => toggleSoundOnly()}
                 >{localize("autoanimations.menus.sound")}
                 {localize("autoanimations.menus.only")}
@@ -258,10 +269,10 @@
     {#if enableMacro}
         <div class="aaMenu-section" in:fade>
             <MacroField
-                bind:playWhen
-                isAutorec={true}
-                animationDisabled={false}
-                flagData={menuSection}
+                    bind:playWhen
+                    isAutorec={true}
+                    animationDisabled={false}
+                    flagData={menuSection}
             />
         </div>
     {/if}
@@ -276,20 +287,20 @@
             {#if showExtraFX}
                 <div class="aa-5wide">
                     <div
-                        class="flexcol aa-button-labels"
-                        style="grid-row: 1 / 2; grid-column: 1 / 2"
+                            class="flexcol aa-button-labels"
+                            style="grid-row: 1 / 2; grid-column: 1 / 2"
                     >
                         <label
-                            for=""
-                            class={enableSource ? "selected" : "notSelected"}
-                            style="border: 1px outset black; border-radius: 10px 20px"
-                            >{localize("autoanimations.menus.source")}</label
+                                for=""
+                                class={enableSource ? "selected" : "notSelected"}
+                                style="border: 1px outset black; border-radius: 10px 20px"
+                        >{localize("autoanimations.menus.source")}</label
                         >
                     </div>
                     {#if enableSource}
                         <div
-                            class="flexcol"
-                            style="grid-row:1/2; grid-column:2/3"
+                                class="flexcol"
+                                style="grid-row:1/2; grid-column:2/3"
                         >
                             <label for="" style="align-self:center" in:fade
                                 ><i class="fas fa-arrow-right fa-2xl" /></label
@@ -297,20 +308,20 @@
                         </div>
                     {/if}
                     <div
-                        class="flexcol aa-button-labels"
-                        style="grid-row: 1 / 2; grid-column: 3 / 4"
+                            class="flexcol aa-button-labels"
+                            style="grid-row: 1 / 2; grid-column: 3 / 4"
                     >
                         <label
-                            for=""
-                            class="selected"
-                            style="border: 1px outset black"
-                            >{localize("autoanimations.menus.primary")}</label
+                                for=""
+                                class="selected"
+                                style="border: 1px outset black"
+                        >{localize("autoanimations.menus.primary")}</label
                         >
                     </div>
                     {#if enableTarget}
                         <div
-                            class="flexcol"
-                            style="grid-row:1/2; grid-column:4/5"
+                                class="flexcol"
+                                style="grid-row:1/2; grid-column:4/5"
                         >
                             <label for="" style="align-self:center" in:fade
                                 ><i class="fas fa-arrow-right fa-2xl" /></label
@@ -318,45 +329,45 @@
                         </div>
                     {/if}
                     <div
-                        class="flexcol aa-button-labels"
-                        style="grid-row: 1 / 2; grid-column: 5 / 6"
+                            class="flexcol aa-button-labels"
+                            style="grid-row: 1 / 2; grid-column: 5 / 6"
                     >
                         <label
-                            for=""
-                            class={enableTarget ? "selected" : "notSelected"}
-                            style="border: 1px outset black; border-radius: 20px 10px"
-                            >{localize("autoanimations.menus.target")}</label
+                                for=""
+                                class={enableTarget ? "selected" : "notSelected"}
+                                style="border: 1px outset black; border-radius: 20px 10px"
+                        >{localize("autoanimations.menus.target")}</label
                         >
                     </div>
                 </div>
                 <div
-                    class="flexcol aa-extraFX-hint"
-                    style="grid-row:2/3; grid-column:1/6"
+                        class="flexcol aa-extraFX-hint"
+                        style="grid-row:2/3; grid-column:1/6"
                 >
                     <label for="" style="align-self:center"
-                        >Requires use of a Primary Animation</label
+                    >Requires use of a Primary Animation</label
                     >
                 </div>
 
                 <div class="aaMenu-section">
                     <ExtraFX
-                        flagPath="sourceExtraFX"
-                        bind:enableSection={enableSource}
-                        flagData={menuSection}
-                        previewStoreData={flagData}
-                        {staticType}
-                        isAutoRec={true}
+                            flagPath="sourceExtraFX"
+                            bind:enableSection={enableSource}
+                            flagData={menuSection}
+                            previewStoreData={flagData}
+                            {staticType}
+                            isAutoRec={true}
                     />
                 </div>
                 {#if shouldShowTargetFX}
                     <div class="aaMenu-section">
                         <ExtraFX
-                            flagPath="targetExtraFX"
-                            bind:enableSection={enableTarget}
-                            flagData={menuSection}
-                            previewStoreData={flagData}
-                            {staticType}
-                            isAutoRec={true}
+                                flagPath="targetExtraFX"
+                                bind:enableSection={enableTarget}
+                                flagData={menuSection}
+                                previewStoreData={flagData}
+                                {staticType}
+                                isAutoRec={true}
                         />
                     </div>
                 {/if}
@@ -366,60 +377,60 @@
                     <div class="aa-header-section" in:fade>
                         <div class="aa-header">
                             <div
-                                class="flexcol"
-                                style="grid-row:1/2; grid-column:3/4"
+                                    class="flexcol"
+                                    style="grid-row:1/2; grid-column:3/4"
                             >
                                 <label for=""
-                                    >{localize("autoanimations.menus.primary")}
+                                >{localize("autoanimations.menus.primary")}
                                     {localize(
-                                        "autoanimations.menus.animation"
+                                     "autoanimations.menus.animation"
                                     )}</label
                                 >
                             </div>
                             <div
-                                class="flexcol"
-                                style="grid-row:1/2; grid-column:1/2"
-                                in:fade
+                                    class="flexcol"
+                                    style="grid-row:1/2; grid-column:1/2"
+                                    in:fade
                             >
                                 <i
-                                    class="fas fa-film aa-video-preview aa-zoom"
-                                    on:click={() => onClick()}
-                                    title="Video Preview"
+                                        class="fas fa-film aa-video-preview aa-zoom"
+                                        on:click={() => onClick()}
+                                        title="Video Preview"
                                 />
                             </div>
                         </div>
                     </div>
                     <ChooseAnimation
-                        bind:menuType
-                        bind:animation
-                        bind:variant
-                        bind:color
-                        bind:isCustom
-                        bind:customPath
-                        bind:staticType
-                        flagPath="PrimaryAnimation"
-                        animTypeSwitched={false}
-                        disablePlayOn={isOnSource}
-                        animType={type}
-                        flagData={menuSection}
-                        customId={`${type}-${idx}`}
+                            bind:menuType
+                            bind:animation
+                            bind:variant
+                            bind:color
+                            bind:isCustom
+                            bind:customPath
+                            bind:staticType
+                            flagPath="PrimaryAnimation"
+                            animTypeSwitched={false}
+                            disablePlayOn={isOnSource}
+                            animType={type}
+                            flagData={menuSection}
+                            customId={`${type}-${idx}`}
                     />
                     <Options
-                        animType={type}
-                        {menuType}
-                        flagData={menuSection}
+                            animType={type}
+                            {menuType}
+                            flagData={menuSection}
                     />
                     <SoundSettings audioPath="a01" flagData={menuSection} />
                 </div>
                 {#if type === "melee"}
                     <div class="aa-section-border">
                         <RangeSwitch
-                            primaryAnimation={animation}
-                            primaryMenuType={menuType}
-                            flagData={menuSection}
-                            previewStoreData={flagData}
-                            isAutoRec={true}
-                            customId={`switch-${idx}`}
+                                primaryAnimation={animation}
+                                primaryMenuType={menuType}
+                                flagData={menuSection}
+                                previewStoreData={flagData}
+                                isAutoRec={true}
+                                customId={`switch-${idx}`}
                         />
                     </div>
                 {/if}
@@ -435,7 +446,7 @@
             {/if}
         {/if}
     {/if}
-{/if}
+</TJSIconFolder>
 
 <style lang="scss">
     .aa-nameField {

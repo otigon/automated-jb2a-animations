@@ -1,6 +1,7 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { fade } from "svelte/transition";
+    import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
+
     import SoundSettings from "./soundSettings.svelte";
     import ChooseAnimation from "./chooseAnimation.svelte";
     import { storeAutorec } from "../AutorecMenu/autorecPreviews.js";
@@ -122,10 +123,10 @@
 
     export let enableSection = root.enable || false;
     //$: enableSection = root.enable = enableSection;
-    
+
     let showOptions = options.showOptions ?? false;
     $: showOptions = options.showOptions = showOptions;
-    
+
     let menuType = primary.menuType;
     let animation = primary.animation;
     let variant = primary.variant;
@@ -156,267 +157,244 @@
 
     let customId =
         flagPath === "sourceExtraFX" ? "customSource" : "customTarget";
+
+    const folderOptions = {
+       styles: {
+          '--tjs-summary-font-family': '"Modesto Condensed", "Palatino Linotype", serif',
+          '--tjs-summary-font-size': '1.5em',
+          '--tjs-summary-chevron-size': '0.8em',
+       }
+    }
 </script>
 
-<div transition:fade={{ duration: 500 }}>
-    <div class="aa-header-section">
-        <div class="aa-header">
-            <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
-                <label for="">{sectionTitle}</label>
-            </div>
+<TJSSvgFolder folder={folderOptions} label={sectionTitle}>
+    <input  slot="summary-end"
+            type="checkbox"
+            style="align-self:center"
+            title="Toggle Sound On/Off"
+            on:click={() => (enableSection = !enableSection)}
+            bind:checked={enableSection}
+    />
+
+    <ChooseAnimation
+        bind:menuType
+        bind:animation
+        bind:variant
+        bind:color
+        bind:isCustom
+        bind:customPath
+        bind:customId
+        animType="static"
+        {flagPath}
+        {flagData}
+    />
+    <div class="aa-options-border">
+        <TJSSvgFolder folder={folderOptions} label={localize("autoanimations.menus.options")}>
+        <i      slot="summary-end"
+                class="fas fa-info-circle aa-info-icon aa-zoom"
+                title={localize("autoanimations.menus.quickReference")}
+                style="padding-left: 8px"
+                on:click={() => optionsInfo()}
+        />
+
+        <div class="aa-options">
+            <!--Persistent Setting-->
             <div
-                class="flexcol aa-checkbox"
-                style="grid-row:1/2; grid-column:5/6"
+                class="flexcol {flagPath === 'sourceExtraFX'
+                    ? 'aa-opacityButton'
+                    : ''}"
+                style="grid-row: 1 / 2; grid-column: 1 / 2;"
             >
+                <label for=""
+                    >{localize("autoanimations.menus.persistence")}</label
+                >
+                <button
+                    disabled={flagPath === "sourceExtraFX"}
+                    on:click={() => switchPersistence()}
+                    >{isPersistent}</button
+                >
+            </div>
+            <!--Set Animation Level-->
+            <div
+                class="flexcol"
+                style="grid-row: 1 / 2; grid-column: 2 / 3;"
+            >
+                <label for=""
+                    >{localize("autoanimations.menus.level")}</label
+                >
+                <button class="oldCheck" on:click={() => below()}
+                    >{aboveBelow}</button
+                >
+            </div>
+            <!--Bind/Unbind Visibility (for Persistent Effects)-->
+            <div
+                class="flexcol {flagPath === 'sourceExtraFX'
+                    ? 'aa-opacityButton'
+                    : ''}"
+                style="grid-row: 1 / 2; grid-column: 3 / 4;"
+            >
+                <label for=""
+                    >{localize("autoanimations.menus.visibility")}</label
+                >
+                <button
+                    disabled={flagPath === "sourceExtraFX"}
+                    on:click={() => switchVisibility()}
+                    >{bindVisibility}</button
+                >
+            </div>
+            <!--Bind/Unbind Opacity (for Persistent Effects)-->
+            <div
+                class="flexcol {flagPath === 'sourceExtraFX'
+                    ? 'aa-opacityButton'
+                    : ''}"
+                style="grid-row: 1 / 2; grid-column: 4 / 5;"
+            >
+                <label for=""
+                    >{localize("autoanimations.menus.alpha")}</label
+                >
+                <button
+                    disabled={flagPath === "sourceExtraFX"}
+                    on:click={() => switchAlpha()}>{bindAlpha}</button
+                >
+            </div>
+            <!--Set the Masking Boolean-->
+            <div
+                class="flexcol"
+                style="grid-row: 2 / 3; grid-column: 1 / 2;"
+            >
+                <label for=""
+                    >{localize("autoanimations.menus.masking")}</label
+                >
+                <button
+                    class={isMasked ? "aa-selected" : "aa-notSelected"}
+                    on:click={() => switchMask()}>{maskLabel}</button
+                >
+            </div>
+            <!--Set Number of times the animation plays-->
+            <div
+                class="flexcol {persistent ? 'aa-opacityButton' : ''}"
+                style="grid-row: 2 / 3; grid-column: 2 / 3;"
+            >
+                <label for="aaRepeat"
+                    >{localize("autoanimations.menus.repeat")}</label
+                >
                 <input
-                    type="checkbox"
-                    style="align-self:center"
-                    title="Toggle Sound On/Off"
-                    on:click={() => (enableSection = !enableSection)}
-                    bind:checked={enableSection}
+                    disabled={persistent}
+                    id="aaRepeat"
+                    type="Number"
+                    bind:value={repeat}
+                    placeholder="1"
                 />
             </div>
-        </div>
-    </div>
-    {#if enableSection}
-        <ChooseAnimation
-            bind:menuType
-            bind:animation
-            bind:variant
-            bind:color
-            bind:isCustom
-            bind:customPath
-            bind:customId
-            animType="static"
-            {flagPath}
-            {flagData}
-        />
-        <div class="aa-options-border" transition:fade={{ duration: 500 }}>
-            <div class="aa-header-section">
-                <div class="aa-header">
-                    <div class="flexcol" style="grid-row:1/2; grid-column:1/2;">
-                        <i
-                            class="{showOptions
-                                ? "fas fa-caret-down fa-lg aa-greyScale"
-                                : "fas fa-caret-right fa-lg aa-greyScale"} aa-zoom"
-                            title={showOptions ? "collapse" : "expand"}
-                            on:click={() => showOptions = !showOptions}
-                        />
-                    </div>
-                    <div class="flexcol" style="grid-row:1/2; grid-column:3/4">
-                        <label for="">{localize("autoanimations.menus.options")}</label>
-                    </div>
-                    <div class="flexcol" style="grid-row:1/2; grid-column:4/5;">
-                        <i
-                            class="fas fa-info-circle aa-info-icon aa-zoom"
-                            title={localize("autoanimations.menus.quickReference")}
-                            on:click={() => optionsInfo()}
-                        />
-                    </div>        
+            <!--Set delay between repeats-->
+            <div
+                class="flexcol {persistent ? 'aa-opacityButton' : ''}"
+                style="grid-row: 2 / 3; grid-column: 3 / 4;"
+            >
+                <label for="aaDelay"
+                    >{localize("autoanimations.menus.repeat")}
+                    {localize("autoanimations.menus.delay")}</label
+                >
+                <input
+                    disabled={persistent}
+                    it="aaDelay"
+                    type="Number"
+                    bind:value={delay}
+                />
+            </div>
+            <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
+            <div
+                class="flexcol"
+                style="grid-row: 2 / 3; grid-column: 4 / 5;"
+            >
+                <label for=""
+                    >{localize("autoanimations.menus.scale")}</label
+                >
+                <input
+                    type="Number"
+                    bind:value={scale}
+                    placeholder="1"
+                    step="0.01"
+                />
+            </div>
+            <!--Set Animation Opacity-->
+            <div
+                class="flexcol"
+                style="grid-row: 3 / 4; grid-column: 1 / 2;"
+            >
+                <label for=""
+                    >{localize("autoanimations.menus.opacity")}</label
+                >
+                <div class="form-group">
+                    <input
+                        type="Number"
+                        bind:value={opacity}
+                        placeholder="1"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        style="font-weight: bold;background:rgb(191 187 182);font-size:medium;height:1.5em;max-width: 3em;font-family: Noto Sans, serif;"
+                    />
+                    <input
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        bind:value={opacity}
+                        style="border:none; background:none"
+                    />
                 </div>
             </div>
-            {#if showOptions}
-            <div class="aa-options" transition:fade>
-                <!--Persistent Setting-->
-                <div
-                    class="flexcol {flagPath === 'sourceExtraFX'
-                        ? 'aa-opacityButton'
-                        : ''}"
-                    style="grid-row: 1 / 2; grid-column: 1 / 2;"
-                >
-                    <label for=""
-                        >{localize("autoanimations.menus.persistence")}</label
-                    >
-                    <button
-                        disabled={flagPath === "sourceExtraFX"}
-                        on:click={() => switchPersistence()}
-                        >{isPersistent}</button
-                    >
-                </div>
-                <!--Set Animation Level-->
+            <!--Set Z-Index of Animation-->
+            <div>
                 <div
                     class="flexcol"
-                    style="grid-row: 1 / 2; grid-column: 2 / 3;"
+                    style="grid-row: 3 /4; grid-column: 2 / 3;"
                 >
                     <label for=""
-                        >{localize("autoanimations.menus.level")}</label
-                    >
-                    <button class="oldCheck" on:click={() => below()}
-                        >{aboveBelow}</button
-                    >
-                </div>
-                <!--Bind/Unbind Visibility (for Persistent Effects)-->
-                <div
-                    class="flexcol {flagPath === 'sourceExtraFX'
-                        ? 'aa-opacityButton'
-                        : ''}"
-                    style="grid-row: 1 / 2; grid-column: 3 / 4;"
-                >
-                    <label for=""
-                        >{localize("autoanimations.menus.visibility")}</label
-                    >
-                    <button
-                        disabled={flagPath === "sourceExtraFX"}
-                        on:click={() => switchVisibility()}
-                        >{bindVisibility}</button
-                    >
-                </div>
-                <!--Bind/Unbind Opacity (for Persistent Effects)-->
-                <div
-                    class="flexcol {flagPath === 'sourceExtraFX'
-                        ? 'aa-opacityButton'
-                        : ''}"
-                    style="grid-row: 1 / 2; grid-column: 4 / 5;"
-                >
-                    <label for=""
-                        >{localize("autoanimations.menus.alpha")}</label
-                    >
-                    <button
-                        disabled={flagPath === "sourceExtraFX"}
-                        on:click={() => switchAlpha()}>{bindAlpha}</button
-                    >
-                </div>
-                <!--Set the Masking Boolean-->
-                <div
-                    class="flexcol"
-                    style="grid-row: 2 / 3; grid-column: 1 / 2;"
-                >
-                    <label for=""
-                        >{localize("autoanimations.menus.masking")}</label
-                    >
-                    <button
-                        class={isMasked ? "aa-selected" : "aa-notSelected"}
-                        on:click={() => switchMask()}>{maskLabel}</button
-                    >
-                </div>
-                <!--Set Number of times the animation plays-->
-                <div
-                    class="flexcol {persistent ? 'aa-opacityButton' : ''}"
-                    style="grid-row: 2 / 3; grid-column: 2 / 3;"
-                >
-                    <label for="aaRepeat"
-                        >{localize("autoanimations.menus.repeat")}</label
+                        >{localize("autoanimations.menus.z-index")}</label
                     >
                     <input
-                        disabled={persistent}
-                        id="aaRepeat"
-                        type="Number"
-                        bind:value={repeat}
+                        type="number"
+                        bind:value={zIndex}
                         placeholder="1"
+                        step="1"
                     />
                 </div>
-                <!--Set delay between repeats-->
-                <div
-                    class="flexcol {persistent ? 'aa-opacityButton' : ''}"
-                    style="grid-row: 2 / 3; grid-column: 3 / 4;"
-                >
-                    <label for="aaDelay"
-                        >{localize("autoanimations.menus.repeat")}
-                        {localize("autoanimations.menus.delay")}</label
-                    >
-                    <input
-                        disabled={persistent}
-                        it="aaDelay"
-                        type="Number"
-                        bind:value={delay}
-                    />
-                </div>
-                <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
-                <div
-                    class="flexcol"
-                    style="grid-row: 2 / 3; grid-column: 4 / 5;"
-                >
+            </div>
+            {#if flagPath === "sourceExtraFX"}
+                <div class="flexcol" style="grid-row:3/4; grid-column:3/5">
                     <label for=""
-                        >{localize("autoanimations.menus.scale")}</label
+                        >{localize("autoanimations.menus.delay")}
+                        {localize("autoanimations.menus.primary")}
+                        {localize("autoanimations.menus.start")}</label
                     >
                     <input
                         type="Number"
-                        bind:value={scale}
+                        bind:value={delayAfter}
                         placeholder="1"
                         step="0.01"
                     />
                 </div>
-                <!--Set Animation Opacity-->
-                <div
-                    class="flexcol"
-                    style="grid-row: 3 / 4; grid-column: 1 / 2;"
-                    in:fade={{ duration: 500 }}
-                    out:fade={{ duration: 500 }}
-                >
+            {:else}
+                <div class="flexcol" style="grid-row:3/4; grid-column:3/5">
                     <label for=""
-                        >{localize("autoanimations.menus.opacity")}</label
+                        >{localize("autoanimations.menus.delay")}
+                        {localize("autoanimations.menus.start")}</label
                     >
-                    <div class="form-group">
-                        <input
-                            type="Number"
-                            bind:value={opacity}
-                            placeholder="1"
-                            min="0"
-                            max="1"
-                            step="0.01"
-                            style="font-weight: bold;background:rgb(191 187 182);font-size:medium;height:1.5em;max-width: 3em;font-family: Noto Sans, serif;"
-                        />
-                        <input
-                            type="range"
-                            min="0"
-                            max="1"
-                            step="0.01"
-                            bind:value={opacity}
-                            style="border:none; background:none"
-                        />
-                    </div>
+                    <input
+                        type="Number"
+                        bind:value={delayStart}
+                        placeholder="1"
+                        step="0.01"
+                    />
                 </div>
-                <!--Set Z-Index of Animation-->
-                <div>
-                    <div
-                        class="flexcol"
-                        style="grid-row: 3 /4; grid-column: 2 / 3;"
-                    >
-                        <label for=""
-                            >{localize("autoanimations.menus.z-index")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={zIndex}
-                            placeholder="1"
-                            step="1"
-                        />
-                    </div>
-                </div>
-                {#if flagPath === "sourceExtraFX"}
-                    <div class="flexcol" style="grid-row:3/4; grid-column:3/5">
-                        <label for=""
-                            >{localize("autoanimations.menus.delay")}
-                            {localize("autoanimations.menus.primary")}
-                            {localize("autoanimations.menus.start")}</label
-                        >
-                        <input
-                            type="Number"
-                            bind:value={delayAfter}
-                            placeholder="1"
-                            step="0.01"
-                        />
-                    </div>
-                {:else}
-                    <div class="flexcol" style="grid-row:3/4; grid-column:3/5">
-                        <label for=""
-                            >{localize("autoanimations.menus.delay")}
-                            {localize("autoanimations.menus.start")}</label
-                        >
-                        <input
-                            type="Number"
-                            bind:value={delayStart}
-                            placeholder="1"
-                            step="0.01"
-                        />
-                    </div>
-                {/if}
-            </div>
             {/if}
         </div>
-        <SoundSettings {audioPath} {flagData} />
-    {/if}
-</div>
+        </TJSSvgFolder>
+    </div>
+    <SoundSettings {audioPath} {flagData} />
+</TJSSvgFolder>
 
 <style lang="scss">
     .oldCheck {
@@ -434,18 +412,19 @@
         color: rgba(133, 133, 133, 0.3);
         transition: color 0.5s, border 0.5s;
     }
-    .aa-header-section {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-        margin-bottom: 10px;
-    }
-    .aa-header label {
-        align-self: center;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: x-large;
-        font-weight: bold;
-        text-align: center;
-        margin-right: 5%;
-        margin-left: 5%;
-        color: black;
-    }
+    //.aa-header-section {
+    //    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    //    margin-bottom: 10px;
+    //}
+    //.aa-header label {
+    //    align-self: center;
+    //    font: bold x-large "Modesto Condensed", "Palatino Linotype", serif;
+    //    font-family: "Modesto Condensed", "Palatino Linotype", serif;
+    //    font-size: x-large;
+    //    font-weight: bold;
+    //    text-align: center;
+    //    margin-right: 5%;
+    //    margin-left: 5%;
+    //    color: black;
+    //}
 </style>

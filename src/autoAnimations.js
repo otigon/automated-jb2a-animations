@@ -24,11 +24,15 @@ import { AnimationState } from "./AnimationState.js";
 import { initSettings } from "./initSettings.js";
 import { gameSettings } from "./gameSettings.js";
 
+import { showMainMenu } from "./formApps/AutorecMenu/showMainUI.js";
+
 const log = () => { };
 
 Hooks.once('socketlib.ready', function () {
     setupSocket();
 });
+
+Hooks.on('AutomaticAnimations.Open.Menu',() => showMainMenu());
 
 Hooks.on('init', () => {
     Handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
@@ -317,7 +321,7 @@ Hooks.once('ready', async function () {
                     //let targets = game.user.targets;
                     wfrpSkill(data, info)
                 });
-                
+
                 break;
             case 'ose':
                 Hooks.on("createChatMessage", async (msg) => { oseReady(msg) });
@@ -810,7 +814,7 @@ async function setupA5ESystem(msg) {
     if (msg.user.id !== game.user.id) { return; }
 
     const handler = await systemData.make(msg);
-    if (!handler.item || !handler.sourceToken) { return; } 
+    if (!handler.item || !handler.sourceToken) { return; }
 
     trafficCop(handler);
 }
