@@ -230,7 +230,7 @@
                 disabled={isCustom}
             >
                 {#if animType != ""}
-                    {#each Object.entries(aaTypeMenu[menuSelection]) as [key, name]}
+                    {#each Object.entries(aaTypeMenu[menuSelection] || {}) as [key, name]}
                         <option value={key}>{name}</option>
                     {/each}
                 {/if}
@@ -295,7 +295,7 @@
                 disabled={isCustom}
             >
                 {#if menuType != ""}
-                    {#each Object.entries(aaNameMenu[menuSelection][menuType]) as [key, name]}
+                    {#each Object.entries(aaNameMenu?.[menuSelection]?.[menuType] || {}) as [key, name]}
                         <option value={key}>{name}</option>
                     {/each}
                 {/if}
@@ -314,7 +314,7 @@
                 disabled={isCustom}
             >
                 {#if (menuType != "") & (animation != "")}
-                    {#each Object.entries(aaVariantMenu[menuSelection][menuType][animation]) as [key, name]}
+                    {#each Object.entries(aaVariantMenu[menuSelection]?.[menuType]?.[animation] || {}) as [key, name]}
                         <option value={key}>{name}</option>
                     {/each}
                 {/if}
@@ -328,7 +328,7 @@
             <label for="5">{localize("autoanimations.menus.color")}</label>
             <select bind:value={color} id="5" disabled={isCustom}>
                 {#if menuType != "" && animation != "" && variant != ""}
-                    {#each Object.entries(aaColorMenu[menuSelection][menuType][animation][variant]) as [key, name]}
+                    {#each Object.entries(aaColorMenu[menuSelection]?.[menuType]?.[animation]?.[variant] || {}) as [key, name]}
                         <option value={key}>{name}</option>
                     {/each}
                 {/if}
