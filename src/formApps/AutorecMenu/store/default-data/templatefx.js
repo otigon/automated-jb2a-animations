@@ -26,8 +26,6 @@ export const templatefx = [
          repeat: 1,
          scaleX: 1,
          scaleY: 1,
-         unbindAlpha: false,
-         unbindVisbility: false,
          zIndex: 1,
       },
       primary: {
@@ -68,8 +66,6 @@ export const templatefx = [
          repeat: 1,
          scaleX: 1,
          scaleY: 1,
-         unbindAlpha: false,
-         unbindVisbility: false,
          zIndex: 1,
       },
       primary: {
