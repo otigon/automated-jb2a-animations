@@ -117,10 +117,6 @@ Hooks.once('ready', async function () {
     // Initializes all AutoRecStores backed by individual game settings.
     autoRecStores.initialize();
 
-    // TODO REMOVE TEST
-    console.log(`!! autoAnimations - ready hook - autoRecStores.range: \n`, autoRecStores.range.toJSON())
-    console.log(`!! autoAnimations - ready hook - autoRecStores.aura: \n`, autoRecStores.aura.toJSON())
-
     const s3Check = game.settings.get('autoanimations', 'jb2aLocation');
     const jb2aPatreonFound = moduleIncludes("jb2a_patreon");
     //const jb2aFreeFound = moduleIncludes("JB2A_DnD5e");
