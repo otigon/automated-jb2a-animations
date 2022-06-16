@@ -23,6 +23,7 @@ import { autoRecMigration } from "./custom-recognition/autoRecMerge.js";
 import { AnimationState } from "./AnimationState.js";
 import { initSettings } from "./initSettings.js";
 import { gameSettings } from "./gameSettings.js";
+import { autoRecStores }  from "./formApps/AutorecMenu/store/AutoRecStores.js";
 
 import { showMainMenu } from "./formApps/AutorecMenu/showMainUI.js";
 
@@ -112,6 +113,10 @@ Hooks.on("aa.ready", () => {
 
 Hooks.once('ready', async function () {
     initSettings(gameSettings);
+
+    // Initializes all AutoRecStores backed by individual game settings.
+    autoRecStores.initialize();
+
     const s3Check = game.settings.get('autoanimations', 'jb2aLocation');
     const jb2aPatreonFound = moduleIncludes("jb2a_patreon");
     //const jb2aFreeFound = moduleIncludes("JB2A_DnD5e");
