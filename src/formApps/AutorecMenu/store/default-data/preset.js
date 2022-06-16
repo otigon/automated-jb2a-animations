@@ -2,9 +2,17 @@ import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 
 export const preset = [
    {
+      audio: {
+         a01: {
+            enable:false,
+         },
+      },
       id: uuidv4(),
       presetType: "bardicinspiration",
       hidden: true,
+      macro: {
+         enable: false,
+      },
       name: "autoanimations.animations.bardicinspiration",
       data: {
          self: {
@@ -30,63 +38,106 @@ export const preset = [
    },
 
    {
+      audio: {
+         a01: {
+            enable:false,
+         },
+      },
       id: uuidv4(),
       presetType: "bless",
       hidden: true,
+      macro: {
+         enable: false,
+      },
       name: "autoanimations.animations.bless",
       data: {
-         persistent: false,
          below: true,
          color: "yellow",
+         persistent: false,
          scale: 1.5,
+         unbindAlpha: false,
+         unbindVisbility: false,
       }
    },
 
    {
+      audio: {
+         a01: {
+            enable:false,
+         },
+      },
       id: uuidv4(),
       presetType: "shieldspell",
       hidden: true,
+      macro: {
+         enable: false,
+      },
       name: "autoanimations.animations.shield",
       data: {
+         animation: "shieldspell",
          below: false,
          color: "blue",
          endEffect: "outro_explode",
+         menuType: "spell",
+         persistent: false,
          scale: 1,
+         unbindAlpha: false,
+         unbindVisbility: false,
          variant: "01",
       }
    },
 
    {
+      audio: {
+         a01: {
+            enable:false,
+         },
+      },
       id: uuidv4(),
       presetType: "teleportation",
       hidden: true,
+      macro: {
+         enable: false,
+      },
       name: "autoanimations.animations.mistystep",
       data: {
          range: 30,
-         hideTemplate: false,
+         hideFromPlayers: false,
          measureType: "alternating",
          start: {
-            menuType: "spell",
             animation: "mistystep",
-            variant: "01",
-            color: "blue",
-            scale: 1.5,
-            custom: false,
-            customPath: "",
             below: false,
+            color: "blue",
+            customPath: "",
+            enableCustom: false,
+            isMasked: false,
+            menuType: "spell",
+            opacity: 1,
+            scale: 1.5,
+            variant: "01",
          },
          end: {
-            menuType: "spell",
             animation: "mistystep",
-            variant: "02",
-            color: "blue",
-            scale: 1.5,
-            custom: false,
-            customPath: "",
             below: false,
+            color: "blue",
+            customPath: "",
+            delay: 250,
+            enableCustom: false,
+            isMasked: false,
+            menuType: "spell",
+            scale: 1.5,
+            variant: "02",
          },
          between: {
-            enableBetween: false,
+            enable: false,
+            animation: "chainlightning",
+            below: false,
+            color: "blue",
+            customPath: "",
+            enableCustom: false,
+            menuType: "spell",
+            playbackRate: 1,
+            variant: "primary",
          },
       }
    }
