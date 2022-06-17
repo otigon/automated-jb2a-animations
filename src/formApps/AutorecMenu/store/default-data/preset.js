@@ -1,14 +1,12 @@
 import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 
+import * as common from "./common";
+
 export const preset = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.bardicinspiration",
-      audio: {
-         a01: {
-            enable:false,
-         },
-      },
+      audio: common.audio(),
       presetType: "bardicinspiration",
       macro: {
          enable: false,
@@ -39,11 +37,7 @@ export const preset = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.bless",
-      audio: {
-         a01: {
-            enable:false,
-         },
-      },
+      audio: common.audio(),
       presetType: "bless",
       macro: {
          enable: false,
@@ -61,11 +55,7 @@ export const preset = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.shield",
-      audio: {
-         a01: {
-            enable:false,
-         },
-      },
+      audio: common.audio(),
       presetType: "shieldspell",
       macro: {
          enable: false,
@@ -87,11 +77,7 @@ export const preset = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.mistystep",
-      audio: {
-         a01: {
-            enable:false,
-         },
-      },
+      audio: common.audio(),
       presetType: "teleportation",
       macro: {
          enable: false,

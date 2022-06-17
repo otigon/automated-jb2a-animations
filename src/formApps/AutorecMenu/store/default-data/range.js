@@ -1,17 +1,12 @@
 import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 
+import * as common from "./common";
+
 export const range = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.crossbow",
-      audio: {
-         a01: {
-            enable:false,
-         },
-         e01: {
-            enable:false,
-         }
-      },
+      audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: {
          enable: false,
       },
@@ -44,14 +39,7 @@ export const range = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.bow",
-      audio: {
-         a01: {
-            enable:false,
-         },
-         e01: {
-            enable:false,
-         }
-      },
+      audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: {
          enable: false,
       },
@@ -84,14 +72,7 @@ export const range = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.disintegrate",
-      audio: {
-         a01: {
-            enable:false,
-         },
-         e01: {
-            enable:false,
-         }
-      },
+      audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: {
          enable: false,
       },
@@ -124,14 +105,7 @@ export const range = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.eldritchblast",
-      audio: {
-         a01: {
-            enable:false,
-         },
-         e01: {
-            enable:false,
-         }
-      },
+      audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: {
          enable: false,
       },
@@ -164,14 +138,7 @@ export const range = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.firebolt",
-      audio: {
-         a01: {
-            enable:false,
-         },
-         e01: {
-            enable:false,
-         }
-      },
+      audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: {
          enable: false,
       },
@@ -204,14 +171,7 @@ export const range = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.guidingbolt",
-      audio: {
-         a01: {
-            enable:false,
-         },
-         e01: {
-            enable:false,
-         }
-      },
+      audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: {
          enable: false,
       },
@@ -244,14 +204,7 @@ export const range = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.magicmissile",
-      audio: {
-         a01: {
-            enable:false,
-         },
-         e01: {
-            enable:false,
-         }
-      },
+      audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: {
          enable: false,
       },
@@ -284,14 +237,7 @@ export const range = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.rayoffrost",
-      audio: {
-         a01: {
-            enable:false,
-         },
-         e01: {
-            enable:false,
-         }
-      },
+      audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: {
          enable: false,
       },
@@ -324,14 +270,7 @@ export const range = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.scorchingray",
-      audio: {
-         a01: {
-            enable:false,
-         },
-         e01: {
-            enable:false,
-         }
-      },
+      audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: {
          enable: false,
       },
@@ -364,14 +303,7 @@ export const range = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.witchbolt",
-      audio: {
-         a01: {
-            enable:false,
-         },
-         e01: {
-            enable:false,
-         }
-      },
+      audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: {
          enable: false,
       },

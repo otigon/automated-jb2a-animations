@@ -1,14 +1,12 @@
 import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 
+import * as common from "./common";
+
 export const aura = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.spiritguardians",
-      audio: {
-         a01: {
-            enable: false,
-         },
-      },
+      audio: common.audio({ source: true, target: true }),
       macro: {
          enable: false,
       },

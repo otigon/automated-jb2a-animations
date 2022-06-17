@@ -1,14 +1,12 @@
 import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 
+import * as common from "./common";
+
 export const templatefx = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.calllightning",
-      audio: {
-         a01: {
-            enable:false,
-         },
-      },
+      audio: common.audio({ source: true }),
       macro: {
          enable: false,
       },
@@ -41,11 +39,7 @@ export const templatefx = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.fogcloud",
-      audio: {
-         a01: {
-            enable:false,
-         },
-      },
+      audio: common.audio({ source: true }),
       macro: {
          enable: false,
       },

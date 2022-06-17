@@ -1,17 +1,12 @@
 import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 
-export const staticfx = [
+import * as common from "./common";
+
+export const ontoken = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.curewounds",
-      audio: {
-         a01: {
-            enable:false,
-         },
-         e01: {
-            enable:false,
-         }
-      },
+      audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: {
          enable: false,
       },
@@ -48,14 +43,7 @@ export const staticfx = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.itemHealingWord",
-      audio: {
-         a01: {
-            enable:false,
-         },
-         e01: {
-            enable:false,
-         }
-      },
+      audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: {
          enable: false,
       },
@@ -92,14 +80,7 @@ export const staticfx = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.tollthedead",
-      audio: {
-         a01: {
-            enable:false,
-         },
-         e01: {
-            enable:false,
-         }
-      },
+      audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: {
          enable: false,
       },
@@ -136,14 +117,7 @@ export const staticfx = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.bite",
-      audio: {
-         a01: {
-            enable:false,
-         },
-         e01: {
-            enable:false,
-         }
-      },
+      audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: {
          enable: false,
       },
@@ -180,14 +154,7 @@ export const staticfx = [
    {
       id: uuidv4(),
       name: "autoanimations.animations.claw",
-      audio: {
-         a01: {
-            enable:false,
-         },
-         e01: {
-            enable:false,
-         }
-      },
+      audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: {
          enable: false,
       },
