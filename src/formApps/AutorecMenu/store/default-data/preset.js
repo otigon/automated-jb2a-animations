@@ -2,18 +2,17 @@ import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 
 export const preset = [
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.bardicinspiration",
       audio: {
          a01: {
             enable:false,
          },
       },
-      id: uuidv4(),
       presetType: "bardicinspiration",
-      hidden: true,
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.bardicinspiration",
       data: {
          self: {
             enable: true,
@@ -38,18 +37,17 @@ export const preset = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.bless",
       audio: {
          a01: {
             enable:false,
          },
       },
-      id: uuidv4(),
       presetType: "bless",
-      hidden: true,
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.bless",
       data: {
          below: true,
          color: "yellow",
@@ -61,18 +59,17 @@ export const preset = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.shield",
       audio: {
          a01: {
             enable:false,
          },
       },
-      id: uuidv4(),
       presetType: "shieldspell",
-      hidden: true,
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.shield",
       data: {
          animation: "shieldspell",
          below: false,
@@ -88,18 +85,17 @@ export const preset = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.mistystep",
       audio: {
          a01: {
             enable:false,
          },
       },
-      id: uuidv4(),
       presetType: "teleportation",
-      hidden: true,
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.mistystep",
       data: {
          range: 30,
          hideFromPlayers: false,

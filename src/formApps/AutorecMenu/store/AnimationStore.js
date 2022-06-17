@@ -1,3 +1,5 @@
+import { isObject } from "@typhonjs-fvtt/runtime/svelte/util";
+
 export class AnimationStore {
    #data;
 
@@ -19,11 +21,6 @@ export class AnimationStore {
    get id() { return this.#data.id; }
 
    /**
-    * @returns {boolean}
-    */
-   get hidden() { return this.#data.hidden; }
-
-   /**
     * @returns {string}
     */
    get name() { return this.#data.name; }
@@ -35,16 +32,6 @@ export class AnimationStore {
    {
       if (typeof id !== 'string') { throw new TypeError(`'id' is not a string.`); }
       this.#data.id = id;
-      this.updateSubscribers();
-   }
-
-   /**
-    * @param {boolean}   hidden -
-    */
-   set hidden(hidden)
-   {
-      if (typeof hidden !== 'boolean') { throw new TypeError(`'hidden' is not a boolean.`); }
-      this.#data.hidden = hidden;
       this.updateSubscribers();
    }
 
@@ -63,7 +50,19 @@ export class AnimationStore {
     */
    set(data)
    {
-      this.#data = data;
+      if (!isObject(data)) { throw new TypeError(`'data' is not an object.`); }
+
+      if (data.name !== void 0)
+      {
+         if (typeof data.name !== 'string') { throw new TypeError(`'data.name' is not a string.`); }
+         this.#data.name = data.name;
+      }
+
+      if (data.id !== void 0)
+      {
+         if (typeof data.id !== 'string') { throw new TypeError(`'data.id' is not a string.`); }
+         this.#data.id = data.id;
+      }
 
       this.updateSubscribers();
    }

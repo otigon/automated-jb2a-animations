@@ -2,6 +2,8 @@ import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 
 export const melee = [
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.dagger",
       audio: {
          a01: {
             enable:false,
@@ -16,8 +18,6 @@ export const melee = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
@@ -28,7 +28,6 @@ export const melee = [
          switchType: "on",
          returning: false,
       },
-      name: "autoanimations.animations.dagger",
       options: {
          below: false,
          delay: 500,
@@ -49,6 +48,8 @@ export const melee = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.flurryofblows",
       audio: {
          a01: {
             enable:false,
@@ -63,8 +64,6 @@ export const melee = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
@@ -75,7 +74,6 @@ export const melee = [
          switchType: "on",
          returning: false,
       },
-      name: "autoanimations.animations.flurryofblows",
       options: {
          below: false,
          delay: 500,
@@ -96,6 +94,8 @@ export const melee = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.greataxe",
       audio: {
          a01: {
             enable:false,
@@ -110,8 +110,6 @@ export const melee = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
@@ -122,7 +120,6 @@ export const melee = [
          switchType: "on",
          returning: false,
       },
-      name: "autoanimations.animations.greataxe",
       options: {
          below: false,
          delay: 500,
@@ -143,6 +140,8 @@ export const melee = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.greatclub",
       audio: {
          a01: {
             enable:false,
@@ -157,8 +156,6 @@ export const melee = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
@@ -169,7 +166,6 @@ export const melee = [
          switchType: "on",
          returning: false,
       },
-      name: "autoanimations.animations.greatclub",
       options: {
          below: false,
          delay: 500,
@@ -190,6 +186,8 @@ export const melee = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.greatsword",
       audio: {
          a01: {
             enable:false,
@@ -204,8 +202,6 @@ export const melee = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
@@ -216,7 +212,6 @@ export const melee = [
          switchType: "on",
          returning: false,
       },
-      name: "autoanimations.animations.greatsword",
       options: {
          below: false,
          delay: 500,
@@ -237,6 +232,8 @@ export const melee = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.handaxe",
       audio: {
          a01: {
             enable:false,
@@ -251,8 +248,6 @@ export const melee = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
@@ -263,7 +258,6 @@ export const melee = [
          switchType: "on",
          returning: false,
       },
-      name: "autoanimations.animations.handaxe",
       options: {
          below: false,
          delay: 500,
@@ -284,6 +278,8 @@ export const melee = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.sword",
       audio: {
          a01: {
             enable:false,
@@ -298,8 +294,6 @@ export const melee = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
@@ -310,7 +304,6 @@ export const melee = [
          switchType: "on",
          returning: false,
       },
-      name: "autoanimations.animations.sword",
       options: {
          below: false,
          delay: 500,
@@ -331,6 +324,8 @@ export const melee = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.mace",
       audio: {
          a01: {
             enable:false,
@@ -345,8 +340,6 @@ export const melee = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
@@ -357,7 +350,6 @@ export const melee = [
          switchType: "on",
          returning: false,
       },
-      name: "autoanimations.animations.mace",
       options: {
          below: false,
          delay: 500,
@@ -378,6 +370,8 @@ export const melee = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.maul",
       audio: {
          a01: {
             enable:false,
@@ -392,8 +386,6 @@ export const melee = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
@@ -404,7 +396,6 @@ export const melee = [
          switchType: "on",
          returning: false,
       },
-      name: "autoanimations.animations.maul",
       options: {
          below: false,
          delay: 500,
@@ -425,6 +416,8 @@ export const melee = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.spear",
       audio: {
          a01: {
             enable:false,
@@ -439,8 +432,6 @@ export const melee = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
@@ -451,7 +442,6 @@ export const melee = [
          switchType: "on",
          returning: false,
       },
-      name: "autoanimations.animations.spear",
       options: {
          below: false,
          delay: 500,
@@ -472,6 +462,8 @@ export const melee = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.rapier",
       audio: {
          a01: {
             enable:false,
@@ -486,8 +478,6 @@ export const melee = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
@@ -498,7 +488,6 @@ export const melee = [
          switchType: "on",
          returning: false,
       },
-      name: "autoanimations.animations.rapier",
       options: {
          below: false,
          delay: 500,
@@ -519,6 +508,8 @@ export const melee = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.unarmedstrike",
       audio: {
          a01: {
             enable:false,
@@ -533,8 +524,6 @@ export const melee = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
@@ -545,7 +534,6 @@ export const melee = [
          switchType: "on",
          returning: false,
       },
-      name: "autoanimations.animations.unarmedstrike",
       options: {
          below: false,
          delay: 500,

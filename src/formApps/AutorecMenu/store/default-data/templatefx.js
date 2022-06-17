@@ -2,17 +2,16 @@ import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 
 export const templatefx = [
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.calllightning",
       audio: {
          a01: {
             enable:false,
          },
       },
-      id: uuidv4(),
-      hidden: true,
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.calllightning",
       options: {
          below: false,
          delay: 500,
@@ -40,19 +39,16 @@ export const templatefx = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.fogcloud",
       audio: {
          a01: {
             enable:false,
          },
       },
-      id: uuidv4(),
-      hidden: true,
       macro: {
          enable: false,
       },
-      id: uuidv4(),
-      hidden: true,
-      name: "autoanimations.animations.fogcloud",
       options: {
          below: false,
          delay: 500,

@@ -2,6 +2,8 @@ import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 
 export const staticfx = [
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.curewounds",
       audio: {
          a01: {
             enable:false,
@@ -13,15 +15,12 @@ export const staticfx = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.curewounds",
       options: {
          below: true,
          delay: 500,
@@ -47,6 +46,8 @@ export const staticfx = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.itemHealingWord",
       audio: {
          a01: {
             enable:false,
@@ -58,15 +59,12 @@ export const staticfx = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.itemHealingWord",
       options: {
          below: true,
          delay: 500,
@@ -92,6 +90,8 @@ export const staticfx = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.tollthedead",
       audio: {
          a01: {
             enable:false,
@@ -103,15 +103,12 @@ export const staticfx = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.tollthedead",
       options: {
          below: false,
          delay: 500,
@@ -137,6 +134,8 @@ export const staticfx = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.bite",
       audio: {
          a01: {
             enable:false,
@@ -148,15 +147,12 @@ export const staticfx = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.bite",
       options: {
          below: false,
          delay: 500,
@@ -182,6 +178,8 @@ export const staticfx = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.claw",
       audio: {
          a01: {
             enable:false,
@@ -193,15 +191,12 @@ export const staticfx = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.claw",
       options: {
          below: false,
          delay: 500,

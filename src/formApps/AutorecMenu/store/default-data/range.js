@@ -2,6 +2,8 @@ import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 
 export const range = [
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.crossbow",
       audio: {
          a01: {
             enable:false,
@@ -13,15 +15,12 @@ export const range = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.crossbow",
       options: {
          below: false,
          delay: 500,
@@ -43,6 +42,8 @@ export const range = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.bow",
       audio: {
          a01: {
             enable:false,
@@ -54,15 +55,12 @@ export const range = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.bow",
       options: {
          below: false,
          delay: 500,
@@ -84,6 +82,8 @@ export const range = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.disintegrate",
       audio: {
          a01: {
             enable:false,
@@ -95,15 +95,12 @@ export const range = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.disintegrate",
       options: {
          below: false,
          delay: 500,
@@ -125,6 +122,8 @@ export const range = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.eldritchblast",
       audio: {
          a01: {
             enable:false,
@@ -136,15 +135,12 @@ export const range = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.eldritchblast",
       options: {
          below: false,
          delay: 500,
@@ -166,6 +162,8 @@ export const range = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.firebolt",
       audio: {
          a01: {
             enable:false,
@@ -177,15 +175,12 @@ export const range = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.firebolt",
       options: {
          below: false,
          delay: 500,
@@ -207,6 +202,8 @@ export const range = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.guidingbolt",
       audio: {
          a01: {
             enable:false,
@@ -218,15 +215,12 @@ export const range = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.guidingbolt",
       options: {
          below: false,
          delay: 500,
@@ -248,6 +242,8 @@ export const range = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.magicmissile",
       audio: {
          a01: {
             enable:false,
@@ -259,15 +255,12 @@ export const range = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.magicmissile",
       options: {
          below: false,
          delay: 500,
@@ -289,6 +282,8 @@ export const range = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.rayoffrost",
       audio: {
          a01: {
             enable:false,
@@ -300,15 +295,12 @@ export const range = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.rayoffrost",
       options: {
          below: false,
          delay: 500,
@@ -330,6 +322,8 @@ export const range = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.scorchingray",
       audio: {
          a01: {
             enable:false,
@@ -341,15 +335,12 @@ export const range = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.scorchingray",
       options: {
          below: false,
          delay: 500,
@@ -371,6 +362,8 @@ export const range = [
    },
 
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.witchbolt",
       audio: {
          a01: {
             enable:false,
@@ -382,15 +375,12 @@ export const range = [
       explosions: {
          enable: false,
       },
-      hidden: true,
-      id: uuidv4(),
       levels3d: {
          type: "",
       },
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.witchbolt",
       options: {
          below: false,
          delay: 500,

@@ -2,17 +2,16 @@ import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 
 export const aura = [
    {
+      id: uuidv4(),
+      name: "autoanimations.animations.spiritguardians",
       audio: {
          a01: {
-            enable:false,
+            enable: false,
          },
       },
-      id: uuidv4(),
-      hidden: true,
       macro: {
          enable: false,
       },
-      name: "autoanimations.animations.spiritguardians",
       options: {
          addTokenWidth: true,
          auraRadius: 3,

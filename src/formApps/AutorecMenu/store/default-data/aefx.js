@@ -3,9 +3,8 @@ import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 export const aefx = [
    {
       id: uuidv4(),
-      animType: "static",
-      hidden: true,
       name: "Frightened",
+      animType: "static",
       primary: {
          menuType: "conditions",
          animation: "drop",
