@@ -13,9 +13,7 @@ export const melee = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
          returning: false,
@@ -49,9 +47,7 @@ export const melee = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
          returning: false,
@@ -85,9 +81,7 @@ export const melee = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
          returning: false,
@@ -121,9 +115,7 @@ export const melee = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
          returning: false,
@@ -157,9 +149,7 @@ export const melee = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
          returning: false,
@@ -193,9 +183,7 @@ export const melee = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
          returning: false,
@@ -229,9 +217,7 @@ export const melee = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
          returning: false,
@@ -265,9 +251,7 @@ export const melee = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
          returning: false,
@@ -301,9 +285,7 @@ export const melee = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
          returning: false,
@@ -337,9 +319,7 @@ export const melee = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
          returning: false,
@@ -373,9 +353,7 @@ export const melee = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
          returning: false,
@@ -409,9 +387,7 @@ export const melee = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
          returning: false,

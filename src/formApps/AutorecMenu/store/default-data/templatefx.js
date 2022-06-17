@@ -7,9 +7,7 @@ export const templatefx = [
       id: uuidv4(),
       name: "autoanimations.animations.calllightning",
       audio: common.audio({ source: true }),
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          below: false,
          delay: 500,
@@ -40,9 +38,7 @@ export const templatefx = [
       id: uuidv4(),
       name: "autoanimations.animations.fogcloud",
       audio: common.audio({ source: true }),
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          below: false,
          delay: 500,

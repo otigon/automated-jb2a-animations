@@ -7,9 +7,7 @@ export const aura = [
       id: uuidv4(),
       name: "autoanimations.animations.spiritguardians",
       audio: common.audio({ source: true, target: true }),
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          addTokenWidth: true,
          auraRadius: 3,

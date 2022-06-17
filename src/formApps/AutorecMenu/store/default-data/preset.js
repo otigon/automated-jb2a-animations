@@ -8,9 +8,7 @@ export const preset = [
       name: "autoanimations.animations.bardicinspiration",
       audio: common.audio(),
       presetType: "bardicinspiration",
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       data: {
          self: {
             enable: true,
@@ -39,9 +37,7 @@ export const preset = [
       name: "autoanimations.animations.bless",
       audio: common.audio(),
       presetType: "bless",
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       data: {
          below: true,
          color: "yellow",
@@ -57,9 +53,7 @@ export const preset = [
       name: "autoanimations.animations.shield",
       audio: common.audio(),
       presetType: "shieldspell",
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       data: {
          animation: "shieldspell",
          below: false,
@@ -79,9 +73,7 @@ export const preset = [
       name: "autoanimations.animations.mistystep",
       audio: common.audio(),
       presetType: "teleportation",
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       data: {
          range: 30,
          hideFromPlayers: false,

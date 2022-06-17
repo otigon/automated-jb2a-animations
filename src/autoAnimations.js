@@ -35,17 +35,20 @@ Hooks.once('socketlib.ready', function () {
 
 Hooks.on('AutomaticAnimations.Open.Menu',() => showMainMenu());
 
-Hooks.on('AutomaticAnimations.Clear.Data',() => {
-    game.settings.set("autoanimations", "aaAutorec", void 0);
-    game.settings.set("autoanimations", "aaAutorec-aefx", void 0);
-    game.settings.set("autoanimations", "aaAutorec-aura", void 0);
-    game.settings.set("autoanimations", "aaAutorec-melee", void 0);
-    game.settings.set("autoanimations", "aaAutorec-preset", void 0);
-    game.settings.set("autoanimations", "aaAutorec-range", void 0);
-    game.settings.set("autoanimations", "aaAutorec-ontoken", void 0);
-    game.settings.set("autoanimations", "aaAutorec-templatefx", void 0);
+Hooks.on('AutomaticAnimations.Clear.Data', async () => {
+    await game.settings.set("autoanimations", "aaAutorec", void 0);
+    await game.settings.set("autoanimations", "aaAutorec-aefx", void 0);
+    await game.settings.set("autoanimations", "aaAutorec-aura", void 0);
+    await game.settings.set("autoanimations", "aaAutorec-melee", void 0);
+    await game.settings.set("autoanimations", "aaAutorec-preset", void 0);
+    await game.settings.set("autoanimations", "aaAutorec-range", void 0);
+    await game.settings.set("autoanimations", "aaAutorec-ontoken", void 0);
+    await game.settings.set("autoanimations", "aaAutorec-templatefx", void 0);
 
-    game.settings.set("autoanimations", "aaAutorec-staticfx", void 0);
+    setTimeout(() =>
+    {
+        console.log(`! game.settings.get - ontoken: `, game.settings.get('autoanimations', "aaAutorec-ontoken"))
+    }, 1500)
 });
 
 

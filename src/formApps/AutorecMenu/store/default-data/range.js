@@ -13,9 +13,7 @@ export const range = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          below: false,
          delay: 500,
@@ -46,9 +44,7 @@ export const range = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          below: false,
          delay: 500,
@@ -79,9 +75,7 @@ export const range = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          below: false,
          delay: 500,
@@ -112,9 +106,7 @@ export const range = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          below: false,
          delay: 500,
@@ -145,9 +137,7 @@ export const range = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          below: false,
          delay: 500,
@@ -178,9 +168,7 @@ export const range = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          below: false,
          delay: 500,
@@ -211,9 +199,7 @@ export const range = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          below: false,
          delay: 500,
@@ -244,9 +230,7 @@ export const range = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          below: false,
          delay: 500,
@@ -277,9 +261,7 @@ export const range = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          below: false,
          delay: 500,
@@ -310,9 +292,7 @@ export const range = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          below: false,
          delay: 500,

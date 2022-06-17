@@ -13,9 +13,7 @@ export const ontoken = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          below: true,
          delay: 500,
@@ -50,9 +48,7 @@ export const ontoken = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          below: true,
          delay: 500,
@@ -87,9 +83,7 @@ export const ontoken = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          below: false,
          delay: 500,
@@ -124,9 +118,7 @@ export const ontoken = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          below: false,
          delay: 500,
@@ -161,9 +153,7 @@ export const ontoken = [
       levels3d: {
          type: "",
       },
-      macro: {
-         enable: false,
-      },
+      macro: common.macro(),
       options: {
          below: false,
          delay: 500,

@@ -68,7 +68,8 @@ export class AnimationStore {
    }
 
    toJSON() {
-      return foundry.utils.deepClone(this.#data, { strict: true });
+      // return foundry.utils.deepClone(this.#data, { strict: true });
+      return this.#data;
    }
 
    /**
