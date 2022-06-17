@@ -35,6 +35,20 @@ Hooks.once('socketlib.ready', function () {
 
 Hooks.on('AutomaticAnimations.Open.Menu',() => showMainMenu());
 
+Hooks.on('AutomaticAnimations.Clear.Data',() => {
+    game.settings.set("autoanimations", "aaAutorec", void 0);
+    game.settings.set("autoanimations", "aaAutorec-aefx", void 0);
+    game.settings.set("autoanimations", "aaAutorec-aura", void 0);
+    game.settings.set("autoanimations", "aaAutorec-melee", void 0);
+    game.settings.set("autoanimations", "aaAutorec-preset", void 0);
+    game.settings.set("autoanimations", "aaAutorec-range", void 0);
+    game.settings.set("autoanimations", "aaAutorec-ontoken", void 0);
+    game.settings.set("autoanimations", "aaAutorec-templatefx", void 0);
+
+    game.settings.set("autoanimations", "aaAutorec-staticfx", void 0);
+});
+
+
 Hooks.on('init', () => {
     Handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
         return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
