@@ -7,9 +7,7 @@ export const melee = [
       id: uuidv4(),
       name: "autoanimations.animations.dagger",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: {
-         enable: false,
-      },
+      explosions: common.explosions(),
       levels3d: {
          type: "",
       },
@@ -41,9 +39,7 @@ export const melee = [
       id: uuidv4(),
       name: "autoanimations.animations.flurryofblows",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: {
-         enable: false,
-      },
+      explosions: common.explosions(),
       levels3d: {
          type: "",
       },
@@ -75,9 +71,7 @@ export const melee = [
       id: uuidv4(),
       name: "autoanimations.animations.greataxe",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: {
-         enable: false,
-      },
+      explosions: common.explosions(),
       levels3d: {
          type: "",
       },
@@ -109,9 +103,7 @@ export const melee = [
       id: uuidv4(),
       name: "autoanimations.animations.greatclub",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: {
-         enable: false,
-      },
+      explosions: common.explosions(),
       levels3d: {
          type: "",
       },
@@ -143,9 +135,7 @@ export const melee = [
       id: uuidv4(),
       name: "autoanimations.animations.greatsword",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: {
-         enable: false,
-      },
+      explosions: common.explosions(),
       levels3d: {
          type: "",
       },
@@ -177,9 +167,7 @@ export const melee = [
       id: uuidv4(),
       name: "autoanimations.animations.handaxe",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: {
-         enable: false,
-      },
+      explosions: common.explosions(),
       levels3d: {
          type: "",
       },
@@ -211,9 +199,7 @@ export const melee = [
       id: uuidv4(),
       name: "autoanimations.animations.sword",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: {
-         enable: false,
-      },
+      explosions: common.explosions(),
       levels3d: {
          type: "",
       },
@@ -245,9 +231,7 @@ export const melee = [
       id: uuidv4(),
       name: "autoanimations.animations.mace",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: {
-         enable: false,
-      },
+      explosions: common.explosions(),
       levels3d: {
          type: "",
       },
@@ -279,9 +263,7 @@ export const melee = [
       id: uuidv4(),
       name: "autoanimations.animations.maul",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: {
-         enable: false,
-      },
+      explosions: common.explosions(),
       levels3d: {
          type: "",
       },
@@ -313,9 +295,7 @@ export const melee = [
       id: uuidv4(),
       name: "autoanimations.animations.spear",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: {
-         enable: false,
-      },
+      explosions: common.explosions(),
       levels3d: {
          type: "",
       },
@@ -347,9 +327,7 @@ export const melee = [
       id: uuidv4(),
       name: "autoanimations.animations.rapier",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: {
-         enable: false,
-      },
+      explosions: common.explosions(),
       levels3d: {
          type: "",
       },
@@ -381,9 +359,7 @@ export const melee = [
       id: uuidv4(),
       name: "autoanimations.animations.unarmedstrike",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: {
-         enable: false,
-      },
+      explosions: common.explosions(),
       levels3d: {
          type: "",
       },

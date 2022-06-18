@@ -7,9 +7,7 @@ export const ontoken = [
       id: uuidv4(),
       name: "autoanimations.animations.curewounds",
       audio: common.audio({ explosion: true, source: true, target: true }),
-      explosions: {
-         enable: false,
-      },
+      explosions: common.explosions(),
       levels3d: {
          type: "",
       },
@@ -42,9 +40,7 @@ export const ontoken = [
       id: uuidv4(),
       name: "autoanimations.animations.itemHealingWord",
       audio: common.audio({ explosion: true, source: true, target: true }),
-      explosions: {
-         enable: false,
-      },
+      explosions: common.explosions(),
       levels3d: {
          type: "",
       },
@@ -77,9 +73,7 @@ export const ontoken = [
       id: uuidv4(),
       name: "autoanimations.animations.tollthedead",
       audio: common.audio({ explosion: true, source: true, target: true }),
-      explosions: {
-         enable: false,
-      },
+      explosions: common.explosions(),
       levels3d: {
          type: "",
       },
@@ -112,9 +106,7 @@ export const ontoken = [
       id: uuidv4(),
       name: "autoanimations.animations.bite",
       audio: common.audio({ explosion: true, source: true, target: true }),
-      explosions: {
-         enable: false,
-      },
+      explosions: common.explosions(),
       levels3d: {
          type: "",
       },
@@ -147,9 +139,7 @@ export const ontoken = [
       id: uuidv4(),
       name: "autoanimations.animations.claw",
       audio: common.audio({ explosion: true, source: true, target: true }),
-      explosions: {
-         enable: false,
-      },
+      explosions: common.explosions(),
       levels3d: {
          type: "",
       },

@@ -6,9 +6,9 @@
 export function macro() {
    return {
       enable: false,
-      name: "",
-      args: "",
-      playWhen: ""
+      name: void 0,
+      args: void 0,
+      playWhen: void 0
    }
 }
 
