@@ -9,6 +9,7 @@ import systemData from "./system-handlers/system-data.js";
 import { createActiveEffects5e, deleteActiveEffects5e, checkConcentration, toggleActiveEffects5e } from "./active-effects/ae5e.js";
 import { createActiveEffectsPF2e, deleteActiveEffectsPF2e } from "./active-effects/pf2e/aepf2e.js";
 import { createActiveEffectsPF1, deleteActiveEffectsPF1 } from "./active-effects/pf1/aePF1.js";
+import { createActiveEffectswfrp4e, deleteActiveEffectswfrp4e } from "./active-effects/wfrp4e/aewfrp4e.js";
 
 import AAItemSettings from "./item-sheet-handlers/animateTab.js";
 import AAActiveEffectMenu from "./active-effects/aeMenus/activeEffectApp.js";
@@ -49,7 +50,7 @@ Hooks.on('init', () => {
         return options.inverse(this);
     });
     Handlebars.registerHelper('isAeSupported', function (options) {
-        let supportedSystems = ['dnd5e', 'pf2e', 'pf1']
+        let supportedSystems = ['dnd5e', 'pf2e', 'pf1', 'wfrp4e']
         if (supportedSystems.includes(game.system.id)) {
             return options.fn(this);
         }
@@ -416,6 +417,16 @@ Hooks.once('ready', async function () {
             */
             //}
             break;
+            case 'wfrp4e':
+                Hooks.on("createActiveEffect", (item, data, userId) => {
+                    if (game.user.id !== userId) { return; }
+                    createActiveEffectswfrp4e(item);
+                })
+                Hooks.on("preDeleteActiveEffect", (item, data, userId) => {
+                    if (game.user.id !== userId) { return; }
+                    deleteActiveEffectswfrp4e(item)
+                })
+                break;
     }
     Hooks.callAll("aa.ready", obj01)
 });
