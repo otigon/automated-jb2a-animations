@@ -8,9 +8,7 @@ export const ontoken = [
       name: "autoanimations.animations.curewounds",
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       options: {
          below: true,
@@ -41,9 +39,7 @@ export const ontoken = [
       name: "autoanimations.animations.itemHealingWord",
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       options: {
          below: true,
@@ -74,9 +70,7 @@ export const ontoken = [
       name: "autoanimations.animations.tollthedead",
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       options: {
          below: false,
@@ -107,9 +101,7 @@ export const ontoken = [
       name: "autoanimations.animations.bite",
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       options: {
          below: false,
@@ -140,9 +132,7 @@ export const ontoken = [
       name: "autoanimations.animations.claw",
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       options: {
          below: false,

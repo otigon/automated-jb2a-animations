@@ -8,9 +8,7 @@ export const range = [
       name: "autoanimations.animations.crossbow",
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       options: {
          below: false,
@@ -37,9 +35,7 @@ export const range = [
       name: "autoanimations.animations.bow",
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       options: {
          below: false,
@@ -66,9 +62,7 @@ export const range = [
       name: "autoanimations.animations.disintegrate",
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       options: {
          below: false,
@@ -95,9 +89,7 @@ export const range = [
       name: "autoanimations.animations.eldritchblast",
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       options: {
          below: false,
@@ -124,9 +116,7 @@ export const range = [
       name: "autoanimations.animations.firebolt",
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       options: {
          below: false,
@@ -153,9 +143,7 @@ export const range = [
       name: "autoanimations.animations.guidingbolt",
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       options: {
          below: false,
@@ -182,9 +170,7 @@ export const range = [
       name: "autoanimations.animations.magicmissile",
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       options: {
          below: false,
@@ -211,9 +197,7 @@ export const range = [
       name: "autoanimations.animations.rayoffrost",
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       options: {
          below: false,
@@ -240,9 +224,7 @@ export const range = [
       name: "autoanimations.animations.scorchingray",
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       options: {
          below: false,
@@ -269,9 +251,7 @@ export const range = [
       name: "autoanimations.animations.witchbolt",
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       options: {
          below: false,

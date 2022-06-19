@@ -8,9 +8,7 @@ export const melee = [
       name: "autoanimations.animations.dagger",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
@@ -40,9 +38,7 @@ export const melee = [
       name: "autoanimations.animations.flurryofblows",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
@@ -72,9 +68,7 @@ export const melee = [
       name: "autoanimations.animations.greataxe",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
@@ -104,9 +98,7 @@ export const melee = [
       name: "autoanimations.animations.greatclub",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
@@ -136,9 +128,7 @@ export const melee = [
       name: "autoanimations.animations.greatsword",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
@@ -168,9 +158,7 @@ export const melee = [
       name: "autoanimations.animations.handaxe",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
@@ -200,9 +188,7 @@ export const melee = [
       name: "autoanimations.animations.sword",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
@@ -232,9 +218,7 @@ export const melee = [
       name: "autoanimations.animations.mace",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
@@ -264,9 +248,7 @@ export const melee = [
       name: "autoanimations.animations.maul",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
@@ -296,9 +278,7 @@ export const melee = [
       name: "autoanimations.animations.spear",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
@@ -328,9 +308,7 @@ export const melee = [
       name: "autoanimations.animations.rapier",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
@@ -360,9 +338,7 @@ export const melee = [
       name: "autoanimations.animations.unarmedstrike",
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
-      levels3d: {
-         type: "",
-      },
+      levels3d: common.levels3d(),
       macro: common.macro(),
       meleeSwitch: {
          switchType: "on",
