@@ -24,7 +24,7 @@ export async function staticAnimation(handler, animationData) {
         await wait(data.aeDelay)
     }
     let aaSeq = await new Sequence("Automated Animations")
-    const bottomAnim = onToken.fileData.replace('Above', 'Below')
+    const bottomAnim = onToken.fileData?.replace('Above', 'Below')
 
     // Play Macro if Awaiting
     if (data.playMacro && data.macro.playWhen === "1") {
