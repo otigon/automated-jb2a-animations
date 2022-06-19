@@ -19,14 +19,7 @@ export const aura = [
          unbindVisbility: false,
          zIndex: 1,
       },
-      primary: {
-         menuType: "spell",
-         animation: "spiritguardians",
-         variant: '01',
-         color: 'darkblue',
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "spell", animation: "spiritguardians", variant: '01', color: 'darkblue' }),
       soundOnly: false,
    }
 ];

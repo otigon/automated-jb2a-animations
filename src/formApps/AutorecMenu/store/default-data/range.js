@@ -19,14 +19,7 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: {
-         menuType: "weapon",
-         animation: 'bolt',
-         variant: 'physical',
-         color: 'orange',
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "weapon", animation: 'bolt', variant: 'physical', color: 'orange' }),
       soundOnly: false,
    },
 
@@ -46,14 +39,7 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: {
-         menuType: "weapon",
-         animation: 'arrow',
-         variant: 'regular',
-         color: 'regular',
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "weapon", animation: 'arrow', variant: 'regular', color: 'regular' }),
       soundOnly: false,
    },
 
@@ -73,14 +59,7 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: {
-         menuType: "spell",
-         animation: 'disintegrate',
-         variant: '01',
-         color: 'green',
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "spell", animation: 'disintegrate', variant: '01', color: 'green' }),
       soundOnly: false,
    },
 
@@ -100,14 +79,7 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: {
-         menuType: "spell",
-         animation: 'eldritchblast',
-         variant: '01',
-         color: 'purple',
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "spell", animation: 'eldritchblast', variant: '01', color: 'purple' }),
       soundOnly: false,
    },
 
@@ -127,14 +99,7 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: {
-         menuType: "spell",
-         animation: 'firebolt',
-         variant: '01',
-         color: 'orange',
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "spell", animation: 'firebolt', variant: '01', color: 'orange' }),
       soundOnly: false,
    },
 
@@ -154,14 +119,7 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: {
-         menuType: "spell",
-         animation: 'guidingbolt',
-         variant: '01',
-         color: 'yellowblue',
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "spell", animation: 'guidingbolt', variant: '01', color: 'yellowblue' }),
       soundOnly: false,
    },
 
@@ -181,14 +139,7 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: {
-         menuType: "spell",
-         animation: 'magicmissile',
-         variant: '01',
-         color: 'purple',
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "spell", animation: 'magicmissile', variant: '01', color: 'purple' }),
       soundOnly: false,
    },
 
@@ -208,14 +159,7 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: {
-         menuType: "spell",
-         animation: 'rayoffrost',
-         variant: '01',
-         color: 'blue',
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "spell", animation: 'rayoffrost', variant: '01', color: 'blue' }),
       soundOnly: false,
    },
 
@@ -235,14 +179,7 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: {
-         menuType: "spell",
-         animation: 'scorchingray',
-         variant: '01',
-         color: 'orange',
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "spell", animation: 'scorchingray', variant: '01', color: 'orange' }),
       soundOnly: false,
    },
 
@@ -262,14 +199,7 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: {
-         menuType: "spell",
-         animation: 'witchbolt',
-         variant: '01',
-         color: 'blue',
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "spell", animation: 'witchbolt', variant: '01', color: 'blue' }),
       soundOnly: false,
    }
 ];

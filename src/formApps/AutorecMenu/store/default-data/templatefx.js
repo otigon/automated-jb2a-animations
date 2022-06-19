@@ -23,14 +23,7 @@ export const templatefx = [
          scaleY: 1,
          zIndex: 1,
       },
-      primary: {
-         menuType: "circle",
-         animation: "calllightning",
-         variant: '01',
-         color: 'blueorange',
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "circle", animation: "calllightning", variant: '01', color: 'blueorange' }),
       soundOnly: false,
    },
 
@@ -54,14 +47,7 @@ export const templatefx = [
          scaleY: 1,
          zIndex: 1,
       },
-      primary: {
-         menuType: "circle",
-         animation: "fogcloud",
-         variant: '01',
-         color: 'white',
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "circle", animation: "fogcloud", variant: '01', color: 'white' }),
       soundOnly: false,
    }
 ];

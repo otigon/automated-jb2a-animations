@@ -23,14 +23,7 @@ export const ontoken = [
          unbindVisbility: false,
          zIndex: 1
       },
-      primary: {
-         menuType: "spell",
-         animation: 'curewounds',
-         variant: '01',
-         color: 'blue',
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "spell", animation: 'curewounds', variant: '01', color: 'blue' }),
       soundOnly: false,
    },
 
@@ -54,14 +47,7 @@ export const ontoken = [
          unbindVisbility: false,
          zIndex: 1
       },
-      primary: {
-         menuType: "spell",
-         animation: 'generichealing',
-         variant: '01',
-         color: 'blue',
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "spell", animation: 'generichealing', variant: '01', color: 'blue' }),
       soundOnly: false,
    },
 
@@ -85,14 +71,7 @@ export const ontoken = [
          unbindVisbility: false,
          zIndex: 1
       },
-      primary: {
-         menuType: "spell",
-         animation: 'tollthedead',
-         variant: 'complete',
-         color: 'green',
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "spell", animation: 'tollthedead', variant: 'complete', color: 'green' }),
       soundOnly: false,
    },
 
@@ -116,14 +95,7 @@ export const ontoken = [
          unbindVisbility: false,
          zIndex: 1
       },
-      primary: {
-         menuType: "creature",
-         animation: "bite",
-         variant: "01",
-         color: "red",
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "creature", animation: "bite", variant: "01", color: "red" }),
       soundOnly: false,
    },
 
@@ -147,14 +119,7 @@ export const ontoken = [
          unbindVisbility: false,
          zIndex: 1
       },
-      primary: {
-         menuType: "creature",
-         animation: "claw",
-         variant: "01",
-         color: "red",
-         enableCustom: false,
-         customPath: "",
-      },
+      primary: common.primary({ menuType: "creature", animation: "claw", variant: "01", color: "red" }),
       soundOnly: false,
    }
 ];
