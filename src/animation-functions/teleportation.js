@@ -18,17 +18,18 @@ export async function teleportation(handler, animationData) {
         data.itemName02 = data.options?.name02 || "";
     }
 
-    const onToken = await buildFile(true, data.menuType, data.itemName01, "static", data.variant, data.color, data.customPath);
-    const onToken02 = await buildFile(true, data.menuType02, data.itemName02, "static", data.variant02, data.color02, data.customPath02);
+    const onToken = await buildFile(false, data.menuType, data.itemName01, "static", data.variant, data.color, data.customPath);
+    const onToken02 = await buildFile(false, data.menuType02, data.itemName02, "static", data.variant02, data.color02, data.customPath02);
 
     if (handler.debug) { aaDebugger("Teleportation Animation Start", animationData, onToken, onToken02) }
 
-    const sourceScale = sourceToken.w;
+    //const sourceScale = sourceToken.w;
 
-    let Scale = ((sourceScale / onToken.metadata.width) * data.scale) * 1.75;
-    let Scale02 = ((sourceScale / onToken02.metadata.width) * data.scale02) * 1.75;
+    //let Scale = ((sourceScale / onToken.metadata.width) * data.scale) * 1.75;
+    //let Scale02 = ((sourceScale / onToken02.metadata.width) * data.scale02) * 1.75;
+    let sourceTokenGS = sourceToken.w / canvas.grid.size;
 
-    const drawingSize = (sourceToken.data?.width * canvas.grid.size) + (2 * ((data.teleDist / canvas.dimensions.distance) * canvas.grid.size));
+    const drawingSize = (sourceToken.w * canvas.grid.size) + (2 * ((data.teleDist / canvas.dimensions.distance) * canvas.grid.size));
 
     let userIDs = Array.from(game.users).map(user => user.id);
     let gmIDs = Array.from(game.users).filter(i => i.isGM).map(user => user.id)
@@ -41,7 +42,7 @@ export async function teleportation(handler, animationData) {
     aaSeq01.effect()
         .file(filePath)
         .atLocation(sourceToken)
-        .size({ width: drawingSize, height: drawingSize })
+        .size(((sourceTokenGS / canvas.grid.size) + 0.5 + (data.teleDist / canvas.dimensions.distance)) * 2, {gridUnits: true})
         .fadeIn(500)
         .scaleIn(0, 500)
         .fadeOut(500)
@@ -100,7 +101,8 @@ export async function teleportation(handler, animationData) {
             .file(onToken.file)
             .atLocation(sourceToken)
             .belowTokens(data.below)
-            .scale(Scale)
+            //.scale(Scale)
+            .size(sourceTokenGS * data.scale, {gridUnits: true})
             .randomRotation()
         aaSeq.wait(250)
         aaSeq.animation()
@@ -111,7 +113,8 @@ export async function teleportation(handler, animationData) {
             .file(onToken02.file)
             .atLocation({ x: centerPos[0], y: centerPos[1] })
             .belowTokens(data.below)
-            .scale(Scale02)
+            //.scale(Scale02)
+            .size(sourceTokenGS * data.scale02, {gridUnits: true})
             .randomRotation()
         aaSeq.wait(1250 + data.delay)
         aaSeq.animation()

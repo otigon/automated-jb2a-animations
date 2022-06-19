@@ -8,12 +8,12 @@ export async function sneakAttack(handler, animationData) {
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
-    const sneak = await buildFile(true, "spell", data.animation, "static", "01", data.color)
+    const sneak = await buildFile(false, "spell", data.animation, "static", "01", data.color)
     const sourceToken = handler.sourceToken;
 
     if (handler.debug) { aaDebugger("Sneak Attack Animation Start", animationData, sneak) }
 
-    const sourceTokenGS = sourceToken.width / canvas.grid.size;
+    const sourceTokenGS = sourceToken.w / canvas.grid.size;
 
     async function cast() {
         let aaSeq = await new Sequence()

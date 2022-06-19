@@ -129,8 +129,8 @@ export async function fireball(handler, animationData, config) {
     }
 
     const projectileAnimation = await buildFile(false, data.rangeType, data.projectile, "range", data.projectileVariant, data.projectileColor);
-    const explosion01 = data.explosion01 !== "a1" ? await buildFile(true, data.ex01Type, data.explosion01, "static", data.explosion01Variant, data.explosion01Color) : "";
-    const explosion02 = data.explosion02 !== "a1" ? await buildFile(true, data.ex02Type, data.explosion02, "static", data.explosion02Variant, data.explosion02Color) : "";
+    const explosion01 = data.explosion01 !== "a1" ? await buildFile(false, data.ex01Type, data.explosion01, "static", data.explosion01Variant, data.explosion01Color) : "";
+    const explosion02 = data.explosion02 !== "a1" ? await buildFile(false, data.ex02Type, data.explosion02, "static", data.explosion02Variant, data.explosion02Color) : "";
 
     if (handler.debug) { aaDebugger("Fireball Animation Start", data, projectileAnimation, explosion01, explosion02) }
 

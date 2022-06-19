@@ -270,8 +270,8 @@ export class AAanimationData {
                 },
             };
             explosion.playSound = explosion.enabled && explosion.audio?.enable && explosion.audio?.file !== "";
-            explosion.data = explosion.enabled ? await buildFile(true, explosion.menuType, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
-            explosion.scale = ((200 * explosion.radius) / explosion.data?.metadata?.width) ?? 1;
+            explosion.data = explosion.enabled ? await buildFile(false, explosion.menuType, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
+            //explosion.scale = ((200 * explosion.radius) / explosion.data?.metadata?.width) ?? 1;
             return explosion;
         } else {
             const explosions = handler.flags.explosions || {};
@@ -296,8 +296,8 @@ export class AAanimationData {
                 },
             };
             explosion.playSound = explosion.enabled && explosion.audio?.enabled && explosion.audio?.file !== "";
-            explosion.data = explosion.enabled ? await buildFile(true, explosion.menuType, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
-            explosion.scale = ((200 * explosion.radius) / explosion.data?.metadata?.width) ?? 1;
+            explosion.data = explosion.enabled ? await buildFile(false, explosion.menuType, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
+            //explosion.scale = ((200 * explosion.radius) / explosion.data?.metadata?.width) ?? 1;
             return explosion;
         }
     }
@@ -332,9 +332,9 @@ export class AAanimationData {
             sourceFX.enabled = false;
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
-        const sourceTokenGS = handler.sourceToken.width / canvas.grid.size;
+        const sourceTokenGS = handler.sourceToken.w / canvas.grid.size;
         //const sourceScale = handler.sourceToken.w;
-        sourceFX.data = sourceFX.enabled ? await buildFile(true, sourceFX.menuType, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
+        sourceFX.data = sourceFX.enabled ? await buildFile(false, sourceFX.menuType, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
         //sourceFX.sFXScale = sourceFX.enabled ? 2 * sourceScale / sourceFX.data?.metadata?.width : 1;
         sourceFX.sourceSeq = new Sequence();
         if (sourceFX.itemAudio.enable && sourceFX.itemAudio.file && sourceFX.enabled) {
@@ -393,7 +393,7 @@ export class AAanimationData {
             console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
         }
         targetFX.playSound = targetFX.itemAudio.enable && targetFX.enabled && targetFX.itemAudio.file ? true : false;
-        targetFX.data = targetFX.enabled ? await buildFile(true, targetFX.menuType, targetFX.animation, "static", targetFX.variant, targetFX.color, targetFX.customTargetPath) : {};
+        targetFX.data = targetFX.enabled ? await buildFile(false, targetFX.menuType, targetFX.animation, "static", targetFX.variant, targetFX.color, targetFX.customTargetPath) : {};
         return targetFX
     }
 
@@ -406,7 +406,7 @@ export class AAanimationData {
         }
 
         //const playNow = (targetFX.enabled && hit) ? true : false;
-        let targetTokenGS = target.width / canvas.grid.size
+        let targetTokenGS = target.w / canvas.grid.size
 
         //targetFX.tFXScale = targetFX.enable ? 2 * target.w / targetFX.data.metadata?.width : 1;
         targetFX.targetSeq = new Sequence();

@@ -53,12 +53,12 @@ export async function bardicInspiration(handler, animationData) {
         Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
     })
     if (data.animateSelf) {
-        const sourceTokenGS = (sourceToken.width / canvas.grid.size) * 1.75 * data.scale;
+        const sourceTokenGS = (sourceToken.w / canvas.grid.size) * 1.75 * data.scale;
         let selfEffect = aaSeq.effect()
         selfEffect.atLocation(sourceToken)
         if (data.selfAnimation === 'music') {
             selfEffect.file(selfMusicPath)
-            selfEffect.size((sourceToken.width / canvas.grid.size), { gridUnits: true })
+            selfEffect.size((sourceToken.w / canvas.grid.size), { gridUnits: true })
             selfEffect.repeats(10, 350)
             selfEffect.randomOffset()
         } else {
@@ -76,12 +76,12 @@ export async function bardicInspiration(handler, animationData) {
     let targetSound = false;
     if (data.animateTarget && handler.allTargets.length > 0) {
         for (let target of handler.allTargets) {
-            let targetTokenGS = (target.width / canvas.grid.size) * 1.75 * data.scale
+            let targetTokenGS = (target.w / canvas.grid.size) * 1.75 * data.scale
             let targetEffect = aaSeq.effect()
             targetEffect.atLocation(target)
             if (data.targetAnimation === 'music') {
                 targetEffect.file(targetMusicPath)
-                targetEffect.size((target.width / canvas.grid.size), { gridUnits: true })
+                targetEffect.size((target.w / canvas.grid.size), { gridUnits: true })
                 targetEffect.repeats(10, 350)
                 targetEffect.randomOffset()
             } else {
