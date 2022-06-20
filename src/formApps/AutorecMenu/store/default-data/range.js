@@ -1,11 +1,8 @@
-import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
-
 import * as common from "./common";
 
 export const range = [
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.crossbow",
+      ...common.main({ name: "crossbow" }),
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -19,13 +16,11 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "weapon", animation: 'bolt', variant: 'physical', color: 'orange' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "weapon", animation: 'bolt', variant: 'physical', color: 'orange' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.bow",
+      ...common.main({ name: "bow" }),
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -39,13 +34,11 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "weapon", animation: 'arrow', variant: 'regular', color: 'regular' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "weapon", animation: 'arrow', variant: 'regular', color: 'regular' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.disintegrate",
+      ...common.main({ name: "disintegrate" }),
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -59,13 +52,11 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'disintegrate', variant: '01', color: 'green' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "spell", animation: 'disintegrate', variant: '01', color: 'green' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.eldritchblast",
+      ...common.main({ name: "eldritchblast" }),
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -79,13 +70,11 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'eldritchblast', variant: '01', color: 'purple' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "spell", animation: 'eldritchblast', variant: '01', color: 'purple' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.firebolt",
+      ...common.main({ name: "firebolt" }),
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -99,13 +88,11 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'firebolt', variant: '01', color: 'orange' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "spell", animation: 'firebolt', variant: '01', color: 'orange' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.guidingbolt",
+      ...common.main({ name: "guidingbolt" }),
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -119,13 +106,11 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'guidingbolt', variant: '01', color: 'yellowblue' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "spell", animation: 'guidingbolt', variant: '01', color: 'yellowblue' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.magicmissile",
+      ...common.main({ name: "magicmissile" }),
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -139,13 +124,11 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'magicmissile', variant: '01', color: 'purple' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "spell", animation: 'magicmissile', variant: '01', color: 'purple' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.rayoffrost",
+      ...common.main({ name: "rayoffrost" }),
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -159,13 +142,11 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'rayoffrost', variant: '01', color: 'blue' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "spell", animation: 'rayoffrost', variant: '01', color: 'blue' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.scorchingray",
+      ...common.main({ name: "scorchingray" }),
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -179,13 +160,11 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'scorchingray', variant: '01', color: 'orange' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "spell", animation: 'scorchingray', variant: '01', color: 'orange' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.witchbolt",
+      ...common.main({ name: "witchbolt" }),
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -199,7 +178,6 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'witchbolt', variant: '01', color: 'blue' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "spell", animation: 'witchbolt', variant: '01', color: 'blue' })
    }
 ];

@@ -1,11 +1,8 @@
-import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
-
 import * as common from "./common";
 
 export const ontoken = [
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.curewounds",
+      ...common.main({ name: "curewounds" }),
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -23,13 +20,11 @@ export const ontoken = [
          unbindVisbility: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'curewounds', variant: '01', color: 'blue' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "spell", animation: 'curewounds', variant: '01', color: 'blue' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.itemHealingWord",
+      ...common.main({ name: "itemHealingWord" }),
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -47,13 +42,11 @@ export const ontoken = [
          unbindVisbility: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'generichealing', variant: '01', color: 'blue' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "spell", animation: 'generichealing', variant: '01', color: 'blue' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.tollthedead",
+      ...common.main({ name: "tollthedead" }),
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -71,13 +64,11 @@ export const ontoken = [
          unbindVisbility: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'tollthedead', variant: 'complete', color: 'green' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "spell", animation: 'tollthedead', variant: 'complete', color: 'green' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.bite",
+      ...common.main({ name: "bite" }),
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -95,13 +86,11 @@ export const ontoken = [
          unbindVisbility: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "creature", animation: "bite", variant: "01", color: "red" }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "creature", animation: "bite", variant: "01", color: "red" })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.claw",
+      ...common.main({ name: "claw" }),
       audio: common.audio({ explosion: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -119,7 +108,6 @@ export const ontoken = [
          unbindVisbility: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "creature", animation: "claw", variant: "01", color: "red" }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "creature", animation: "claw", variant: "01", color: "red" })
    }
 ];

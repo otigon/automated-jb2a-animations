@@ -1,11 +1,8 @@
-import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
-
 import * as common from "./common";
 
 export const melee = [
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.dagger",
+      ...common.main({ name: "dagger" }),
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -22,13 +19,11 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'dagger', variant: '01', color: 'white' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "weapon", animation: 'dagger', variant: '01', color: 'white' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.flurryofblows",
+      ...common.main({ name: "flurryofblows" }),
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -45,13 +40,11 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'flurryofblows', variant: 'physical', color: 'blue' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "weapon", animation: 'flurryofblows', variant: 'physical', color: 'blue' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.greataxe",
+      ...common.main({ name: "greataxe" }),
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -68,13 +61,11 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'greataxe', variant: '01', color: 'white' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "weapon", animation: 'greataxe', variant: '01', color: 'white' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.greatclub",
+      ...common.main({ name: "greatclub" }),
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -91,13 +82,11 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'greatclub', variant: '01', color: 'white' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "weapon", animation: 'greatclub', variant: '01', color: 'white' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.greatsword",
+      ...common.main({ name: "greatsword" }),
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -114,13 +103,11 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'greatsword', variant: '01', color: 'white' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "weapon", animation: 'greatsword', variant: '01', color: 'white' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.handaxe",
+      ...common.main({ name: "handaxe" }),
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -137,13 +124,11 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'handaxe', variant: '01', color: 'white' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "weapon", animation: 'handaxe', variant: '01', color: 'white' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.sword",
+      ...common.main({ name: "sword" }),
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -160,13 +145,11 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'sword', variant: '01', color: 'white' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "weapon", animation: 'sword', variant: '01', color: 'white' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.mace",
+      ...common.main({ name: "mace" }),
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -183,13 +166,11 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'mace', variant: '01', color: 'white' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "weapon", animation: 'mace', variant: '01', color: 'white' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.maul",
+      ...common.main({ name: "maul" }),
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -206,13 +187,11 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'maul', variant: '01', color: 'white' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "weapon", animation: 'maul', variant: '01', color: 'white' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.spear",
+      ...common.main({ name: "spear" }),
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -229,13 +208,11 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'spear', variant: '01', color: 'white' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "weapon", animation: 'spear', variant: '01', color: 'white' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.rapier",
+      ...common.main({ name: "rapier" }),
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -252,13 +229,11 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'rapier', variant: '01', color: 'white' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "weapon", animation: 'rapier', variant: '01', color: 'white' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.unarmedstrike",
+      ...common.main({ name: "unarmedstrike" }),
       audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
       explosions: common.explosions(),
       levels3d: common.levels3d(),
@@ -275,7 +250,6 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'unarmedstrike', variant: 'physical', color: 'blue' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "weapon", animation: 'unarmedstrike', variant: 'physical', color: 'blue' })
    }
 ];

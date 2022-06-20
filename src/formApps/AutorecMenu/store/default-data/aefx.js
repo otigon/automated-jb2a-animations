@@ -1,11 +1,8 @@
-import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
-
 import * as common from "./common";
 
 export const aefx = [
    {
-      id: uuidv4(),
-      name: "Frightened",
+      ...common.main({ name: "frightened" }),
       animType: "static",
       primary: common.primary({ menuType: "conditions", animation: "drop", variant: "01", color: "green" }),
       options: {

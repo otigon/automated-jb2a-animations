@@ -1,11 +1,8 @@
-import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
-
 import * as common from "./common";
 
 export const templatefx = [
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.calllightning",
+      ...common.main({ name: "calllightning" }),
       audio: common.audio({ source: true }),
       macro: common.macro(),
       options: {
@@ -23,13 +20,11 @@ export const templatefx = [
          scaleY: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "circle", animation: "calllightning", variant: '01', color: 'blueorange' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "circle", animation: "calllightning", variant: '01', color: 'blueorange' })
    },
 
    {
-      id: uuidv4(),
-      name: "autoanimations.animations.fogcloud",
+      ...common.main({ name: "fogcloud" }),
       audio: common.audio({ source: true }),
       macro: common.macro(),
       options: {
@@ -47,7 +42,6 @@ export const templatefx = [
          scaleY: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "circle", animation: "fogcloud", variant: '01', color: 'white' }),
-      soundOnly: false,
+      primary: common.primary({ menuType: "circle", animation: "fogcloud", variant: '01', color: 'white' })
    }
 ];
