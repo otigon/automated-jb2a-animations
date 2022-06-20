@@ -23,7 +23,7 @@ import { autoRecMigration } from "./custom-recognition/autoRecMerge.js";
 import { AnimationState } from "./AnimationState.js";
 import { initSettings } from "./initSettings.js";
 import { gameSettings } from "./gameSettings.js";
-import { autoRecStores }  from "./formApps/AutorecMenu/store/AutoRecStores.js";
+import { autoRecStores }  from "./formApps/_AutorecMenu/store/AutoRecStores.js";
 
 import { showMainMenu } from "./formApps/AutorecMenu/showMainUI.js";
 
