@@ -1,4 +1,5 @@
-import { primary } from "./primary.js";
+import { sound } from "./sound.js";
+import { video } from "./video.js";
 
 /**
  * Creates default target data.
@@ -7,10 +8,10 @@ import { primary } from "./primary.js";
  */
 export function target() {
    return {
-      primary: primary(),
-
+      enable: false,
+      video: video(),
+      sound: sound(),
       options: {
-         enable: false,
          below: false,
          delay: 0,
          delayAfter: 0,
@@ -29,15 +30,17 @@ export function target() {
 /**
  * @typedef {object} DataTarget
  *
- * @property {DataPrimary} primary -
+ * @property {boolean=false}     enable -
+ *
+ * @property {DataVideo}         video -
+ *
+ * @property {DataSound}         sound -
  *
  * @property {DataTargetOptions} options -
  */
 
 /**
  * @typedef {object} DataTargetOptions
- *
- * @property {boolean}     enable - Enabled state.
  *
  * @property {boolean}     below -
  *

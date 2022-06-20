@@ -1,4 +1,5 @@
-import { primary } from "./primary.js";
+import { sound } from "./sound.js";
+import { video } from "./video.js";
 
 /**
  * Creates default source data.
@@ -7,10 +8,10 @@ import { primary } from "./primary.js";
  */
 export function source() {
    return {
-      primary: primary(),
-
+      enable: false,
+      video: video(),
+      sound: sound(),
       options: {
-         enable: false,
          below: false,
          delay: 0,
          delayAfter: 0,
@@ -26,17 +27,17 @@ export function source() {
 /**
  * @typedef {object} DataSource
  *
- * @property {DataPrimary} primary -
+ * @property {boolean=false}     enable -
+ *
+ * @property {DataVideo}         video -
+ *
+ * @property {DataSound}         sound -
  *
  * @property {DataSourceOptions} options -
  */
 
 /**
  * @typedef {object} DataSourceOptions
- *
- * @property {boolean}     enable - Enabled state.
- *
- * @property {boolean}     enable - Enabled state.
  *
  * @property {boolean}     below -
  *

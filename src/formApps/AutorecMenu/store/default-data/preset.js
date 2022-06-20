@@ -3,9 +3,11 @@ import * as common from "./common";
 export const preset = [
    {
       ...common.main({ name: "bardicinspiration" }),
-      audio: common.audio(),
       presetType: "bardicinspiration",
       macro: common.macro(),
+      source: common.source(),
+      target: common.target(),
+      sound: common.sound(),
       data: {
          self: {
             enable: true,
@@ -24,60 +26,64 @@ export const preset = [
             selfColor: "yellowblue",
             targetColor: "yellowblue",
          },
-         below: false,
-         scale: 1,
-      },
-      source: common.source(),
-      target: common.target()
+         options: {
+            below: false,
+            scale: 1
+         },
+      }
    },
 
    {
       ...common.main({ name: "bless" }),
-      audio: common.audio(),
       presetType: "bless",
       macro: common.macro(),
-      data: {
+      sound: common.sound(),
+      options: {
          below: true,
-         color: "yellow",
          persistent: false,
          scale: 1.5,
          unbindAlpha: false,
-         unbindVisbility: false,
+         unbindVisbility: false
       },
-      source: common.source(),
-      target: common.target()
+      data: {
+         color: "yellow"
+      },
+      source: common.source()
    },
 
    {
       ...common.main({ name: "shield" }),
-      audio: common.audio(),
       presetType: "shieldspell",
       macro: common.macro(),
-      data: {
-         animation: "shieldspell",
+      sound: common.sound(),
+      options: {
          below: false,
-         color: "blue",
-         endEffect: "outro_explode",
-         menuType: "spell",
          persistent: false,
          scale: 1,
          unbindAlpha: false,
-         unbindVisbility: false,
-         variant: "01",
+         unbindVisbility: false
       },
-      source: common.source(),
-      target: common.target()
+      data: {
+         animation: "shieldspell",
+         menuType: "spell",
+         variant: "01",
+         color: "blue",
+         endEffect: "outro_explode"
+      },
+      source: common.source()
    },
 
    {
       ...common.main({ name: "mistystep" }),
-      audio: common.audio(),
       presetType: "teleportation",
       macro: common.macro(),
-      data: {
+      sound: common.sound(),
+      options: {
          range: 30,
          hideFromPlayers: false,
          measureType: "alternating",
+      },
+      data: {
          start: {
             animation: "mistystep",
             below: false,
@@ -112,9 +118,8 @@ export const preset = [
             menuType: "spell",
             playbackRate: 1,
             variant: "primary",
-         },
+         }
       },
-      source: common.source(),
-      target: common.target()
+      source: common.source()
    }
 ];

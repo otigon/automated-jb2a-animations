@@ -1,278 +1,262 @@
 import * as common from "./common";
 
+function meleeSwitch() {
+   return {
+      switchType: "on",
+      returning: false,
+      sound: common.sound()
+   }
+}
+
 export const melee = [
    {
       ...common.main({ name: "dagger" }),
-      audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: common.explosions(),
+      primary: common.primary({
+         video: { menuType: "weapon", animation: 'dagger', variant: '01', color: 'white' },
+         options: {
+            below: false,
+            delay: 500,
+            opacity: 1,
+            repeat: 1,
+            scale: 1,
+            zIndex: 1
+         }
+      }),
+      explosion: common.explosion(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: {
-         switchType: "on",
-         returning: false,
-      },
-      options: {
-         below: false,
-         delay: 500,
-         opacity: 1,
-         repeat: 1,
-         scale: 1,
-         zIndex: 1,
-      },
-      primary: common.primary({ menuType: "weapon", animation: 'dagger', variant: '01', color: 'white' }),
+      meleeSwitch: meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
 
    {
       ...common.main({ name: "flurryofblows" }),
-      audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: common.explosions(),
+      primary: common.primary({
+         video: { menuType: "weapon", animation: 'flurryofblows', variant: 'physical', color: 'blue' },
+         options: {
+            below: false,
+            delay: 500,
+            opacity: 1,
+            repeat: 1,
+            scale: 1,
+            zIndex: 1
+         }
+      }),
+      explosion: common.explosion(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: {
-         switchType: "on",
-         returning: false,
-      },
-      options: {
-         below: false,
-         delay: 500,
-         opacity: 1,
-         repeat: 1,
-         scale: 1,
-         zIndex: 1,
-      },
-      primary: common.primary({ menuType: "weapon", animation: 'flurryofblows', variant: 'physical', color: 'blue' }),
+      meleeSwitch: meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
 
    {
       ...common.main({ name: "greataxe" }),
-      audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: common.explosions(),
+      primary: common.primary({
+         video: { menuType: "weapon", animation: 'greataxe', variant: '01', color: 'white' },
+         options: {
+            below: false,
+            delay: 500,
+            opacity: 1,
+            repeat: 1,
+            scale: 1,
+            zIndex: 1
+         }
+      }),
+      explosion: common.explosion(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: {
-         switchType: "on",
-         returning: false,
-      },
-      options: {
-         below: false,
-         delay: 500,
-         opacity: 1,
-         repeat: 1,
-         scale: 1,
-         zIndex: 1,
-      },
-      primary: common.primary({ menuType: "weapon", animation: 'greataxe', variant: '01', color: 'white' }),
+      meleeSwitch: meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
 
    {
       ...common.main({ name: "greatclub" }),
-      audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: common.explosions(),
+      primary: common.primary({
+         video: { menuType: "weapon", animation: 'greatclub', variant: '01', color: 'white' },
+         options: {
+            below: false,
+            delay: 500,
+            opacity: 1,
+            repeat: 1,
+            scale: 1,
+            zIndex: 1
+         }
+      }),
+      explosion: common.explosion(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: {
-         switchType: "on",
-         returning: false,
-      },
-      options: {
-         below: false,
-         delay: 500,
-         opacity: 1,
-         repeat: 1,
-         scale: 1,
-         zIndex: 1,
-      },
-      primary: common.primary({ menuType: "weapon", animation: 'greatclub', variant: '01', color: 'white' }),
+      meleeSwitch: meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
 
    {
       ...common.main({ name: "greatsword" }),
-      audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: common.explosions(),
+      primary: common.primary({
+         video: { menuType: "weapon", animation: 'greatsword', variant: '01', color: 'white' },
+         options: {
+            below: false,
+            delay: 500,
+            opacity: 1,
+            repeat: 1,
+            scale: 1,
+            zIndex: 1
+         }
+      }),
+      explosion: common.explosion(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: {
-         switchType: "on",
-         returning: false,
-      },
-      options: {
-         below: false,
-         delay: 500,
-         opacity: 1,
-         repeat: 1,
-         scale: 1,
-         zIndex: 1,
-      },
-      primary: common.primary({ menuType: "weapon", animation: 'greatsword', variant: '01', color: 'white' }),
+      meleeSwitch: meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
 
    {
       ...common.main({ name: "handaxe" }),
-      audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: common.explosions(),
+      primary: common.primary({
+         video: { menuType: "weapon", animation: 'handaxe', variant: '01', color: 'white' },
+         options: {
+            below: false,
+            delay: 500,
+            opacity: 1,
+            repeat: 1,
+            scale: 1,
+            zIndex: 1
+         }
+      }),
+      explosion: common.explosion(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: {
-         switchType: "on",
-         returning: false,
-      },
-      options: {
-         below: false,
-         delay: 500,
-         opacity: 1,
-         repeat: 1,
-         scale: 1,
-         zIndex: 1,
-      },
-      primary: common.primary({ menuType: "weapon", animation: 'handaxe', variant: '01', color: 'white' }),
+      meleeSwitch: meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
 
    {
       ...common.main({ name: "sword" }),
-      audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: common.explosions(),
+      primary: common.primary({
+         video: { menuType: "weapon", animation: 'sword', variant: '01', color: 'white' },
+         options: {
+            below: false,
+            delay: 500,
+            opacity: 1,
+            repeat: 1,
+            scale: 1,
+            zIndex: 1
+         }
+      }),
+      explosion: common.explosion(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: {
-         switchType: "on",
-         returning: false,
-      },
-      options: {
-         below: false,
-         delay: 500,
-         opacity: 1,
-         repeat: 1,
-         scale: 1,
-         zIndex: 1,
-      },
-      primary: common.primary({ menuType: "weapon", animation: 'sword', variant: '01', color: 'white' }),
+      meleeSwitch: meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
 
    {
       ...common.main({ name: "mace" }),
-      audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: common.explosions(),
+      primary: common.primary({
+         video: { menuType: "weapon", animation: 'mace', variant: '01', color: 'white' },
+         options: {
+            below: false,
+            delay: 500,
+            opacity: 1,
+            repeat: 1,
+            scale: 1,
+            zIndex: 1
+         }
+      }),
+      explosion: common.explosion(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: {
-         switchType: "on",
-         returning: false,
-      },
-      options: {
-         below: false,
-         delay: 500,
-         opacity: 1,
-         repeat: 1,
-         scale: 1,
-         zIndex: 1,
-      },
-      primary: common.primary({ menuType: "weapon", animation: 'mace', variant: '01', color: 'white' }),
+      meleeSwitch: meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
 
    {
       ...common.main({ name: "maul" }),
-      audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: common.explosions(),
+      primary: common.primary({
+         video: { menuType: "weapon", animation: 'maul', variant: '01', color: 'white' },
+         options: {
+            below: false,
+            delay: 500,
+            opacity: 1,
+            repeat: 1,
+            scale: 1,
+            zIndex: 1
+         }
+      }),
+      explosion: common.explosion(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: {
-         switchType: "on",
-         returning: false,
-      },
-      options: {
-         below: false,
-         delay: 500,
-         opacity: 1,
-         repeat: 1,
-         scale: 1,
-         zIndex: 1,
-      },
-      primary: common.primary({ menuType: "weapon", animation: 'maul', variant: '01', color: 'white' }),
+      meleeSwitch: meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
 
    {
       ...common.main({ name: "spear" }),
-      audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: common.explosions(),
+      primary: common.primary({
+         video: { menuType: "weapon", animation: 'spear', variant: '01', color: 'white' },
+         options: {
+            below: false,
+            delay: 500,
+            opacity: 1,
+            repeat: 1,
+            scale: 1,
+            zIndex: 1
+         }
+      }),
+      explosion: common.explosion(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: {
-         switchType: "on",
-         returning: false,
-      },
-      options: {
-         below: false,
-         delay: 500,
-         opacity: 1,
-         repeat: 1,
-         scale: 1,
-         zIndex: 1,
-      },
-      primary: common.primary({ menuType: "weapon", animation: 'spear', variant: '01', color: 'white' }),
+      meleeSwitch: meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
 
    {
       ...common.main({ name: "rapier" }),
-      audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: common.explosions(),
+      primary: common.primary({
+         video: { menuType: "weapon", animation: 'rapier', variant: '01', color: 'white' },
+         options: {
+            below: false,
+            delay: 500,
+            opacity: 1,
+            repeat: 1,
+            scale: 1,
+            zIndex: 1
+         }
+      }),
+      explosion: common.explosion(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: {
-         switchType: "on",
-         returning: false,
-      },
-      options: {
-         below: false,
-         delay: 500,
-         opacity: 1,
-         repeat: 1,
-         scale: 1,
-         zIndex: 1,
-      },
-      primary: common.primary({ menuType: "weapon", animation: 'rapier', variant: '01', color: 'white' }),
+      meleeSwitch: meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
 
    {
       ...common.main({ name: "unarmedstrike" }),
-      audio: common.audio({ explosion: true, melee: true, source: true, target: true }),
-      explosions: common.explosions(),
+      primary: common.primary({
+         video: { menuType: "weapon", animation: 'unarmedstrike', variant: 'physical', color: 'blue' },
+         options: {
+            below: false,
+            delay: 500,
+            opacity: 1,
+            repeat: 1,
+            scale: 1,
+            zIndex: 1
+         }
+      }),
+      explosion: common.explosion(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: {
-         switchType: "on",
-         returning: false,
-      },
-      options: {
-         below: false,
-         delay: 500,
-         opacity: 1,
-         repeat: 1,
-         scale: 1,
-         zIndex: 1,
-      },
-      primary: common.primary({ menuType: "weapon", animation: 'unarmedstrike', variant: 'physical', color: 'blue' }),
+      meleeSwitch: meleeSwitch(),
       source: common.source(),
       target: common.target()
    }
