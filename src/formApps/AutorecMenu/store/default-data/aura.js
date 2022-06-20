@@ -17,5 +17,7 @@ export const aura = [
          zIndex: 1,
       },
       primary: common.primary({ menuType: "spell", animation: "spiritguardians", variant: '01', color: 'darkblue' }),
+      source: common.source(),
+      target: common.target()
    }
 ];

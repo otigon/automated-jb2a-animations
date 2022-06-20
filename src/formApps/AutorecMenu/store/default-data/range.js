@@ -16,7 +16,9 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "weapon", animation: 'bolt', variant: 'physical', color: 'orange' })
+      primary: common.primary({ menuType: "weapon", animation: 'bolt', variant: 'physical', color: 'orange' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -34,7 +36,9 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "weapon", animation: 'arrow', variant: 'regular', color: 'regular' })
+      primary: common.primary({ menuType: "weapon", animation: 'arrow', variant: 'regular', color: 'regular' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -52,7 +56,9 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'disintegrate', variant: '01', color: 'green' })
+      primary: common.primary({ menuType: "spell", animation: 'disintegrate', variant: '01', color: 'green' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -70,7 +76,9 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'eldritchblast', variant: '01', color: 'purple' })
+      primary: common.primary({ menuType: "spell", animation: 'eldritchblast', variant: '01', color: 'purple' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -88,7 +96,9 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'firebolt', variant: '01', color: 'orange' })
+      primary: common.primary({ menuType: "spell", animation: 'firebolt', variant: '01', color: 'orange' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -106,7 +116,9 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'guidingbolt', variant: '01', color: 'yellowblue' })
+      primary: common.primary({ menuType: "spell", animation: 'guidingbolt', variant: '01', color: 'yellowblue' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -124,7 +136,9 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'magicmissile', variant: '01', color: 'purple' })
+      primary: common.primary({ menuType: "spell", animation: 'magicmissile', variant: '01', color: 'purple' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -142,7 +156,9 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'rayoffrost', variant: '01', color: 'blue' })
+      primary: common.primary({ menuType: "spell", animation: 'rayoffrost', variant: '01', color: 'blue' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -160,7 +176,9 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'scorchingray', variant: '01', color: 'orange' })
+      primary: common.primary({ menuType: "spell", animation: 'scorchingray', variant: '01', color: 'orange' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -178,6 +196,8 @@ export const range = [
          returning: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'witchbolt', variant: '01', color: 'blue' })
+      primary: common.primary({ menuType: "spell", animation: 'witchbolt', variant: '01', color: 'blue' }),
+      source: common.source(),
+      target: common.target()
    }
 ];

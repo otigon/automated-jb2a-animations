@@ -20,7 +20,8 @@ export const templatefx = [
          scaleY: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "circle", animation: "calllightning", variant: '01', color: 'blueorange' })
+      primary: common.primary({ menuType: "circle", animation: "calllightning", variant: '01', color: 'blueorange' }),
+      source: common.source()
    },
 
    {
@@ -42,6 +43,7 @@ export const templatefx = [
          scaleY: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "circle", animation: "fogcloud", variant: '01', color: 'white' })
+      primary: common.primary({ menuType: "circle", animation: "fogcloud", variant: '01', color: 'white' }),
+      source: common.source()
    }
 ];

@@ -19,7 +19,9 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'dagger', variant: '01', color: 'white' })
+      primary: common.primary({ menuType: "weapon", animation: 'dagger', variant: '01', color: 'white' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -40,7 +42,9 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'flurryofblows', variant: 'physical', color: 'blue' })
+      primary: common.primary({ menuType: "weapon", animation: 'flurryofblows', variant: 'physical', color: 'blue' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -61,7 +65,9 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'greataxe', variant: '01', color: 'white' })
+      primary: common.primary({ menuType: "weapon", animation: 'greataxe', variant: '01', color: 'white' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -82,7 +88,9 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'greatclub', variant: '01', color: 'white' })
+      primary: common.primary({ menuType: "weapon", animation: 'greatclub', variant: '01', color: 'white' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -103,7 +111,9 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'greatsword', variant: '01', color: 'white' })
+      primary: common.primary({ menuType: "weapon", animation: 'greatsword', variant: '01', color: 'white' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -124,7 +134,9 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'handaxe', variant: '01', color: 'white' })
+      primary: common.primary({ menuType: "weapon", animation: 'handaxe', variant: '01', color: 'white' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -145,7 +157,9 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'sword', variant: '01', color: 'white' })
+      primary: common.primary({ menuType: "weapon", animation: 'sword', variant: '01', color: 'white' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -166,7 +180,9 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'mace', variant: '01', color: 'white' })
+      primary: common.primary({ menuType: "weapon", animation: 'mace', variant: '01', color: 'white' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -187,7 +203,9 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'maul', variant: '01', color: 'white' })
+      primary: common.primary({ menuType: "weapon", animation: 'maul', variant: '01', color: 'white' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -208,7 +226,9 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'spear', variant: '01', color: 'white' })
+      primary: common.primary({ menuType: "weapon", animation: 'spear', variant: '01', color: 'white' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -229,7 +249,9 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'rapier', variant: '01', color: 'white' })
+      primary: common.primary({ menuType: "weapon", animation: 'rapier', variant: '01', color: 'white' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -250,6 +272,8 @@ export const melee = [
          scale: 1,
          zIndex: 1,
       },
-      primary: common.primary({ menuType: "weapon", animation: 'unarmedstrike', variant: 'physical', color: 'blue' })
+      primary: common.primary({ menuType: "weapon", animation: 'unarmedstrike', variant: 'physical', color: 'blue' }),
+      source: common.source(),
+      target: common.target()
    }
 ];

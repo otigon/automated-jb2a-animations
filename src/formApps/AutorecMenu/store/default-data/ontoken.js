@@ -20,7 +20,9 @@ export const ontoken = [
          unbindVisbility: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'curewounds', variant: '01', color: 'blue' })
+      primary: common.primary({ menuType: "spell", animation: 'curewounds', variant: '01', color: 'blue' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -42,7 +44,9 @@ export const ontoken = [
          unbindVisbility: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'generichealing', variant: '01', color: 'blue' })
+      primary: common.primary({ menuType: "spell", animation: 'generichealing', variant: '01', color: 'blue' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -64,7 +68,9 @@ export const ontoken = [
          unbindVisbility: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "spell", animation: 'tollthedead', variant: 'complete', color: 'green' })
+      primary: common.primary({ menuType: "spell", animation: 'tollthedead', variant: 'complete', color: 'green' }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -86,7 +92,9 @@ export const ontoken = [
          unbindVisbility: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "creature", animation: "bite", variant: "01", color: "red" })
+      primary: common.primary({ menuType: "creature", animation: "bite", variant: "01", color: "red" }),
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -108,6 +116,8 @@ export const ontoken = [
          unbindVisbility: false,
          zIndex: 1
       },
-      primary: common.primary({ menuType: "creature", animation: "claw", variant: "01", color: "red" })
+      primary: common.primary({ menuType: "creature", animation: "claw", variant: "01", color: "red" }),
+      source: common.source(),
+      target: common.target()
    }
 ];

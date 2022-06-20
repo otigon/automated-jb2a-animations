@@ -26,7 +26,9 @@ export const preset = [
          },
          below: false,
          scale: 1,
-      }
+      },
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -41,7 +43,9 @@ export const preset = [
          scale: 1.5,
          unbindAlpha: false,
          unbindVisbility: false,
-      }
+      },
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -60,7 +64,9 @@ export const preset = [
          unbindAlpha: false,
          unbindVisbility: false,
          variant: "01",
-      }
+      },
+      source: common.source(),
+      target: common.target()
    },
 
    {
@@ -107,6 +113,8 @@ export const preset = [
             playbackRate: 1,
             variant: "primary",
          },
-      }
+      },
+      source: common.source(),
+      target: common.target()
    }
 ];
