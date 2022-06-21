@@ -1,4 +1,5 @@
 import { buildFile } from "../animation-functions/file-builder/build-filepath.js";
+import { custom_notify } from "../constants/constants.js"
 import { particleDefaultValues } from "../animation-functions/particleDefaults.js";
 
 export class AAanimationData {
@@ -397,15 +398,16 @@ export class AAanimationData {
 
     static howToDelete(type) {
         if (game.settings.get("autoanimations", "noTips")) { return; }
+        let disableTips = "You can disabled these tips in the Automated Animations module settings"
         switch (type) {
             case 'overheadtile':
-                ui.notifications.info("This is an OVERHEAD Tile. Use the Tile Foreground Layer to remove the Animation")
+                custom_notify(`This is an OVERHEAD Tile. Use the Tile Foreground Layer to remove the Animation. ${disableTips}`)
                 break;
             case 'groundtile':
-                ui.notifications.info("This is an GROUND Tile. Use the Tile Layer to remove the Animation")
+                custom_notify(`This is an GROUND Tile. Use the Tile Layer to remove the Animation. ${disableTips}`)
                 break;
             case 'sequencerground':
-                ui.notifications.info("This is SEQUENCER Persistent Effect. Use the Sequencer Effect Manager to remove the Animation")
+                custom_notify(`This is a SEQUENCER Persistent Effect. Use the Sequencer Effect Manager to remove the Animation. ${disableTips}`)
                 break
         }
     }
