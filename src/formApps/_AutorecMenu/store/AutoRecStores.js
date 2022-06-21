@@ -14,13 +14,13 @@ class AutoRecStores {
    #melee;
 
    /** @type {CategoryStore} */
+   #ontoken;
+
+   /** @type {CategoryStore} */
    #preset;
 
    /** @type {CategoryStore} */
    #range;
-
-   /** @type {CategoryStore} */
-   #staticfx;
 
    /** @type {CategoryStore} */
    #templatefx;
@@ -38,7 +38,7 @@ class AutoRecStores {
 
    get range() { return this.#range; }
 
-   get staticfx() { return this.#staticfx; }
+   get ontoken() { return this.#ontoken; }
 
    get templatefx() { return this.#templatefx; }
 
@@ -48,8 +48,15 @@ class AutoRecStores {
       this.#melee = new CategoryStore('aaAutorec-melee', AnimationStore, defaultData.melee);
       this.#preset = new CategoryStore('aaAutorec-preset', AnimationStore, defaultData.preset);
       this.#range = new CategoryStore('aaAutorec-range', AnimationStore, defaultData.range);
-      this.#staticfx = new CategoryStore('aaAutorec-staticfx', AnimationStore, defaultData.staticfx);
+      this.#ontoken = new CategoryStore('aaAutorec-ontoken', AnimationStore, defaultData.ontoken);
       this.#templatefx = new CategoryStore('aaAutorec-templatefx', AnimationStore, defaultData.templatefx);
+
+// TODO: DEBUG REMOVE
+// console.log(`!! AutoRecStores - ontoken:`)
+//       for (const entry of this.#ontoken)
+//       {
+//          console.log(entry.toJSON())
+//       }
    }
 }
 

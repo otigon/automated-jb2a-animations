@@ -23,7 +23,7 @@ import { autoRecMigration } from "./custom-recognition/autoRecMerge.js";
 import { AnimationState } from "./AnimationState.js";
 import { initSettings } from "./initSettings.js";
 import { gameSettings } from "./gameSettings.js";
-import { autoRecStores }  from "./formApps/AutorecMenu/store/AutoRecStores.js";
+import { autoRecStores }  from "./formApps/_AutorecMenu/store/AutoRecStores.js";
 
 import { showMainMenu } from "./formApps/AutorecMenu/showMainUI.js";
 
@@ -34,6 +34,23 @@ Hooks.once('socketlib.ready', function () {
 });
 
 Hooks.on('AutomaticAnimations.Open.Menu',() => showMainMenu());
+
+Hooks.on('AutomaticAnimations.Clear.Data', async () => {
+    await game.settings.set("autoanimations", "aaAutorec", void 0);
+    await game.settings.set("autoanimations", "aaAutorec-aefx", void 0);
+    await game.settings.set("autoanimations", "aaAutorec-aura", void 0);
+    await game.settings.set("autoanimations", "aaAutorec-melee", void 0);
+    await game.settings.set("autoanimations", "aaAutorec-preset", void 0);
+    await game.settings.set("autoanimations", "aaAutorec-range", void 0);
+    await game.settings.set("autoanimations", "aaAutorec-ontoken", void 0);
+    await game.settings.set("autoanimations", "aaAutorec-templatefx", void 0);
+
+    setTimeout(() =>
+    {
+        console.log(`! game.settings.get - ontoken: `, game.settings.get('autoanimations', "aaAutorec-ontoken"))
+    }, 1500)
+});
+
 
 Hooks.on('init', () => {
     Handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
