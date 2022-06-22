@@ -1,4 +1,5 @@
 <script>
+    import CategoryControl      from "./CategoryControl.svelte";
     import CategoryList         from "./CategoryList.svelte";
 
     import { autoRecStores }    from "../../store/AutoRecStores.js";
@@ -18,6 +19,7 @@
     </ul>
 </section>
 
+<CategoryControl category={$selected} />
 <CategoryList category={$selected} />
 
 <style lang=scss>

@@ -1,9 +1,9 @@
 import { writable }        from "svelte/store";
 
-import { AnimationStore }  from "./AnimationStore.js";
-import { CategoryStore }   from "./CategoryStore.js";
+import { AnimationStore }  from "./animation/AnimationStore.js";
+import { CategoryStore }   from "./category/CategoryStore.js";
 
-import * as defaultData    from "./default-data";
+import { loadDefault }     from "./default-data";
 
 class AutoRecStores {
    /** @type {CategoryStore[]} */
@@ -80,13 +80,13 @@ class AutoRecStores {
       const cat = this.#categories;
 
       // Pushing in order of top menu bar category selection.
-      cat.push(this.#melee = new CategoryStore('aaAutorec-melee', AnimationStore, defaultData.melee));
-      cat.push(this.#range = new CategoryStore('aaAutorec-range', AnimationStore, defaultData.range));
-      cat.push(this.#ontoken = new CategoryStore('aaAutorec-ontoken', AnimationStore, defaultData.ontoken));
-      cat.push(this.#templatefx = new CategoryStore('aaAutorec-templatefx', AnimationStore, defaultData.templatefx));
-      cat.push(this.#aura = new CategoryStore('aaAutorec-aura', AnimationStore, defaultData.aura));
-      cat.push(this.#preset = new CategoryStore('aaAutorec-preset', AnimationStore, defaultData.preset));
-      cat.push(this.#aefx = new CategoryStore('aaAutorec-aefx', AnimationStore, defaultData.aefx));
+      cat.push(this.#melee = new CategoryStore('aaAutorec-melee', AnimationStore, loadDefault("melee")));
+      cat.push(this.#range = new CategoryStore('aaAutorec-range', AnimationStore, loadDefault("range")));
+      cat.push(this.#ontoken = new CategoryStore('aaAutorec-ontoken', AnimationStore, loadDefault("ontoken")));
+      cat.push(this.#templatefx = new CategoryStore('aaAutorec-templatefx', AnimationStore, loadDefault("templatefx")));
+      cat.push(this.#aura = new CategoryStore('aaAutorec-aura', AnimationStore, loadDefault("aura")));
+      cat.push(this.#preset = new CategoryStore('aaAutorec-preset', AnimationStore, loadDefault("preset")));
+      cat.push(this.#aefx = new CategoryStore('aaAutorec-aefx', AnimationStore, loadDefault("aefx")));
 
       this.#selected = writable(this.#melee);
    }

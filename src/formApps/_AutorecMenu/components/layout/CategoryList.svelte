@@ -1,16 +1,18 @@
 <script>
    /** @type {CategoryStore} */
    export let category;
+
+   $: dataReducer = category.dataReducer;
 </script>
 
 <section>
-    {#each category.data as animation (animation.id)}
+    {#each [...$dataReducer] as animation (animation.id)}
         {animation.name}<br>
     {/each}
 </section>
 
 <style lang=scss>
     section {
-      background: rebeccapurple;
+      overflow-y: auto;
     }
 </style>

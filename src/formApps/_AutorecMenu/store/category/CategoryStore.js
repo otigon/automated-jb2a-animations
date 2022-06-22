@@ -1,16 +1,24 @@
-import { localize }       from "@typhonjs-fvtt/runtime/svelte/helper";
+import { localize }           from "@typhonjs-fvtt/runtime/svelte/helper";
 
-import { AnimationStore } from "./AnimationStore.js";
+import { DynArrayReducer }    from '@typhonjs-fvtt/runtime/svelte/store';
 
-import { constants }      from "../../../constants.js";
-import { gameSettings }   from "../../../gameSettings.js";
+import { AnimationStore }     from "../animation/AnimationStore.js";
+import { filterSearch }       from "./filterSearch.js";
+
+import { constants }          from "../../../../constants.js";
+import { gameSettings }       from "../../../../gameSettings.js";
 
 /**
- * @template {AnimationStore} T
+ * @template T
  */
 export class CategoryStore {
    /** @type {T[]} */
    #data = [];
+
+   #dataReducer = new DynArrayReducer({
+      data: this.#data,
+      filters: [filterSearch]
+   });
 
    /** @type {string} */
    #key;
@@ -51,22 +59,16 @@ export class CategoryStore {
    }
 
    /**
-    * Provides an iterator for AnimationStore instances.
-    *
-    * @returns {Generator<T|undefined>} Generator / iterator of AnimationStore instances.
-    * @yields {T}
-    */
-   *[Symbol.iterator]()
-   {
-      if (this.#data.length === 0) { return; }
-
-      for (const entry of this.#data) { yield entry; }
-   }
-
-   /**
     * @returns {T[]}
     */
    get data() { return this.#data; }
+
+   /**
+    * @returns {DynArrayReducer<AnimationStore>}
+    */
+   get dataReducer() { return this.#dataReducer; }
+
+   get filterSearch() { return filterSearch; }
 
    get icon() { return localize(`autoanimations.app.${this.#key}.icon`); }
 
@@ -130,6 +132,8 @@ export class CategoryStore {
          const index = data.findIndex((entry) => entry.id === id);
          if (index >= 0) { data.splice(index, 1); }
       }
+
+      this.#dataReducer.index.update();
 
       this.#updateSubscribers();
    }
