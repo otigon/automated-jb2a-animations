@@ -28,6 +28,8 @@ import { autoRecStores }  from "./formApps/_AutorecMenu/store/AutoRecStores.js";
 import { showAutorecMenu } from "./formApps/_AutorecMenu/showUI.js";
 import { showMainMenu } from "./formApps/AutorecMenu/showMainUI.js";
 
+import "../styles/newMenuCss.scss";
+
 const log = () => { };
 
 Hooks.once('socketlib.ready', function () {
