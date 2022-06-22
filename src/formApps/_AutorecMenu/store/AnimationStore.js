@@ -68,19 +68,18 @@ export class AnimationStore {
    }
 
    toJSON() {
-      // return foundry.utils.deepClone(this.#data, { strict: true });
-      return this.#data;
+      return foundry.utils.deepClone(this.#data, { strict: true });
    }
 
    /**
-    * @param {function(AnimationStore[]): void} handler - Callback function that is invoked on update / changes.
+    * @param {function(AnimationStore): void} handler - Callback function that is invoked on update / changes.
     *
     * @returns {(function(): void)} Unsubscribe function.
     */
    subscribe(handler) {
-      this.#subscriptions.push(handler); // add handler to the array of subscribers
+      this.#subscriptions.push(handler);  // add handler to the array of subscribers
 
-      handler(this.#data);                     // call handler with current value
+      handler(this.#data);                // call handler with current value
 
       // Return unsubscribe function.
       return () => {

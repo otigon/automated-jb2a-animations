@@ -25,6 +25,7 @@ import { initSettings } from "./initSettings.js";
 import { gameSettings } from "./gameSettings.js";
 import { autoRecStores }  from "./formApps/_AutorecMenu/store/AutoRecStores.js";
 
+import { showAutorecMenu } from "./formApps/_AutorecMenu/showUI.js";
 import { showMainMenu } from "./formApps/AutorecMenu/showMainUI.js";
 
 const log = () => { };
@@ -34,6 +35,7 @@ Hooks.once('socketlib.ready', function () {
 });
 
 Hooks.on('AutomaticAnimations.Open.Menu',() => showMainMenu());
+Hooks.on('AutomaticAnimations.Open.Menu.New',() => showAutorecMenu());
 
 Hooks.on('AutomaticAnimations.Clear.Data', async () => {
     await game.settings.set("autoanimations", "aaAutorec", void 0);

@@ -1,15 +1,21 @@
+import { localize }       from "@typhonjs-fvtt/runtime/svelte/helper";
+
+import { AnimationStore } from "./AnimationStore.js";
+
 import { constants }      from "../../../constants.js";
 import { gameSettings }   from "../../../gameSettings.js";
-import { AnimationStore } from "./AnimationStore.js";
 
 /**
  * @template {AnimationStore} T
  */
 export class CategoryStore {
-   #StoreClass;
-
    /** @type {T[]} */
    #data = [];
+
+   /** @type {string} */
+   #key;
+
+   #StoreClass;
 
    /**
     * Stores the subscribers.
@@ -19,6 +25,8 @@ export class CategoryStore {
    #subscriptions = [];
 
    constructor(key, StoreClass, defaultData) {
+      if (typeof key !== 'string') { throw new TypeError(`'key' is not a string.`); }
+
       if (!(StoreClass instanceof AnimationStore.constructor))
       {
          throw new TypeError(`'StoreClass' is not an instance of AnimationStore.`);
@@ -26,6 +34,7 @@ export class CategoryStore {
 
       if (!Array.isArray(defaultData)) { throw new TypeError(`'defaultData' is not an array.`); }
 
+      this.#key = key;
       this.#StoreClass = StoreClass;
 
       gameSettings.register({
@@ -58,6 +67,10 @@ export class CategoryStore {
     * @returns {T[]}
     */
    get data() { return this.#data; }
+
+   get icon() { return localize(`autoanimations.app.${this.#key}.icon`); }
+
+   get label() { return localize(`autoanimations.app.${this.#key}.label`); }
 
    add(animation) {
       if (!(animation instanceof this.#StoreClass)) {
