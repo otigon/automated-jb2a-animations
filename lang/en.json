@@ -565,6 +565,36 @@
         },
         "optionsInfo": {
 
+        },
+        "app": {
+            "aaAutorec-melee": {
+                "label": "Melee",
+                "icon": "fas fa-shield-alt"
+            },
+            "aaAutorec-range": {
+                "label": "Range",
+                "icon": "fas fa-people-arrows"
+            },
+            "aaAutorec-ontoken": {
+                "label": "On Token",
+                "icon": "fas fa-child"
+            },
+            "aaAutorec-templatefx": {
+                "label": "Templates",
+                "icon": "fas fa-shapes"
+            },
+            "aaAutorec-aura": {
+                "label": "Aura",
+                "icon": "fab fa-creative-commons-by"
+            },
+            "aaAutorec-preset": {
+                "label": "Preset",
+                "icon": "fas fa-gift"
+            },
+            "aaAutorec-aefx": {
+                "label": "Active Effects",
+                "icon": "fas fa-atom"
+            }
         }
     }
 }
