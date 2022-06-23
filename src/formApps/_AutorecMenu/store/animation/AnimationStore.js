@@ -40,7 +40,7 @@ export class AnimationStore {
       // Provide a debounced callback to the category updateSubscribers method that is invoked by `storeWrapper`
       // on AnimationStore child stores. This throttles updates to serializing the main category store array when
       // AnimationStore data changes.
-      const updateCategorySubscribers = debounce(category.updateSubscribers.bind(category), 500);
+      const updateCategorySubscribers = debounce(category._updateSubscribers.bind(category), 500);
 
       this.#stores = {
          name: storeWrapper(propertyStore(this, 'name'), updateCategorySubscribers)
@@ -71,7 +71,7 @@ export class AnimationStore {
    {
       if (typeof id !== 'string') { throw new TypeError(`'id' is not a string.`); }
       this.#data.id = id;
-      this.updateSubscribers();
+      this._updateSubscribers();
    }
 
    /**
@@ -81,7 +81,7 @@ export class AnimationStore {
    {
       if (typeof name !== 'string') { throw new TypeError(`'name' is not a string.`); }
       this.#data.name = name;
-      this.updateSubscribers();
+      this._updateSubscribers();
    }
 
    delete()
@@ -122,7 +122,7 @@ export class AnimationStore {
          this.#data.id = data.id;
       }
 
-      this.updateSubscribers();
+      this._updateSubscribers();
    }
 
    toJSON() {
@@ -149,7 +149,7 @@ export class AnimationStore {
    /**
     * @protected
     */
-   updateSubscribers() {
+   _updateSubscribers() {
       const subscriptions = this.#subscriptions;
 
       const data = this.#data;

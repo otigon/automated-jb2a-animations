@@ -1,7 +1,7 @@
 <script>
    import {
       ripple,
-      rippleFocus }                 from '@typhonjs-fvtt/svelte-standard/action';
+      rippleFocus }                 from "@typhonjs-fvtt/svelte-standard/action";
 
    import {
       TJSInput,
@@ -53,7 +53,7 @@
    };
 </script>
 
-<section>
+<div>
     <TJSSvgFolder {folder}>
         <TJSInput {input} slot=label />
 <!-- TODO HAVE TO FIX TJSMenu positioning       -->
@@ -61,21 +61,19 @@
 <!--            <TJSMenu menu={{ items: createOverflowItems() }} />-->
 <!--        </TJSToggleIconButton>-->
 
-        <div slot=summary-end>
+        <span slot=summary-end>
             <TJSIconButton button={buttonDuplicate} on:click={() => animation.duplicate() } />
             <TJSIconButton button={buttonDelete} on:click={() => animation.delete() } />
-        </div>
+        </span>
         Content Forthcoming
     </TJSSvgFolder>
-</section>
+</div>
 
 <style lang=scss>
-  section {
+  div {
     background: rgba(199, 199, 199, 0.85);
     border: 2px solid black;
     border-radius: 0.75em;
-
-    margin-bottom: 3px;
 
     height: fit-content;
     width: 100%;
@@ -90,7 +88,7 @@
     --tjs-input-border-radius: 1em;
   }
 
-  div {
+  span {
     display: flex;
   }
 </style>

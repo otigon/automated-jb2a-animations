@@ -1,5 +1,3 @@
-import { writable }           from "svelte/store";
-
 import { localize }           from "@typhonjs-fvtt/runtime/svelte/helper";
 
 // import { DynArrayReducer }    from '@typhonjs-fvtt/runtime/svelte/store';
@@ -100,7 +98,7 @@ export class CategoryStore {
       if (typeof data.id !== 'string') { data.id = uuidv4(); }
 
       this.#data.push(new this.#StoreClass(data, this));
-      this.updateSubscribers();
+      this._updateSubscribers();
    }
 
    /**
@@ -118,7 +116,7 @@ export class CategoryStore {
       if (index >= 0) {
          this.#data[index].destroy();
          this.#data.splice(index, 1);
-         this.updateSubscribers();
+         this._updateSubscribers();
       }
    }
 
@@ -135,8 +133,8 @@ export class CategoryStore {
       return index >= 0 ? this.#data[index] : void 0;
    }
 
-   set(newData) {
-      if (!Array.isArray(newData)) { throw new TypeError(`'newData' is not an Array.`); }
+   set(updateList) {
+      if (!Array.isArray(updateList)) { throw new TypeError(`'updateList' is not an Array.`); }
 
       const data = this.#data;
 
@@ -146,20 +144,44 @@ export class CategoryStore {
          return array;
       }, []));
 
-      for (const newEntry of newData)
+      for (let updateIndex = 0; updateIndex < updateList.length; updateIndex++)
       {
-         const id = newEntry.id;
+         const updateData = updateList[updateIndex];
 
-         if (typeof id !== 'string') { throw new Error(`'newEntry.id' is not a string.`)}
+         const id = updateData.id;
 
-         const index = data.findIndex((entry) => entry.id === id);
+         if (typeof id !== 'string') { throw new Error(`'updateData.id' is not a string.`)}
 
-         if (index >= 0) {
-            data[index].set(newEntry);
+         const localIndex = data.findIndex((entry) => entry.id === id);
+
+         if (localIndex >= 0) {
+            const localEntry = data[localIndex];
+
+            // Update the entry data.
+            localEntry.set(updateData);
+
+            // Must move to correct position
+            if (localIndex !== updateIndex) {
+               // Remove from current location.
+               data.splice(localIndex, 1);
+
+               if (updateIndex < data.length) {
+                  // Insert at new location.
+                  data.splice(updateIndex, 0, localEntry);
+               }
+               else {
+                  // Local data length is less than update data index.
+                  // TODO: Consider rebuilding local data from update data array here rather than pushing to the end.
+                  console.warn(`CategoryStore - set - sort - local array length < update index - updateIndex: ${updateIndex}; data.length: ${data.length}.`)
+                  data.push(localEntry);
+               }
+            }
+
+            // Delete from removeIDSet as entry is still in local data.
             removeIDSet.delete(id);
          }
          else {
-            data.push(new this.#StoreClass(newEntry, this));
+            data.push(new this.#StoreClass(updateData, this));
          }
       }
 
@@ -174,7 +196,7 @@ export class CategoryStore {
          }
       }
 
-      this.updateSubscribers();
+      this._updateSubscribers();
    }
 
    /**
@@ -187,7 +209,7 @@ export class CategoryStore {
          return aName.localeCompare(bName);
       });
 
-      this.updateSubscribers();
+      this._updateSubscribers();
    }
 
    toJSON() {
@@ -213,7 +235,10 @@ export class CategoryStore {
       };
    }
 
-   updateSubscribers() {
+   /**
+    * @package
+    */
+   _updateSubscribers() {
       const subscriptions = this.#subscriptions;
 
       const data = this.#data;

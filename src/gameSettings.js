@@ -102,6 +102,21 @@ class TJSGameSettings
 
       const onchangeFunctions = [];
 
+      // When true prevents local store subscription from a loop when values are object data.
+      let gateSet = false;
+
+      // Provides an `onChange` callback to update the associated store.
+      onchangeFunctions.push((value) =>
+      {
+         const store = s_GET_STORE(this.#stores, key);
+         if (store && !gateSet)
+         {
+            gateSet = true;
+            store.set(value);
+            gateSet = false;
+         }
+      });
+
       // Handle loading any existing `onChange` callbacks.
       if (isIterable(options?.onChange))
       {
@@ -115,20 +130,6 @@ class TJSGameSettings
          onchangeFunctions.push(options.onChange);
       }
 
-      // When true prevents local store subscription from a loop when values are object data.
-      let gateSet = false;
-
-      // Provides an `onChange` callback to update the associated store.
-      onchangeFunctions.push((value) =>
-      {
-         const store = s_GET_STORE(this.#stores, key);
-         if (store && !gateSet)
-         {
-            gateSet = true;
-            store.set(value);
-         }
-      });
-
       // Provides the final onChange callback that iterates over all the stored onChange callbacks.
       const onChange = (value) =>
       {
@@ -138,18 +139,18 @@ class TJSGameSettings
       game.settings.register(moduleId, key, { ...options, onChange });
 
       // Set new store value with existing setting or default value.
-      const newStore = store ? store : s_GET_STORE(this.#stores, key, game.settings.get(moduleId, key));
+      const targetStore = store ? store : s_GET_STORE(this.#stores, key, game.settings.get(moduleId, key));
 
       // If a store instance is passed into register then initialize it with game settings data.
       if (store)
       {
-         this.#stores.set(key, newStore);
+         this.#stores.set(key, targetStore);
          store.set(game.settings.get(moduleId, key));
       }
 
       // Subscribe to self to set associated game setting on updates after verifying that the new value does not match
       // existing game setting.
-      subscribeIgnoreFirst(newStore, async (value) =>
+      subscribeIgnoreFirst(targetStore, async (value) =>
       {
          if (!gateSet && game.settings.get(moduleId, key) !== value)
          {
