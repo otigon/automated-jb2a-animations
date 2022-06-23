@@ -1,19 +1,13 @@
-import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+import * as common from "./common";
 
 export const preset = [
    {
-      audio: {
-         a01: {
-            enable:false,
-         },
-      },
-      id: uuidv4(),
+      ...common.main({ name: "bardicinspiration" }),
       presetType: "bardicinspiration",
-      hidden: true,
-      macro: {
-         enable: false,
-      },
-      name: "autoanimations.animations.bardicinspiration",
+      macro: common.macro(),
+      source: common.source(),
+      target: common.target(),
+      sound: common.sound(),
       data: {
          self: {
             enable: true,
@@ -32,78 +26,64 @@ export const preset = [
             selfColor: "yellowblue",
             targetColor: "yellowblue",
          },
-         below: false,
-         scale: 1,
+         options: {
+            below: false,
+            scale: 1
+         },
       }
    },
 
    {
-      audio: {
-         a01: {
-            enable:false,
-         },
-      },
-      id: uuidv4(),
+      ...common.main({ name: "bless" }),
       presetType: "bless",
-      hidden: true,
-      macro: {
-         enable: false,
-      },
-      name: "autoanimations.animations.bless",
-      data: {
+      macro: common.macro(),
+      sound: common.sound(),
+      options: {
          below: true,
-         color: "yellow",
          persistent: false,
          scale: 1.5,
          unbindAlpha: false,
-         unbindVisbility: false,
-      }
+         unbindVisbility: false
+      },
+      data: {
+         color: "yellow"
+      },
+      source: common.source()
    },
 
    {
-      audio: {
-         a01: {
-            enable:false,
-         },
-      },
-      id: uuidv4(),
+      ...common.main({ name: "shield" }),
       presetType: "shieldspell",
-      hidden: true,
-      macro: {
-         enable: false,
-      },
-      name: "autoanimations.animations.shield",
-      data: {
-         animation: "shieldspell",
+      macro: common.macro(),
+      sound: common.sound(),
+      options: {
          below: false,
-         color: "blue",
-         endEffect: "outro_explode",
-         menuType: "spell",
          persistent: false,
          scale: 1,
          unbindAlpha: false,
-         unbindVisbility: false,
+         unbindVisbility: false
+      },
+      data: {
+         animation: "shieldspell",
+         menuType: "spell",
          variant: "01",
-      }
+         color: "blue",
+         endEffect: "outro_explode"
+      },
+      source: common.source()
    },
 
    {
-      audio: {
-         a01: {
-            enable:false,
-         },
-      },
-      id: uuidv4(),
+      ...common.main({ name: "mistystep" }),
       presetType: "teleportation",
-      hidden: true,
-      macro: {
-         enable: false,
-      },
-      name: "autoanimations.animations.mistystep",
-      data: {
+      macro: common.macro(),
+      sound: common.sound(),
+      options: {
          range: 30,
          hideFromPlayers: false,
          measureType: "alternating",
+      },
+      data: {
          start: {
             animation: "mistystep",
             below: false,
@@ -138,7 +118,8 @@ export const preset = [
             menuType: "spell",
             playbackRate: 1,
             variant: "primary",
-         },
-      }
+         }
+      },
+      source: common.source()
    }
 ];
