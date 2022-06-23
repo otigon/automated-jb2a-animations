@@ -48,11 +48,6 @@ Hooks.on('AutomaticAnimations.Clear.Data', async () => {
     await game.settings.set("autoanimations", "aaAutorec-range", void 0);
     await game.settings.set("autoanimations", "aaAutorec-ontoken", void 0);
     await game.settings.set("autoanimations", "aaAutorec-templatefx", void 0);
-
-    setTimeout(() =>
-    {
-        console.log(`! game.settings.get - ontoken: `, game.settings.get('autoanimations', "aaAutorec-ontoken"))
-    }, 1500)
 });
 
 

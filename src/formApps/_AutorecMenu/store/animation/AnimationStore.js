@@ -1,6 +1,15 @@
-import { isObject } from "@typhonjs-fvtt/runtime/svelte/util";
+import { propertyStore }   from "@typhonjs-fvtt/runtime/svelte/store";
+
+import {
+   debounce,
+   isObject,
+   uuidv4 }                from "@typhonjs-fvtt/runtime/svelte/util";
+
+import { storeWrapper }    from "../_tjs/storeWrapper.js";
 
 export class AnimationStore {
+   #category;
+
    #data;
 
    /**
@@ -10,10 +19,40 @@ export class AnimationStore {
     */
    #subscriptions = [];
 
-   constructor(data)
+   /** @type {AnimationPropertyStores} */
+   #stores;
+
+   /**
+    * @param {object}   data -
+    *
+    * @param {CategoryStore} category - The associated category store.
+    */
+   constructor(data = {}, category)
    {
       this.#data = data;
+      this.#category = category;
+
+      // If an id is missing then add it.
+      if (typeof data.id !== 'string') {
+         this.#data.id = uuidv4();
+      }
+
+      // Provide a debounced callback to the category updateSubscribers method that is invoked by `storeWrapper`
+      // on AnimationStore child stores. This throttles updates to serializing the main category store array when
+      // AnimationStore data changes.
+      const updateCategorySubscribers = debounce(category.updateSubscribers.bind(category), 500);
+
+      this.#stores = {
+         name: storeWrapper(propertyStore(this, 'name'), updateCategorySubscribers)
+      };
    }
+
+   /**
+    * @returns {AnimationPropertyStores}
+    */
+   get stores() { return this.#stores; }
+
+   // ----------------------------------------------------------------------------------------------------------------
 
    /**
     * @returns {string}
@@ -23,7 +62,7 @@ export class AnimationStore {
    /**
     * @returns {string}
     */
-   get name() { return this.#data.name; }
+   get name() { return this.#data.name ?? ''; }
 
    /**
     * @param {string}   id -
@@ -43,6 +82,25 @@ export class AnimationStore {
       if (typeof name !== 'string') { throw new TypeError(`'name' is not a string.`); }
       this.#data.name = name;
       this.updateSubscribers();
+   }
+
+   delete()
+   {
+      this.#category.delete(this);
+   }
+
+   duplicate()
+   {
+      const data = foundry.utils.deepClone(this.#data, { strict: true })
+      data.id = uuidv4();
+      data.name = `${this.#data.name ?? ''} + (COPY)`;
+
+      this.#category.add(data);
+   }
+
+   destroy()
+   {
+      this.#category = void 0;
    }
 
    /**
@@ -99,3 +157,9 @@ export class AnimationStore {
       for (let cntr = 0; cntr < subscriptions.length; cntr++) { subscriptions[cntr](data); }
    }
 }
+
+/**
+ * @typedef {object} AnimationPropertyStores
+ *
+ * @property {import('svelte/store').Writable<string>} name - Animation name.
+ */

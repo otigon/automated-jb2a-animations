@@ -7,7 +7,7 @@
     const selected = autoRecStores.selected;
 </script>
 
-<section>
+<header>
     <ul>
     {#each autoRecStores.categories as category}
         <li on:click={() => $selected = category}
@@ -17,13 +17,13 @@
         <span />
     {/each}
     </ul>
-</section>
+</header>
 
 <CategoryControl category={$selected} />
 <CategoryList category={$selected} />
 
 <style lang=scss>
-  section {
+  header {
     flex: none;
     padding: 0.5em 0.5em;
 
@@ -46,7 +46,6 @@
 
       li {
         margin: auto;
-        //padding: 0 0.25em;
 
         color: rgb(50, 50, 50);
 

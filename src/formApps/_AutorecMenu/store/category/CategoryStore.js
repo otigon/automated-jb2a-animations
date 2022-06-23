@@ -1,10 +1,19 @@
+import { writable }           from "svelte/store";
+
 import { localize }           from "@typhonjs-fvtt/runtime/svelte/helper";
 
-import { DynArrayReducer }    from '@typhonjs-fvtt/runtime/svelte/store';
+// import { DynArrayReducer }    from '@typhonjs-fvtt/runtime/svelte/store';
+// TODO: This is an updated DynArrayReducer that will be in the next TRL release.
+import { DynArrayReducer }    from '@typhonjs-utils/dyn-array-reducer';
+
+import {
+   isObject,
+   uuidv4 }                   from "@typhonjs-fvtt/runtime/svelte/util";
 
 import { AnimationStore }     from "../animation/AnimationStore.js";
 import { filterSearch }       from "./filterSearch.js";
 
+import { aaSessionStorage }   from "../../../../sessionStorage.js";
 import { constants }          from "../../../../constants.js";
 import { gameSettings }       from "../../../../gameSettings.js";
 
@@ -22,6 +31,8 @@ export class CategoryStore {
 
    /** @type {string} */
    #key;
+
+   #stores;
 
    #StoreClass;
 
@@ -44,6 +55,10 @@ export class CategoryStore {
 
       this.#key = key;
       this.#StoreClass = StoreClass;
+
+      this.#stores = {
+         scrollTop: aaSessionStorage.getStore(`${constants.moduleId}-category-scrolltop-${key}`)
+      };
 
       gameSettings.register({
          moduleId: constants.moduleId,
@@ -74,10 +89,18 @@ export class CategoryStore {
 
    get label() { return localize(`autoanimations.app.${this.#key}.label`); }
 
-   add(animation) {
-      if (!(animation instanceof this.#StoreClass)) {
-         throw new TypeError(`'animation' is not an instance of ${this.#StoreClass.constructor.name}.`);
-      }
+   /**
+    * @returns {CategoryStores}
+    */
+   get stores() { return this.#stores; }
+
+   add(data = {}) {
+      if (!isObject(data)) { throw new TypeError(`'data' is not an object.`); }
+
+      if (typeof data.id !== 'string') { data.id = uuidv4(); }
+
+      this.#data.push(new this.#StoreClass(data, this));
+      this.updateSubscribers();
    }
 
    /**
@@ -90,12 +113,26 @@ export class CategoryStore {
          throw new TypeError(`'animation' is not an instance of AnimationStore.`);
       }
 
-      const index = this.#data.findIndex((entry) => entry.id === id);
+      const index = this.#data.findIndex((entry) => entry.id === animation.id);
 
       if (index >= 0) {
+         this.#data[index].destroy();
          this.#data.splice(index, 1);
-         this.#updateSubscribers();
+         this.updateSubscribers();
       }
+   }
+
+   /**
+    * Finds an AnimationStore instance by 'id' / UUIDv4.
+    *
+    * @param {string}   id - A UUIDv4 string.
+    *
+    * @returns {T|void} AnimationStore instance.
+    */
+   find(id)
+   {
+      const index = this.#data.findIndex((entry) => entry.id === id);
+      return index >= 0 ? this.#data[index] : void 0;
    }
 
    set(newData) {
@@ -122,7 +159,7 @@ export class CategoryStore {
             removeIDSet.delete(id);
          }
          else {
-            data.push(new this.#StoreClass(newEntry));
+            data.push(new this.#StoreClass(newEntry, this));
          }
       }
 
@@ -130,20 +167,27 @@ export class CategoryStore {
       for (const id of removeIDSet)
       {
          const index = data.findIndex((entry) => entry.id === id);
-         if (index >= 0) { data.splice(index, 1); }
+         if (index >= 0)
+         {
+            data[index].destroy();
+            data.splice(index, 1);
+         }
       }
 
-      this.#dataReducer.index.update();
-
-      this.#updateSubscribers();
+      this.updateSubscribers();
    }
 
    /**
     * Sorts data entries by name attribute.
     */
    sortAlpha() {
-      this.#data.sort((a, b) => a.name.localeCompare(b.name));
-      this.#updateSubscribers();
+      this.#data.sort((a, b) => {
+         const aName = a?.name ?? '';
+         const bName = b?.name ?? '';
+         return aName.localeCompare(bName);
+      });
+
+      this.updateSubscribers();
    }
 
    toJSON() {
@@ -169,11 +213,20 @@ export class CategoryStore {
       };
    }
 
-   #updateSubscribers() {
+   updateSubscribers() {
       const subscriptions = this.#subscriptions;
 
       const data = this.#data;
 
       for (let cntr = 0; cntr < subscriptions.length; cntr++) { subscriptions[cntr](data); }
+
+      // This will update the filtered data and `dataReducer` store and forces an update to subscribers.
+      this.#dataReducer.index.update(true);
    }
 }
+
+/**
+ * @typedef {object} CategoryStores
+ *
+ * @property {import('svelte/store').Writable<number|void>} scrollTop - Stores current scroll top.
+ */

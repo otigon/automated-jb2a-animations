@@ -1,1 +1,1 @@
-export { default as AutorecAppShell } from "./layout/AutorecAppShell.svelte";
+export { default as AutorecAppShell } from "./AutorecAppShell.svelte";

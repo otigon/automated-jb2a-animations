@@ -122,7 +122,7 @@ class TJSGameSettings
       onchangeFunctions.push((value) =>
       {
          const store = s_GET_STORE(this.#stores, key);
-         if (store)
+         if (store && !gateSet)
          {
             gateSet = true;
             store.set(value);
@@ -151,7 +151,11 @@ class TJSGameSettings
       // existing game setting.
       subscribeIgnoreFirst(newStore, async (value) =>
       {
-         if (!gateSet && game.settings.get(moduleId, key) !== value) { await game.settings.set(moduleId, key, value); }
+         if (!gateSet && game.settings.get(moduleId, key) !== value)
+         {
+            gateSet = true;
+            await game.settings.set(moduleId, key, value);
+         }
 
          gateSet = false;
       });

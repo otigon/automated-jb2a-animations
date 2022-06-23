@@ -13,26 +13,35 @@
     /** @type {CategoryStore} */
     export let category;
 
-    const searchInput = {
+    const buttonAdd = {
+       icon: "fas fa-plus",
+       efx: ripple(),
+       styles: { "margin-right": "auto" },
+       title: localize("autoanimations.menus.add")
+    };
+
+    const input = {
        store: category.filterSearch,
        efx: rippleFocus(),
        placeholder: localize("autoanimations.menus.search"),
     };
 
-    const alphaSortButton = {
-       icon: 'fas fa-sort-alpha-down',
+    const buttonDelete = {
+       icon: "fas fa-sort-alpha-down",
        efx: ripple(),
-       styles: { 'margin-left': '4px' }
+       styles: { "margin-left": "auto" },
+       title: localize("autoanimations.menus.sortmenu")
     };
 </script>
 
-<section>
-    <TJSInput input={searchInput}/>
-    <TJSIconButton button={alphaSortButton} on:click={() => category.sortAlpha()}/>
-</section>
+<header>
+    <TJSIconButton button={buttonAdd} on:click={() => category.add()} />
+    <TJSInput {input} />
+    <TJSIconButton button={buttonDelete} on:click={() => category.sortAlpha()} />
+</header>
 
 <style lang=scss>
-  section {
+  header {
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
@@ -40,8 +49,8 @@
 
     padding: 0.25em 0.25em;
 
-    background: rgb(204, 204, 204);
-    border-bottom: 1px solid rgb(100, 100, 100);
+    background: rgba(199, 199, 199, 0.85);
+    border-bottom: 2px solid rgb(100, 100, 100);
 
     height: fit-content;
     width: 100%;
@@ -50,5 +59,6 @@
     --tjs-input-text-align: center;
     --tjs-input-border: 1.5px outset rgba(0, 0, 0, 0.5);
     --tjs-input-border-radius: 1em;
+    --tjs-input-width: 80%;
   }
 </style>
