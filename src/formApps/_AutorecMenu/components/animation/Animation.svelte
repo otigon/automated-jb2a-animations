@@ -3,8 +3,6 @@
       ripple,
       rippleFocus }                 from '@typhonjs-fvtt/svelte-standard/action';
 
-   import { localize }              from "@typhonjs-fvtt/runtime/svelte/helper";
-
    import {
       TJSInput,
       TJSMenu,
@@ -31,14 +29,14 @@
    const input = {
       store: animation.stores.name,
       efx: rippleFocus(),
-      placeholder: localize("autoanimations.menus.itemName")
+      placeholder: "autoanimations.menus.itemName"
    };
 
    const buttonDuplicate = {
       icon: "far fa-clone",
       efx: ripple(),
       styles: { "margin-left": "0.25em" },
-      title: localize("autoanimations.menus.duplicate")
+      title: "autoanimations.menus.duplicate"
    };
 
    const buttonDelete = {

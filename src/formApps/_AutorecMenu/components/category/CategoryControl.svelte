@@ -1,6 +1,4 @@
 <script>
-    import { localize }         from "@typhonjs-fvtt/runtime/svelte/helper";
-
     import {
        ripple,
        rippleFocus }            from '@typhonjs-fvtt/svelte-standard/action';
@@ -17,20 +15,20 @@
        icon: "fas fa-plus",
        efx: ripple(),
        styles: { "margin-right": "auto" },
-       title: localize("autoanimations.menus.add")
+       title: "autoanimations.menus.add"
     };
 
     const input = {
        store: category.filterSearch,
        efx: rippleFocus(),
-       placeholder: localize("autoanimations.menus.search"),
+       placeholder: "autoanimations.menus.search",
     };
 
     const buttonDelete = {
        icon: "fas fa-sort-alpha-down",
        efx: ripple(),
        styles: { "margin-left": "auto" },
-       title: localize("autoanimations.menus.sortmenu")
+       title: "autoanimations.menus.sortmenu"
     };
 </script>
 
