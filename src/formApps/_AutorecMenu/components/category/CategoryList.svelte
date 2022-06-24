@@ -1,5 +1,6 @@
 <script>
     import { flip }             from "svelte/animate";
+    import { quintOut }         from "svelte/easing";
 
     import { applyScrolltop }   from "../_tjs/applyScrolltop.js";
 
@@ -13,7 +14,7 @@
 
 <main use:applyScrolltop={category.stores.scrollTop}>
     {#each [...$dataReducer] as animation (animation.id)}
-        <section animate:flip={{duration: 250}}>
+        <section animate:flip={{duration: 250, easing: quintOut}}>
             <Animation {animation} />
         </section>
     {/each}
@@ -21,7 +22,7 @@
 
 <style lang=scss>
   main {
-    overflow-y: auto;
+    overflow-y: scroll;
     padding: 0 3%;
     scrollbar-width: thin;
   }
