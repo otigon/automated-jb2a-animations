@@ -8,7 +8,8 @@
     "minimumCoreVersion": "0.8.1",
     "compatibleCoreVersion": "9",
     "styles": [
-        "./dist/module.css"
+        "./dist/module.css",
+        "./styles/newMenuCss.css"
     ],
     "esmodules": [
         "./dist/module.js"

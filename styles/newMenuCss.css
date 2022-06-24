@@ -1,15 +1,3 @@
-#AA-autorec-settings-New {
-    .window-content {
-        padding: 0;
-        overflow: inherit;
-        background: rgba(125, 125, 125, 0.75);
-    }
-
-    // Reverse universal selector set for `.window-app .window-content > *`.
-    .window-content > * {
-        flex: unset;
-    }
-}
 
 .aa-video-preview {
     color: rgba(26, 60, 250, 0.6);

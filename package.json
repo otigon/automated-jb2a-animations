@@ -11,7 +11,6 @@
   "dependencies": {
     "@typhonjs-fvtt/runtime": "^0.0.14",
     "@typhonjs-fvtt/svelte-standard": "^0.0.1",
-    "@typhonjs-utils/dyn-array-reducer": "^0.2.0",
     "svelte": "^3.48.0",
     "svelte-preprocess": "^4.10.0"
   },
