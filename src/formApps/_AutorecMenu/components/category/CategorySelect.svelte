@@ -10,8 +10,7 @@
 <header>
     <ul>
     {#each autoRecStores.categories as category}
-        <li on:click={() => $selected = category}
-           class:active={$selected === category}>
+        <li class:active={$selected === category} on:click={() => $selected = category}>
             <i class={category.icon} />{category.label}
         </li>
         <span />
