@@ -2,7 +2,7 @@
     import { flip }             from "svelte/animate";
     import { quintOut }         from "svelte/easing";
 
-    import { applyScrolltop }   from "../_tjs/applyScrolltop.js";
+    import { applyScrolltop }   from "@typhonjs-fvtt/runtime/svelte/action";
 
     import Animation            from "../animation/Animation.svelte";
 

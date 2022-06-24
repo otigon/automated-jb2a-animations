@@ -4,12 +4,11 @@
       rippleFocus }                 from "@typhonjs-fvtt/svelte-standard/action";
 
    import {
+      TJSIconButton,
       TJSInput,
       TJSMenu,
       TJSSvgFolder,
       TJSToggleIconButton }         from "@typhonjs-fvtt/svelte-standard/component";
-
-   import TJSIconButton             from "../_tjs/TJSIconButton.svelte";
 
    import { createOverflowItems }   from "./createOverflowItems.js";
 

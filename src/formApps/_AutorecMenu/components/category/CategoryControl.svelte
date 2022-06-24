@@ -1,12 +1,11 @@
 <script>
     import {
        ripple,
-       rippleFocus }            from '@typhonjs-fvtt/svelte-standard/action';
+       rippleFocus }    from '@typhonjs-fvtt/svelte-standard/action';
 
-    import { TJSInput }         from '@typhonjs-fvtt/svelte-standard/component';
-
-    // TODO: This component will be added to @typhonjs-fvtt/svelte-standard
-    import TJSIconButton        from "../_tjs/TJSIconButton.svelte";
+    import {
+       TJSIconButton,
+       TJSInput }       from '@typhonjs-fvtt/svelte-standard/component';
 
     /** @type {CategoryStore} */
     export let category;

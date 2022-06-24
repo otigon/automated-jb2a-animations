@@ -1,11 +1,11 @@
-import { propertyStore }   from "@typhonjs-fvtt/runtime/svelte/store";
+import {
+   propertyStore,
+   storeCallback }         from "@typhonjs-fvtt/runtime/svelte/store";
 
 import {
    debounce,
    isObject,
    uuidv4 }                from "@typhonjs-fvtt/runtime/svelte/util";
-
-import { storeWrapper }    from "../_tjs/storeWrapper.js";
 
 export class AnimationStore {
    #category;
@@ -43,7 +43,7 @@ export class AnimationStore {
       const updateCategorySubscribers = debounce(category._updateSubscribers.bind(category), 500);
 
       this.#stores = {
-         name: storeWrapper(propertyStore(this, 'name'), updateCategorySubscribers)
+         name: storeCallback(propertyStore(this, 'name'), updateCategorySubscribers)
       };
    }
 

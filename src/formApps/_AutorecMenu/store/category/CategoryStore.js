@@ -1,8 +1,6 @@
 import { localize }           from "@typhonjs-fvtt/runtime/svelte/helper";
 
-// import { DynArrayReducer }    from '@typhonjs-fvtt/runtime/svelte/store';
-// TODO: This is an updated DynArrayReducer that will be in the next TRL release.
-import { DynArrayReducer }    from '@typhonjs-utils/dyn-array-reducer';
+import { DynArrayReducer }    from "@typhonjs-fvtt/runtime/svelte/store";
 
 import {
    isObject,
