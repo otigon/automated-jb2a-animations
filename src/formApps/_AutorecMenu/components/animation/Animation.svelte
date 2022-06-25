@@ -22,7 +22,8 @@
     * @type {object} Defines folder data for TJSIconFolder.
     */
    const folder = {
-      store: aaSessionStorage.getStore(`${constants.moduleId}-anim-folder-${animation.id}`, false),
+      options: { chevronOnly: true, noKeys: true },
+      store: aaSessionStorage.getStore(`${constants.moduleId}-anim-folder-${animation.id}`, false)
    };
 
    const input = {
@@ -60,7 +61,7 @@
 <!--            <TJSMenu menu={{ items: createOverflowItems() }} />-->
 <!--        </TJSToggleIconButton>-->
 
-        <span slot=summary-end>
+        <span slot=summary-end class=no-summary-click>
             <TJSIconButton button={buttonDuplicate} on:click={() => animation.duplicate() } />
             <TJSIconButton button={buttonDelete} on:click={() => animation.delete() } />
         </span>
