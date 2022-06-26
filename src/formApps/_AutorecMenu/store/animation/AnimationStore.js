@@ -1,5 +1,4 @@
 import { propertyStore }   from "@typhonjs-fvtt/runtime/svelte/store";
-import { isObject }        from "@typhonjs-fvtt/runtime/svelte/util";
 
 import { CategoryStore }   from "../category/CategoryStore.js";
 
@@ -17,6 +16,30 @@ export class AnimationStore extends CategoryStore.EntryStore {
       this.#stores = {
          label: propertyStore(this, 'label')
       };
+   }
+
+   /**
+    * Invoked by WorldSettingArrayStore to provide custom duplication.
+    *
+    * @param {object}   data - A copy of local data w/ new ID already set.
+    *
+    * @param {CategoryStore} categoryStore - The source WorldSettingArrayStore instance.
+    */
+   static duplicate(data, categoryStore)
+   {
+      super.duplicate(data, categoryStore);
+
+      // Provide a unique label appending an indexed counter.
+      if (typeof data?.label === 'string')
+      {
+         let cntr = 1;
+         const baseName = data.label ?? '';
+
+         do
+         {
+            data.label = `${baseName}-${cntr++}`;
+         } while (categoryStore.find((entry) => entry.label === data.label) !== void 0);
+      }
    }
 
    /**
@@ -41,8 +64,6 @@ export class AnimationStore extends CategoryStore.EntryStore {
     */
    set(data)
    {
-      if (!isObject(data)) { throw new TypeError(`'data' is not an object.`); }
-
       if (data.label !== void 0)
       {
          if (typeof data.label !== 'string') { throw new TypeError(`'data.label' is not a string.`); }
