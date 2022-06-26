@@ -2,7 +2,7 @@ import * as common from "./common";
 
 export const preset = [
    {
-      ...common.main({ name: "bardicinspiration" }),
+      ...common.main({ label: "bardicinspiration" }),
       presetType: "bardicinspiration",
       macro: common.macro(),
       source: common.source(),
@@ -34,7 +34,7 @@ export const preset = [
    },
 
    {
-      ...common.main({ name: "bless" }),
+      ...common.main({ label: "bless" }),
       presetType: "bless",
       macro: common.macro(),
       sound: common.sound(),
@@ -52,7 +52,7 @@ export const preset = [
    },
 
    {
-      ...common.main({ name: "shield" }),
+      ...common.main({ label: "shield" }),
       presetType: "shieldspell",
       macro: common.macro(),
       sound: common.sound(),
@@ -74,7 +74,7 @@ export const preset = [
    },
 
    {
-      ...common.main({ name: "mistystep" }),
+      ...common.main({ label: "mistystep" }),
       presetType: "teleportation",
       macro: common.macro(),
       sound: common.sound(),

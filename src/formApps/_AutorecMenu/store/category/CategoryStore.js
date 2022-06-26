@@ -14,7 +14,7 @@ export class CategoryStore extends WorldSettingArrayStore {
     *
     * @type {(data: object) => boolean}
     */
-   static #filterSearch = createFilterQuery("name");
+   static #filterSearch = createFilterQuery("label");
 
    /**
     * @type {CategoryStores}
@@ -54,9 +54,9 @@ export class CategoryStore extends WorldSettingArrayStore {
     */
    sortAlpha() {
       this._data.sort((a, b) => {
-         const aName = a?.name ?? '';
-         const bName = b?.name ?? '';
-         return aName.localeCompare(bName);
+         const aLabel = a?.label ?? '';
+         const bLabel = b?.label ?? '';
+         return aLabel.localeCompare(bLabel);
       });
 
       this._updateSubscribers();

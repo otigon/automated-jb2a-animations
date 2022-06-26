@@ -30,7 +30,7 @@
    };
 
    const input = {
-      store: animation.stores.name,
+      store: animation.stores.label,
       efx: rippleFocus(),
       placeholder: "autoanimations.menus.itemName"
    };

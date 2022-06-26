@@ -15,7 +15,7 @@ export class AnimationStore extends CategoryStore.EntryStore {
       super(data);
 
       this.#stores = {
-         name: propertyStore(this, 'name')
+         label: propertyStore(this, 'label')
       };
    }
 
@@ -29,12 +29,12 @@ export class AnimationStore extends CategoryStore.EntryStore {
    /**
     * @returns {string}
     */
-   get name() { return this._data.name ?? ''; }
+   get label() { return this._data.label ?? ''; }
 
    /**
-    * @param {string} name -
+    * @param {string} label -
     */
-   set name(name) { this.#stores.name.set(name); }
+   set label(label) { this.#stores.label.set(label); }
 
    /**
     * @param {object}   data -
@@ -43,10 +43,10 @@ export class AnimationStore extends CategoryStore.EntryStore {
    {
       if (!isObject(data)) { throw new TypeError(`'data' is not an object.`); }
 
-      if (data.name !== void 0)
+      if (data.label !== void 0)
       {
-         if (typeof data.name !== 'string') { throw new TypeError(`'data.name' is not a string.`); }
-         this._data.name = data.name;
+         if (typeof data.label !== 'string') { throw new TypeError(`'data.label' is not a string.`); }
+         this._data.label = data.label;
       }
 
       this._updateSubscribers();
@@ -56,5 +56,5 @@ export class AnimationStore extends CategoryStore.EntryStore {
 /**
  * @typedef {object} AnimationPropertyStores
  *
- * @property {import('svelte/store').Writable<string>} name - Animation name.
+ * @property {import('svelte/store').Writable<string>} label - Animation label.
  */

@@ -2,7 +2,7 @@ import * as common from "./common";
 
 export const aura = [
    {
-      ...common.main({ name: "spiritguardians" }),
+      ...common.main({ label: "spiritguardians" }),
       macro: common.macro(),
       primary: common.primary({
          video: { menuType: "spell", animation: "spiritguardians", variant: '01', color: 'darkblue' },
