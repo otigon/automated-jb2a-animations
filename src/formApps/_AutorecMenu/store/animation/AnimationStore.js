@@ -1,24 +1,14 @@
-import {
-   propertyStore,
-   storeCallback }         from "@typhonjs-fvtt/runtime/svelte/store";
+import { propertyStore }   from "@typhonjs-fvtt/runtime/svelte/store";
 
 import {
    debounce,
-   isObject,
-   uuidv4 }                from "@typhonjs-fvtt/runtime/svelte/util";
+   isObject }              from "@typhonjs-fvtt/runtime/svelte/util";
 
-export class AnimationStore {
-   #category;
+import { storeCallback }   from "@typhonjs-fvtt/svelte-standard/store";
 
-   #data;
+import { CategoryStore }   from "../category/CategoryStore.js";
 
-   /**
-    * Stores the subscribers.
-    *
-    * @type {(function(AnimationStore): void)[]}
-    */
-   #subscriptions = [];
-
+export class AnimationStore extends CategoryStore.EntryStore {
    /** @type {AnimationPropertyStores} */
    #stores;
 
@@ -29,15 +19,9 @@ export class AnimationStore {
     */
    constructor(data = {}, category)
    {
-      this.#data = data;
-      this.#category = category;
+      super (data);
 
-      // If an id is missing then add it.
-      if (typeof data.id !== 'string') {
-         this.#data.id = uuidv4();
-      }
-
-      // Provide a debounced callback to the category updateSubscribers method that is invoked by `storeWrapper`
+      // Provide a debounced callback to the category updateSubscribers method that is invoked by `storeCallback`
       // on AnimationStore child stores. This throttles updates to serializing the main category store array when
       // AnimationStore data changes.
       const updateCategorySubscribers = debounce(category._updateSubscribers.bind(category), 500);
@@ -57,50 +41,10 @@ export class AnimationStore {
    /**
     * @returns {string}
     */
-   get id() { return this.#data.id; }
-
-   /**
-    * @returns {string}
-    */
-   get name() { return this.#data.name ?? ''; }
-
-   /**
-    * @param {string}   id -
-    */
-   set id(id)
-   {
-      if (typeof id !== 'string') { throw new TypeError(`'id' is not a string.`); }
-      this.#data.id = id;
-      this._updateSubscribers();
-   }
-
-   /**
-    * @param {string}   name -
-    */
-   set name(name)
-   {
-      if (typeof name !== 'string') { throw new TypeError(`'name' is not a string.`); }
-      this.#data.name = name;
-      this._updateSubscribers();
-   }
-
-   delete()
-   {
-      this.#category.delete(this);
-   }
-
-   duplicate()
-   {
-      const data = foundry.utils.deepClone(this.#data, { strict: true })
-      data.id = uuidv4();
-      data.name = `${this.#data.name ?? ''} + (COPY)`;
-
-      this.#category.add(data);
-   }
+   get name() { return this._data.name ?? ''; }
 
    destroy()
    {
-      this.#category = void 0;
    }
 
    /**
@@ -113,48 +57,10 @@ export class AnimationStore {
       if (data.name !== void 0)
       {
          if (typeof data.name !== 'string') { throw new TypeError(`'data.name' is not a string.`); }
-         this.#data.name = data.name;
-      }
-
-      if (data.id !== void 0)
-      {
-         if (typeof data.id !== 'string') { throw new TypeError(`'data.id' is not a string.`); }
-         this.#data.id = data.id;
+         this._data.name = data.name;
       }
 
       this._updateSubscribers();
-   }
-
-   toJSON() {
-      return foundry.utils.deepClone(this.#data, { strict: true });
-   }
-
-   /**
-    * @param {function(AnimationStore): void} handler - Callback function that is invoked on update / changes.
-    *
-    * @returns {(function(): void)} Unsubscribe function.
-    */
-   subscribe(handler) {
-      this.#subscriptions.push(handler);  // add handler to the array of subscribers
-
-      handler(this.#data);                // call handler with current value
-
-      // Return unsubscribe function.
-      return () => {
-         const index = this.#subscriptions.findIndex((sub) => sub === handler);
-         if (index >= 0) { this.#subscriptions.splice(index, 1); }
-      };
-   }
-
-   /**
-    * @protected
-    */
-   _updateSubscribers() {
-      const subscriptions = this.#subscriptions;
-
-      const data = this.#data;
-
-      for (let cntr = 0; cntr < subscriptions.length; cntr++) { subscriptions[cntr](data); }
    }
 }
 

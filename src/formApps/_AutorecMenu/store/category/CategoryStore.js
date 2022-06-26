@@ -1,11 +1,12 @@
-import { localize }                 from "@typhonjs-fvtt/runtime/svelte/helper";
-import { createFilterQuery }        from '@typhonjs-fvtt/runtime/svelte/store';
+import { localize }           from "@typhonjs-fvtt/runtime/svelte/helper";
 
-import { WorldSettingArrayStore }   from "@typhonjs-fvtt/svelte-standard/store";
+import {
+   createFilterQuery,
+   WorldSettingArrayStore }   from "@typhonjs-fvtt/svelte-standard/store";
 
-import { aaSessionStorage }         from "../../../../sessionStorage.js";
-import { constants }                from "../../../../constants.js";
-import { gameSettings }             from "../../../../gameSettings.js";
+import { aaSessionStorage }   from "../../../../sessionStorage.js";
+import { constants }          from "../../../../constants.js";
+import { gameSettings }       from "../../../../gameSettings.js";
 
 export class CategoryStore extends WorldSettingArrayStore {
    /**

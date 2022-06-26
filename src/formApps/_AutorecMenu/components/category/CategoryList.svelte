@@ -24,7 +24,7 @@
 <main use:applyScrolltop={category.stores.scrollTop} class:no-scroll={$isAnimating}>
     {#each [...$dataReducer] as animation (animation.id)}
         <section animate:flipWithEvents={{duration: 250, easing: quintOut}}>
-            <Animation {animation} />
+            <Animation {animation} {category} />
         </section>
     {/each}
 </main>

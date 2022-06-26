@@ -18,6 +18,9 @@
    /** @type {AnimationStore} */
    export let animation;
 
+   /** @type {CategoryStore} */
+   export let category;
+
    /**
     * @type {object} Defines folder data for TJSIconFolder.
     */
@@ -62,8 +65,8 @@
 <!--        </TJSToggleIconButton>-->
 
         <span slot=summary-end class=no-summary-click>
-            <TJSIconButton button={buttonDuplicate} on:click={() => animation.duplicate() } />
-            <TJSIconButton button={buttonDelete} on:click={() => animation.delete() } />
+            <TJSIconButton button={buttonDuplicate} on:click={() => category.duplicate(animation.id) } />
+            <TJSIconButton button={buttonDelete} on:click={() => category.delete(animation.id) } />
         </span>
         Content Forthcoming
     </TJSSvgFolder>
