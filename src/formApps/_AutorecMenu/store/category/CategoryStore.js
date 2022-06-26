@@ -16,6 +16,11 @@ export class CategoryStore extends WorldSettingArrayStore {
    static #filterSearch = createFilterQuery("name");
 
    /**
+    * @type {CategoryStores}
+    */
+   #stores
+
+   /**
     * @param {string}   key -
     *
     * @param {typeof import('svelte/store').Writable} StoreClass -
@@ -27,7 +32,9 @@ export class CategoryStore extends WorldSettingArrayStore {
 
       this.dataReducer.filters.add(CategoryStore.#filterSearch);
 
-      this.stores.scrollTop = aaSessionStorage.getStore(`${constants.moduleId}-category-scrolltop-${key}`, 0);
+      this.#stores = {
+         scrollTop: aaSessionStorage.getStore(`${constants.moduleId}-category-scrolltop-${key}`, 0)
+      };
    }
 
    get filterSearch() { return CategoryStore.#filterSearch; }
@@ -39,13 +46,13 @@ export class CategoryStore extends WorldSettingArrayStore {
    /**
     * @returns {CategoryStores}
     */
-   get stores() { return super.stores; }
+   get stores() { return this.#stores; }
 
    /**
     * Sorts data entries by name attribute.
     */
    sortAlpha() {
-      this.data.sort((a, b) => {
+      this._data.sort((a, b) => {
          const aName = a?.name ?? '';
          const bName = b?.name ?? '';
          return aName.localeCompare(bName);
