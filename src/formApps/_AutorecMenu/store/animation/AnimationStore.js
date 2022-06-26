@@ -1,10 +1,5 @@
 import { propertyStore }   from "@typhonjs-fvtt/runtime/svelte/store";
-
-import {
-   debounce,
-   isObject }              from "@typhonjs-fvtt/runtime/svelte/util";
-
-import { storeCallback }   from "@typhonjs-fvtt/svelte-standard/store";
+import { isObject }        from "@typhonjs-fvtt/runtime/svelte/util";
 
 import { CategoryStore }   from "../category/CategoryStore.js";
 
@@ -14,20 +9,13 @@ export class AnimationStore extends CategoryStore.EntryStore {
 
    /**
     * @param {object}   data -
-    *
-    * @param {CategoryStore} category - The associated category store.
     */
-   constructor(data = {}, category)
+   constructor(data = {})
    {
-      super (data);
-
-      // Provide a debounced callback to the category updateSubscribers method that is invoked by `storeCallback`
-      // on AnimationStore child stores. This throttles updates to serializing the main category store array when
-      // AnimationStore data changes.
-      const updateCategorySubscribers = debounce(category._updateSubscribers.bind(category), 500);
+      super(data);
 
       this.#stores = {
-         name: storeCallback(propertyStore(this, 'name'), updateCategorySubscribers)
+         name: propertyStore(this, 'name')
       };
    }
 
@@ -43,9 +31,10 @@ export class AnimationStore extends CategoryStore.EntryStore {
     */
    get name() { return this._data.name ?? ''; }
 
-   destroy()
-   {
-   }
+   /**
+    * @param {string} name -
+    */
+   set name(name) { this.#stores.name.set(name); }
 
    /**
     * @param {object}   data -
