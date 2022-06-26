@@ -20,6 +20,11 @@ export class CategoryStore {
    /** @type {T[]} */
    #data = [];
 
+   /**
+    * @type {Map<string, T>}
+    */
+   #dataMap = new Map();
+
    #dataReducer = new DynArrayReducer({
       data: this.#data,
       filters: [filterSearch]
@@ -95,7 +100,16 @@ export class CategoryStore {
 
       if (typeof data.id !== 'string') { data.id = uuidv4(); }
 
-      this.#data.push(new this.#StoreClass(data, this));
+      if (this.#data.findIndex((entry) => entry.id === data.id) >= 0)
+      {
+         throw new Error(`'data.id' (${data.id}) already in category data.`)
+      }
+
+      const store = new this.#StoreClass(data, this);
+
+      this.#data.push(store);
+      this.#dataMap.set(data.id, store);
+
       this._updateSubscribers();
    }
 
@@ -112,8 +126,12 @@ export class CategoryStore {
       const index = this.#data.findIndex((entry) => entry.id === animation.id);
 
       if (index >= 0) {
-         this.#data[index].destroy();
+         const store = this.#data[index];
+         store.destroy();
+
          this.#data.splice(index, 1);
+         this.#dataMap.delete(store.id);
+
          this._updateSubscribers();
       }
    }
@@ -127,20 +145,19 @@ export class CategoryStore {
     */
    find(id)
    {
-      const index = this.#data.findIndex((entry) => entry.id === id);
-      return index >= 0 ? this.#data[index] : void 0;
+      return this.#dataMap.get(id);
    }
 
    set(updateList) {
       if (!Array.isArray(updateList)) { throw new TypeError(`'updateList' is not an Array.`); }
 
       const data = this.#data;
+      const dataMap = this.#dataMap;
 
       // Create a set of all current entry IDs.
-      const removeIDSet = new Set(data.reduce((array, current) => {
-         array.push(current.id);
-         return array;
-      }, []));
+      const removeIDSet = new Set(dataMap.keys());
+
+      let rebuildIndex = false;
 
       for (let updateIndex = 0; updateIndex < updateList.length; updateIndex++)
       {
@@ -168,10 +185,8 @@ export class CategoryStore {
                   data.splice(updateIndex, 0, localEntry);
                }
                else {
-                  // Local data length is less than update data index.
-                  // TODO: Consider rebuilding local data from update data array here rather than pushing to the end.
-                  console.warn(`CategoryStore - set - sort - local array length < update index - updateIndex: ${updateIndex}; data.length: ${data.length}.`)
-                  data.push(localEntry);
+                  // Local data length is less than update data index; rebuild index.
+                  rebuildIndex = true;
                }
             }
 
@@ -179,18 +194,36 @@ export class CategoryStore {
             removeIDSet.delete(id);
          }
          else {
-            data.push(new this.#StoreClass(updateData, this));
+            const store = new this.#StoreClass(updateData, this);
+            data.push(store);
+            dataMap.set(store.id, store);
          }
       }
 
-      // Remove entries that are no longer in data.
-      for (const id of removeIDSet)
+      if (rebuildIndex)
       {
-         const index = data.findIndex((entry) => entry.id === id);
-         if (index >= 0)
+         data.length = 0;
+         dataMap.clear();
+
+         for (const entry of updateList)
          {
-            data[index].destroy();
-            data.splice(index, 1);
+            const store = new this.#StoreClass(entry, this);
+            data.push(store);
+            dataMap.set(store.id, store);
+         }
+      }
+      else
+      {
+         // Remove entries that are no longer in data.
+         for (const id of removeIDSet)
+         {
+            const index = data.findIndex((entry) => entry.id === id);
+            if (index >= 0)
+            {
+               data[index].destroy();
+               data.splice(index, 1);
+               dataMap.delete(id);
+            }
          }
       }
 
