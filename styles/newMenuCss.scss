@@ -1,8 +1,17 @@
 #AA-autorec-settings-New {
+    min-height: 250px;
+    min-width: 550px;
+    max-width: 1024px;
+
     .window-content {
         padding: 0;
         overflow: inherit;
         background: rgba(125, 125, 125, 0.75);
+
+        font-size: 1.15em;
+
+        --tjs-icon-button-diameter: 1.75em;
+        --tjs-summary-chevron-size: 1.25em;
 
         // Pretty basic gray scale colors.
         --tjs-icon-button-background: rgba(0, 0, 0, 0.1);
