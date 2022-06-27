@@ -28,7 +28,8 @@
    const input = {
       store: animation.stores.label,
       efx: rippleFocus(),
-      placeholder: "autoanimations.menus.itemName"
+      placeholder: "autoanimations.menus.itemName",
+      options: { cancelOnEscKey: true }
    };
 
    const buttonDuplicate = {
@@ -65,7 +66,7 @@
 <style lang=scss>
   div {
     background: rgba(199, 199, 199, 0.85);
-    border: 2px solid black;
+    border: 2px solid rgba(0, 0, 0, 0.75);
     border-radius: 0.75em;
 
     height: fit-content;
