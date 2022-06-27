@@ -36,7 +36,7 @@ export class CategoryStore extends WorldSettingArrayStore {
       this.dataReducer.filters.add(CategoryStore.#filterSearch);
 
       this.#stores = {
-         allFoldersOpened: writable(false),
+         allFoldersOpened: writable(void 0),
 
          scrollTop: aaSessionStorage.getStore(`${constants.moduleId}-category-scrolltop-${key}`, 0)
       };

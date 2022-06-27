@@ -4,15 +4,14 @@
 
    export let category;
 
-   const dataReducer = category.dataReducer;
-
-   const storeAllFoldersOpened = category.stores.allFoldersOpened;
-
    // TODO: LOCALIZE THESE STRINGS
    const stringCloseAll = "Close All";
    const stringOpenAll = "Open All";
 
    let icon, title, allOpen;
+
+   $: dataReducer = category.dataReducer;
+   $: storeAllFoldersOpened = category.stores.allFoldersOpened;
 
    $: {
       allOpen = $storeAllFoldersOpened;
@@ -30,8 +29,8 @@
    {
       const newState = !allOpen;
 
-      // Update folderState for all visible animation
-      for (const animationStore of dataReducer) { animationStore.folderState = newState; }
+      // Update folderState for all visible animation stores.
+      for (const animationStore of $dataReducer) { animationStore.folderState = newState; }
    }
 </script>
 

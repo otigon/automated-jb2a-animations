@@ -8,7 +8,6 @@
 
     import Animation            from "../animation/Animation.svelte";
 
-
     /** @type {CategoryStore} */
     export let category;
 
