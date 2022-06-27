@@ -1,3 +1,5 @@
+import { writable }           from "svelte/store";
+
 import { localize }           from "@typhonjs-fvtt/runtime/svelte/helper";
 
 import {
@@ -34,6 +36,8 @@ export class CategoryStore extends WorldSettingArrayStore {
       this.dataReducer.filters.add(CategoryStore.#filterSearch);
 
       this.#stores = {
+         allFoldersOpened: writable(false),
+
          scrollTop: aaSessionStorage.getStore(`${constants.moduleId}-category-scrolltop-${key}`, 0)
       };
    }
@@ -48,6 +52,27 @@ export class CategoryStore extends WorldSettingArrayStore {
     * @returns {CategoryStores}
     */
    get stores() { return this.#stores; }
+
+   /**
+    * In this case this solution is better than creating a derived store from the AnimationStore sessionStorage folder
+    * state. The below code uses the current dataReducer count and is also triggered by any open / close of any children
+    * folders. The calculation for "all folders open" can short circuit on the first false / closed value.
+    *
+    * @param {import('@typhonjs-fvtt/runtime/svelte/store').DynArrayReducer<AnimationStore>}   dataReducer -
+    */
+   calcAllFolderState(dataReducer)
+   {
+      let allFoldersOpened = true;
+
+      for (const store of dataReducer)
+      {
+         if (!(allFoldersOpened &= store.folderState)) { break; }
+      }
+
+      this.#stores.allFoldersOpened.set(!!allFoldersOpened);
+
+console.log(`!!! CS calcAllFolderState - 0 - allFoldersOpened: ${!!allFoldersOpened}`)
+   }
 
    /**
     * Sorts data entries by name attribute.

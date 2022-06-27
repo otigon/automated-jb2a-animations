@@ -19,9 +19,16 @@
     // the `no-scroll` class on the main element to remove overflow-y when animating.
     const isAnimating = writable(false);
     const flipWithEvents = animateEvents(flip, isAnimating);
+
+    // When the data reducer count changes or there is any folder open / close changes invoke `calcAllFolderState`.
+    function onFolderChange() { category.calcAllFolderState($dataReducer); }
+    $: onFolderChange($dataReducer);
 </script>
 
-<main use:applyScrolltop={category.stores.scrollTop} class:no-scroll={$isAnimating}>
+<main use:applyScrolltop={category.stores.scrollTop}
+      class:no-scroll={$isAnimating}
+      on:openAny={onFolderChange}
+      on:closeAny={onFolderChange}>
     {#each [...$dataReducer] as animation (animation.id)}
         <section animate:flipWithEvents={{duration: 250, easing: quintOut}}>
             <Animation {animation} {category} />
@@ -31,6 +38,7 @@
 
 <style lang=scss>
   main {
+    position: relative;
     overflow-y: auto;
     padding: 0 3%;
     scrollbar-width: thin;  // For Firefox

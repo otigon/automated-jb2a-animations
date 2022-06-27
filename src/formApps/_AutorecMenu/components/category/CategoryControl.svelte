@@ -1,11 +1,13 @@
 <script>
     import {
        ripple,
-       rippleFocus }    from '@typhonjs-fvtt/svelte-standard/action';
+       rippleFocus }            from "@typhonjs-fvtt/svelte-standard/action";
 
     import {
        TJSIconButton,
-       TJSInput }       from '@typhonjs-fvtt/svelte-standard/component';
+       TJSInput }               from "@typhonjs-fvtt/svelte-standard/component";
+
+    import ButtonOpenCloseAll   from "./ButtonOpenCloseAll.svelte";
 
     /** @type {CategoryStore} */
     export let category;
@@ -13,7 +15,6 @@
     const buttonAdd = {
        icon: "fas fa-plus",
        efx: ripple(),
-       styles: { "margin-right": "auto" },
        title: "autoanimations.menus.add"
     };
 
@@ -33,6 +34,7 @@
 
 <header>
     <TJSIconButton button={buttonAdd} on:click={() => category.add()} />
+    <ButtonOpenCloseAll {category} />
     <TJSInput {input} />
     <TJSIconButton button={buttonDelete} on:click={() => category.sortAlpha()} />
 </header>
@@ -56,6 +58,6 @@
     --tjs-input-text-align: center;
     --tjs-input-border: 1.5px outset rgba(0, 0, 0, 0.5);
     --tjs-input-border-radius: 1em;
-    --tjs-input-width: 80%;
+    --tjs-input-width: 70%;
   }
 </style>

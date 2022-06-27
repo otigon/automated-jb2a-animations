@@ -4,16 +4,12 @@
       rippleFocus }                 from "@typhonjs-fvtt/svelte-standard/action";
 
    import {
-      TJSIconButton,
       TJSInput,
       TJSMenu,
       TJSSvgFolder,
       TJSToggleIconButton }         from "@typhonjs-fvtt/svelte-standard/component";
 
    import { createOverflowItems }   from "./createOverflowItems.js";
-
-   import { aaSessionStorage }      from "../../../../sessionStorage.js";
-   import { constants }             from "../../../../constants.js";
 
    /** @type {AnimationStore} */
    export let animation;
@@ -26,7 +22,7 @@
     */
    const folder = {
       options: { chevronOnly: true, noKeys: true },
-      store: aaSessionStorage.getStore(`${constants.moduleId}-anim-folder-${animation.id}`, false)
+      store: animation.stores.folderOpen
    };
 
    const input = {
@@ -59,15 +55,9 @@
 <div>
     <TJSSvgFolder {folder}>
         <TJSInput {input} slot=label />
-<!-- TODO HAVE TO FIX TJSMenu positioning       -->
-<!--        <TJSToggleIconButton button={overflowMenu} slot=summary-end>-->
-<!--            <TJSMenu menu={{ items: createOverflowItems() }} />-->
-<!--        </TJSToggleIconButton>-->
-
-        <span slot=summary-end class=no-summary-click>
-            <TJSIconButton button={buttonDuplicate} on:click={() => category.duplicate(animation.id) } />
-            <TJSIconButton button={buttonDelete} on:click={() => category.delete(animation.id) } />
-        </span>
+        <TJSToggleIconButton button={overflowMenu} slot=summary-end>
+            <TJSMenu menu={{ items: createOverflowItems(animation, category) }} />
+        </TJSToggleIconButton>
         Content Forthcoming
     </TJSSvgFolder>
 </div>
@@ -89,9 +79,5 @@
     --tjs-input-text-align: center;
     --tjs-input-border: 1.5px outset rgba(0, 0, 0, 0.5);
     --tjs-input-border-radius: 1em;
-  }
-
-  span {
-    display: flex;
   }
 </style>

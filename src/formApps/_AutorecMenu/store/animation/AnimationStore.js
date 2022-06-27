@@ -1,10 +1,14 @@
-import { propertyStore }   from "@typhonjs-fvtt/runtime/svelte/store";
+import { propertyStore }      from "@typhonjs-fvtt/runtime/svelte/store";
 
-import { CategoryStore }   from "../category/CategoryStore.js";
+import { CategoryStore }      from "../category/CategoryStore.js";
+import { aaSessionStorage }   from "../../../../sessionStorage.js";
+import { constants }          from "../../../../constants.js";
 
 export class AnimationStore extends CategoryStore.EntryStore {
    /** @type {AnimationPropertyStores} */
    #stores;
+
+   #sessionStorage = {}
 
    /**
     * @param {object}   data -
@@ -13,8 +17,13 @@ export class AnimationStore extends CategoryStore.EntryStore {
    {
       super(data);
 
+      // Save sessionStorage ID.
+      this.#sessionStorage.folderOpen = `${constants.moduleId}-anim-folder-${this.id}`;
+
       this.#stores = {
-         label: propertyStore(this, 'label')
+         folderOpen: aaSessionStorage.getStore(this.#sessionStorage.folderOpen, false),
+
+         label: propertyStore(this, 'label'),
       };
    }
 
@@ -27,8 +36,6 @@ export class AnimationStore extends CategoryStore.EntryStore {
     */
    static duplicate(data, categoryStore)
    {
-      super.duplicate(data, categoryStore);
-
       // Provide a unique label appending an indexed counter.
       if (typeof data?.label === 'string')
       {
@@ -50,9 +57,22 @@ export class AnimationStore extends CategoryStore.EntryStore {
    // ----------------------------------------------------------------------------------------------------------------
 
    /**
+    * @returns {boolean} Current folder open state.
+    */
+   get folderState()
+   {
+      return 'true' === sessionStorage.getItem(this.#sessionStorage.folderOpen);
+   }
+
+   /**
     * @returns {string}
     */
    get label() { return this._data.label ?? ''; }
+
+   /**
+    * @param {boolean}  folderOpen - Sets folder opened state.
+    */
+   set folderState(folderOpen) { this.#stores.folderOpen.set(folderOpen); }
 
    /**
     * @param {string} label -
@@ -76,6 +96,8 @@ export class AnimationStore extends CategoryStore.EntryStore {
 
 /**
  * @typedef {object} AnimationPropertyStores
+ *
+ * @property {import('svelte/store').Writable<boolean>} folderOpen - Session storage folder open store.
  *
  * @property {import('svelte/store').Writable<string>} label - Animation label.
  */
