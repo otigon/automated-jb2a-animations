@@ -70,8 +70,6 @@ export class CategoryStore extends WorldSettingArrayStore {
       }
 
       this.#stores.allFoldersOpened.set(!!allFoldersOpened);
-
-console.log(`!!! CS calcAllFolderState - 0 - allFoldersOpened: ${!!allFoldersOpened}`)
    }
 
    /**
@@ -90,6 +88,8 @@ console.log(`!!! CS calcAllFolderState - 0 - allFoldersOpened: ${!!allFoldersOpe
 
 /**
  * @typedef {object} CategoryStores
+ *
+ * @property {import('svelte/store').Writable<boolean>} allFoldersOpen - True when all visible folders are open.
  *
  * @property {import('svelte/store').Writable<number>} scrollTop - Stores current scroll top.
  */
