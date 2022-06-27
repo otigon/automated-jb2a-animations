@@ -22,6 +22,7 @@
        store: category.filterSearch,
        efx: rippleFocus(),
        placeholder: "autoanimations.menus.search",
+       options: { clearOnEscKey: true }
     };
 
     const buttonDelete = {
