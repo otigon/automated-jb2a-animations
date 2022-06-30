@@ -82,7 +82,7 @@ export class CategoryStore extends WorldSettingArrayStore {
          return aLabel.localeCompare(bLabel);
       });
 
-      this._updateSubscribers();
+      this.updateSubscribers();
    }
 }
 
