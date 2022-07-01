@@ -69,12 +69,12 @@ export default () =>
             // When s_TYPHONJS_MODULE_LIB is true transpile against the Foundry module version of TRL.
             s_TYPHONJS_MODULE_LIB && typhonjsRuntime(),
 
-            babel({
-               babelHelpers: 'bundled',
-               presets: [
-                  ['@babel/preset-env', { bugfixes: true, shippedProposals: true, targets: { esmodules: true } }]
-               ]
-            })
+            // babel({
+            //    babelHelpers: 'bundled',
+            //    presets: [
+            //       ['@babel/preset-env', { bugfixes: true, shippedProposals: true, targets: { esmodules: true } }]
+            //    ]
+            // })
          ]
       }
    ];
