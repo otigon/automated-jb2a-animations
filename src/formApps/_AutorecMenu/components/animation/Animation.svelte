@@ -46,18 +46,23 @@
       title: "Delete" // TODO: localize
    };
 
-   const overflowMenu = {
+   const buttonOverflow = {
       icon: 'fas fa-ellipsis-v',
       efx: ripple(),
       styles: { 'margin-left': '4px' }
    };
+
+   const menu = {
+      items: createOverflowItems(animation, category),
+      offset: { x: 0, y: 4 }
+   }
 </script>
 
 <div>
     <TJSSvgFolder {folder}>
         <TJSInput {input} slot=label />
-        <TJSToggleIconButton button={overflowMenu} slot=summary-end>
-            <TJSMenu menu={{ items: createOverflowItems(animation, category) }} />
+        <TJSToggleIconButton button={buttonOverflow} slot=summary-end>
+            <TJSMenu {menu} />
         </TJSToggleIconButton>
         Content Forthcoming
     </TJSSvgFolder>

@@ -40,6 +40,7 @@
     position: relative;
     overflow-y: auto;
     padding: 0 3%;
+    padding-bottom: 68px;
     scrollbar-width: thin;  // For Firefox
   }
 
