@@ -45,7 +45,7 @@ export class AnimationStore extends CategoryStore.EntryStore {
          do
          {
             data.label = `${baseName}-${cntr++}`;
-         } while (categoryStore.find((entry) => entry.label === data.label) !== void 0);
+         } while (categoryStore.findEntry((entry) => entry.label === data.label) !== void 0);
       }
    }
 

@@ -20,7 +20,7 @@
     const flipWithEvents = animateEvents(flip, isAnimating);
 
     // When the data reducer count changes or there is any folder open / close changes invoke `calcAllFolderState`.
-    function onFolderChange() { category.calcAllFolderState($dataReducer); }
+    function onFolderChange() { category.calcAllFolderState(); }
     $: onFolderChange($dataReducer);
 </script>
 

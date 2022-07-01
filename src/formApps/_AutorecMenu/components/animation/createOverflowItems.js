@@ -13,12 +13,12 @@ export function createOverflowItems(animation, category)
       {
          label: "autoanimations.menus.duplicate",
          icon: "far fa-clone",
-         onclick: () => category.duplicate(animation.id)
+         onclick: () => category.duplicateEntry(animation.id)
       },
       {
          label: "Delete", // TODO: localize,
          icon: "far fa-trash-alt",
-         onclick: () => category.delete(animation.id)
+         onclick: () => category.deleteEntry(animation.id)
       }
    ];
 }

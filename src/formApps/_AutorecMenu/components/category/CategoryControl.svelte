@@ -25,7 +25,7 @@
        options: { clearOnEscKey: true }
     };
 
-    const buttonDelete = {
+    const buttonSort = {
        icon: "fas fa-sort-alpha-down",
        efx: ripple(),
        styles: { "margin-left": "auto" },
@@ -34,10 +34,10 @@
 </script>
 
 <header>
-    <TJSIconButton button={buttonAdd} on:click={() => category.add()} />
+    <TJSIconButton button={buttonAdd} on:click={() => category.createEntry()} />
     <ButtonOpenCloseAll {category} />
     <TJSInput {input} />
-    <TJSIconButton button={buttonDelete} on:click={() => category.sortAlpha()} />
+    <TJSIconButton button={buttonSort} on:click={() => category.sortAlpha()} />
 </header>
 
 <style lang=scss>

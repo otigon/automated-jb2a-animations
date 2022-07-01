@@ -31,7 +31,14 @@ export class CategoryStore extends WorldSettingArrayStore {
     * @param {object[]} [defaultData] -
     */
    constructor(key, StoreClass, defaultData = []) {
-      super({ gameSettings, moduleId: constants.moduleId, key, StoreClass, defaultData });
+      super({
+         gameSettings,
+         moduleId: constants.moduleId,
+         key,
+         StoreClass,
+         defaultData,
+         dataReducer: true
+      });
 
       this.dataReducer.filters.add(CategoryStore.#filterSearch);
 
@@ -60,11 +67,11 @@ export class CategoryStore extends WorldSettingArrayStore {
     *
     * @param {import('@typhonjs-fvtt/runtime/svelte/store').DynArrayReducer<AnimationStore>}   dataReducer -
     */
-   calcAllFolderState(dataReducer)
+   calcAllFolderState()
    {
       let allFoldersOpened = true;
 
-      for (const store of dataReducer)
+      for (const store of this.dataReducer)
       {
          if (!(allFoldersOpened &= store.folderState)) { break; }
       }
