@@ -32,20 +32,6 @@
       options: { cancelOnEscKey: true }
    };
 
-   const buttonDuplicate = {
-      icon: "far fa-clone",
-      efx: ripple(),
-      styles: { "margin-left": "0.25em" },
-      title: "autoanimations.menus.duplicate"
-   };
-
-   const buttonDelete = {
-      icon: "far fa-trash-alt",
-      efx: ripple(),
-      styles: { "margin-left": "0.25em" },
-      title: "Delete" // TODO: localize
-   };
-
    const buttonOverflow = {
       icon: 'fas fa-ellipsis-v',
       efx: ripple(),
@@ -54,7 +40,6 @@
 
    const menu = {
       items: createOverflowItems(animation, category),
-      offset: { x: 0, y: 4 }
    }
 </script>
 
