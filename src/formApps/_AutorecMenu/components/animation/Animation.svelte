@@ -35,7 +35,7 @@
    const buttonOverflow = {
       icon: 'fas fa-ellipsis-v',
       efx: ripple(),
-      styles: { 'margin-left': '4px' }
+      styles: { 'margin-left': '0.5em' }
    };
 
    const menu = {

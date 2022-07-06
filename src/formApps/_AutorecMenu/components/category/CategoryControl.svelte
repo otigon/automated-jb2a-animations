@@ -1,13 +1,16 @@
 <script>
     import {
        ripple,
-       rippleFocus }            from "@typhonjs-fvtt/svelte-standard/action";
+       rippleFocus }                from "@typhonjs-fvtt/svelte-standard/action";
 
     import {
        TJSIconButton,
-       TJSInput }               from "@typhonjs-fvtt/svelte-standard/component";
+       TJSInput,
+       TJSMenu,
+       TJSToggleIconButton }        from "@typhonjs-fvtt/svelte-standard/component";
 
-    import ButtonOpenCloseAll   from "./ButtonOpenCloseAll.svelte";
+    import ButtonOpenCloseAll       from "./ButtonOpenCloseAll.svelte";
+    import { createOverflowItems }  from "./createOverflowItems.js";
 
     /** @type {CategoryStore} */
     export let category;
@@ -31,6 +34,16 @@
        styles: { "margin-left": "auto" },
        title: "autoanimations.menus.sortmenu"
     };
+
+    const buttonOverflow = {
+       icon: 'fas fa-ellipsis-v',
+       efx: ripple(),
+       styles: { 'margin-left': '0.5em' }
+    };
+
+    const menu = {
+       items: createOverflowItems(category),
+    }
 </script>
 
 <header>
@@ -38,6 +51,9 @@
     <ButtonOpenCloseAll {category} />
     <TJSInput {input} />
     <TJSIconButton button={buttonSort} on:click={() => category.sortAlpha()} />
+    <TJSToggleIconButton button={buttonOverflow}>
+        <TJSMenu {menu} />
+    </TJSToggleIconButton>
 </header>
 
 <style lang=scss>
