@@ -1,3 +1,5 @@
+import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
+
 /**
  * Creates the items for the overflow menu.
  *
@@ -18,7 +20,18 @@ export function createOverflowItems(animation, category)
       {
          label: "Delete", // TODO: localize,
          icon: "far fa-trash-alt",
-         onclick: () => category.deleteEntry(animation.id)
+         onclick: async () => {
+            const label = animation.label !== "" ? `'${animation.label}'` : "'No Item Name'";
+
+            const result = await TJSDialog.confirm({
+               title: "Delete Animation?",
+               content: `Are you sure you want to delete: ${label}`,
+               draggable: false,
+               modal: true
+            })
+
+            if (result) { category.deleteEntry(animation.id) }
+         }
       }
    ];
 }
