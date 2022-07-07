@@ -33,7 +33,7 @@ export class CategoryStore extends WorldSettingArrayStore {
    constructor(key, StoreClass, defaultData = []) {
       super({
          gameSettings,
-         moduleId: constants.moduleId,
+         namespace: constants.moduleId,
          key,
          StoreClass,
          defaultData,
