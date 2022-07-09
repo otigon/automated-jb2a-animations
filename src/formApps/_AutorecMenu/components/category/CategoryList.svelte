@@ -25,7 +25,7 @@
      *
      * @type {Function}
      */
-    const onFolderChange = foundry.utils.debounce(() => category.calcAllFolderState(), 200);
+    const onFolderChange = foundry.utils.debounce(() => category.calcAllFolderState(), 100);
 
     $: onFolderChange($dataReducer);
 </script>
