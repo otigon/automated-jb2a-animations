@@ -61,7 +61,7 @@ export class AnimationStore extends CategoryStore.EntryStore {
     */
    get folderState()
    {
-      return 'true' === sessionStorage.getItem(this.#sessionStorage.folderOpen);
+      return aaSessionStorage.getItem(this.#sessionStorage.folderOpen);
    }
 
    /**

@@ -19,8 +19,14 @@
     const isAnimating = writable(false);
     const flipWithEvents = animateEvents(flip, isAnimating);
 
-    // When the data reducer count changes or there is any folder open / close changes invoke `calcAllFolderState`.
-    function onFolderChange() { category.calcAllFolderState(); }
+    /**
+     * When the data reducer count changes or there is any folder open / close changes invoke `calcAllFolderState`.
+     * This is debounced as the all open / closed button may adjust many folder states.
+     *
+     * @type {Function}
+     */
+    const onFolderChange = foundry.utils.debounce(() => category.calcAllFolderState(), 200);
+
     $: onFolderChange($dataReducer);
 </script>
 
