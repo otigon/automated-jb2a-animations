@@ -41,7 +41,7 @@
        styles: { 'margin-left': '0.5em' }
     };
 
-    const menu = {
+    $: menu = {
        items: createOverflowItems(category),
     }
 </script>
