@@ -9,7 +9,7 @@ import { range }        from "./range.js";
 import { templatefx }   from "./templatefx.js";
 
 /**
- * Loads the default data and localizes the 'name' from raw default data.
+ * Loads the default data and localizes the 'label' from raw default data.
  *
  * @param {"aefx"|"aura"|"melee"|"ontoken"|"preset"|"range"|"templatefx"} type - Category type of data to load.
  */
@@ -49,7 +49,7 @@ export function loadDefault(type) {
    }
 
    return data.reduce((array, entry) => {
-      entry.name = localize(entry.name);
+      entry.label = localize(entry.label);
       array.push(entry);
       return array;
    }, []);

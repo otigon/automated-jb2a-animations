@@ -1,12 +1,16 @@
 <script>
     import {
        ripple,
-       rippleFocus }            from '@typhonjs-fvtt/svelte-standard/action';
+       rippleFocus }                from "@typhonjs-fvtt/svelte-standard/action";
 
-    import { TJSInput }         from '@typhonjs-fvtt/svelte-standard/component';
+    import {
+       TJSIconButton,
+       TJSInput,
+       TJSMenu,
+       TJSToggleIconButton }        from "@typhonjs-fvtt/svelte-standard/component";
 
-    // TODO: This component will be added to @typhonjs-fvtt/svelte-standard
-    import TJSIconButton        from "../_tjs/TJSIconButton.svelte";
+    import ButtonOpenCloseAll       from "./ButtonOpenCloseAll.svelte";
+    import { createOverflowItems }  from "./createOverflowItems.js";
 
     /** @type {CategoryStore} */
     export let category;
@@ -14,7 +18,6 @@
     const buttonAdd = {
        icon: "fas fa-plus",
        efx: ripple(),
-       styles: { "margin-right": "auto" },
        title: "autoanimations.menus.add"
     };
 
@@ -22,20 +25,35 @@
        store: category.filterSearch,
        efx: rippleFocus(),
        placeholder: "autoanimations.menus.search",
+       options: { clearOnEscKey: true }
     };
 
-    const buttonDelete = {
+    const buttonSort = {
        icon: "fas fa-sort-alpha-down",
        efx: ripple(),
        styles: { "margin-left": "auto" },
        title: "autoanimations.menus.sortmenu"
     };
+
+    const buttonOverflow = {
+       icon: 'fas fa-ellipsis-v',
+       efx: ripple(),
+       styles: { 'margin-left': '0.5em' }
+    };
+
+    $: menu = {
+       items: createOverflowItems(category),
+    }
 </script>
 
 <header>
-    <TJSIconButton button={buttonAdd} on:click={() => category.add()} />
+    <TJSIconButton button={buttonAdd} on:click={() => category.createEntry()} />
+    <ButtonOpenCloseAll {category} />
     <TJSInput {input} />
-    <TJSIconButton button={buttonDelete} on:click={() => category.sortAlpha()} />
+    <TJSIconButton button={buttonSort} on:click={() => category.sortAlpha()} />
+    <TJSToggleIconButton button={buttonOverflow}>
+        <TJSMenu {menu} />
+    </TJSToggleIconButton>
 </header>
 
 <style lang=scss>
@@ -57,6 +75,6 @@
     --tjs-input-text-align: center;
     --tjs-input-border: 1.5px outset rgba(0, 0, 0, 0.5);
     --tjs-input-border-radius: 1em;
-    --tjs-input-width: 80%;
+    --tjs-input-width: 70%;
   }
 </style>

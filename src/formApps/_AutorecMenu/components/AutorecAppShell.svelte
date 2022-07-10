@@ -13,16 +13,16 @@
 
     export let elementRoot;
 
-    const context = getContext('external');
+    const { application } = getContext('external');
 
     // Get a store that is synchronized with session storage.
-    const positionStore = aaSessionStorage.getStore(`${constants.moduleId}-autorec-position`);
+    const stateStore = aaSessionStorage.getStore(`${constants.moduleId}-autorec-appstate`);
 
     // Application position store reference. Stores need to be a top level variable to be accessible for reactivity.
-    const position = context.application.position;
+    const position = application.position;
 
-    // A debounced callback that serializes position after 500-millisecond delay.
-    const storePosition = debounce((data) => $positionStore = data, 500);
+    // A debounced callback that serializes application state after 500-millisecond delay.
+    const storePosition = debounce(() => $stateStore = application.state.get(), 500);
 
     // Reactive statement to invoke debounce callback on Position changes.
     $: storePosition($position);

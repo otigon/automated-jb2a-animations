@@ -11,8 +11,8 @@ export default class AutorecMenuApp extends SvelteApplication {
         super(options);
 
         try {
-            // Attempt to parse session storage item and set to Position.
-            this.position = JSON.parse(sessionStorage.getItem(`${constants.moduleId}-autorec-position`));
+            // Attempt to parse session storage item and set application state.
+            this.state.set(JSON.parse(sessionStorage.getItem(`${constants.moduleId}-autorec-appstate`)));
         }
         catch (err) { /**/ }
     }

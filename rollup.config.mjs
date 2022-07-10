@@ -26,7 +26,7 @@ const postcssMain = postcssConfig({
 
 const s_RESOLVE_CONFIG = {
    browser: true,
-   dedupe: ['svelte', '@typhonjs-fvtt/runtime', '@typhonjs-fvtt/svelte-standard']
+   dedupe: ['svelte']
 }
 
 export default () =>
@@ -69,12 +69,13 @@ export default () =>
             // When s_TYPHONJS_MODULE_LIB is true transpile against the Foundry module version of TRL.
             s_TYPHONJS_MODULE_LIB && typhonjsRuntime(),
 
-            babel({
-               babelHelpers: 'bundled',
-               presets: [
-                  ['@babel/preset-env', { bugfixes: true, shippedProposals: true, targets: { esmodules: true } }]
-               ]
-            })
+            // TODO: Note that Babel adds significant build time and is likely not needed.
+            // babel({
+            //    babelHelpers: 'bundled',
+            //    presets: [
+            //       ['@babel/preset-env', { bugfixes: true, shippedProposals: true, targets: { esmodules: true } }]
+            //    ]
+            // })
          ]
       }
    ];

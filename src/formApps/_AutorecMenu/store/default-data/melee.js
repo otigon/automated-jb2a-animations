@@ -10,7 +10,7 @@ function meleeSwitch() {
 
 export const melee = [
    {
-      ...common.main({ name: "dagger" }),
+      ...common.main({ label: "dagger" }),
       primary: common.primary({
          video: { menuType: "weapon", animation: 'dagger', variant: '01', color: 'white' },
          options: {
@@ -31,7 +31,7 @@ export const melee = [
    },
 
    {
-      ...common.main({ name: "flurryofblows" }),
+      ...common.main({ label: "flurryofblows" }),
       primary: common.primary({
          video: { menuType: "weapon", animation: 'flurryofblows', variant: 'physical', color: 'blue' },
          options: {
@@ -52,7 +52,7 @@ export const melee = [
    },
 
    {
-      ...common.main({ name: "greataxe" }),
+      ...common.main({ label: "greataxe" }),
       primary: common.primary({
          video: { menuType: "weapon", animation: 'greataxe', variant: '01', color: 'white' },
          options: {
@@ -73,7 +73,7 @@ export const melee = [
    },
 
    {
-      ...common.main({ name: "greatclub" }),
+      ...common.main({ label: "greatclub" }),
       primary: common.primary({
          video: { menuType: "weapon", animation: 'greatclub', variant: '01', color: 'white' },
          options: {
@@ -94,7 +94,7 @@ export const melee = [
    },
 
    {
-      ...common.main({ name: "greatsword" }),
+      ...common.main({ label: "greatsword" }),
       primary: common.primary({
          video: { menuType: "weapon", animation: 'greatsword', variant: '01', color: 'white' },
          options: {
@@ -115,7 +115,7 @@ export const melee = [
    },
 
    {
-      ...common.main({ name: "handaxe" }),
+      ...common.main({ label: "handaxe" }),
       primary: common.primary({
          video: { menuType: "weapon", animation: 'handaxe', variant: '01', color: 'white' },
          options: {
@@ -136,7 +136,7 @@ export const melee = [
    },
 
    {
-      ...common.main({ name: "sword" }),
+      ...common.main({ label: "sword" }),
       primary: common.primary({
          video: { menuType: "weapon", animation: 'sword', variant: '01', color: 'white' },
          options: {
@@ -157,7 +157,7 @@ export const melee = [
    },
 
    {
-      ...common.main({ name: "mace" }),
+      ...common.main({ label: "mace" }),
       primary: common.primary({
          video: { menuType: "weapon", animation: 'mace', variant: '01', color: 'white' },
          options: {
@@ -178,7 +178,7 @@ export const melee = [
    },
 
    {
-      ...common.main({ name: "maul" }),
+      ...common.main({ label: "maul" }),
       primary: common.primary({
          video: { menuType: "weapon", animation: 'maul', variant: '01', color: 'white' },
          options: {
@@ -199,7 +199,7 @@ export const melee = [
    },
 
    {
-      ...common.main({ name: "spear" }),
+      ...common.main({ label: "spear" }),
       primary: common.primary({
          video: { menuType: "weapon", animation: 'spear', variant: '01', color: 'white' },
          options: {
@@ -220,7 +220,7 @@ export const melee = [
    },
 
    {
-      ...common.main({ name: "rapier" }),
+      ...common.main({ label: "rapier" }),
       primary: common.primary({
          video: { menuType: "weapon", animation: 'rapier', variant: '01', color: 'white' },
          options: {
@@ -241,7 +241,7 @@ export const melee = [
    },
 
    {
-      ...common.main({ name: "unarmedstrike" }),
+      ...common.main({ label: "unarmedstrike" }),
       primary: common.primary({
          video: { menuType: "weapon", animation: 'unarmedstrike', variant: 'physical', color: 'blue' },
          options: {

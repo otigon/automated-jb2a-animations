@@ -9,62 +9,47 @@
       TJSSvgFolder,
       TJSToggleIconButton }         from "@typhonjs-fvtt/svelte-standard/component";
 
-   import TJSIconButton             from "../_tjs/TJSIconButton.svelte";
-
    import { createOverflowItems }   from "./createOverflowItems.js";
-
-   import { aaSessionStorage }      from "../../../../sessionStorage.js";
-   import { constants }             from "../../../../constants.js";
 
    /** @type {AnimationStore} */
    export let animation;
+
+   /** @type {CategoryStore} */
+   export let category;
 
    /**
     * @type {object} Defines folder data for TJSIconFolder.
     */
    const folder = {
-      store: aaSessionStorage.getStore(`${constants.moduleId}-anim-folder-${animation.id}`, false),
+      options: { chevronOnly: true, noKeys: true },
+      store: animation.stores.folderOpen
    };
 
    const input = {
-      store: animation.stores.name,
+      store: animation.stores.label,
       efx: rippleFocus(),
-      placeholder: "autoanimations.menus.itemName"
+      placeholder: "autoanimations.menus.itemName",
+      options: { cancelOnEscKey: true }
    };
 
-   const buttonDuplicate = {
-      icon: "far fa-clone",
-      efx: ripple(),
-      styles: { "margin-left": "0.25em" },
-      title: "autoanimations.menus.duplicate"
-   };
-
-   const buttonDelete = {
-      icon: "far fa-trash-alt",
-      efx: ripple(),
-      styles: { "margin-left": "0.25em" },
-      title: "Delete" // TODO: localize
-   };
-
-   const overflowMenu = {
+   const buttonOverflow = {
       icon: 'fas fa-ellipsis-v',
       efx: ripple(),
-      styles: { 'margin-left': '4px' }
+      styles: { 'margin-left': '0.5em' },
+      onClickPropagate: false   // Necessary to capture click for Firefox.
    };
+
+   const menu = {
+      items: createOverflowItems(animation, category),
+   }
 </script>
 
 <div>
     <TJSSvgFolder {folder}>
         <TJSInput {input} slot=label />
-<!-- TODO HAVE TO FIX TJSMenu positioning       -->
-<!--        <TJSToggleIconButton button={overflowMenu} slot=summary-end>-->
-<!--            <TJSMenu menu={{ items: createOverflowItems() }} />-->
-<!--        </TJSToggleIconButton>-->
-
-        <span slot=summary-end>
-            <TJSIconButton button={buttonDuplicate} on:click={() => animation.duplicate() } />
-            <TJSIconButton button={buttonDelete} on:click={() => animation.delete() } />
-        </span>
+        <TJSToggleIconButton button={buttonOverflow} slot=summary-end>
+            <TJSMenu {menu} />
+        </TJSToggleIconButton>
         Content Forthcoming
     </TJSSvgFolder>
 </div>
@@ -72,7 +57,7 @@
 <style lang=scss>
   div {
     background: rgba(199, 199, 199, 0.85);
-    border: 2px solid black;
+    border: 2px solid rgba(0, 0, 0, 0.75);
     border-radius: 0.75em;
 
     height: fit-content;
@@ -86,9 +71,5 @@
     --tjs-input-text-align: center;
     --tjs-input-border: 1.5px outset rgba(0, 0, 0, 0.5);
     --tjs-input-border-radius: 1em;
-  }
-
-  span {
-    display: flex;
   }
 </style>

@@ -2,7 +2,7 @@ import * as common from "./common";
 
 export const aefx = [
    {
-      ...common.main({ name: "frightened" }),
+      ...common.main({ label: "frightened" }),
       animType: "static",
       primary: common.primary({
          video: { menuType: "conditions", animation: "drop", variant: "01", color: "green" },

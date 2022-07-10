@@ -1,18 +1,18 @@
 {
-  "name": "template-svelte-esm",
-  "description": "Provides a bare bones ES Modules template repo to get set up with using the the TyphonJS Runtime Library and Svelte.",
+  "name": "autoanimations",
+  "description": "This will automatically run most JB2A Animations such as Melee/Ranged Attacks, Spell Attacks, and Instant Spells.",
   "license": "MIT",
   "private": true,
   "type": "module",
-  "author": "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)",
+  "author": "Otigon (https://github.com/otigon)",
   "contributors": [
+    "Otigon (https://github.com/otigon)",
     "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)"
   ],
   "dependencies": {
-    "@typhonjs-fvtt/runtime": "^0.0.14",
-    "@typhonjs-fvtt/svelte-standard": "^0.0.1",
-    "@typhonjs-utils/dyn-array-reducer": "^0.2.0",
-    "svelte": "^3.48.0",
+    "@typhonjs-fvtt/runtime": "^0.0.15",
+    "@typhonjs-fvtt/svelte-standard": "^0.0.2",
+    "svelte": "^3.49.0",
     "svelte-preprocess": "^4.10.0"
   },
   "devDependencies": {

@@ -1,8 +1,25 @@
 #AA-autorec-settings-New {
+    min-height: 250px;
+    min-width: 550px;
+    max-width: 1024px;
+
     .window-content {
         padding: 0;
         overflow: inherit;
         background: rgba(125, 125, 125, 0.75);
+
+        font-size: 1.15em;
+
+        --tjs-icon-button-diameter: 1.75em;
+        --tjs-summary-chevron-size: 1.25em;
+
+        // Pretty basic gray scale colors.
+        --tjs-icon-button-background: rgba(0, 0, 0, 0.1);
+        --tjs-icon-button-background-hover: rgba(0, 0, 0, 0.15);
+        --tjs-icon-button-background-selected: rgba(0, 0, 0, 0.2);
+
+        // This is how you style the action ripple background!
+        //--tjs-action-ripple-background: linear-gradient(64.5deg, rgba(245, 116, 185, 1) 40%, rgba(89, 97, 223, 1) 60% );
     }
 
     // Reverse universal selector set for `.window-app .window-content > *`.

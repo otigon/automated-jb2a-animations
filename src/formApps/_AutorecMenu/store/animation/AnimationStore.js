@@ -1,50 +1,52 @@
-import { propertyStore }   from "@typhonjs-fvtt/runtime/svelte/store";
+import { propertyStore }      from "@typhonjs-fvtt/runtime/svelte/store";
 
-import {
-   debounce,
-   isObject,
-   uuidv4 }                from "@typhonjs-fvtt/runtime/svelte/util";
+import { CategoryStore }      from "../category/CategoryStore.js";
+import { aaSessionStorage }   from "../../../../sessionStorage.js";
+import { constants }          from "../../../../constants.js";
 
-import { storeWrapper }    from "../_tjs/storeWrapper.js";
-
-export class AnimationStore {
-   #category;
-
-   #data;
-
-   /**
-    * Stores the subscribers.
-    *
-    * @type {(function(AnimationStore): void)[]}
-    */
-   #subscriptions = [];
-
+export class AnimationStore extends CategoryStore.EntryStore {
    /** @type {AnimationPropertyStores} */
    #stores;
 
+   #sessionStorage = {}
+
    /**
     * @param {object}   data -
-    *
-    * @param {CategoryStore} category - The associated category store.
     */
-   constructor(data = {}, category)
+   constructor(data = {})
    {
-      this.#data = data;
-      this.#category = category;
+      super(data);
 
-      // If an id is missing then add it.
-      if (typeof data.id !== 'string') {
-         this.#data.id = uuidv4();
-      }
-
-      // Provide a debounced callback to the category updateSubscribers method that is invoked by `storeWrapper`
-      // on AnimationStore child stores. This throttles updates to serializing the main category store array when
-      // AnimationStore data changes.
-      const updateCategorySubscribers = debounce(category._updateSubscribers.bind(category), 500);
+      // Save sessionStorage ID.
+      this.#sessionStorage.folderOpen = `${constants.moduleId}-anim-folder-${this.id}`;
 
       this.#stores = {
-         name: storeWrapper(propertyStore(this, 'name'), updateCategorySubscribers)
+         folderOpen: aaSessionStorage.getStore(this.#sessionStorage.folderOpen, false),
+
+         label: propertyStore(this, 'label'),
       };
+   }
+
+   /**
+    * Invoked by WorldSettingArrayStore to provide custom duplication.
+    *
+    * @param {object}   data - A copy of local data w/ new ID already set.
+    *
+    * @param {CategoryStore} categoryStore - The source WorldSettingArrayStore instance.
+    */
+   static duplicate(data, categoryStore)
+   {
+      // Provide a unique label appending an indexed counter.
+      if (typeof data?.label === 'string')
+      {
+         let cntr = 1;
+         const baseName = data.label ?? '';
+
+         do
+         {
+            data.label = `${baseName}-${cntr++}`;
+         } while (categoryStore.findEntry((entry) => entry.label === data.label) !== void 0);
+      }
    }
 
    /**
@@ -55,111 +57,47 @@ export class AnimationStore {
    // ----------------------------------------------------------------------------------------------------------------
 
    /**
-    * @returns {string}
+    * @returns {boolean} Current folder open state.
     */
-   get id() { return this.#data.id; }
+   get folderState()
+   {
+      return aaSessionStorage.getItem(this.#sessionStorage.folderOpen);
+   }
 
    /**
     * @returns {string}
     */
-   get name() { return this.#data.name ?? ''; }
+   get label() { return this._data.label ?? ''; }
 
    /**
-    * @param {string}   id -
+    * @param {boolean}  folderOpen - Sets folder opened state.
     */
-   set id(id)
-   {
-      if (typeof id !== 'string') { throw new TypeError(`'id' is not a string.`); }
-      this.#data.id = id;
-      this._updateSubscribers();
-   }
+   set folderState(folderOpen) { this.#stores.folderOpen.set(folderOpen); }
 
    /**
-    * @param {string}   name -
+    * @param {string} label -
     */
-   set name(name)
-   {
-      if (typeof name !== 'string') { throw new TypeError(`'name' is not a string.`); }
-      this.#data.name = name;
-      this._updateSubscribers();
-   }
-
-   delete()
-   {
-      this.#category.delete(this);
-   }
-
-   duplicate()
-   {
-      const data = foundry.utils.deepClone(this.#data, { strict: true })
-      data.id = uuidv4();
-      data.name = `${this.#data.name ?? ''} + (COPY)`;
-
-      this.#category.add(data);
-   }
-
-   destroy()
-   {
-      this.#category = void 0;
-   }
+   set label(label) { this.#stores.label.set(label); }
 
    /**
     * @param {object}   data -
     */
    set(data)
    {
-      if (!isObject(data)) { throw new TypeError(`'data' is not an object.`); }
-
-      if (data.name !== void 0)
+      if (data.label !== void 0)
       {
-         if (typeof data.name !== 'string') { throw new TypeError(`'data.name' is not a string.`); }
-         this.#data.name = data.name;
-      }
-
-      if (data.id !== void 0)
-      {
-         if (typeof data.id !== 'string') { throw new TypeError(`'data.id' is not a string.`); }
-         this.#data.id = data.id;
+         if (typeof data.label !== 'string') { throw new TypeError(`'data.label' is not a string.`); }
+         this._data.label = data.label;
       }
 
       this._updateSubscribers();
-   }
-
-   toJSON() {
-      return foundry.utils.deepClone(this.#data, { strict: true });
-   }
-
-   /**
-    * @param {function(AnimationStore): void} handler - Callback function that is invoked on update / changes.
-    *
-    * @returns {(function(): void)} Unsubscribe function.
-    */
-   subscribe(handler) {
-      this.#subscriptions.push(handler);  // add handler to the array of subscribers
-
-      handler(this.#data);                // call handler with current value
-
-      // Return unsubscribe function.
-      return () => {
-         const index = this.#subscriptions.findIndex((sub) => sub === handler);
-         if (index >= 0) { this.#subscriptions.splice(index, 1); }
-      };
-   }
-
-   /**
-    * @protected
-    */
-   _updateSubscribers() {
-      const subscriptions = this.#subscriptions;
-
-      const data = this.#data;
-
-      for (let cntr = 0; cntr < subscriptions.length; cntr++) { subscriptions[cntr](data); }
    }
 }
 
 /**
  * @typedef {object} AnimationPropertyStores
  *
- * @property {import('svelte/store').Writable<string>} name - Animation name.
+ * @property {import('svelte/store').Writable<boolean>} folderOpen - Session storage folder open store.
+ *
+ * @property {import('svelte/store').Writable<string>} label - Animation label.
  */

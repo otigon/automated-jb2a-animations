@@ -12,7 +12,7 @@ const scope = {
    world: 'world'
 };
 
-const moduleId = 'autoanimations';
+const namespace = 'autoanimations';
 
 /**
  * @param {TJSGameSettings}   gameSettings -
@@ -21,7 +21,7 @@ export function initSettings(gameSettings) {
    // Add a convenience hook to open Autorec settings from macro.
    Hooks.on('AA.Open.AutorecSetting', () => new AutorecShim());
 
-   game.settings.registerMenu(moduleId, 'custom-autorec', {
+   game.settings.registerMenu(namespace, 'custom-autorec', {
       label: 'autoanimations.settings.autoRecSetting',
       icon: 'fas fa-dice-d20',
       type: AutorecShim,
@@ -31,7 +31,7 @@ export function initSettings(gameSettings) {
    const settings = [];
 
    settings.push({
-      moduleId,
+      namespace,
       key: 'aaAutorec',
       options: {
          name: 'Automatic Recognition',
@@ -44,7 +44,7 @@ export function initSettings(gameSettings) {
    });
 
    settings.push({
-      moduleId,
+      namespace,
       key: 'killAllAnim',
       options: {
          name: 'autoanimations.settings.toggleAnimations',
@@ -70,7 +70,7 @@ export function initSettings(gameSettings) {
    });
 
    settings.push({
-      moduleId,
+      namespace,
       key: 'disableAutoRec',
       options: {
          name: 'autoanimations.settings.settingDisableAutoRec',
@@ -83,7 +83,7 @@ export function initSettings(gameSettings) {
    });
 
    settings.push({
-      moduleId,
+      namespace,
       key: 'globaldelay',
       options: {
          name: 'autoanimations.settings.globaldelay_name',
@@ -96,7 +96,7 @@ export function initSettings(gameSettings) {
    });
 
    settings.push({
-      moduleId,
+      namespace,
       key: 'jb2aLocation',
       options: {
          name: 'autoanimations.settings.s3Name',
@@ -110,7 +110,7 @@ export function initSettings(gameSettings) {
    });
 
    settings.push({
-      moduleId,
+      namespace,
       key: 'hideFromPlayers',
       options: {
          name: 'autoanimations.settings.animtab_name',
@@ -123,7 +123,7 @@ export function initSettings(gameSettings) {
    });
 
    settings.push({
-      moduleId,
+      namespace,
       key: 'decoupleSound',
       options: {
          name: 'autoanimations.settings.decoupleSounds',
@@ -136,7 +136,7 @@ export function initSettings(gameSettings) {
    });
 
    settings.push({
-      moduleId,
+      namespace,
       key: 'rangeSwitch',
       options: {
          name: 'autoanimations.settings.settingRangeSwitch',
@@ -149,7 +149,7 @@ export function initSettings(gameSettings) {
    });
 
    settings.push({
-      moduleId,
+      namespace,
       key: 'noTips',
       options: {
          name: 'autoanimations.settings.noTips',
@@ -164,7 +164,7 @@ export function initSettings(gameSettings) {
    switch (game.system.id) {
       case "cyphersystem":
          settings.push({
-            moduleId,
+            namespace,
             key: 'EnableCritical',
             options: {
                name: 'autoanimations.settings.cypherCrit_name',
@@ -177,7 +177,7 @@ export function initSettings(gameSettings) {
          });
 
          settings.push({
-            moduleId,
+            namespace,
             key: 'CriticalAnimation',
             options: {
                name: 'autoanimations.settings.CriticalAnimation',
@@ -189,7 +189,7 @@ export function initSettings(gameSettings) {
          });
 
          settings.push({
-            moduleId,
+            namespace,
             key: 'EnableFumble',
             options: {
                name: 'autoanimations.settings.cypherFumble_name',
@@ -202,7 +202,7 @@ export function initSettings(gameSettings) {
          });
 
          settings.push({
-            moduleId,
+            namespace,
             key: 'FumbleAnimation',
             options: {
                name: 'autoanimations.settings.cypherFumbleAnim_name',
@@ -214,7 +214,7 @@ export function initSettings(gameSettings) {
          });
 
          settings.push({
-            moduleId,
+            namespace,
             key: 'EnableOnRecoveryRoll',
             options: {
                name: 'autoanimations.settings.recovery_name',
@@ -227,7 +227,7 @@ export function initSettings(gameSettings) {
          });
 
          settings.push({
-            moduleId,
+            namespace,
             key: 'RecoveryRollAnimation',
             options: {
                name: 'autoanimations.settings.recoveryAnim_name',
@@ -239,7 +239,7 @@ export function initSettings(gameSettings) {
          });
 
          settings.push({
-            moduleId,
+            namespace,
             key: 'EnableOnMightRoll',
             options: {
                name: 'autoanimations.settings.mightroll_name',
@@ -252,7 +252,7 @@ export function initSettings(gameSettings) {
          });
 
          settings.push({
-            moduleId,
+            namespace,
             key: 'MightRollAnimation',
             options: {
                name: 'autoanimations.settings.mightRollAnim_name',
@@ -264,7 +264,7 @@ export function initSettings(gameSettings) {
          });
 
          settings.push({
-            moduleId,
+            namespace,
             key: 'EnableOnSpeedRoll',
             options: {
                name: 'autoanimations.settings.speedroll_name',
@@ -277,7 +277,7 @@ export function initSettings(gameSettings) {
          });
 
          settings.push({
-            moduleId,
+            namespace,
             key: 'SpeedRollAnimation',
             options: {
                name: 'autoanimations.settings.speedRollAnim_name',
@@ -289,7 +289,7 @@ export function initSettings(gameSettings) {
          });
 
          settings.push({
-            moduleId,
+            namespace,
             key: 'EnableOnIntellecRoll',
             options: {
                name: 'autoanimations.settings.intellectroll_name',
@@ -302,7 +302,7 @@ export function initSettings(gameSettings) {
          });
 
          settings.push({
-            moduleId,
+            namespace,
             key: 'IntellectRollAnimation',
             options: {
                name: 'autoanimations.settings.intellectRollAnim_name',
@@ -315,7 +315,7 @@ export function initSettings(gameSettings) {
          break;
       case 'demonlord':
          settings.push({
-            moduleId,
+            namespace,
             key: 'playtrigger',
             options: {
                name: 'autoanimations.settings.demonlordtrigger_name',
@@ -337,7 +337,7 @@ export function initSettings(gameSettings) {
 
       case 'sfrpg':
          settings.push({
-            moduleId,
+            namespace,
             key: 'playonDamage',
             options: {
                name: 'autoanimations.settings.midiondmg_name',
@@ -354,7 +354,7 @@ export function initSettings(gameSettings) {
       case 'dnd5e':
       case 'sw5e':
          settings.push({
-            moduleId,
+            namespace,
             key: 'disableAEAnimations',
             options: {
                name: 'autoanimations.settings.disableAEAnimations',
@@ -368,7 +368,7 @@ export function initSettings(gameSettings) {
 
          if (game.modules.get('midi-qol')?.active) {
             settings.push({
-               moduleId,
+               namespace,
                key: 'playonhit',
                options: {
                   name: 'autoanimations.settings.midionhit_name',
@@ -381,7 +381,7 @@ export function initSettings(gameSettings) {
             });
 
             settings.push({
-               moduleId,
+               namespace,
                key: 'playonmiss',
                options: {
                   name: 'autoanimations.settings.midionmiss_name',
@@ -394,7 +394,7 @@ export function initSettings(gameSettings) {
             });
 
             settings.push({
-               moduleId,
+               namespace,
                key: 'playonDamage',
                options: {
                   name: 'autoanimations.settings.midiondmg_name',
@@ -408,7 +408,7 @@ export function initSettings(gameSettings) {
             });
 
             settings.push({
-               moduleId,
+               namespace,
                key: 'EnableCritical',
                options: {
                   name: 'autoanimations.settings.crithit_name',
@@ -422,7 +422,7 @@ export function initSettings(gameSettings) {
             });
 
             settings.push({
-               moduleId,
+               namespace,
                key: 'CriticalAnimation',
                options: {
                   name: 'autoanimations.settings.crithitAnim_name',
@@ -435,7 +435,7 @@ export function initSettings(gameSettings) {
             });
 
             settings.push({
-               moduleId,
+               namespace,
                key: 'EnableCriticalMiss',
                options: {
                   name: 'autoanimations.settings.critmiss_name',
@@ -449,7 +449,7 @@ export function initSettings(gameSettings) {
             });
 
             settings.push({
-               moduleId,
+               namespace,
                key: 'CriticalMissAnimation',
                options: {
                   name: 'autoanimations.settings.critmissAnim_name',
@@ -461,7 +461,7 @@ export function initSettings(gameSettings) {
             });
          } else {
             settings.push({
-               moduleId,
+               namespace,
                key: 'playonDamageCore',
                options: {
                   name: 'autoanimations.settings.coreondmg_name',
@@ -477,7 +477,7 @@ export function initSettings(gameSettings) {
 
       case 'pf2e':
          settings.push({
-            moduleId,
+            namespace,
             key: 'playonDamageCore',
             options: {
                name: 'autoanimations.settings.coreondmg_name',
@@ -490,7 +490,7 @@ export function initSettings(gameSettings) {
          });
 
          settings.push({
-            moduleId,
+            namespace,
             key: 'playonmiss',
             options: {
                name: 'autoanimations.settings.midionmiss_name',
@@ -503,7 +503,7 @@ export function initSettings(gameSettings) {
          });
 
          settings.push({
-            moduleId,
+            namespace,
             key: 'disableNestedEffects',
             options: {
                name: 'autoanimations.settings.disableNested',
@@ -518,7 +518,7 @@ export function initSettings(gameSettings) {
 
       case 'pf1':
          settings.push({
-            moduleId,
+            namespace,
             key: 'disableAEAnimations',
             options: {
                name: 'autoanimations.settings.disableAEAnimations',
@@ -532,7 +532,7 @@ export function initSettings(gameSettings) {
          break;
       case "wfrp4e":
          settings.push({
-            moduleId,
+            namespace,
             key: 'castOnlyOnSuccess',
             options: {
                name: 'autoanimations.settings.wfrp4eCastOnlyOnSuccess',
@@ -547,7 +547,7 @@ export function initSettings(gameSettings) {
    }
 
    settings.push({
-      moduleId,
+      namespace,
       key: 'debug',
       options: {
          name: 'autoanimations.settings.debugging',

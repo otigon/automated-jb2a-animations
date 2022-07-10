@@ -49,7 +49,7 @@
         color: rgb(50, 50, 50);
 
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
+        font-size: 1.1em;
         font-weight: bold;
         vertical-align: middle;
 

@@ -2,7 +2,7 @@ import * as common from "./common";
 
 export const range = [
    {
-      ...common.main({ name: "crossbow" }),
+      ...common.main({ label: "crossbow" }),
       primary: common.primary({
          video: { menuType: "weapon", animation: 'bolt', variant: 'physical', color: 'orange' },
          options: {
@@ -23,7 +23,7 @@ export const range = [
    },
 
    {
-      ...common.main({ name: "bow" }),
+      ...common.main({ label: "bow" }),
       primary: common.primary({
          video: { menuType: "weapon", animation: 'arrow', variant: 'regular', color: 'regular' },
          options: {
@@ -44,7 +44,7 @@ export const range = [
    },
 
    {
-      ...common.main({ name: "disintegrate" }),
+      ...common.main({ label: "disintegrate" }),
       primary: common.primary({
          video: { menuType: "spell", animation: 'disintegrate', variant: '01', color: 'green' },
          options: {
@@ -65,7 +65,7 @@ export const range = [
    },
 
    {
-      ...common.main({ name: "eldritchblast" }),
+      ...common.main({ label: "eldritchblast" }),
       primary: common.primary({
          video: { menuType: "spell", animation: 'eldritchblast', variant: '01', color: 'purple' },
          options: {
@@ -86,7 +86,7 @@ export const range = [
    },
 
    {
-      ...common.main({ name: "firebolt" }),
+      ...common.main({ label: "firebolt" }),
       primary: common.primary({
          video: { menuType: "spell", animation: 'firebolt', variant: '01', color: 'orange' },
          options: {
@@ -107,7 +107,7 @@ export const range = [
    },
 
    {
-      ...common.main({ name: "guidingbolt" }),
+      ...common.main({ label: "guidingbolt" }),
       primary: common.primary({
          video: { menuType: "spell", animation: 'guidingbolt', variant: '01', color: 'yellowblue' },
          options: {
@@ -128,7 +128,7 @@ export const range = [
    },
 
    {
-      ...common.main({ name: "magicmissile" }),
+      ...common.main({ label: "magicmissile" }),
       primary: common.primary({
          video: { menuType: "spell", animation: 'magicmissile', variant: '01', color: 'purple' },
          options: {
@@ -149,7 +149,7 @@ export const range = [
    },
 
    {
-      ...common.main({ name: "rayoffrost" }),
+      ...common.main({ label: "rayoffrost" }),
       primary: common.primary({
          video: { menuType: "spell", animation: 'rayoffrost', variant: '01', color: 'blue' },
          options: {
@@ -170,7 +170,7 @@ export const range = [
    },
 
    {
-      ...common.main({ name: "scorchingray" }),
+      ...common.main({ label: "scorchingray" }),
       primary: common.primary({
          video: { menuType: "spell", animation: 'scorchingray', variant: '01', color: 'orange' },
          options: {
@@ -191,7 +191,7 @@ export const range = [
    },
 
    {
-      ...common.main({ name: "witchbolt" }),
+      ...common.main({ label: "witchbolt" }),
       primary: common.primary({
          video: { menuType: "spell", animation: 'witchbolt', variant: '01', color: 'blue' },
          options: {
