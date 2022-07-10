@@ -1,5 +1,5 @@
 import { aaDebugger } from "../../constants/constants.js";
-import { flagMigrations } from "../../system-handlers/flagMerge.js";
+//import { flagMigrations } from "../../system-handlers/flagMerge.js";
 import { trafficCop } from "../../router/traffic-cop.js";
 import systemData from "../../system-handlers/system-data.js";
 
@@ -10,8 +10,8 @@ export function disableAnimations() {
 }
 
 export async function createActiveEffectsPF2e(item) {
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
-    await wait(150)
+    //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+    //await wait(150)
     const aePF2eTypes = ['condition', 'effect', 'feat']
     const aaDebug = game.settings.get("autoanimations", "debug")
     if (!aePF2eTypes.includes(item.type)) { 
@@ -32,11 +32,13 @@ export async function createActiveEffectsPF2e(item) {
         if (aaDebug) { aaDebugger("Failed to find the Token for the Active Effect") }
         return;
     }
+    /*
     // Sets data for the System Handler
     const flagData = {
         aaAeStatus: "on",
         aaAeTokenId: aeToken.id
     }
+    */
     // Check if the Animation is already present on the Token
     //const flattenedName = item.name.toLowerCase()
     const aeNameField = item.name.replace(/[^A-Za-z0-9 .*_-]/g, "") + `${aeToken.id}`
@@ -45,16 +47,18 @@ export async function createActiveEffectsPF2e(item) {
         if (aaDebug) { aaDebugger("Animation is already present on the Token, returning.") }
         return;
     }
-
+    /*
     // If A-A flags are preset on the AE, ensure they are up-to-date
     if (item.data?.flags?.autoanimations) {
         await flagMigrations.handle(item);
     }
     // If no A-A flags are present, grab current Flag version and apply it to the effect (bypasses flag merge issues)
+    
     if (!item.data?.flags?.autoanimation?.version) {
         flagData.version = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
     }
-    await item.update({ 'flags.autoanimations': flagData })
+    */
+    //await item.update({ 'flags.autoanimations': flagData })
 
     // Initilizes the A-A System Handler
     const data = {

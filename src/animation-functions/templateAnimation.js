@@ -168,7 +168,7 @@ export async function templateAnimation(handler, animationData, config) {
                 if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3) && templateTypes.includes(handler.item.data?.data?.target?.type)) {
                     trueSize = Math.sqrt(Math.pow(templateData.distance, 2) - Math.pow((handler.item.data?.data?.target?.value * 2), 2));
                 } else {
-                    trueSize = templateData.width;
+                    trueSize = Math.sqrt(Math.pow(templateData.distance, 2)/2)
                 }
             } else {
                 trueSize = templateData.distance * 2;

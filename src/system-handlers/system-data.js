@@ -51,7 +51,7 @@ export default class systemData {
             if (this.systemId === 'pf2e') {
                 this.itemName = this.item.name.replace(/[^A-Za-z0-9 .*_-]/g, "");
             }
-            this.workflow = this.item.data?.flags?.autoanimations?.aaAeStatus;
+            this.workflow = "on";
         }
 
         this.itemMacro = this.item.data?.flags?.itemacro?.macro?.data?.name ?? "";

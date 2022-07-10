@@ -1,7 +1,7 @@
 import { trafficCop } from "../../router/traffic-cop.js";
 import systemData from "../../system-handlers/system-data.js";
 import { aaDebugger } from "../../constants/constants.js";
-import { flagMigrations } from "../../system-handlers/flagMerge.js";
+//import { flagMigrations } from "../../system-handlers/flagMerge.js";
 
 var killAllAnimations;
 export function disableAnimations() {
@@ -15,9 +15,9 @@ export function disableAnimations() {
  * 
  */
 export async function createActiveEffectswfrp4e(effect) {
-    console.log("Effect Triggered");
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
-    await wait(150)
+    //console.log("Effect Triggered");
+    //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+    //await wait(150)
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     if (killAllAnimations) { return; }
@@ -35,6 +35,7 @@ export async function createActiveEffectswfrp4e(effect) {
         return;
     }
 
+    /*
     // Sets data for the System Handler
     const flagData = {
         aaAeStatus: "on",
@@ -49,6 +50,7 @@ export async function createActiveEffectswfrp4e(effect) {
         flagData.version = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
     }
     await effect.update({ 'flags.autoanimations': flagData })
+    */
 
     // Initilizes the A-A System Handler
     const data = {
