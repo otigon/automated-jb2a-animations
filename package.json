@@ -1,17 +1,18 @@
 {
-  "name": "template-svelte-esm",
-  "description": "Provides a bare bones ES Modules template repo to get set up with using the the TyphonJS Runtime Library and Svelte.",
+  "name": "autoanimations",
+  "description": "This will automatically run most JB2A Animations such as Melee/Ranged Attacks, Spell Attacks, and Instant Spells.",
   "license": "MIT",
   "private": true,
   "type": "module",
-  "author": "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)",
+  "author": "Otigon (https://github.com/otigon)",
   "contributors": [
+    "Otigon (https://github.com/otigon)",
     "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)"
   ],
   "dependencies": {
-    "@typhonjs-fvtt/runtime": "^0.0.14",
-    "@typhonjs-fvtt/svelte-standard": "^0.0.1",
-    "svelte": "^3.48.0",
+    "@typhonjs-fvtt/runtime": "^0.0.15",
+    "@typhonjs-fvtt/svelte-standard": "^0.0.2",
+    "svelte": "^3.49.0",
     "svelte-preprocess": "^4.10.0"
   },
   "devDependencies": {
@@ -23,19 +24,6 @@
     "@typhonjs-fvtt/eslint-config-foundry.js": "^0.8.0",
     "eslint": "^8",
     "rollup": "^2"
-  },
-  "peerDependencies": {
-    "@rollup/plugin-node-resolve": "^13",
-    "autoprefixer": "^10",
-    "cssnano": "^5",
-    "postcss": "^8",
-    "postcss-preset-env": "^7",
-    "rollup-plugin-postcss": "^4",
-    "rollup-plugin-sourcemaps": "^0.6",
-    "rollup-plugin-svelte": "^7",
-    "rollup-plugin-terser": "^7",
-    "sass": "^1",
-    "svelte-preprocess": "^4.10.0"
   },
   "browserslist": [
     ">5%",
