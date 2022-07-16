@@ -875,26 +875,44 @@ async function pf2eReady(msg) {
             break;
         case "melee":
         case "weapon":
-            switch (true) {
-                case playOnDmg:
-                    if (msg.data.flags.pf2e?.damageRoll /*msg.data.flavor?.toLowerCase().includes("damage")*/) {
-                        trafficCop(handler);
-                    }
-                    break;
-                default:
-                    if (msg.data.flags.pf2e?.context?.type.includes("attack")) {
-                        trafficCop(handler);
-                    }
-            }
+            handlePf2eStrike(msg, handler, playOnDmg)
             break;
         case "consumable":
         case "armor":
         case "feat":
         case "action":
         case "effect":
-            trafficCop(handler);
+            if (handler.item.rules.findIndex(x => x.key === "Strike") >= 0) {
+                const wasHandled = handlePf2eStrike(msg, handler, playOnDmg);
+                if (!wasHandled) {
+                    trafficCop(handler);
+                }
+            }
+            else {
+                trafficCop(handler);
+            }
             break;
     }
+}
+
+function handlePf2eStrike(msg, handler, playOnDmg) {
+    const isDamageRoll = !!msg.data.flags.pf2e?.damageRoll; /*msg.data.flavor?.toLowerCase().includes("damage")*/
+    const isAttackRoll = msg.data.flags.pf2e?.context?.type.includes("attack");
+    if (!isAttackRoll && !isDamageRoll) {
+        return false;
+    }
+    switch (true) {
+        case playOnDmg:
+            if (isDamageRoll) {
+                trafficCop(handler);
+            }
+            break;
+        default:
+            if (isAttackRoll) {
+                trafficCop(handler);
+            }
+    }
+    return true;
 }
 
 async function setupA5ESystem(msg) {
