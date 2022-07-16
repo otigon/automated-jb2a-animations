@@ -1,66 +1,62 @@
-import { aaDebugger } from "../../constants/constants.js";
-//import { flagMigrations } from "../../system-handlers/flagMerge.js";
 import { trafficCop } from "../../router/traffic-cop.js";
 import systemData from "../../system-handlers/system-data.js";
-import { AnimationState } from "../../AnimationState.js";
+import { aaDebugger } from "../../constants/constants.js";
+//import { flagMigrations } from "../../system-handlers/flagMerge.js";
 
+var killAllAnimations;
+export function disableAnimations() {
+    socket.off('module.sequencer')
+    killAllAnimations = true;
+}
 
-export async function createActiveEffectsPF2e(item) {
+/**
+ * 
+ * @param {*} // The Active Effect being applied 
+ * 
+ */
+export async function createActiveEffectswfrp4e(effect) {
+    //console.log("Effect Triggered");
     //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
     //await wait(150)
-    const aePF2eTypes = ['condition', 'effect', 'feat']
     const aaDebug = game.settings.get("autoanimations", "debug")
-    if (!aePF2eTypes.includes(item.type)) {
-        if (aaDebug) { aaDebugger("This is not a PF2e Ruleset, exiting early") }
-        return;
-    }
-    if (item.data?.data?.references?.parent && game.settings.get("autoanimations", "disableNestedEffects")) {
-        if (aaDebug) { aaDebugger("This is a nested Ruleset, exiting early") }
-        return;
-    }
 
-    if (!AnimationState.enabled) { return; }
+    if (killAllAnimations) { return; }
 
-    // Get the Item ID and Token it is on
-    const itemId = item.id;
-    const aeToken = canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null)
+    // Gets the Token that the Active Effect is applied to
+    const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
     if (!aeToken) {
         if (aaDebug) { aaDebugger("Failed to find the Token for the Active Effect") }
         return;
     }
+    const aeNameField = effect.data?.label + `${aeToken.id}`
+    const checkAnim = Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
+    if (checkAnim) {
+        if (aaDebug) { aaDebugger("Animation is already present on the Token, returning.") }
+        return;
+    }
+
     /*
     // Sets data for the System Handler
     const flagData = {
         aaAeStatus: "on",
         aaAeTokenId: aeToken.id
     }
-    */
-    // Check if the Animation is already present on the Token
-    //const flattenedName = item.name.toLowerCase()
-    const aeNameField = item.name.replace(/[^A-Za-z0-9 .*_-]/g, "") + `${aeToken.id}`
-    const checkAnim = await Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
-    if (checkAnim) {
-        if (aaDebug) { aaDebugger("Animation is already present on the Token, returning.") }
-        return;
-    }
-    /*
     // If A-A flags are preset on the AE, ensure they are up-to-date
-    if (item.data?.flags?.autoanimations) {
-        await flagMigrations.handle(item);
+    if (effect.data?.flags?.autoanimations) {
+        await flagMigrations.handle(effect);
     }
     // If no A-A flags are present, grab current Flag version and apply it to the effect (bypasses flag merge issues)
-    
-    if (!item.data?.flags?.autoanimation?.version) {
+    if (!effect.data?.flags?.autoanimation?.version) {
         flagData.version = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
     }
+    await effect.update({ 'flags.autoanimations': flagData })
     */
-    //await item.update({ 'flags.autoanimations': flagData })
 
     // Initilizes the A-A System Handler
     const data = {
         token: aeToken,
         targets: [],
-        item: item,
+        item: effect,
     }
     let handler = await systemData.make(null, null, data);
 
@@ -69,28 +65,35 @@ export async function createActiveEffectsPF2e(item) {
         if (aaDebug) { aaDebugger("Failed to find the Item or Source Token", handler) }
         return;
     }
-
+    if (handler.isCustomized || (!handler.isCustomized && handler.autorecObject)) {
+        const aeDelay = handler.isCustomized ? handler.flags?.options?.aeDelay || "noDelay" : handler.autorecObject.aeDelay || "noDelay";
+        const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+        if (aeDelay === "noDelay") { } else { await wait(aeDelay) }
+    }
     // Sends the data to begin the animation Sequence
     trafficCop(handler);
-
 }
 
-export async function deleteActiveEffectsPF2e(item) {
-    const aePF2eTypes = ['condition', 'effect', 'feat']
-    if (!aePF2eTypes.includes(item.type)) { return; }
+/**
+ * 
+ * @param {*} effect // The Active Effect being removed
+ * 
+ */
+export async function deleteActiveEffectswfrp4e(effect) {
+    console.log("Effect Disabled")
 
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Finds all active Animations on the scene that match .origin(effect.uuid)
-    let aaEffects = Sequencer.EffectManager.getEffects({ origin: item.uuid })
+    let aaEffects = Sequencer.EffectManager.getEffects({ origin: effect.uuid })
 
     // If no animations, exit early, Else continue with gathering data
-    if (aaEffects.length > 0) {
-        const itemData = item.data?.flags?.autoanimations ?? {};
+    if (aaEffects.length > 0) {  
+        const itemData = effect.data?.flags?.autoanimations ?? {};
         const data = {
             token: undefined,
             targets: [],
-            item: item,
+            item: effect,
         };
         // Compile data for the system handler
         const handler = await systemData.make(null, null, data);
@@ -110,8 +113,8 @@ export async function deleteActiveEffectsPF2e(item) {
         }
 
         // Filters the active Animations to isolate the ones active on the Token
-        let currentEffect = aaEffects.filter(i => item.uuid.includes(i.source?.actor?.id));
-        currentEffect = currentEffect.length < 1 ? aaEffects.filter(i => item.uuid.includes(i.source?.id)) : currentEffect;
+        let currentEffect = aaEffects.filter(i => effect.uuid.includes(i.source?.actor?.id));
+        currentEffect = currentEffect.length < 1 ? aaEffects.filter(i => effect.uuid.includes(i.source?.id)) : currentEffect;
         if (currentEffect.length < 0) { return; }
 
         // Sets the Source Token on the Handler document
@@ -131,14 +134,14 @@ export async function deleteActiveEffectsPF2e(item) {
         }
 
         // End all Animations on the token with .origin(effect.uuid)
-        Sequencer.EffectManager.endEffects({ origin: item.uuid, object: handler.sourceToken })
+        Sequencer.EffectManager.endEffects({ origin: effect.uuid, object: handler.sourceToken })
     } else {
-        const itemData = item.data?.flags?.autoanimations ?? {};
+        const itemData = effect.data?.flags?.autoanimations ?? {};
         const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
         const data = {
             token: aeToken,
             targets: [],
-            item: item,
+            item: effect,
         };
         // Compile data for the system handler
         const handler = await systemData.make(null, null, data);
@@ -168,5 +171,19 @@ export async function deleteActiveEffectsPF2e(item) {
                 .play()
         }
     }
-
 }
+
+/**
+ * 
+ * @param {Active Effect being updated} effect 
+ * @param {Toggle Check On/Off for Effect} toggle 
+ */
+export async function toggleActiveEffectswfrp4e(effect, toggle) {
+
+    if (toggle.disabled === true) {
+        deleteActiveEffectswfrp4e(effect)
+    } else if (toggle.disabled === false) {
+        createActiveEffectswfrp4e(effect);
+    }
+}
+

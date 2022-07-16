@@ -43,14 +43,15 @@ export default class systemData {
         }
 
         this.isActiveEffect = this.item?.uuid?.includes("ActiveEffect") || this.isPF2eRuleset ? true : false;
+
         if (this.isActiveEffect) {
-            if (this.systemId === 'dnd5e' || this.systemId === 'pf1') {
+            if (this.systemId === 'dnd5e' || this.systemId === 'pf1' || this.systemId === 'wfrp4e' || this.systemId === "sfrpg") {
                 this.itemName = this.item.data?.label || "placeholder";
             }
             if (this.systemId === 'pf2e') {
                 this.itemName = this.item.name.replace(/[^A-Za-z0-9 .*_-]/g, "");
             }
-            this.workflow = this.item.data?.flags?.autoanimations?.aaAeStatus;
+            this.workflow = "on";
         }
 
         this.itemMacro = this.item.data?.flags?.itemacro?.macro?.data?.name ?? "";

@@ -1,9 +1,14 @@
 import { trafficCop } from "../../router/traffic-cop.js";
 import systemData from "../../system-handlers/system-data.js";
 import { aaDebugger } from "../../constants/constants.js";
-import { flagMigrations } from "../../system-handlers/flagMerge.js";
-import { socketlibSocket } from "../../socketset.js";
-import { AnimationState } from "../../AnimationState.js";
+//import { flagMigrations } from "../../system-handlers/flagMerge.js";
+//import { socketlibSocket } from "../../socketset.js";
+
+var killAllAnimations;
+export function disableAnimations() {
+    socket.off('module.sequencer')
+    killAllAnimations = true;
+}
 
 /**
  *
@@ -11,8 +16,8 @@ import { AnimationState } from "../../AnimationState.js";
  *
  */
 export async function createActiveEffectsPF1(effect) {
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
-    await wait(150)
+    //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+    //await wait(150)
 
     const aaDebug = game.settings.get("autoanimations", "debug")
 
@@ -45,6 +50,7 @@ export async function createActiveEffectsPF1(effect) {
         await flagMigrations.handle(effect);
     }
     */
+    /*
     // If A-A flags are preset on the Originating Item, ensure they are up-to-date
     if (originatingItem.data?.flags?.autoanimations) {
         await flagMigrations.handle(originatingItem);
@@ -62,6 +68,7 @@ export async function createActiveEffectsPF1(effect) {
         flagData.version = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
         flagData.aaAeTokenId = aeToken.id
     }
+    */
     /*
     // If no A-A flags are present, grab current Flag version and apply it to the effect (bypasses flag merge issues)
     if (!effect.data?.flags?.autoanimation?.version) {
@@ -70,7 +77,7 @@ export async function createActiveEffectsPF1(effect) {
     */
 
     // Update the Active Effect flags with flagData
-    await effect.update({ 'flags.autoanimations': flagData })
+    //await effect.update({ 'flags.autoanimations': flagData })
 
     // Initilizes the A-A System Handler
     const data = {
