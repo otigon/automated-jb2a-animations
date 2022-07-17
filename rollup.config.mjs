@@ -1,4 +1,3 @@
-import { babel }           from '@rollup/plugin-babel';
 import postcss             from 'rollup-plugin-postcss';       // Process Sass / CSS w/ PostCSS
 import resolve             from '@rollup/plugin-node-resolve'; // This resolves NPM modules from node_modules.
 import svelte              from 'rollup-plugin-svelte';
@@ -67,15 +66,7 @@ export default () =>
             resolve(s_RESOLVE_CONFIG),
 
             // When s_TYPHONJS_MODULE_LIB is true transpile against the Foundry module version of TRL.
-            s_TYPHONJS_MODULE_LIB && typhonjsRuntime(),
-
-            // TODO: Note that Babel adds significant build time and is likely not needed.
-            // babel({
-            //    babelHelpers: 'bundled',
-            //    presets: [
-            //       ['@babel/preset-env', { bugfixes: true, shippedProposals: true, targets: { esmodules: true } }]
-            //    ]
-            // })
+            s_TYPHONJS_MODULE_LIB && typhonjsRuntime()
          ]
       }
    ];

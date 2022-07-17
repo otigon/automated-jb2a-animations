@@ -10,16 +10,13 @@
     "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)"
   ],
   "dependencies": {
-    "@typhonjs-fvtt/runtime": "^0.0.15",
-    "@typhonjs-fvtt/svelte-standard": "^0.0.2",
+    "@typhonjs-fvtt/runtime": "^0.0.16",
+    "@typhonjs-fvtt/svelte-standard": "^0.0.5",
     "svelte": "^3.49.0",
     "svelte-preprocess": "^4.10.0"
   },
   "devDependencies": {
-    "@babel/core": "^7",
-    "@babel/preset-env": "^7",
     "@league-of-foundry-developers/foundry-vtt-types": "^9.238.1",
-    "@rollup/plugin-babel": "^5",
     "@typhonjs-config/eslint-config": "^0.3.0",
     "@typhonjs-fvtt/eslint-config-foundry.js": "^0.8.0",
     "eslint": "^8",
