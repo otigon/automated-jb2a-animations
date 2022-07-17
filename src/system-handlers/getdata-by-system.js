@@ -77,15 +77,15 @@ export class AASystemData {
     }
 
     static async sfrpg(input) {
-        const itemId = input.data?.item?.id || this._extractItemId(input.msg?.data?.content);
+        const itemId = input.item?.id || input.data?.item?.id || this._extractItemId(input.msg?.data?.content);
         if (!itemId) { return {}; }
-        const tokenId = input.msg?.data?.speaker?.token;
+        const tokenId = input.token?.id || input.msg?.data?.speaker?.token;
         const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId));
         if (!token) { return {}; }
-        const item = input.data?.item ? input.data.item : token.actor?.items?.get(itemId);
+        const item = input.data?.item ? input.data?.item : input.item || token.actor?.items?.get(itemId);
         if (!item) { return {}; }
 
-        const targets = Array.from(input.msg.user.targets);
+        const targets = input.targets ? Array.from(input.targets) : Array.from(input.msg?.user?.targets);
 
         return { item, token, targets };
     }

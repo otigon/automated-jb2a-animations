@@ -14,7 +14,7 @@ export async function staticAnimation(handler, animationData) {
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
 
-    const onToken = await buildFile(true, data.menuType, data.animation, "static", data.variant, data.color, data.customPath);
+    const onToken = await buildFile(false, data.menuType, data.animation, "static", data.variant, data.color, data.customPath);
 
     if (handler.debug) { aaDebugger("Static Animation Start", animationData, onToken) }
 
@@ -24,7 +24,7 @@ export async function staticAnimation(handler, animationData) {
         await wait(data.aeDelay)
     }
     let aaSeq = await new Sequence("Automated Animations")
-    const bottomAnim = onToken.fileData.replace('Above', 'Below')
+    const bottomAnim = onToken.fileData?.replace('Above', 'Below')
 
     // Play Macro if Awaiting
     if (data.playMacro && data.macro.playWhen === "1") {
@@ -40,7 +40,6 @@ export async function staticAnimation(handler, animationData) {
         Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
     })
     let sourceTokenGS = sourceToken.w / canvas.grid.size;
-
     let explosionSound = false;
     if (data.staticType === "source" || data.staticType === "sourcetarget" || (data.staticType === "targetDefault" && handler.allTargets.length < 1)) {
         const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0

@@ -9,6 +9,8 @@ import systemData from "./system-handlers/system-data.js";
 import { createActiveEffects5e, deleteActiveEffects5e, checkConcentration, toggleActiveEffects5e } from "./active-effects/ae5e.js";
 import { createActiveEffectsPF2e, deleteActiveEffectsPF2e } from "./active-effects/pf2e/aepf2e.js";
 import { createActiveEffectsPF1, deleteActiveEffectsPF1 } from "./active-effects/pf1/aePF1.js";
+import { createActiveEffectswfrp4e, deleteActiveEffectswfrp4e } from "./active-effects/wfrp4e/aewfrp4e.js";
+import { deleteEffectsSfrpg } from "./active-effects/sfrpg/aeSfrpg.js"
 
 import AAActiveEffectMenu from "./formApps/ActiveEffects/activeEffectMenu.js";
 import AAAutorecMenu from "./formApps/AutorecMenu/aaAutorecMenu.js";
@@ -72,7 +74,7 @@ Hooks.on('init', () => {
         return options.inverse(this);
     });
     Handlebars.registerHelper('isAeSupported', function (options) {
-        let supportedSystems = ['dnd5e', 'pf2e', 'pf1']
+        let supportedSystems = ['dnd5e', 'pf2e', 'pf1', 'wfrp4e', 'sfrpg']
         if (supportedSystems.includes(game.system.id)) {
             return options.fn(this);
         }
@@ -242,6 +244,7 @@ Hooks.once('ready', async function () {
                     if (!sourceToken) { return; }
 
                     const item = sourceToken.actor?.items?.get(itemId)
+                    if (item.type === 'feat') { return; }
 
                     if (!item.hasAttack && !item.hasDamage) {
                         let data = {}
@@ -354,6 +357,64 @@ Hooks.once('ready', async function () {
     }
     //Active Effect Hooks
     switch (game.system.id) {
+        case "sfrpg":
+            Hooks.on("createActiveEffect", (item, data, userId) => {
+                if (game.user.id !== userId) { return; }
+                createActiveEffects5e(item);
+            })
+            Hooks.on("preDeleteActiveEffect", (item, data, userId) => {
+                if (game.user.id !== userId) { return; }
+                deleteActiveEffects5e(item)
+            })
+            //Hooks.on("itemActivationChanged", (actor, isActive, item) => {
+            //})
+            
+            Hooks.on("updateItem", (item, diff, action, userId) => {
+                if (game.user.id !== userId) { return; }
+                Hooks.once("updateToken", async (token, actor, updates, userId) => {
+                    if (game.user.id !== userId) { return; }
+                    if (item.type !== 'feat') { return; }
+
+                    if (!diff.data.isActive) {
+                        deleteEffectsSfrpg(item, token)
+                    } else {
+                        const sfrpgData = {
+                            item,
+                            token,
+                            targets: game.user.targets
+                        }
+                        const handler = await systemData.make(sfrpgData)
+                        console.log(handler)
+                        trafficCop(handler);
+                    }
+                })
+            })
+            
+           /*
+            // Alternative option... not as useful because Update Token is called so much
+            Hooks.on("updateToken", async (token, actor, updates, userId) => {
+                if (game.user.id !== userId) { return; }
+                const itemId = Object.keys(updates.embedded?.hookData || {})[0]
+                if (!itemId) {return;}
+                const item = token.actor?.items?.get(itemId)
+                if (!item) {return;}
+                if (item.type !== 'feat') { return; }
+                const activeStatus = updates.embedded?.hookData?.[item.id]?.data?.isActive;
+                if (!activeStatus) {
+                    deleteEffectsSfrpg(item, token)
+                } else if (activeStatus){
+                    const sfrpgData = {
+                        item,
+                        token,
+                        targets: game.user.targets
+                    }
+                    const handler = await systemData.make(sfrpgData)
+                    console.log(handler)
+                    trafficCop(handler);
+                }
+            })
+            */
+            break;
         case "dnd5e":
             Hooks.on("createActiveEffect", (effect, data, userId) => {
                 if (game.settings.get("autoanimations", "disableAEAnimations")) {
@@ -418,6 +479,16 @@ Hooks.once('ready', async function () {
             */
             //}
             break;
+            case 'wfrp4e':
+                Hooks.on("createActiveEffect", (item, data, userId) => {
+                    if (game.user.id !== userId) { return; }
+                    createActiveEffectswfrp4e(item);
+                })
+                Hooks.on("preDeleteActiveEffect", (item, data, userId) => {
+                    if (game.user.id !== userId) { return; }
+                    deleteActiveEffectswfrp4e(item)
+                })
+                break;
     }
     Hooks.callAll("aa.ready", obj01)
 });

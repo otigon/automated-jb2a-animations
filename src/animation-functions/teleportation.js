@@ -68,7 +68,7 @@ export async function teleportation(handler, animationData) {
 
     let sourceTokenGS = sourceToken.w / canvas.grid.size;
 
-    const drawingSize = (sourceToken.data?.width * canvas.grid.size) + (2 * ((range / canvas.dimensions.distance) * canvas.grid.size));
+    //const drawingSize = (sourceToken.data?.width * canvas.grid.size) + (2 * ((range / canvas.dimensions.distance) * canvas.grid.size));
 
     let userIDs = Array.from(game.users).map(user => user.id);
     let gmIDs = Array.from(game.users).filter(i => i.isGM).map(user => user.id)
@@ -81,7 +81,7 @@ export async function teleportation(handler, animationData) {
     aaSeq01.effect()
         .file(filePath)
         .atLocation(sourceToken)
-        .size({ width: drawingSize, height: drawingSize })
+        .size(((sourceTokenGS / canvas.grid.size) + 0.5 + (data.teleDist / canvas.dimensions.distance)) * 2, {gridUnits: true})
         .fadeIn(500)
         .scaleIn(0, 500)
         .fadeOut(500)
