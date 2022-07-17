@@ -25,7 +25,7 @@
        store: category.filterSearch,
        efx: rippleFocus(),
        placeholder: "autoanimations.menus.search",
-       options: { clearOnEscKey: true }
+       type: "search"
     };
 
     const buttonSort = {
