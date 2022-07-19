@@ -1,6 +1,7 @@
 import systemData from "../../system-handlers/system-data.js";
 
 export async function deleteEffectsSfrpg(item) {
+    const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(item.id))
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Finds all active Animations on the scene that match .origin(effect.uuid)
@@ -56,7 +57,7 @@ export async function deleteEffectsSfrpg(item) {
         Sequencer.EffectManager.endEffects({ origin: item.uuid, object: handler.sourceToken })
     } else {
         const itemData = item.data?.flags?.autoanimations ?? {};
-        const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
+        //const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
         const data = {
             token: aeToken,
             targets: [],

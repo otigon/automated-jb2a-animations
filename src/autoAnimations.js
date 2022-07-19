@@ -422,7 +422,7 @@ Hooks.once('ready', async function () {
                 if (game.user.id !== userId) { return; }
                 createActiveEffects5e(effect)
             });
-            Hooks.on("deleteActiveEffect", (effect, data, userId) => {
+            Hooks.on("preDeleteActiveEffect", (effect, data, userId) => {
                 if (game.user.id !== userId) { return; }
 
                 deleteActiveEffects5e(effect)
@@ -446,7 +446,7 @@ Hooks.once('ready', async function () {
                 if (game.user.id !== userId) { return; }
                 createActiveEffectsPF2e(item);
             })
-            Hooks.on("deleteItem", (item, data, userId) => {
+            Hooks.on("preDeleteItem", (item, data, userId) => {
                 if (game.user.id !== userId) { return; }
                 deleteActiveEffectsPF2e(item)
             })
@@ -460,7 +460,7 @@ Hooks.once('ready', async function () {
                 if (game.user.id !== userId) { return; }
                 createActiveEffectsPF1(effect)
             });
-            Hooks.on("deleteActiveEffect", (effect, data, userId) => {
+            Hooks.on("preDeleteActiveEffect", (effect, data, userId) => {
                 if (game.user.id !== userId) { return; }
 
                 deleteActiveEffectsPF1(effect)
