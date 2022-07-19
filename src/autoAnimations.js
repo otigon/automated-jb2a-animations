@@ -382,7 +382,6 @@ Hooks.once('ready', async function () {
                             targets: game.user.targets
                         }
                         const handler = await systemData.make(sfrpgData)
-                        console.log(handler)
                         trafficCop(handler);
                     }
                 })
