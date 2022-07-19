@@ -1,3 +1,5 @@
+# NOTE: I will not be adding any more system compatabilities into this module. It is an untennable situation, and I no longer have the desire to maintain this module for more systems.
+
 <p align="center">
   <img src="https://github.com/otigon/automated-jb2a-animations/blob/main/pictures/slavaukraine.jpg">
 </p>  
