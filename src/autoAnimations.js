@@ -351,6 +351,8 @@ Hooks.once('ready', async function () {
             case 'dcc':
                 Hooks.on("createChatMessage", async (msg) => { dccReady(msg) });
                 break;
+            default:
+                Hooks.on("createChatMessage", async (msg) => {standardChat(msg) });
         }
     }
     //Active Effect Hooks
@@ -684,6 +686,16 @@ async function setUp5eCore(msg) {
     }
 }
 
+async function standardChat(msg) {
+    if (killAllAnimations) { return; }
+    if (msg.user.id !== game.user.id) { return };
+    log('onCreateChatMessage', msg);
+    let handler = await systemData.make(msg);
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
+    trafficCop(handler);
+}
 /*
 / sets Handler for PF1 and DnD3.5
 */

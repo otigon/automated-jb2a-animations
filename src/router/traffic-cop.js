@@ -26,10 +26,10 @@ export async function trafficCop(handler) {
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     if (game.Levels3DPreview?._active) {
-
         if (handler.flags?.levels3d?.type) {
             if (aaDebug) { aaDebugger("Beginning Particle Animation for Custom Item Setting") }
-            particleEffects(handler);
+            const animationData = await AAanimationData._getAnimationData(handler);
+            particleEffects(handler, false, animationData);
             return;
         } else if (!game.settings.get("autoanimations", "disableAutoRec")) {
             if (aaDebug) { aaDebugger("Automatic Recognition Beginning for Particle System") }
@@ -37,7 +37,8 @@ export async function trafficCop(handler) {
             const isAuto = AutorecFunctions.foundInAutorec(handler.autorecSettings, autoName);
             if (isAuto) {
                 const autoObject = handler.autorecObject;
-                particleEffects(handler, autoObject);
+                const animationData = await AAanimationData._getAnimationData(handler, handler.autorecObject);
+                particleEffects(handler, autoObject, animationData);
                 return;
             }
         } else {

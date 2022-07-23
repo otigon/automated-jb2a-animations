@@ -7,7 +7,7 @@ export default class systemData {
 
     static async make(msg, isChat, external) {
         const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
-        const data = external ? external : await AASystemData[systemID](msg, isChat)
+        const data = external ? external : AASystemData[systemID] ? await AASystemData[systemID](msg, isChat) : await AASystemData.standardChat(msg)
         if (!data.item) { /*this._log("Retrieval Failed")*/; return {}; }
         //this._log("Data Retrieved", data)
 
