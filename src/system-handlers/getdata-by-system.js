@@ -543,6 +543,11 @@ export class AASystemData {
         return { item, token, targets };
     }
 
+    /**
+     * Fallback based on createChatMessage hook if no specific system support is added. It's the wild west here baby
+     * @param {*} input 
+     * @returns 
+     */
     static async standardChat(input) {
         let {item, token, targets} = await this.getRequiredData(input)
         if (!item || !token) return {};
@@ -552,6 +557,11 @@ export class AASystemData {
         return { item, token, targets };
     }
 
+    /**
+     * Accepts the message html content and attempts to find the embedded item ID
+     * @param {*} content 
+     * @returns item ID or null
+     */
     static _extractItemId(content) {
         try {
             return $(content).attr("data-item-id");
@@ -573,6 +583,11 @@ export class AASystemData {
         return {itemId, tokenId, token, item, targets}
     }
 
+    /**
+     * This accepts the originating workflow and attempts to get an Array of targets from the source Token user
+     * @param {*} input 
+     * @returns 
+     */
     static getTargets(input) {
         const data = input || {};
         let targets =   data.user?.targets ?? 
@@ -583,6 +598,12 @@ export class AASystemData {
         return targets;                
     }
 
+    /**
+     * This accepts the originating workflow and attempts to find an Item ID for the item being used
+     * @param {*} input 
+     * @param {game.system.id} system 
+     * @returns item ID
+     */
     static getItemId(input, system = void 0) {
         const data = input || {};
         const itemId =  data.item?.id ??
@@ -604,6 +625,11 @@ export class AASystemData {
         return itemId;
     }
     
+    /**
+     * This accepts the item ID and token and attempts to find the item based on this information
+     * @param {*} input 
+     * @returns item
+     */
     static async getItem(input) {
         const data = input || {};
         const item =    data.item ??
@@ -616,6 +642,11 @@ export class AASystemData {
         return item;
     }
 
+    /**
+     * This accepts the originating workflow and attempts to find the source token ID
+     * @param {*} input 
+     * @returns token ID
+     */
     static getTokenId(input) {
         const data = input || {};
         const tokenId = data.data?.speaker?.token ??
@@ -629,6 +660,11 @@ export class AASystemData {
         return tokenId;
     }
 
+    /**
+     * This accepts the token ID and item ID and attempts to find the source token on canvas
+     * @param {*} input 
+     * @returns token
+     */
     static async getToken(input) {
         const data = input || {};
         const token =   data.token ??

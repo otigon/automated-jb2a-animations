@@ -10,6 +10,10 @@ export async function particleEffects(handler, autoObject, animationData = {}) {
 
     const data = await AAanimationData.compileParticleData(autoObject, options3d)
     
+    /**
+     * This checks the "Primary Animation" sounds, and if present
+     * will play that sound alongside the 3D Particle Animation
+     */
     if (animationData.primary?.playSound) {
         let soundSeq = await new Sequence("Automated Animations");
         const primary = animationData.primary;
