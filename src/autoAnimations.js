@@ -353,6 +353,8 @@ Hooks.once('ready', async function () {
             case 'dcc':
                 Hooks.on("createChatMessage", async (msg) => { dccReady(msg) });
                 break;
+            default:
+                Hooks.on("createChatMessage", async (msg) => {standardChat(msg) });
         }
     }
     //Active Effect Hooks
@@ -384,7 +386,6 @@ Hooks.once('ready', async function () {
                             targets: game.user.targets
                         }
                         const handler = await systemData.make(sfrpgData)
-                        console.log(handler)
                         trafficCop(handler);
                     }
                 })
@@ -424,7 +425,7 @@ Hooks.once('ready', async function () {
                 if (game.user.id !== userId) { return; }
                 createActiveEffects5e(effect)
             });
-            Hooks.on("deleteActiveEffect", (effect, data, userId) => {
+            Hooks.on("preDeleteActiveEffect", (effect, data, userId) => {
                 if (game.user.id !== userId) { return; }
 
                 deleteActiveEffects5e(effect)
@@ -448,7 +449,7 @@ Hooks.once('ready', async function () {
                 if (game.user.id !== userId) { return; }
                 createActiveEffectsPF2e(item);
             })
-            Hooks.on("deleteItem", (item, data, userId) => {
+            Hooks.on("preDeleteItem", (item, data, userId) => {
                 if (game.user.id !== userId) { return; }
                 deleteActiveEffectsPF2e(item)
             })
@@ -462,7 +463,7 @@ Hooks.once('ready', async function () {
                 if (game.user.id !== userId) { return; }
                 createActiveEffectsPF1(effect)
             });
-            Hooks.on("deleteActiveEffect", (effect, data, userId) => {
+            Hooks.on("preDeleteActiveEffect", (effect, data, userId) => {
                 if (game.user.id !== userId) { return; }
 
                 deleteActiveEffectsPF1(effect)
@@ -686,6 +687,16 @@ async function setUp5eCore(msg) {
     }
 }
 
+async function standardChat(msg) {
+    if (killAllAnimations) { return; }
+    if (msg.user.id !== game.user.id) { return };
+    log('onCreateChatMessage', msg);
+    let handler = await systemData.make(msg);
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
+    trafficCop(handler);
+}
 /*
 / sets Handler for PF1 and DnD3.5
 */
@@ -879,26 +890,44 @@ async function pf2eReady(msg) {
             break;
         case "melee":
         case "weapon":
-            switch (true) {
-                case playOnDmg:
-                    if (msg.data.flags.pf2e?.damageRoll /*msg.data.flavor?.toLowerCase().includes("damage")*/) {
-                        trafficCop(handler);
-                    }
-                    break;
-                default:
-                    if (msg.data.flags.pf2e?.context?.type.includes("attack")) {
-                        trafficCop(handler);
-                    }
-            }
+            handlePf2eStrike(msg, handler, playOnDmg)
             break;
         case "consumable":
         case "armor":
         case "feat":
         case "action":
         case "effect":
-            trafficCop(handler);
+            if (handler.item.rules.findIndex(x => x.key === "Strike") >= 0) {
+                const wasHandled = handlePf2eStrike(msg, handler, playOnDmg);
+                if (!wasHandled) {
+                    trafficCop(handler);
+                }
+            }
+            else {
+                trafficCop(handler);
+            }
             break;
     }
+}
+
+function handlePf2eStrike(msg, handler, playOnDmg) {
+    const isDamageRoll = !!msg.data.flags.pf2e?.damageRoll; /*msg.data.flavor?.toLowerCase().includes("damage")*/
+    const isAttackRoll = msg.data.flags.pf2e?.context?.type.includes("attack");
+    if (!isAttackRoll && !isDamageRoll) {
+        return false;
+    }
+    switch (true) {
+        case playOnDmg:
+            if (isDamageRoll) {
+                trafficCop(handler);
+            }
+            break;
+        default:
+            if (isAttackRoll) {
+                trafficCop(handler);
+            }
+    }
+    return true;
 }
 
 async function setupA5ESystem(msg) {

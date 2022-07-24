@@ -1,6 +1,6 @@
 import { AAanimationData } from "../aa-classes/animation-data.js";
 
-export async function particleEffects(handler, autoObject) {
+export async function particleEffects(handler, autoObject, animationData = {}) {
 
     const options3d = autoObject ? autoObject.levels3d ?? {} : handler.flags?.levels3d ?? {};
     if (!options3d.type) { return; }
@@ -9,7 +9,25 @@ export async function particleEffects(handler, autoObject) {
     const targets = handler.allTargets;
 
     const data = await AAanimationData.compileParticleData(autoObject, options3d)
-/*
+    
+    /**
+     * This checks the "Primary Animation" sounds, and if present
+     * will play that sound alongside the 3D Particle Animation
+     */
+    if (animationData.primary?.playSound) {
+        let soundSeq = await new Sequence("Automated Animations");
+        const primary = animationData.primary;
+        soundSeq.sound()
+            .file(primary.itemAudio.file, true)
+            .volume(primary.itemAudio.volume)
+            .delay(primary.itemAudio.delay)
+            .repeats(primary.itemAudio.repeat, data.delay)
+            .startTime(primary.itemAudio.startTime)
+        soundSeq.play()
+    }
+
+
+    /*
     switch (options3d.type) {
         case "projectile":
         case "ray":

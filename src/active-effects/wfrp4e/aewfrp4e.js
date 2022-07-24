@@ -80,8 +80,7 @@ export async function createActiveEffectswfrp4e(effect) {
  * 
  */
 export async function deleteActiveEffectswfrp4e(effect) {
-    console.log("Effect Disabled")
-
+    const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Finds all active Animations on the scene that match .origin(effect.uuid)
@@ -137,7 +136,7 @@ export async function deleteActiveEffectswfrp4e(effect) {
         Sequencer.EffectManager.endEffects({ origin: effect.uuid, object: handler.sourceToken })
     } else {
         const itemData = effect.data?.flags?.autoanimations ?? {};
-        const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
+        //const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
         const data = {
             token: aeToken,
             targets: [],

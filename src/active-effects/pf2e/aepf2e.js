@@ -134,7 +134,9 @@ export async function deleteActiveEffectsPF2e(item) {
         Sequencer.EffectManager.endEffects({ origin: item.uuid, object: handler.sourceToken })
     } else {
         const itemData = item.data?.flags?.autoanimations ?? {};
-        const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
+        //const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
+        const itemId = item.id;
+        const aeToken = canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null)
         const data = {
             token: aeToken,
             targets: [],

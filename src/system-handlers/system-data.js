@@ -7,7 +7,7 @@ export default class systemData {
 
     static async make(msg, isChat, external) {
         const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
-        const data = external ? external : await AASystemData[systemID](msg, isChat)
+        const data = external ? external : AASystemData[systemID] ? await AASystemData[systemID](msg, isChat) : await AASystemData.standardChat(msg)
         if (!data.item) { /*this._log("Retrieval Failed")*/; return {}; }
         //this._log("Data Retrieved", data)
 
@@ -94,8 +94,13 @@ export default class systemData {
         this.autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
 
         this.rinsedName = this.itemName ? AutorecFunctions._rinseName(this.itemName) : "noitem";
-        this.isAutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNamesInSection(this.autorecSettings, 'templatefx'), this.rinsedName);
-        this.autorecObject = this.isActiveEffect || this.pf2eRuleset ? AutorecFunctions._findObjectIn5eAE(this.autorecSettings, this.rinsedName) : AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
+        this.isAutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNamesInSection(this.autorecSettings, 'templates'), this.rinsedName);
+
+        this.autorecObject = this.isActiveEffect || this.pf2eRuleset ? AutorecFunctions._findObjectIn5eAE(this.autorecSettings, this.rinsedName) : null;
+        if (!this.autorecObject) {
+            /* fallback assignment for active effects, default assignment otherwise. */
+            this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
+        } 
     
         // If there is no match and there are alternative names, then attempt to use those names instead
         if (!this.autorecObject && data.extraNames?.length) {
