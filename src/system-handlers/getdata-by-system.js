@@ -1,3 +1,4 @@
+import { aaDeletedItems } from "../autoAnimations.js";
 
 export class AASystemData {
 
@@ -576,10 +577,13 @@ export class AASystemData {
 
         const itemId = this.getItemId(data, game.system.id);
         const tokenId = this.getTokenId(data)
-        const token = await this.getToken({tokenId, itemId})
-        const item = await this.getItem({itemId, token})
+        const token = await this.getToken({tokenId, itemId, data})
+        let item = await this.getItem({itemId, token, data})
         const targets = this.getTargets(data)
 
+        if (!item) {
+            item = aaDeletedItems.get(itemId);
+        }
         return {itemId, tokenId, token, item, targets}
     }
 
@@ -668,6 +672,7 @@ export class AASystemData {
     static async getToken(input) {
         const data = input || {};
         const token =   data.token ??
+                        data.data.token ??
                         canvas.tokens.get(data.tokenId) ??
                         canvas.scene.tokens.get(data.tokenId) ??
                         canvas.tokens.placeables.find(token => token.actor?.items?.get(data.itemId || data.item?.id) != null) ??

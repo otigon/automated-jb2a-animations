@@ -174,6 +174,7 @@ Hooks.once('ready', async function () {
     autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'))
     if (game.modules.get("midi-qol")?.active) {
         log("midi IS active");
+        Hooks.on("deleteItem", async (item) => {storeDeletedItems(item)})
         switch (game.settings.get("autoanimations", "playonDamage")) {
             case (true):
                 Hooks.on("midi-qol.DamageRollComplete", (workflow) => { setUpMidi(workflow) });
@@ -192,6 +193,7 @@ Hooks.once('ready', async function () {
             Hooks.on("midi-qol.AttackRollComplete", (workflow) => { criticalCheck(workflow) })
         }
     } else {
+        Hooks.on("deleteItem", async (item) => {storeDeletedItems(item)})
         switch (game.system.id) {
             case "a5e":
                 Hooks.on("createChatMessage", async (msg) => { setupA5ESystem(msg) });
@@ -492,6 +494,11 @@ Hooks.once('ready', async function () {
     Hooks.callAll("aa.ready", obj01)
 });
 
+export const aaDeletedItems = new Map();
+//Hooks.on("deleteItem", async (item) => {getDeletedItems(item)})
+function storeDeletedItems(item) {
+    aaDeletedItems.set(item.id, item)
+}
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 /* External call for animations
