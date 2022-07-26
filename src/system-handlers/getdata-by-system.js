@@ -577,12 +577,15 @@ export class AASystemData {
 
         const itemId = this.getItemId(data, game.system.id);
         const tokenId = this.getTokenId(data)
-        const token = await this.getToken({tokenId, itemId, data})
+        let token = await this.getToken({tokenId, itemId, data})
         let item = await this.getItem({itemId, token, data})
         const targets = this.getTargets(data)
 
         if (!item) {
             item = aaDeletedItems.get(itemId);
+        }
+        if (!token) {
+            token = canvas.tokens.placeables.find(token => token.actor?.items?.get(item?.id) != null)
         }
         return {itemId, tokenId, token, item, targets}
     }
@@ -597,6 +600,7 @@ export class AASystemData {
         let targets =   data.user?.targets ?? 
                         data.targets ??
                         data.msg?.user?.targets ??
+                        game.user.targets ??
                         void 0;
         targets = Array.isArray(targets) ? targets : Array.from(targets);
         return targets;                
@@ -625,6 +629,7 @@ export class AASystemData {
                         data.data?.flags?.itemID ??
                         data.roll?.data._id ??
                         this._extractItemId(data.data?.content) ??
+                        this._extractItemId(data.msg?.data?.content) ??
                         void 0;
         return itemId;
     }
@@ -636,10 +641,9 @@ export class AASystemData {
      */
     static async getItem(input) {
         const data = input || {};
-        const item =    data.item ??
-                        data.itemSource ??
-                        data.SwadeItem ??
-                        data.data?.item ??
+        const item =    data.data?.item ??
+                        data.data?.itemSource ??
+                        data.data?.SwadeItem ??
                         data.token?.actor?.items?.get(data.itemId) ??
                         await fromUuid(`Item.${data.itemId}`) ??
                         void 0;
@@ -658,7 +662,7 @@ export class AASystemData {
                         data.uuid ??
                         data.token?.id ??
                         data.msg?.data?.speaker?.token ??
-                        data._roll.options?.tokenId ??
+                        data._roll?.options?.tokenId ??
                         data.info?.speaker?.token ??
                         void 0;
 
@@ -672,11 +676,10 @@ export class AASystemData {
      */
     static async getToken(input) {
         const data = input || {};
-        const token =   data.token ??
-                        data.data.token ??
+        const token =   data.data.token ??
                         canvas.tokens.get(data.tokenId) ??
                         canvas.scene.tokens.get(data.tokenId) ??
-                        canvas.tokens.placeables.find(token => token.actor?.items?.get(data.itemId || data.item?.id) != null) ??
+                        canvas.tokens.placeables.find(token => token.actor?.items?.get(data.itemId) != null) ??
                         canvas.tokens.ownedTokens.find(x => x.actor?.id === data.tokenId) ??
                         //await fromUuid(`Token.${data.tokenId}`) ??
                         void 0;
