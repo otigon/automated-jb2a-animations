@@ -653,7 +653,8 @@ export class AASystemData {
      */
     static getTokenId(input) {
         const data = input || {};
-        const tokenId = data.data?.speaker?.token ??
+        const tokenId = data.tokenId ??
+                        data.data?.speaker?.token ??
                         data.uuid ??
                         data.token?.id ??
                         data.msg?.data?.speaker?.token ??
