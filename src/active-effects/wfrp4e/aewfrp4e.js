@@ -2,7 +2,6 @@ import { trafficCop } from "../../router/traffic-cop.js";
 import systemData from "../../system-handlers/system-data.js";
 import { aaDebugger } from "../../constants/constants.js";
 //import { flagMigrations } from "../../system-handlers/flagMerge.js";
-//import { socketlibSocket } from "../../socketset.js";
 
 var killAllAnimations;
 export function disableAnimations() {
@@ -11,23 +10,18 @@ export function disableAnimations() {
 }
 
 /**
- *
- * @param {*} // The Active Effect being applied
- *
+ * 
+ * @param {*} // The Active Effect being applied 
+ * 
  */
-export async function createActiveEffectsPF1(effect) {
+export async function createActiveEffectswfrp4e(effect) {
+    //console.log("Effect Triggered");
     //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
     //await wait(150)
-
     const aaDebug = game.settings.get("autoanimations", "debug")
 
-    if (!AnimationState.enabled) { return; }
-    /*
-    // Sets data for the System Handler
-    const flagData = {
-        aaAeStatus: "on",
-    }
-    */
+    if (killAllAnimations) { return; }
+
     // Gets the Token that the Active Effect is applied to
     const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
     if (!aeToken) {
@@ -41,43 +35,22 @@ export async function createActiveEffectsPF1(effect) {
         return;
     }
 
-    // Checks to see if the BUFF has an Item Origin. If YES get that item, otherwise assign empty object
-    const itemOrigin = effect.data.origin;
-    const originatingItem = itemOrigin ? await fromUuid(itemOrigin) : {}
     /*
+    // Sets data for the System Handler
+    const flagData = {
+        aaAeStatus: "on",
+        aaAeTokenId: aeToken.id
+    }
     // If A-A flags are preset on the AE, ensure they are up-to-date
     if (effect.data?.flags?.autoanimations) {
         await flagMigrations.handle(effect);
     }
-    */
-    /*
-    // If A-A flags are preset on the Originating Item, ensure they are up-to-date
-    if (originatingItem.data?.flags?.autoanimations) {
-        await flagMigrations.handle(originatingItem);
-    }
-
-    const flagData = {}
-    if (originatingItem.data?.flags?.autoanimations) {
-        // If the BUFF had an originating Item with A-A data, assign that data to flagData, and set status to "on"
-        Object.assign(flagData, originatingItem.data?.flags?.autoanimations);
-        flagData.aaAeStatus = "on";
-        flagData.aaAeTokenId = aeToken.id
-    } else {
-        // If no A-A flags are present, grab current Flag version and apply it to the effect (bypasses flag merge issues)
-        flagData.aaAeStatus = "on";
-        flagData.version = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
-        flagData.aaAeTokenId = aeToken.id
-    }
-    */
-    /*
     // If no A-A flags are present, grab current Flag version and apply it to the effect (bypasses flag merge issues)
     if (!effect.data?.flags?.autoanimation?.version) {
         flagData.version = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
     }
+    await effect.update({ 'flags.autoanimations': flagData })
     */
-
-    // Update the Active Effect flags with flagData
-    //await effect.update({ 'flags.autoanimations': flagData })
 
     // Initilizes the A-A System Handler
     const data = {
@@ -92,17 +65,21 @@ export async function createActiveEffectsPF1(effect) {
         if (aaDebug) { aaDebugger("Failed to find the Item or Source Token", handler) }
         return;
     }
-
+    if (handler.isCustomized || (!handler.isCustomized && handler.autorecObject)) {
+        const aeDelay = handler.isCustomized ? handler.flags?.options?.aeDelay || "noDelay" : handler.autorecObject.aeDelay || "noDelay";
+        const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+        if (aeDelay === "noDelay") { } else { await wait(aeDelay) }
+    }
     // Sends the data to begin the animation Sequence
     trafficCop(handler);
 }
 
 /**
- *
+ * 
  * @param {*} effect // The Active Effect being removed
- *
+ * 
  */
-export async function deleteActiveEffectsPF1(effect) {
+export async function deleteActiveEffectswfrp4e(effect) {
     const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
     const aaDebug = game.settings.get("autoanimations", "debug")
 
@@ -110,10 +87,8 @@ export async function deleteActiveEffectsPF1(effect) {
     let aaEffects = Sequencer.EffectManager.getEffects({ origin: effect.uuid })
 
     // If no animations, exit early, Else continue with gathering data
-    if (aaEffects.length > 0) {
-        //const itemData = aaEffects[0].data?.flags?.autoanimations ?? {};
+    if (aaEffects.length > 0) {  
         const itemData = effect.data?.flags?.autoanimations ?? {};
-
         const data = {
             token: undefined,
             targets: [],
@@ -160,7 +135,6 @@ export async function deleteActiveEffectsPF1(effect) {
         // End all Animations on the token with .origin(effect.uuid)
         Sequencer.EffectManager.endEffects({ origin: effect.uuid, object: handler.sourceToken })
     } else {
-
         const itemData = effect.data?.flags?.autoanimations ?? {};
         //const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
         const data = {
@@ -199,57 +173,16 @@ export async function deleteActiveEffectsPF1(effect) {
 }
 
 /**
- *
- * @param {Active Effect being updated} effect
- * @param {Toggle Check On/Off for Effect} toggle
+ * 
+ * @param {Active Effect being updated} effect 
+ * @param {Toggle Check On/Off for Effect} toggle 
  */
-/*
-export async function toggleActiveEffectsPF1(effect, toggle) {
+export async function toggleActiveEffectswfrp4e(effect, toggle) {
 
     if (toggle.disabled === true) {
-        deleteActiveEffects5e(effect)
+        deleteActiveEffectswfrp4e(effect)
     } else if (toggle.disabled === false) {
-        createActiveEffects5e(effect);
+        createActiveEffectswfrp4e(effect);
     }
 }
 
-export async function checkConcentration(effect) {
-    const aaDebug = game.settings.get("autoanimations", "debug")
-
-    // Check effect label and return if it is not equal to "concentrating"
-    const label = effect.data?.label || "";
-    if (label.toLowerCase() !== "concentrating") { return; }
-
-    // Get Originating Item. If no Origin, return
-    const origin = effect.data?.origin
-    if (!origin) {
-        if (aaDebug) { aaDebugger("Failed to find an Origin for Concentration") }
-        return;
-    }
-
-    // Get arrays of Background and Foreground Tiles with the A-A Origin flag UUID matching the Effect Origin
-    const bgTiles = canvas.background.placeables.filter(i => i.data?.flags?.autoanimations?.origin === origin)
-    const fgTiles = canvas.foreground.placeables.filter(i => i.data?.flags?.autoanimations?.origin === origin);
-    if (bgTiles.length < 1 && fgTiles.length < 1) {
-        if (aaDebug) { aaDebugger("Failed to find any Tiles tied to Concentration") }
-        return;
-    }
-    let tileIdArray = []
-    if (bgTiles.length || fgTiles.length) {
-        //if (bgTiles.length) {
-        for (let tile of bgTiles) {
-            tileIdArray.push(tile.id)
-        }
-        //}
-        //if (fgTiles.length) {
-        for (let tile of fgTiles) {
-            tileIdArray.push(tile.id)
-        }
-        //}
-        socketlibSocket.executeAsGM("removeTile", tileIdArray)
-    }
-
-    //Sequencer.EffectManager.endEffects({ origin: origin })
-
-}
-*/

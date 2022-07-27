@@ -1,91 +1,14 @@
-import { aaDebugger } from "../../constants/constants.js";
-//import { flagMigrations } from "../../system-handlers/flagMerge.js";
-import { trafficCop } from "../../router/traffic-cop.js";
 import systemData from "../../system-handlers/system-data.js";
-import { AnimationState } from "../../AnimationState.js";
 
-
-export async function createActiveEffectsPF2e(item) {
-    //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
-    //await wait(150)
-    const aePF2eTypes = ['condition', 'effect', 'feat']
-    const aaDebug = game.settings.get("autoanimations", "debug")
-    if (!aePF2eTypes.includes(item.type)) {
-        if (aaDebug) { aaDebugger("This is not a PF2e Ruleset, exiting early") }
-        return;
-    }
-    if (item.data?.data?.references?.parent && game.settings.get("autoanimations", "disableNestedEffects")) {
-        if (aaDebug) { aaDebugger("This is a nested Ruleset, exiting early") }
-        return;
-    }
-
-    if (!AnimationState.enabled) { return; }
-
-    // Get the Item ID and Token it is on
-    const itemId = item.id;
-    const aeToken = canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null)
-    if (!aeToken) {
-        if (aaDebug) { aaDebugger("Failed to find the Token for the Active Effect") }
-        return;
-    }
-    /*
-    // Sets data for the System Handler
-    const flagData = {
-        aaAeStatus: "on",
-        aaAeTokenId: aeToken.id
-    }
-    */
-    // Check if the Animation is already present on the Token
-    //const flattenedName = item.name.toLowerCase()
-    const aeNameField = item.name.replace(/[^A-Za-z0-9 .*_-]/g, "") + `${aeToken.id}`
-    const checkAnim = await Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
-    if (checkAnim) {
-        if (aaDebug) { aaDebugger("Animation is already present on the Token, returning.") }
-        return;
-    }
-    /*
-    // If A-A flags are preset on the AE, ensure they are up-to-date
-    if (item.data?.flags?.autoanimations) {
-        await flagMigrations.handle(item);
-    }
-    // If no A-A flags are present, grab current Flag version and apply it to the effect (bypasses flag merge issues)
-    
-    if (!item.data?.flags?.autoanimation?.version) {
-        flagData.version = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
-    }
-    */
-    //await item.update({ 'flags.autoanimations': flagData })
-
-    // Initilizes the A-A System Handler
-    const data = {
-        token: aeToken,
-        targets: [],
-        item: item,
-    }
-    let handler = await systemData.make(null, null, data);
-
-    // Exits early if Item or Source Token returns null. Total Failure
-    if (!handler.item || !handler.sourceToken) {
-        if (aaDebug) { aaDebugger("Failed to find the Item or Source Token", handler) }
-        return;
-    }
-
-    // Sends the data to begin the animation Sequence
-    trafficCop(handler);
-
-}
-
-export async function deleteActiveEffectsPF2e(item) {
-    const aePF2eTypes = ['condition', 'effect', 'feat']
-    if (!aePF2eTypes.includes(item.type)) { return; }
-
+export async function deleteEffectsSfrpg(item) {
+    const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(item.id))
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Finds all active Animations on the scene that match .origin(effect.uuid)
     let aaEffects = Sequencer.EffectManager.getEffects({ origin: item.uuid })
 
     // If no animations, exit early, Else continue with gathering data
-    if (aaEffects.length > 0) {
+    if (aaEffects.length > 0) {  
         const itemData = item.data?.flags?.autoanimations ?? {};
         const data = {
             token: undefined,
@@ -135,8 +58,6 @@ export async function deleteActiveEffectsPF2e(item) {
     } else {
         const itemData = item.data?.flags?.autoanimations ?? {};
         //const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
-        const itemId = item.id;
-        const aeToken = canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null)
         const data = {
             token: aeToken,
             targets: [],
@@ -170,5 +91,4 @@ export async function deleteActiveEffectsPF2e(item) {
                 .play()
         }
     }
-
 }

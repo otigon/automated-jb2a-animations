@@ -1,3 +1,4 @@
+import { aaDeletedItems } from "../autoAnimations.js";
 
 export class AASystemData {
 
@@ -16,14 +17,18 @@ export class AASystemData {
 
     static async dnd5e(input, isChat) {
         if (game.modules.get('midi-qol')?.active && !isChat) {
-            const token = canvas.tokens.get(input.tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(input.item?._id) != null);
+            //const token = canvas.tokens.get(input.tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(input.item?._id) != null);
+            let {item, token, targets} = await this.getRequiredData(input)
+            if (!item || !token) return {};
+
+            //const token = this.getToken(input)
             const ammo = input.item?.data?.flags?.autoanimations?.options?.ammo;
             const ammoType = input.item?.data?.data?.consume?.type;
-            const item = ammo && ammoType === "ammo" ? token.actor.items?.get(input.item.data.data.consume.target) : input.item;
+            item = ammo && ammoType === "ammo" ? token.actor.items?.get(input.item.data.data.consume.target) : item;
             if (!item || !token) { return {}; }
 
             const hitTargets = Array.from(input.hitTargets);
-            let targets = input.item?.data?.data?.target?.type === 'self' ? Array.from(game.user.targets) : Array.from(input.targets);
+            targets = input.item?.data?.data?.target?.type === 'self' ? [token] : targets;
             if (game.modules.get('midi-qol')?.active) {
                 switch (true) {
                     case (game.settings.get("autoanimations", "playonmiss")):
@@ -46,6 +51,7 @@ export class AASystemData {
             }
             return { item, token, targets, hitTargets, reach };
         } else {
+            /*
             const inputAtr = this._extractItemId(input.data?.content);
             let itemId = input.data?.flags?.dnd5e?.roll?.itemId || inputAtr || input.data?.flags?.["midi-qol"]?.itemId;
 
@@ -55,14 +61,16 @@ export class AASystemData {
             const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(input.uuid)) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
             if (!token) { return {}; }
             let item = token.actor?.items?.get(itemId) || await fromUuid(`Item.${itemId}`);
+            */
+            let {item, itemId, token, targets} = await this.getRequiredData(input)
+            if (!item || !token) return {};
 
-            if (!item) return {};
             if (item.data?.flags?.autoanimations?.options?.ammo && item.data?.data?.consume?.type === "ammo") {
                 itemId = item.data.data.consume.target;
                 item = token.actor.items?.get(itemId) ?? "";
             }
 
-            const targets = Array.from(input.user.targets);
+            //const targets = Array.from(input.user.targets);
 
             let reach = 0;
             if (token.actor?.data?.data?.details?.race?.toLowerCase() === 'bugbear') {
@@ -77,40 +85,52 @@ export class AASystemData {
     }
 
     static async sfrpg(input) {
-        const itemId = input.data?.item?.id || this._extractItemId(input.msg?.data?.content);
+        /*
+        const itemId = input.item?.id || input.data?.item?.id || this._extractItemId(input.msg?.data?.content);
         if (!itemId) { return {}; }
-        const tokenId = input.msg?.data?.speaker?.token;
+        const tokenId = input.token?.id || input.msg?.data?.speaker?.token;
         const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId));
         if (!token) { return {}; }
-        const item = input.data?.item ? input.data.item : token.actor?.items?.get(itemId);
+        const item = input.data?.item ? input.data?.item : input.item || token.actor?.items?.get(itemId);
         if (!item) { return {}; }
+        */
+        let {item, token, targets} = await this.getRequiredData(input)
+        if (!item || !token) return {};
 
-        const targets = Array.from(input.msg.user.targets);
+        //const targets = input.targets ? Array.from(input.targets) : Array.from(input.msg?.user?.targets);
 
         return { item, token, targets };
     }
 
     static async d35e(input) {
+        /*
         const itemId = this._extractItemId(input.data?.content);
         const tokenId = input.data?.speaker?.token;
         if (!itemId || !tokenId) { return {}; }
         const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
         const item = token.actor.items?.get(itemId) ?? null;
-        const targets = Array.from(input.user.targets);
+        */
+        let {item, token, targets} = await this.getRequiredData(input)
+        if (!item || !token) return {};
+
+        //const targets = Array.from(input.user.targets);
 
         return { item, token, targets };
     }
 
     static async sw5e(input, isChat) {
         if (game.modules.get('midi-qol')?.active && !isChat) {
-            const token = canvas.tokens.get(input.tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(input.item?._id) != null);
+            //const token = canvas.tokens.get(input.tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(input.item?._id) != null);
+            let {item, token, targets} = await this.getRequiredData(input)
+            if (!item || !token) return {};
+
             const ammo = input.item?.data?.flags?.autoanimations?.options?.ammo;
             const ammoType = input.item?.data?.data?.consume?.type;
-            const item = ammo && ammoType === "ammo" ? token.actor.items?.get(input.item.data.data.consume.target) : input.item;
+            item = ammo && ammoType === "ammo" ? token.actor.items?.get(input.item.data.data.consume.target) : item;
             if (!item || !token) { return {}; }
 
             const hitTargets = Array.from(input.hitTargets);
-            let targets = Array.from(input.targets);
+            //let targets = Array.from(input.targets);
             if (game.modules.get('midi-qol')?.active) {
                 switch (true) {
                     case (game.settings.get("autoanimations", "playonmiss")):
@@ -133,7 +153,7 @@ export class AASystemData {
             }
             return { item, token, targets, hitTargets, reach };
         } else {
-
+            /*
             const inputAtr = this._extractItemId(input.data?.content);
             const itemId = input.data?.flags?.sw5e?.roll?.itemId || inputAtr || input.data?.flags?.["midi-qol"]?.itemId;
             const tokenId = input.data?.speaker?.token;
@@ -142,12 +162,16 @@ export class AASystemData {
             const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
 
             let item = token.actor?.items?.get(itemId);
+            */
+            let {item, itemId, token, targets} = await this.getRequiredData(input)
+            if (!item || !token) return {};
+
             if (item.data?.flags?.autoanimations?.options?.ammo && item.data?.data?.consume?.type === "ammo") {
                 itemId = item.data.data.consume.target;
                 item = token.actor.items?.get(itemId) ?? "";
             }
 
-            const targets = Array.from(input.user.targets);
+            //const targets = Array.from(input.user.targets);
 
             let reach = 0;
             if (token.actor?.data?.data?.details?.race?.toLowerCase() === 'bugbear') {
@@ -162,20 +186,30 @@ export class AASystemData {
     }
 
     static async pf1(input) {
+        /*
         const item = input?.itemSource;
         const tokenId = input.data?.speaker?.token;
         if (!item || !tokenId) { return {}; }
         const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(item?.id) != null);
-        const targets = Array.from(input.user.targets);
+        */
+        let {item, token, targets} = await this.getRequiredData(input)
+        if (!item || !token) return {};
+
+        //const targets = Array.from(input.user.targets);
 
         return { item, token, targets };
     }
 
     static async pf2e(input) {
+        /*
         const item = input.item;
         const token = input.token || canvas.tokens.placeables.find(token => token.actor?.items?.get(item?.id) != null);
-        const targets = Array.from(input.user.targets);
-        if (!item || !token) { return {}; }
+        */
+        let {item, token, targets} = await this.getRequiredData(input)
+        if (!item || !token) return {};
+
+        //const targets = Array.from(input.user.targets);
+        //if (!item || !token) { return {}; }
 
         let outcome = input.data?.flags?.pf2e?.context?.outcome;
         outcome = outcome ? outcome.toLowerCase() : "";
@@ -201,6 +235,7 @@ export class AASystemData {
     }
 
     static async forbiddenlands(input) {
+        /*
         const itemId = input._roll.options?.itemId;
         const tokenId = input._roll.options?.tokenId;
         if (!itemId) { return {}; }
@@ -208,21 +243,29 @@ export class AASystemData {
         if (!token) { return {}; }
         const item = token.actor?.items?.get(itemId);
         const targets = Array.from(input.user.targets);
+        */
+        let {item, token, targets} = await this.getRequiredData(input)
+        if (!item || !token) return {};
 
         return { item, token, targets };
     }
-	
+
 	/// Cypher System  [Requires SypherSystem 1.32.3 and above]
 	/// 20220502 - Handles Recovery, ability rolls and other ability/item use by Dice roll. Ability use by Payment not working, flags.itemID and Speaker are both NULL in this case.
 	///			   Doesn't handle companions (These don't have abilities in their character sheets, the ability is owned by the player sheet, so need to look at how we can animate companions)
 	/// 20220502 (1.32.4) PAYED abilities now can fire off animations
+
 	static async cyphersystem(input) {
+        /*
 		const itemId = input.data.flags?.itemID;
         const tokenId = input.data.speaker.token;
 
         const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
         if (!itemId || !token) {return {};}
-		
+		*/
+        let {item, itemId, token, targets} = await this.getRequiredData(input)
+        if (!itemId || !token) return {};
+
 		// if the item ID is a recover roll (not a real item id) lets animate the recovery IF selected. No crits of fumbles are used here
 		if (itemId == "recovery-roll")
 		{
@@ -310,9 +353,9 @@ export class AASystemData {
 				else
 				{		
 					// otherwise, see if we can find an item connected to this message and play any animations attached to it
-					const item = token.actor.items?.get(itemId) ?? "";
+					//const item = token.actor.items?.get(itemId) ?? "";
 		
-					const targets = Array.from(input.user.targets);
+					//const targets = Array.from(input.user.targets);
 
 					return { item, token, targets };
 				}
@@ -321,21 +364,25 @@ export class AASystemData {
 		
 		return {};
 	}
-	
+
 
     static async demonlord(input) {
         const eventType = input.type
+        /*
         const itemId = input.itemId;
         const token = input.sourceToken || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
         const item = token.actor?.items?.get(itemId);
+        */
+        let {item, token, targets} = await this.getRequiredData(input)
+        if (!item || !token) return {};
+
         let hitTargets = input.hitTargets || [];
         hitTargets = Array.from(hitTargets);
-        let targets;
+        //let targets;
         if (game.settings.get("autoanimations", "playtrigger") === "hits") {
             targets = hitTargets;
-        } else {
-            targets = Array.from(input.targets);
         }
+        
         const canRunAnimations = () => {
             const commonEventTypes = ["apply-healing"]
             if (!item?.hasDamage() && !item?.hasHealing()) {
@@ -357,6 +404,7 @@ export class AASystemData {
     }
 
     static async starwarsffg(input) {
+        /*
         const itemId = input.roll.data._id;
         const tokenId = input.data.speaker.token;
 
@@ -364,74 +412,97 @@ export class AASystemData {
         if (!itemId || !token) {return {};}
 
         const item = token.actor.items?.get(itemId) ?? "";
-        const targets = Array.from(input.user.targets);
+        */
+        let {item, token, targets} = await this.getRequiredData(input)
+        if (!item || !token) return {};
+
+        //const targets = Array.from(input.user.targets);
         const hitTargets = input.roll.ffg.success > 0 ? targets : [];
 
         return { item, token, targets, hitTargets };
     }
 
     static async swade(input) {
-        const item = input.SwadeItem;
+        //const item = input.SwadeItem;
+        let {item, token, targets} = await this.getRequiredData(input)
+
         const tokenOrActor = input.SwadeTokenOrActor;
-        let token = canvas.tokens.placeables.find(token => token.actor?.items?.get(item.id) != null) || canvas.tokens.ownedTokens.find(x => x.actor.id === tokenOrActor.id);
+        token = token || canvas.tokens.ownedTokens.find(x => x.actor.id === tokenOrActor.id);
         if (tokenOrActor instanceof Token) { token = tokenOrActor; }
-        const targets = Array.from(game.user.targets);
+        //const targets = Array.from(game.user.targets);
         if (!item || !token) { return {}; }
 
         return { item, token, targets };
     }
 
     static async tormenta20(input) {
+        /*
         const itemId = this._extractItemId(input.data?.content);
         const tokenId = input.data?.speaker?.token;
         if (!itemId || !tokenId) { return {}; }
         const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor.items.get(itemId) != null);
         const item = token.actor.items?.get(itemId) ?? "";
-        const targets = Array.from(input.user.targets);
+        */
+        let {item, token, targets} = await this.getRequiredData(input)
+        if (!item || !token) return {};
+
+        //const targets = Array.from(input.user.targets);
 
         return { item, token, targets };
     }
 
     static async wfrp4e(input) {
-
+        /*
         const item = input.item;
         const itemId = item.id;
         const tokenId = input.info?.speaker?.token;
         const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != undefined);
+        */
+        let {item, token} = await this.getRequiredData(input)
+        if (!item || !token) return {};
 
         const targets = input.targets ? Array.from(input.targets).map(token => canvas.tokens.get(token.token)) : [];
-
-        if (!item || !token) { return {}; }
 
         return { item, token, targets };
     }
 
     static async ose(input) {
+        /*
         const itemId = input.data?.flags?.ose?.itemId;
         const tokenId = input.data?.speaker?.token;
         if (!itemId) { return {}; }
         const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
         const item = token.actor?.items?.get(itemId)
         if (!token || !item) { return {}; }
-        const targets = Array.from(input.user.targets);
+        */
+        let {item, token, targets} = await this.getRequiredData(input)
+        if (!item || !token) return {};
+
+        //const targets = Array.from(input.user.targets);
         
         return { item, token, targets };
     }
 
     static async dcc(input) {
+        /*
         const itemId = input.data?.flags?.dcc?.ItemId;
         const tokenId = input.data?.speaker?.token;
         if (!itemId) { return {}; }
         const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
         const item = token.actor?.items?.get(itemId)
         if (!token || !item) { return {}; }
-        const targets = Array.from(input.user.targets);
+        */
+        let {item, token, targets} = await this.getRequiredData(input)
+        if (!item || !token) return {};
+
+        //const targets = Array.from(input.user.targets);
         
         return { item, token, targets };
 
     }
 
     static async alienrpg(input) {
+        /*
         const inputAtr = this._extractItemId(input.data?.content);
         let itemId = inputAtr;
 
@@ -444,13 +515,17 @@ export class AASystemData {
         let item = token.actor?.items?.get(itemId) || await fromUuid(`Item.${itemId}`);
 
         if (!item) return {};
+        */
+        let {item, token, targets} = await this.getRequiredData(input)
+        if (!item || !token) return {};
 
-        const targets = Array.from(input.user.targets);
+        //const targets = Array.from(input.user.targets);
 
         return { item, token, targets };
     }
 
     static async a5e(input) {
+        /*
         const itemId = input?.data?.flags?.itemId;
         if (!itemId) { return {}; }
 
@@ -460,12 +535,34 @@ export class AASystemData {
         
         const item = token.actor?.items?.get(itemId)
         if (!item) { return {}; }
+        */
+        let {item, token, targets} = await this.getRequiredData(input)
+        if (!item || !token) return {};
 
-        const targets = Array.from(game.users.get(input.data.user).targets);
+        //const targets = Array.from(game.users.get(input.data.user).targets);
 
         return { item, token, targets };
     }
 
+    /**
+     * Fallback based on createChatMessage hook if no specific system support is added. It's the wild west here baby
+     * @param {*} input 
+     * @returns 
+     */
+    static async standardChat(input) {
+        let {item, token, targets} = await this.getRequiredData(input)
+        if (!item || !token) return {};
+
+        //const targets = Array.from(input.user.targets);
+
+        return { item, token, targets };
+    }
+
+    /**
+     * Accepts the message html content and attempts to find the embedded item ID
+     * @param {*} content 
+     * @returns item ID or null
+     */
     static _extractItemId(content) {
         try {
             return $(content).attr("data-item-id");
@@ -474,4 +571,120 @@ export class AASystemData {
             return null;
         }
     }
+
+    static async getRequiredData(input) {
+        const data = input || {};
+
+        const itemId = this.getItemId(data, game.system.id);
+        const tokenId = this.getTokenId(data)
+        let token = await this.getToken({tokenId, itemId, data})
+        let item = await this.getItem({itemId, token, data})
+        const targets = this.getTargets(data)
+
+        if (!item) {
+            item = aaDeletedItems.get(itemId);
+        }
+        if (!token) {
+            token = canvas.tokens.placeables.find(token => token.actor?.items?.get(item?.id) != null)
+        }
+        return {itemId, tokenId, token, item, targets}
+    }
+
+    /**
+     * This accepts the originating workflow and attempts to get an Array of targets from the source Token user
+     * @param {*} input 
+     * @returns 
+     */
+    static getTargets(input) {
+        const data = input || {};
+        let targets =   data.user?.targets ?? 
+                        data.targets ??
+                        data.msg?.user?.targets ??
+                        game.user.targets ??
+                        void 0;
+        targets = Array.isArray(targets) ? targets : Array.from(targets);
+        return targets;                
+    }
+
+    /**
+     * This accepts the originating workflow and attempts to find an Item ID for the item being used
+     * @param {*} input 
+     * @param {game.system.id} system 
+     * @returns item ID
+     */
+    static getItemId(input, system = void 0) {
+        const data = input || {};
+        const itemId =  data.item?.id ??
+                        data.itemId ??
+                        data.data?.item?.id ??
+                        //data.data?.flags?.dnd5e?.roll?.itemId ?? 
+                        //data.data?.flags?.sw5e?.roll?.itemId ??
+                        data.data?.flags?.[system]?.roll?.itemId ?? 
+                        //data.data?.flags?.ose?.itemId ??
+                        //data.data?.flags?.dcc?.ItemId ??
+                        data.data?.flags?.[system]?.ItemId ??
+                        data.data?.flags?.["midi-qol"]?.itemId ??
+                        data._roll?.options?.itemId ??
+                        data.data?.flags?.itemId ??
+                        data.data?.flags?.itemID ??
+                        data.roll?.data._id ??
+                        this._extractItemId(data.data?.content) ??
+                        this._extractItemId(data.msg?.data?.content) ??
+                        void 0;
+        return itemId;
+    }
+    
+    /**
+     * This accepts the item ID and token and attempts to find the item based on this information
+     * @param {*} input 
+     * @returns item
+     */
+    static async getItem(input) {
+        const data = input || {};
+        const item =    data.data?.item ??
+                        data.data?.itemSource ??
+                        data.data?.SwadeItem ??
+                        data.token?.actor?.items?.get(data.itemId) ??
+                        await fromUuid(`Item.${data.itemId}`) ??
+                        void 0;
+        return item;
+    }
+
+    /**
+     * This accepts the originating workflow and attempts to find the source token ID
+     * @param {*} input 
+     * @returns token ID
+     */
+    static getTokenId(input) {
+        const data = input || {};
+        const tokenId = data.tokenId ??
+                        data.data?.speaker?.token ??
+                        data.uuid ??
+                        data.token?.id ??
+                        data.msg?.data?.speaker?.token ??
+                        data._roll?.options?.tokenId ??
+                        data.info?.speaker?.token ??
+                        void 0;
+
+        return tokenId;
+    }
+
+    /**
+     * This accepts the token ID and item ID and attempts to find the source token on canvas
+     * @param {*} input 
+     * @returns token
+     */
+    static async getToken(input) {
+        const data = input || {};
+        const token =   data.data.token ??
+                        canvas.tokens.get(data.tokenId) ??
+                        canvas.scene.tokens.get(data.tokenId) ??
+                        canvas.tokens.placeables.find(token => token.actor?.items?.get(data.itemId) != null) ??
+                        canvas.tokens.ownedTokens.find(x => x.actor?.id === data.tokenId) ??
+                        //await fromUuid(`Token.${data.tokenId}`) ??
+                        void 0;
+        return token;
+    }
+
+
 }

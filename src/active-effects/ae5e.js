@@ -1,7 +1,7 @@
 import { trafficCop } from "../router/traffic-cop.js";
 import systemData from "../system-handlers/system-data.js";
 import { aaDebugger } from "../constants/constants.js";
-import { flagMigrations } from "../system-handlers/flagMerge.js";
+//import { flagMigrations } from "../system-handlers/flagMerge.js";
 import { socketlibSocket } from "../socketset.js";
 import { AnimationState } from "../AnimationState.js";
 
@@ -12,8 +12,8 @@ import { AnimationState } from "../AnimationState.js";
  */
 export async function createActiveEffects5e(effect) {
     if (effect.data?.disabled) { return; }
-    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
-    await wait(150)
+    //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+    //await wait(150)
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     if (!AnimationState.enabled) { return; }
@@ -30,7 +30,7 @@ export async function createActiveEffects5e(effect) {
         if (aaDebug) { aaDebugger("Animation is already present on the Token, returning.") }
         return;
     }
-
+    /*
     // Sets data for the System Handler
     const flagData = {
         aaAeStatus: "on",
@@ -45,7 +45,7 @@ export async function createActiveEffects5e(effect) {
         flagData.version = Object.keys(flagMigrations.migrations).map(n => Number(n)).reverse()[0];
     }
     await effect.update({ 'flags.autoanimations': flagData })
-
+    */
     // Initilizes the A-A System Handler
     const data = {
         token: aeToken,
@@ -75,7 +75,7 @@ export async function createActiveEffects5e(effect) {
  *
  */
 export async function deleteActiveEffects5e(effect) {
-
+    const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Finds all active Animations on the scene that match .origin(effect.uuid)
@@ -131,7 +131,7 @@ export async function deleteActiveEffects5e(effect) {
         Sequencer.EffectManager.endEffects({ origin: effect.uuid, object: handler.sourceToken })
     } else {
         const itemData = effect.data?.flags?.autoanimations ?? {};
-        const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
+        //const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
         const data = {
             token: aeToken,
             targets: [],

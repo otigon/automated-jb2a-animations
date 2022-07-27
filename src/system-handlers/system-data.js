@@ -7,7 +7,7 @@ export default class systemData {
 
     static async make(msg, isChat, external) {
         const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
-        const data = external ? external : await AASystemData[systemID](msg, isChat)
+        const data = external ? external : AASystemData[systemID] ? await AASystemData[systemID](msg, isChat) : await AASystemData.standardChat(msg)
         if (!data.item) { /*this._log("Retrieval Failed")*/; return {}; }
         //this._log("Data Retrieved", data)
 
@@ -43,14 +43,15 @@ export default class systemData {
         }
 
         this.isActiveEffect = this.item?.uuid?.includes("ActiveEffect") || this.isPF2eRuleset ? true : false;
+
         if (this.isActiveEffect) {
-            if (this.systemId === 'dnd5e' || this.systemId === 'pf1') {
+            if (this.systemId === 'dnd5e' || this.systemId === 'pf1' || this.systemId === 'wfrp4e' || this.systemId === "sfrpg") {
                 this.itemName = this.item.data?.label || "placeholder";
             }
             if (this.systemId === 'pf2e') {
                 this.itemName = this.item.name.replace(/[^A-Za-z0-9 .*_-]/g, "");
             }
-            this.workflow = this.item.data?.flags?.autoanimations?.aaAeStatus;
+            this.workflow = "on";
         }
 
         this.itemMacro = this.item.data?.flags?.itemacro?.macro?.data?.name ?? "";
@@ -93,8 +94,13 @@ export default class systemData {
         this.autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
 
         this.rinsedName = this.itemName ? AutorecFunctions._rinseName(this.itemName) : "noitem";
-        this.isAutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNamesInSection(this.autorecSettings, 'templatefx'), this.rinsedName);
-        this.autorecObject = this.isActiveEffect || this.pf2eRuleset ? AutorecFunctions._findObjectIn5eAE(this.autorecSettings, this.rinsedName) : AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
+        this.isAutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNamesInSection(this.autorecSettings, 'templates'), this.rinsedName);
+
+        this.autorecObject = this.isActiveEffect || this.pf2eRuleset ? AutorecFunctions._findObjectIn5eAE(this.autorecSettings, this.rinsedName) : null;
+        if (!this.autorecObject) {
+            /* fallback assignment for active effects, default assignment otherwise. */
+            this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
+        } 
     
         // If there is no match and there are alternative names, then attempt to use those names instead
         if (!this.autorecObject && data.extraNames?.length) {

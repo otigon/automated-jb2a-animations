@@ -28,7 +28,8 @@ export async function trafficCop(handler) {
     if (game.Levels3DPreview?._active) {
         if (handler.flags?.levels3d?.type && handler.isCustomized) {
             if (aaDebug) { aaDebugger("Beginning Particle Animation for Custom Item Setting") }
-            particleEffects(handler);
+            const animationData = await AAanimationData._getAnimationData(handler);
+            particleEffects(handler, false, animationData);
             return;
         } else if (!game.settings.get("autoanimations", "disableAutoRec")) {
             if (aaDebug) { aaDebugger("Automatic Recognition Beginning for Particle System") }
@@ -36,7 +37,8 @@ export async function trafficCop(handler) {
             const isAuto = AutorecFunctions.foundInAutorec(handler.autorecSettings, autoName);
             if (isAuto) {
                 const autoObject = handler.autorecObject;
-                particleEffects(handler, autoObject);
+                const animationData = await AAanimationData._getAnimationData(handler, handler.autorecObject);
+                particleEffects(handler, autoObject, animationData);
                 return;
             }
         } else {
@@ -181,6 +183,7 @@ export async function trafficCop(handler) {
             case "templatefx":
                 //some do not need hook on template, depends on when damage is rolled
                 switch (game.system.id) {
+                    case "a5e":
                     case "dnd5e":
                     case "pf2e":
                     case "sw5e":

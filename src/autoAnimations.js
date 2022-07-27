@@ -9,6 +9,8 @@ import systemData from "./system-handlers/system-data.js";
 import { createActiveEffects5e, deleteActiveEffects5e, checkConcentration, toggleActiveEffects5e } from "./active-effects/ae5e.js";
 import { createActiveEffectsPF2e, deleteActiveEffectsPF2e } from "./active-effects/pf2e/aepf2e.js";
 import { createActiveEffectsPF1, deleteActiveEffectsPF1 } from "./active-effects/pf1/aePF1.js";
+import { createActiveEffectswfrp4e, deleteActiveEffectswfrp4e } from "./active-effects/wfrp4e/aewfrp4e.js";
+import { deleteEffectsSfrpg } from "./active-effects/sfrpg/aeSfrpg.js"
 
 import AAActiveEffectMenu from "./formApps/ActiveEffects/activeEffectMenu.js";
 import AAAutorecMenu from "./formApps/AutorecMenu/aaAutorecMenu.js";
@@ -25,7 +27,10 @@ import { initSettings } from "./initSettings.js";
 import { gameSettings } from "./gameSettings.js";
 import { autoRecStores }  from "./formApps/_AutorecMenu/store/AutoRecStores.js";
 
+import { showAutorecMenu } from "./formApps/_AutorecMenu/showUI.js";
 import { showMainMenu } from "./formApps/AutorecMenu/showMainUI.js";
+
+import "../styles/newMenuCss.scss";
 
 const log = () => { };
 
@@ -34,6 +39,7 @@ Hooks.once('socketlib.ready', function () {
 });
 
 Hooks.on('AutomaticAnimations.Open.Menu',() => showMainMenu());
+Hooks.on('AutomaticAnimations.Open.Menu.New',() => showAutorecMenu());
 
 Hooks.on('AutomaticAnimations.Clear.Data', async () => {
     await game.settings.set("autoanimations", "aaAutorec", void 0);
@@ -44,11 +50,6 @@ Hooks.on('AutomaticAnimations.Clear.Data', async () => {
     await game.settings.set("autoanimations", "aaAutorec-range", void 0);
     await game.settings.set("autoanimations", "aaAutorec-ontoken", void 0);
     await game.settings.set("autoanimations", "aaAutorec-templatefx", void 0);
-
-    setTimeout(() =>
-    {
-        console.log(`! game.settings.get - ontoken: `, game.settings.get('autoanimations', "aaAutorec-ontoken"))
-    }, 1500)
 });
 
 
@@ -73,7 +74,7 @@ Hooks.on('init', () => {
         return options.inverse(this);
     });
     Handlebars.registerHelper('isAeSupported', function (options) {
-        let supportedSystems = ['dnd5e', 'pf2e', 'pf1']
+        let supportedSystems = ['dnd5e', 'pf2e', 'pf1', 'wfrp4e', 'sfrpg']
         if (supportedSystems.includes(game.system.id)) {
             return options.fn(this);
         }
@@ -175,6 +176,7 @@ Hooks.once('ready', async function () {
     autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'), true, true)
     if (game.modules.get("midi-qol")?.active) {
         log("midi IS active");
+        Hooks.on("deleteItem", async (item) => {storeDeletedItems(item)})
         switch (game.settings.get("autoanimations", "playonDamage")) {
             case (true):
                 Hooks.on("midi-qol.DamageRollComplete", (workflow) => { setUpMidi(workflow) });
@@ -193,6 +195,7 @@ Hooks.once('ready', async function () {
             Hooks.on("midi-qol.AttackRollComplete", (workflow) => { criticalCheck(workflow) })
         }
     } else {
+        Hooks.on("deleteItem", async (item) => {storeDeletedItems(item)})
         switch (game.system.id) {
             case "a5e":
                 Hooks.on("createChatMessage", async (msg) => { setupA5ESystem(msg) });
@@ -243,6 +246,7 @@ Hooks.once('ready', async function () {
                     if (!sourceToken) { return; }
 
                     const item = sourceToken.actor?.items?.get(itemId)
+                    if (item.type === 'feat') { return; }
 
                     if (!item.hasAttack && !item.hasDamage) {
                         let data = {}
@@ -351,10 +355,69 @@ Hooks.once('ready', async function () {
             case 'dcc':
                 Hooks.on("createChatMessage", async (msg) => { dccReady(msg) });
                 break;
+            default:
+                Hooks.on("createChatMessage", async (msg) => {standardChat(msg) });
         }
     }
     //Active Effect Hooks
     switch (game.system.id) {
+        case "sfrpg":
+            Hooks.on("createActiveEffect", (item, data, userId) => {
+                if (game.user.id !== userId) { return; }
+                createActiveEffects5e(item);
+            })
+            Hooks.on("preDeleteActiveEffect", (item, data, userId) => {
+                if (game.user.id !== userId) { return; }
+                deleteActiveEffects5e(item)
+            })
+            //Hooks.on("itemActivationChanged", (actor, isActive, item) => {
+            //})
+            
+            Hooks.on("updateItem", (item, diff, action, userId) => {
+                if (game.user.id !== userId) { return; }
+                Hooks.once("updateToken", async (token, actor, updates, userId) => {
+                    if (game.user.id !== userId) { return; }
+                    if (item.type !== 'feat') { return; }
+
+                    if (!diff.data.isActive) {
+                        deleteEffectsSfrpg(item, token)
+                    } else {
+                        const sfrpgData = {
+                            item,
+                            token,
+                            targets: game.user.targets
+                        }
+                        const handler = await systemData.make(sfrpgData)
+                        trafficCop(handler);
+                    }
+                })
+            })
+            
+           /*
+            // Alternative option... not as useful because Update Token is called so much
+            Hooks.on("updateToken", async (token, actor, updates, userId) => {
+                if (game.user.id !== userId) { return; }
+                const itemId = Object.keys(updates.embedded?.hookData || {})[0]
+                if (!itemId) {return;}
+                const item = token.actor?.items?.get(itemId)
+                if (!item) {return;}
+                if (item.type !== 'feat') { return; }
+                const activeStatus = updates.embedded?.hookData?.[item.id]?.data?.isActive;
+                if (!activeStatus) {
+                    deleteEffectsSfrpg(item, token)
+                } else if (activeStatus){
+                    const sfrpgData = {
+                        item,
+                        token,
+                        targets: game.user.targets
+                    }
+                    const handler = await systemData.make(sfrpgData)
+                    console.log(handler)
+                    trafficCop(handler);
+                }
+            })
+            */
+            break;
         case "dnd5e":
             Hooks.on("createActiveEffect", (effect, data, userId) => {
                 if (game.settings.get("autoanimations", "disableAEAnimations")) {
@@ -364,7 +427,7 @@ Hooks.once('ready', async function () {
                 if (game.user.id !== userId) { return; }
                 createActiveEffects5e(effect)
             });
-            Hooks.on("deleteActiveEffect", (effect, data, userId) => {
+            Hooks.on("preDeleteActiveEffect", (effect, data, userId) => {
                 if (game.user.id !== userId) { return; }
 
                 deleteActiveEffects5e(effect)
@@ -388,7 +451,7 @@ Hooks.once('ready', async function () {
                 if (game.user.id !== userId) { return; }
                 createActiveEffectsPF2e(item);
             })
-            Hooks.on("deleteItem", (item, data, userId) => {
+            Hooks.on("preDeleteItem", (item, data, userId) => {
                 if (game.user.id !== userId) { return; }
                 deleteActiveEffectsPF2e(item)
             })
@@ -402,7 +465,7 @@ Hooks.once('ready', async function () {
                 if (game.user.id !== userId) { return; }
                 createActiveEffectsPF1(effect)
             });
-            Hooks.on("deleteActiveEffect", (effect, data, userId) => {
+            Hooks.on("preDeleteActiveEffect", (effect, data, userId) => {
                 if (game.user.id !== userId) { return; }
 
                 deleteActiveEffectsPF1(effect)
@@ -419,10 +482,25 @@ Hooks.once('ready', async function () {
             */
             //}
             break;
+            case 'wfrp4e':
+                Hooks.on("createActiveEffect", (item, data, userId) => {
+                    if (game.user.id !== userId) { return; }
+                    createActiveEffectswfrp4e(item);
+                })
+                Hooks.on("preDeleteActiveEffect", (item, data, userId) => {
+                    if (game.user.id !== userId) { return; }
+                    deleteActiveEffectswfrp4e(item)
+                })
+                break;
     }
     Hooks.callAll("aa.ready", obj01)
 });
 
+export const aaDeletedItems = new Map();
+//Hooks.on("deleteItem", async (item) => {getDeletedItems(item)})
+function storeDeletedItems(item) {
+    aaDeletedItems.set(item.id, item)
+}
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 /* External call for animations
@@ -616,6 +694,16 @@ async function setUp5eCore(msg) {
     }
 }
 
+async function standardChat(msg) {
+    if (killAllAnimations) { return; }
+    if (msg.user.id !== game.user.id) { return };
+    log('onCreateChatMessage', msg);
+    let handler = await systemData.make(msg);
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
+    trafficCop(handler);
+}
 /*
 / sets Handler for PF1 and DnD3.5
 */
@@ -809,26 +897,44 @@ async function pf2eReady(msg) {
             break;
         case "melee":
         case "weapon":
-            switch (true) {
-                case playOnDmg:
-                    if (msg.data.flags.pf2e?.damageRoll /*msg.data.flavor?.toLowerCase().includes("damage")*/) {
-                        trafficCop(handler);
-                    }
-                    break;
-                default:
-                    if (msg.data.flags.pf2e?.context?.type.includes("attack")) {
-                        trafficCop(handler);
-                    }
-            }
+            handlePf2eStrike(msg, handler, playOnDmg)
             break;
         case "consumable":
         case "armor":
         case "feat":
         case "action":
         case "effect":
-            trafficCop(handler);
+            if (handler.item.rules.findIndex(x => x.key === "Strike") >= 0) {
+                const wasHandled = handlePf2eStrike(msg, handler, playOnDmg);
+                if (!wasHandled) {
+                    trafficCop(handler);
+                }
+            }
+            else {
+                trafficCop(handler);
+            }
             break;
     }
+}
+
+function handlePf2eStrike(msg, handler, playOnDmg) {
+    const isDamageRoll = !!msg.data.flags.pf2e?.damageRoll; /*msg.data.flavor?.toLowerCase().includes("damage")*/
+    const isAttackRoll = msg.data.flags.pf2e?.context?.type.includes("attack");
+    if (!isAttackRoll && !isDamageRoll) {
+        return false;
+    }
+    switch (true) {
+        case playOnDmg:
+            if (isDamageRoll) {
+                trafficCop(handler);
+            }
+            break;
+        default:
+            if (isAttackRoll) {
+                trafficCop(handler);
+            }
+    }
+    return true;
 }
 
 async function setupA5ESystem(msg) {

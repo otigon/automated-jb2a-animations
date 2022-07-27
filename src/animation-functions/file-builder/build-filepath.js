@@ -45,10 +45,8 @@ export async function buildFile(getMeta, dbType, name, animationType, animationV
         //let msFile = color === "random" ? `autoanimations.${type}.${path}.02` : `autoanimations.${type}.${path}.02.${color}`;
         const returnArray = Object.keys(jb2a.return.weapon);
         returnFile = returnArray.some(el => path === el) ? `autoanimations.return.weapon.${path}.${variant}.${color}` : "";
-        if (getMeta) {
-            fileData = color === "random" ? jb2a[type][menuType][path][variant][Object.keys(jb2a[type][menuType][path][variant])[0]][0] : jb2a[type][menuType][path][variant][color][0];
-            metadata = await getVideoDimensionsOf(fileData);
-        }    
+        fileData = color === "random" ? jb2a[type]?.[menuType]?.[path]?.[variant]?.[Object.keys(jb2a[type]?.[menuType]?.[path]?.[variant] || {})[0]][0] : jb2a[type]?.[menuType]?.[path]?.[variant]?.[color]?.[0];
+        //metadata = await getVideoDimensionsOf(fileData);
     }
 
     return { file, metadata, returnFile, fileData }
