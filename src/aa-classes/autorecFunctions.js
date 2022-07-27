@@ -124,6 +124,7 @@ export class AutorecFunctions {
         return nameArray;
     }
     static _getAllTheNamesAefx(obj) {
+        if (!obj) { return []; }
         const nameArray = []
         const keys = Object.keys(obj)
         const keyLength = keys.length
@@ -179,7 +180,7 @@ export class AutorecFunctions {
         }
     }
     static _findObjectFromAefx(settings, name) {
-        if (!name) { return; }
+        if (!name || !settings.aefx) { return; }
         const mergedArray = [];
 
         var arrayLength = Object.keys(settings.aefx).length
