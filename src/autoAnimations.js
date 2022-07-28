@@ -655,7 +655,7 @@ async function setUp5eCore(msg) {
             rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
-
+    console.log(handler)
     if (!handler.item || !handler.sourceToken) {
         return;
     }
