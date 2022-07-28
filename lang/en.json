@@ -695,5 +695,20 @@
     "AUTOANIM.wfrp4eCastOnlyOnSuccessHint": "Selecting this option will play spell/miracle/skill animation only when spell/miracle/skill was succesfully rolled (passed test and CN number reached)",
     "AUTOANIM.leaves": "Leaves",
     "AUTOANIM.inwarddots": "Inward Dots",
-    "AUTOANIM.inwardstars": "Inward Stars"
+    "AUTOANIM.inwardstars": "Inward Stars",
+
+    "AUTOANIM.green02": "Green 02",
+    "AUTOANIM.blue02": "Blue 02",
+    "AUTOANIM.blue03": "Blue 03",
+    "AUTOANIM.blackblue": "Black Blue",
+    "AUTOANIM.blackyellow": "Black Yellow",
+    "AUTOANIM.grenadelaunch": "Grenade Launch",
+    "AUTOANIM.cannonball": "Cannonball",
+    "AUTOANIM.bomb": "Bomb",
+    "AUTOANIM.flask": "Flask",
+    "AUTOANIM.grenade": "Grenade", 
+    "AUTOANIM.bone": "Bone",
+    "AUTOANIM.stick": "Stick",
+    "AUTOANIM.ring02": "Ring 02",
+    "AUTOANIM.ring03": "Ring 03"
 }
