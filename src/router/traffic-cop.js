@@ -177,7 +177,7 @@ export async function trafficCop(handler) {
                 Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
                 rangedAnimations(handler, animationData);
                 break;
-            case "static":
+            case "ontoken":
                 Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
                 staticAnimation(handler, animationData);
                 break;
@@ -204,7 +204,6 @@ export async function trafficCop(handler) {
                 }
                 break;
             case "aura":
-            case "auras":
                 auras(handler, animationData)
                 break;
             case "preset":

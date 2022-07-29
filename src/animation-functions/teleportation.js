@@ -19,7 +19,7 @@ export async function teleportation(handler, animationData) {
     }
     */
     //const root = handler.flags.preset?.teleportation;
-    const root = data.isAuto ? handler.autorecObject?.teleportation : handler.flags?.preset?.teleportation;
+    const root = data.isAuto ? handler.autorecObject?.data : handler.flags?.preset?.teleportation;
     if (!root) { return; }
     const measureType = root.measureType || "alternating";
     const range = root.range || 30;
