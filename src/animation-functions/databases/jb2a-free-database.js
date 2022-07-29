@@ -1417,10 +1417,7 @@ export async function jb2aAAFreeDatabase(path) {
                         lg`Smoke/SmokePuffRing01_02_Regular_White_400x400.webm`,
                         lg`Smoke/SmokePuffRing01_03_Regular_White_400x400.webm`
                     ],
-                },
-                'ring03':{
-                    white: [lg`Smoke/SmokePuffRing02_01_Regular_White_400x400.webm`],
-                },
+                }
             },
             ui: {
                 drop: {
