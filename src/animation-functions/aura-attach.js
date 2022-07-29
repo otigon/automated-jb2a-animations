@@ -1,6 +1,7 @@
 import { buildFile } from "./file-builder/build-filepath.js";
 import { aaDebugger } from "../constants/constants.js";
-import { AAanimationData } from "../aa-classes/animation-data.js";
+//import { AAanimationData } from "../aa-classes/animation-data.js";
+import { AAAnimationData } from "../aa-classes/AAAnimationData.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -72,7 +73,7 @@ export async function auras(handler, animationData) {
             newEffect.fadeIn(2500)
             newEffect.fadeOut(500)
             newEffect.zIndex(data.zIndex)
-            AAanimationData.howToDelete("sequencerground")
+            AAAnimationData.howToDelete("sequencerground")
         }
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;
@@ -81,7 +82,7 @@ export async function auras(handler, animationData) {
                 .play()
         }
         if (data.playSound) {
-            aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+            aaSeq.addSequence(await AAAnimationData._sounds({ animationData }))
         }
         aaSeq.play()
     }
@@ -122,7 +123,7 @@ export async function auras(handler, animationData) {
 
         }
         if (data.playSound) {
-            aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+            aaSeq.addSequence(await AAAnimationData._sounds({ animationData }))
         }
         // Macro if Concurrent
         if (data.playMacro && data.macro.playWhen === "0") {
@@ -132,6 +133,6 @@ export async function auras(handler, animationData) {
                 .play()
         }
         aaSeq.play()
-        AAanimationData.howToDelete("sequencerground")
+        AAAnimationData.howToDelete("sequencerground")
     }
 }

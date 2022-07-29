@@ -1,4 +1,5 @@
-import { AAanimationData } from "../../aa-classes/animation-data.js";
+//import { AAanimationData } from "../../aa-classes/animation-data.js";
+import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 import { aaDebugger } from "../../constants/constants.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -63,7 +64,7 @@ export async function huntersMark(handler, animationData) {
         aaSeq.addSequence(sourceFX.sourceSeq)
     }
     if (data.playSound) {
-        aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+        aaSeq.addSequence(await AAAnimationData._sounds({ animationData }))
     }
     // Animation Start Hook
     aaSeq.thenDo(function () {
@@ -100,7 +101,7 @@ export async function huntersMark(handler, animationData) {
                 .loopProperty("sprite", "alpha", { from: 0.25, to: 1, duration: 4000, pingPong: true })
         }
         if (targetFX.enabled) {
-            let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
+            let targetSequence = AAAnimationData._targetSequence(targetFX, target, handler);
             aaSeq.addSequence(targetSequence.targetSeq)
         }
     }

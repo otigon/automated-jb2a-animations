@@ -1,6 +1,7 @@
 import { buildFile } from "../file-builder/build-filepath.js";
 import { aaDebugger } from "../../constants/constants.js";
-import { AAanimationData } from "../../aa-classes/animation-data.js";
+//import { AAanimationData } from "../../aa-classes/animation-data.js";
+import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -50,7 +51,7 @@ export async function sneakAttack(handler, animationData) {
             .belowTokens(cleanData.below)
             .anchor({ x: cleanData.anchorX, y: cleanData.anchorY })
         if (data.playSound) {
-            aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+            aaSeq.addSequence(await AAAnimationData._sounds({ animationData }))
         }
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;

@@ -2,7 +2,7 @@ import { endTiming } from "../constants/timings.js";
 import { AASystemData } from "./getdata-by-system.js";
 import { flagMigrations } from "./flagMerge.js";
 //import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
-import { AAAutorecFunctions } from "../aa-classes/aaAutorecFunctions.js";
+import { AAAutorecFunctions } from "../aa-classes/AAAutorecFunctions.js";
 
 export default class systemData {
 
@@ -129,6 +129,7 @@ export default class systemData {
             }
         }
 
+        /*
         this.isAutorecTemplateItem = false;
         this.isAutorecAura = false;
         this.isAutorecFireball = false;
@@ -137,7 +138,7 @@ export default class systemData {
         if (this.autorecObject && !this.isCustomized) {
             const menuType = this.autorecObject.aaMenu;
             const presetType = this.autorecObject.presetType;
-            this.isAutorecTemplateItem = this.autorecObject.aaMenu === 'templatefx' ? true : false;
+            this.isAutorecTemplateItem = menuType === 'templatefx' ? true : false;
             this.isAutorecFireball = menuType === "preset" && presetType === "fireball" ? true : false;
             this.isAutorecAura = menuType === "aura" ? true : false;
             this.isAutorecTeleport = menuType === "preset" && presetType === 'teleportation' ? true : false;
@@ -145,7 +146,6 @@ export default class systemData {
         }
         this.isAutorecTemplate = (this.isAutorecTemplateItem || this.isAutorecFireball) && !this.isCustomized ? true : false;
 
-        this.isOverrideTemplate = false;
         this.isOverrideTemplate = false;
         this.isOverrideTeleport = false;
         this.isOverrideThunderwave5e = false;
@@ -155,12 +155,28 @@ export default class systemData {
             this.isOverrideTeleport = (this.animType === "preset" && this.flags.preset?.presetType === "teleportation") || this.isAutorecTeleport ? true : false;
             this.isThunderwave5e = (this.animType === 'preset' && this.isCustomized && this.flags.preset?.presetType === 'thunderwave'); 
         }
-        //this.isAutorecTeleport = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === 'teleportation' ? true: false;
+        */
         this.decoupleSound = game.settings.get("autoanimations", "decoupleSound");
     }
 
     get shouldPlayImmediately () {
-        return this.isOverrideAura || this.isAutorecAura || this.isOverrideTemplate || this.isAutorecTemplate || this.isOverrideTeleport || this.isAutorecTeleport || this.isThunderwave5e || this.isAutoThunderwave5e;
+
+        if (this.autorecObject || this.isCustomized) {
+            const menuType = this.isCustomized ? this.animType : this.autorecObject.aaMenu;
+            const presetType = this.isCustomized ? this.flags?.preset?.presetType : this.autorecObject.presetType;
+
+            return menuType === 'templatefx' || menuType === "aura" || (menuType === "preset" && (presetType === "fireball" || presetType === 'teleportation' || presetType === 'thunderwave'))
+        } else {
+            return false;
+        }
+        //return this.isOverrideAura || this.isAutorecAura || this.isOverrideTemplate || this.isAutorecTemplate || this.isOverrideTeleport || this.isAutorecTeleport || this.isThunderwave5e || this.isAutoThunderwave5e;
+    }
+
+    get isTemplateItem () {
+        const menuType = this.isCustomized ? this.animType : this.autorecObject.aaMenu;
+        const presetType = this.isCustomized ? this.flags?.preset?.presetType : this.autorecObject.presetType;
+
+        return menuType === 'templatefx' ||  (menuType === 'preset' && presetType === "fireball")
     }
 
     get soundNoAnimation () {

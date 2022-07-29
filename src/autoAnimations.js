@@ -32,6 +32,8 @@ import { showMainMenu } from "./formApps/AutorecMenu/showMainUI.js";
 
 import "../styles/newMenuCss.scss";
 
+import { aaDeletedItems } from "./DeletedItems.js";
+
 const log = () => { };
 
 Hooks.once('socketlib.ready', function () {
@@ -496,7 +498,7 @@ Hooks.once('ready', async function () {
     Hooks.callAll("aa.ready", obj01)
 });
 
-export const aaDeletedItems = new Map();
+//export const aaDeletedItems = new Map();
 //Hooks.on("deleteItem", async (item) => {getDeletedItems(item)})
 function storeDeletedItems(item) {
     aaDeletedItems.set(item.id, item)

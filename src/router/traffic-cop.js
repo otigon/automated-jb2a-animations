@@ -15,7 +15,8 @@ import { auras } from "../animation-functions/aura-attach.js";
 import { aaDebugger } from "../constants/constants.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import { fireball } from "../animation-functions/custom-sequences/fireball.js";
-import { AAanimationData } from "../aa-classes/animation-data.js";
+//import { AAanimationData } from "../aa-classes/animation-data.js";
+import { AAAnimationData } from "../aa-classes/AAAnimationData.js";
 import { particleEffects } from "../animation-functions/particleSystem.js";
 import { dualAttach } from "../animation-functions/custom-sequences/dual-attach.js";
 import { thunderwaveAuto } from "../animation-functions/thunderwave.js";
@@ -28,7 +29,7 @@ export async function trafficCop(handler) {
     if (game.Levels3DPreview?._active) {
         if (handler.flags?.levels3d?.type && handler.isCustomized) {
             if (aaDebug) { aaDebugger("Beginning Particle Animation for Custom Item Setting") }
-            const animationData = await AAanimationData._getAnimationData(handler);
+            const animationData = await AAAnimationData._getAnimationData(handler);
             particleEffects(handler, false, animationData);
             return;
         } else if (!game.settings.get("autoanimations", "disableAutoRec")) {
@@ -37,7 +38,7 @@ export async function trafficCop(handler) {
             const isAuto = AutorecFunctions.foundInAutorec(handler.autorecSettings, autoName);
             if (isAuto) {
                 const autoObject = handler.autorecObject;
-                const animationData = await AAanimationData._getAnimationData(handler, handler.autorecObject);
+                const animationData = await AAAnimationData._getAnimationData(handler, handler.autorecObject);
                 particleEffects(handler, autoObject, animationData);
                 return;
             }
@@ -92,7 +93,7 @@ export async function trafficCop(handler) {
     //const animationData = isCustom ? await AAanimationData._getAnimationData(handler) : await AAanimationData._getAnimationData(isAutorec)
     if (isCustom || (isAutorec && !game.settings.get("autoanimations", "disableAutoRec"))) {
 
-        let animType = isCustom ? handler.animType : isAutorec.menuSection;
+        let animType = isCustom ? handler.animType : isAutorec.aaMenu;
         let presetType = isCustom ? handler.flags?.preset?.presetType : isAutorec.presetType;
         if (!isCustom && animType === 'aefx') {
             animType = isAutorec.animType;
@@ -104,7 +105,7 @@ export async function trafficCop(handler) {
             presetType = isAutorec.presetType;
         }
         const targets = handler.allTargets?.length ?? 0;
-        const animationData = isCustom ? await AAanimationData._getAnimationData(handler) : await AAanimationData._getAnimationData(handler, isAutorec);
+        const animationData = isCustom ? await AAAnimationData._getAnimationData(handler) : await AAAnimationData._getAnimationData(handler, isAutorec);
         if (!isCustom && isAutorec) {
             if (animationData.primary.soundOnly.enable || animationData.primary.macro.playWhen === "2") {
                 const primaryData = animationData.primary;

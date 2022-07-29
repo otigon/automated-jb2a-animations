@@ -2,7 +2,8 @@ import { buildFile } from "./file-builder/build-filepath.js";
 import { socketlibSocket } from "../socketset.js";
 //import { thunderwaveAuto } from "./thunderwave.js"
 import { aaDebugger } from "../constants/constants.js"
-import { AAanimationData } from "../aa-classes/animation-data.js";
+//import { AAanimationData } from "../aa-classes/animation-data.js";
+import { AAAnimationData } from "../aa-classes/AAAnimationData.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function templateAnimation(handler, animationData, config) {
@@ -95,15 +96,15 @@ export async function templateAnimation(handler, animationData, config) {
             aaSeq.addSequence(sourceFX.sourceSeq)
         }
         if (data.playSound) {
-            aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+            aaSeq.addSequence(await AAAnimationData._sounds({ animationData }))
         }
         aaSeq.play()
         socketlibSocket.executeAsGM("placeTile", templateObject)
         if (data.removeTemplate) {
             if (data.persistType === 'overheadtile') {
-                AAanimationData.howToDelete("overheadtile")
+                AAAnimationData.howToDelete("overheadtile")
             } else {
-                AAanimationData.howToDelete("groundtile")
+                AAAnimationData.howToDelete("groundtile")
             }
             canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [templateData._id])
         }
@@ -130,7 +131,7 @@ export async function templateAnimation(handler, animationData, config) {
             aaSeq.addSequence(sourceFX.sourceSeq)
         }
         if (data.playSound) {
-            aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+            aaSeq.addSequence(await AAAnimationData._sounds({ animationData }))
         }
         aaSeq.thenDo(function () {
             Hooks.callAll("aa.animationStart", sourceToken, "no-target")
@@ -212,7 +213,7 @@ export async function templateAnimation(handler, animationData, config) {
                 .play()
         }
         aaSeq.play()
-        if (data.persistType === 'sequencerground' && data.persistent) { AAanimationData.howToDelete("sequencerground") }
+        if (data.persistType === 'sequencerground' && data.persistent) { AAAnimationData.howToDelete("sequencerground") }
         await wait(500)
         Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
     }

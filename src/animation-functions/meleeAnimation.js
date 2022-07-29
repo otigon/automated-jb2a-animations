@@ -1,6 +1,7 @@
 import { buildFile } from "./file-builder/build-filepath.js"
 import { aaDebugger } from "../constants/constants.js";
-import { AAanimationData } from "../aa-classes/animation-data.js";
+import { AAAnimationData } from "../aa-classes/AAAnimationData.js";
+//import { AAanimationData } from "../aa-classes/animation-data.js";
 //import { AAITEMCHECK } from "./item-arrays.js";
 //import { animationDefault } from "./file-builder/options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -179,11 +180,11 @@ export async function meleeAnimation(handler, animationData) {
 
             // Extra Effects => Target effect section
             if (targetFX.enabled && hit) {
-                let targetSequence = AAanimationData._targetSequence(targetFX, target, handler);
+                let targetSequence = AAAnimationData._targetSequence(targetFX, target, handler);
                 aaSeq.addSequence(targetSequence.targetSeq)
             }
         }
-        aaSeq.addSequence(await AAanimationData._sounds({ animationData, switchSound, targetSound, explosionSound: true }))
+        aaSeq.addSequence(await AAAnimationData._sounds({ animationData, switchSound, targetSound, explosionSound: true }))
         // Macro if Concurrent
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;

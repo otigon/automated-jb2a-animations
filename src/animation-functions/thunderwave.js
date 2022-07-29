@@ -1,9 +1,10 @@
 import { JB2APATREONDB } from "./databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./databases/jb2a-free-database.js";
 //import { buildFile } from "./file-builder/build-filepath.js";
-import { socketlibSocket } from "../socketset.js";
+//import { socketlibSocket } from "../socketset.js";
 import { aaDebugger } from "../constants/constants.js";
-import { AAanimationData } from "../aa-classes/animation-data.js";
+//import { AAanimationData } from "../aa-classes/animation-data.js";
+import { AAAnimationData } from "../aa-classes/AAAnimationData.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -133,7 +134,7 @@ export async function thunderwaveAuto(handler, animationData, config) {
             aaSeq.addSequence(sourceFX.sourceSeq)
         }
         if (data.playSound) {
-            aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+            aaSeq.addSequence(await AAAnimationData._sounds({ animationData }))
         }
         aaSeq.thenDo(function () {
             Hooks.callAll("aa.animationStart", sourceToken, "no-target")

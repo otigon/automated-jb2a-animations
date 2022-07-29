@@ -1,7 +1,8 @@
 import { buildFile } from "./file-builder/build-filepath.js"
 import { aaDebugger } from "../constants/constants.js"
 //import { socketlibSocket } from "../socketset.js";
-import { AAanimationData } from "../aa-classes/animation-data.js";
+//import { AAanimationData } from "../aa-classes/animation-data.js";
+import { AAAnimationData } from "../aa-classes/AAAnimationData.js";
 export async function teleportation(handler, animationData) {
 
     const sourceToken = handler.sourceToken;
@@ -134,7 +135,7 @@ export async function teleportation(handler, animationData) {
         }
         aaSeq.addSequence(sourceFX.sourceSeq)
         if (data.playSound) {
-            aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+            aaSeq.addSequence(await AAAnimationData._sounds({ animationData }))
         }
         let startEffect = aaSeq.effect()
             startEffect.file(startFile.file)
