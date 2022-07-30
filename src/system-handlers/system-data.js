@@ -75,7 +75,9 @@ export default class systemData {
 
         this.isDisabled = this.flags.killAnim || false;
         this.isCustomized = this.flags.override || false;
-        this.animType = this.flags.animType || "";
+
+        //changed from flags.animType to match Autorec menu
+        this.menu = this.flags.menu || "";
 
         this.bards = this.flags.bards ?? {};
 
@@ -162,7 +164,7 @@ export default class systemData {
     get shouldPlayImmediately () {
 
         if (this.autorecObject || this.isCustomized) {
-            const menuType = this.isCustomized ? this.animType : this.autorecObject.aaMenu;
+            const menuType = this.isCustomized ? this.menu : this.autorecObject.menu;
             const presetType = this.isCustomized ? this.flags?.preset?.presetType : this.autorecObject.presetType;
 
             return menuType === 'templatefx' || menuType === "aura" || (menuType === "preset" && (presetType === "fireball" || presetType === 'teleportation' || presetType === 'thunderwave'))
@@ -173,7 +175,7 @@ export default class systemData {
     }
 
     get isTemplateItem () {
-        const menuType = this.isCustomized ? this.animType : this.autorecObject.aaMenu;
+        const menuType = this.isCustomized ? this.menu : this.autorecObject.menu;
         const presetType = this.isCustomized ? this.flags?.preset?.presetType : this.autorecObject.presetType;
 
         return menuType === 'templatefx' ||  (menuType === 'preset' && presetType === "fireball")

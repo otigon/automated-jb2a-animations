@@ -3,7 +3,7 @@ import * as common from "./common";
 export const templatefx = [
    {
       ...common.main({ label: "calllightning" }),
-      aaMenu: "templatefx",
+      menu: "templatefx",
       primary: common.primary({
          video: { menuType: "circle", animation: "calllightning", variant: '01', color: 'blueorange' },
          options: {
@@ -28,7 +28,7 @@ export const templatefx = [
 
    {
       ...common.main({ label: "fogcloud" }),
-      aaMenu: "templatefx",
+      menu: "templatefx",
       primary: common.primary({
          video: { menuType: "circle", animation: "fogcloud", variant: '01', color: 'white' },
          options: {

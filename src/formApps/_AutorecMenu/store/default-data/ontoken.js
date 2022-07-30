@@ -3,7 +3,7 @@ import * as common from "./common";
 export const ontoken = [
    {
       ...common.main({ label: "curewounds" }),
-      aaMenu: "ontoken",
+      menu: "ontoken",
       primary: common.primary({
          video: { menuType: "spell", animation: 'curewounds', variant: '01', color: 'blue' },
          options: {
@@ -29,7 +29,7 @@ export const ontoken = [
 
    {
       ...common.main({ label: "itemHealingWord" }),
-      aaMenu: "ontoken",
+      menu: "ontoken",
       primary: common.primary({
          video: { menuType: "spell", animation: 'generichealing', variant: '01', color: 'blue' },
          options: {
@@ -55,7 +55,7 @@ export const ontoken = [
 
    {
       ...common.main({ label: "tollthedead" }),
-      aaMenu: "ontoken",
+      menu: "ontoken",
       primary: common.primary({
          video: { menuType: "spell", animation: 'tollthedead', variant: 'complete', color: 'green' },
          options: {
@@ -81,7 +81,7 @@ export const ontoken = [
 
    {
       ...common.main({ label: "bite" }),
-      aaMenu: "ontoken",
+      menu: "ontoken",
       primary: common.primary({
          video: { menuType: "creature", animation: "bite", variant: "01", color: "red" },
          options: {
@@ -107,7 +107,7 @@ export const ontoken = [
 
    {
       ...common.main({ label: "claw" }),
-      aaMenu: "ontoken",
+      menu: "ontoken",
       primary: common.primary({
          video: { menuType: "creature", animation: "claw", variant: "01", color: "red" },
          options: {

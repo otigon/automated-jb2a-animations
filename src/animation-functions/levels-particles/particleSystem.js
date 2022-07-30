@@ -1,14 +1,15 @@
-import { AAanimationData } from "../../aa-classes/animation-data.js";
+import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 
 export async function particleEffects(handler, autoObject, animationData = {}) {
 
     const options3d = autoObject ? autoObject.levels3d || {} : handler.flags?.levels3d || {};
+
     if (!options3d.type) { return; }
     const sourceToken = handler.sourceToken;
     //const target = handler.allTargets[0];
     const targets = handler.allTargets;
 
-    const data = await AAanimationData.compileParticleData(options3d)
+    const data = await AAAnimationData.compileParticleData(options3d || {})
     
     /**
      * This checks the "Primary Animation" sounds, and if present
