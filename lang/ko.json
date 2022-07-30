@@ -134,6 +134,8 @@
 
 
 
+
+
         },
         "animations": {
             "coneofcold": "냉기 분사",
@@ -310,6 +312,17 @@
             "quarterstaff": "쿼터스태프",
             "crossbow": "쇠뇌"
 
+
+
+
+
+
+
+
+
+
+
+
         },
         "variants": {
             "1":"01",
@@ -397,6 +410,7 @@
             "acid": "산성"
 
 
+
         },
         "menuTypes": {
             "creature": "크리쳐 공격",
@@ -421,6 +435,8 @@
             "circle": "구체형",
             "ray": "직선"
         
+
+            
         },
         "animTypes": {
             "melee": "근접",

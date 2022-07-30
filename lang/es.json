@@ -134,6 +134,8 @@
             "purplegreen": "Verde Morado",
             "greenred": "Rojo Verdoso",
             "orangeyellow": "Amarillo Anaranjado"
+
+
         },
         "animations": {
             "coneofcold": "Cono de frío",
@@ -310,6 +312,17 @@
             "quarterstaff": "Bastón",
             "crossbow": "Ballesta",
             "bow": "Arco"
+
+
+
+
+
+
+
+
+
+
+
         },
         "variants": {
             "1":"01",
@@ -397,6 +410,7 @@
             "acid": "Ácido",
             "slow": "Lento",
             "fast": "Rápido"
+
         },
         "menuTypes": {
             "creature": "Ataque de Criatura",
@@ -421,6 +435,8 @@
             "circle": "Círculo",
             "ray": "Rayo"
         
+
+            
         },
         "animTypes": {
             "melee": "Melé",

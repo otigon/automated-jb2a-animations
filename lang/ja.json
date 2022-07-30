@@ -134,6 +134,8 @@
 
 
 
+
+
         },
         "animations": {
             "coneofcold": "コーン・オヴ・コールド",
@@ -310,6 +312,17 @@
             "quarterstaff": "クォータースタッフ",
             "crossbow": "クロスボウ"
 
+
+
+
+
+
+
+
+
+
+
+
         },
         "variants": {
             "1":"01",
@@ -396,7 +409,8 @@
         
             "acid": "酸",
             "slow": "低速",
-            "fast": "高速"        
+            "fast": "高速"      
+
         },
         "menuTypes": {
             "creature": "肉体武器",
@@ -421,6 +435,8 @@
             "circle": "球形",
             "ray": "直線"
         
+
+            
         },
         "animTypes": {
             "melee": "近接攻撃",

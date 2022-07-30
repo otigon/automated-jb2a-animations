@@ -135,9 +135,11 @@
 
 
 
+
         },
         "animations": {
             "coneofcold": "Kältekegel",
+
 
 
 
@@ -310,6 +312,17 @@
             "quarterstaff": "Kampfstab",
             "crossbow": "Armbrust"
 
+
+
+
+
+
+
+
+
+
+
+
         },
         "variants": {
             "1": "01",
@@ -421,6 +434,10 @@
             "circle": "Kreis",
             "ray": "Strahl"
         
+
+
+
+            
         },
         "animTypes": {
             "melee": "Nahkampfwaffe",

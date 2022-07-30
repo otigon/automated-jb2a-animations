@@ -51,26 +51,26 @@
 			"disableNested": "Désactiver les animations imbriquées",
 			"disableNestedHint": "Empêche les animations pour les conditions (ensembles de règles) créées par d'autres conditions.",
 			"debugging": "Activer le débogage",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			"recovery_name": "Jet de récupértation",
+			"recovery_hint": "Permettre aux jets de récupération d'être joué sur le token source.",
+			"recoveryAnim_name": "Animation de jet de récupération",
+			"cypherCrit_name": "Coup critique",
+			"cypherCrit_hint": "Permet aux animations critiques (sur 20) d'être joué sur le token source.",
+			"cypherCritAnim_name": "Animation de coup critique",
+			"cypherFumble_name": "Échec critique",
+			"cypherFumble_hint": "Activation de l'animation d'échec critique (jet de 1) sur le token source.",
+			"cypherFumbleAnim_name": "Animation d'échec critique",
+			"mightroll_name": "Jet de puissance",
+			"mightroll_hint": "Activation de la lecture des animations des jets de puissance sur le token source.",
+			"mightRollAnim_name": "Animation de Puissance",
+			"speedroll_name": "Jet de vitesse",
+			"speedroll_hint": "Activation de la lecture des animations de jet de vitesse sur le token source.",
+			"speedRollAnim_name": "Vitesse d'animation",
+			"intellectroll_name": "Jet d'intelligence",
+			"intellectroll_hint": "Permet de jouer les animations de jet d'intelligence sur le token source.",
+			"intellectRollAnim_name": "Animation d'Intelligence",
+			"wfrp4eCastOnlyOnSuccess": "Animation sur un jet réussi",
+			"wfrp4eCastOnlyOnSuccessHint": "En sélectionnant cette option, l'animation du sort/miracle/compétences sera jouée uniquement lorsque le sort/miracle/compétences a été lancé avec succès (test réussi et nombre CN atteint).",
 			"teleport": "Vous avez choisi un point hors de portée. Choisissez à nouveau",
 			"extraexplain": "Nécessite une animation primaire, soit une reconnaissance personnalisée, soit une reconnaissance automatique."
 
@@ -133,20 +133,22 @@
 			"brightblue": "Bleu vif",
 			"purplegreen": "Vert pourpre",
 			"greenred": "Vert Rouge",
-			"orangeyellow": "Jaune orangé"		
+			"orangeyellow": "Jaune orangé"
+
+
         },
         "animations": {
 			"coneofcold": "Cône de froid",
 			"breathweaponspray01": "Arme à souffle Spray 01",
 			"breathweaponspray02": "Arme à souffle Spray 02",
+			"sacredflame": "Flamme sacrée",
 			"loop": "Boucle",
 			"complete": "Complète",
+			"strands": "Strands",
 
-
-
-
-
-
+			"dart": "Dart",
+			"inwarddots": "Pointes vers l'intérieur",
+			"inwardstars": "Étoiles intérieures",
 			"curewounds": "Soin des blessures",
 			"generichealing": "Guérison générique",
 			"itemHealingWord": "Mot de guérison",
@@ -309,7 +311,18 @@
 			"halberd": "Hallebarde",
 			"quarterstaff": "Bâton de chasse",
 			"crossbow": "Arbalète",
-			"bow": "Arc"
+			"bow": "Arc",
+
+
+
+
+
+
+			"leaves": "Feuilles"
+
+
+
+
         },
         "variants": {
             "1":"01",
@@ -390,13 +403,14 @@
 			"single": "Simple",
 			"double": "Double",
 			"pulse": "Impulsion",
-
+			"ring": "Anneau",
 			"fire01": "Feu 01",
 			"fire02": "Feu 02",
 			"burst": "Éclat",
 			"acid": "Acide",
 			"slow": "Lent",
-			"fast": "Rapide"		
+			"fast": "Rapide"	
+
         },
         "menuTypes": {
 			"creature": "Attaque de créature",
@@ -419,7 +433,9 @@
 			"cone": "Cône",
 			"square": "Carré",
 			"circle": "Cercle",
-			"ray": "Rayon"
+			"ray": "Rayon",
+			"leaves": "Feuilles"
+
 		
         },
         "animTypes": {

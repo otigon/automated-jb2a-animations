@@ -133,7 +133,9 @@
             "brightblue": "Bright Blue",
             "purplegreen": "Purple Green",
             "greenred": "Green Red",
-            "orangeyellow": "Orange Yellow"
+            "orangeyellow": "Orange Yellow",
+            "blackyellow": "Black Yellow",
+            "blackblue": "Black Blue"
         },
         "animations": {
             "coneofcold": "Cone of Cold",
@@ -310,7 +312,17 @@
             "quarterstaff": "Quarterstaff",
             "crossbow": "Crossbow",
             "bow": "Bow",
-            "frightened": "Frightened"
+            "frightened": "Frightened",
+            "bomb": "Bomb",
+            "cannonball": "Cannonball",
+            "flask": "Flask",
+            "grenade": "Grenade",
+            "grenadelaunch": "Grenade Launch",
+            "leaves": "Leaves",
+            "diamond": "Diamond",
+            "spike": "Spike",
+            "square": "Square",
+            "blob": "Blob"
         },
         "variants": {
             "1":"01",
@@ -397,7 +409,8 @@
             "burst": "Burst",
             "acid": "Acid",
             "slow": "Slow",
-            "fast": "Fast"
+            "fast": "Fast",
+            "stick": "Stick"
         },
         "menuTypes": {
             "creature": "Creature Attack",
@@ -421,7 +434,9 @@
             "square": "Square",
             "circle": "Circle",
             "ray": "Ray",
-            "leaves": "Leaves"
+            "leaves": "Leaves",
+            "chains": "Chains",
+            "shrapnel": "Shrapnel"
         },
         "animTypes": {
             "melee": "Melee",
