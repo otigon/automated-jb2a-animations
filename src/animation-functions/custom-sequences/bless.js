@@ -1,15 +1,12 @@
-import { buildFile } from "../file-builder/build-filepath.js"
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
 import { aaColorMenu } from "../databases/jb2a-menu-options.js";
-//import { AAanimationData } from "../../aa-classes/animation-data.js";
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 import { aaDebugger } from "../../constants/constants.js";
-//import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function bless(handler, animationData) {
+export async function blessSeq(handler, animationData) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }

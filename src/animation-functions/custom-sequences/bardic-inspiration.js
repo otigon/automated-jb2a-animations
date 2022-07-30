@@ -1,10 +1,9 @@
 import { aaDebugger } from "../../constants/constants.js";
-//import { AAanimationData } from "../../aa-classes/animation-data.js";
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function bardicInspiration(handler, animationData) {
+export async function biSeq(handler, animationData) {
 
     const sourceToken = handler.sourceToken;
     const flags = handler.flags;

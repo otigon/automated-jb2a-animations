@@ -17,10 +17,11 @@ import AAAutorecMenu from "./formApps/AutorecMenu/aaAutorecMenu.js";
 
 import AAItemMenu from "./formApps/ItemMenu/itemMenu.js";
 
-import { teleportation } from "./animation-functions/teleportation.js";
 import { setupSocket } from "./socketset.js";
 import { flagMigrations } from "./system-handlers/flagMerge.js";
 import { autoRecMigration } from "./custom-recognition/autoRecMerge.js";
+
+import * as systemSupport from "./system-support/index.js"
 
 import { AnimationState } from "./AnimationState.js";
 import { initSettings } from "./initSettings.js";
@@ -53,37 +54,6 @@ Hooks.on('AutomaticAnimations.Clear.Data', async () => {
     await game.settings.set("autoanimations", "aaAutorec-ontoken", void 0);
     await game.settings.set("autoanimations", "aaAutorec-templatefx", void 0);
 });
-
-
-Hooks.on('init', () => {
-    Handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
-        return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
-    });
-    Handlebars.registerHelper('ifnoteq', function (a, b, options) {
-        if (a != b) { return options.fn(this); }
-        return options.inverse(this);
-    });
-    Handlebars.registerHelper('matchOverhead', function (autoObj, options) {
-        if (autoObj.persist && (autoObj.menuType === 'circle' || autoObj.menuType === 'square')) {
-            return options.fn(this);
-        }
-        return options.inverse(this);
-    });
-    Handlebars.registerHelper('sequencerOnly', function (autoObj, options) {
-        if (autoObj.persist && (autoObj.menuType === 'ray' || autoObj.menuType === 'cone')) {
-            return options.fn(this);
-        }
-        return options.inverse(this);
-    });
-    Handlebars.registerHelper('isAeSupported', function (options) {
-        let supportedSystems = ['dnd5e', 'pf2e', 'pf1', 'wfrp4e', 'sfrpg']
-        if (supportedSystems.includes(game.system.id)) {
-            return options.fn(this);
-        }
-        return options.inverse(this);
-    });
-
-})
 
 // sets the A-A button on the Item Sheet title bar
 Hooks.on(`renderItemSheet`, async (app, html, data) => {
@@ -177,59 +147,36 @@ Hooks.once('ready', async function () {
     }
     autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'), true, true)
     if (game.modules.get("midi-qol")?.active) {
-        log("midi IS active");
         Hooks.on("deleteItem", async (item) => {storeDeletedItems(item)})
         switch (game.settings.get("autoanimations", "playonDamage")) {
             case (true):
-                Hooks.on("midi-qol.DamageRollComplete", (workflow) => { setUpMidi(workflow) });
+                Hooks.on("midi-qol.DamageRollComplete", (workflow) => { systemSupport.aaMidiqol.setUpMidi(workflow) });
                 //Hooks.on('midi-qol.preambleComplete', (workflow) => { midiAOE(workflow) });
-                Hooks.on("createChatMessage", (msg) => { midiTemplateAnimations(msg) });
-                Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAttackDamage(workflow) });
+                Hooks.on("createChatMessage", (msg) => { systemSupport.aaMidiqol.midiTemplateAnimations(msg) });
+                Hooks.on("midi-qol.RollComplete", (workflow) => { systemSupport.aaMidiqol.setUpMidiNoAttackDamage(workflow) });
                 break;
             case (false):
-                Hooks.on("midi-qol.AttackRollComplete", (workflow) => { setUpMidi(workflow) });
-                Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAttack(workflow) });
+                Hooks.on("midi-qol.AttackRollComplete", (workflow) => { systemSupport.aaMidiqol.setUpMidi(workflow) });
+                Hooks.on("midi-qol.RollComplete", (workflow) => { systemSupport.aaMidiqol.setUpMidiNoAttack(workflow) });
                 //Hooks.on('midi-qol.preambleComplete', (workflow) => { midiAOE(workflow) });
-                Hooks.on("createChatMessage", (msg) => { midiTemplateAnimations(msg) });
+                Hooks.on("createChatMessage", (msg) => { systemSupport.aaMidiqol.midiTemplateAnimations(msg) });
                 break;
         }
         if (game.settings.get("autoanimations", "EnableCritical") || game.settings.get("autoanimations", "EnableCriticalMiss")) {
-            Hooks.on("midi-qol.AttackRollComplete", (workflow) => { criticalCheck(workflow) })
+            Hooks.on("midi-qol.AttackRollComplete", (workflow) => { systemSupport.aaMidiqol.criticalCheck(workflow) })
         }
     } else {
         Hooks.on("deleteItem", async (item) => {storeDeletedItems(item)})
         switch (game.system.id) {
-            case "a5e":
-                Hooks.on("createChatMessage", async (msg) => { setupA5ESystem(msg) });
-                break;
-			case "cyphersystem":
-                Hooks.on("createChatMessage", async (msg) => { setupCypherSystem(msg) });
-                break;
-            case "alienrpg":
-                Hooks.on("createChatMessage", async (msg) => { setupAlienRPG(msg) });
-                break;
-            case "pf1":
-            case "D35E":
-                Hooks.on("createChatMessage", async (msg) => { onCreateChatMessage(msg) });
-                break;
             case "dnd5e":
             case "sw5e":
-                Hooks.on("createChatMessage", async (msg) => {
-                    setUp5eCore
-                        (msg);
-                });
-                break;
-            case "tormenta20":
-                Hooks.on("createChatMessage", async (msg) => { setupTormenta20(msg) });
+                Hooks.on("createChatMessage", async (msg) => { systemSupport.aaDnd5e.runDnd5e(msg); });
                 break;
             case "demonlord":
-                Hooks.on("DL.Action", async (data) => { setupDemonLord(data) });
+                Hooks.on("DL.Action", async (data) => { systemSupport.aaDemonlord.runDemonlord(data) });
                 break;
             case "pf2e":
-                Hooks.on("createChatMessage", async (msg) => { pf2eReady(msg) });
-                break;
-            case "forbidden-lands":
-                Hooks.on("createChatMessage", async (msg) => { fblReady(msg) });
+                Hooks.on("createChatMessage", async (msg) => { systemSupport.aaPf2e.runPf2e(msg) });
                 break;
             case "sfrpg":
                 Hooks.on("createChatMessage", async (msg) => {
@@ -252,21 +199,21 @@ Hooks.once('ready', async function () {
 
                     if (!item.hasAttack && !item.hasDamage) {
                         let data = {}
-                        starFinder(data, msg)
+                        systemSupport.aaSfrpg.runStarfinder(data, msg)
                     }
                 });
                 if (game.settings.get("autoanimations", "playonDamage")) {
                     Hooks.on("damageRolled", async (data) => {
                         Hooks.once("createChatMessage", async (msg) => {
                             if (msg.user.id !== game.user.id) { return };
-                            starFinder(data, msg)
+                            systemSupport.aaSfrpg.runStarfinder(data, msg)
                         });
                     });
                 } else {
                     Hooks.on("attackRolled", async (data) => {
                         Hooks.once("createChatMessage", async (msg) => {
                             if (msg.user.id !== game.user.id) { return };
-                            starFinder(data, msg)
+                            systemSupport.aaSfrpg.runStarfinder(data, msg)
                         });
                     })
                     Hooks.on("damageRolled", async (data) => {
@@ -275,24 +222,21 @@ Hooks.once('ready', async function () {
                             if (data.item.hasAttack) {
                                 return;
                             } else {
-                                starFinder(data, msg)
+                                systemSupport.aaSfrpg.runStarfinder(data, msg)
                             }
                         });
                     })
                 }
                 break;
-            case "starwarsffg":
-                Hooks.on("createChatMessage", async (msg) => { swffgReady(msg) });
-                break;
             case "swade":
-                Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem, action, roll, userId) => {
+                Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem) => {
                     const controlledTokens = canvas.tokens.controlled;
                     let token;
                     if (controlledTokens.length > 0) {
                         token = controlledTokens.find(token => token.data.actorId === SwadeTokenOrActor.id);
                     }
                     if (token) { SwadeTokenOrActor = token; }
-                    swadeData(SwadeTokenOrActor, SwadeItem, action, roll, userId)
+                    systemSupport.aaSwade.runSwade(SwadeTokenOrActor, SwadeItem)
                 });
                 async function get_brsw_data (data) {
                     var tokenId = data.getFlag("betterrolls-swade2", "token");
@@ -315,52 +259,61 @@ Hooks.once('ready', async function () {
                     const {actorOrToken, item} = await get_brsw_data (data)
                     if (item.data.flags?.autoanimations?.animType === "template" || (item.data.flags?.autoanimations?.animType === "preset" && item.data.flags?.autoanimations?.animation === "fireball")) {
                         return //Return to prevent duplicate effects on placing a template.
-                    } else { swadeData(actorOrToken, item) }
+                    } else { systemSupport.aaSwade.runSwade(actorOrToken, item) }
                 });
                 Hooks.on("BRSW-BeforePreviewingTemplate", async (template, data, ev) => {
                     const {actorOrToken, item} = await get_brsw_data (data)
-                    swadeData(actorOrToken, item)
+                    systemSupport.aaSwade.runSwade(actorOrToken, item)
                 })
                 Hooks.on("BRSW-CreateItemCardNoRoll", async (data) => {
                     const {actorOrToken, item} = await get_brsw_data (data)
                     if (item.data.flags?.autoanimations?.animType === "template" || (item.data.flags?.autoanimations?.animType === "preset" && item.data.flags?.autoanimations?.animation === "fireball")) {
                         return //Return to prevent duplicate effects on placing a template.
-                    } else { swadeData(actorOrToken, item) }
+                    } else { systemSupport.aaSwade.runSwade(actorOrToken, item) }
                 })
                 break;
             case "wfrp4e":
                 Hooks.on("wfrp4e:rollWeaponTest", async (data, info) => {
                     //let targets = game.user.targets;
-                    wfrpWeapon(data, info)
+                    systemSupport.aaWfrpg.wfrpWeapon(data, info)
                 });
                 Hooks.on("wfrp4e:rollPrayerTest", async (data, info) => {
                     //let targets = game.user.targets;
-                    wfrpPrayer(data, info)
+                    systemSupport.aaWfrpg.wfrpPrayer(data, info)
                 });
                 Hooks.on("wfrp4e:rollCastTest", async (data, info) => {
                     //let targets = game.user.targets;
-                    wfrpCast(data, info)
+                    systemSupport.aaWfrpg.wfrpCast(data, info)
                 });
                 Hooks.on("wfrp4e:rollTraitTest", async (data, info) => {
                     //let targets = game.user.targets;
-                    wfrpTrait(data, info)
+                    systemSupport.aaWfrpg.wfrpTrait(data, info)
                 });
                 Hooks.on("wfrp4e:rollTest", async (data, info) => {
                     //let targets = game.user.targets;
-                    wfrpSkill(data, info)
+                    systemSupport.aaWfrpg.wfrpSkill(data, info)
                 });
-
-                break;
-            case 'ose':
-                Hooks.on("createChatMessage", async (msg) => { oseReady(msg) });
+                
                 break;
             case 'dcc':
-                Hooks.on("createChatMessage", async (msg) => { dccReady(msg) });
+                Hooks.on("createChatMessage", async (msg) => {  systemSupport.aaDcc.runDcc(msg) });
                 break;
+            /*
+            Systems Working at Default level
+            case "a5e":
+            case "cyphersystem":
+            case "alienrpg":
+            case "pf1":
+            case "D35E":
+            case "forbidden-lands":
+            case "starwarsffg":
+            case 'ose':
+            */    
             default:
-                Hooks.on("createChatMessage", async (msg) => {standardChat(msg) });
+                Hooks.on("createChatMessage", async (msg) => {systemSupport.aaStandard.runStandard(msg) });
         }
     }
+    
     //Active Effect Hooks
     switch (game.system.id) {
         case "sfrpg":
@@ -503,7 +456,6 @@ Hooks.once('ready', async function () {
 function storeDeletedItems(item) {
     aaDeletedItems.set(item.id, item)
 }
-const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 /* External call for animations
 * sourceToken as the originating token
@@ -529,530 +481,3 @@ function moduleIncludes(test) {
     return !!game.modules.get(test);
 }
 window.AAAutoRec = AAAutorecMenu;
-/*
-/ Midi-QOL Functions for DnD 5e and Star Wars 5e
-*/
-// setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
-async function setUpMidi(workflow) {
-    if (!AnimationState.enabled) { return; }
-    let handler = await systemData.make(workflow);
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-    if (handler.shouldPlayImmediately) { return; }
-    trafficCop(handler);
-}
-// setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
-async function setUpMidiNoAttackDamage(workflow) {
-    if (!AnimationState.enabled) { return; }
-    if (workflow.item?.hasAttack || workflow.item?.hasDamage) { return; }
-    let handler = await systemData.make(workflow);
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-    if (handler.shouldPlayImmediately) { return; }
-    trafficCop(handler)
-}
-// setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
-async function setUpMidiNoAttack(workflow) {
-    if (!AnimationState.enabled) { return; }
-    if (workflow.item?.hasAttack) { return; }
-    let handler = await systemData.make(workflow);
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-    if (handler.shouldPlayImmediately) { return; }
-    trafficCop(handler)
-}
-/*
-// For AOE items when using Midi QOL
-async function midiAOE(workflow) {
-    if (!AnimationState.enabled) { return; }
-    const handler = await systemData.make(workflow);
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-    if (handler.shouldPlayImmediately) {
-        trafficCop(handler);
-    } else { return; }
-}
-*/
-// Special cases required when using Midi-QOL. Templates, Fireball/Thunderwave/Teleportation/Aura presets
-async function midiTemplateAnimations(msg) {
-    if (!AnimationState.enabled) { return; }
-    if (game.user.id !== msg.user?.id) {
-        return;
-    }
-    const handler = await systemData.make(msg, true);
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-    //let breakOut = checkMessege(msg);
-    if ((handler.shouldPlayImmediately) /*&& (breakOut === 0 || game.modules.get("betterrolls5e")?.active)*/) {
-        trafficCop(handler);
-    } else { return; }
-}
-
-
-function checkMessege(msg) {
-    try {
-        return msg.data?.flags['midi-qol'].type;
-    } catch (exception) {
-        return false;
-    }
-}
-
-/*
-* Midi-QOL Critical Hit and Fumble animations
-*
-*/
-async function criticalCheck(workflow) {
-    if (!AnimationState.enabled) { return; }
-    if (!workflow.isCritical && !workflow.isFumble) { return; }
-    let critical = workflow.isCritical;
-    let fumble = workflow.isFumble;
-    let token;
-
-    let critAnim = game.settings.get("autoanimations", "CriticalAnimation");
-    let critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
-
-    switch (true) {
-        case (game.settings.get("autoanimations", "EnableCritical") && critical):
-            token = canvas.tokens.get(workflow.tokenId);
-            new Sequence()
-                .effect()
-                .file(critAnim)
-                .atLocation(token)
-                .play()
-            break;
-        case (game.settings.get("autoanimations", "EnableCriticalMiss") && fumble):
-            token = canvas.tokens.get(workflow.tokenId);
-            new Sequence()
-                .effect()
-                .file(critMissAnim)
-                .atLocation(token)
-                .play()
-            break;
-    }
-}
-
-/*
-/ Set up DnD5e and SW5e CORE (NON MIDI)
-*/
-async function setUp5eCore(msg) {
-
-    if (!AnimationState.enabled) { return; }
-    if (msg.user.id !== game.user.id) { return };
-
-    const animationNow = game.settings.get("autoanimations", "playonDamageCore");
-    let handler;
-    let rollType;
-    switch (game.system.id) {
-        case "dnd5e":
-            handler = await systemData.make(msg);
-            rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
-            break;
-        case "sw5e":
-            handler = await systemData.make(msg);
-            rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
-            break;
-    }
-    console.log(handler)
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-
-    switch (true) {
-        case !handler.hasAttack && !handler.hasDamage:
-            trafficCop(handler);
-            break;
-        case (handler.shouldPlayImmediately) && !rollType.includes("damage") && !rollType.includes("attack"):
-            trafficCop(handler);
-            break;
-        case animationNow:
-            if (rollType.includes("damage")) {
-                if (handler.shouldPlayImmediately) { return; }
-                trafficCop(handler);
-            }
-            break;
-        case !animationNow:
-            switch (true) {
-                case game.modules.get("mre-dnd5e")?.active && game.settings.get("mre-dnd5e", "autoCheck") && !handler.hasAttack && handler.hasDamage && !rollType.includes("damage"):
-                    trafficCop(handler);
-                    break;
-                case game.modules.get("mre-dnd5e")?.active && game.settings.get("mre-dnd5e", "autoCheck") && rollType.includes("damage"):
-                    break;
-                case rollType.includes("damage") && !handler.hasAttack:
-                case rollType.includes('attack'):
-                    if (handler.shouldPlayImmediately) { return; }
-                    trafficCop(handler);
-                    break;
-                case game.modules.get("betterrolls5e")?.active && !handler.hasAttack && handler.hasDamage:
-                    if (handler.shouldPlayImmediately) { return; }
-                    trafficCop(handler);
-                    break;
-            }
-            break;
-    }
-}
-
-async function standardChat(msg) {
-    if (killAllAnimations) { return; }
-    if (msg.user.id !== game.user.id) { return };
-    log('onCreateChatMessage', msg);
-    let handler = await systemData.make(msg);
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-    trafficCop(handler);
-}
-/*
-/ sets Handler for PF1 and DnD3.5
-*/
-async function onCreateChatMessage(msg) {
-    if (!AnimationState.enabled) { return; }
-    if (msg.user.id !== game.user.id) { return };
-    log('onCreateChatMessage', msg);
-    let handler;
-    switch (game.system.id) {
-        case "pf1":
-            handler = await systemData.make(msg);
-            break;
-        case "D35E":
-            handler = await systemData.make(msg);
-            break;
-    }
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-    trafficCop(handler)
-}
-
-/*
-/ Sets Handler for Star Wars FFG
-*/
-async function swffgReady(msg) {
-    if (!AnimationState.enabled) { return; }
-    if (game.user.id !== msg.user.id) { return }
-    let handler = await systemData.make(msg);
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-    trafficCop(handler);
-}
-
-/*
-/ Sets Handler for SWADE
-*/
-async function swadeData(SwadeTokenOrActor, SwadeItem, action, roll, userId) {
-    if (!AnimationState.enabled) { return; }
-    let data = { SwadeTokenOrActor, SwadeItem, action, roll, userId }
-    let handler = await systemData.make(data);
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-    trafficCop(handler);
-}
-
-/*
-/ Sets Handler for Starfinder
-*/
-async function starFinder(data, msg) {
-    if (!AnimationState.enabled) { return; }
-    const sfrpgData = { data, msg }
-    const handler = await systemData.make(sfrpgData)
-    //let tokenId = msg.data.speaker.token;
-    //let sourceToken = canvas.tokens.get(tokenId);
-    //let targets = Array.from(msg.user.targets);
-    //let item = data.item;
-    //AutoAnimations.playAnimation(sourceToken, targets, item)
-    trafficCop(handler);
-}
-
-/*
-/ Sets Handler for Cypher System
-*/
-async function setupCypherSystem(msg) {
-    if (killAllAnimations) { return; }
-    if (game.user.id !== msg.user.id) {
-        return;
-    }
-    let handler = await systemData.make(msg);
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-
-    trafficCop(handler);
-}
-
-/*
-/ Sets Handler for Tormenta 20
-*/
-async function setupTormenta20(msg) {
-    if (!AnimationState.enabled) { return; }
-    if (game.user.id !== msg.user.id) {
-        return;
-    }
-    let handler = await systemData.make(msg);
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-    /*
-    if (game.user.id === msg.user.id) {
-        switch (true) {
-            case ((handler.animType === "t12") && (handler.isCustomized)):
-                teleportation(handler);
-                break;
-        }
-    }
-    */
-    trafficCop(handler);
-}
-
-/*
-/ Sets Handler for Forbidden Lands
-*/
-async function fblReady(msg) {
-    if (!AnimationState.enabled) { return; }
-    if (game.user.id !== msg.user.id) { return; }
-    const handler = await systemData.make(msg);
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-    trafficCop(handler);
-}
-/*
-/ Sets Handler for Demon Lord
-*/
-async function setupDemonLord(data) {
-    if (!AnimationState.enabled) { return; }
-    let handler = await systemData.make(data);
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-    trafficCop(handler);
-}
-
-/*
-/ Sets Handler for Pathfinder 2e and routes to animations
-*/
-async function pf2eReady(msg) {
-    if (!AnimationState.enabled) { return; }
-    if (game.user.id !== msg.user.id) { return; }
-    const handler = await systemData.make(msg);
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-
-    const itemType = handler.itemType;
-    let damage; //= /*handler.item.damageValue ||*/ //handler.item?.data.data.damage?.length || handler.item?.data?.data?.damage?.value["0"]?.value;
-    const spellType = handler.item?.data?.data?.spellType?.value ?? "utility";
-    const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
-    if (handler.shouldPlayImmediately && !msg.data.flavor?.toLowerCase().includes("damage")) {
-        trafficCop(handler);
-        return;
-    }
-    if (handler.shouldPlayImmediately) { return };
-
-    if (itemType === "feat" && handler.item?.data?.data?.actionType.value !== "passive") { return; }
-
-    switch (itemType) {
-        case "spell":
-            damage = handler.item?.data?.data?.damage?.value["0"]?.value;
-            switch (spellType) {
-                case "utility":
-                    if (!damage) {
-                        trafficCop(handler);
-                    } else if (msg.data.flavor?.toLowerCase().includes("damage")) {
-                        trafficCop(handler);
-                    }
-                    break;
-                case "save":
-                    if (!damage) {
-                        trafficCop(handler);
-                    } else if (msg.data.flavor?.toLowerCase().includes("damage")) {
-                        trafficCop(handler);
-                    }
-                    break;
-                case "heal":
-                    if (msg.data.flavor?.toLowerCase().includes('healing')) {
-                        trafficCop(handler);
-                    }
-                    if (handler.item.data?.data?.category?.value === "focus") {
-                        trafficCop(handler);
-                    }
-                    break;
-                case "attack":
-                    switch (playOnDmg) {
-                        case true:
-                            if (msg.data.flavor?.toLowerCase().includes("damage")) {
-                                trafficCop(handler);
-                            }
-                            break;
-                        default:
-                            if (msg.data.flags.pf2e?.context?.type.includes("attack")) {
-                                trafficCop(handler);
-                            }
-                    }
-                    break;
-            }
-            break;
-        case "melee":
-        case "weapon":
-            handlePf2eStrike(msg, handler, playOnDmg)
-            break;
-        case "consumable":
-        case "armor":
-        case "feat":
-        case "action":
-        case "effect":
-            if (handler.item.rules.findIndex(x => x.key === "Strike") >= 0) {
-                const wasHandled = handlePf2eStrike(msg, handler, playOnDmg);
-                if (!wasHandled) {
-                    trafficCop(handler);
-                }
-            }
-            else {
-                trafficCop(handler);
-            }
-            break;
-    }
-}
-
-function handlePf2eStrike(msg, handler, playOnDmg) {
-    const isDamageRoll = !!msg.data.flags.pf2e?.damageRoll; /*msg.data.flavor?.toLowerCase().includes("damage")*/
-    const isAttackRoll = msg.data.flags.pf2e?.context?.type.includes("attack");
-    if (!isAttackRoll && !isDamageRoll) {
-        return false;
-    }
-    switch (true) {
-        case playOnDmg:
-            if (isDamageRoll) {
-                trafficCop(handler);
-            }
-            break;
-        default:
-            if (isAttackRoll) {
-                trafficCop(handler);
-            }
-    }
-    return true;
-}
-
-async function setupA5ESystem(msg) {
-    if (killAllAnimations) { return; }
-    if (msg.user.id !== game.user.id) { return; }
-
-    const handler = await systemData.make(msg);
-    if (!handler.item || !handler.sourceToken) { return; }
-
-    trafficCop(handler);
-}
-
-/*
-/ WFRP Functions
-*/
-async function wfrpWeapon(data, info) {
-    if (!AnimationState.enabled) { return; }
-    if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.weapon, targets: data.context?.targets, info: info });
-    switch (true) {
-        case ((handler.animType === "t12") && (handler.isCustomized)):
-            teleportation(handler);
-            break;
-        default:
-            trafficCop(handler);
-    }
-}
-async function wfrpPrayer(data, info) {
-    if (!AnimationState.enabled) { return; }
-    if (game.user.id !== info.user) { return }
-    if (data.result.outcome != "success" && game.settings.get('autoanimations', 'castOnlyOnSuccess')) { return }
-    let handler = await systemData.make({ item: data.prayer, targets: data.context?.targets, info: info });
-    switch (true) {
-        case ((handler.animType === "t12") && (handler.isCustomized)):
-            teleportation(handler);
-            break;
-        default:
-            trafficCop(handler);
-    }
-}
-async function wfrpCast(data, info) {
-    if (!AnimationState.enabled) { return; }
-    if (game.user.id !== info.user) { return }
-    if (data.result.castOutcome != "success" && game.settings.get('autoanimations', 'castOnlyOnSuccess')) { return }
-    let handler = await systemData.make({ item: data.spell, targets: data.context?.targets, info: info });
-    switch (true) {
-        case ((handler.animType === "t12") && (handler.isCustomized)):
-            teleportation(handler);
-            break;
-        default:
-            trafficCop(handler);
-    }
-}
-async function wfrpTrait(data, info) {
-    if (!AnimationState.enabled) { return; }
-    if (game.user.id !== info.user) { return }
-    let handler = await systemData.make({ item: data.trait, targets: data.context?.targets, info: info });
-    switch (true) {
-        case ((handler.animType === "t12") && (handler.isCustomized)):
-            teleportation(handler);
-            break;
-        default:
-            trafficCop(handler);
-    }
-}
-async function wfrpSkill(data, info) {
-    if (!AnimationState.enabled) { return; }
-    if (game.user.id !== info.user) { return }
-    if (data.result.outcome != "success" && game.settings.get('autoanimations', 'castOnlyOnSuccess')) { return }
-    if (!data.skill) { return }
-    let handler = await systemData.make({ item: data.skill, targets: data.context?.targets, info: info });
-    switch (true) {
-        case ((handler.animType === "t12") && (handler.isCustomized)):
-            teleportation(handler);
-            break;
-        default:
-            trafficCop(handler);
-    }
-}
-
-async function oseReady(input) {
-    if (!AnimationState.enabled) { return; }
-    if (input.user.id !== game.user.id) { return };
-    let handler = await systemData.make(input)
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-    trafficCop(handler);
-}
-
-async function setupAlienRPG(input) {
-    if (!AnimationState.enabled) { return; }
-    if (input.user.id !== game.user.id) { return };
-    let handler = await systemData.make(input)
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-    trafficCop(handler);
-}
-
-async function dccReady(input) {
-    if (!AnimationState.enabled) { return; }
-    if (input.user.id !== game.user.id) { return };
-
-    if (!game.settings.get('dcc', 'useStandardDiceRoller')) {
-        let handler = await systemData.make(input)
-        if (!handler.item || !handler.sourceToken) {
-            return;
-        }
-        trafficCop(handler);
-    } else if (input.data?.flags?.dcc?.RollType === "Damage" || input.data?.flags?.dcc?.RollType === "SpellCheck") {
-        let handler = await systemData.make(input)
-        if (!handler.item || !handler.sourceToken) {
-            return;
-        }
-        trafficCop(handler);
-    }
-
-}

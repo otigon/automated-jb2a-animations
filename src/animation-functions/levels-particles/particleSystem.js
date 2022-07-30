@@ -1,4 +1,4 @@
-import { AAanimationData } from "../aa-classes/animation-data.js";
+import { AAanimationData } from "../../aa-classes/animation-data.js";
 
 export async function particleEffects(handler, autoObject, animationData = {}) {
 

@@ -1,6 +1,6 @@
 import { buildFile } from "../animation-functions/file-builder/build-filepath.js";
 import { custom_notify } from "../constants/constants.js"
-import { particleDefaultValues } from "../animation-functions/particleDefaults.js";
+import { particleDefaultValues } from "../animation-functions/levels-particles/particleDefaults.js";
 
 export class AAAnimationData {
 

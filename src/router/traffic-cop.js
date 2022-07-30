@@ -1,25 +1,27 @@
 //import { AAITEMCHECK, AAITEMCHECKFREE } from "../animation-functions/item-arrays.js";
 //import thunderwaveAuto from "../animation-functions/thunderwave.js";
+/*
 import { huntersMark } from "../animation-functions/custom-sequences/hunters-mark.js";
 import { bardicInspiration } from "../animation-functions/custom-sequences/bardic-inspiration.js";
-import { rangedAnimations } from "../animation-functions/rangedAnimation.js";
-import { meleeAnimation } from "../animation-functions/meleeAnimation.js";
-import { teleportation } from "../animation-functions/teleportation.js";
-import { templateAnimation } from "../animation-functions/templateAnimation.js";
+import { rangedAnimations } from "../animation-functions/standard-sequences/rangedAnimation.js";
+import { meleeAnimation } from "../animation-functions/standard-sequences/meleeAnimation.js";
+import { teleportation } from "../animation-functions/custom-sequences/teleportation.js";
+import { templateAnimation } from "../animation-functions/standard-sequences/templateAnimation.js";
 import { shieldSpell } from "../animation-functions/custom-sequences/shield.js";
 import { sneakAttack } from "../animation-functions/custom-sequences/sneak-Attack.js";
 import { bless } from "../animation-functions/custom-sequences/bless.js";
-import { staticAnimation } from "../animation-functions/staticAnimation.js";
-import { auras } from "../animation-functions/aura-attach.js";
-//import { findObjectByName, autorecNameCheck, rinseName, getAllNames } from "../custom-recognition/autoFunctions.js";
+import { staticAnimation } from "../animation-functions/standard-sequences/staticAnimation.js";
+import { auras } from "../animation-functions/standard-sequences/aura-attach.js";
+import { fireball } from "../animation-functions/custom-sequences/fireball.js";
+import { particleEffects } from "../animation-functions/levels-particles/particleSystem.js";
+import { dualAttach } from "../animation-functions/custom-sequences/dual-attach.js";
+import { thunderwaveAuto } from "../animation-functions/custom-sequences/thunderwave.js";
+*/
+import { AAAnimationData } from "../aa-classes/AAAnimationData.js";
 import { aaDebugger } from "../constants/constants.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
-import { fireball } from "../animation-functions/custom-sequences/fireball.js";
-//import { AAanimationData } from "../aa-classes/animation-data.js";
-import { AAAnimationData } from "../aa-classes/AAAnimationData.js";
-import { particleEffects } from "../animation-functions/particleSystem.js";
-import { dualAttach } from "../animation-functions/custom-sequences/dual-attach.js";
-import { thunderwaveAuto } from "../animation-functions/thunderwave.js";
+
+import * as animationSeq from "../animation-functions/index.js"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -30,7 +32,7 @@ export async function trafficCop(handler) {
         if (handler.flags?.levels3d?.type && handler.isCustomized) {
             if (aaDebug) { aaDebugger("Beginning Particle Animation for Custom Item Setting") }
             const animationData = await AAAnimationData._getAnimationData(handler);
-            particleEffects(handler, false, animationData);
+            animationSeq.particleEffects(handler, false, animationData);
             return;
         } else if (!game.settings.get("autoanimations", "disableAutoRec")) {
             if (aaDebug) { aaDebugger("Automatic Recognition Beginning for Particle System") }
@@ -39,7 +41,7 @@ export async function trafficCop(handler) {
             if (isAuto) {
                 const autoObject = handler.autorecObject;
                 const animationData = await AAAnimationData._getAnimationData(handler, handler.autorecObject);
-                particleEffects(handler, autoObject, animationData);
+                animationSeq.particleEffects(handler, autoObject, animationData);
                 return;
             }
         } else {
@@ -166,7 +168,7 @@ export async function trafficCop(handler) {
                     return;
                 }
                 Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
-                meleeAnimation(handler, animationData);
+                animationSeq.meleeSeq(handler, animationData);
                 break;
             case "range":
                 if (targets === 0) {
@@ -175,11 +177,11 @@ export async function trafficCop(handler) {
                     return;
                 }
                 Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
-                rangedAnimations(handler, animationData);
+                animationSeq.rangeSeq(handler, animationData);
                 break;
             case "ontoken":
                 Hooks.callAll("aa.preAnimationStart", handler.sourceToken);
-                staticAnimation(handler, animationData);
+                animationSeq.ontokenSeq(handler, animationData);
                 break;
             case "templatefx":
                 //some do not need hook on template, depends on when damage is rolled
@@ -191,43 +193,43 @@ export async function trafficCop(handler) {
                     case "tormenta20":
                     case "swade":
                         if (game.modules.get("mars-5e")?.active) {
-                            templateAnimation(handler, animationData, config);
+                            animationSeq.templateSeq(handler, animationData, config);
                         } else {
                             aaTemplateHook = Hooks.once("createMeasuredTemplate", (config) => {
-                                templateAnimation(handler, animationData, config);
+                                animationSeq.templateSeq(handler, animationData, config);
                             });
                             setTimeout(killHook, 30000)
                         }
                         break;
                     default:
-                        templateAnimation(handler, animationData);
+                        animationSeq.templateSeq(handler, animationData);
                 }
                 break;
             case "aura":
-                auras(handler, animationData)
+                animationSeq.auraSeq(handler, animationData)
                 break;
             case "preset":
                 switch (presetType) {
                     case "bardicinspiration":
-                        bardicInspiration(handler, animationData);
+                        animationSeq.biSeq(handler, animationData);
                         break;
                     case "shieldspell":
-                        shieldSpell(handler, animationData);
+                        animationSeq.shieldSeq(handler, animationData);
                         break;
                     case "huntersmark":
-                        huntersMark(handler, animationData)
+                        animationSeq.hmSeq(handler, animationData)
                         break;
                     case "dualattach":
-                        dualAttach(handler, animationData)
+                        animationSeq.dualSeq(handler, animationData)
                         break;
                     case "sneakattack":
-                        sneakAttack(handler, animationData);
+                        animationSeq.saSeq(handler, animationData);
                         break;
                     case "bless":
-                        bless(handler, animationData);
+                        animationSeq.blessSeq(handler, animationData);
                         break;
                     case "teleportation":
-                        teleportation(handler, animationData)
+                        animationSeq.teleportationSeq(handler, animationData)
                         break;
                     case "thunderwave":
                         switch (game.system.id) {
@@ -236,16 +238,16 @@ export async function trafficCop(handler) {
                             case "sw5e":
                             case "swade":
                                 if (game.modules.get("mars-5e")?.active) {
-                                    thunderwaveAuto(handler, animationData, config);
+                                    animationSeq.twSeq(handler, animationData, config);
                                 } else {
                                     aaTemplateHook = Hooks.once("createMeasuredTemplate", (config) => {
-                                        thunderwaveAuto(handler, animationData, config);
+                                        animationSeq.twSeq(handler, animationData, config);
                                     });
                                     setTimeout(killHook, 30000)
                                 }
                                 break;
                             default:
-                                thunderwaveAuto(handler, animationData);
+                                animationSeq.twSeq(handler, animationData);
                         }
                         break;
                     case "fireball":
@@ -255,16 +257,16 @@ export async function trafficCop(handler) {
                             case "sw5e":
                             case "swade":
                                 if (game.modules.get("mars-5e")?.active/* || game.modules.get('midi-qol')?.active*/) {
-                                    fireball(handler, animationData);
+                                    animationSeq.fireballSeq(handler, animationData);
                                 } else {
                                     aaTemplateHook = Hooks.once("createMeasuredTemplate", (config) => {
-                                        fireball(handler, animationData, config);
+                                        animationSeq.fireballSeq(handler, animationData, config);
                                     });
                                     setTimeout(killHook, 30000)
                                 }
                                 break;
                             default:
-                                fireball(handler, animationData);
+                                animationSeq.fireballSeq(handler, animationData);
                         }
                         break;
                 }

@@ -1,10 +1,9 @@
-//import { AAanimationData } from "../../aa-classes/animation-data.js";
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 import { aaDebugger } from "../../constants/constants.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function huntersMark(handler, animationData) {
+export async function hmSeq(handler, animationData) {
 
     function moduleIncludes(test) {
         return !!game.modules.get(test);
