@@ -63,7 +63,7 @@ export async function templateAnimation(handler, animationData, config) {
             alpha: data.opacity,
             width: tileWidth,
             height: tileHeight,
-            img: tempAnimation.fileData,
+            img: tempAnimation.file,
             overhead: isOverhead, // false sets Tile in canvas.background. true sets Tile to canvas.foreground
             occlusion: {
                 alpha: data.occlusionAlpha,
