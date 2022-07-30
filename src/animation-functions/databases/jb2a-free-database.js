@@ -67,6 +67,17 @@ export async function jb2aAAFreeDatabase(path) {
                     }
                 }
             },
+            bomb: {
+                '01': {
+                    black: {
+                        '05ft': [lg`Weapon_Attacks/Ranged/ThrowBomb01_01_Regular_Black_05ft_600x400.webm`],
+                        '15ft': [lg`Weapon_Attacks/Ranged/ThrowBomb01_01_Regular_Black_15ft_1000x400.webm`],
+                        '30ft': [lg`Weapon_Attacks/Ranged/ThrowBomb01_01_Regular_Black_30ft_1600x400.webm`],
+                        '60ft': [lg`Weapon_Attacks/Ranged/ThrowBomb01_01_Regular_Black_60ft_2800x400.webm`],
+                        '90ft': [lg`Weapon_Attacks/Ranged/ThrowBomb01_01_Regular_Black_90ft_4000x400.webm`]
+                    }
+                }
+            },
             bullet: {
                 '1': {
                     orange: {
@@ -96,6 +107,17 @@ export async function jb2aAAFreeDatabase(path) {
                     },
                 }
             },
+            cannonball: {
+                '01': {
+                    black: {
+                        '05ft': [lg`Weapon_Attacks/Ranged/LaunchCannonBall01_01_Regular_Black_05ft_600x400.webm`],
+                        '15ft': [lg`Weapon_Attacks/Ranged/LaunchCannonBall01_01_Regular_Black_15ft_1000x400.webm`],
+                        '30ft': [lg`Weapon_Attacks/Ranged/LaunchCannonBall01_01_Regular_Black_30ft_1600x400.webm`],
+                        '60ft': [lg`Weapon_Attacks/Ranged/LaunchCannonBall01_01_Regular_Black_60ft_2800x400.webm`],
+                        '90ft': [lg`Weapon_Attacks/Ranged/LaunchCannonBall01_01_Regular_Black_90ft_4000x400.webm`]
+                    }
+                }
+            },
             dagger: {
                 '01': {
                     white: {
@@ -105,6 +127,17 @@ export async function jb2aAAFreeDatabase(path) {
                         '90ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_90ft_4000x400.webm`]
                     }
                 },
+            },
+            flask: {
+                '01': {
+                    orange: {
+                        '05ft': [lg`Weapon_Attacks/Ranged/ThrowFlask01_01_Regular_Orange_05ft_600x400.webm`],
+                        '15ft': [lg`Weapon_Attacks/Ranged/ThrowFlask01_01_Regular_Orange_15ft_1000x400.webm`],
+                        '30ft': [lg`Weapon_Attacks/Ranged/ThrowFlask01_01_Regular_Orange_30ft_1600x400.webm`],
+                        '60ft': [lg`Weapon_Attacks/Ranged/ThrowFlask01_01_Regular_Orange_60ft_2800x400.webm`],
+                        '90ft': [lg`Weapon_Attacks/Ranged/ThrowFlask01_01_Regular_Orange_90ft_4000x400.webm`]
+                    }
+                }
             },
             lasershot: {
                 '01': {
@@ -406,6 +439,17 @@ export async function jb2aAAFreeDatabase(path) {
                         '30ft': [lg`RangedSpell/ProjectileIceShard01_01_Regular_Blue_30ft_1600x400.webm`],
                         '60ft': [lg`RangedSpell/ProjectileIceShard01_01_Regular_Blue_60ft_2800x400.webm`],
                         '90ft': [lg`RangedSpell/ProjectileIceShard01_01_Regular_Blue_90ft_4000x400.webm`]
+                    },
+                },
+            },
+            leaves: {
+                '01': {
+                    greenorange: {
+                        '05ft': [lg`Nature/SwirlingLeaves01_01_Regular_GreenOrange_05ft_600x400.webm`],
+                        '15ft': [lg`Nature/SwirlingLeaves01_01_Regular_GreenOrange_15ft_1000x400.webm`],
+                        '30ft': [lg`Nature/SwirlingLeaves01_01_Regular_GreenOrange_30ft_1600x400.webm`],
+                        '60ft': [lg`Nature/SwirlingLeaves01_01_Regular_GreenOrange_60ft_2800x400.webm`],
+                        '90ft': [lg`Nature/SwirlingLeaves01_01_Regular_GreenOrange_90ft_4000x400.webm`]
                     },
                 },
             },
@@ -743,6 +787,7 @@ export async function jb2aAAFreeDatabase(path) {
                     ],
                     orange: [
                         lg`Explosion/Explosion_01_Orange_400x400.webm`,
+                        lg`Explosion/Explosion_08_Regular_Orange_400x400.webm`,
                     ],
                     yellowblue: [
                         lg`Explosion/Explosion_03_Regular_BlueYellow_400x400.webm`
@@ -1100,6 +1145,19 @@ export async function jb2aAAFreeDatabase(path) {
      */
 
     JB2AFREEDB.static = {
+        chains: {
+            standard: {
+                '01': {
+                    red: [lg`Marker/MarkerChainStandard01_01_Regular_Red_Loop_400x400.webm`],
+                },
+                complete: {
+                    red: [lg`Marker/MarkerChainStandard01_02_Regular_Red_Complete_400x400.webm`],
+                },
+                loop: {
+                    red: [lg`Marker/MarkerChainStandard01_02_Regular_Red_Loop_400x400.webm`],
+                },
+            }
+        },    
         conditions: {
             drop: {
                 '02': {
@@ -1377,6 +1435,13 @@ export async function jb2aAAFreeDatabase(path) {
                 '03': {
                     grey: [lg`Smoke/SmokePuff01_03_Regular_Grey_400x400.webm`],
                 },
+                'ring02':{
+                    white: [
+                        lg`Smoke/SmokePuffRing01_01_Regular_White_400x400.webm`,
+                        lg`Smoke/SmokePuffRing01_02_Regular_White_400x400.webm`,
+                        lg`Smoke/SmokePuffRing01_03_Regular_White_400x400.webm`
+                    ],
+                }
             },
             ui: {
                 drop: {
@@ -1480,6 +1545,11 @@ export async function jb2aAAFreeDatabase(path) {
                     blue: [lg`Liquid/LiquidSplash01_Regular_Blue_400x400.webm`],
                 },
             },
+            blob: {
+                '01': {
+                    blue: [lg`Liquid/LiquidBlob01_01_Regular_Blue_400x400.webm`],
+                }
+            },    
         },
         magicsign: {
             abjuration: {
@@ -1719,6 +1789,13 @@ export async function jb2aAAFreeDatabase(path) {
             },
             */
 
+        },
+        shrapnel: {
+            bomb: {
+                '01': {
+                    black: [lg`Explosion/ShrapnelBomb01_01_Regular_Black_800x800.webm`],
+                }
+            }
         },
         spell: {
             antilifeshell: {

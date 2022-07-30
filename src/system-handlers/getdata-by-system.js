@@ -15,8 +15,20 @@ export class AASystemData {
     * 
     */
 
-    static async dnd5e(input, isChat) {
+     static async dnd5e(input, isChat) {
+        let midiWorkflowAvailable = false;
+        if (game.modules.get('midi-qol')?.active && isChat) {
+            const workflowId = getProperty(input, "data.flags.midi-qol.workflowId");
+            let workflow = workflowId ? MidiQOL.Workflow.getWorkflow(workflowId) : undefined;
+            if (workflow) {
+                input = workflow;
+                midiWorkflowAvailable = true;
+            }
+        }
         if (game.modules.get('midi-qol')?.active && !isChat) {
+          midiWorkflowAvailable = true;
+        }
+        if (midiWorkflowAvailable) {
             //const token = canvas.tokens.get(input.tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(input.item?._id) != null);
             let {item, token, targets} = await this.getRequiredData(input)
             if (!item || !token) return {};
