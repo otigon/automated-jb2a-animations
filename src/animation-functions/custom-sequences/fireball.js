@@ -1,9 +1,9 @@
 import { buildFile } from "../file-builder/build-filepath.js";
 import { aaDebugger } from "../../constants/constants.js";
-import { AAanimationData } from "../../aa-classes/animation-data.js";
+import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 
 // Credit goes to Wasp-Sequencer Guy for the structure of the Fireball Sequence
-export async function fireball(handler, animationData, config) {
+export async function fireballSeq(handler, animationData, config) {
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
@@ -323,6 +323,6 @@ export async function fireball(handler, animationData, config) {
             .macro(data.macro.name, handler.workflow, handler, ...userData)
             .play()
     }
-    if (cleanData.afterImage.enable) { AAanimationData.howToDelete("sequencerground") }
+    if (cleanData.afterImage.enable) { AAAnimationData.howToDelete("sequencerground") }
     aaSeq.play()
 }

@@ -1,7 +1,8 @@
 import { endTiming } from "../constants/timings.js";
 import { AASystemData } from "./getdata-by-system.js";
 import { flagMigrations } from "./flagMerge.js";
-import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
+//import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
+import { AAAutorecFunctions } from "../aa-classes/AAAutorecFunctions.js";
 
 export default class systemData {
 
@@ -74,7 +75,9 @@ export default class systemData {
 
         this.isDisabled = this.flags.killAnim || false;
         this.isCustomized = this.flags.override || false;
-        this.animType = this.flags.animType || "";
+
+        //changed from flags.animType to match Autorec menu
+        this.menu = this.flags.menu || "";
 
         this.bards = this.flags.bards ?? {};
 
@@ -91,22 +94,36 @@ export default class systemData {
         }
         
         this.animEnd = endTiming(this.animNameFinal);
-        this.autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
 
-        this.rinsedName = this.itemName ? AutorecFunctions._rinseName(this.itemName) : "noitem";
-        this.isAutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNamesInSection(this.autorecSettings, 'templates'), this.rinsedName);
+        //this.autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        this.autorecSettings = {
+            melee: game.settings.get("autoanimations", "aaAutorec-melee"),
+            range: game.settings.get("autoanimations", "aaAutorec-range"),
+            ontoken: game.settings.get("autoanimations", "aaAutorec-ontoken"),
+            templatefx: game.settings.get("autoanimations", "aaAutorec-templatefx"),
+            aura: game.settings.get("autoanimations", "aaAutorec-aura"),
+            preset: game.settings.get("autoanimations", "aaAutorec-preset"),
+            aefx: game.settings.get("autoanimations", "aaAutorec-aefx"),
+        }
 
-        this.autorecObject = this.isActiveEffect || this.pf2eRuleset ? AutorecFunctions._findObjectIn5eAE(this.autorecSettings, this.rinsedName) : null;
+        this.rinsedName = this.itemName ? AAAutorecFunctions.rinseName(this.itemName) : "noitem";
+
+        //this.isAutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNamesInSection(this.autorecSettings, 'templates'), this.rinsedName);
+        //this.isAutorecTemplateItem = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.templatefx, this.rinsedName);
+
+        //this.autorecObject = this.isActiveEffect || this.pf2eRuleset ? AutorecFunctions._findObjectIn5eAE(this.autorecSettings, this.rinsedName) : null;
+        this.autorecObject = this.isActiveEffect || this.pf2eRuleset ? AAAutorecFunctions.singleMenuSearch(this.autorecSettings.aefx, this.rinsedName) : null;
+
         if (!this.autorecObject) {
             /* fallback assignment for active effects, default assignment otherwise. */
-            this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
+            this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, this.rinsedName);
         } 
     
         // If there is no match and there are alternative names, then attempt to use those names instead
         if (!this.autorecObject && data.extraNames?.length) {
             for (const name of data.extraNames) {
-                const rinsedName = AutorecFunctions._rinseName(name);
-                this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, rinsedName);
+                const rinsedName = AAAutorecFunctions.rinseName(name);
+                this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, rinsedName);
                 if (this.autorecObject) {
                     this.rinsedName = rinsedName;
                     break;
@@ -114,28 +131,54 @@ export default class systemData {
             }
         }
 
-        this.isAutorecFireball = false;
+        /*
+        this.isAutorecTemplateItem = false;
         this.isAutorecAura = false;
+        this.isAutorecFireball = false;
         this.isAutorecTeleport = false;
         this.isAutoThunderwave5e = false;
         if (this.autorecObject && !this.isCustomized) {
-            this.isAutorecFireball = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === "fireball" ? true : false;
-            this.isAutorecAura = this.autorecObject.menuSection === "aura" ? true : false;
-            this.isAutorecTeleport = this.autorecObject?.menuSection === "preset" && this.autorecObject?.animation === 'teleportation' ? true : false;
-            this.isAutoThunderwave5e = this.autorecObject?.menuSection === 'preset' && this.autorecObject?.animation === 'thunderwave' ? true : false;
+            const menuType = this.autorecObject.aaMenu;
+            const presetType = this.autorecObject.presetType;
+            this.isAutorecTemplateItem = menuType === 'templatefx' ? true : false;
+            this.isAutorecFireball = menuType === "preset" && presetType === "fireball" ? true : false;
+            this.isAutorecAura = menuType === "aura" ? true : false;
+            this.isAutorecTeleport = menuType === "preset" && presetType === 'teleportation' ? true : false;
+            this.isAutoThunderwave5e = menuType === 'preset' && presetType === 'thunderwave' ? true : false;
         }
         this.isAutorecTemplate = (this.isAutorecTemplateItem || this.isAutorecFireball) && !this.isCustomized ? true : false;
 
-        this.isOverrideTemplate = (this.animType === "templatefx" && this.isCustomized) || (this.animType === "preset" && this.flags.preset?.presetType === "fireball" && this.isCustomized) ? true : false;
-        this.isOverrideAura = this.animType === "aura" && this.isCustomized ? true: false;
-        this.isOverrideTeleport = (this.animType === "preset" && this.flags.preset?.presetType === "teleportation") || this.isAutorecTeleport ? true : false;
-        //this.isAutorecTeleport = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === 'teleportation' ? true: false;
+        this.isOverrideTemplate = false;
+        this.isOverrideTeleport = false;
+        this.isOverrideThunderwave5e = false;
+        if (this.isCustomized) {
+            this.isOverrideTemplate = (this.animType === "templatefx" && this.isCustomized) || (this.animType === "preset" && this.flags.preset?.presetType === "fireball" && this.isCustomized) ? true : false;
+            this.isOverrideAura = this.animType === "aura" && this.isCustomized ? true: false;
+            this.isOverrideTeleport = (this.animType === "preset" && this.flags.preset?.presetType === "teleportation") || this.isAutorecTeleport ? true : false;
+            this.isThunderwave5e = (this.animType === 'preset' && this.isCustomized && this.flags.preset?.presetType === 'thunderwave'); 
+        }
+        */
         this.decoupleSound = game.settings.get("autoanimations", "decoupleSound");
-        this.isThunderwave5e = (this.animType === 'preset' && this.isCustomized && this.flags.preset?.presetType === 'thunderwave'); 
     }
 
     get shouldPlayImmediately () {
-        return this.isOverrideAura || this.isAutorecAura || this.isOverrideTemplate || this.isAutorecTemplate || this.isOverrideTeleport || this.isAutorecTeleport || this.isThunderwave5e || this.isAutoThunderwave5e;
+
+        if (this.autorecObject || this.isCustomized) {
+            const menuType = this.isCustomized ? this.menu : this.autorecObject.menu;
+            const presetType = this.isCustomized ? this.flags?.preset?.presetType : this.autorecObject.presetType;
+
+            return menuType === 'templatefx' || menuType === "aura" || (menuType === "preset" && (presetType === "fireball" || presetType === 'teleportation' || presetType === 'thunderwave'))
+        } else {
+            return false;
+        }
+        //return this.isOverrideAura || this.isAutorecAura || this.isOverrideTemplate || this.isAutorecTemplate || this.isOverrideTeleport || this.isAutorecTeleport || this.isThunderwave5e || this.isAutoThunderwave5e;
+    }
+
+    get isTemplateItem () {
+        const menuType = this.isCustomized ? this.menu : this.autorecObject.menu;
+        const presetType = this.isCustomized ? this.flags?.preset?.presetType : this.autorecObject.presetType;
+
+        return menuType === 'templatefx' ||  (menuType === 'preset' && presetType === "fireball")
     }
 
     get soundNoAnimation () {

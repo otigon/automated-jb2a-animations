@@ -1,14 +1,12 @@
-import { buildFile } from "../file-builder/build-filepath.js"
 import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
 import { aaColorMenu } from "../databases/jb2a-menu-options.js";
-import { AAanimationData } from "../../aa-classes/animation-data.js";
+import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 import { aaDebugger } from "../../constants/constants.js";
-//import { AAITEMCHECK } from "./item-arrays.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function bless(handler, animationData) {
+export async function blessSeq(handler, animationData) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -65,7 +63,7 @@ export async function bless(handler, animationData) {
             aaSeq.addSequence(sourceFX.sourceSeq)
         }
         if (data.playSound) {
-            aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+            aaSeq.addSequence(await AAAnimationData._sounds({ animationData }))
         }
         // Animation Start Hook
         aaSeq.thenDo(function () {
@@ -104,7 +102,7 @@ export async function bless(handler, animationData) {
         }
         aaSeq.play()
 
-        if (playPersist) { AAanimationData.howToDelete("sequencerground") }
+        if (playPersist) { AAAnimationData.howToDelete("sequencerground") }
     }
 
     if (handler.allTargets.length > 0) {
@@ -120,7 +118,7 @@ export async function bless(handler, animationData) {
             aaSeq.addSequence(sourceFX.sourceSeq)
         }
         if (data.playSound) {
-            aaSeq.addSequence(await AAanimationData._sounds({ animationData }))
+            aaSeq.addSequence(await AAAnimationData._sounds({ animationData }))
         }
         // Animation Start Hook
         aaSeq.thenDo(function () {

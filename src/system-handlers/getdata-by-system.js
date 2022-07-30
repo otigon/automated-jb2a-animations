@@ -1,4 +1,4 @@
-import { aaDeletedItems } from "../autoAnimations.js";
+import { aaDeletedItems } from "../DeletedItems";
 
 export class AASystemData {
 
