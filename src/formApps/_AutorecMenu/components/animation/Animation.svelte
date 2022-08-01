@@ -11,9 +11,12 @@
 
    import { createOverflowItems }   from "./createOverflowItems.js";
 
+   import VideoSelect from "./VideoSelect.svelte";
+   import MeleeOptions from "./MeleeOptions.svelte";
+
    /** @type {AnimationStore} */
    export let animation;
-
+   //console.log(animation)
    /** @type {CategoryStore} */
    export let category;
 
@@ -50,8 +53,9 @@
         <TJSToggleIconButton button={buttonOverflow} slot=summary-end>
             <TJSMenu {menu} />
         </TJSToggleIconButton>
-        Content Forthcoming
-    </TJSSvgFolder>
+        <VideoSelect {animation}/>
+        <MeleeOptions {animation}/>
+</TJSSvgFolder>
 </div>
 
 <style lang=scss>

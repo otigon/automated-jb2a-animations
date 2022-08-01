@@ -27,6 +27,17 @@
         flex: unset;
     }
 }
+#AA-autorec-settings-New select {
+    background-color: rgba(160, 160, 160);
+    text-align: center;
+    font-weight: normal;
+    font-family: "Signika", sans-serif;
+    font-size: 14px;
+    color: black;
+    min-height: 1.5em;
+    width: 10em;
+    border-radius: 7px;
+}
 
 .aa-video-preview {
     color: rgba(26, 60, 250, 0.6);
@@ -202,6 +213,7 @@
     margin-left: 3%;
     font-family: "Modesto Condensed", "Palatino Linotype", serif;
     font-weight: bold;
+    justify-items:center;
     color: black;
 }
 .aa-selected {

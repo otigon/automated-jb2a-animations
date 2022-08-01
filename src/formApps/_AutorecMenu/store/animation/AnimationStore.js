@@ -1,8 +1,16 @@
-import { propertyStore }      from "@typhonjs-fvtt/runtime/svelte/store";
+import { propertyStore } from "@typhonjs-fvtt/runtime/svelte/store";
 
-import { CategoryStore }      from "../category/CategoryStore.js";
-import { aaSessionStorage }   from "../../../../sessionStorage.js";
-import { constants }          from "../../../../constants.js";
+import { CategoryStore } from "../category/CategoryStore.js";
+import { aaSessionStorage } from "../../../../sessionStorage.js";
+import { constants } from "../../../../constants.js";
+
+import {
+   aaTypeMenu,
+   aaNameMenu,
+   aaVariantMenu,
+   aaColorMenu,
+} from "../../../../animation-functions/databases/jb2a-menu-options.js";
+
 
 export class AnimationStore extends CategoryStore.EntryStore {
    /** @type {AnimationPropertyStores} */
@@ -13,8 +21,7 @@ export class AnimationStore extends CategoryStore.EntryStore {
    /**
     * @param {object}   data -
     */
-   constructor(data = {})
-   {
+   constructor(data = {}) {
       super(data);
 
       // Save sessionStorage ID.
@@ -34,16 +41,13 @@ export class AnimationStore extends CategoryStore.EntryStore {
     *
     * @param {CategoryStore} categoryStore - The source WorldSettingArrayStore instance.
     */
-   static duplicate(data, categoryStore)
-   {
+   static duplicate(data, categoryStore) {
       // Provide a unique label appending an indexed counter.
-      if (typeof data?.label === 'string')
-      {
+      if (typeof data?.label === 'string') {
          let cntr = 1;
          const baseName = data.label ?? '';
 
-         do
-         {
+         do {
             data.label = `${baseName}-${cntr++}`;
          } while (categoryStore.findEntry((entry) => entry.label === data.label) !== void 0);
       }
@@ -59,8 +63,7 @@ export class AnimationStore extends CategoryStore.EntryStore {
    /**
     * @returns {boolean} Current folder open state.
     */
-   get folderState()
-   {
+   get folderState() {
       return aaSessionStorage.getItem(this.#sessionStorage.folderOpen);
    }
 
@@ -82,16 +85,94 @@ export class AnimationStore extends CategoryStore.EntryStore {
    /**
     * @param {object}   data -
     */
-   set(data)
-   {
-      if (data.label !== void 0)
-      {
+   set(data) {
+      if (data.label !== void 0) {
          if (typeof data.label !== 'string') { throw new TypeError(`'data.label' is not a string.`); }
          this._data.label = data.label;
       }
 
       this._updateSubscribers();
    }
+   
+   primaryVideo(data) {
+      switch (data) {
+         case "menuTypeList":
+            let menuTypeMenu = Object.entries(aaTypeMenu[this._data.menu] || {});
+            return menuTypeMenu
+         case "menuTypeChange":
+            let menuType = this._data.primary.video.menuType;
+            this._data.primary.video.animation = Object.keys(aaNameMenu[this._data.menu][menuType])[0];
+            this._data.primary.video.variant = Object.keys(aaVariantMenu[this._data.menu][menuType][this._data.primary.video.animation])[0];
+            this._data.primary.video.color = Object.keys(aaColorMenu[this._data.menu][menuType][this._data.primary.video.animation][this._data.primary.video.variant])[0];
+            break;
+         case "animationList":
+            return Object.entries(aaNameMenu[this._data.menu][this._data.primary.video.menuType])
+         case "animationChange":
+            let animation = this._data.primary.video.animation;
+            this._data.primary.video.variant = Object.keys(aaVariantMenu[this._data.menu][this._data.primary.video.menuType][animation])[0];
+            this._data.primary.video.color = Object.keys(aaColorMenu[this._data.menu][this._data.primary.video.menuType][animation][this._data.primary.video.variant])[0];
+            break;
+         case "variantList":
+            return Object.entries(aaVariantMenu[this._data.menu][this._data.primary.video.menuType][this._data.primary.video.animation])
+         case "variantChange":
+            color = Object.keys(
+               aaColorMenu[this._data.menu][this._data.primary.video.menuType][this._data.primary.video.animation][this._data.primary.video.variant])[0];
+            break;
+         case "colorList":
+            return Object.entries(aaColorMenu[this._data.menu][this._data.primary.video.menuType][this._data.primary.video.animation][this._data.primary.video.variant]);
+      }
+   }
+   /*
+   menuTypeList() {
+      let menuTypeMenu = Object.entries(aaTypeMenu[this._data.menu] || {});
+      return menuTypeMenu
+   }
+   menuTypeChange() {
+      let menuType = this._data.primary.video.menuType;
+      this._data.primary.video.animation = Object.keys(aaNameMenu[this._data.menu][menuType])[0];
+      this._data.primary.video.variant = Object.keys(
+         aaVariantMenu[this._data.menu][menuType][this._data.primary.video.animation]
+      )[0];
+      this._data.primary.video.color = Object.keys(
+         aaColorMenu[this._data.menu][menuType][this._data.primary.video.animation][this._data.primary.video.variant]
+      )[0];
+   }
+   animationList() {
+      return Object.entries(aaNameMenu[this._data.menu][this._data.primary.video.menuType])
+   }
+   animationChange() {
+      let animation = this._data.primary.video.animation;
+      this._data.primary.video.variant = Object.keys(
+         aaVariantMenu[this._data.menu][this._data.primary.video.menuType][animation]
+      )[0];
+      this._data.primary.video.color = Object.keys(
+         aaColorMenu[this._data.menu][this._data.primary.video.menuType][animation][this._data.primary.video.variant]
+      )[0];
+   }
+   variantList() {
+      return Object.entries(aaVariantMenu[this._data.menu][this._data.primary.video.menuType][this._data.primary.video.animation])
+   }
+   variantChange() {
+      color = Object.keys(
+         aaColorMenu[this._data.menu][this._data.primary.video.menuType][this._data.primary.video.animation][this._data.primary.video.variant]
+      )[0];
+   }
+   colorList() {
+      return Object.entries(aaColorMenu[this._data.menu][this._data.primary.video.menuType][this._data.primary.video.animation][this._data.primary.video.variant])
+   }
+   */
+   dbPath() {
+      let menu = this._data.menu;
+      let menuType = this._data.primary.video.menuType;
+      let animation = this._data.primary.video.animation;
+      let variant = this._data.primary.video.variant;
+      let color = this._data.primary.video.color;
+      let path = color === 'random'
+      ? `autoanimations.${menu}.${menuType}.${animation}.${variant}`
+      : `autoanimations.${menu}.${menuType}.${animation}.${variant}.${color}`
+      return path;
+   }
+
 }
 
 /**
