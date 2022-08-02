@@ -103,12 +103,12 @@ export async function deleteActiveEffectswfrp4e(effect) {
             //Sets macro data if it is defined on the Item and is active
             macroData.shouldRun = true;
             macroData.name = itemData.macro?.name ?? "";
-            macroData.args = itemData.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
+            macroData.args = itemData.macro?.args ? itemData.macro?.args.split(',').map(s => s.trim()) : "";
         } else if (handler.autorecObject && handler.autorecObject?.macro?.enable && handler.autorecObject?.macro?.name) {
             //Sets macro data if none is defined/active on the item and it is present in the Automatic Recognition Menu
             macroData.shouldRun = true;
             macroData.name = handler.autorecObject?.macro?.name ?? "";
-            macroData.args = handler.autorecObject?.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
+            macroData.args = handler.autorecObject?.macro?.args ? handler.autorecObject?.macro?.args.split(',').map(s => s.trim()) : "";
         }
 
         // Filters the active Animations to isolate the ones active on the Token
@@ -149,12 +149,12 @@ export async function deleteActiveEffectswfrp4e(effect) {
             //Sets macro data if it is defined on the Item and is active
             macroData.shouldRun = true;
             macroData.name = itemData.macro?.name ?? "";
-            macroData.args = itemData.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
+            macroData.args = itemData.macro?.args ? itemData.macro?.args.split(',').map(s => s.trim()) : "";
         } else if (handler.autorecObject && handler.autorecObject?.macro?.enable && handler.autorecObject?.macro?.name) {
             //Sets macro data if none is defined/active on the item and it is present in the Automatic Recognition Menu
             macroData.shouldRun = true;
             macroData.name = handler.autorecObject?.macro?.name ?? "";
-            macroData.args = handler.autorecObject?.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
+            macroData.args = handler.autorecObject?.macro?.args ? handler.autorecObject?.macro?.args.split(',').map(s => s.trim()) : "";
         }
         // If no Item or Source Token was found, exit early with Debug
         if (!handler.item || !handler.sourceToken) {

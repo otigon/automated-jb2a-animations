@@ -105,7 +105,7 @@ export async function deleteActiveEffectsPF2e(item) {
             //Sets macro data if it is defined on the Item and is active
             macroData.shouldRun = true;
             macroData.name = itemData.macro?.name ?? "";
-            macroData.args = itemData.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
+            macroData.args = itemData.macro?.args ? itemData.macro?.args.split(',').map(s => s.trim()) : "";
         } else if (handler.autorecObject && handler.autorecObject?.macro?.enable && handler.autorecObject?.macro?.name) {
             //Sets macro data if none is defined/active on the item and it is present in the Automatic Recognition Menu
             macroData.shouldRun = true;
@@ -153,7 +153,7 @@ export async function deleteActiveEffectsPF2e(item) {
             //Sets macro data if it is defined on the Item and is active
             macroData.shouldRun = true;
             macroData.name = itemData.macro?.name ?? "";
-            macroData.args = itemData.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
+            macroData.args = itemData.macro?.args ? itemData.macro?.args.split(',').map(s => s.trim()) : "";
         } else if (handler.autorecObject && handler.autorecObject?.macro?.enable && handler.autorecObject?.macro?.name) {
             //Sets macro data if none is defined/active on the item and it is present in the Automatic Recognition Menu
             macroData.shouldRun = true;
