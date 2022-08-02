@@ -65,7 +65,7 @@ export async function trafficCop(handler) {
             }
             if (handler.macroOnly) {
                 let userData = handler.flags?.macro?.args ? handler.flags.macro.args.split(',').map(s => s.trim()) : "";
-                aaSeq.macro(handler.flags?.macro?.name, handler.workflow, handler, ...userData)
+                aaSeq.macro(handler.flags?.macro?.name, handler.workflow, handler, [...userData])
             }
             aaSeq.play()
         }

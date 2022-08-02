@@ -43,7 +43,7 @@ export async function bless(handler, animationData) {
         // Play Macro if Awaiting
         if (data.playMacro && data.macro.playWhen === "1") {
             let userData = data.macro.args;
-            aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
+            aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
         }
         // Extra Effects => Source Token if active
         if (sourceFX.enabled) {
@@ -83,7 +83,7 @@ export async function bless(handler, animationData) {
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;
             new Sequence()
-                .macro(data.macro.name, handler.workflow, handler, ...userData)
+                .macro(data.macro.name, handler.workflow, handler, [...userData])
                 .play()
         }
         aaSeq.play()
@@ -97,7 +97,7 @@ export async function bless(handler, animationData) {
         // Play Macro if Awaiting
         if (data.playMacro && data.macro.playWhen === "1") {
             let userData = data.macro.args;
-            aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
+            aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
         }
         // Extra Effects => Source Token if active
         if (sourceFX.enabled) {
@@ -143,7 +143,7 @@ export async function bless(handler, animationData) {
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;
             new Sequence()
-                .macro(data.macro.name, handler.workflow, handler, ...userData)
+                .macro(data.macro.name, handler.workflow, handler, [...userData])
                 .play()
         }
         aaSeq.play()

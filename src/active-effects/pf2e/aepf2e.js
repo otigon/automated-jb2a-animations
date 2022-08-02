@@ -110,7 +110,7 @@ export async function deleteActiveEffectsPF2e(item) {
             //Sets macro data if none is defined/active on the item and it is present in the Automatic Recognition Menu
             macroData.shouldRun = true;
             macroData.name = handler.autorecObject?.macro?.name ?? "";
-            macroData.args = handler.autorecObject?.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
+            macroData.args = handler.autorecObject?.macro?.args ?  handler.autorecObject?.macro?.args.split(',').map(s => s.trim()) : "";
         }
 
         // Filters the active Animations to isolate the ones active on the Token
@@ -130,7 +130,7 @@ export async function deleteActiveEffectsPF2e(item) {
         if (macroData.shouldRun) {
             let userData = macroData.args;
             new Sequence()
-                .macro(macroData.name, "off", handler, ...userData)
+                .macro(macroData.name, "off", handler, [...userData])
                 .play()
         }
 
@@ -158,7 +158,7 @@ export async function deleteActiveEffectsPF2e(item) {
             //Sets macro data if none is defined/active on the item and it is present in the Automatic Recognition Menu
             macroData.shouldRun = true;
             macroData.name = handler.autorecObject?.macro?.name ?? "";
-            macroData.args = handler.autorecObject?.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
+            macroData.args = handler.autorecObject?.macro?.args ? handler.autorecObject?.macro?.args.split(',').map(s => s.trim()) : "";
         }
         // If no Item or Source Token was found, exit early with Debug
         if (!handler.item || !handler.sourceToken) {
@@ -170,7 +170,7 @@ export async function deleteActiveEffectsPF2e(item) {
         if (macroData.shouldRun) {
             let userData = macroData.args;
             new Sequence()
-                .macro(macroData.name, "off", handler, ...userData)
+                .macro(macroData.name, "off", handler, [...userData])
                 .play()
         }
     }
