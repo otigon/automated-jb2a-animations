@@ -16,7 +16,7 @@ export function disableAnimations() {
  * 
  */
 export async function createActiveEffectsPF1(effect) {
-    //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
     //await wait(150)
 
     const aaDebug = game.settings.get("autoanimations", "debug")
@@ -80,12 +80,21 @@ export async function createActiveEffectsPF1(effect) {
     // Update the Active Effect flags with flagData
     //await effect.update({ 'flags.autoanimations': flagData })
 
+    if (effect.data?.flags?.pf1?.origin?.item) {
+        let item = aeToken.actor.items.get(effect.data?.flags?.pf1?.origin?.item)
+        let flags = item?.data?.flags?.autoanimations;
+        if (flags) {
+            effect.data.flags.autoanimations = flags;
+        }
+    }
+
     // Initilizes the A-A System Handler
     const data = {
         token: aeToken,
         targets: [],
         item: effect,
     }
+
     let handler = await systemData.make(null, null, data);
 
     // Exits early if Item or Source Token returns null. Total Failure
@@ -105,8 +114,17 @@ export async function createActiveEffectsPF1(effect) {
  */
 export async function deleteActiveEffectsPF1(effect) {
     const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
+    if (effect.data?.flags?.pf1?.origin?.item) {
+        let item = aeToken.actor.items.get(effect.data?.flags?.pf1?.origin?.item)
+        let flags = item?.data?.flags?.autoanimations;
+        if (flags) {
+            effect.data.flags.autoanimations = flags;
+        }
+    }
     const aaDebug = game.settings.get("autoanimations", "debug")
-
+    //if (effect.data?.flags?.pf1?.origin?.item) {
+        //effect = aeToken.actor.items.get(effect.data?.flags?.pf1?.origin?.item)
+    //}
     // Finds all active Animations on the scene that match .origin(effect.uuid)
     let aaEffects = Sequencer.EffectManager.getEffects({ origin: effect.uuid })
 
