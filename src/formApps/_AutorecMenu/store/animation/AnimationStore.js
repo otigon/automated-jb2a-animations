@@ -120,57 +120,11 @@ export class AnimationStore extends CategoryStore.EntryStore {
             break;
          case "colorList":
             return Object.entries(aaColorMenu[this._data.menu][this._data.primary.video.menuType][this._data.primary.video.animation][this._data.primary.video.variant]);
+         case "dbPath":
+            return this._data.primary.video.color === "random" 
+            ? `autoanimations.${this._data.menu}.${this._data.primary.video.menuType}.${this._data.primary.video.animation}.${this._data.primary.video.variant}`
+            : `autoanimations.${this._data.menu}.${this._data.primary.video.menuType}.${this._data.primary.video.animation}.${this._data.primary.video.variant}.${this._data.primary.video.color}`
       }
-   }
-   /*
-   menuTypeList() {
-      let menuTypeMenu = Object.entries(aaTypeMenu[this._data.menu] || {});
-      return menuTypeMenu
-   }
-   menuTypeChange() {
-      let menuType = this._data.primary.video.menuType;
-      this._data.primary.video.animation = Object.keys(aaNameMenu[this._data.menu][menuType])[0];
-      this._data.primary.video.variant = Object.keys(
-         aaVariantMenu[this._data.menu][menuType][this._data.primary.video.animation]
-      )[0];
-      this._data.primary.video.color = Object.keys(
-         aaColorMenu[this._data.menu][menuType][this._data.primary.video.animation][this._data.primary.video.variant]
-      )[0];
-   }
-   animationList() {
-      return Object.entries(aaNameMenu[this._data.menu][this._data.primary.video.menuType])
-   }
-   animationChange() {
-      let animation = this._data.primary.video.animation;
-      this._data.primary.video.variant = Object.keys(
-         aaVariantMenu[this._data.menu][this._data.primary.video.menuType][animation]
-      )[0];
-      this._data.primary.video.color = Object.keys(
-         aaColorMenu[this._data.menu][this._data.primary.video.menuType][animation][this._data.primary.video.variant]
-      )[0];
-   }
-   variantList() {
-      return Object.entries(aaVariantMenu[this._data.menu][this._data.primary.video.menuType][this._data.primary.video.animation])
-   }
-   variantChange() {
-      color = Object.keys(
-         aaColorMenu[this._data.menu][this._data.primary.video.menuType][this._data.primary.video.animation][this._data.primary.video.variant]
-      )[0];
-   }
-   colorList() {
-      return Object.entries(aaColorMenu[this._data.menu][this._data.primary.video.menuType][this._data.primary.video.animation][this._data.primary.video.variant])
-   }
-   */
-   dbPath() {
-      let menu = this._data.menu;
-      let menuType = this._data.primary.video.menuType;
-      let animation = this._data.primary.video.animation;
-      let variant = this._data.primary.video.variant;
-      let color = this._data.primary.video.color;
-      let path = color === 'random'
-      ? `autoanimations.${menu}.${menuType}.${animation}.${variant}`
-      : `autoanimations.${menu}.${menuType}.${animation}.${variant}.${color}`
-      return path;
    }
 
 }

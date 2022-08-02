@@ -40,12 +40,13 @@
         <div class="aa-options" style="justify-items:center">
             <!--Set belowToken-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-                <label for="testID" class="aa-setDim"
+                <label for="">{localize("autoanimations.menus.level")}</label>
+                <label for="Below {animation._data.id}" class="aa-setDim"
                 >{aboveBelow}</label
                 >
                 <input
                     type="checkbox"
-                    id="testID"
+                    id="Below {animation._data.id}"
                     hidden
                     bind:checked={$animation.primary.options.below}
                 />
@@ -98,7 +99,7 @@
                         step="0.01"
                     />
                     <input
-                        style="border:none; background:none"
+                        style="border:none; background:none; padding-top:0.75em"
                         type="range"
                         min="0"
                         max="1"

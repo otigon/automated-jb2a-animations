@@ -7,10 +7,11 @@
     import { animateEvents }    from "@typhonjs-fvtt/runtime/svelte/animate";
 
     import Animation            from "../animation/Animation.svelte";
+    import MeleeMenu            from "../animation/menus/MeleeMenu.svelte";
 
     /** @type {CategoryStore} */
     export let category;
-
+    console.log(category)
     $: dataReducer = category.dataReducer;
 
     // Svelte doesn't have events for the animate directive; `animateEvents` wraps an animate function and provides
@@ -34,11 +35,19 @@
       class:no-scroll={$isAnimating}
       on:openAny={onFolderChange}
       on:closeAny={onFolderChange}>
-    {#each [...$dataReducer] as animation (animation.id)}
-        <section animate:flipWithEvents={{duration: 250, easing: quintOut}}>
-            <Animation {animation} {category} />
-        </section>
-    {/each}
+      {#if category.key === "aaAutorec-melee"}
+        {#each [...$dataReducer] as animation (animation.id)}
+          <section animate:flipWithEvents={{duration: 250, easing: quintOut}}>
+              <MeleeMenu {animation} {category} />
+          </section>
+        {/each}
+      {:else}
+        {#each [...$dataReducer] as animation (animation.id)}
+            <section animate:flipWithEvents={{duration: 250, easing: quintOut}}>
+                <Animation {animation} {category} />
+            </section>
+        {/each}
+      {/if}
 </main>
 
 <style lang=scss>

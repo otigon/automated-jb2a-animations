@@ -81,7 +81,7 @@
         opacity: 0.4;
     }
     .aa-custom input:disabled {
-        opacity: 0.4;
+        opacity: 0.7;
     }
     .aa-setDim {
         line-height: 1.25em;

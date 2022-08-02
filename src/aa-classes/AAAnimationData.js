@@ -73,7 +73,7 @@ export class AAAnimationData {
             variant: primaryVideo.variant,
             color: primaryVideo.color?.toLowerCase() ?? "",
             enableCustom: primaryVideo.enableCustom || false,
-            customPath: primaryVideo.enableCustom ? flags.primary?.customPath : false,
+            customPath: primaryVideo.enableCustom ? primaryVideo.customPath : false,
 
             preset: flags.preset,
 

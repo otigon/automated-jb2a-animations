@@ -5,8 +5,9 @@
     import CustomPicker from "./CustomPicker.svelte";
 
     export let animation;
+
     const copy = () => {
-        const dbPath = animation.dbPath();
+        const dbPath = animation.getPrimaryVideo("dbPath");
         const app = new CopyDBPath({
             target: document.getElementById("clipboard"),
             props: { dbPath },
@@ -19,7 +20,7 @@
 </script>
 
 <!--Unless spawned from "Explosions", Show the main Animation Type Select-->
-<div class="aa-3wide aa-select-label">
+<div class="aa-3wide aa-select-label {$animation.primary.video.enableCustom ? "disableOp" : ""}">
     <!--Copy Button-->
     <div class="flexcol" style="grid-row:2/3;grid-column:1/2">
         <label
@@ -94,5 +95,8 @@
     }
     .aa-select-label label {
         font-size: large;
+    }
+    .disableOp {
+        opacity: 0.4;
     }
 </style>
