@@ -12,7 +12,7 @@
    import { createOverflowItems }   from "../createOverflowItems.js";
 
    import VideoSelect from "./components/VideoSelect.svelte";
-   import MeleeOptions from "./components/options/MeleeOptions.svelte";
+   import OnTokenOptions from "./components/options/OnTokenOptions.svelte";
 
    /** @type {AnimationStore} */
    export let animation;
@@ -54,7 +54,7 @@
             <TJSMenu {menu} />
         </TJSToggleIconButton>
         <VideoSelect {animation}/>
-        <MeleeOptions {animation}/>
+        <OnTokenOptions {animation}/>
 </TJSSvgFolder>
 </div>
 

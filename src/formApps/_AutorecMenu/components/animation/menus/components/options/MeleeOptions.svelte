@@ -16,7 +16,7 @@
         },
     };
 
-    $: aboveBelow = $animation.primary.options.below
+    $: aboveBelow = $animation.primary?.options?.below
         ? game.i18n.localize("autoanimations.menus.below")
         : game.i18n.localize("autoanimations.menus.above");
 
@@ -57,7 +57,7 @@
                 <input
                     type="number"
                     bind:value={$animation.primary.options.repeat}
-                    placeholder="1"
+                    placeholder=1
                 />
             </div>
             <!--Set delay between repeats-->
@@ -69,7 +69,7 @@
                 <input
                     type="number"
                     bind:value={$animation.primary.options.delay}
-                    placeholder="250"
+                    placeholder=250
                 />
             </div>
             <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
@@ -78,8 +78,8 @@
                 <input
                     type="number"
                     bind:value={$animation.primary.options.scale}
-                    placeholder="1"
-                    step="0.01"
+                    placeholder=1
+                    step=0.01
                 />
             </div>
             <!--Set Animation Opacity-->

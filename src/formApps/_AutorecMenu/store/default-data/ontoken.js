@@ -16,7 +16,7 @@ export const ontoken = [
             scale: 1.5,
             staticType: "targetDefault",
             unbindAlpha: false,
-            unbindVisbility: false,
+            unbindVisibility: false,
             zIndex: 1
          }
       }),
@@ -42,7 +42,7 @@ export const ontoken = [
             scale: 1.5,
             staticType: "targetDefault",
             unbindAlpha: false,
-            unbindVisbility: false,
+            unbindVisibility: false,
             zIndex: 1
          }
       }),
@@ -68,7 +68,7 @@ export const ontoken = [
             scale: 1,
             staticType: "target",
             unbindAlpha: false,
-            unbindVisbility: false,
+            unbindVisibility: false,
             zIndex: 1
          }
       }),
@@ -94,7 +94,7 @@ export const ontoken = [
             scale: 1,
             staticType: "target",
             unbindAlpha: false,
-            unbindVisbility: false,
+            unbindVisibility: false,
             zIndex: 1
          }
       }),
@@ -120,7 +120,7 @@ export const ontoken = [
             scale: 1,
             staticType: "target",
             unbindAlpha: false,
-            unbindVisbility: false,
+            unbindVisibility: false,
             zIndex: 1
          }
       }),

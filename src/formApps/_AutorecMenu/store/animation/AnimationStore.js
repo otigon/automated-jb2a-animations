@@ -94,36 +94,42 @@ export class AnimationStore extends CategoryStore.EntryStore {
       this._updateSubscribers();
    }
    
+   resetPrimaryVideoMenu() {
+      const menuDB = this._data.menu === "ontoken" || this._data.menu === "aura" ? "static" : this._data.menu;
+      this._data.primary.video.menuType === Object.entries(aaTypeMenu[menuDB])[0];
+      this.primaryVideo("menuTypeChange")
+   }
    primaryVideo(data) {
+      const menuDB = this._data.menu === "ontoken" || this._data.menu === "aura" ? "static" : this._data.menu;
       switch (data) {
          case "menuTypeList":
-            let menuTypeMenu = Object.entries(aaTypeMenu[this._data.menu] || {});
+            let menuTypeMenu = Object.entries(aaTypeMenu[menuDB] || {});
             return menuTypeMenu
          case "menuTypeChange":
             let menuType = this._data.primary.video.menuType;
-            this._data.primary.video.animation = Object.keys(aaNameMenu[this._data.menu][menuType])[0];
-            this._data.primary.video.variant = Object.keys(aaVariantMenu[this._data.menu][menuType][this._data.primary.video.animation])[0];
-            this._data.primary.video.color = Object.keys(aaColorMenu[this._data.menu][menuType][this._data.primary.video.animation][this._data.primary.video.variant])[0];
+            this._data.primary.video.animation = Object.keys(aaNameMenu[menuDB][menuType])[0];
+            this._data.primary.video.variant = Object.keys(aaVariantMenu[menuDB][menuType][this._data.primary.video.animation])[0];
+            this._data.primary.video.color = Object.keys(aaColorMenu[menuDB][menuType][this._data.primary.video.animation][this._data.primary.video.variant])[0];
             break;
          case "animationList":
-            return Object.entries(aaNameMenu[this._data.menu][this._data.primary.video.menuType])
+            return Object.entries(aaNameMenu[menuDB][this._data.primary.video.menuType])
          case "animationChange":
             let animation = this._data.primary.video.animation;
-            this._data.primary.video.variant = Object.keys(aaVariantMenu[this._data.menu][this._data.primary.video.menuType][animation])[0];
-            this._data.primary.video.color = Object.keys(aaColorMenu[this._data.menu][this._data.primary.video.menuType][animation][this._data.primary.video.variant])[0];
+            this._data.primary.video.variant = Object.keys(aaVariantMenu[menuDB][this._data.primary.video.menuType][animation])[0];
+            this._data.primary.video.color = Object.keys(aaColorMenu[menuDB][this._data.primary.video.menuType][animation][this._data.primary.video.variant])[0];
             break;
          case "variantList":
-            return Object.entries(aaVariantMenu[this._data.menu][this._data.primary.video.menuType][this._data.primary.video.animation])
+            return Object.entries(aaVariantMenu[menuDB][this._data.primary.video.menuType][this._data.primary.video.animation])
          case "variantChange":
             color = Object.keys(
-               aaColorMenu[this._data.menu][this._data.primary.video.menuType][this._data.primary.video.animation][this._data.primary.video.variant])[0];
+               aaColorMenu[menuDB][this._data.primary.video.menuType][this._data.primary.video.animation][this._data.primary.video.variant])[0];
             break;
          case "colorList":
-            return Object.entries(aaColorMenu[this._data.menu][this._data.primary.video.menuType][this._data.primary.video.animation][this._data.primary.video.variant]);
+            return Object.entries(aaColorMenu[menuDB][this._data.primary.video.menuType][this._data.primary.video.animation][this._data.primary.video.variant]);
          case "dbPath":
             return this._data.primary.video.color === "random" 
-            ? `autoanimations.${this._data.menu}.${this._data.primary.video.menuType}.${this._data.primary.video.animation}.${this._data.primary.video.variant}`
-            : `autoanimations.${this._data.menu}.${this._data.primary.video.menuType}.${this._data.primary.video.animation}.${this._data.primary.video.variant}.${this._data.primary.video.color}`
+            ? `autoanimations.${menuDB}.${this._data.primary.video.menuType}.${this._data.primary.video.animation}.${this._data.primary.video.variant}`
+            : `autoanimations.${menuDB}.${this._data.primary.video.menuType}.${this._data.primary.video.animation}.${this._data.primary.video.variant}.${this._data.primary.video.color}`
       }
    }
 

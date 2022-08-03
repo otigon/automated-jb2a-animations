@@ -14,8 +14,10 @@
         });
         app.$destroy();
     };
-
-    $: isCustom = $animation.primary.video.enableCustom;
+    if (!animation._data?.primary?.video?.menuType) {
+        animation.resetPrimaryVideoMenu()
+    }
+    $: isCustom = $animation.primary?.video?.enableCustom;
     let menu = $animation.menu === "aura" ? "static" : $animation.menu;
 </script>
 

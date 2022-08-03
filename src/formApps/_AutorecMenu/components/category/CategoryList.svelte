@@ -8,10 +8,12 @@
 
     import Animation            from "../animation/Animation.svelte";
     import MeleeMenu            from "../animation/menus/MeleeMenu.svelte";
+    import RangeMenu            from "../animation/menus/RangeMenu.svelte";
+    import OnTokenMenu          from "../animation/menus/OnTokenMenu.svelte";
 
     /** @type {CategoryStore} */
     export let category;
-    console.log(category)
+
     $: dataReducer = category.dataReducer;
 
     // Svelte doesn't have events for the animate directive; `animateEvents` wraps an animate function and provides
@@ -37,9 +39,21 @@
       on:closeAny={onFolderChange}>
       {#if category.key === "aaAutorec-melee"}
         {#each [...$dataReducer] as animation (animation.id)}
-          <section animate:flipWithEvents={{duration: 250, easing: quintOut}}>
-              <MeleeMenu {animation} {category} />
-          </section>
+            <section animate:flipWithEvents={{duration: 250, easing: quintOut}}>
+                <MeleeMenu {animation} {category} />
+            </section>
+        {/each}
+      {:else if category.key === "aaAutorec-range"}
+        {#each [...$dataReducer] as animation (animation.id)}
+            <section animate:flipWithEvents={{duration: 250, easing: quintOut}}>
+                <RangeMenu {animation} {category} />
+            </section>
+        {/each}
+      {:else if category.key === "aaAutorec-ontoken"}
+        {#each [...$dataReducer] as animation (animation.id)}
+            <section animate:flipWithEvents={{duration: 250, easing: quintOut}}>
+                <OnTokenMenu {animation} {category} />
+            </section>
         {/each}
       {:else}
         {#each [...$dataReducer] as animation (animation.id)}
