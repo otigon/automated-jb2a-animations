@@ -11,7 +11,7 @@
     "AUTOANIM.midiondmg_hint": "需要重新整理。啟用后,僅在擲傷害骰時播放動畫",
     "AUTOANIM.coreondmg_name": "僅在傷害骰時播放攻擊動畫",
     "AUTOANIM.enableshield_name": "啟用護盾術法術動畫",
-    "AUTOANIM.enableshield_hint": "護盾術是測試動畫,但看起來比較酷炫。啟用以啟用",
+    "AUTOANIM.enableshield_hint": "護盾術是測試動畫，但看起來比較酷炫。啟用以啟用",
     "AUTOANIM.error": "需要一個 JB2A 模組（免費或 Patreon 贊助）以使 Automated Animations 工作",
     "AUTOANIM.colorBlue": "藍色",
     "AUTOANIM.colorGreen": "綠色",
