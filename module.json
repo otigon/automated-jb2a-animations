@@ -51,6 +51,11 @@
       "lang": "de",
       "name": "Deutsch",
       "path": "lang/de.json"
+    },
+    {
+      "lang": "zh-tw",
+      "name": "正體中文",
+      "path": "lang/zh-tw.json"
     }
   ],
   "packs": [],
