@@ -7,7 +7,8 @@
 
     export let animation;
 
-    const folderOptions = {
+    const folder = {
+        label: game.i18n.localize("autoanimations.menus.options"),
         styles: {
             "--tjs-summary-font-family":
                 '"Modesto Condensed", "Palatino Linotype", serif',
@@ -27,8 +28,7 @@
 
 <div class="aa-options-border">
     <TJSSvgFolder
-        folder={folderOptions}
-        label={`${localize("autoanimations.menus.options")}`}
+        {folder}
     >
         <div slot="summary-end">
             <i

@@ -5,24 +5,24 @@
     import CustomPicker from "./CustomPicker.svelte";
 
     export let animation;
+    export let section;
 
     const copy = () => {
-        const dbPath = animation.getPrimaryVideo("dbPath");
+        const dbPath = animation.primaryVideo("dbPath", section);
         const app = new CopyDBPath({
             target: document.getElementById("clipboard"),
             props: { dbPath },
         });
         app.$destroy();
     };
-    if (!animation._data?.primary?.video?.menuType) {
+    if (!animation._data?.[section]?.video?.menuType) {
         animation.resetPrimaryVideoMenu()
     }
-    $: isCustom = $animation.primary?.video?.enableCustom;
-    let menu = $animation.menu === "aura" ? "static" : $animation.menu;
+
 </script>
 
 <!--Unless spawned from "Explosions", Show the main Animation Type Select-->
-<div class="aa-3wide aa-select-label {$animation.primary.video.enableCustom ? "disableOp" : ""}">
+<div class="aa-3wide aa-select-label {$animation[section].video.enableCustom ? "aa-disableOpacity" : ""}">
     <!--Copy Button-->
     <div class="flexcol" style="grid-row:2/3;grid-column:1/2">
         <label
@@ -44,11 +44,10 @@
     <div class="flexcol" style="grid-row: 2 / 3;grid-column: 2 / 3;">
         <label for="">{localize("autoanimations.menus.type")}</label>
         <select
-            bind:value={$animation.primary.video.menuType}
-            on:change={async () => await animation.primaryVideo("menuTypeChange")}
-            disabled={isCustom}
+            bind:value={$animation[section].video.menuType}
+            on:change={async () => await animation.primaryVideo("menuTypeChange", section)}
         >
-            {#each animation.primaryVideo("menuTypeList") as [key, name]}
+            {#each animation.primaryVideo("menuTypeList", section) as [key, name]}
                 <option value={key}>{name}</option>
             {/each}
         </select>
@@ -57,11 +56,10 @@
     <div class="flexcol" style="grid-row: 3 / 4;grid-column: 1 / 2;">
         <label for="">{localize("autoanimations.menus.animation")}</label>
         <select
-            bind:value={$animation.primary.video.animation}
-            on:change={async () => await animation.primaryVideo("animationChange")}
-            disabled={isCustom}
+            bind:value={$animation[section].video.animation}
+            on:change={async () => await animation.primaryVideo("animationChange", section)}
         >
-            {#each animation.primaryVideo("animationList") as [key, name]}
+            {#each animation.primaryVideo("animationList", section) as [key, name]}
                 <option value={key}>{name}</option>
             {/each}
         </select>
@@ -70,11 +68,10 @@
     <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
         <label for="">{localize("autoanimations.menus.variant")}</label>
         <select
-            bind:value={$animation.primary.video.variant}
-            on:change={async () => await animation.primaryVideo("variantChange")}
-            disabled={isCustom}
+            bind:value={$animation[section].video.variant}
+            on:change={async () => await animation.primaryVideo("variantChange", section)}
         >
-            {#each animation.primaryVideo("variantList") as [key, name]}
+            {#each animation.primaryVideo("variantList", section) as [key, name]}
                 <option value={key}>{name}</option>
             {/each}
         </select>
@@ -82,14 +79,14 @@
     <!--Color Menu-->
     <div class="flexcol" style="grid-row: 3 / 4;grid-column: 3 / 4;">
         <label for="">{localize("autoanimations.menus.color")}</label>
-        <select bind:value={$animation.primary.video.color} disabled={isCustom}>
-            {#each animation.primaryVideo("colorList") as [key, name]}
+        <select bind:value={$animation[section].video.color}>
+            {#each animation.primaryVideo("colorList", section) as [key, name]}
                 <option value={key}>{name}</option>
             {/each}
         </select>
     </div>
 </div>
-<CustomPicker {animation} />
+<CustomPicker {animation} {section}/>
 
 <style lang="scss">
     .aa-3wide label {
@@ -98,7 +95,8 @@
     .aa-select-label label {
         font-size: large;
     }
-    .disableOp {
+    .aa-disableOpacity {
+        pointer-events: none;
         opacity: 0.4;
     }
 </style>

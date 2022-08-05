@@ -2,16 +2,17 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
     export let animation;
+    export let section;
 
-    $: isCustom = $animation.primary.video.enableCustom;
+    $: isCustom = $animation[section].video.enableCustom;
 
     async function selectCustom() {
-        const current = animation._data.primary.video.customPath;
+        const current = animation._data[section].video.customPath;
         const picker = new FilePicker({
             type: "imagevideo",
             current,
             callback: (path) => {
-                $animation.primary.video.customPath = path;
+                $animation[section].video.customPath = path;
             },
         });
         setTimeout(() => {
@@ -19,18 +20,19 @@
         }, 100);
         await picker.browse(current);
     }
+
 </script>
 
 <div class="aa-customAnim-container">
     <div class="flexcol" style="grid-row:1/2; grid-column:1/2">
         <input
             type="checkbox"
-            id={animation._data.id}
+            id="{section} {animation._data.id}"
             hidden
-            bind:checked={$animation.primary.video.enableCustom}
+            bind:checked={$animation[section].video.enableCustom}
         />
         <label
-            for={animation._data.id}
+            for="{section} {animation._data.id}"
             class="aa-setDim {isCustom ? 'aa-selected' : 'aa-notSelected'}"
             >{localize("autoanimations.menus.custom")}</label
         >
@@ -39,7 +41,7 @@
         <input
             disabled={!isCustom}
             type="text"
-            bind:value={$animation.primary.video.customPath}
+            bind:value={$animation[section].video.customPath}
             style="font-weight:normal; font-size:small"
         />
     </div>

@@ -94,45 +94,64 @@ export class AnimationStore extends CategoryStore.EntryStore {
       this._updateSubscribers();
    }
    
-   resetPrimaryVideoMenu() {
+   async resetPrimaryVideoMenu() {
       const menuDB = this._data.menu === "ontoken" || this._data.menu === "aura" ? "static" : this._data.menu;
       this._data.primary.video.menuType === Object.entries(aaTypeMenu[menuDB])[0];
       this.primaryVideo("menuTypeChange")
    }
-   primaryVideo(data) {
-      const menuDB = this._data.menu === "ontoken" || this._data.menu === "aura" ? "static" : this._data.menu;
+   primaryVideo(data, section) {
+      let menuDB = this._data.menu === "ontoken" || this._data.menu === "aura" ? "static" : this._data.menu;
+      menuDB = section === 'explosion' ? "static" : menuDB;
       switch (data) {
          case "menuTypeList":
             let menuTypeMenu = Object.entries(aaTypeMenu[menuDB] || {});
             return menuTypeMenu
          case "menuTypeChange":
-            let menuType = this._data.primary.video.menuType;
-            this._data.primary.video.animation = Object.keys(aaNameMenu[menuDB][menuType])[0];
-            this._data.primary.video.variant = Object.keys(aaVariantMenu[menuDB][menuType][this._data.primary.video.animation])[0];
-            this._data.primary.video.color = Object.keys(aaColorMenu[menuDB][menuType][this._data.primary.video.animation][this._data.primary.video.variant])[0];
+            let menuType = this._data[section].video.menuType;
+            this._data[section].video.animation = Object.keys(aaNameMenu[menuDB][menuType])[0];
+            this._data[section].video.variant = Object.keys(aaVariantMenu[menuDB][menuType][this._data[section].video.animation])[0];
+            this._data[section].video.color = Object.keys(aaColorMenu[menuDB][menuType][this._data[section].video.animation][this._data[section].video.variant])[0];
             break;
          case "animationList":
-            return Object.entries(aaNameMenu[menuDB][this._data.primary.video.menuType])
+            return Object.entries(aaNameMenu[menuDB][this._data[section].video.menuType])
          case "animationChange":
-            let animation = this._data.primary.video.animation;
-            this._data.primary.video.variant = Object.keys(aaVariantMenu[menuDB][this._data.primary.video.menuType][animation])[0];
-            this._data.primary.video.color = Object.keys(aaColorMenu[menuDB][this._data.primary.video.menuType][animation][this._data.primary.video.variant])[0];
+            let animation = this._data[section].video.animation;
+            this._data[section].video.variant = Object.keys(aaVariantMenu[menuDB][this._data[section].video.menuType][animation])[0];
+            this._data[section].video.color = Object.keys(aaColorMenu[menuDB][this._data[section].video.menuType][animation][this._data[section].video.variant])[0];
             break;
          case "variantList":
-            return Object.entries(aaVariantMenu[menuDB][this._data.primary.video.menuType][this._data.primary.video.animation])
+            return Object.entries(aaVariantMenu[menuDB][this._data[section].video.menuType][this._data[section].video.animation])
          case "variantChange":
             color = Object.keys(
-               aaColorMenu[menuDB][this._data.primary.video.menuType][this._data.primary.video.animation][this._data.primary.video.variant])[0];
+               aaColorMenu[menuDB][this._data[section].video.menuType][this._data[section].video.animation][this._data[section].video.variant])[0];
             break;
          case "colorList":
-            return Object.entries(aaColorMenu[menuDB][this._data.primary.video.menuType][this._data.primary.video.animation][this._data.primary.video.variant]);
+            return Object.entries(aaColorMenu[menuDB][this._data[section].video.menuType][this._data[section].video.animation][this._data[section].video.variant]);
          case "dbPath":
-            return this._data.primary.video.color === "random" 
-            ? `autoanimations.${menuDB}.${this._data.primary.video.menuType}.${this._data.primary.video.animation}.${this._data.primary.video.variant}`
-            : `autoanimations.${menuDB}.${this._data.primary.video.menuType}.${this._data.primary.video.animation}.${this._data.primary.video.variant}.${this._data.primary.video.color}`
+            return this._data[section].video.color === "random" 
+            ? `autoanimations.${menuDB}.${this._data[section].video.menuType}.${this._data[section].video.animation}.${this._data[section].video.variant}`
+            : `autoanimations.${menuDB}.${this._data[section].video.menuType}.${this._data[section].video.animation}.${this._data[section].video.variant}.${this._data[section].video.color}`
       }
    }
 
+   setCustom(path, section) {
+      this._data[section].video.customPath = path;
+   }
+   async selectCustom(section) {
+      const current = this._data[section].video.customPath;
+      const picker = new FilePicker({
+         type: "imagevideo",
+         current,
+         callback: (path) => {
+            this.setCustom(path, section)
+         },
+      });
+      setTimeout(() => {
+         picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
+      }, 100);
+      await picker.browse(current);
+
+   }
 }
 
 /**

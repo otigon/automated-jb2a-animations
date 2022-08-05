@@ -7,13 +7,14 @@
 
     export let animation;
 
-    const folderOptions = {
+    const folder = {
         styles: {
             "--tjs-summary-font-family":
                 '"Modesto Condensed", "Palatino Linotype", serif',
             "--tjs-summary-font-size": "1.2em",
             "--tjs-summary-chevron-size": "0.7em",
         },
+        label: game.i18n.localize("autoanimations.menus.options"),
     };
 
     $: aboveBelow = $animation.primary.options.below
@@ -38,12 +39,13 @@
     function optionsInfo() {
         new OptionsDialog().render(true);
     }
+
+    $: persistent = $animation.primary.options.persistent;
 </script>
 
 <div class="aa-options-border">
     <TJSSvgFolder
-        folder={folderOptions}
-        label={`${localize("autoanimations.menus.options")}`}
+        {folder}
     >
         <div slot="summary-end">
             <i
@@ -68,7 +70,7 @@
                     bind:checked={$animation.primary.options.persistent}
                 />
             </div>
-            <!--Set Z-Index-->
+            <!--Set Level of Animation-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
                 <label for="">{localize("autoanimations.menus.level")}</label>
                 <label for="Below {animation._data.id}" class="aa-setDim"
@@ -82,7 +84,10 @@
                 />
             </div>
             <!--Bind/Unbind Visibility (for Persistent Effects)-->
-            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+            <div
+                class="flexcol {persistent ? '' : 'aa-disableOpacity'}"
+                style="grid-row: 1 / 2; grid-column: 3 / 4;"
+            >
                 <label for=""
                     >{localize("autoanimations.menus.visibility")}</label
                 >
@@ -97,7 +102,10 @@
                 />
             </div>
             <!--Bind/Unbind Opacity (for Persistent Effects)-->
-            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+            <div
+                class="flexcol {persistent ? '' : 'aa-disableOpacity'}"
+                style="grid-row: 1 / 2; grid-column: 4 / 5;"
+            >
                 <label for="">{localize("autoanimations.menus.alpha")}</label>
                 <label for="Alpha {animation._data.id}" class="aa-setDim"
                     >{bindAlpha}</label
@@ -123,7 +131,10 @@
                 />
             </div>
             <!--Set Number of times the animation plays-->
-            <div class="flexcol" style="grid-row: 2 / 3; grid-column: 2 / 3;">
+            <div
+                class="flexcol {persistent ? 'aa-disableOpacity' : ''}"
+                style="grid-row: 2 / 3; grid-column: 2 / 3;"
+            >
                 <label for="">{localize("autoanimations.menus.repeat")}</label>
                 <input
                     type="number"
@@ -132,7 +143,10 @@
                 />
             </div>
             <!--Set delay between repeats-->
-            <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
+            <div
+                class="flexcol {persistent ? 'aa-disableOpacity' : ''}"
+                style="grid-row: 2 / 3; grid-column: 3 / 4;"
+            >
                 <label for=""
                     >{localize("autoanimations.menus.repeat")}
                     {localize("autoanimations.menus.delay")}</label
@@ -154,7 +168,7 @@
                 />
             </div>
             <!--Set Animation Opacity-->
-            <div class="flexcol" style="grid-row: 3 / 4; grid-column: 1 / 2;">
+            <div class="flexcol" style="grid-row: 3 / 4; grid-column: 2 / 3;">
                 <label for="aaOpacity"
                     >{localize("autoanimations.menus.opacity")}</label
                 >
@@ -180,21 +194,14 @@
                 </div>
             </div>
             <!--Set Z-Index of Animation-->
-            <div>
-                <div
-                    class="flexcol"
-                    style="grid-row: 3 /4; grid-column: 2 / 3;"
-                >
-                    <label for=""
-                        >{localize("autoanimations.menus.z-index")}</label
-                    >
-                    <input
-                        type="number"
-                        bind:value={$animation.primary.options.zIndex}
-                        placeholder="1"
-                        step="1"
-                    />
-                </div>
+            <div class="flexcol" style="grid-row: 3 /4; grid-column: 3 / 4;">
+                <label for="">{localize("autoanimations.menus.z-index")}</label>
+                <input
+                    type="number"
+                    bind:value={$animation.primary.options.zIndex}
+                    placeholder="1"
+                    step="1"
+                />
             </div>
         </div>
     </TJSSvgFolder>
@@ -216,5 +223,9 @@
         text-align: center;
         border: 2px outset rgb(142, 142, 142);
         color: black;
+    }
+    .aa-disableOpacity {
+        pointer-events: none;
+        opacity: 0.4;
     }
 </style>

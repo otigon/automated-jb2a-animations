@@ -7,15 +7,12 @@
     import { animateEvents }    from "@typhonjs-fvtt/runtime/svelte/animate";
 
     import Animation            from "../animation/Animation.svelte";
-    import MeleeMenu            from "../animation/menus/MeleeMenu.svelte";
-    import RangeMenu            from "../animation/menus/RangeMenu.svelte";
-    import OnTokenMenu          from "../animation/menus/OnTokenMenu.svelte";
 
     /** @type {CategoryStore} */
     export let category;
 
     $: dataReducer = category.dataReducer;
-
+console.log(category)
     // Svelte doesn't have events for the animate directive; `animateEvents` wraps an animate function and provides
     // events, but also an optional ability to set a store w/ the current animation state. This is used below to set
     // the `no-scroll` class on the main element to remove overflow-y when animating.
@@ -31,37 +28,18 @@
     const onFolderChange = foundry.utils.debounce(() => category.calcAllFolderState(), 100);
 
     $: onFolderChange($dataReducer);
+
 </script>
 
 <main use:applyScrolltop={category.stores.scrollTop}
       class:no-scroll={$isAnimating}
       on:openAny={onFolderChange}
       on:closeAny={onFolderChange}>
-      {#if category.key === "aaAutorec-melee"}
         {#each [...$dataReducer] as animation (animation.id)}
             <section animate:flipWithEvents={{duration: 250, easing: quintOut}}>
-                <MeleeMenu {animation} {category} />
+                <Animation {animation} {category}/>
             </section>
         {/each}
-      {:else if category.key === "aaAutorec-range"}
-        {#each [...$dataReducer] as animation (animation.id)}
-            <section animate:flipWithEvents={{duration: 250, easing: quintOut}}>
-                <RangeMenu {animation} {category} />
-            </section>
-        {/each}
-      {:else if category.key === "aaAutorec-ontoken"}
-        {#each [...$dataReducer] as animation (animation.id)}
-            <section animate:flipWithEvents={{duration: 250, easing: quintOut}}>
-                <OnTokenMenu {animation} {category} />
-            </section>
-        {/each}
-      {:else}
-        {#each [...$dataReducer] as animation (animation.id)}
-            <section animate:flipWithEvents={{duration: 250, easing: quintOut}}>
-                <Animation {animation} {category} />
-            </section>
-        {/each}
-      {/if}
 </main>
 
 <style lang=scss>

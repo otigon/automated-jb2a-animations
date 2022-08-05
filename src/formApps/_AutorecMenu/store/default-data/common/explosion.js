@@ -9,7 +9,7 @@ import { video } from "./video.js";
 export function explosion() {
    return {
       enable: false,
-      video: video(),
+      video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
       sound: sound(),
       options: {
          below: false,
