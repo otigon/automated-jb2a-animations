@@ -56,7 +56,7 @@ export default class systemData {
         }
 
         this.itemMacro = this.item.data?.flags?.itemacro?.macro?.data?.name ?? "";
-        this.itemType = this.item.data?.type?.toLowerCase() ?? "";
+        this.itemType = this.item.data?.type?.toLowerCase() ?? this.item?.type ?? "";
 
         this.sourceToken = data.token?.isEmbedded ? data.token?.object : data.token;
         this.actor = data.token?.actor;
@@ -120,7 +120,7 @@ export default class systemData {
         } 
     
         // If there is no match and there are alternative names, then attempt to use those names instead
-        if (!this.autorecObject && data.extraNames?.length) {
+        if (!this.autorecObject && data.extraNames?.length && !this.isActiveEffect && !this.pf2eRuleset) {
             for (const name of data.extraNames) {
                 const rinsedName = AAAutorecFunctions.rinseName(name);
                 this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, rinsedName);
