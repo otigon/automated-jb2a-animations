@@ -48,7 +48,7 @@ export async function auraSeq(handler, animationData) {
         let aaSeq = new Sequence()
         if (data.playMacro && data.macro.playWhen === "1") {
             let userData = data.macro.args;
-            aaSeq.macro(data.macro.name, handler.workflow, handler, ...userData)
+            aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
                 .play()
         }
         let adjustedSize = data.addTokenWidth ? data.size + (sourceToken.w / canvas.grid.size) : data.size;

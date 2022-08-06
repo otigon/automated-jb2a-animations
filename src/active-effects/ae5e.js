@@ -123,7 +123,7 @@ export async function deleteActiveEffects5e(effect) {
         if (macroData.shouldRun) {
             let userData = macroData.args;
             new Sequence()
-                .macro(macroData.name, "off", handler, ...userData)
+                .macro(macroData.name, "off", handler, [...userData])
                 .play()
         }
 
@@ -161,7 +161,7 @@ export async function deleteActiveEffects5e(effect) {
         if (macroData.shouldRun) {
             let userData = macroData.args;
             new Sequence()
-                .macro(macroData.name, "off", handler, ...userData)
+                .macro(macroData.name, "off", handler, [...userData])
                 .play()
         }
     }

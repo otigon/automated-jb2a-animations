@@ -16,7 +16,7 @@ export function disableAnimations() {
  *
  */
 export async function createActiveEffectsPF1(effect) {
-    //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+    const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
     //await wait(150)
 
     const aaDebug = game.settings.get("autoanimations", "debug")
@@ -79,12 +79,21 @@ export async function createActiveEffectsPF1(effect) {
     // Update the Active Effect flags with flagData
     //await effect.update({ 'flags.autoanimations': flagData })
 
+    if (effect.data?.flags?.pf1?.origin?.item) {
+        let item = aeToken.actor.items.get(effect.data?.flags?.pf1?.origin?.item)
+        let flags = item?.data?.flags?.autoanimations;
+        if (flags) {
+            effect.data.flags.autoanimations = flags;
+        }
+    }
+
     // Initilizes the A-A System Handler
     const data = {
         token: aeToken,
         targets: [],
         item: effect,
     }
+
     let handler = await systemData.make(null, null, data);
 
     // Exits early if Item or Source Token returns null. Total Failure
@@ -104,8 +113,17 @@ export async function createActiveEffectsPF1(effect) {
  */
 export async function deleteActiveEffectsPF1(effect) {
     const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
+    if (effect.data?.flags?.pf1?.origin?.item) {
+        let item = aeToken.actor.items.get(effect.data?.flags?.pf1?.origin?.item)
+        let flags = item?.data?.flags?.autoanimations;
+        if (flags) {
+            effect.data.flags.autoanimations = flags;
+        }
+    }
     const aaDebug = game.settings.get("autoanimations", "debug")
-
+    //if (effect.data?.flags?.pf1?.origin?.item) {
+        //effect = aeToken.actor.items.get(effect.data?.flags?.pf1?.origin?.item)
+    //}
     // Finds all active Animations on the scene that match .origin(effect.uuid)
     let aaEffects = Sequencer.EffectManager.getEffects({ origin: effect.uuid })
 
@@ -128,12 +146,12 @@ export async function deleteActiveEffectsPF1(effect) {
             //Sets macro data if it is defined on the Item and is active
             macroData.shouldRun = true;
             macroData.name = itemData.macro?.name ?? "";
-            macroData.args = itemData.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
+            macroData.args = itemData.macro?.args ? itemData.macro?.args.split(',').map(s => s.trim()) : "";
         } else if (handler.autorecObject && handler.autorecObject?.macro?.enable && handler.autorecObject?.macro?.name) {
             //Sets macro data if none is defined/active on the item and it is present in the Automatic Recognition Menu
             macroData.shouldRun = true;
             macroData.name = handler.autorecObject?.macro?.name ?? "";
-            macroData.args = handler.autorecObject?.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
+            macroData.args = handler.autorecObject?.macro?.args ? handler.autorecObject?.macro?.args.split(',').map(s => s.trim()) : "";
         }
 
         // Filters the active Animations to isolate the ones active on the Token
@@ -153,7 +171,7 @@ export async function deleteActiveEffectsPF1(effect) {
         if (macroData.shouldRun) {
             let userData = macroData.args;
             new Sequence()
-                .macro(macroData.name, "off", handler, ...userData)
+                .macro(macroData.name, "off", handler, [...userData])
                 .play()
         }
 
@@ -175,12 +193,12 @@ export async function deleteActiveEffectsPF1(effect) {
             //Sets macro data if it is defined on the Item and is active
             macroData.shouldRun = true;
             macroData.name = itemData.macro?.name ?? "";
-            macroData.args = itemData.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
+            macroData.args = itemData.macro?.args ? itemData.macro?.args.split(',').map(s => s.trim()) : "";
         } else if (handler.autorecObject && handler.autorecObject?.macro?.enable && handler.autorecObject?.macro?.name) {
             //Sets macro data if none is defined/active on the item and it is present in the Automatic Recognition Menu
             macroData.shouldRun = true;
             macroData.name = handler.autorecObject?.macro?.name ?? "";
-            macroData.args = handler.autorecObject?.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
+            macroData.args = handler.autorecObject?.macro?.args ? handler.autorecObject?.macro?.args.split(',').map(s => s.trim()) : "";
         }
         // If no Item or Source Token was found, exit early with Debug
         if (!handler.item || !handler.sourceToken) {
@@ -192,7 +210,7 @@ export async function deleteActiveEffectsPF1(effect) {
         if (macroData.shouldRun) {
             let userData = macroData.args;
             new Sequence()
-                .macro(macroData.name, "off", handler, ...userData)
+                .macro(macroData.name, "off", handler, [...userData])
                 .play()
         }
     }
