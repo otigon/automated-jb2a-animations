@@ -55,7 +55,7 @@ export default class systemData {
         }
 
         this.itemMacro = this.item.data?.flags?.itemacro?.macro?.data?.name ?? "";
-        this.itemType = this.item.data?.type?.toLowerCase() ?? "";
+        this.itemType = this.item.data?.type?.toLowerCase() ?? this.item?.type ?? "";
 
         this.sourceToken = data.token?.isEmbedded ? data.token?.object : data.token;
         this.actor = data.token?.actor;

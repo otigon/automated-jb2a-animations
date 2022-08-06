@@ -852,7 +852,7 @@ async function pf2eReady(msg) {
     if (handler.shouldPlayImmediately) { return };
     switch (itemType) {
         case "spell":
-            damage = handler.item?.data?.data?.damage?.value["0"]?.value;
+            damage = msg.isDamageRoll || handler.item?.data?.data?.damage?.value["0"]?.value;
             switch (spellType) {
                 case "utility":
                     if (!damage) {
@@ -893,6 +893,7 @@ async function pf2eReady(msg) {
             break;
         case "melee":
         case "weapon":
+        case "strike":
             handlePf2eStrike(msg, handler, playOnDmg)
             break;
         case "consumable":
