@@ -4,11 +4,14 @@ import OnTokenOptions from "./components/options/OnTokenOptions.svelte";
 import SoundSettings from "./components/SoundSettings.svelte";
 import Explosion from "./components/Explosion.svelte";
 
-export let animation
+export let animation;
+
+let title = game.i18n.localize("autoanimations.menus.primary") + " " + game.i18n.localize("autoanimations.menus.animation")
+
 </script>
 
 <div>
-    <VideoSelect {animation} section="primary"/>
+    <VideoSelect {animation} section="primary" {title}/>
     <OnTokenOptions {animation}/>
     <SoundSettings {animation} section="primary"/>
     <Explosion {animation} section="explosion"/>

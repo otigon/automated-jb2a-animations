@@ -3,9 +3,11 @@
 
     import CopyDBPath from "./copyOnClick.svelte";
     import CustomPicker from "./CustomPicker.svelte";
+    import SectionHeader from "./SectionHeader.svelte";
 
     export let animation;
     export let section;
+    export let title;
 
     const copy = () => {
         const dbPath = animation.primaryVideo("dbPath", section);
@@ -21,6 +23,7 @@
 
 </script>
 
+<SectionHeader {title}/>
 <!--Unless spawned from "Explosions", Show the main Animation Type Select-->
 <div class="aa-3wide aa-select-label {$animation[section].video.enableCustom ? "aa-disableOpacity" : ""}">
     <!--Copy Button-->
