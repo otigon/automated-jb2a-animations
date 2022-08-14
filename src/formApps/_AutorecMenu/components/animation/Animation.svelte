@@ -14,6 +14,8 @@
    import BuildMelee from "./menus/BuildMelee.svelte";
    import BuildRange from "./menus/BuildRange.svelte";
    import BuildOnToken from "./menus/BuildOnToken.svelte";
+   import BuildTemplateFx from "./menus/BuildTemplateFX.svelte";
+   import BuildAura from "./menus/BuildAura.svelte";
    //import MeleeOptions from "./menus/components/options/MeleeOptions.svelte";
 
    /** @type {AnimationStore} */
@@ -59,10 +61,16 @@
          component: BuildOnToken,
       },
       "aaAutorec-templatefx": {
-
+         component: BuildTemplateFx,
       },
       "aaAutorec-aura": {
+         component: BuildAura,
+      },
+      "aaAutorec-preset": {
 
+      },
+      "aaAutorec-aefx": {
+         
       }
    }
 

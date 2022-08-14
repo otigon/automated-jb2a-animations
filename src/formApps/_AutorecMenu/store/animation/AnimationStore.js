@@ -94,13 +94,14 @@ export class AnimationStore extends CategoryStore.EntryStore {
       this._updateSubscribers();
    }
    
-   async resetPrimaryVideoMenu() {
-      const menuDB = this._data.menu === "ontoken" || this._data.menu === "aura" ? "static" : this._data.menu;
-      this._data.primary.video.menuType === Object.entries(aaTypeMenu[menuDB])[0];
-      this.primaryVideo("menuTypeChange")
+   async resetPrimaryVideoMenu(section, isOnToken) {
+      const menuDB = isOnToken ? "static" : this._data.menu === "ontoken" || this._data.menu === "aura" ? "static" : this._data.menu;
+      this._data[section].video.menuType = Object.keys(aaTypeMenu[menuDB])[0];
+      this.primaryVideo("menuTypeChange", section, isOnToken);
+
    }
-   primaryVideo(data, section) {
-      let menuDB = this._data.menu === "ontoken" || this._data.menu === "aura" ? "static" : this._data.menu;
+   primaryVideo(data, section, isOnToken) {
+      let menuDB = isOnToken ? "static" : this._data.menu === "ontoken" || this._data.menu === "aura" ? "static" : this._data.menu;
       menuDB = section === 'explosion' ? "static" : menuDB;
       switch (data) {
          case "menuTypeList":

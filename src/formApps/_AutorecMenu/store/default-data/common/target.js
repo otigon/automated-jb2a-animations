@@ -9,7 +9,7 @@ import { video } from "./video.js";
 export function target() {
    return {
       enable: false,
-      video: video(),
+      video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue', enableCustom: false, customPath: "" },
       sound: sound(),
       options: {
          below: false,

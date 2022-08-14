@@ -2,7 +2,7 @@ const melee = {
     explosion: {
         options: {},
         sound: {},
-        video: {},
+        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     label: "",
     levels3d: {
@@ -23,12 +23,12 @@ const melee = {
     source: {
         options: {},
         sound: {},
-        video: {},
+        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     target: {
         options: {},
         sound: {},
-        video: {},
+        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     }
 }
 
@@ -36,7 +36,7 @@ const range = {
     explosion: {
         options: {},
         sound: {},
-        video: {},
+        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     label: "",
     levels3d: {
@@ -52,12 +52,12 @@ const range = {
     source: {
         options: {},
         sound: {},
-        video: {},
+        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     target: {
         options: {},
         sound: {},
-        video: {},
+        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     }
 }
 
@@ -65,7 +65,7 @@ const ontoken = {
     explosion: {
         options: {},
         sound: {},
-        video: {},
+        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     label: "",
     levels3d: {
@@ -81,12 +81,12 @@ const ontoken = {
     source: {
         options: {},
         sound: {},
-        video: {},
+        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     target: {
         options: {},
         sound: {},
-        video: {},
+        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     }
 }
 

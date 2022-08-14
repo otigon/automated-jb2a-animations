@@ -1,0 +1,53 @@
+<script>
+    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
+
+    import SoundSettings from "./SoundSettings.svelte";
+    import VideoSelect from "./VideoSelect.svelte";
+    import SourceFxOptions from "./options/SourceFXOptions.svelte";
+
+    export let animation;
+
+    let title = "Source" + " " + game.i18n.localize("autoanimations.menus.animation")
+
+    const folderOptions = {
+        styles: {
+            "--tjs-summary-font-family":
+                '"Modesto Condensed", "Palatino Linotype", serif',
+            "--tjs-summary-font-size": "1.2em",
+            "--tjs-summary-chevron-size": "0.7em",
+        },
+    };
+</script>
+
+<div class="aa-section-border">
+    <TJSSvgFolder
+        folder={folderOptions}
+        label={`Source ${localize("autoanimations.menus.animation")} ${
+            $animation.source.enable
+                ? localize("autoanimations.menus.enabled")
+                : localize("autoanimations.menus.disabled")
+        }`}
+    >
+        <div slot="summary-end">
+            <input
+                type="checkbox"
+                style="align-self:center"
+                title="Toggle Source FX On/Off"
+                bind:checked={$animation.source.enable}
+            />
+        </div>
+        <div class={!$animation.source.enable ? "aa-isDisabled" : ""}>
+            <VideoSelect {animation} section="source" {title} isOnToken={true}/>
+            <SourceFxOptions {animation} />
+            <SoundSettings {animation} section="source" />
+        </div>
+    </TJSSvgFolder>
+</div>
+
+<style lang="scss">
+    .aa-isDisabled {
+        pointer-events: none;
+        opacity: 0.4;
+    }
+</style>

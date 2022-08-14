@@ -23,7 +23,8 @@ export const templatefx = [
          }
       }),
       macro: common.macro(),
-      source: common.source()
+      source: common.source(),
+      target: common.target(),
    },
 
    {
@@ -48,6 +49,7 @@ export const templatefx = [
          }
       }),
       macro: common.macro(),
-      source: common.source()
+      source: common.source(),
+      target: common.target(),
    }
 ];

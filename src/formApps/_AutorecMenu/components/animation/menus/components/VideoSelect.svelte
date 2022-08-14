@@ -8,6 +8,7 @@
     export let animation;
     export let section;
     export let title;
+    export let isOnToken;
 
     const copy = () => {
         const dbPath = animation.primaryVideo("dbPath", section);
@@ -17,10 +18,14 @@
         });
         app.$destroy();
     };
+    /*
     if (!animation._data?.[section]?.video?.menuType) {
-        animation.resetPrimaryVideoMenu()
+        resetVideo()
     }
-
+    async function resetVideo() {
+        animation.resetPrimaryVideoMenu(section, isOnToken)
+    }
+    */
 </script>
 
 <SectionHeader {title}/>
@@ -48,9 +53,9 @@
         <label for="">{localize("autoanimations.menus.type")}</label>
         <select
             bind:value={$animation[section].video.menuType}
-            on:change={async () => await animation.primaryVideo("menuTypeChange", section)}
+            on:change={async () => await animation.primaryVideo("menuTypeChange", section, isOnToken)}
         >
-            {#each animation.primaryVideo("menuTypeList", section) as [key, name]}
+            {#each animation.primaryVideo("menuTypeList", section, isOnToken) as [key, name]}
                 <option value={key}>{name}</option>
             {/each}
         </select>
@@ -60,9 +65,9 @@
         <label for="">{localize("autoanimations.menus.animation")}</label>
         <select
             bind:value={$animation[section].video.animation}
-            on:change={async () => await animation.primaryVideo("animationChange", section)}
+            on:change={async () => await animation.primaryVideo("animationChange", section, isOnToken)}
         >
-            {#each animation.primaryVideo("animationList", section) as [key, name]}
+            {#each animation.primaryVideo("animationList", section, isOnToken) as [key, name]}
                 <option value={key}>{name}</option>
             {/each}
         </select>
@@ -72,9 +77,9 @@
         <label for="">{localize("autoanimations.menus.variant")}</label>
         <select
             bind:value={$animation[section].video.variant}
-            on:change={async () => await animation.primaryVideo("variantChange", section)}
+            on:change={async () => await animation.primaryVideo("variantChange", section, isOnToken)}
         >
-            {#each animation.primaryVideo("variantList", section) as [key, name]}
+            {#each animation.primaryVideo("variantList", section, isOnToken) as [key, name]}
                 <option value={key}>{name}</option>
             {/each}
         </select>
@@ -83,7 +88,7 @@
     <div class="flexcol" style="grid-row: 3 / 4;grid-column: 3 / 4;">
         <label for="">{localize("autoanimations.menus.color")}</label>
         <select bind:value={$animation[section].video.color}>
-            {#each animation.primaryVideo("colorList", section) as [key, name]}
+            {#each animation.primaryVideo("colorList", section, isOnToken) as [key, name]}
                 <option value={key}>{name}</option>
             {/each}
         </select>

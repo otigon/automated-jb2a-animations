@@ -1,25 +1,22 @@
 <script>
 import VideoSelect from "./components/VideoSelect.svelte";
-import MeleeOptions from "./components/options/MeleeOptions.svelte";
+import AuraOptions from "./components/options/AuraOptions.svelte";
 import SoundSettings from "./components/SoundSettings.svelte";
-import Explosion from "./components/Explosion.svelte";
-import ExtraTarget from "./components/ExtraTarget.svelte";
 import ExtraSource from "./components/ExtraSource.svelte";
 
-export let animation
+export let animation;
 
 let title = game.i18n.localize("autoanimations.menus.primary") + " " + game.i18n.localize("autoanimations.menus.animation")
+
 </script>
 
 <div>
     <ExtraSource {animation} />
     <div class="aa-section-border">
     <VideoSelect {animation} section="primary" {title}/>
-    <MeleeOptions {animation}/>
+    <AuraOptions {animation}/>
     <SoundSettings {animation} section="primary"/>
     </div>
-    <Explosion {animation} section="explosion"/>
-    <ExtraTarget {animation} />
 </div>
 
 <style lang='scss'>

@@ -8,31 +8,31 @@
     export let animation;
 
     const folder = {
-        label: game.i18n.localize("autoanimations.menus.options"),
         styles: {
             "--tjs-summary-font-family":
                 '"Modesto Condensed", "Palatino Linotype", serif',
             "--tjs-summary-font-size": "1.2em",
             "--tjs-summary-chevron-size": "0.7em",
         },
+        label: game.i18n.localize("autoanimations.menus.options"),
     };
 
-    $: aboveBelow = $animation.primary?.options?.below
+    $: aboveBelow = $animation.source.options.below
         ? game.i18n.localize("autoanimations.menus.below")
         : game.i18n.localize("autoanimations.menus.above");
+
+    $: maskLabel = $animation.source.options.isMasked
+        ? game.i18n.localize("autoanimations.menus.enabled")
+        : game.i18n.localize("autoanimations.menus.disabled");
 
     function optionsInfo() {
         new OptionsDialog().render(true);
     }
 
-    $: below = $animation.primary.options.below;
-    $: console.log(below)
 </script>
 
 <div class="aa-options-border">
-    <TJSSvgFolder
-        {folder}
-    >
+    <TJSSvgFolder {folder}>
         <div slot="summary-end">
             <i
                 class="fas fa-info-circle aa-info-icon aa-zoom aa-adjust-pos"
@@ -41,48 +41,67 @@
             />
         </div>
         <div class="aa-options" style="justify-items:center">
-            <!--Set belowToken-->
+            <!--Set Level of Animation-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
                 <label for="">{localize("autoanimations.menus.level")}</label>
-                <label for="Below {animation._data.id}" class="aa-setDim"
-                >{aboveBelow}</label
+                <label for="Below Source {animation._data.id}" class="aa-setDim"
+                    >{aboveBelow}</label
                 >
                 <input
                     type="checkbox"
-                    id="Below {animation._data.id}"
+                    id="Below Source {animation._data.id}"
                     hidden
-                    bind:checked={$animation.primary.options.below}
+                    bind:checked={$animation.source.options.below}
+                />
+            </div>
+            <!--Set the Masking Boolean-->
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+                <label for="">{localize("autoanimations.menus.masking")}</label>
+                <label for="Mask Source {animation._data.id}" class="aa-setDim"
+                    >{maskLabel}</label
+                >
+                <input
+                    type="checkbox"
+                    id="Mask Source {animation._data.id}"
+                    hidden
+                    bind:checked={$animation.source.options.isMasked}
                 />
             </div>
             <!--Set Number of times the animation plays-->
-            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
+            <div
+                class="flexcol"
+                style="grid-row: 1 / 2; grid-column: 3 / 4;"
+            >
                 <label for="">{localize("autoanimations.menus.repeat")}</label>
                 <input
                     type="number"
-                    bind:value={$animation.primary.options.repeat}
-                    placeholder=1
+                    bind:value={$animation.source.options.repeat}
+                    placeholder="1"
                 />
             </div>
             <!--Set delay between repeats-->
-            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
+            <div
+                class="flexcol"
+                style="grid-row: 1 / 2; grid-column: 4 / 5;"
+            >
                 <label for=""
                     >{localize("autoanimations.menus.repeat")}
                     {localize("autoanimations.menus.delay")}</label
                 >
                 <input
                     type="number"
-                    bind:value={$animation.primary.options.delay}
-                    placeholder=250
+                    bind:value={$animation.source.options.delay}
+                    placeholder="250"
                 />
             </div>
-            <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
+            <!--Set Scale of Animation-->
             <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
                 <label for="">{localize("autoanimations.menus.scale")}</label>
                 <input
                     type="number"
-                    bind:value={$animation.primary.options.scale}
-                    placeholder=1
-                    step=0.01
+                    bind:value={$animation.source.options.scale}
+                    placeholder="1"
+                    step="0.01"
                 />
             </div>
             <!--Set Animation Opacity-->
@@ -95,7 +114,7 @@
                         style="font-weight: normal;background:rgb(191 187 182);font-size:14px;height:1.5em;max-width: 3.5em;font-family: Signika, sans-serif;"
                         type="number"
                         id="aaOpacity"
-                        bind:value={$animation.primary.options.opacity}
+                        bind:value={$animation.source.options.opacity}
                         placeholder="1"
                         min="0"
                         max="1"
@@ -107,26 +126,33 @@
                         min="0"
                         max="1"
                         step="0.01"
-                        bind:value={$animation.primary.options.opacity}
+                        bind:value={$animation.source.options.opacity}
                     />
                 </div>
             </div>
             <!--Set Z-Index of Animation-->
-            <div>
-                <div
-                    class="flexcol"
-                    style="grid-row: 1 / 2; grid-column: 2 / 3;"
+            <div class="flexcol" style="grid-row: 2 /3; grid-column: 1 / 2;">
+                <label for="">{localize("autoanimations.menus.z-index")}</label>
+                <input
+                    type="number"
+                    bind:value={$animation.source.options.zIndex}
+                    placeholder="1"
+                    step="1"
+                />
+            </div>
+            <!--Set Delay of Primary Animation-->
+            <div class="flexcol" style="grid-row: 2/3; grid-column: 4 / 5;">
+                <label for=""
+                    >{localize("autoanimations.menus.delay")}
+                    {localize("autoanimations.menus.primary")}
+                    {localize("autoanimations.menus.start")}</label
                 >
-                    <label for=""
-                        >{localize("autoanimations.menus.z-index")}</label
-                    >
-                    <input
-                        type="number"
-                        bind:value={$animation.primary.options.zIndex}
-                        placeholder="1"
-                        step="1"
-                    />
-                </div>
+                <input
+                    type="number"
+                    bind:value={$animation.source.options.delayAfter}
+                    placeholder="1"
+                    step="1"
+                />
             </div>
         </div>
     </TJSSvgFolder>
@@ -139,7 +165,7 @@
     }
     .aa-setDim {
         line-height: 1.25em;
-        width: 7em;
+        width: 6.75em;
         align-self: center;
         padding: 0;
         border-radius: 8px;
