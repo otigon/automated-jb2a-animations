@@ -596,6 +596,17 @@ export class AASystemData {
         if (!item) {
             item = aaDeletedItems.get(itemId);
         }
+        if (!item && game.system.id === 'pf2e') {
+            // Code taken with permission from XDY in a PR for PF2E flat checks: https://github.com/jessev14/pf2-flat-check/pull/8/files
+            const originUUID = data.data.flags.pf2e?.origin?.uuid;
+            const actor = input.actor;
+            if (!item && !data.isDamageRoll && originUUID?.match(/Item.(\w+)/) && RegExp.$1 === 'xxPF2ExUNARMEDxx') {
+                const actionIds = originUUID.match(/Item.(\w+)/);
+                if (actionIds && actionIds[1]) {
+                    item = actor?.data.data?.actions.filter((atk) => atk?.type === "strike").filter((a) => a.item.id === actionIds[1])[0] || null;
+                }
+            }
+        }
         if (!token) {
             token = canvas.tokens.placeables.find(token => token.actor?.items?.get(item?.id) != null)
         }
