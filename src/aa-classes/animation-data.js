@@ -135,7 +135,7 @@ export class AAanimationData {
 
             data.removeTemplate = data.removeTemplate || false;
             data.occlusionMode = parseInt(data.occlusionMode ?? "3");
-            data.occlusionAlpha = data.occlusionAlpha ?? "0";
+            data.occlusionAlpha = parseInt(data.occlusionAlpha ?? ".5");
             data.persistType = data.persistType || "sequencerground";
 
             data.ignoreTargets = data.ignoretargets || false;
