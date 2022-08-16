@@ -20,6 +20,9 @@
     $: aboveBelow = $animation.primary.options.below
         ? game.i18n.localize("autoanimations.menus.below")
         : game.i18n.localize("autoanimations.menus.above");
+    $: isOnlyX = $animation.primary.options.onlyX
+        ? "Yes"
+        : "No";
 
     function optionsInfo() {
         new OptionsDialog().render(true);
@@ -27,9 +30,7 @@
 </script>
 
 <div class="aa-options-border">
-    <TJSSvgFolder
-        {folder}
-    >
+    <TJSSvgFolder {folder}>
         <div slot="summary-end">
             <i
                 class="fas fa-info-circle aa-info-icon aa-zoom aa-adjust-pos"
@@ -41,8 +42,8 @@
             <!--Set belowToken-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
                 <label for="">{localize("autoanimations.menus.level")}</label>
-                <label for="Below {animation._data.id}" class="aa-setDim"
-                >{aboveBelow}</label
+                <label for="Below {animation._data.id}" class="aa-cblabel"
+                    >{aboveBelow}</label
                 >
                 <input
                     type="checkbox"
@@ -70,6 +71,19 @@
                     type="number"
                     bind:value={$animation.primary.options.delay}
                     placeholder="250"
+                />
+            </div>
+            <!--Set onlyX for Custom set animation-->
+            <div class="flexcol" style="grid-row: 2 / 3; grid-column: 1 / 2;">
+                <label for="">{localize("autoanimations.menus.only")} X</label>
+                <label for="OnlyX {animation._data.id}" class="aa-cblabel"
+                    >{isOnlyX}</label
+                >
+                <input
+                    type="checkbox"
+                    id="OnlyX {animation._data.id}"
+                    hidden
+                    bind:checked={$animation.primary.options.onlyX}
                 />
             </div>
             <!--Set Animation Opacity-->
@@ -123,17 +137,5 @@
     .aa-adjust-pos {
         position: relative;
         left: 10px;
-    }
-    .aa-setDim {
-        line-height: 1.25em;
-        width: 7em;
-        align-self: center;
-        padding: 0;
-        border-radius: 8px;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: 1em;
-        text-align: center;
-        border: 2px outset rgb(142, 142, 142);
-        color: black;
     }
 </style>

@@ -29,7 +29,7 @@
         <div class="aa-options" style="justify-items:center">
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
                 <label for="">{localize("autoanimations.menus.level")}</label>
-                <label for="ExBelow {animation._data.id}" class="aa-setDim"
+                <label for="ExBelow {animation._data.id}" class="aa-cblabel"
                     >{aboveBelow}</label
                 >
                 <input
@@ -60,7 +60,7 @@
             <!--Set the Masking Boolean-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
                 <label for="">{localize("autoanimations.menus.masking")}</label>
-                <label for="ExMask {animation._data.id}" class="aa-setDim"
+                <label for="ExMask {animation._data.id}" class="aa-cblabel"
                     >{maskLabel}</label
                 >
                 <input
@@ -110,16 +110,4 @@
 </div>
 
 <style lang="scss">
-    .aa-setDim {
-        line-height: 1.25em;
-        width: 7em;
-        align-self: center;
-        padding: 0;
-        border-radius: 8px;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: 1em;
-        text-align: center;
-        border: 2px outset rgb(142, 142, 142);
-        color: black;
-    }
 </style>

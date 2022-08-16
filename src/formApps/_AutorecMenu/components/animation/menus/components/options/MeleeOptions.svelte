@@ -26,13 +26,10 @@
     }
 
     $: below = $animation.primary.options.below;
-    $: console.log(below)
 </script>
 
 <div class="aa-options-border">
-    <TJSSvgFolder
-        {folder}
-    >
+    <TJSSvgFolder {folder}>
         <div slot="summary-end">
             <i
                 class="fas fa-info-circle aa-info-icon aa-zoom aa-adjust-pos"
@@ -44,8 +41,8 @@
             <!--Set belowToken-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
                 <label for="">{localize("autoanimations.menus.level")}</label>
-                <label for="Below {animation._data.id}" class="aa-setDim"
-                >{aboveBelow}</label
+                <label for="Below {animation._data.id}" class="aa-cblabel"
+                    >{aboveBelow}</label
                 >
                 <input
                     type="checkbox"
@@ -60,7 +57,7 @@
                 <input
                     type="number"
                     bind:value={$animation.primary.options.repeat}
-                    placeholder=1
+                    placeholder="1"
                 />
             </div>
             <!--Set delay between repeats-->
@@ -72,7 +69,7 @@
                 <input
                     type="number"
                     bind:value={$animation.primary.options.delay}
-                    placeholder=250
+                    placeholder="250"
                 />
             </div>
             <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
@@ -81,8 +78,8 @@
                 <input
                     type="number"
                     bind:value={$animation.primary.options.scale}
-                    placeholder=1
-                    step=0.01
+                    placeholder="1"
+                    step="0.01"
                 />
             </div>
             <!--Set Animation Opacity-->
@@ -112,21 +109,14 @@
                 </div>
             </div>
             <!--Set Z-Index of Animation-->
-            <div>
-                <div
-                    class="flexcol"
-                    style="grid-row: 1 / 2; grid-column: 2 / 3;"
-                >
-                    <label for=""
-                        >{localize("autoanimations.menus.z-index")}</label
-                    >
-                    <input
-                        type="number"
-                        bind:value={$animation.primary.options.zIndex}
-                        placeholder="1"
-                        step="1"
-                    />
-                </div>
+            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
+                <label for="">{localize("autoanimations.menus.z-index")}</label>
+                <input
+                    type="number"
+                    bind:value={$animation.primary.options.zIndex}
+                    placeholder="1"
+                    step="1"
+                />
             </div>
         </div>
     </TJSSvgFolder>
@@ -136,17 +126,5 @@
     .aa-adjust-pos {
         position: relative;
         left: 10px;
-    }
-    .aa-setDim {
-        line-height: 1.25em;
-        width: 7em;
-        align-self: center;
-        padding: 0;
-        border-radius: 8px;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: 1em;
-        text-align: center;
-        border: 2px outset rgb(142, 142, 142);
-        color: black;
     }
 </style>

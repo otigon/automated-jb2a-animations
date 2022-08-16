@@ -54,7 +54,7 @@ export const autoRecMigration = {
             return await autorecMerge.mergeVersion04(currentAutorec)
         },
         "5": async (currentAutorec) => {
-            return await autorecMerge.mergeVersion05(currentAutorec)
+            return await autorecMerge.mergeVersion06(currentAutorec)
         },
     }
 }

@@ -58,7 +58,7 @@
                 <label for=""
                     >{localize("autoanimations.menus.persistence")}</label
                 >
-                <label for="Persist {animation._data.id}" class="aa-setDim"
+                <label for="Persist {animation._data.id}" class="aa-cblabel"
                     >{isPersistent}</label
                 >
                 <input
@@ -71,7 +71,7 @@
             <!--Set Level of Animation-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
                 <label for="">{localize("autoanimations.menus.level")}</label>
-                <label for="Below {animation._data.id}" class="aa-setDim"
+                <label for="Below {animation._data.id}" class="aa-cblabel"
                     >{aboveBelow}</label
                 >
                 <input
@@ -84,7 +84,7 @@
             <!--Set the Masking Boolean-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
                 <label for="">{localize("autoanimations.menus.masking")}</label>
-                <label for="Mask {animation._data.id}" class="aa-setDim"
+                <label for="Mask {animation._data.id}" class="aa-cblabel"
                     >{maskLabel}</label
                 >
                 <input
@@ -97,7 +97,7 @@
             <!--Should the Template be removed?-->
             <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
                 <label for="">{localize("autoanimations.menus.remove")}</label>
-                <label for="Remove {animation._data.id}" class="aa-setDim"
+                <label for="Remove {animation._data.id}" class="aa-cblabel"
                     >{isRemoved}</label
                 >
                 <input
@@ -300,18 +300,6 @@
     .aa-adjust-pos {
         position: relative;
         left: 10px;
-    }
-    .aa-setDim {
-        line-height: 1.25em;
-        width: 7em;
-        align-self: center;
-        padding: 0;
-        border-radius: 8px;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: 1em;
-        text-align: center;
-        border: 2px outset rgb(142, 142, 142);
-        color: black;
     }
     .aa-disableOpacity {
         pointer-events: none;

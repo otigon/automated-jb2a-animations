@@ -243,12 +243,11 @@
     margin-left: 1%;
     margin-bottom: 2%;
     font-weight: normal;
-    font-family: "Modesto Condensed", "Palatino Linotype", serif;
+    font-size: 16px;
     color: black;
 }
 .aa-options label {
     align-self: center;
-    font-size: large;
 }
 .aa-options input {
     text-align: center;
@@ -306,4 +305,17 @@
     border-radius: 5px;
     background: rgb(200 200 200);
     margin-bottom: 5px;
+}
+.aa-cblabel {
+    line-height: 1.25em;
+    width: 7em;
+    align-self: center;
+    padding: 0;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+    font-family:"Signika", sans-serif;
+    border: 2px outset rgb(142, 142, 142);
+    color: black;
+    background-color: rgba(158, 158, 158, 0.53);
 }
