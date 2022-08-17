@@ -379,22 +379,27 @@ async function mergeVersion06(data) {
         await game.settings.set('autoanimations', 'aaAutorec-aura', newMenu.aura)
         //await compileNewMenu(auraObject, "aura")
     }
+
+    // TO-DO: Removing all Presets but the ones listed below.
+    // I would like to add a 2-Part and 3-Part preset option for relevant animations.
+    // All "removed" presets can be built in other menus. Consider adding AnchorX and AnchorY options to OnToken menu
     if (presetObject) {
         const presetLength = Object.keys(presetObject).length;
         for (var i = 0; i < presetLength; i++) {
             const oldMO = presetObject[i]
-            newMenu.preset[i] = {};
-            const newMO = newMenu.preset[i];
+            //newMenu.preset[i] = {};
+            //const newMO = newMenu.preset[i];
+            let newMO = {}
             switch (oldMO.animation) {
-                case "bardicinspiration":
-                    await updateBI(oldMO, newMO)
-                    break;
-                case "bless":
-                    await updateBless(oldMO, newMO)
-                    break;
-                case "shieldspell":
-                    await updateShield(oldMO, newMO)
-                    break;
+                //case "bardicinspiration":
+                    //await updateBI(oldMO, newMO)
+                    //break;
+                //case "bless":
+                    //await updateBless(oldMO, newMO)
+                    //break;
+                //case "shieldspell":
+                    //await updateShield(oldMO, newMO)
+                    //break;
                 case "teleportation":
                     await updateTele(oldMO, newMO)
                     break;
@@ -404,12 +409,12 @@ async function mergeVersion06(data) {
                 case "fireball":
                     await updateFireball(oldMO, newMO)
                     break;
-                case "huntersmark":
-                    await updateHM(oldMO, newMO)
-                    break;
-                case "sneakattack":
-                    await updateSneak(oldMO, newMO)
-                    break;
+                //case "huntersmark":
+                    //await updateHM(oldMO, newMO)
+                    //break;
+                //case "sneakattack":
+                    //await updateSneak(oldMO, newMO)
+                    //break;
                 case "thunderwave":
                     await updateThunderwave(oldMO, newMO)
                     break;
@@ -429,39 +434,51 @@ async function mergeVersion06(data) {
                     newMO.animType = "static";
                     newMO.type = "source";
                     break;
+                // TO-DO: Combine Auras on AE to be same as Static. Requires adding a few extra options, and a switch from Scale to Radius
                 case "auras":
-                    await primaryMenu(oldMO, newMO)
-                    newMO.animType = "aura";
+                    //await primaryMenu(oldMO, newMO)
+                    //newMO.animType = "aura";
                     break;
-                case "preset":
-                    switch (oldMO.menuType) {
-                        case "bless":
-                            await updateBless(oldMO, newMO)
-                            newMO.animType = "preset";
-                            break;
-                        case "shieldspell":
-                            await updateShield(oldMO, newMO)
-                            newMO.animType = "preset";
-                            break;
-                    }
-                    break;
+                //case "preset":
+                    //switch (oldMO.menuType) {
+                        //case "bless":
+                            //await updateBless(oldMO, newMO)
+                            //newMO.animType = "preset";
+                            //break;
+                        //case "shieldspell":
+                            //await updateShield(oldMO, newMO)
+                            //newMO.animType = "preset";
+                            //break;
+                    //}
+                    //break;
             }
             await primaryMenu(oldMO, newMO)
         }
     }
 
+    /*
     async function updateBI(oldData, newData) {
-        newData.id = randomID();
-        newData.bardicinspiration = {};
-        const root = newData.bardicinspiration;
+        newData.id = uuidv4();
+        newData.data = {};
+        const root = newData.data;
         let { animateSelf, animateTarget, below, marker, name, scale, selfAnimation, selfColor, selfMarkerColor, targetAnimation, targetColor, targetMarkerColor, macro, audio } = oldData;
-        root.audio = audio || {};
+        root.audio = {
+            delay: audio?.a01?.delay ?? 0,
+            enable: audio?.a01?.enable ?? false,
+            file: audio?.a01?.file ?? "",
+            startTime: audio?.a01?.startTime ?? 0,
+            volume: audio?.a01?.volume ?? 0,
+        };
         root.macro = macro || {};
         newData.presetType = "bardicinspiration";
-        root.below = below;
-        root.scale = scale;
-        newData.name = name;
-        newData.hidden = true;
+        //root.below = below;
+        //root.scale = scale;
+        newData.label = name;
+        //newData.hidden = true;
+        root.options = {
+            below: below || false,
+            scale: scale || 1,
+        }
         root.self = {
             enable: animateSelf || false,
             animation: selfAnimation === "music" ? "notes" : selfAnimation,
@@ -533,6 +550,7 @@ async function mergeVersion06(data) {
         root.below = below;
         root.scale = scale;
     }
+    */
     async function updateTele(oldData, newData) {
         newData.id = randomID();
         newData.teleportation = {};
@@ -649,6 +667,7 @@ async function mergeVersion06(data) {
             wait: wait03,
         }
     }
+    /*
     async function updateHM(oldData, newData) {
         newData.id = randomID();
         newData.huntersmark = {};
@@ -685,6 +704,7 @@ async function mergeVersion06(data) {
         root.below = below;
 
     }
+    */
     async function updateThunderwave(oldData, newData) {
         newData.id = randomID();
         newData.thunderwave = {};
