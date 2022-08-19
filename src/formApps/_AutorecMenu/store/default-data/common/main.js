@@ -5,14 +5,21 @@ import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
  *
  * @returns {DataMain}
  */
-export function main({ label, soundOnly = false}) {
+export function main({ label, soundOnly}) {
    if (typeof label !== 'string') { throw new TypeError(`'label' is not a string.`); }
-   if (typeof soundOnly !== 'boolean') { throw new TypeError(`'soundOnly' is not a boolean.`); }
+   //if (typeof soundOnly !== 'boolean') { throw new TypeError(`'soundOnly' is not a boolean.`); }
 
    return {
       id: uuidv4(),
       label: `autoanimations.animations.${label}`,
-      soundOnly
+      soundOnly: {
+         sound: {
+            delay: 0,
+            enable: false,
+            startTime: 0,
+            volume: 0.75,
+         }
+      }
    }
 }
 

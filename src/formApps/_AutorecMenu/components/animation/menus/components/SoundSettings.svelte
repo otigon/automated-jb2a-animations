@@ -5,30 +5,6 @@
     export let animation;
     export let section;
 
-    async function selectCustom() {
-        const current = animation._data[section].sound.file;
-        const picker = new FilePicker({
-            type: "audio",
-            current,
-            callback: (path) => {
-                $animation[section].sound.file = path;
-            },
-        });
-        setTimeout(() => {
-            picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-        }, 100);
-        await picker.browse(current);
-    }
-
-    function playSound() {
-        new Sequence()
-            .sound()
-            .file(animation._data[section].sound.file)
-            .volume(animation._data[section].sound.volume)
-            .startTime(animation._data[section].sound.startTime)
-            .play();
-    }
-
     const folder = {
         styles: {
             "--tjs-summary-font-family":
@@ -62,7 +38,7 @@
                     {#if $animation[section].sound.enable && $animation[section].sound.file}
                         <i
                             class="fas fa-music aa-video-preview"
-                            on:click={() => playSound()}
+                            on:click={() => animation.playSound(section)}
                         />
                     {/if}
                 </div>
@@ -76,7 +52,7 @@
                 <div style="grid-row: 1/2; grid-column: 4/5">
                     <button
                         class="file-picker"
-                        on:click|preventDefault={() => selectCustom()}
+                        on:click|preventDefault={() => animation.selectSound(section)}
                         ><i class="fas fa-file-import fa-fw" /></button
                     >
                 </div>

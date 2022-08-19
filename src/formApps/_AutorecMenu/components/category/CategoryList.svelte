@@ -6,13 +6,19 @@
     import { applyScrolltop }   from "@typhonjs-fvtt/runtime/svelte/action";
     import { animateEvents }    from "@typhonjs-fvtt/runtime/svelte/animate";
 
+    import BuildMelee from "../animation/menus/BuildMelee.svelte";
+    import BuildRange from "../animation/menus/BuildRange.svelte";
+    import BuildOnToken from "../animation/menus/BuildOnToken.svelte";
+    import BuildTemplateFx from "../animation/menus/BuildTemplateFX.svelte";
+    import BuildAura from "../animation/menus/BuildAura.svelte";
+
     import Animation            from "../animation/Animation.svelte";
 
     /** @type {CategoryStore} */
     export let category;
 
     $: dataReducer = category.dataReducer;
-console.log(category)
+    console.log(category)
     // Svelte doesn't have events for the animate directive; `animateEvents` wraps an animate function and provides
     // events, but also an optional ability to set a store w/ the current animation state. This is used below to set
     // the `no-scroll` class on the main element to remove overflow-y when animating.
@@ -29,6 +35,31 @@ console.log(category)
 
     $: onFolderChange($dataReducer);
 
+    let newContentOptions = {
+      "aaAutorec-melee": {
+         component: BuildMelee,
+      },
+      "aaAutorec-range": {
+         component: BuildRange,
+      },
+      "aaAutorec-ontoken": {
+         component: BuildOnToken,
+      },
+      "aaAutorec-templatefx": {
+         component: BuildTemplateFx,
+      },
+      "aaAutorec-aura": {
+         component: BuildAura,
+      },
+      "aaAutorec-preset": {
+
+      },
+      "aaAutorec-aefx": {
+         
+      }
+   }
+
+   $: menuRoute = newContentOptions[category.key].component
 </script>
 
 <main use:applyScrolltop={category.stores.scrollTop}
@@ -37,7 +68,7 @@ console.log(category)
       on:closeAny={onFolderChange}>
         {#each [...$dataReducer] as animation (animation.id)}
             <section animate:flipWithEvents={{duration: 250, easing: quintOut}}>
-                <Animation {animation} {category}/>
+                <Animation {animation} {menuRoute}/>
             </section>
         {/each}
 </main>

@@ -6,21 +6,6 @@
 
     $: isCustom = $animation[section].video.enableCustom;
 
-    async function selectCustom() {
-        const current = animation._data[section].video.customPath;
-        const picker = new FilePicker({
-            type: "imagevideo",
-            current,
-            callback: (path) => {
-                $animation[section].video.customPath = path;
-            },
-        });
-        setTimeout(() => {
-            picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-        }, 100);
-        await picker.browse(current);
-    }
-
 </script>
 
 <div class="aa-customAnim-container">
@@ -49,7 +34,7 @@
         <button
             disabled={!isCustom}
             class="file-picker"
-            on:click|preventDefault={() => selectCustom()}
+            on:click|preventDefault={() => animation.selectCustom(section)}
             ><i class="fas fa-file-import fa-fw" /></button
         >
     </div>

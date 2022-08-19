@@ -123,7 +123,7 @@ export class AnimationStore extends CategoryStore.EntryStore {
          case "variantList":
             return Object.entries(aaVariantMenu[menuDB][this._data[section].video.menuType][this._data[section].video.animation])
          case "variantChange":
-            color = Object.keys(
+            this._data[section].video.color = Object.keys(
                aaColorMenu[menuDB][this._data[section].video.menuType][this._data[section].video.animation][this._data[section].video.variant])[0];
             break;
          case "colorList":
@@ -135,17 +135,15 @@ export class AnimationStore extends CategoryStore.EntryStore {
       }
    }
 
-   setCustom(path, section) {
-      this._data[section].video.customPath = path;
-   }
    async selectCustom(section) {
       const current = this._data[section].video.customPath;
       const picker = new FilePicker({
          type: "imagevideo",
          current,
          callback: (path) => {
-            this.setCustom(path, section)
-         },
+            this._data[section].video.customPath = path;
+            this._updateSubscribers()
+            },
       });
       setTimeout(() => {
          picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
@@ -153,6 +151,73 @@ export class AnimationStore extends CategoryStore.EntryStore {
       await picker.browse(current);
 
    }
+
+   async selectSound(section) {
+      const current = this._data[section].sound.file;
+      const picker = new FilePicker({
+          type: "audio",
+          current,
+          callback: (path) => {
+            this._data[section].sound.file = path;
+            this._updateSubscribers()
+            },
+      });
+      setTimeout(() => {
+          picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
+      }, 100);
+      await picker.browse(current);
+  }
+
+  playSound(section) {
+   const currentSection = this._data[section].sound;
+   const file = currentSection?.file;
+   const volume = currentSection?.volume ?? .75;
+   const startTime = currentSection?.startTime ?? 0;
+   new Sequence()
+       .sound()
+       .file(file)
+       .volume(volume)
+       .startTime(startTime)
+       .play();
+   }
+
+   async openMacro() {
+      const name = this._data.macro.name
+      // Credit to Wasp, Zhell, Gazkhan and MrVauxs for the code in this section
+      if (name.startsWith("Compendium")) {
+          let packArray = name.split(".");
+          let pack = game.packs.get(`${packArray[1]}.${packArray[2]}`);
+          if (!pack) {
+              ui.notifications.info(
+                  `Autoanimations | Compendium ${packArray[1]}.${packArray[2]} was not found`
+              );
+              return;
+          }
+          let macroFilter = pack.index.filter((m) => m.name === packArray[3]);
+          if (!macroFilter.length) {
+              console.log("YES");
+              ui.notifications.info(
+                  `Autoanimations | A macro named ${packArray[3]} was not found in Compendium ${packArray[1]}.${packArray[2]}`
+              );
+              return;
+          }
+          let macroDocument = await pack.getDocument(macroFilter[0]._id);
+          macroDocument.sheet.render(true);
+      } else {
+          if (!name) {
+              return;
+          }
+          let getTest = game.macros.getName(name);
+          if (!getTest) {
+              ui.notifications.info(
+                  `Autoanimations | Could not find the macro named ${name}`
+              );
+              return;
+          }
+          game.macros.getName(name).sheet.render(true);
+      }
+  }
+
 }
 
 /**

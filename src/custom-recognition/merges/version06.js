@@ -122,7 +122,14 @@ async function mergeVersion06(data) {
             resetVideo(newMO.primary.video, type)
         }
 
-        newMO.soundOnly = soundOnly?.enable || false;
+        newMO.soundOnly = {
+            sound: {
+                enable: soundOnly?.enable || false,
+                delay: oldMO.audio?.a01?.delay ?? 0,
+                startTime: oldMO.audio?.a01?.startTime ?? 0,
+                volume: oldMO.audio?.a01?.volume ?? 1,
+            }
+        }
 
         newMO.source = newExtraFX();
         newMO.target = newExtraFX();

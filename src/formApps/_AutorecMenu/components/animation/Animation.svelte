@@ -11,19 +11,14 @@
 
    import { createOverflowItems }   from "./createOverflowItems.js";
 
-   import BuildMelee from "./menus/BuildMelee.svelte";
-   import BuildRange from "./menus/BuildRange.svelte";
-   import BuildOnToken from "./menus/BuildOnToken.svelte";
-   import BuildTemplateFx from "./menus/BuildTemplateFX.svelte";
-   import BuildAura from "./menus/BuildAura.svelte";
-   //import MeleeOptions from "./menus/components/options/MeleeOptions.svelte";
-
    /** @type {AnimationStore} */
    export let animation;
    //console.log(animation)
    /** @type {CategoryStore} */
    export let category;
    //console.log($category.key)
+   //** Menu builder set in the Category List. Determines which menu set will be rendered*/
+   export let menuRoute;
    /**
     * @type {object} Defines folder data for TJSIconFolder.
     */
@@ -50,32 +45,6 @@
       items: createOverflowItems(animation, category),
    }
 
-   let newContentOptions = {
-      "aaAutorec-melee": {
-         component: BuildMelee,
-      },
-      "aaAutorec-range": {
-         component: BuildRange,
-      },
-      "aaAutorec-ontoken": {
-         component: BuildOnToken,
-      },
-      "aaAutorec-templatefx": {
-         component: BuildTemplateFx,
-      },
-      "aaAutorec-aura": {
-         component: BuildAura,
-      },
-      "aaAutorec-preset": {
-
-      },
-      "aaAutorec-aefx": {
-         
-      }
-   }
-
-   $: component = newContentOptions[category.key].component
-
 </script>
 
 <div>
@@ -84,7 +53,7 @@
         <TJSToggleIconButton button={buttonOverflow} slot=summary-end>
             <TJSMenu {menu} />
         </TJSToggleIconButton>
-        <svelte:component this={component} {animation}/>
+        <svelte:component this={menuRoute} {animation}/>
    </TJSSvgFolder>
 </div>
 
