@@ -8,7 +8,9 @@
     import Macro from "./components/Macro.svelte";
 
     export let animation;
-
+    export let idx;
+    export let category;
+    //console.log(category)
     let title =
         game.i18n.localize("autoanimations.menus.primary") +
         " " +
@@ -24,14 +26,14 @@
     <SoundSettings {animation} section="soundOnly" />
 </div>
 <div hidden={soundOnly}>
-    <ExtraSource {animation} />
+    <ExtraSource {animation} {idx} {category}/>
     <div class="aa-section-border">
-        <VideoSelect {animation} section="primary" {title} />
+        <VideoSelect {animation} section="primary" {title} {idx} {category}/>
         <MeleeOptions {animation} />
         <SoundSettings {animation} section="primary" />
     </div>
-    <Explosion {animation} section="explosion" />
-    <ExtraTarget {animation} />
+    <Explosion {animation} section="explosion" {idx} {category}/>
+    <ExtraTarget {animation} {idx} {category}/>
 </div>
 
 <style lang="scss">

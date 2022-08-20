@@ -16,9 +16,11 @@
    //console.log(animation)
    /** @type {CategoryStore} */
    export let category;
-   //console.log($category.key)
+   //console.log(category)
    //** Menu builder set in the Category List. Determines which menu set will be rendered*/
    export let menuRoute;
+   export let idx;
+   //console.log(idx)
    /**
     * @type {object} Defines folder data for TJSIconFolder.
     */
@@ -53,7 +55,7 @@
         <TJSToggleIconButton button={buttonOverflow} slot=summary-end>
             <TJSMenu {menu} />
         </TJSToggleIconButton>
-        <svelte:component this={menuRoute} {animation}/>
+        <svelte:component this={menuRoute} {animation} {idx} {category}/>
    </TJSSvgFolder>
 </div>
 

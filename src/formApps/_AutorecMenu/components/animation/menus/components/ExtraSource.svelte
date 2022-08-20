@@ -7,6 +7,8 @@
     import SourceFxOptions from "./options/SourceFXOptions.svelte";
 
     export let animation;
+    export let idx;
+    export let category;
 
     let title = "Source" + " " + game.i18n.localize("autoanimations.menus.animation")
 
@@ -38,7 +40,7 @@
             />
         </div>
         <div class={!$animation.source.enable ? "aa-isDisabled" : ""}>
-            <VideoSelect {animation} section="source" {title} isOnToken={true}/>
+            <VideoSelect {animation} section="source" {title} isOnToken={true} {idx} {category}/>
             <SourceFxOptions {animation} />
             <SoundSettings {animation} section="source" />
         </div>

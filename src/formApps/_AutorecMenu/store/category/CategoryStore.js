@@ -10,6 +10,17 @@ import { aaSessionStorage }   from "../../../../sessionStorage.js";
 import { constants }          from "../../../../constants.js";
 import { gameSettings }       from "../../../../gameSettings.js";
 
+import { 
+   aaTypeMenu,
+   aaNameMenu,
+   aaVariantMenu,
+   aaColorMenu,
+   newTypeMenu,
+   newNameMenu,
+   newVariantMenu,
+   newColorMenu
+} from "../../../../animation-functions/databases/jb2a-menu-options.js";
+
 export class CategoryStore extends WorldSettingArrayStore {
    /**
     * A filter function / Svelte store that can be used with DynArrayReducer and set as a store to TJSInput.
@@ -91,6 +102,53 @@ export class CategoryStore extends WorldSettingArrayStore {
 
       this.updateSubscribers();
    }
+
+   getMenuDB(section, idx, isOnToken) {
+      let menuDB = isOnToken ? "static" : this._data[idx]._data.menu === "ontoken" || this._data[idx]._data.menu === "aura" ? "static" : this._data[idx]._data.menu;
+      menuDB = section === 'explosion' ? "static" : menuDB;
+      return menuDB
+   }
+
+   videoChange(data, section, isOnToken, idx) {
+      let menuDB = isOnToken ? "static" : this._data[idx]._data.menu === "ontoken" || this._data[idx]._data.menu === "aura" ? "static" : this._data[idx]._data.menu;
+      menuDB = section === 'explosion' ? "static" : menuDB;
+      switch (data) {
+         case "menuTypeList":
+            let menuTypeMenu = newTypeMenu[menuDB] || [];
+            //console.log(menuTypeMenu)
+            return menuTypeMenu
+         case "menuTypeChange":
+            let menuType = this._data[idx]._data[section].video.menuType;
+            this._data[idx]._data[section].video.animation = Object.keys(aaNameMenu[menuDB][menuType])[0];
+            this._data[idx]._data[section].video.variant = Object.keys(aaVariantMenu[menuDB][menuType][this._data[idx]._data[section].video.animation])[0];
+            this._data[idx]._data[section].video.color = Object.keys(aaColorMenu[menuDB][menuType][this._data[idx]._data[section].video.animation][this._data[idx]._data[section].video.variant])[0];
+            break;
+         case "animationList":
+            return newNameMenu[menuDB][this._data[idx]._data[section].video.menuType] || [];
+         case "animationChange":
+            let animation = this._data[idx]._data[section].video.animation;
+            this._data[idx]._data[section].video.variant = Object.keys(aaVariantMenu[menuDB][this._data[idx]._data[section].video.menuType][animation])[0];
+            this._data[idx]._data[section].video.color = Object.keys(aaColorMenu[menuDB][this._data[idx]._data[section].video.menuType][animation][this._data[idx]._data[section].video.variant])[0];
+            break;
+         case "variantList":
+            return newVariantMenu[menuDB][this._data[idx]._data[section].video.menuType]?.[this._data[idx]._data[section].video.animation] || [];
+         case "variantChange":
+            this._data[idx]._data[section].video.color = Object.keys(
+               aaColorMenu[menuDB][this._data[idx]._data[section].video.menuType][this._data[idx]._data[section].video.animation][this._data[idx]._data[section].video.variant])[0];
+            break;
+         case "colorList":
+            return newColorMenu[menuDB][this._data[idx]._data[section].video.menuType]?.[this._data[idx]._data[section].video.animation]?.[this._data[idx]._data[section].video.variant] || [];
+         case "dbPath":
+            return this._data[section].video.color === "random" 
+            ? `autoanimations.${menuDB}.${this._data[idx]._data[section].video.menuType}.${this._data[idx]._data[section].video.animation}.${this._data[idx]._data[section].video.variant}`
+            : `autoanimations.${menuDB}.${this._data[idx]._data[section].video.menuType}.${this._data[idx]._data[section].video.animation}.${this._data[idx]._data[section].video.variant}.${this._data[idx]._data[section].video.color}`
+      }
+   }
+   get typeMenu() { return newTypeMenu }
+   get animationMenu() { return newNameMenu }
+   get variantMenu() { return newVariantMenu }
+   get colorMenu() { return newColorMenu }
+
 }
 
 /**

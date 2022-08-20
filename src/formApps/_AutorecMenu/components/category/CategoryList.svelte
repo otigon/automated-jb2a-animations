@@ -66,9 +66,9 @@
       class:no-scroll={$isAnimating}
       on:openAny={onFolderChange}
       on:closeAny={onFolderChange}>
-        {#each [...$dataReducer] as animation (animation.id)}
+        {#each [...$dataReducer] as animation, idx (animation.id)}
             <section animate:flipWithEvents={{duration: 250, easing: quintOut}}>
-                <Animation {animation} {menuRoute}/>
+                <Animation {animation} {menuRoute} {idx} {category}/>
             </section>
         {/each}
 </main>

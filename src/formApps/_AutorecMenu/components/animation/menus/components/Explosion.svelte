@@ -7,6 +7,8 @@
     import ExplosionOptions from "./options/ExplosionOptions.svelte";
 
     export let animation;
+    export let idx;
+    export let category;
 
     let title = "Secondary" + " " + game.i18n.localize("autoanimations.menus.animation")
 
@@ -38,7 +40,7 @@
             />
         </div>
         <div class={!$animation.explosion.enable ? "aa-isDisabled" : ""}>
-            <VideoSelect {animation} section="explosion" {title}/>
+            <VideoSelect {animation} section="explosion" {title} {idx} {category}/>
             <ExplosionOptions {animation} />
             <SoundSettings {animation} section="explosion" />
         </div>

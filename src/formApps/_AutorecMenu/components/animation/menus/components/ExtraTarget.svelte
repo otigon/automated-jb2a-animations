@@ -7,6 +7,8 @@
     import TargetFxOptions from "./options/TargetFXOptions.svelte";
 
     export let animation;
+    export let idx;
+    export let category;
 
     let title = "Target" + " " + game.i18n.localize("autoanimations.menus.animation")
 
@@ -38,7 +40,7 @@
             />
         </div>
         <div class={!$animation.target.enable ? "aa-isDisabled" : ""}>
-            <VideoSelect {animation} section="target" {title} isOnToken={true}/>
+            <VideoSelect {animation} section="target" {title} isOnToken={true} {idx} {category}/>
             <TargetFxOptions {animation} />
             <SoundSettings {animation} section="target" />
         </div>

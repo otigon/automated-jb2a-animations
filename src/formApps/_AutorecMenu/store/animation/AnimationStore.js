@@ -3,14 +3,14 @@ import { propertyStore } from "@typhonjs-fvtt/runtime/svelte/store";
 import { CategoryStore } from "../category/CategoryStore.js";
 import { aaSessionStorage } from "../../../../sessionStorage.js";
 import { constants } from "../../../../constants.js";
-
+/*
 import {
    aaTypeMenu,
    aaNameMenu,
    aaVariantMenu,
    aaColorMenu,
 } from "../../../../animation-functions/databases/jb2a-menu-options.js";
-
+*/
 
 export class AnimationStore extends CategoryStore.EntryStore {
    /** @type {AnimationPropertyStores} */
@@ -93,7 +93,7 @@ export class AnimationStore extends CategoryStore.EntryStore {
 
       this._updateSubscribers();
    }
-   
+   /*
    async resetPrimaryVideoMenu(section, isOnToken) {
       const menuDB = isOnToken ? "static" : this._data.menu === "ontoken" || this._data.menu === "aura" ? "static" : this._data.menu;
       this._data[section].video.menuType = Object.keys(aaTypeMenu[menuDB])[0];
@@ -134,7 +134,7 @@ export class AnimationStore extends CategoryStore.EntryStore {
             : `autoanimations.${menuDB}.${this._data[section].video.menuType}.${this._data[section].video.animation}.${this._data[section].video.variant}.${this._data[section].video.color}`
       }
    }
-
+   */
    async selectCustom(section) {
       const current = this._data[section].video.customPath;
       const picker = new FilePicker({
