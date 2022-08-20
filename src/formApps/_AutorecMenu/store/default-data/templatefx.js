@@ -6,6 +6,7 @@ export const templatefx = [
       menu: "templatefx",
       primary: common.primary({
          video: { menuType: "circle", animation: "calllightning", variant: '01', color: 'blueorange' },
+         dbSection: "templatefx",
          options: {
             below: false,
             delay: 500,
@@ -32,6 +33,7 @@ export const templatefx = [
       menu: "templatefx",
       primary: common.primary({
          video: { menuType: "circle", animation: "fogcloud", variant: '01', color: 'white' },
+         dbSection: "templatefx",
          options: {
             below: false,
             delay: 500,

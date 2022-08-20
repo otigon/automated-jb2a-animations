@@ -59,7 +59,7 @@
             bind:value={$animation[section].video.menuType}
             on:change={async () => await category.videoChange("menuTypeChange", section, isOnToken, idx)}
         >
-            {#each category.videoChange("menuTypeList", section, isOnToken, idx) as [key, name]}
+            {#each category.typeMenu[$animation[section].dbSection] as [key, name]}
                 <option value={key}>{name}</option>
             {/each}
         </select>
@@ -71,7 +71,7 @@
             bind:value={$animation[section].video.animation}
             on:change={async () => await category.videoChange("animationChange", section, isOnToken, idx)}
         >
-            {#each category.videoChange("animationList", section, isOnToken, idx) as [key, name]}
+            {#each category.animationMenu[$animation[section].dbSection][$animation[section].video.menuType] as [key, name]}
                 <option value={key}>{name}</option>
             {/each}
         </select>
@@ -83,7 +83,7 @@
             bind:value={$animation[section].video.variant}
             on:change={async () => await category.videoChange("variantChange", section, isOnToken, idx)}
         >
-            {#each category.videoChange("variantList", section, isOnToken, idx) as [key, name]}
+            {#each category.variantMenu[$animation[section].dbSection][$animation[section].video.menuType][$animation[section].video.animation] as [key, name]}
                 <option value={key}>{name}</option>
             {/each}
         </select>
@@ -92,7 +92,7 @@
     <div class="flexcol" style="grid-row: 3 / 4;grid-column: 3 / 4;">
         <label for="">{localize("autoanimations.menus.color")}</label>
         <select bind:value={$animation[section].video.color}>
-            {#each category.videoChange("colorList", section, isOnToken, idx) as [key, name]}
+            {#each category.colorMenu[$animation[section].dbSection][$animation[section].video.menuType][$animation[section].video.animation][$animation[section].video.variant] as [key, name]}
                 <option value={key}>{name}</option>
             {/each}
         </select>

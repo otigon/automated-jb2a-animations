@@ -41,6 +41,7 @@ async function mergeVersion06(data) {
     async function convertExplosionV6(exp, audio) {
 
         let data = {
+            dbSection: "static",
             enable: exp?.enable ?? false,
             options: {
                 below: exp?.below ?? false,
@@ -77,7 +78,7 @@ async function mergeVersion06(data) {
         return data;
     }
 
-    async function convertMeleeV6(oldMO, newMO, type) {
+    async function convertV6(oldMO, newMO, type) {
         let { menuType, variant, custom, customPath, name, animation, color, audio, macro,
             soundOnly, explosion, levels3d, meleeSwitch, ...rest } = oldMO
 
@@ -101,6 +102,7 @@ async function mergeVersion06(data) {
         newMO.menu = type;
 
         newMO.primary = {
+            dbSection: setDBSection(type),
             options: convertOptionsV6(oldMO, type),
             sound: {
                 delay: oldMO.audio?.a01?.delay ?? 0,
@@ -230,6 +232,7 @@ async function mergeVersion06(data) {
 
     function newExtraFX() {
         const data = {
+            dbSection: "static",
             enable: false,
             options: {},
             sound: {
@@ -250,6 +253,9 @@ async function mergeVersion06(data) {
         return data;
     }
 
+    function setDBSection(type) {
+        return type === "aura" || type === "ontoken" ? "static" : type;  
+    }
     async function convertPrimaryV6(data, sound) {
         const primary = {};
 
@@ -314,7 +320,7 @@ async function mergeVersion06(data) {
             //newMenu.melee[i] = {};
             //const newMO = newMenu.melee[i];
             let newMO = {};
-            let current = await convertMeleeV6(oldMO, newMO, "melee")
+            let current = await convertV6(oldMO, newMO, "melee")
             newMenu.melee.push(current)
         }
         await game.settings.set('autoanimations', 'aaAutorec-melee', newMenu.melee)
@@ -327,7 +333,7 @@ async function mergeVersion06(data) {
             //newMenu.range[i] = {};
             //const newMO = newMenu.range[i];
             let newMO = {};
-            let current = await convertMeleeV6(oldMO, newMO, "range")
+            let current = await convertV6(oldMO, newMO, "range")
             newMenu.range.push(current)
             //await primaryMenu(oldMO, newMO)
         }
@@ -341,7 +347,7 @@ async function mergeVersion06(data) {
             //newMenu.static[i] = {};
             //const newMO = newMenu.static[i];
             let newMO = {};
-            let current = await convertMeleeV6(oldMO, newMO, "ontoken")
+            let current = await convertV6(oldMO, newMO, "ontoken")
             newMenu.ontoken.push(current)
             //await primaryMenu(oldMO, newMO)
             //newMO.options.staticType = oldMO.type;
@@ -356,7 +362,7 @@ async function mergeVersion06(data) {
             //newMenu.templatefx[i] = {};
             //const newMO = newMenu.templatefx[i];
             let newMO = {};
-            let current = await convertMeleeV6(oldMO, newMO, "templatefx");
+            let current = await convertV6(oldMO, newMO, "templatefx");
             //await primaryMenu(oldMO, newMO, true)
             let thunderwaveVariants = ['left', 'mid', 'center'];
             if (current.primary.video.animation === "thunderwave") {
@@ -379,7 +385,7 @@ async function mergeVersion06(data) {
             //newMenu.aura[i] = {};
             //const newMO = newMenu.aura[i];
             let newMO = {};
-            let current = await convertMeleeV6(oldMO, newMO, "aura");
+            let current = await convertV6(oldMO, newMO, "aura");
             newMenu.aura.push(current)
             //await primaryMenu(oldMO, newMO)
         }

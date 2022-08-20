@@ -6,6 +6,7 @@ export const range = [
       menu: "range",
       primary: common.primary({
          video: { menuType: "weapon", animation: 'bolt', variant: 'physical', color: 'orange' },
+         dbSection: "range",
          options: {
             below: false,
             delay: 500,
@@ -28,6 +29,7 @@ export const range = [
       menu: "range",
       primary: common.primary({
          video: { menuType: "weapon", animation: 'arrow', variant: 'regular', color: 'regular' },
+         dbSection: "range",
          options: {
             below: false,
             delay: 500,
@@ -50,6 +52,7 @@ export const range = [
       menu: "range",
       primary: common.primary({
          video: { menuType: "spell", animation: 'disintegrate', variant: '01', color: 'green' },
+         dbSection: "range",
          options: {
             below: false,
             delay: 500,
@@ -72,6 +75,7 @@ export const range = [
       menu: "range",
       primary: common.primary({
          video: { menuType: "spell", animation: 'eldritchblast', variant: '01', color: 'purple' },
+         dbSection: "range",
          options: {
             below: false,
             delay: 500,
@@ -94,6 +98,7 @@ export const range = [
       menu: "range",
       primary: common.primary({
          video: { menuType: "spell", animation: 'firebolt', variant: '01', color: 'orange' },
+         dbSection: "range",
          options: {
             below: false,
             delay: 500,
@@ -116,6 +121,7 @@ export const range = [
       menu: "range",
       primary: common.primary({
          video: { menuType: "spell", animation: 'guidingbolt', variant: '01', color: 'yellowblue' },
+         dbSection: "range",
          options: {
             below: false,
             delay: 500,
@@ -138,6 +144,7 @@ export const range = [
       menu: "range",
       primary: common.primary({
          video: { menuType: "spell", animation: 'magicmissile', variant: '01', color: 'purple' },
+         dbSection: "range",
          options: {
             below: false,
             delay: 500,
@@ -160,6 +167,7 @@ export const range = [
       menu: "range",
       primary: common.primary({
          video: { menuType: "spell", animation: 'rayoffrost', variant: '01', color: 'blue' },
+         dbSection: "range",
          options: {
             below: false,
             delay: 500,
@@ -182,6 +190,7 @@ export const range = [
       menu: "range",
       primary: common.primary({
          video: { menuType: "spell", animation: 'scorchingray', variant: '01', color: 'orange' },
+         dbSection: "range",
          options: {
             below: false,
             delay: 500,
@@ -204,6 +213,7 @@ export const range = [
       menu: "range",
       primary: common.primary({
          video: { menuType: "spell", animation: 'witchbolt', variant: '01', color: 'blue' },
+         dbSection: "range",
          options: {
             below: false,
             delay: 500,

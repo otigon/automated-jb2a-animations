@@ -14,6 +14,7 @@ export const melee = [
       menu: "melee",
       primary: common.primary({
          video: { menuType: "weapon", animation: 'dagger', variant: '01', color: 'white' },
+         dbSection: "melee",
          options: {
             below: false,
             delay: 500,
@@ -36,6 +37,7 @@ export const melee = [
       menu: "melee",
       primary: common.primary({
          video: { menuType: "weapon", animation: 'flurryofblows', variant: 'physical', color: 'blue' },
+         dbSection: "melee",
          options: {
             below: false,
             delay: 500,
@@ -58,6 +60,7 @@ export const melee = [
       menu: "melee",
       primary: common.primary({
          video: { menuType: "weapon", animation: 'greataxe', variant: '01', color: 'white' },
+         dbSection: "melee",
          options: {
             below: false,
             delay: 500,
@@ -80,6 +83,7 @@ export const melee = [
       menu: "melee",
       primary: common.primary({
          video: { menuType: "weapon", animation: 'greatclub', variant: '01', color: 'white' },
+         dbSection: "melee",
          options: {
             below: false,
             delay: 500,
@@ -102,6 +106,7 @@ export const melee = [
       menu: "melee",
       primary: common.primary({
          video: { menuType: "weapon", animation: 'greatsword', variant: '01', color: 'white' },
+         dbSection: "melee",
          options: {
             below: false,
             delay: 500,
@@ -124,6 +129,7 @@ export const melee = [
       menu: "melee",
       primary: common.primary({
          video: { menuType: "weapon", animation: 'handaxe', variant: '01', color: 'white' },
+         dbSection: "melee",
          options: {
             below: false,
             delay: 500,
@@ -146,6 +152,7 @@ export const melee = [
       menu: "melee",
       primary: common.primary({
          video: { menuType: "weapon", animation: 'sword', variant: '01', color: 'white' },
+         dbSection: "melee",
          options: {
             below: false,
             delay: 500,
@@ -168,6 +175,7 @@ export const melee = [
       menu: "melee",
       primary: common.primary({
          video: { menuType: "weapon", animation: 'mace', variant: '01', color: 'white' },
+         dbSection: "melee",
          options: {
             below: false,
             delay: 500,
@@ -190,6 +198,7 @@ export const melee = [
       menu: "melee",
       primary: common.primary({
          video: { menuType: "weapon", animation: 'maul', variant: '01', color: 'white' },
+         dbSection: "melee",
          options: {
             below: false,
             delay: 500,
@@ -212,6 +221,7 @@ export const melee = [
       menu: "melee",
       primary: common.primary({
          video: { menuType: "weapon", animation: 'spear', variant: '01', color: 'white' },
+         dbSection: "melee",
          options: {
             below: false,
             delay: 500,
@@ -234,6 +244,7 @@ export const melee = [
       menu: "melee",
       primary: common.primary({
          video: { menuType: "weapon", animation: 'rapier', variant: '01', color: 'white' },
+         dbSection: "melee",
          options: {
             below: false,
             delay: 500,
@@ -256,6 +267,7 @@ export const melee = [
       menu: "melee",
       primary: common.primary({
          video: { menuType: "weapon", animation: 'unarmedstrike', variant: 'physical', color: 'blue' },
+         dbSection: "melee",
          options: {
             below: false,
             delay: 500,

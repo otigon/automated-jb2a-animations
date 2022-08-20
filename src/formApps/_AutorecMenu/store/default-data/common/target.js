@@ -10,6 +10,7 @@ export function target() {
    return {
       enable: false,
       video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue', enableCustom: false, customPath: "" },
+      dbSection: "static",
       sound: sound(),
       options: {
          below: false,

@@ -10,6 +10,7 @@ export function explosion() {
    return {
       enable: false,
       video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
+      dbSection: "static",
       sound: sound(),
       options: {
          below: false,
