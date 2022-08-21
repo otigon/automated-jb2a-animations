@@ -29,7 +29,7 @@ export async function createActiveEffectsPF1(effect) {
     }
     */
     // Gets the Token that the Active Effect is applied to
-    const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
+    const aeToken = effect.parent?.token || canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id));
     if (!aeToken) {
         if (aaDebug) { aaDebugger("Failed to find the Token for the Active Effect") }
         return;
@@ -113,7 +113,7 @@ export async function createActiveEffectsPF1(effect) {
  * 
  */
 export async function deleteActiveEffectsPF1(effect) {
-    const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
+    const aeToken = effect.parent?.token || canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id));
     if (effect.data?.flags?.pf1?.origin?.item) {
         let item = aeToken.actor.items.get(effect.data?.flags?.pf1?.origin?.item)
         let flags = item?.data?.flags?.autoanimations;
