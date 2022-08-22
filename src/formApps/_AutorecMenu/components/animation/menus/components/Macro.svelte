@@ -2,51 +2,49 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
     export let animation;
-
 </script>
 
-<div style="padding-top: 10px">
-    <h1>{localize("autoanimations.menus.macro")}</h1>
-</div>
-<div class="aa-macro">
-    <div
-        class="flexcol"
-        style="grid-row: 1 / 2;grid-column: 1 / 2;"
-    >
-        <label for="">{localize("autoanimations.menus.playwhen")}</label>
-        <select
-            bind:value={$animation.macro.playWhen}
-            style="text-align: center;width: 100%;"
-        >
-            <option value="0"
-                >{localize("autoanimations.menus.macroconcurrent")}</option
+<div class="aa-macro-border">
+    <div style="padding-top: 10px">
+        <h1>{localize("autoanimations.menus.macro")}</h1>
+    </div>
+    <div class="aa-macro">
+        <div class="flexcol" style="grid-row: 1 / 2;grid-column: 1 / 2;">
+            <label for="">{localize("autoanimations.menus.playwhen")}</label>
+            <select
+                bind:value={$animation.macro.playWhen}
+                style="text-align: center;width: 100%;"
             >
-            <option value="1"
-                >{localize("autoanimations.menus.awaitmacro")}</option
-            >
+                <option value="0"
+                    >{localize("autoanimations.menus.macroconcurrent")}</option
+                >
+                <option value="1"
+                    >{localize("autoanimations.menus.awaitmacro")}</option
+                >
                 <option value="2"
                     >{localize("autoanimations.menus.macroonly")}</option
                 >
-        </select>
-    </div>
-    <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
-        <label for=""
-            >{localize("autoanimations.menus.macro")}
-            {localize("autoanimations.menus.name")}</label
-        >
-        <input type="text" bind:value={$animation.macro.name} />
-    </div>
-    <div class="flexcol" style="grid-row: 1 / 2;grid-column: 3 / 4;">
-        <i
-            title="Open Macro"
-            style="margin-top: 15px;font-size: 18px"
-            class="fas fa-edit aa-zoom"
-            on:click={() => animation.openMacro()}
-        />
-    </div>
-    <div class="flexcol" style="grid-row: 2 / 3;grid-column: 1 / 4;">
-        <label for="">{localize("autoanimations.menus.args")}</label>
-        <input type="text" bind:value={$animation.macro.args} />
+            </select>
+        </div>
+        <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
+            <label for=""
+                >{localize("autoanimations.menus.macro")}
+                {localize("autoanimations.menus.name")}</label
+            >
+            <input type="text" bind:value={$animation.macro.name} />
+        </div>
+        <div class="flexcol" style="grid-row: 1 / 2;grid-column: 3 / 4;">
+            <i
+                title="Open Macro"
+                style="margin-top: 15px;font-size: 18px"
+                class="fas fa-edit aa-zoom"
+                on:click={() => animation.openMacro()}
+            />
+        </div>
+        <div class="flexcol" style="grid-row: 2 / 3;grid-column: 1 / 4;">
+            <label for="">{localize("autoanimations.menus.args")}</label>
+            <input type="text" bind:value={$animation.macro.args} />
+        </div>
     </div>
 </div>
 
@@ -66,8 +64,7 @@
         font-weight: bold;
         min-height: 2em;
         border-radius: 10px;
-        align-self:center;
-        
+        align-self: center;
     }
     .aa-macro input {
         align-self: center;
@@ -90,5 +87,13 @@
         text-align: center;
         margin-right: 5%;
         margin-left: 5%;
+    }
+    .aa-macro-border {
+        margin-right: 3%;
+        margin-left: 3%;
+        border: 3px solid rgba(35, 143, 35, 0.6);
+        border-radius: 5px;
+        background: rgb(200 200 200);
+        margin-bottom: 5px;
     }
 </style>

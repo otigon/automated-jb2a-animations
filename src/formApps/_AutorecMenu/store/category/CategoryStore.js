@@ -110,9 +110,10 @@ export class CategoryStore extends WorldSettingArrayStore {
       return menuDB
    }
 
-   videoChange(data, section, isOnToken, idx) {
-      let menuDB = isOnToken ? "static" : this._data[idx]._data.menu === "ontoken" || this._data[idx]._data.menu === "aura" ? "static" : this._data[idx]._data.menu;
-      menuDB = section === 'explosion' ? "static" : menuDB;
+   videoChange(data, section, idx) {
+      //let menuDB = isOnToken ? "static" : this._data[idx]._data.menu === "ontoken" || this._data[idx]._data.menu === "aura" ? "static" : this._data[idx]._data.menu;
+      //menuDB = section === 'explosion' ? "static" : menuDB;
+      let menuDB = this._data[idx]._data[section].dbSection
       switch (data) {
          case "menuTypeList":
             let menuTypeMenu = newTypeMenu[menuDB] || [];
@@ -120,26 +121,26 @@ export class CategoryStore extends WorldSettingArrayStore {
             return menuTypeMenu
          case "menuTypeChange":
             let menuType = this._data[idx]._data[section].video.menuType;
-            this._data[idx]._data[section].video.animation = newNameMenu[this._data[idx]._data[section].dbSection][menuType][0][0] //Object.keys(aaNameMenu[menuDB][menuType])[0];
-            this._data[idx]._data[section].video.variant = newVariantMenu[this._data[idx]._data[section].dbSection][menuType][this._data[idx]._data[section].video.animation][0][0] //Object.keys(aaVariantMenu[menuDB][menuType][this._data[idx]._data[section].video.animation])[0];
-            this._data[idx]._data[section].video.color = newColorMenu[this._data[idx]._data[section].dbSection][menuType][this._data[idx]._data[section].video.animation][this._data[idx]._data[section].video.variant][0][0] //Object.keys(aaColorMenu[menuDB][menuType][this._data[idx]._data[section].video.animation][this._data[idx]._data[section].video.variant])[0];
+            this._data[idx]._data[section].video.animation = newNameMenu[menuDB][menuType][0][0] //Object.keys(aaNameMenu[menuDB][menuType])[0];
+            this._data[idx]._data[section].video.variant = newVariantMenu[menuDB][menuType][this._data[idx]._data[section].video.animation][0][0] //Object.keys(aaVariantMenu[menuDB][menuType][this._data[idx]._data[section].video.animation])[0];
+            this._data[idx]._data[section].video.color = newColorMenu[menuDB][menuType][this._data[idx]._data[section].video.animation][this._data[idx]._data[section].video.variant][0][0] //Object.keys(aaColorMenu[menuDB][menuType][this._data[idx]._data[section].video.animation][this._data[idx]._data[section].video.variant])[0];
             break;
          case "animationList":
             return newNameMenu[menuDB][this._data[idx]._data[section].video.menuType] || [];
          case "animationChange":
             let animation = this._data[idx]._data[section].video.animation;
-            this._data[idx]._data[section].video.variant = newVariantMenu[this._data[idx]._data[section].dbSection][this._data[idx]._data[section].video.menuType][animation][0][0] //Object.keys(aaVariantMenu[menuDB][this._data[idx]._data[section].video.menuType][animation])[0];
-            this._data[idx]._data[section].video.color = newColorMenu[this._data[idx]._data[section].dbSection][this._data[idx]._data[section].video.menuType][animation][this._data[idx]._data[section].video.variant][0][0] //Object.keys(aaColorMenu[menuDB][this._data[idx]._data[section].video.menuType][animation][this._data[idx]._data[section].video.variant])[0];
+            this._data[idx]._data[section].video.variant = newVariantMenu[menuDB][this._data[idx]._data[section].video.menuType][animation][0][0] //Object.keys(aaVariantMenu[menuDB][this._data[idx]._data[section].video.menuType][animation])[0];
+            this._data[idx]._data[section].video.color = newColorMenu[menuDB][this._data[idx]._data[section].video.menuType][animation][this._data[idx]._data[section].video.variant][0][0] //Object.keys(aaColorMenu[menuDB][this._data[idx]._data[section].video.menuType][animation][this._data[idx]._data[section].video.variant])[0];
             break;
          case "variantList":
             return newVariantMenu[menuDB][this._data[idx]._data[section].video.menuType]?.[this._data[idx]._data[section].video.animation] || [];
          case "variantChange":
-            this._data[idx]._data[section].video.color = newColorMenu[this._data[idx]._data[section].dbSection][this._data[idx]._data[section].video.menuType][this._data[idx]._data[section].video.animation][this._data[idx]._data[section].video.variant][0][0] //Object.keys(aaColorMenu[menuDB][this._data[idx]._data[section].video.menuType][this._data[idx]._data[section].video.animation][this._data[idx]._data[section].video.variant])[0];
+            this._data[idx]._data[section].video.color = newColorMenu[menuDB][this._data[idx]._data[section].video.menuType][this._data[idx]._data[section].video.animation][this._data[idx]._data[section].video.variant][0][0] //Object.keys(aaColorMenu[menuDB][this._data[idx]._data[section].video.menuType][this._data[idx]._data[section].video.animation][this._data[idx]._data[section].video.variant])[0];
             break;
          case "colorList":
             return newColorMenu[menuDB][this._data[idx]._data[section].video.menuType]?.[this._data[idx]._data[section].video.animation]?.[this._data[idx]._data[section].video.variant] || [];
          case "dbPath":
-            return this._data[section].video.color === "random" 
+            return this._data[idx]._data[section].video.color === "random" 
             ? `autoanimations.${menuDB}.${this._data[idx]._data[section].video.menuType}.${this._data[idx]._data[section].video.animation}.${this._data[idx]._data[section].video.variant}`
             : `autoanimations.${menuDB}.${this._data[idx]._data[section].video.menuType}.${this._data[idx]._data[section].video.animation}.${this._data[idx]._data[section].video.variant}.${this._data[idx]._data[section].video.color}`
       }

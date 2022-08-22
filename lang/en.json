@@ -576,7 +576,8 @@
             "level": "Level",
             "duplicate": "Duplicate",
             "3dcanvas": "3d Canvas",
-            "only": "Only"
+            "only": "Only",
+            "all": "All"
         },
         "optionsInfo": {
 

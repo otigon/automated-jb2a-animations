@@ -72,7 +72,7 @@
             </div>
             <!--Set Animation Opacity-->
             <div class="flexcol" style="grid-row: 2 / 3; grid-column: 2 / 3;">
-                <label for="aaOpacity"
+                <label for="aaOpacity" class="aa-opacity-pos"
                     >{localize("autoanimations.menus.opacity")}</label
                 >
                 <div class="form-group">

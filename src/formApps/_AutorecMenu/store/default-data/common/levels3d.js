@@ -21,7 +21,8 @@ export function levels3d() {
          scale: void 0,
          speed: void 0,
          sprite: void 0
-      }
+      },
+      sound: {enable: false}
    }
 }
 

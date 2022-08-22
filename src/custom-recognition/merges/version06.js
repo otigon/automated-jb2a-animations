@@ -22,20 +22,17 @@ async function mergeVersion06(data) {
         version: 5,
     };
 
-    async function new3d(data) {
-        let spriteType = data?.type || "";
-        switch (spriteType) {
-            case "sprite":
-                return { type: data.type || "", sprites: data || {} }
-            case "explosion":
-                return { type: data.type || "", explosion: data || {} }
-            case "ray":
-                return { type: data.type || "", ray: data || {} }
-            case "projectile":
-                return { type: data.type || "", projectile: data || {} }
-            default:
-                return { type: "" }
-        }
+    async function new3d(oldData) {
+        let newData = oldData || {};
+        let {type, addExplosion, ...rest} = newData;
+        const data3d = {
+            enable: type ? true : false,
+            type: type || "",
+            data: rest || {},
+            explosion: addExplosion || {enable: false},
+            sound: {enable: false},
+        };
+        return data3d;
     }
 
     async function convertExplosionV6(exp, audio) {

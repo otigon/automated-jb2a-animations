@@ -8,7 +8,6 @@
     export let animation;
     export let section;
     export let title;
-    export let isOnToken;
     export let idx;
     export let category;
     //console.log(category)
@@ -29,12 +28,15 @@
         animation.resetPrimaryVideoMenu(section, isOnToken)
     }
     */
-
 </script>
 
-<SectionHeader {title}/>
+<SectionHeader {title} />
 <!--Unless spawned from "Explosions", Show the main Animation Type Select-->
-<div class="aa-3wide aa-select-label {$animation[section].video.enableCustom ? "aa-disableOpacity" : ""}">
+<div
+    class="aa-3wide aa-select-label {$animation[section].video.enableCustom
+        ? 'aa-disableOpacity'
+        : ''}"
+>
     <!--Copy Button-->
     <div class="flexcol" style="grid-row:2/3;grid-column:1/2">
         <label
@@ -57,7 +59,8 @@
         <label for="">{localize("autoanimations.menus.type")}</label>
         <select
             bind:value={$animation[section].video.menuType}
-            on:change={async () => await category.videoChange("menuTypeChange", section, isOnToken, idx)}
+            on:change={async () =>
+                await category.videoChange("menuTypeChange", section, idx)}
         >
             {#each category.typeMenu[$animation[section].dbSection] as [key, name]}
                 <option value={key}>{name}</option>
@@ -69,7 +72,8 @@
         <label for="">{localize("autoanimations.menus.animation")}</label>
         <select
             bind:value={$animation[section].video.animation}
-            on:change={async () => await category.videoChange("animationChange", section, isOnToken, idx)}
+            on:change={async () =>
+                await category.videoChange("animationChange", section, idx)}
         >
             {#each category.animationMenu[$animation[section].dbSection][$animation[section].video.menuType] as [key, name]}
                 <option value={key}>{name}</option>
@@ -81,7 +85,8 @@
         <label for="">{localize("autoanimations.menus.variant")}</label>
         <select
             bind:value={$animation[section].video.variant}
-            on:change={async () => await category.videoChange("variantChange", section, isOnToken, idx)}
+            on:change={async () =>
+                await category.videoChange("variantChange", section, idx)}
         >
             {#each category.variantMenu[$animation[section].dbSection][$animation[section].video.menuType][$animation[section].video.animation] as [key, name]}
                 <option value={key}>{name}</option>
@@ -98,7 +103,7 @@
         </select>
     </div>
 </div>
-<CustomPicker {animation} {section}/>
+<CustomPicker {animation} {section} />
 
 <style lang="scss">
     .aa-3wide label {

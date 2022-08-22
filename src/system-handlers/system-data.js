@@ -1,3 +1,5 @@
+import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+
 import { endTiming } from "../constants/timings.js";
 import { AASystemData } from "./getdata-by-system.js";
 import { flagMigrations } from "./flagMerge.js";
@@ -32,7 +34,7 @@ export default class systemData {
 
         this.reachCheck = data.reach || 0;
         this.item = data.item;
-        this.itemUuid = this.item?.uuid;
+        this.itemUuid = this.item?.uuid || uuidv4();
 
         this.hasAttack = this.item?.hasAttack ?? false;
         this.hasDamage = this.item?.hasDamage ?? false;

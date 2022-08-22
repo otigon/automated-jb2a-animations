@@ -243,7 +243,7 @@
     margin-left: 1%;
     margin-bottom: 2%;
     font-weight: normal;
-    font-size: 16px;
+    font-size: 15px;
     color: black;
 }
 .aa-options label {
@@ -306,6 +306,14 @@
     background: rgb(200 200 200);
     margin-bottom: 5px;
 }
+.aa-primary-border {
+    margin-right: 3%;
+    margin-left: 3%;
+    border: 3px solid rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    background: rgb(200 200 200);
+    margin-bottom: 5px;
+}
 .aa-cblabel {
     line-height: 1.25em;
     width: 7em;
@@ -318,4 +326,17 @@
     border: 2px outset rgb(142, 142, 142);
     color: black;
     background-color: rgba(158, 158, 158, 0.53);
+}
+.aa-opacity-pos {
+    position:relative;
+    bottom: -4px;
+}
+.aa-autorec-headerButton {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 30px;
+    padding: 5px;
+    text-align: center;
+    align-items: center;
+    color: black;
 }
