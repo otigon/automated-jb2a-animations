@@ -10,6 +10,8 @@ import { aaSessionStorage }   from "../../../../sessionStorage.js";
 import { constants }          from "../../../../constants.js";
 import { gameSettings }       from "../../../../gameSettings.js";
 
+import OptionsDialog from "../../components/animation/menus/components/options/optionsInfoDialog.js"
+
 import { 
    aaTypeMenu,
    aaNameMenu,
@@ -144,6 +146,10 @@ export class CategoryStore extends WorldSettingArrayStore {
             ? `autoanimations.${menuDB}.${this._data[idx]._data[section].video.menuType}.${this._data[idx]._data[section].video.animation}.${this._data[idx]._data[section].video.variant}`
             : `autoanimations.${menuDB}.${this._data[idx]._data[section].video.menuType}.${this._data[idx]._data[section].video.animation}.${this._data[idx]._data[section].video.variant}.${this._data[idx]._data[section].video.color}`
       }
+   }
+
+   optionsInfo() {
+      new OptionsDialog().render(true)
    }
    get typeMenu() { return newTypeMenu }
    get animationMenu() { return newNameMenu }

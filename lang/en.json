@@ -459,7 +459,7 @@
             "proToTemp": "Projectile to Template"
         },
         "menus": {
-            "masking": "Masking",
+            "mask": "Mask",
             "primary": "Primary",
             "animation": "Animation",
             "extra": "Extra",
@@ -577,7 +577,8 @@
             "duplicate": "Duplicate",
             "3dcanvas": "3d Canvas",
             "only": "Only",
-            "all": "All"
+            "all": "All",
+            "bind": "Bind"
         },
         "optionsInfo": {
 

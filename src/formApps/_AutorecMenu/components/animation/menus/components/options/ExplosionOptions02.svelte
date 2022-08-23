@@ -4,27 +4,26 @@
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
     export let animation;
-    export let category;
 
     const folder = {
+        label: game.i18n.localize("autoanimations.menus.options"),
         styles: {
             "--tjs-summary-font-family":
                 '"Modesto Condensed", "Palatino Linotype", serif',
             "--tjs-summary-font-size": "1.2em",
             "--tjs-summary-chevron-size": "0.7em",
         },
-        label: game.i18n.localize("autoanimations.menus.options"),
     };
 
     /*
-    $: below = $animation.source.options.below;
+    $: below = $animation.explosion.options.below;
     $: buttonBelow = {
         icon: below ? "fas fa-check" : "fas fa-times",
         title: "autoanimations.menus.add",
         styles: { 'margin-left': 'auto', 'margin-right': 'auto', 'margin-top': '.1em', 'border-radius': '50%' },
     }
 
-    $: mask = $animation.source.options.isMasked;
+    $: mask = $animation.explosion.options.isMasked;
     $: buttonMask = {
         icon: mask ? "fas fa-check" : "fas fa-times",
         title: "autoanimations.menus.add",
@@ -35,38 +34,31 @@
 
 <div class="aa-options-border">
     <TJSSvgFolder {folder}>
-        <div slot="summary-end">
-            <i
-                class="fas fa-info-circle aa-info-icon aa-zoom aa-adjust-pos"
-                title={localize("autoanimations.menus.quickReference")}
-                on:click={() => category.optionsInfo()}
-            />
-        </div>
         <table class="d">
             <tr>
                 <td>
                     <!--Set belowToken-->
                     <div class="form-group">
-                        <label for="SBelow {animation._data.id}"
+                        <label for="EBelow {animation._data.id}"
                             >{localize("autoanimations.menus.below")}
                         </label>
                         <input
                             type="checkbox"
-                            id="SBelow {animation._data.id}"
-                            bind:checked={$animation.source.options.below}
+                            id="EBelow {animation._data.id}"
+                            bind:checked={$animation.explosion.options.below}
                         />
                     </div>
                 </td>
                 <td>
-                    <!--Set Number of times the animation plays-->
                     <div class="form-group">
                         <label for=""
-                            >{localize("autoanimations.menus.repeat")}</label
+                            >{localize("autoanimations.menus.z-index")}</label
                         >
                         <input
                             type="number"
-                            bind:value={$animation.source.options.repeat}
+                            bind:value={$animation.explosion.options.zIndex}
                             placeholder="1"
+                            step="1"
                         />
                     </div>
                 </td>
@@ -74,12 +66,11 @@
                     <!--Set delay between repeats-->
                     <div class="form-group">
                         <label for=""
-                            >{localize("autoanimations.menus.repeat")}
-                            {localize("autoanimations.menus.delay")}</label
+                            >{localize("autoanimations.menus.delay")}</label
                         >
                         <input
                             type="number"
-                            bind:value={$animation.source.options.delay}
+                            bind:value={$animation.explosion.options.delay}
                             placeholder="250"
                         />
                     </div>
@@ -87,14 +78,15 @@
             </tr>
             <tr>
                 <td>
-                    <!--Set OnlyX-->
+                    <!--Set Masking-->
                     <div class="form-group">
-                        <label for="SMasked {animation._data.id}"
+                        <label for="EMasked {animation._data.id}"
                             >{localize("autoanimations.menus.mask")}
+                        </label>
                         <input
                             type="checkbox"
-                            id="SMasked {animation._data.id}"
-                            bind:checked={$animation.source.options.isMasked}
+                            id="EMasked {animation._data.id}"
+                            bind:checked={$animation.explosion.options.isMasked}
                         />
                     </div>
                 </td>
@@ -108,7 +100,7 @@
                             <input
                                 type="number"
                                 id="aaOpacity"
-                                bind:value={$animation.source.options.opacity}
+                                bind:value={$animation.explosion.options.opacity}
                                 placeholder="1"
                                 min="0"
                                 max="1"
@@ -120,7 +112,7 @@
                                 min="0"
                                 max="1"
                                 step="0.01"
-                                bind:value={$animation.source.options.opacity}
+                                bind:value={$animation.explosion.options.opacity}
                             />
                         </div>
                     </div>
@@ -131,41 +123,13 @@
                         class="form-group"
                     >
                         <label for=""
-                            >{localize("autoanimations.menus.scale")}</label
+                            >{localize("autoanimations.menus.radius")}</label
                         >
                         <input
                             type="number"
-                            bind:value={$animation.source.options.scale}
-                            placeholder="1"
+                            bind:value={$animation.explosion.options.radius}
+                            placeholder="1.5"
                             step="0.01"
-                        />
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label for=""
-                            >{localize("autoanimations.menus.z-index")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.source.options.zIndex}
-                            placeholder="1"
-                            step="1"
-                        />
-                    </div>
-                </td>
-                <td>
-                    <div class="form-group">
-                        <label for=""
-                            >{localize("autoanimations.menus.wait")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.source.options.delayAfter}
-                            placeholder="1"
-                            step="1"
                         />
                     </div>
                 </td>
@@ -175,8 +139,4 @@
 </div>
 
 <style lang="scss">
-    .aa-adjust-pos {
-        position: relative;
-        left: 10px;
-    }
 </style>

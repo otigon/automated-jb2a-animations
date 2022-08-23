@@ -3,9 +3,8 @@
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
-    import OptionsDialog from "./optionsInfoDialog.js";
-
     export let animation;
+    export let category;
 
     const folder = {
         styles: {
@@ -15,32 +14,47 @@
             "--tjs-summary-chevron-size": "0.7em",
         },
         label: game.i18n.localize("autoanimations.menus.options"),
-    };
-
-    $: aboveBelow = $animation.primary.options.below
-        ? game.i18n.localize("autoanimations.menus.below")
-        : game.i18n.localize("autoanimations.menus.above");
-    $: bindAlpha = $animation.primary.options.unbindAlpha
-        ? game.i18n.localize("autoanimations.menus.unbound")
-        : game.i18n.localize("autoanimations.menus.bound");
-    $: bindVisibility = $animation.primary.options.unbindVisibility
-        ? game.i18n.localize("autoanimations.menus.unbound")
-        : game.i18n.localize("autoanimations.menus.bound");
-    $: maskLabel = $animation.primary.options.isMasked
-        ? game.i18n.localize("autoanimations.menus.enabled")
-        : game.i18n.localize("autoanimations.menus.disabled");
-    $: addWidth = $animation.primary.options.addTokenWidth
-        ? game.i18n.localize("autoanimations.menus.yes")
-        : game.i18n.localize("autoanimations.menus.no");
+    };/*
     $: ignoreTargets = $animation.primary.options.ignoreTarget
-        ? game.i18n.localize("autoanimations.menus.yes")
-        : game.i18n.localize("autoanimations.menus.no");
-
-    function optionsInfo() {
-        new OptionsDialog().render(true);
+    $: buttonIgnore = {
+        icon: ignoreTargets ? "fas fa-check" : "fas fa-times",
+        title: "autoanimations.menus.add",
+        styles: { 'margin-left': 'auto', 'margin-right': 'auto', 'margin-top': '.1em', 'border-radius': '50%' },
     }
 
-    $: persistent = $animation.primary.options.persistent;
+    $: addWidth = $animation.primary.options.addTokenWidth
+    $: buttonAddWidth = {
+        icon: addWidth ? "fas fa-check" : "fas fa-times",
+        title: "autoanimations.menus.add",
+        styles: { 'margin-left': 'auto', 'margin-right': 'auto', 'margin-top': '.1em', 'border-radius': '50%' },
+    }
+    $: below = $animation.primary.options.below;
+    $: buttonBelow = {
+        icon: below ? "fas fa-check" : "fas fa-times",
+        title: "autoanimations.menus.add",
+        styles: { 'margin-left': 'auto', 'margin-right': 'auto', 'margin-top': '.1em', 'border-radius': '50%' },
+    }
+
+    $: mask = $animation.primary.options.isMasked;
+    $: buttonMask = {
+        icon: mask ? "fas fa-check" : "fas fa-times",
+        title: "autoanimations.menus.add",
+        styles: { 'margin-left': 'auto', 'margin-right': 'auto', 'margin-top': '.1em', 'border-radius': '50%' },
+    }
+
+    $: bindVisibility = $animation.primary.options.unbindVisibility
+    $: buttonVis = {
+        icon: bindVisibility ? "fas fa-check" : "fas fa-times",
+        title: "autoanimations.menus.add",
+        styles: { 'margin-left': 'auto', 'margin-right': 'auto', 'margin-top': '.1em', 'border-radius': '50%' },
+    }
+    $: bindAlpha = $animation.primary.options.unbindAlpha
+    $: buttonAlpha = {
+        icon: bindAlpha ? "fas fa-check" : "fas fa-times",
+        title: "autoanimations.menus.add",
+        styles: { 'margin-left': 'auto', 'margin-right': 'auto', 'margin-top': '.1em', 'border-radius': '50%' },
+    }
+    */
 </script>
 
 <div class="aa-options-border">
@@ -49,143 +63,154 @@
             <i
                 class="fas fa-info-circle aa-info-icon aa-zoom aa-adjust-pos"
                 title={localize("autoanimations.menus.quickReference")}
-                on:click={() => optionsInfo()}
+                on:click={() => category.optionsInfo()}
             />
         </div>
-        <div class="aa-options" style="justify-items:center">
-            <!--Set Level of Animation-->
-            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-                <label for="">{localize("autoanimations.menus.level")}</label>
-                <label for="Below {animation._data.id}" class="aa-setDim"
-                    >{aboveBelow}</label
-                >
-                <input
-                    type="checkbox"
-                    id="Below {animation._data.id}"
-                    hidden
-                    bind:checked={$animation.primary.options.below}
-                />
-            </div>
-            <!--Bind/Unbind Visibility (for Persistent Effects)-->
-            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-                <label for=""
-                    >{localize("autoanimations.menus.visibility")}</label
-                >
-                <label for="Vis {animation._data.id}" class="aa-setDim"
-                    >{bindVisibility}</label
-                >
-                <input
-                    type="checkbox"
-                    id="Vis {animation._data.id}"
-                    hidden
-                    bind:checked={$animation.primary.options.unbindVisibility}
-                />
-            </div>
-            <!--Bind/Unbind Opacity (for Persistent Effects)-->
-            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 3 / 4;">
-                <label for="">{localize("autoanimations.menus.alpha")}</label>
-                <label for="Alpha {animation._data.id}" class="aa-setDim"
-                    >{bindAlpha}</label
-                >
-                <input
-                    type="checkbox"
-                    id="Alpha {animation._data.id}"
-                    hidden
-                    bind:checked={$animation.primary.options.unbindAlpha}
-                />
-            </div>
-            <!--Add Token Width?-->
-            <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;">
-                <label for=""
-                    >{localize("autoanimations.menus.add")}
-                    {localize("autoanimations.menus.token")}
-                    {localize("autoanimations.menus.width")}</label
-                >
-                <label for="AddWidth {animation._data.id}" class="aa-setDim"
-                    >{addWidth}</label
-                >
-                <input
-                    type="checkbox"
-                    id="AddWidth {animation._data.id}"
-                    hidden
-                    bind:checked={$animation.primary.options.addTokenWidth}
-                />
-            </div>
-            <!--Ignore Targets?-->
-            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 4 / 5;">
-                <label for=""
-                    >{localize("autoanimations.menus.ignoreTargets")}</label
-                >
-                <label for="Ignore {animation._data.id}" class="aa-setDim"
-                    >{ignoreTargets}</label
-                >
-                <input
-                    type="checkbox"
-                    id="Ignore {animation._data.id}"
-                    hidden
-                    bind:checked={$animation.primary.options.ignoreTarget}
-                />
-            </div>
-            <!--Set the Masking Boolean-->
-            <div class="flexcol" style="grid-row: 2 / 3; grid-column: 1 / 2;">
-                <label for="">{localize("autoanimations.menus.masking")}</label>
-                <label for="Mask {animation._data.id}" class="aa-setDim"
-                    >{maskLabel}</label
-                >
-                <input
-                    type="checkbox"
-                    id="Mask {animation._data.id}"
-                    hidden
-                    bind:checked={$animation.primary.options.isMasked}
-                />
-            </div>
-            <!--Set Animation Opacity-->
-            <div class="flexcol" style="grid-row: 2 / 3; grid-column: 2 / 3;">
-                <label for="aaOpacity" class="aa-opacity-pos"
-                    >{localize("autoanimations.menus.opacity")}</label
-                >
-                <div class="form-group">
-                    <input
-                        style="font-weight: normal;background:rgb(191 187 182);font-size:14px;height:1.5em;max-width: 3.5em;font-family: Signika, sans-serif;"
-                        type="number"
-                        id="aaOpacity"
-                        bind:value={$animation.primary.options.opacity}
-                        placeholder="1"
-                        min="0"
-                        max="1"
-                        step="0.01"
-                    />
-                    <input
-                        style="border:none; background:none; padding-top:0.75em"
-                        type="range"
-                        min="0"
-                        max="1"
-                        step="0.01"
-                        bind:value={$animation.primary.options.opacity}
-                    />
-                </div>
-            </div>
-            <!--Set Z-Index of Animation-->
-            <div class="flexcol" style="grid-row: 2 /3; grid-column: 3 / 4;">
-                <label for="">{localize("autoanimations.menus.z-index")}</label>
-                <input
-                    type="number"
-                    bind:value={$animation.primary.options.zIndex}
-                    placeholder="1"
-                    step="1"
-                />
-            </div>
-            <!--Set Scale of Animation-->
-            <div class="flexcol" style="grid-row: 3 / 4; grid-column: 4 / 5;">
-                <label for="">{localize("autoanimations.menus.radius")}</label>
-                <input
-                    type="number"
-                    bind:value={$animation.primary.options.radius}
-                    placeholder="1"
-                    step="0.01"
-                />
-            </div>
-        </div>
+        <table class="d">
+            <tr>
+                <td>
+                    <!--Set belowToken-->
+                    <div class="form-group">
+                        <label for="Below {animation._data.id}"
+                            >{localize("autoanimations.menus.below")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="Below {animation._data.id}"
+                            bind:checked={$animation.primary.options.below}
+                        />
+                    </div>
+                </td>
+                <td>
+                    <!--Set Visibility Binding-->
+                    <div class="form-group">
+                        <label for="Vis {animation._data.id}"
+                            >{localize("autoanimations.menus.visibility")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="Vis {animation._data.id}"
+                            bind:checked={$animation.primary.options.unbindVisibility}
+                        />
+                    </div>
+                </td>
+                <td>
+                    <!--Set Alpha Binding-->
+                    <div class="form-group">
+                        <label for="Alpha {animation._data.id}"
+                            >{localize("autoanimations.menus.alpha")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="Alpha {animation._data.id}"
+                            bind:checked={$animation.primary.options.unbindAlpha}
+                        />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <!--Set Masking-->
+                    <div class="form-group">
+                        <label for="Masked {animation._data.id}"
+                            >{localize("autoanimations.menus.mask")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="Masked {animation._data.id}"
+                            bind:checked={$animation.primary.options.isMasked}
+                        />
+                    </div>
+                </td>
+                <td>
+                    <!--Ignore Targets?-->
+                    <div class="form-group">
+                        <label for="Ignore {animation._data.id}"
+                            >{localize("autoanimations.menus.ignoreTargets")}
+                       </label>
+                        <input
+                            type="checkbox"
+                            id="Ignore {animation._data.id}"
+                            bind:checked={$animation.primary.options.ignoreTarget}
+                        />
+                    </div>
+                </td>
+                <!--Set Z-Index-->
+                <td>
+                    <div class="form-group">
+                        <label for=""
+                            >{localize("autoanimations.menus.z-index")}</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={$animation.primary.options.zIndex}
+                            placeholder="1"
+                            step="1"
+                        />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <!--Set Animation Opacity-->
+                    <div class="flexcol">
+                        <label for="aaOpacity"
+                            >{localize("autoanimations.menus.opacity")}</label
+                        >
+                        <div class="form-group" style="display: flex; margin-right: 2em; margin-left: 2em;">
+                            <input
+                                type="number"
+                                id="aaOpacity"
+                                bind:value={$animation.primary.options.opacity}
+                                placeholder="1"
+                                min="0"
+                                max="1"
+                                step="0.01"
+                            />
+                            <input
+                                style="border:none; background:none;margin-left: 3px"
+                                type="range"
+                                min="0"
+                                max="1"
+                                step="0.01"
+                                bind:value={$animation.primary.options.opacity}
+                            />
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <!--Set Radius of Animation-->
+                    <div
+                        class="form-group"
+                    >
+                        <label for=""
+                            >{localize("autoanimations.menus.radius")}</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={$animation.primary.options.radius}
+                            placeholder="1"
+                            step="0.01"
+                        />
+                    </div>
+                </td>
+                <td>
+                    <!--Add Token Width-->
+                    <div class="form-group">
+                        <label for="Width {animation._data.id}"
+                            >{localize("autoanimations.menus.add")}
+                            {localize("autoanimations.menus.token")}
+                            {localize("autoanimations.menus.width")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="Width {animation._data.id}"
+                            bind:checked={$animation.primary.options.addTokenWidth}
+                        />
+                    </div>
+                </td>
+            </tr>
+        </table>
     </TJSSvgFolder>
 </div>
 
@@ -193,17 +218,5 @@
     .aa-adjust-pos {
         position: relative;
         left: 10px;
-    }
-    .aa-setDim {
-        line-height: 1.25em;
-        width: 7em;
-        align-self: center;
-        padding: 0;
-        border-radius: 8px;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: 1em;
-        text-align: center;
-        border: 2px outset rgb(142, 142, 142);
-        color: black;
     }
 </style>

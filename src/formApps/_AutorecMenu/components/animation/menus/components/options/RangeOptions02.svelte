@@ -17,15 +17,16 @@
         },
     };
 
-    $: aboveBelow = $animation.primary?.options?.below
+    $: aboveBelow = $animation.primary.options.below
         ? game.i18n.localize("autoanimations.menus.below")
         : game.i18n.localize("autoanimations.menus.above");
+    $: isOnlyX = $animation.primary.options.onlyX
+        ? "Yes"
+        : "No";
 
     function optionsInfo() {
         new OptionsDialog().render(true);
     }
-
-    $: below = $animation.primary.options.below;
 </script>
 
 <div class="aa-options-border">
@@ -72,14 +73,17 @@
                     placeholder="250"
                 />
             </div>
-            <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
-            <div class="flexcol" style="grid-row: 2 / 3; grid-column: 3 / 4;">
-                <label for="">{localize("autoanimations.menus.scale")}</label>
+            <!--Set onlyX for Custom set animation-->
+            <div class="flexcol" style="grid-row: 2 / 3; grid-column: 1 / 2;">
+                <label for="">{localize("autoanimations.menus.only")} X</label>
+                <label for="OnlyX {animation._data.id}" class="aa-cblabel"
+                    >{isOnlyX}</label
+                >
                 <input
-                    type="number"
-                    bind:value={$animation.primary.options.scale}
-                    placeholder="1"
-                    step="0.01"
+                    type="checkbox"
+                    id="OnlyX {animation._data.id}"
+                    hidden
+                    bind:checked={$animation.primary.options.onlyX}
                 />
             </div>
             <!--Set Animation Opacity-->
@@ -109,14 +113,21 @@
                 </div>
             </div>
             <!--Set Z-Index of Animation-->
-            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-                <label for="">{localize("autoanimations.menus.z-index")}</label>
-                <input
-                    type="number"
-                    bind:value={$animation.primary.options.zIndex}
-                    placeholder="1"
-                    step="1"
-                />
+            <div>
+                <div
+                    class="flexcol"
+                    style="grid-row: 1 / 2; grid-column: 2 / 3;"
+                >
+                    <label for=""
+                        >{localize("autoanimations.menus.z-index")}</label
+                    >
+                    <input
+                        type="number"
+                        bind:value={$animation.primary.options.zIndex}
+                        placeholder="1"
+                        step="1"
+                    />
+                </div>
             </div>
         </div>
     </TJSSvgFolder>

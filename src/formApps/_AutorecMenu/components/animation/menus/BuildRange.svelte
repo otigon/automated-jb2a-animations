@@ -40,7 +40,7 @@
                 {idx}
                 {category}
             />
-            <RangeOptions {animation} />
+            <RangeOptions {animation} {category} />
             <SoundSettings {animation} section="primary" />
         </div>
         <Explosion {animation} section="explosion" {idx} {category} />

@@ -4,7 +4,7 @@
 
     import SoundSettings from "./SoundSettings.svelte";
     import VideoSelect from "./VideoSelect.svelte";
-    import ExplosionOptions from "./options/ExplosionOptions.svelte";
+    import ExplosionOptions from "./options/ExplosionOptions02.svelte";
 
     export let animation;
     export let idx;

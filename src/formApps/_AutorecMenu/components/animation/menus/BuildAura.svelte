@@ -21,7 +21,7 @@ $: soundOnly = $animation.soundOnly.sound.enable;
     <ExtraSource {animation} {idx} {category}/>
     <div class="aa-primary-border">
     <VideoSelect {animation} section="primary" {title} {idx} {category}/>
-    <AuraOptions {animation}/>
+    <AuraOptions {animation} {category} />
     <SoundSettings {animation} section="primary"/>
     </div>
 </div>

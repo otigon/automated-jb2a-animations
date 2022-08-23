@@ -3,9 +3,8 @@
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
-    import OptionsDialog from "./optionsInfoDialog.js";
-
     export let animation;
+    export let category;
 
     const folder = {
         styles: {
@@ -17,193 +16,178 @@
         label: game.i18n.localize("autoanimations.menus.options"),
     };
 
-    $: aboveBelow = $animation.primary.options.below
-        ? game.i18n.localize("autoanimations.menus.below")
-        : game.i18n.localize("autoanimations.menus.above");
-
-    $: isPersistent = $animation.primary.options.persistent
-        ? game.i18n.localize("autoanimations.menus.persistant")
-        : game.i18n.localize("autoanimations.menus.not") +
-          " " +
-          game.i18n.localize("autoanimations.menus.persistant");
-    $: bindAlpha = $animation.primary.options.unbindAlpha
-        ? game.i18n.localize("autoanimations.menus.unbound")
-        : game.i18n.localize("autoanimations.menus.bound");
-    $: bindVisibility = $animation.primary.options.unbindVisibility
-        ? game.i18n.localize("autoanimations.menus.unbound")
-        : game.i18n.localize("autoanimations.menus.bound");
-    $: maskLabel = $animation.primary.options.isMasked
-        ? game.i18n.localize("autoanimations.menus.enabled")
-        : game.i18n.localize("autoanimations.menus.disabled");
-
-    function optionsInfo() {
-        new OptionsDialog().render(true);
-    }
-
+    
     $: persistent = $animation.primary.options.persistent;
+
 </script>
 
 <div class="aa-options-border">
-    <TJSSvgFolder
-        {folder}
-    >
+    <TJSSvgFolder {folder}>
         <div slot="summary-end">
             <i
                 class="fas fa-info-circle aa-info-icon aa-zoom aa-adjust-pos"
                 title={localize("autoanimations.menus.quickReference")}
-                on:click={() => optionsInfo()}
+                on:click={() => category.optionsInfo()}
             />
         </div>
-        <div class="aa-options" style="justify-items:center">
-            <!--Persistent Setting-->
-            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 1 / 2;">
-                <label for=""
-                    >{localize("autoanimations.menus.persistence")}</label
-                >
-                <label for="Persist {animation._data.id}" class="aa-cblabel"
-                    >{isPersistent}</label
-                >
-                <input
-                    type="checkbox"
-                    id="Persist {animation._data.id}"
-                    hidden
-                    bind:checked={$animation.primary.options.persistent}
-                />
-            </div>
-            <!--Set Level of Animation-->
-            <div class="flexcol" style="grid-row: 1 / 2; grid-column: 2 / 3;">
-                <label for="">{localize("autoanimations.menus.level")}</label>
-                <label for="Below {animation._data.id}" class="aa-cblabel"
-                    >{aboveBelow}</label
-                >
-                <input
-                    type="checkbox"
-                    id="Below {animation._data.id}"
-                    hidden
-                    bind:checked={$animation.primary.options.below}
-                />
-            </div>
-            <!--Bind/Unbind Visibility (for Persistent Effects)-->
-            <div
-                class="flexcol {persistent ? '' : 'aa-disableOpacity'}"
-                style="grid-row: 1 / 2; grid-column: 3 / 4;"
-            >
-                <label for=""
-                    >{localize("autoanimations.menus.visibility")}</label
-                >
-                <label for="Vis {animation._data.id}" class="aa-cblabel"
-                    >{bindVisibility}</label
-                >
-                <input
-                    type="checkbox"
-                    id="Vis {animation._data.id}"
-                    hidden
-                    bind:checked={$animation.primary.options.unbindVisibility}
-                />
-            </div>
-            <!--Bind/Unbind Opacity (for Persistent Effects)-->
-            <div
-                class="flexcol {persistent ? '' : 'aa-disableOpacity'}"
-                style="grid-row: 1 / 2; grid-column: 4 / 5;"
-            >
-                <label for="">{localize("autoanimations.menus.alpha")}</label>
-                <label for="Alpha {animation._data.id}" class="aa-cblabel"
-                    >{bindAlpha}</label
-                >
-                <input
-                    type="checkbox"
-                    id="Alpha {animation._data.id}"
-                    hidden
-                    bind:checked={$animation.primary.options.unbindAlpha}
-                />
-            </div>
-            <!--Set the Masking Boolean-->
-            <div class="flexcol" style="grid-row: 2 / 3; grid-column: 1 / 2;">
-                <label for="">{localize("autoanimations.menus.masking")}</label>
-                <label for="Mask {animation._data.id}" class="aa-cblabel"
-                    >{maskLabel}</label
-                >
-                <input
-                    type="checkbox"
-                    id="Mask {animation._data.id}"
-                    hidden
-                    bind:checked={$animation.primary.options.isMasked}
-                />
-            </div>
-            <!--Set Number of times the animation plays-->
-            <div
-                class="flexcol {persistent ? 'aa-disableOpacity' : ''}"
-                style="grid-row: 2 / 3; grid-column: 2 / 3;"
-            >
-                <label for="">{localize("autoanimations.menus.repeat")}</label>
-                <input
-                    type="number"
-                    bind:value={$animation.primary.options.repeat}
-                    placeholder="1"
-                />
-            </div>
-            <!--Set delay between repeats-->
-            <div
-                class="flexcol {persistent ? 'aa-disableOpacity' : ''}"
-                style="grid-row: 2 / 3; grid-column: 3 / 4;"
-            >
-                <label for=""
-                    >{localize("autoanimations.menus.repeat")}
-                    {localize("autoanimations.menus.delay")}</label
-                >
-                <input
-                    type="number"
-                    bind:value={$animation.primary.options.delay}
-                    placeholder="250"
-                />
-            </div>
-            <!--Set Scale of Animation-->
-            <div class="flexcol" style="grid-row: 2 / 3; grid-column: 4 / 5;">
-                <label for="">{localize("autoanimations.menus.scale")}</label>
-                <input
-                    type="number"
-                    bind:value={$animation.primary.options.scale}
-                    placeholder="1"
-                    step="0.01"
-                />
-            </div>
-            <!--Set Animation Opacity-->
-            <div class="flexcol" style="grid-row: 3 / 4; grid-column: 2 / 3;">
-                <label for="aaOpacity" class="aa-opacity-pos"
-                    >{localize("autoanimations.menus.opacity")}</label
-                >
-                <div class="form-group">
-                    <input
-                        style="font-weight: normal;background:rgb(191 187 182);font-size:14px;height:1.5em;max-width: 3.5em;font-family: Signika, sans-serif;"
-                        type="number"
-                        id="aaOpacity"
-                        bind:value={$animation.primary.options.opacity}
-                        placeholder="1"
-                        min="0"
-                        max="1"
-                        step="0.01"
-                    />
-                    <input
-                        style="border:none; background:none; padding-top:0.75em"
-                        type="range"
-                        min="0"
-                        max="1"
-                        step="0.01"
-                        bind:value={$animation.primary.options.opacity}
-                    />
-                </div>
-            </div>
-            <!--Set Z-Index of Animation-->
-            <div class="flexcol" style="grid-row: 3 /4; grid-column: 3 / 4;">
-                <label for="">{localize("autoanimations.menus.z-index")}</label>
-                <input
-                    type="number"
-                    bind:value={$animation.primary.options.zIndex}
-                    placeholder="1"
-                    step="1"
-                />
-            </div>
-        </div>
+        <table class="d">
+            <tr>
+                <td>
+                    <!--Set belowToken-->
+                    <div class="form-group">
+                        <label for="Below {animation._data.id}"
+                            >{localize("autoanimations.menus.below")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="Below {animation._data.id}"
+                            bind:checked={$animation.primary.options.below}
+                        />
+                    </div>
+                </td>
+                <td>
+                    <!--Set Number of times the animation plays-->
+                    <div class="form-group {!persistent ? '' : 'aa-disableOpacity'}">
+                        <label for=""
+                            >{localize("autoanimations.menus.repeat")}</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={$animation.primary.options.repeat}
+                            placeholder="1"
+                        />
+                    </div>
+                </td>
+                <td>
+                    <!--Set delay between repeats-->
+                    <div class="form-group {!persistent ? '' : 'aa-disableOpacity'}">
+                        <label for=""
+                            >{localize("autoanimations.menus.repeat")}
+                            {localize("autoanimations.menus.delay")}</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={$animation.primary.options.delay}
+                            placeholder="250"
+                        />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <!--Set Persistence-->
+                    <div class="form-group">
+                        <label for="Persist {animation._data.id}"
+                            >{localize("autoanimations.menus.persistant")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="Persist {animation._data.id}"
+                            bind:checked={$animation.primary.options.persistent}
+                        />
+                    </div>
+                </td>
+                <td>
+                    <!--Set Visibility Binding-->
+                    <div class="form-group {persistent ? '' : 'aa-disableOpacity'}">
+                        <label for="Vis {animation._data.id}"
+                            >{localize("autoanimations.menus.bind")} {localize("autoanimations.menus.visibility")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="Vis {animation._data.id}"
+                            bind:checked={$animation.primary.options.unbindVisibility}
+                        />
+                    </div>
+                </td>
+                <td>
+                    <!--Set Alpha Binding-->
+                    <div class="form-group {persistent ? '' : 'aa-disableOpacity'}">
+                        <label for="Alpha {animation._data.id}"
+                            >{localize("autoanimations.menus.bind")} {localize("autoanimations.menus.alpha")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="Alpha {animation._data.id}"
+                            bind:checked={$animation.primary.options.unbindAlpha}
+                        />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <!--Set Masking-->
+                    <div class="form-group">
+                        <label for="Masked {animation._data.id}"
+                            >{localize("autoanimations.menus.mask")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="Masked {animation._data.id}"
+                            bind:checked={$animation.primary.options.isMasked}
+                        />
+                    </div>
+                </td>
+                <td>
+                    <!--Set Animation Opacity-->
+                    <div class="flexcol">
+                        <label for="aaOpacity"
+                            >{localize("autoanimations.menus.opacity")}</label
+                        >
+                        <div class="form-group" style="display: flex; margin-right: 2em; margin-left: 2em;">
+                            <input
+                                type="number"
+                                id="aaOpacity"
+                                bind:value={$animation.primary.options.opacity}
+                                placeholder="1"
+                                min="0"
+                                max="1"
+                                step="0.01"
+                            />
+                            <input
+                                style="border:none; background:none;margin-left: 3px"
+                                type="range"
+                                min="0"
+                                max="1"
+                                step="0.01"
+                                bind:value={$animation.primary.options.opacity}
+                            />
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
+                    <div
+                        class="form-group"
+                    >
+                        <label for=""
+                            >{localize("autoanimations.menus.scale")}</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={$animation.primary.options.scale}
+                            placeholder="1"
+                            step="0.01"
+                        />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label for=""
+                            >{localize("autoanimations.menus.z-index")}</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={$animation.primary.options.zIndex}
+                            placeholder="1"
+                            step="1"
+                        />
+                    </div>
+                </td>
+            </tr>
+        </table>
     </TJSSvgFolder>
 </div>
 
@@ -211,9 +195,5 @@
     .aa-adjust-pos {
         position: relative;
         left: 10px;
-    }
-    .aa-disableOpacity {
-        pointer-events: none;
-        opacity: 0.4;
     }
 </style>

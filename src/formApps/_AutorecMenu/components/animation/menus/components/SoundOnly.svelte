@@ -5,6 +5,7 @@
     let section = "soundOnly";
 </script>
 
+
 <div class="aa-soundOnly-border">
     <div style="padding-top: 10px">
         <h1>
@@ -36,38 +37,55 @@
             >
         </div>
     </div>
-    <div class="aa-3wide">
-        <div class="flexcol" style="grid-row: 3 / 4; grid-column: 1 / 2;">
-            <label for=""
-                >{localize("autoanimations.menus.start")}
-                {localize("autoanimations.menus.time")} (ms)</label
-            >
-            <input
-                type="number"
-                bind:value={$animation.soundOnly.sound.startTime}
-                placeholder="0"
-                step="0.01"
-            />
-        </div>
-        <div class="flexcol" style="grid-row: 3 / 4; grid-column: 2 / 3;">
-            <label for="">{localize("autoanimations.menus.volume")}</label>
-            <input
-                type="number"
-                bind:value={$animation.soundOnly.sound.volume}
-                placeholder="0.5"
-                step="0.01"
-            />
-        </div>
-        <div class="flexcol" style="grid-row: 3 / 4; grid-column: 3 / 4;">
-            <label for="">{localize("autoanimations.menus.delay")}</label>
-            <input
-                type="number"
-                bind:value={$animation.soundOnly.sound.delay}
-                placeholder="0"
-                step="0.01"
-            />
-        </div>
-    </div>
+    <table class="d" style="padding-left: 2em; padding-right: 2em">
+        <tr>
+            <td>
+                <!--Set Start Time-->
+                <div class="form-group">
+                    <label for=""
+                        >{localize("autoanimations.menus.start")}
+                        {localize("autoanimations.menus.time")} (ms)</label
+                    >
+                    <input
+                        type="number"
+                        bind:value={$animation.soundOnly.sound.startTime}
+                        placeholder="0"
+                        step="0.01"
+                    />
+                </div>
+            </td>
+            <td>
+                <!--Set Volume-->
+                <div class="form-group">
+                    <label for=""
+                        >{localize(
+                            "autoanimations.menus.volume"
+                        )}</label
+                    >
+                    <input
+                        type="number"
+                        bind:value={$animation.soundOnly.sound.volume}
+                        placeholder="0.5"
+                        step="0.01"
+                    />
+                </div>
+            </td>
+            <td>
+                <!--Set Delay-->
+                <div class="form-group">
+                    <label for=""
+                        >{localize("autoanimations.menus.delay")}</label
+                    >
+                    <input
+                        type="number"
+                        bind:value={$animation.soundOnly.sound.delay}
+                        placeholder="0"
+                        step="0.01"
+                    />
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>
 
 <style lang="scss">
@@ -81,23 +99,6 @@
         margin-right: 6%;
         margin-left: 3%;
         font-size: small;
-        font-weight: normal;
-    }
-    .aa-3wide input {
-        text-align: center;
-        align-self: center;
-        border-radius: 5px;
-        width: 3em;
-        color: black;
-        font-weight: normal;
-        background: rgb(191 187 182);
-        font-size: 14px;
-        height: 1.5em;
-        font-family: "Signika", sans-serif;
-    }
-    .aa-3wide label {
-        align-self: center;
-        font-size: large;
         font-weight: normal;
     }
     .aa-Sound-container button {

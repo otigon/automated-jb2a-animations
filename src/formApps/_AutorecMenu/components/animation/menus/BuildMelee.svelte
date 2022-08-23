@@ -44,7 +44,7 @@
                 {idx}
                 {category}
             />
-            <MeleeOptions {animation} />
+            <MeleeOptions {animation} {category} />
             <SoundSettings {animation} section="primary" />
         </div>
         <Explosion {animation} section="explosion" {idx} {category} />
