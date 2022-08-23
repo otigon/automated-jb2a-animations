@@ -463,7 +463,7 @@ function storeDeletedItems(item) {
 * item as the item instance being used
 * options to override settings e.g. playOnMiss: true, hitTargets: Array of TokenIDs
 */
-class Index
+class AutoAnimations
 {
     static async playAnimation(sourceToken, targets, item, options = {}) {
         if (!AnimationState.enabled) { return; }
@@ -477,7 +477,7 @@ class Index
         trafficCop(handler);
     }
 }
-window.AutoAnimations = Index;
+window.AutoAnimations = AutoAnimations;
 function moduleIncludes(test) {
     return !!game.modules.get(test);
 }
