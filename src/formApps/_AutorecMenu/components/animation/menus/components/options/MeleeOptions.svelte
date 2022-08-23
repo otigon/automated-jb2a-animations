@@ -62,40 +62,24 @@
                 </td>
                 <td>
                     <!--Set Number of times the animation plays-->
-                    <div class="flex-row">
-                        <div>
-                            <label for=""
-                                >{localize(
-                                    "autoanimations.menus.repeat"
-                                )}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.primary.options.repeat}
-                                placeholder="1"
-                            />
-                        </div>
-                    </div>
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.repeat")}
+                        section={"primary"}
+                        field={"repeat"}
+                    />
                 </td>
                 <td>
                     <!--Set delay between repeats-->
-                    <div class="flex-row">
-                        <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.repeat")}
-                                {localize("autoanimations.menus.delay")}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.primary.options.delay}
-                                placeholder="250"
-                            />
-                        </div>
-                    </div>
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.repeat") +
+                            " " +
+                            localize("autoanimations.menus.delay")}
+                        section={"primary"}
+                        field={"delay"}
+                        placeholder="250"
+                    />
                 </td>
             </tr>
             <tr>
@@ -134,41 +118,23 @@
                     </div>
                 </td>
                 <td>
-                    <div class="flex-row">
-                        <div>
-                            <label for=""
-                                >{localize(
-                                    "autoanimations.menus.z-index"
-                                )}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.primary.options.zIndex}
-                                placeholder="1"
-                                step="1"
-                            />
-                        </div>
-                    </div>
+                    <!--Set the Z-Index of the Animation-->
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.z-index")}
+                        section={"primary"}
+                        field={"zIndex"}
+                    />
                 </td>
                 <td>
                     <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
-                    <div class="flex-row">
-                        <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.scale")}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.primary.options.scale}
-                                placeholder="1"
-                                step="0.01"
-                            />
-                        </div>
-                    </div>
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.scale")}
+                        section={"primary"}
+                        field={"scale"}
+                        step="0.01"
+                    />
                 </td>
             </tr>
         </table>

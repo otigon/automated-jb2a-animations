@@ -3,6 +3,8 @@
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
+    import NumberInput from "../NumberInput.svelte";
+
     export let animation;
     export let category;
 
@@ -49,38 +51,25 @@
                 </td>
                 <td>
                     <!--Set Number of times the animation plays-->
-                    <div
-                        class="form-group {!persistent
-                            ? ''
-                            : 'aa-disableOpacity'}"
-                    >
-                        <label for=""
-                            >{localize("autoanimations.menus.repeat")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.primary.options.repeat}
-                            placeholder="1"
-                        />
-                    </div>
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.repeat")}
+                        section={"primary"}
+                        field={"repeat"}
+                        isDisabled={persistent ? "aa-disableOpacity" : ""}
+                    />
                 </td>
                 <td>
                     <!--Set delay between repeats-->
-                    <div
-                        class="form-group {!persistent
-                            ? ''
-                            : 'aa-disableOpacity'}"
-                    >
-                        <label for=""
-                            >{localize("autoanimations.menus.repeat")}
-                            {localize("autoanimations.menus.delay")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.primary.options.delay}
-                            placeholder="250"
-                        />
-                    </div>
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.repeat") +
+                            " " +
+                            localize("autoanimations.menus.delay")}
+                        section={"primary"}
+                        field={"delay"}
+                        isDisabled={persistent ? "aa-disableOpacity" : ""}
+                    />
                 </td>
             </tr>
             <tr>
@@ -99,31 +88,23 @@
                 </td>
                 <td>
                     <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
-                    <div class="form-group">
-                        <label for=""
-                            >{localize("autoanimations.menus.scale")} X</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.primary.options.scaleX}
-                            placeholder="1"
-                            step="0.01"
-                        />
-                    </div>
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.scale") + " " + "X"}
+                        section={"primary"}
+                        field={"scaleX"}
+                        step=0.01
+                    />
                 </td>
                 <td>
                     <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
-                    <div class="form-group">
-                        <label for=""
-                            >{localize("autoanimations.menus.scale")} Y</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.primary.options.scaleY}
-                            placeholder="1"
-                            step="0.01"
-                        />
-                    </div>
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.scale") + " " + "Y"}
+                    section={"primary"}
+                    field={"scaleY"}
+                    step=0.01
+                />
                 </td>
             </tr>
             <tr>
@@ -136,7 +117,8 @@
                         <input
                             type="checkbox"
                             id="Remove {animation._data.id}"
-                            bind:checked={$animation.primary.options.removeTemplate}
+                            bind:checked={$animation.primary.options
+                                .removeTemplate}
                         />
                     </div>
                 </td>
@@ -171,17 +153,13 @@
                     </div>
                 </td>
                 <td>
-                    <div class="form-group">
-                        <label for=""
-                            >{localize("autoanimations.menus.z-index")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.primary.options.zIndex}
-                            placeholder="1"
-                            step="1"
-                        />
-                    </div>
+                    <!--Set Z-Index of Animation-->
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.z-index")}
+                        section={"primary"}
+                        field={"zIndex"}
+                    />
                 </td>
             </tr>
         </table>
@@ -203,7 +181,9 @@
                 <td>
                     <!--Choose Persistent Type-->
                     <div
-                        class="form-group {!persistent ? "aa-disableOpacity" : ""}" 
+                        class="form-group {!persistent
+                            ? 'aa-disableOpacity'
+                            : ''}"
                     >
                         <label for=""
                             >{localize("autoanimations.menus.persistant")}
@@ -214,84 +194,104 @@
                             style="width:11em; height: 1em"
                         >
                             <option value="sequencerground"
-                                >{localize("autoanimations.menus.sequencereffect")}</option
+                                >{localize(
+                                    "autoanimations.menus.sequencereffect"
+                                )}</option
                             >
                             <option value="attachtemplate"
-                                >{localize("autoanimations.menus.attachtotemplate")}</option
+                                >{localize(
+                                    "autoanimations.menus.attachtotemplate"
+                                )}</option
                             >
                             {#if currentType === "circle" || currentType === "square"}
-                            <option value="overheadtile"
-                                >{localize("autoanimations.menus.overheadtile")}</option
-                            >
-                            <option value="groundtile"
-                                >{localize("autoanimations.menus.groundtile")}</option
-                            >
+                                <option value="overheadtile"
+                                    >{localize(
+                                        "autoanimations.menus.overheadtile"
+                                    )}</option
+                                >
+                                <option value="groundtile"
+                                    >{localize(
+                                        "autoanimations.menus.groundtile"
+                                    )}</option
+                                >
                             {/if}
                         </select>
                     </div>
                 </td>
             </tr>
-            {#if persistType === 'overheadtile' && persistent}
-            <tr>
-                <td>
-                    <!--Set Occlusion Mode-->
-                    <div
-                        class="flexcol"
-                    >
-                        <label for=""
-                            >{localize("autoanimations.menus.occlusionMode")}</label
-                        >
-                        <select
-                            bind:value={$animation.primary.options.occlusionMode}
-                            style="text-align: center;align-self: center;width: 15em"
-                        >
-                            <option value="3"
-                                >{localize("autoanimations.menus.occlusion03")}</option
+            {#if persistType === "overheadtile" && persistent}
+                <tr>
+                    <td>
+                        <!--Set Occlusion Mode-->
+                        <div class="flexcol">
+                            <label for=""
+                                >{localize(
+                                    "autoanimations.menus.occlusionMode"
+                                )}</label
                             >
-                            <option value="1"
-                                >{localize("autoanimations.menus.occlusion01")}</option
+                            <select
+                                bind:value={$animation.primary.options
+                                    .occlusionMode}
+                                style="text-align: center;align-self: center;width: 15em"
                             >
-                            <option value="2"
-                                >{localize("autoanimations.menus.occlusion02")}</option
-                            >
-                            <option value="0"
-                                >{localize("autoanimations.menus.occlusion00")}</option
-                            >
-                        </select>
-                    </div>
-                </td>
-                <td>
-                    <!--Set Occlusion Alpha-->
-                    <div class="flexcol">
-                        <label for="aaOpacity"
-                            >{localize("autoanimations.menus.occlusionAlpha")}</label
-                        >
-                        <div
-                            class="form-group"
-                            style="display: flex; margin-right: 2em; margin-left: 2em;"
-                        >
-                            <input
-                                type="number"
-                                id="aaOpacity"
-                                bind:value={$animation.primary.options.occlusionAlpha}
-                                placeholder="1"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                            />
-                            <input
-                                style="border:none; background:none;margin-left: 3px"
-                                type="range"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                                bind:value={$animation.primary.options.occlusionAlpha}
-                            />
+                                <option value="3"
+                                    >{localize(
+                                        "autoanimations.menus.occlusion03"
+                                    )}</option
+                                >
+                                <option value="1"
+                                    >{localize(
+                                        "autoanimations.menus.occlusion01"
+                                    )}</option
+                                >
+                                <option value="2"
+                                    >{localize(
+                                        "autoanimations.menus.occlusion02"
+                                    )}</option
+                                >
+                                <option value="0"
+                                    >{localize(
+                                        "autoanimations.menus.occlusion00"
+                                    )}</option
+                                >
+                            </select>
                         </div>
-                    </div>
-
-                </td>
-            </tr>
+                    </td>
+                    <td>
+                        <!--Set Occlusion Alpha-->
+                        <div class="flexcol">
+                            <label for="aaOpacity"
+                                >{localize(
+                                    "autoanimations.menus.occlusionAlpha"
+                                )}</label
+                            >
+                            <div
+                                class="form-group"
+                                style="display: flex; margin-right: 2em; margin-left: 2em;"
+                            >
+                                <input
+                                    type="number"
+                                    id="aaOpacity"
+                                    bind:value={$animation.primary.options
+                                        .occlusionAlpha}
+                                    placeholder="1"
+                                    min="0"
+                                    max="1"
+                                    step="0.01"
+                                />
+                                <input
+                                    style="border:none; background:none;margin-left: 3px"
+                                    type="range"
+                                    min="0"
+                                    max="1"
+                                    step="0.01"
+                                    bind:value={$animation.primary.options
+                                        .occlusionAlpha}
+                                />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
             {/if}
         </table>
     </TJSSvgFolder>

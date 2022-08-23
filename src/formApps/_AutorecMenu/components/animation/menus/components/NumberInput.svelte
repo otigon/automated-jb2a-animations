@@ -2,18 +2,23 @@
     export let animation;
     export let section;
     export let field;
-    export let name;
+    export let label;
+    export let isDisabled = "";
+    export let placeholder = 1;
+    export let step = 1;
 
 </script>
 
-<div class="flex-row">
+<div class="flex-row {isDisabled}">
     <div>
-        <label for="">{name}</label>
+        <label for="">{label}</label>
     </div>
     <div>
         <input
             type="number"
             bind:value={$animation[section].options[field]}
+            placeholder={placeholder}
+            step={step}
         />
     </div>
 </div>

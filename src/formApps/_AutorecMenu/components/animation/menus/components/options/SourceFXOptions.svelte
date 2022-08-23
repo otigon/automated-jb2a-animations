@@ -3,6 +3,8 @@
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
+    import NumberInput from "../NumberInput.svelte";
+
     export let animation;
     export let category;
 
@@ -59,30 +61,24 @@
                 </td>
                 <td>
                     <!--Set Number of times the animation plays-->
-                    <div class="form-group">
-                        <label for=""
-                            >{localize("autoanimations.menus.repeat")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.source.options.repeat}
-                            placeholder="1"
-                        />
-                    </div>
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.repeat")}
+                        section={"source"}
+                        field={"repeat"}
+                    />
                 </td>
                 <td>
                     <!--Set delay between repeats-->
-                    <div class="form-group">
-                        <label for=""
-                            >{localize("autoanimations.menus.repeat")}
-                            {localize("autoanimations.menus.delay")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.source.options.delay}
-                            placeholder="250"
-                        />
-                    </div>
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.repeat") +
+                            " " +
+                            localize("autoanimations.menus.delay")}
+                        section={"source"}
+                        field={"delay"}
+                        placeholder="250"
+                    />
                 </td>
             </tr>
             <tr>
@@ -91,11 +87,13 @@
                     <div class="form-group">
                         <label for="SMasked {animation._data.id}"
                             >{localize("autoanimations.menus.mask")}
-                        <input
-                            type="checkbox"
-                            id="SMasked {animation._data.id}"
-                            bind:checked={$animation.source.options.isMasked}
-                        />
+                            <input
+                                type="checkbox"
+                                id="SMasked {animation._data.id}"
+                                bind:checked={$animation.source.options
+                                    .isMasked}
+                            />
+                        </label>
                     </div>
                 </td>
                 <td>
@@ -104,7 +102,10 @@
                         <label for="aaOpacity"
                             >{localize("autoanimations.menus.opacity")}</label
                         >
-                        <div class="form-group" style="display: flex; margin-right: 2em; margin-left: 2em;">
+                        <div
+                            class="form-group"
+                            style="display: flex; margin-right: 2em; margin-left: 2em;"
+                        >
                             <input
                                 type="number"
                                 id="aaOpacity"
@@ -127,47 +128,33 @@
                 </td>
                 <td>
                     <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
-                    <div
-                        class="form-group"
-                    >
-                        <label for=""
-                            >{localize("autoanimations.menus.scale")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.source.options.scale}
-                            placeholder="1"
-                            step="0.01"
-                        />
-                    </div>
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.scale")}
+                        section={"source"}
+                        field={"scale"}
+                        step="0.01"
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <div class="form-group">
-                        <label for=""
-                            >{localize("autoanimations.menus.z-index")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.source.options.zIndex}
-                            placeholder="1"
-                            step="1"
-                        />
-                    </div>
+                    <!--Set the Z-Index of the Animation-->
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.z-index")}
+                        section={"source"}
+                        field={"zIndex"}
+                    />
                 </td>
                 <td>
-                    <div class="form-group">
-                        <label for=""
-                            >{localize("autoanimations.menus.wait")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.source.options.delayAfter}
-                            placeholder="1"
-                            step="1"
-                        />
-                    </div>
+                    <!--Set Delay for proceeding animation-->
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.wait")}
+                        section={"source"}
+                        field={"delayAfter"}
+                    />
                 </td>
             </tr>
         </table>

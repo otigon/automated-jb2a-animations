@@ -3,6 +3,8 @@
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
+    import NumberInput from "../NumberInput.svelte";
+
     export let animation;
     export let category;
 
@@ -45,30 +47,26 @@
                 </td>
                 <td>
                     <!--Set Number of times the animation plays-->
-                    <div class="form-group {!persistent ? '' : 'aa-disableOpacity'}">
-                        <label for=""
-                            >{localize("autoanimations.menus.repeat")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.target.options.repeat}
-                            placeholder="1"
-                        />
-                    </div>
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.repeat")}
+                        section={"target"}
+                        field={"repeat"}
+                        isDisabled={persistent ? "aa-disableOpacity" : ""}
+                    />
                 </td>
                 <td>
                     <!--Set delay between repeats-->
-                    <div class="form-group {!persistent ? '' : 'aa-disableOpacity'}">
-                        <label for=""
-                            >{localize("autoanimations.menus.repeat")}
-                            {localize("autoanimations.menus.delay")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.target.options.delay}
-                            placeholder="250"
-                        />
-                    </div>
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.repeat") +
+                            " " +
+                            localize("autoanimations.menus.delay")}
+                        section={"target"}
+                        field={"delay"}
+                        placeholder="250"
+                        isDisabled={persistent ? "aa-disableOpacity" : ""}
+                    />
                 </td>
             </tr>
             <tr>
@@ -87,22 +85,33 @@
                 </td>
                 <td>
                     <!--Set Visibility Binding-->
-                    <div class="form-group {persistent ? '' : 'aa-disableOpacity'}">
+                    <div
+                        class="form-group {persistent
+                            ? ''
+                            : 'aa-disableOpacity'}"
+                    >
                         <label for="TVis {animation._data.id}"
-                            >{localize("autoanimations.menus.bind")} {localize("autoanimations.menus.visibility")}
+                            >{localize("autoanimations.menus.bind")}
+                            {localize("autoanimations.menus.visibility")}
                         </label>
                         <input
                             type="checkbox"
                             id="TVis {animation._data.id}"
-                            bind:checked={$animation.target.options.unbindVisibility}
+                            bind:checked={$animation.target.options
+                                .unbindVisibility}
                         />
                     </div>
                 </td>
                 <td>
                     <!--Set Alpha Binding-->
-                    <div class="form-group {persistent ? '' : 'aa-disableOpacity'}">
+                    <div
+                        class="form-group {persistent
+                            ? ''
+                            : 'aa-disableOpacity'}"
+                    >
                         <label for="TAlpha {animation._data.id}"
-                            >{localize("autoanimations.menus.bind")} {localize("autoanimations.menus.alpha")}
+                            >{localize("autoanimations.menus.bind")}
+                            {localize("autoanimations.menus.alpha")}
                         </label>
                         <input
                             type="checkbox"
@@ -132,7 +141,10 @@
                         <label for="aaOpacity"
                             >{localize("autoanimations.menus.opacity")}</label
                         >
-                        <div class="form-group" style="display: flex; margin-right: 2em; margin-left: 2em;">
+                        <div
+                            class="form-group"
+                            style="display: flex; margin-right: 2em; margin-left: 2em;"
+                        >
                             <input
                                 type="number"
                                 id="aaOpacity"
@@ -155,53 +167,38 @@
                 </td>
                 <td>
                     <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
-                    <div
-                        class="form-group"
-                    >
-                        <label for=""
-                            >{localize("autoanimations.menus.scale")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.target.options.scale}
-                            placeholder="1"
-                            step="0.01"
-                        />
-                    </div>
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.scale")}
+                        section={"target"}
+                        field={"scale"}
+                        step="0.01"
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <div class="form-group">
-                        <label for=""
-                            >{localize("autoanimations.menus.z-index")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.target.options.zIndex}
-                            placeholder="1"
-                            step="1"
-                        />
-                    </div>
+                    <!--Set the Z-Index of the Animation-->
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.z-index")}
+                        section={"target"}
+                        field={"zIndex"}
+                    />
                 </td>
                 <td>
-                    <div class="form-group">
-                        <label for=""
-                            >{localize("autoanimations.menus.wait")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.target.options.delayStart}
-                            placeholder="1"
-                            step="1"
-                        />
-                    </div>
+                    <!--Set Delay for proceeding animation-->
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.wait")}
+                        section={"target"}
+                        field={"delayStart"}
+                    />
                 </td>
             </tr>
         </table>
     </TJSSvgFolder>
 </div>
-
 
 <style lang="scss">
     .aa-adjust-pos {

@@ -3,6 +3,8 @@
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
+    import NumberInput from "../NumberInput.svelte";
+
     export let animation;
     export let category;
 
@@ -16,9 +18,7 @@
         label: game.i18n.localize("autoanimations.menus.options"),
     };
 
-    
     $: persistent = $animation.primary.options.persistent;
-
 </script>
 
 <div class="aa-options-border">
@@ -47,30 +47,25 @@
                 </td>
                 <td>
                     <!--Set Number of times the animation plays-->
-                    <div class="form-group {!persistent ? '' : 'aa-disableOpacity'}">
-                        <label for=""
-                            >{localize("autoanimations.menus.repeat")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.primary.options.repeat}
-                            placeholder="1"
-                        />
-                    </div>
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.repeat")}
+                        section={"primary"}
+                        field={"repeat"}
+                        isDisabled={persistent ? "aa-disableOpacity" : ""}
+                    />
                 </td>
                 <td>
                     <!--Set delay between repeats-->
-                    <div class="form-group {!persistent ? '' : 'aa-disableOpacity'}">
-                        <label for=""
-                            >{localize("autoanimations.menus.repeat")}
-                            {localize("autoanimations.menus.delay")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.primary.options.delay}
-                            placeholder="250"
-                        />
-                    </div>
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.repeat") +
+                            " " +
+                            localize("autoanimations.menus.delay")}
+                        section={"primary"}
+                        field={"delay"}
+                        isDisabled={persistent ? "aa-disableOpacity" : ""}
+                    />
                 </td>
             </tr>
             <tr>
@@ -89,27 +84,39 @@
                 </td>
                 <td>
                     <!--Set Visibility Binding-->
-                    <div class="form-group {persistent ? '' : 'aa-disableOpacity'}">
+                    <div
+                        class="form-group {persistent
+                            ? ''
+                            : 'aa-disableOpacity'}"
+                    >
                         <label for="Vis {animation._data.id}"
-                            >{localize("autoanimations.menus.bind")} {localize("autoanimations.menus.visibility")}
+                            >{localize("autoanimations.menus.bind")}
+                            {localize("autoanimations.menus.visibility")}
                         </label>
                         <input
                             type="checkbox"
                             id="Vis {animation._data.id}"
-                            bind:checked={$animation.primary.options.unbindVisibility}
+                            bind:checked={$animation.primary.options
+                                .unbindVisibility}
                         />
                     </div>
                 </td>
                 <td>
                     <!--Set Alpha Binding-->
-                    <div class="form-group {persistent ? '' : 'aa-disableOpacity'}">
+                    <div
+                        class="form-group {persistent
+                            ? ''
+                            : 'aa-disableOpacity'}"
+                    >
                         <label for="Alpha {animation._data.id}"
-                            >{localize("autoanimations.menus.bind")} {localize("autoanimations.menus.alpha")}
+                            >{localize("autoanimations.menus.bind")}
+                            {localize("autoanimations.menus.alpha")}
                         </label>
                         <input
                             type="checkbox"
                             id="Alpha {animation._data.id}"
-                            bind:checked={$animation.primary.options.unbindAlpha}
+                            bind:checked={$animation.primary.options
+                                .unbindAlpha}
                         />
                     </div>
                 </td>
@@ -134,7 +141,10 @@
                         <label for="aaOpacity"
                             >{localize("autoanimations.menus.opacity")}</label
                         >
-                        <div class="form-group" style="display: flex; margin-right: 2em; margin-left: 2em;">
+                        <div
+                            class="form-group"
+                            style="display: flex; margin-right: 2em; margin-left: 2em;"
+                        >
                             <input
                                 type="number"
                                 id="aaOpacity"
@@ -157,34 +167,24 @@
                 </td>
                 <td>
                     <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
-                    <div
-                        class="form-group"
-                    >
-                        <label for=""
-                            >{localize("autoanimations.menus.scale")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.primary.options.scale}
-                            placeholder="1"
-                            step="0.01"
-                        />
-                    </div>
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.scale")}
+                        section={"primary"}
+                        field={"scale"}
+                        step="0.01"
+                    />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <div class="form-group">
-                        <label for=""
-                            >{localize("autoanimations.menus.z-index")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.primary.options.zIndex}
-                            placeholder="1"
-                            step="1"
-                        />
-                    </div>
+                    <!--Set Z-Index of Animation-->
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.z-index")}
+                        section={"primary"}
+                        field={"zIndex"}
+                    />
                 </td>
             </tr>
         </table>
