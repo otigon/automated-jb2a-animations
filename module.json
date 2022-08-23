@@ -7,11 +7,11 @@
   "url": "https://github.com/otigon/automated-jb2a-animations",
   "minimumCoreVersion": "0.8.1",
   "compatibleCoreVersion": "9",
-  "styles": [
-    "./dist/module.css"
-  ],
   "esmodules": [
-    "./dist/module.js"
+    "index.js"
+  ],
+  "styles": [
+    "style.css"
   ],
   "languages": [
     {
