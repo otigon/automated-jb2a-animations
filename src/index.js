@@ -293,7 +293,7 @@ Hooks.once('ready', async function () {
                     //let targets = game.user.targets;
                     systemSupport.aaWfrpg.wfrpSkill(data, info)
                 });
-                
+
                 break;
             case 'dcc':
                 Hooks.on("createChatMessage", async (msg) => {  systemSupport.aaDcc.runDcc(msg) });
@@ -308,12 +308,12 @@ Hooks.once('ready', async function () {
             case "forbidden-lands":
             case "starwarsffg":
             case 'ose':
-            */    
+            */
             default:
                 Hooks.on("createChatMessage", async (msg) => {systemSupport.aaStandard.runStandard(msg) });
         }
     }
-    
+
     //Active Effect Hooks
     switch (game.system.id) {
         case "sfrpg":
@@ -327,7 +327,7 @@ Hooks.once('ready', async function () {
             })
             //Hooks.on("itemActivationChanged", (actor, isActive, item) => {
             //})
-            
+
             Hooks.on("updateItem", (item, diff, action, userId) => {
                 if (game.user.id !== userId) { return; }
                 Hooks.once("updateToken", async (token, actor, updates, userId) => {
@@ -347,7 +347,7 @@ Hooks.once('ready', async function () {
                     }
                 })
             })
-            
+
            /*
             // Alternative option... not as useful because Update Token is called so much
             Hooks.on("updateToken", async (token, actor, updates, userId) => {
@@ -463,7 +463,8 @@ function storeDeletedItems(item) {
 * item as the item instance being used
 * options to override settings e.g. playOnMiss: true, hitTargets: Array of TokenIDs
 */
-class AutoAnimations {
+class AutoAnimations
+{
     static async playAnimation(sourceToken, targets, item, options = {}) {
         if (!AnimationState.enabled) { return; }
         const data = {
