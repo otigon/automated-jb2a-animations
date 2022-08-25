@@ -101,10 +101,10 @@ export default class systemData {
         } else {
             this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
         }
-        //if (!this.autorecObject) {
-            /* fallback assignment for active effects, default assignment otherwise. */
-            //this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
-        //} 
+        if (!this.autorecObject && game.system.id === 'pf2e') {
+            /* fallback assignment for PF2e to capture Rule Element Strikes */
+            this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
+        } 
         
         // If there is no match and there are alternative names, then attempt to use those names instead
         if (!this.autorecObject && data.extraNames?.length && !this.isActiveEffect && !this.pf2eRuleset) {
