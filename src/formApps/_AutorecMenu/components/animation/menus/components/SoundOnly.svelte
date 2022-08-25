@@ -41,11 +41,13 @@
         <tr>
             <td>
                 <!--Set Start Time-->
-                <div class="form-group">
+                <div>
                     <label for=""
                         >{localize("autoanimations.menus.start")}
                         {localize("autoanimations.menus.time")} (ms)</label
                     >
+                </div>
+                <div>
                     <input
                         type="number"
                         bind:value={$animation.soundOnly.sound.startTime}
@@ -56,12 +58,14 @@
             </td>
             <td>
                 <!--Set Volume-->
-                <div class="form-group">
+                <div>
                     <label for=""
                         >{localize(
                             "autoanimations.menus.volume"
                         )}</label
                     >
+                </div>
+                <div>
                     <input
                         type="number"
                         bind:value={$animation.soundOnly.sound.volume}
@@ -72,10 +76,12 @@
             </td>
             <td>
                 <!--Set Delay-->
-                <div class="form-group">
+                <div>
                     <label for=""
                         >{localize("autoanimations.menus.delay")}</label
                     >
+                </div>
+                <div>
                     <input
                         type="number"
                         bind:value={$animation.soundOnly.sound.delay}
@@ -120,7 +126,7 @@
     .aa-soundOnly-border {
         margin-right: 3%;
         margin-left: 3%;
-        border: 3px solid rgba(35, 143, 35, 0.6);
+        border: 3px solid rgba(21, 86, 21, 0.6);
         border-radius: 5px;
         background: rgb(200 200 200);
         margin-bottom: 15px;

@@ -9,7 +9,7 @@
 
 </script>
 
-<div class="flex-row {isDisabled}">
+<div class="{isDisabled}">
     <div>
         <label for="">{label}</label>
     </div>

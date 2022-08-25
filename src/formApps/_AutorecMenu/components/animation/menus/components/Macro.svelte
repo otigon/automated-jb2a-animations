@@ -31,7 +31,7 @@
                 >{localize("autoanimations.menus.macro")}
                 {localize("autoanimations.menus.name")}</label
             >
-            <input type="text" bind:value={$animation.macro.name} />
+            <input type="text" style="border: 1px solid black" bind:value={$animation.macro.name} />
         </div>
         <div class="flexcol" style="grid-row: 1 / 2;grid-column: 3 / 4;">
             <i
@@ -43,7 +43,7 @@
         </div>
         <div class="flexcol" style="grid-row: 2 / 3;grid-column: 1 / 4;">
             <label for="">{localize("autoanimations.menus.args")}</label>
-            <input type="text" bind:value={$animation.macro.args} />
+            <input type="text" style="border: 1px solid black" bind:value={$animation.macro.args} />
         </div>
     </div>
 </div>
@@ -89,9 +89,11 @@
         margin-left: 5%;
     }
     .aa-macro-border {
+        padding-left: 5%;
+        padding-right: 5%;
         margin-right: 3%;
         margin-left: 3%;
-        border: 3px solid rgba(35, 143, 35, 0.6);
+        border: 3px solid rgba(21, 86, 21, 0.6);
         border-radius: 5px;
         background: rgb(200 200 200);
         margin-bottom: 5px;

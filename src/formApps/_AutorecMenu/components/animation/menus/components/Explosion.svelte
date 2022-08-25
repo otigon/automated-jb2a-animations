@@ -16,7 +16,7 @@
         styles: {
             "--tjs-summary-font-family":
                 '"Modesto Condensed", "Palatino Linotype", serif',
-            "--tjs-summary-font-size": "1.2em",
+            "--tjs-summary-font-size": "1.1em",
             "--tjs-summary-chevron-size": "0.7em",
         },
     };
@@ -25,11 +25,7 @@
 <div class="aa-section-border">
     <TJSSvgFolder
         folder={folderOptions}
-        label={`Secondary ${localize("autoanimations.menus.animation")} ${
-            $animation.explosion.enable
-                ? localize("autoanimations.menus.enabled")
-                : localize("autoanimations.menus.disabled")
-        }`}
+        label={localize("autoanimations.variants.secondary") + " " + localize("autoanimations.menus.animation")}
     >
         <div slot="summary-end">
             <input

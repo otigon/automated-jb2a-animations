@@ -4,6 +4,9 @@ import TemplateOptions from "./components/options/TemplateOptions.svelte";
 import SoundSettings from "./components/SoundSettings.svelte";
 import ExtraTarget from "./components/ExtraTarget.svelte";
 import ExtraSource from "./components/ExtraSource.svelte";
+import SectionButtons from "./components/SectionButtons02.svelte";
+import Macro from "./components/Macro.svelte";
+import SoundOnly from "./components/SoundOnly.svelte";
 
 export let animation;
 export let idx;
@@ -12,11 +15,16 @@ export let category;
 let title = game.i18n.localize("autoanimations.menus.primary") + " " + game.i18n.localize("autoanimations.menus.animation")
 
 $: soundOnly = $animation.soundOnly.sound.enable;
+$: macroEnabled = $animation.macro.enable;
 
 </script>
 
+<SectionButtons {animation} />
 <div hidden={!soundOnly}>
-    <SoundSettings {animation} section="soundOnly"/>
+    <SoundOnly {animation}/>
+</div>
+<div hidden={!macroEnabled}>
+    <Macro {animation} />
 </div>
 <div hidden={soundOnly}>
     <ExtraSource {animation} {idx} {category}/>

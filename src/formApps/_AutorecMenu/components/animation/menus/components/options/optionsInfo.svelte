@@ -17,19 +17,28 @@
         </tr>
         <tr>
             <td class="aa-table">
-                <strong>{localize("autoanimations.menus.alpha")}</strong>
+                <strong>{localize("autoanimations.menus.bind") + " " + localize("autoanimations.menus.alpha")}</strong>
             </td>
             <td>
-                If set to Bound, the Alpha level of the Effect will match that
+                If enabled, the Alpha level of the Effect will match that
                 of the Token or Object (This overrides any Opacity settings).
-                Unbound will use the Opacity level for the effect
+                Unchecked will use the Opacity level for the effect
             </td>
         </tr>
         <tr>
             <td class="aa-table">
-                <strong>{localize("autoanimations.menus.level")}</strong>
+                <strong>{localize("autoanimations.menus.bind") + " " + localize("autoanimations.menus.visibility")}</strong>
             </td>
-            <td> Choose whether the effect plays Above or Below the tokens </td>
+            <td>
+                If enabled, the Visibility of the Effect will match that of
+                the Token or Object. Unchecked will make the effect always visible
+            </td>
+        </tr>
+        <tr>
+            <td class="aa-table">
+                <strong>{localize("autoanimations.menus.below")}</strong>
+            </td>
+            <td> Enable to play the animation below tokens </td>
         </tr>
         <tr>
             <td class="aa-table">
@@ -85,15 +94,6 @@
             </td>
             <td>
                 Sets the radius of the effect in grid units.
-            </td>
-        </tr>
-        <tr>
-            <td class="aa-table">
-                <strong>{localize("autoanimations.menus.visibility")}</strong>
-            </td>
-            <td>
-                If set to Bound, the Visibility of the Effect will match that of
-                the Token or Object. Unbound will make the effect always visible
             </td>
         </tr>
         <tr>

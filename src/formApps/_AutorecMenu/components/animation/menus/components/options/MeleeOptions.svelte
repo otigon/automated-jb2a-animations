@@ -13,7 +13,7 @@
         styles: {
             "--tjs-summary-font-family":
                 '"Modesto Condensed", "Palatino Linotype", serif',
-            "--tjs-summary-font-size": "1.2em",
+            "--tjs-summary-font-size": "1.1em",
             "--tjs-summary-chevron-size": "0.7em",
         },
     };
@@ -95,11 +95,12 @@
                         </div>
                         <div
                             class="form-group"
-                            style="display: flex; margin-right: 2em; margin-left: 2em;"
+                            style="display: flex; margin-right: 1em; margin-left: 1em;"
                         >
                             <input
                                 type="number"
                                 id="aaOpacity"
+                                style="box-shadow: none; min-width: 3em"
                                 bind:value={$animation.primary.options.opacity}
                                 placeholder="1"
                                 min="0"
@@ -107,7 +108,7 @@
                                 step="0.01"
                             />
                             <input
-                                style="border:none; background:none;margin-left: 3px"
+                                style="border:none; background:none;margin-left: 3px; box-shadow: none"
                                 type="range"
                                 min="0"
                                 max="1"

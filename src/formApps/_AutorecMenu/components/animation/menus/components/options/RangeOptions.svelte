@@ -15,7 +15,7 @@
         styles: {
             "--tjs-summary-font-family":
                 '"Modesto Condensed", "Palatino Linotype", serif',
-            "--tjs-summary-font-size": "1.2em",
+            "--tjs-summary-font-size": "1.1em",
             "--tjs-summary-chevron-size": "0.7em",
         },
     };

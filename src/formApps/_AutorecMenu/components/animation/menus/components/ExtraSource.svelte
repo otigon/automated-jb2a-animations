@@ -16,7 +16,7 @@
         styles: {
             "--tjs-summary-font-family":
                 '"Modesto Condensed", "Palatino Linotype", serif',
-            "--tjs-summary-font-size": "1.2em",
+            "--tjs-summary-font-size": "1.1em",
             "--tjs-summary-chevron-size": "0.7em",
         },
     };
@@ -25,11 +25,7 @@
 <div class="aa-section-border">
     <TJSSvgFolder
         folder={folderOptions}
-        label={`Source ${localize("autoanimations.menus.animation")} ${
-            $animation.source.enable
-                ? localize("autoanimations.menus.enabled")
-                : localize("autoanimations.menus.disabled")
-        }`}
+        label={localize("autoanimations.menus.source") + " " + localize("autoanimations.menus.animation")}
     >
         <div slot="summary-end">
             <input
@@ -40,7 +36,7 @@
             />
         </div>
         <div class={!$animation.source.enable ? "aa-isDisabled" : ""}>
-            <VideoSelect {animation} section="source" {title} isOnToken={true} {idx} {category}/>
+            <VideoSelect {animation} section="source" {title} {idx} {category}/>
             <SourceFxOptions {animation} {category} />
             <SoundSettings {animation} section="source" />
         </div>

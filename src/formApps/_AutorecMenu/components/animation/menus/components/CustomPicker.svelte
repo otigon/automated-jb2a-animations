@@ -27,7 +27,7 @@
             disabled={!isCustom}
             type="text"
             bind:value={$animation[section].video.customPath}
-            style="font-weight:normal; font-size:small"
+            style="font-weight:normal; font-size:small; border-radius: 5px; border: 1px solid grey"
         />
     </div>
     <div class="aa-custom" style="grid-row: 1/2; grid-column: 4/5">

@@ -9,7 +9,7 @@
         styles: {
             "--tjs-summary-font-family":
                 '"Modesto Condensed", "Palatino Linotype", serif',
-            "--tjs-summary-font-size": "1.2em",
+            "--tjs-summary-font-size": "1.1em",
             "--tjs-summary-chevron-size": "0.7em",
         },
     };
@@ -62,11 +62,13 @@
                 <tr>
                     <td>
                         <!--Set Start Time-->
-                        <div class="form-group">
+                        <div>
                             <label for=""
                                 >{localize("autoanimations.menus.start")}
                                 {localize("autoanimations.menus.time")} (ms)</label
                             >
+                        </div>
+                        <div>
                             <input
                                 type="number"
                                 bind:value={$animation[section].sound.startTime}
@@ -77,12 +79,14 @@
                     </td>
                     <td>
                         <!--Set Volume-->
-                        <div class="form-group">
+                        <div>
                             <label for=""
                                 >{localize(
                                     "autoanimations.menus.volume"
                                 )}</label
                             >
+                        </div>
+                        <div>
                             <input
                                 type="number"
                                 bind:value={$animation[section].sound.volume}
@@ -93,10 +97,12 @@
                     </td>
                     <td>
                         <!--Set Delay-->
-                        <div class="form-group">
+                        <div>
                             <label for=""
                                 >{localize("autoanimations.menus.delay")}</label
                             >
+                        </div>
+                        <div>
                             <input
                                 type="number"
                                 bind:value={$animation[section].sound.delay}

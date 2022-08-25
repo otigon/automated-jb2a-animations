@@ -386,7 +386,18 @@
     align-items: center;
     color: black;
 }
-
+#AA-autorec-settings-New {
+    input {
+        color: black;
+        background: rgba(182, 182, 182, 0.461);
+        border: 1px solid rgba(77, 77, 77, 0.5);
+    }
+    input[type="color"] {
+        background: none;
+        box-shadow: none;
+        border: none;
+    }
+}
 #AA-autorec-settings-New {
     table {
         border-collapse: separate;
@@ -405,6 +416,7 @@
             margin-right: auto;
             font-size: 1em;
             height: 1.5em;
+            color: black;
         }
         input[type="checkbox"] {
             margin: auto;
