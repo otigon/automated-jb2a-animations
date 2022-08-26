@@ -15,6 +15,7 @@ export async function buildFile(getMeta, dbType, name, animationType, animationV
 
     if (customPath) {
         file = customPath;
+        fileData = customPath;
         //msFile = customPath;
         if (getMeta) {
             fileData = customPath;
