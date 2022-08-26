@@ -3,6 +3,9 @@
 .vite-cache/
 .vscode/**/*
 !.vscode/extensions.json
+.vite-cache/
+.vscode/**/*
+!.vscode/extensions.json
 dist/
 node_modules/
 /index.js

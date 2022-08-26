@@ -62,7 +62,7 @@ export async function templateSeq(handler, animationData, config) {
             alpha: data.opacity,
             width: tileWidth,
             height: tileHeight,
-            img: tempAnimation.file,
+            img: tempAnimation.fileData,
             overhead: isOverhead, // false sets Tile in canvas.background. true sets Tile to canvas.foreground
             occlusion: {
                 alpha: data.occlusionAlpha,

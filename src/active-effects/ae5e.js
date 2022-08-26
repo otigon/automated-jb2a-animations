@@ -19,7 +19,8 @@ export async function createActiveEffects5e(effect) {
     if (!AnimationState.enabled) { return; }
 
     // Gets the Token that the Active Effect is applied to
-    const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
+    //const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
+    const aeToken = effect.parent?.token || canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id));
     if (!aeToken) {
         if (aaDebug) { aaDebugger("Failed to find the Token for the Active Effect") }
         return;
@@ -75,7 +76,7 @@ export async function createActiveEffects5e(effect) {
  *
  */
 export async function deleteActiveEffects5e(effect) {
-    const aeToken = canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
+    const aeToken = effect.parent?.token || canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Finds all active Animations on the scene that match .origin(effect.uuid)
