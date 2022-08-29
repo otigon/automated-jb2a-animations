@@ -1,9 +1,10 @@
+import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+
 const melee = {
     explosion: {
         options: {},
         sound: {},
-        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-        dbSection: "static",
+        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     label: "",
     levels3d: {
@@ -19,20 +20,17 @@ const melee = {
     primary: {
         options: {},
         sound: {},
-        video: { menuType: 'weapon', animation: 'club', variant: '01', color: 'white' },
-        dbSection: "melee",
+        video: { dbSection: "melee", menuType: 'weapon', animation: 'club', variant: '01', color: 'white' },
     },
     source: {
         options: {},
         sound: {},
-        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-        dbSection: "static",
+        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     target: {
         options: {},
         sound: {},
-        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-        dbSection: "static",
+        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     soundOnly: {
         sound: {}
@@ -43,8 +41,7 @@ const range = {
     explosion: {
         options: {},
         sound: {},
-        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-        dbSection: "static",
+        video: { dbSection: "static",menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     label: "",
     levels3d: {
@@ -55,20 +52,17 @@ const range = {
     primary: {
         options: {},
         sound: {},
-        video: { menuType: 'weapon', animation: 'arrow', variant: 'regular', color: 'regular' },
-        dbSection: "range",
+        video: { dbSection: "range",menuType: 'weapon', animation: 'arrow', variant: 'regular', color: 'regular' },
     },
     source: {
         options: {},
         sound: {},
-        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-        dbSection: "static",
+        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     target: {
         options: {},
         sound: {},
-        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-        dbSection: "static",
+        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     soundOnly: {
         sound: {}
@@ -79,8 +73,7 @@ const ontoken = {
     explosion: {
         options: {},
         sound: {},
-        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-        dbSection: "static",
+        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     label: "",
     levels3d: {
@@ -91,20 +84,17 @@ const ontoken = {
     primary: {
         options: {},
         sound: {},
-        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-        dbSection: "static",
+        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },       
     },
     source: {
         options: {},
         sound: {},
-        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-        dbSection: "static",
+        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     target: {
         options: {},
         sound: {},
-        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-        dbSection: "static",
+        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     soundOnly: {
         sound: {}
@@ -118,20 +108,17 @@ const templatefx = {
     primary: {
         options: {},
         sound: {},
-        video: { menuType: 'circle', animation: 'calllightning', variant: '01', color: 'blue' },
-        dbSection: "templatefx",
+        video: { dbSection: "templatefx", menuType: 'circle', animation: 'calllightning', variant: '01', color: 'blue' },
     },
     source: {
         options: {},
         sound: {},
-        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-        dbSection: "static",
+        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     target: {
         options: {},
         sound: {},
-        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-        dbSection: "static",
+        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     soundOnly: {
         sound: {}
@@ -142,8 +129,7 @@ const aura = {
     explosion: {
         options: {},
         sound: {},
-        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-        dbSection: "static",
+        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     label: "",
     levels3d: {
@@ -154,24 +140,27 @@ const aura = {
     primary: {
         options: {},
         sound: {},
-        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-        dbSection: "static",
+        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     source: {
         options: {},
         sound: {},
-        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-        dbSection: "static",
+        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     target: {
         options: {},
         sound: {},
-        video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-        dbSection: "static",
+        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
     soundOnly: {
         sound: {}
     }
 }
 
-export { melee, range, ontoken, templatefx, aura }
+const preset = {
+    id: uuidv4(),
+    label: "",
+    presetType: "",
+}
+
+export { melee, range, ontoken, templatefx, aura, preset }

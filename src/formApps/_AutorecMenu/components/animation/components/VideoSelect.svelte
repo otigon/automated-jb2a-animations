@@ -1,39 +1,23 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
-    import CopyDBPath from "./copyOnClick.svelte";
     import CustomPicker from "./CustomPicker.svelte";
     import SectionHeader from "./SectionHeader.svelte";
 
     export let animation;
     export let section;
+    export let section02 = "video";
     export let title;
     export let idx;
     export let category;
-    //console.log(category)
-
-    const copy = () => {
-        const dbPath = category.videoChange("dbPath", section);
-        const app = new CopyDBPath({
-            target: document.getElementById("clipboard"),
-            props: { dbPath },
-        });
-        app.$destroy();
-    };
-    /*
-    if (!animation._data?.[section]?.video?.menuType) {
-        resetVideo()
-    }
-    async function resetVideo() {
-        animation.resetPrimaryVideoMenu(section, isOnToken)
-    }
-    */
+ 
+    $: menuDB = animation._data[section][section02].dbSection;
 </script>
 
 <SectionHeader {title} />
 <!--Unless spawned from "Explosions", Show the main Animation Type Select-->
 <div
-    class="aa-3wide aa-select-label {$animation[section].video.enableCustom
+    class="aa-3wide aa-select-label {$animation[section][section02].enableCustom
         ? 'aa-disableOpacity'
         : ''}"
 >
@@ -41,7 +25,7 @@
     <div class="flexcol" style="grid-row:2/3;grid-column:1/2">
         <label
             for=""
-            on:click={copy}
+            on:click={() => category.databaseToClipboard()}
             style="align-self: center; position:relative; bottom: 7px;font-size:large"
             title="Copy Database Path"
             >{localize("autoanimations.menus.copy")} DB {localize(
@@ -58,11 +42,11 @@
     <div class="flexcol" style="grid-row: 2 / 3;grid-column: 2 / 3;">
         <label for="">{localize("autoanimations.menus.type")}</label>
         <select
-            bind:value={$animation[section].video.menuType}
+            bind:value={$animation[section][section02].menuType}
             on:change={async () =>
-                await category.videoChange("menuTypeChange", section, idx)}
+                await category.menuTypeChange(section, idx, section02, menuDB)}
         >
-            {#each category.typeMenu[$animation[section].dbSection] as [key, name]}
+            {#each category.typeMenu[$animation[section][section02].dbSection] as [key, name]}
                 <option value={key}>{name}</option>
             {/each}
         </select>
@@ -71,11 +55,11 @@
     <div class="flexcol" style="grid-row: 3 / 4;grid-column: 1 / 2;">
         <label for="">{localize("autoanimations.menus.animation")}</label>
         <select
-            bind:value={$animation[section].video.animation}
+            bind:value={$animation[section][section02].animation}
             on:change={async () =>
-                await category.videoChange("animationChange", section, idx)}
+                await category.animationChange(section, idx, section02, menuDB)}
         >
-            {#each category.animationMenu[$animation[section].dbSection][$animation[section].video.menuType] as [key, name]}
+            {#each category.animationMenu[$animation[section][section02].dbSection][$animation[section][section02].menuType] as [key, name]}
                 <option value={key}>{name}</option>
             {/each}
         </select>
@@ -84,11 +68,11 @@
     <div class="flexcol" style="grid-row: 3 / 4;grid-column: 2 / 3;">
         <label for="">{localize("autoanimations.menus.variant")}</label>
         <select
-            bind:value={$animation[section].video.variant}
+            bind:value={$animation[section][section02].variant}
             on:change={async () =>
-                await category.videoChange("variantChange", section, idx)}
+                await category.variantChange(section, idx, section02, menuDB)}
         >
-            {#each category.variantMenu[$animation[section].dbSection][$animation[section].video.menuType][$animation[section].video.animation] as [key, name]}
+            {#each category.variantMenu[$animation[section][section02].dbSection][$animation[section][section02].menuType][$animation[section][section02].animation] as [key, name]}
                 <option value={key}>{name}</option>
             {/each}
         </select>
@@ -96,14 +80,14 @@
     <!--Color Menu-->
     <div class="flexcol" style="grid-row: 3 / 4;grid-column: 3 / 4;">
         <label for="">{localize("autoanimations.menus.color")}</label>
-        <select bind:value={$animation[section].video.color}>
-            {#each category.colorMenu[$animation[section].dbSection][$animation[section].video.menuType][$animation[section].video.animation][$animation[section].video.variant] as [key, name]}
+        <select bind:value={$animation[section][section02].color}>
+            {#each category.colorMenu[$animation[section][section02].dbSection][$animation[section][section02].menuType][$animation[section][section02].animation][$animation[section][section02].variant] as [key, name]}
                 <option value={key}>{name}</option>
             {/each}
         </select>
     </div>
 </div>
-<CustomPicker {animation} {section} />
+<CustomPicker {animation} {section} {section02} {idx} {category} />
 
 <style lang="scss">
     .aa-3wide label {

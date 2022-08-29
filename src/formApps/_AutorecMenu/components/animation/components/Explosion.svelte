@@ -38,7 +38,7 @@
         <div class={!$animation.explosion.enable ? "aa-isDisabled" : ""}>
             <VideoSelect {animation} section="explosion" {title} {idx} {category}/>
             <ExplosionOptions {animation} />
-            <SoundSettings {animation} section="explosion" />
+            <SoundSettings {animation} {category} {idx} section="explosion" />
         </div>
     </TJSSvgFolder>
 </div>

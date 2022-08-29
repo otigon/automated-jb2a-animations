@@ -9,13 +9,12 @@ import { video } from "./video.js";
 export function source() {
    return {
       enable: false,
-      video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue', enableCustom: false, customPath: "" },
-      dbSection: "static",
+      video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue', enableCustom: false, customPath: "" },
       sound: sound(),
       options: {
          below: false,
          delay: 0,
-         delayAfter: 0,
+         wait: 0,
          isMasked: false,
          opacity: 1,
          repeat: 1,

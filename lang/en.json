@@ -322,7 +322,10 @@
             "diamond": "Diamond",
             "spike": "Spike",
             "square": "Square",
-            "blob": "Blob"
+            "blob": "Blob",
+            "intro": "Intro",
+            "outro_explode": "Outro Explode",
+            "outro_fade": "Outro Fade"
         },
         "variants": {
             "1":"01",
@@ -436,7 +439,8 @@
             "ray": "Ray",
             "leaves": "Leaves",
             "chains": "Chains",
-            "shrapnel": "Shrapnel"
+            "shrapnel": "Shrapnel",
+            "shieldspell":"Shield"
         },
         "animTypes": {
             "melee": "Melee",
@@ -578,7 +582,10 @@
             "3dcanvas": "3d Canvas",
             "only": "Only",
             "all": "All",
-            "bind": "Bind"
+            "bind": "Bind",
+            "effect": "Effect",
+            "fadeIn": "Fade In",
+            "fadeOut": "Fade Out"
         },
         "optionsInfo": {
 

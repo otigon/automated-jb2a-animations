@@ -6,8 +6,7 @@ export const aura = [
       menu: "aura",
       macro: common.macro(),
       primary: common.primary({
-         video: { menuType: "spell", animation: "spiritguardians", variant: '01', color: 'darkblue' },
-         dbSection: "static",
+         video: { dbSection: "static", menuType: "spell", animation: "spiritguardians", variant: '01', color: 'darkblue' },
          options: {
             addTokenWidth: true,
             auraRadius: 3,

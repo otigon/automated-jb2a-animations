@@ -17,7 +17,7 @@ async function mergeVersion06(data) {
         ontoken: [],
         templatefx: [],
         aura: [],
-        preset: {},
+        preset: [],
         aefx: {},
         version: 5,
     };
@@ -38,7 +38,6 @@ async function mergeVersion06(data) {
     async function convertExplosionV6(exp, audio) {
 
         let data = {
-            dbSection: "static",
             enable: exp?.enable ?? false,
             options: {
                 below: exp?.below ?? false,
@@ -56,6 +55,7 @@ async function mergeVersion06(data) {
                 volume: audio?.e01?.volume ?? 1,
             },
             video: {
+                dbSection: "static",
                 menuType: exp?.menuType,
                 animation: exp?.animation,
                 variant: exp?.variant,
@@ -99,7 +99,6 @@ async function mergeVersion06(data) {
         newMO.menu = type;
 
         newMO.primary = {
-            dbSection: setDBSection(type),
             options: convertOptionsV6(oldMO, type),
             sound: {
                 delay: oldMO.audio?.a01?.delay ?? 0,
@@ -108,6 +107,7 @@ async function mergeVersion06(data) {
                 volume: oldMO.audio?.a01?.volume ?? 1,
             },
             video: {
+                dbSection: setDBSection(type),
                 menuType,
                 animation,
                 variant,
@@ -229,7 +229,6 @@ async function mergeVersion06(data) {
 
     function newExtraFX() {
         const data = {
-            dbSection: "static",
             enable: false,
             options: {},
             sound: {
@@ -239,6 +238,7 @@ async function mergeVersion06(data) {
                 volume: 0.75,
             },
             video: {
+                dbSection: "static",
                 menuType: "spell",
                 animation: "curewounds",
                 variant: "01",
@@ -399,38 +399,34 @@ async function mergeVersion06(data) {
             const oldMO = presetObject[i]
             //newMenu.preset[i] = {};
             //const newMO = newMenu.preset[i];
-            let newMO = {}
+            let newMO = {};
+            let current;
             switch (oldMO.animation) {
-                //case "bardicinspiration":
-                    //await updateBI(oldMO, newMO)
-                    //break;
-                //case "bless":
-                    //await updateBless(oldMO, newMO)
-                    //break;
-                //case "shieldspell":
-                    //await updateShield(oldMO, newMO)
-                    //break;
+                case "bardicinspiration":
+                case "bless":
+                case "shieldspell":
+                case "huntersmark":
+                case "sneakattack":
+                    break;
                 case "teleportation":
-                    await updateTele(oldMO, newMO)
+                    current = await updateTele(oldMO, newMO);
+                    newMenu.preset.push(current);
                     break;
                 case "dualattach":
-                    await updateDAttach(oldMO, newMO)
+                    current = await updateDAttach(oldMO, newMO);
+                    newMenu.preset.push(current);
                     break;
                 case "fireball":
-                    await updateFireball(oldMO, newMO)
+                    current = await updateFireball(oldMO, newMO);
+                    newMenu.preset.push(current);
                     break;
-                //case "huntersmark":
-                    //await updateHM(oldMO, newMO)
-                    //break;
-                //case "sneakattack":
-                    //await updateSneak(oldMO, newMO)
-                    //break;
                 case "thunderwave":
-                    await updateThunderwave(oldMO, newMO)
+                    current = await updateThunderwave(oldMO, newMO);
+                    newMenu.preset.push(current);
                     break;
             }
-
         }
+        await game.settings.set('autoanimations', 'aaAutorec-preset', newMenu.preset)
     }
     if (aefxObject) {
         const aefxLength = Object.keys(aefxObject).length;
@@ -562,120 +558,215 @@ async function mergeVersion06(data) {
     }
     */
     async function updateTele(oldData, newData) {
-        newData.id = randomID();
-        newData.teleportation = {};
-        const root = newData.teleportation;
+        newData.id = uuidv4();
+        newData.data = {};
+        const root = newData.data;
         let { menuType, subAnimation, variant, color, below, custom, customPath,
             hideTemplate, name, range, measureType, scale,
             menuType02, subAnimation02, variant02, color02, scale02, custom02, customPath02,
             macro, delay, audio } = oldData;
-        root.audio = audio || {};
-        root.macro = macro || {};
+        newData.macro = macro || {};
         newData.presetType = "teleportation";
-        newData.name = name;
-        newData.hidden = true;
-        root.hideFromPlayers = hideTemplate;
-        root.range = range;
-        root.measureType = measureType;
+        newData.label = name;
+        //newData.hidden = true;
+        root.options = {
+            hideFromPlayers: hideTemplate,
+            range,
+            measureType,
+        }
+        root.sound = {
+            delay: audio?.a01?.delay ?? 0,
+            enable: audio?.a01?.enable ?? false,
+            startTime: audio?.a01?.startTime ?? 0,
+            volume: audio?.a01?.volume ?? 1,
+        }
         root.start = {
+            dbSection: "static",
             menuType,
             animation: subAnimation,
             variant,
             color,
-            below,
             enableCustom: custom || false,
             customPath,
-            scale,
+            options: {
+                below,
+                scale,
+            }
         }
         root.between = {
+            dbSection: "range",
             enable: false,
+            menuType: "weapon",
+            animation: "arrow",
+            variant: "regular",
+            color: "regular",
+            options: {
+
+            }
         }
         root.end = {
+            dbSection: "static",
             menuType: menuType02,
             animation: subAnimation02,
             variant: variant02,
             color: color02,
-            below,
             enableCustom: custom02 || false,
             customPath: customPath02,
-            scale: scale02,
-            delay
+            options: {
+                below,
+                scale: scale02,
+                delay,
+            }
         }
+        if (!root.start.menuType || !root.start.animation || !root.start.variant || !root.start.color) {
+            resetVideo(root.start, "static")
+        }
+        if (!root.end.menuType || !root.end.animation || !root.end.variant || !root.end.color) {
+            resetVideo(root.end, "static")
+        }
+        return newData;
     }
     async function updateDAttach(oldData, newData) {
-        newData.id = randomID();
-        newData.dualattach = {};
-        const root = newData.dualattach;
+        newData.id = uuidv4();
+        //newData.data = {};
+        //const root = newData.data;
         let { name, below, macro, audio, menuType, subAnimation, variant, color, custom, customPath, playbackRate, onlyX } = oldData;
-        root.audio = audio || {};
-        root.macro = macro || {};
+        newData.macro = macro || {};
         newData.presetType = "dualattach";
-        newData.name = name;
-        newData.hidden = true;
-        root.menuType = menuType;
-        root.animation = subAnimation;
-        root.variant = variant;
-        root.color = color;
-        root.enableCustom = custom || false;
-        root.customPath = customPath;
-        root.playbackRate = playbackRate;
-        root.onlyX = onlyX;
-        root.below = below;
+        newData.label = name;
+        //newData.hidden = true;
+        newData.data = {
+            video: {
+                dbSection: "range",
+                menuType,
+                animation: subAnimation,
+                variant,
+                color,
+                enableCustom: custom || false,
+                customPath: customPath || "",
+            },
+            options: {
+                playbackRate,
+                onlyX,
+                below,
+            },
+            sound: {
+                delay: audio?.a01?.delay ?? 0,
+                enable: audio?.a01?.enable ?? false,
+                startTime: audio?.a01?.startTime ?? 0,
+                volume: audio?.a01?.volume ?? 1,
+            }
+        };
+        if (!newData.data.menuType || !newData.data.animation || !newData.data.variant || !newData.data.color) {
+            resetVideo(newData.data, "range")
+        }
+        //root.menuType = menuType;
+        //root.animation = subAnimation;
+        //root.variant = variant;
+        //root.color = color;
+        //root.enableCustom = custom || false;
+        //root.customPath = customPath;
+        //root.playbackRate = playbackRate;
+        //root.onlyX = onlyX;
+        //root.below = below;
+        return newData;
     }
     async function updateFireball(oldData, newData) {
-        newData.id = randomID();
-        newData.fireball = {};
-        const root = newData.fireball;
+        newData.id = uuidv4();
+        newData.data = {};
+        const root = newData.data;
         let { audio, macro, name, below, animation, rangeType, projectile, projectilVariant, projectileColor, projectileRepeat, projectileDelay, wait01, removeTemplate,
             ex01Type, explosion01, explosion01Variant, explosion01Color, explosion01Repeat, explosion01Delay, explosion01Scale, wait02,
             ex02Type, explosion02, explosion02Variant, explosion02Color, explosion02Repeat, explosion02Delay, explosion02Scale,
             afterEffect, afterEffectPath, wait03 } = oldData;
         root.audio = audio || {};
         root.macro = macro || {};
-        newData.presetType = "fireball";
-        newData.name = name;
-        newData.hidden = true;
+        newData.presetType = "proToTemp";
+        newData.label = name;
+        //newData.hidden = true;
         root.removeTemplate = removeTemplate;
         root.projectile = {
+            dbSection: "range",
             menuType: rangeType,
             animation: projectile,
             variant: projectilVariant,
             color: projectileColor,
-            repeat: projectileRepeat,
-            delay: projectileDelay,
-            wait: wait01,
-            below: below,
+            options: {
+                repeat: projectileRepeat,
+                delay: projectileDelay,
+                wait: wait01,
+                below: below,    
+            },
+            sound: {
+                enable: audio?.a01?.enable ?? false,
+                file: audio?.a01?.file ?? "",
+                volume: audio?.a01?.volume ?? 1,
+                startTime: audio?.a01?.startTime ?? 0,
+                delay: audio?.a01?.delay ?? 0,
+            }
         }
-        root.explosion01 = {
+        if (!root.projectile.menuType || !root.projectile.animation || !root.projectile.variant || !root.projectile.color) {
+            resetVideo(root.projectile, "range")
+        }
+        root.preExplosion = {
+            dbSection: "static",
             menuType: ex01Type,
             animation: explosion01,
             variant: explosion01Variant,
             color: explosion01Color,
-            repeat: explosion01Repeat,
-            delay: explosion01Delay,
-            scale: explosion01Scale,
-            wait: wait02,
-            below: below,
+            options: {
+                repeat: explosion01Repeat,
+                delay: explosion01Delay,
+                scale: explosion01Scale,
+                wait: wait02,
+                below: below,
+            },
+            sound: {
+                enable: audio?.e01?.enable ?? false,
+                file: audio?.e01?.file ?? "",
+                volume: audio?.e01?.volume ?? 1,
+                startTime: audio?.e01?.startTime ?? 0,
+                delay: audio?.e01?.delay ?? 0,
+            }
         }
-        if (!root.explosion01.menuType || !root.explosion01.animation || !root.explosion01.variant || !root.explosion01.color) {
-            root.explosion01.enable = false;
-        } else { root.explosion01.enable = true }
-        root.explosion02 = {
+        if (!root.preExplosion.menuType || !root.preExplosion.animation || !root.preExplosion.variant || !root.preExplosion.color) {
+            root.preExplosion.enable = false;
+            resetVideo(root.explosion01, "static")
+        } else { root.preExplosion.enable = true }
+        root.explosion = {
+            dbSection: "static",
             menuType: ex02Type,
             animation: explosion02,
             variant: explosion02Variant,
             color: explosion02Color,
-            repeat: explosion02Repeat,
-            delay: explosion02Delay,
-            scale: explosion02Scale,
+            options: {
+                repeat: explosion02Repeat,
+                delay: explosion02Delay,
+                scale: explosion02Scale,
+                wait: wait03,
+            },
+            sound: {
+                enable: audio?.e02?.enable ?? false,
+                file: audio?.e02?.file ?? "",
+                volume: audio?.e02?.volume ?? 1,
+                startTime: audio?.e02?.startTime ?? 0,
+                delay: audio?.e02?.delay ?? 0,
+            }
+        }
+        if (!root.explosion.menuType || !root.explosion.animation || !root.explosion.variant || !root.explosion.color) {
+            resetVideo(root.explosion, "range")
         }
         root.afterImage = {
             enable: afterEffect,
             customPath: afterEffectPath,
-            below: true,
-            scale: 1,
-            wait: wait03,
+            options: {
+                below: true,
+                persistent: false,
+                scale: 1,
+                wait: wait03,
+            }
         }
+        return newData;
     }
     /*
     async function updateHM(oldData, newData) {
@@ -716,29 +807,38 @@ async function mergeVersion06(data) {
     }
     */
     async function updateThunderwave(oldData, newData) {
-        newData.id = randomID();
-        newData.thunderwave = {};
-        const root = newData.thunderwave;
+        newData.id = uuidv4();
+        //newData.data = {};
+        //const root = newData.data;
         let { audio, macro, name, below, color, repeat, delay, scaleX, scaleY, opacity, removeTemplate, persist: persistent, persistType, occlusionMode, occlusionAlpha } = oldData;
-        root.audio = audio || {};
-        root.macro = macro || {};
-        newData.name = name;
+        newData.macro = macro || {};
+        newData.label = name;
         newData.presetType = "thunderwave";
-        newData.hidden = true;
-        root.color = color;
-        root.below = below;
-        root.repeat = repeat;
-        root.delay = delay;
-        root.scaleX = scaleX;
-        root.scaleY = scaleY;
-        root.opacity = opacity;
-        root.removeTemplate = removeTemplate;
-        root.persistent = persistent;
-        root.persistType = persistType;
-        root.occlusionMode = occlusionMode;
-        root.occlusionAlpha = occlusionAlpha;
+        //newData.hidden = true;
+        newData.data = {
+            menuType: "spell",
+            animation: "thunderwave",
+            variant: "mid",
+            color: color || "blue",
+            options: {
+                below,
+                repeat,
+                delay,
+                scaleX,
+                scaleY,
+                opacity,
+                removeTemplate,
+            }, 
+            sound: {
+                enable: audio?.a01?.enable ?? false,
+                file: audio?.a01?.file ?? "",
+                volume: audio?.a01?.volume ?? 1,
+                startTime: audio?.a01?.startTime ?? 0,
+                delay: audio?.a01?.delay ?? 0,
+            }
+        };
+        return newData;
     }
-    return newMenu;
 }
 
 export { mergeVersion06 }

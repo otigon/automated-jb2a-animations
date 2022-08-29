@@ -9,12 +9,10 @@ import { video } from "./video.js";
 export function explosion() {
    return {
       enable: false,
-      video: { menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-      dbSection: "static",
+      video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
       sound: sound(),
       options: {
          below: false,
-         delay: 0,
          isMasked: false,
          opacity: 1,
          radius: 1.5,

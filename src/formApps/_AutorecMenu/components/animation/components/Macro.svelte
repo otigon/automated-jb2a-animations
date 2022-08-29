@@ -2,6 +2,8 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
     export let animation;
+    export let category;
+
 </script>
 
 <div class="aa-macro-border">
@@ -31,21 +33,24 @@
                 >{localize("autoanimations.menus.macro")}
                 {localize("autoanimations.menus.name")}</label
             >
-            <input type="text" style="border: 1px solid black" bind:value={$animation.macro.name} />
+            <input type="text" bind:value={$animation.macro.name} />
         </div>
         <div class="flexcol" style="grid-row: 1 / 2;grid-column: 3 / 4;">
             <i
                 title="Open Macro"
                 style="margin-top: 15px;font-size: 18px"
                 class="fas fa-edit aa-zoom"
-                on:click={() => animation.openMacro()}
+                on:click={() => category.openMacro(animation._data.macro.name)}
             />
         </div>
         <div class="flexcol" style="grid-row: 2 / 3;grid-column: 1 / 4;">
             <label for="">{localize("autoanimations.menus.args")}</label>
-            <input type="text" style="border: 1px solid black" bind:value={$animation.macro.args} />
         </div>
     </div>
+    <div class="flexrow">
+        <textarea bind:value={$animation.macro.args} style="margin-bottom: 1em"></textarea>
+    </div>
+
 </div>
 
 <style lang="scss">

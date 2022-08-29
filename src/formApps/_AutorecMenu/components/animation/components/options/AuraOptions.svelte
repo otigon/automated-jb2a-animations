@@ -3,6 +3,9 @@
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
+    import NumberInput from "./inputComponents/NumberInput.svelte";
+    import Opacity from "./inputComponents/Opacity.svelte";
+
     export let animation;
     export let category;
 
@@ -135,64 +138,31 @@
                         />
                     </div>
                 </td>
-                <!--Set Z-Index-->
                 <td>
-                    <div class="form-group">
-                        <label for=""
-                            >{localize("autoanimations.menus.z-index")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.primary.options.zIndex}
-                            placeholder="1"
-                            step="1"
-                        />
-                    </div>
+                    <!--Set Z-Index-->
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.z-index")}
+                    section={"primary"}
+                    field={"zIndex"}
+                    step="1"
+                />
                 </td>
             </tr>
             <tr>
                 <td>
                     <!--Set Animation Opacity-->
-                    <div class="flexcol">
-                        <label for="aaOpacity"
-                            >{localize("autoanimations.menus.opacity")}</label
-                        >
-                        <div class="form-group" style="display: flex; margin-right: 2em; margin-left: 2em;">
-                            <input
-                                type="number"
-                                id="aaOpacity"
-                                bind:value={$animation.primary.options.opacity}
-                                placeholder="1"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                            />
-                            <input
-                                style="border:none; background:none;margin-left: 3px"
-                                type="range"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                                bind:value={$animation.primary.options.opacity}
-                            />
-                        </div>
-                    </div>
+                    <Opacity {animation} />
                 </td>
                 <td>
                     <!--Set Radius of Animation-->
-                    <div
-                        class="form-group"
-                    >
-                        <label for=""
-                            >{localize("autoanimations.menus.radius")}</label
-                        >
-                        <input
-                            type="number"
-                            bind:value={$animation.primary.options.radius}
-                            placeholder="1"
-                            step="0.01"
-                        />
-                    </div>
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.radius")}
+                    section={"primary"}
+                    field={"radius"}
+                    step="0.01"
+                />
                 </td>
                 <td>
                     <!--Add Token Width-->
@@ -209,6 +179,19 @@
                         />
                     </div>
                 </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.wait")}
+                    section={"primary"}
+                    field={"wait"}
+                    step="0.01"
+                />
+                </td>
+                <td></td>
             </tr>
         </table>
     </TJSSvgFolder>

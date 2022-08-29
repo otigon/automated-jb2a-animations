@@ -105,7 +105,7 @@
     flex: none;
     padding: 0.5em 0.5em;
 
-    background: rgb(183, 183, 183);
+    background: rgb(160, 159, 159);
     border-top: 1px solid rgb(100, 100, 100);
 
     height: fit-content;

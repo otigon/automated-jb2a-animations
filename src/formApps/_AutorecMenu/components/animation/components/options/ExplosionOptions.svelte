@@ -3,7 +3,8 @@
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
-    import NumberInput from "../NumberInput.svelte";
+    import NumberInput from "./inputComponents/NumberInput.svelte";
+    import Opacity from "./inputComponents/Opacity.svelte";
 
     export let animation;
 
@@ -61,13 +62,14 @@
                     />
                 </td>
                 <td>
-                    <!--Set delay for explosion-->
+                    <!--Set Radius of Animation-->
                     <NumberInput
                         {animation}
-                        label={localize("autoanimations.menus.delay")}
+                        label={localize("autoanimations.menus.radius")}
                         section={"explosion"}
-                        field={"delay"}
-                        placeholder="250"
+                        field={"radius"}
+                        placeholder="1.5"
+                        step="0.01"
                     />
                 </td>
             </tr>
@@ -87,46 +89,7 @@
                 </td>
                 <td>
                     <!--Set Animation Opacity-->
-                    <div class="flexcol">
-                        <label for="aaOpacity"
-                            >{localize("autoanimations.menus.opacity")}</label
-                        >
-                        <div
-                            class="form-group"
-                            style="display: flex; margin-right: 2em; margin-left: 2em;"
-                        >
-                            <input
-                                type="number"
-                                id="aaOpacity"
-                                bind:value={$animation.explosion.options
-                                    .opacity}
-                                placeholder="1"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                            />
-                            <input
-                                style="border:none; background:none;margin-left: 3px"
-                                type="range"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                                bind:value={$animation.explosion.options
-                                    .opacity}
-                            />
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <!--Set Radius of Animation-->
-                    <NumberInput
-                        {animation}
-                        label={localize("autoanimations.menus.radius")}
-                        section={"explosion"}
-                        field={"radius"}
-                        placeholder="1.5"
-                        step="0.01"
-                    />
+                    <Opacity {animation} section="explosion"/>
                 </td>
             </tr>
         </table>

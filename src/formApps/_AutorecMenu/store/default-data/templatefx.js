@@ -5,8 +5,7 @@ export const templatefx = [
       ...common.main({ label: "calllightning" }),
       menu: "templatefx",
       primary: common.primary({
-         video: { menuType: "circle", animation: "calllightning", variant: '01', color: 'blueorange' },
-         dbSection: "templatefx",
+         video: { dbSection: "templatefx", menuType: "circle", animation: "calllightning", variant: '01', color: 'blueorange' },
          options: {
             below: false,
             delay: 500,
@@ -32,8 +31,7 @@ export const templatefx = [
       ...common.main({ label: "fogcloud" }),
       menu: "templatefx",
       primary: common.primary({
-         video: { menuType: "circle", animation: "fogcloud", variant: '01', color: 'white' },
-         dbSection: "templatefx",
+         video: { dbSection: "templatefx", menuType: "circle", animation: "fogcloud", variant: '01', color: 'white' },
          options: {
             below: false,
             delay: 500,

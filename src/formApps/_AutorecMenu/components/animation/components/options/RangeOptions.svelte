@@ -3,7 +3,8 @@
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
-    import NumberInput from "../NumberInput.svelte";
+    import NumberInput from "./inputComponents/NumberInput.svelte";
+    import Opacity from "./inputComponents/Opacity.svelte";
 
     //import { ripple } from "@typhonjs-fvtt/svelte-standard/action";
 
@@ -102,30 +103,7 @@
                 </td>
                 <td>
                     <!--Set Animation Opacity-->
-                    <div class="flexcol">
-                        <label for="aaOpacity"
-                            >{localize("autoanimations.menus.opacity")}</label
-                        >
-                        <div class="form-group" style="display: flex; margin-right: 2em; margin-left: 2em;">
-                            <input
-                                type="number"
-                                id="aaOpacity"
-                                bind:value={$animation.primary.options.opacity}
-                                placeholder="1"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                            />
-                            <input
-                                style="border:none; background:none;margin-left: 3px"
-                                type="range"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                                bind:value={$animation.primary.options.opacity}
-                            />
-                        </div>
-                    </div>
+                    <Opacity {animation} />
                 </td>
                 <td>
                     <!--Set the Z-Index of the Animation-->
@@ -136,6 +114,19 @@
                         field={"zIndex"}
                     />
                 </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.wait")}
+                    section={"primary"}
+                    field={"wait"}
+                    step="0.01"
+                />
+                </td>
+                <td></td>
             </tr>
         </table>
     </TJSSvgFolder>

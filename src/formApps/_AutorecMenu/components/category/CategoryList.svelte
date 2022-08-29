@@ -11,6 +11,7 @@
     import BuildOnToken from "../animation/menus/BuildOnToken.svelte";
     import BuildTemplateFx from "../animation/menus/BuildTemplateFX.svelte";
     import BuildAura from "../animation/menus/BuildAura.svelte";
+    import BuildPreset from "../animation/menus/BuildPreset.svelte";
 
     import Animation            from "../animation/Animation.svelte";
 
@@ -52,7 +53,7 @@
          component: BuildAura,
       },
       "aaAutorec-preset": {
-
+         component: BuildPreset,
       },
       "aaAutorec-aefx": {
          

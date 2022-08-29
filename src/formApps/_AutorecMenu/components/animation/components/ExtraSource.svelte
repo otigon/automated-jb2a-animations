@@ -38,7 +38,7 @@
         <div class={!$animation.source.enable ? "aa-isDisabled" : ""}>
             <VideoSelect {animation} section="source" {title} {idx} {category}/>
             <SourceFxOptions {animation} {category} />
-            <SoundSettings {animation} section="source" />
+            <SoundSettings {animation} {category} {idx} section="source" />
         </div>
     </TJSSvgFolder>
 </div>

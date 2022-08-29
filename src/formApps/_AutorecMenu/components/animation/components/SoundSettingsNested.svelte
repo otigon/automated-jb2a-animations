@@ -3,7 +3,10 @@
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
     export let animation;
+    export let category;
     export let section;
+    export let section02;
+    export let idx;
 
     const folder = {
         styles: {
@@ -19,7 +22,7 @@
     <TJSSvgFolder
         {folder}
         label={`${localize("autoanimations.menus.sound")} ${
-            $animation[section].sound.enable
+            $animation[section][section02].sound.enable
                 ? localize("autoanimations.menus.enabled")
                 : localize("autoanimations.menus.disabled")
         }`}
@@ -29,23 +32,23 @@
                 type="checkbox"
                 style="align-self:center"
                 title="Toggle Sound On/Off"
-                bind:checked={$animation[section].sound.enable}
+                bind:checked={$animation[section][section02].sound.enable}
             />
         </div>
-        <div class={!$animation[section].sound.enable ? "aa-isDisabled" : ""}>
+        <div class={!$animation[section][section02].sound.enable ? "aa-isDisabled" : ""}>
             <div class="aa-Sound-container">
                 <div style="grid-row: 1/2; grid-column: 1/2">
-                    {#if $animation[section].sound.enable && $animation[section].sound.file}
+                    {#if $animation[section][section02].sound.enable && $animation[section][section02].sound.file}
                         <i
                             class="fas fa-music aa-video-preview"
-                            on:click={() => animation.playSound(section)}
+                            on:click={() => category.playSound(animation._data[section][section02].sound)}
                         />
                     {/if}
                 </div>
                 <div style="grid-row: 1/2; grid-column: 2/4">
                     <input
                         type="text"
-                        bind:value={$animation[section].sound.file}
+                        bind:value={$animation[section][section02].sound.file}
                         style="font-weight:normal; font-size:small"
                     />
                 </div>
@@ -53,7 +56,7 @@
                     <button
                         class="file-picker"
                         on:click|preventDefault={() =>
-                            animation.selectSound(section)}
+                            category.selectSoundNested(section, section02, idx)}
                         ><i class="fas fa-file-import fa-fw" /></button
                     >
                 </div>
@@ -71,7 +74,7 @@
                         <div>
                             <input
                                 type="number"
-                                bind:value={$animation[section].sound.startTime}
+                                bind:value={$animation[section][section02].sound.startTime}
                                 placeholder="0"
                                 step="0.01"
                             />
@@ -89,7 +92,7 @@
                         <div>
                             <input
                                 type="number"
-                                bind:value={$animation[section].sound.volume}
+                                bind:value={$animation[section][section02].sound.volume}
                                 placeholder="0.5"
                                 step="0.01"
                             />
@@ -105,7 +108,7 @@
                         <div>
                             <input
                                 type="number"
-                                bind:value={$animation[section].sound.delay}
+                                bind:value={$animation[section][section02].sound.delay}
                                 placeholder="0"
                                 step="0.01"
                             />

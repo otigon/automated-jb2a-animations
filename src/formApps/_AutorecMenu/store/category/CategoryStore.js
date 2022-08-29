@@ -6,23 +6,20 @@ import {
    createFilterQuery,
    WorldSettingArrayStore }   from "@typhonjs-fvtt/svelte-standard/store";
 
+
 import { aaSessionStorage }   from "../../../../sessionStorage.js";
 import { constants }          from "../../../../constants.js";
 import { gameSettings }       from "../../../../gameSettings.js";
 
-import OptionsDialog from "../../components/animation/menus/components/options/optionsInfoDialog.js"
+import OptionsDialog from "../../components/animation/components/options/optionsInfoDialog.js"
 
 import { 
-   aaTypeMenu,
-   aaNameMenu,
-   aaVariantMenu,
-   aaColorMenu,
    newTypeMenu,
    newNameMenu,
    newVariantMenu,
    newColorMenu
 } from "../../../../animation-functions/databases/jb2a-menu-options.js";
-
+console.log(WorldSettingArrayStore)
 export class CategoryStore extends WorldSettingArrayStore {
    /**
     * A filter function / Svelte store that can be used with DynArrayReducer and set as a store to TJSInput.
@@ -60,7 +57,6 @@ export class CategoryStore extends WorldSettingArrayStore {
 
          scrollTop: aaSessionStorage.getStore(`${constants.moduleId}-category-scrolltop-${key}`, 0)
       };
-      console.log(newVariantMenu)
    }
 
    get filterSearch() { return CategoryStore.#filterSearch; }
@@ -112,40 +108,63 @@ export class CategoryStore extends WorldSettingArrayStore {
       return menuDB
    }
 
-   videoChange(data, section, idx) {
-      //let menuDB = isOnToken ? "static" : this._data[idx]._data.menu === "ontoken" || this._data[idx]._data.menu === "aura" ? "static" : this._data[idx]._data.menu;
-      //menuDB = section === 'explosion' ? "static" : menuDB;
-      let menuDB = this._data[idx]._data[section].dbSection
-      switch (data) {
-         case "menuTypeList":
-            let menuTypeMenu = newTypeMenu[menuDB] || [];
-            //console.log(menuTypeMenu)
-            return menuTypeMenu
-         case "menuTypeChange":
-            let menuType = this._data[idx]._data[section].video.menuType;
-            this._data[idx]._data[section].video.animation = newNameMenu[menuDB][menuType][0][0] //Object.keys(aaNameMenu[menuDB][menuType])[0];
-            this._data[idx]._data[section].video.variant = newVariantMenu[menuDB][menuType][this._data[idx]._data[section].video.animation][0][0] //Object.keys(aaVariantMenu[menuDB][menuType][this._data[idx]._data[section].video.animation])[0];
-            this._data[idx]._data[section].video.color = newColorMenu[menuDB][menuType][this._data[idx]._data[section].video.animation][this._data[idx]._data[section].video.variant][0][0] //Object.keys(aaColorMenu[menuDB][menuType][this._data[idx]._data[section].video.animation][this._data[idx]._data[section].video.variant])[0];
-            break;
-         case "animationList":
-            return newNameMenu[menuDB][this._data[idx]._data[section].video.menuType] || [];
-         case "animationChange":
-            let animation = this._data[idx]._data[section].video.animation;
-            this._data[idx]._data[section].video.variant = newVariantMenu[menuDB][this._data[idx]._data[section].video.menuType][animation][0][0] //Object.keys(aaVariantMenu[menuDB][this._data[idx]._data[section].video.menuType][animation])[0];
-            this._data[idx]._data[section].video.color = newColorMenu[menuDB][this._data[idx]._data[section].video.menuType][animation][this._data[idx]._data[section].video.variant][0][0] //Object.keys(aaColorMenu[menuDB][this._data[idx]._data[section].video.menuType][animation][this._data[idx]._data[section].video.variant])[0];
-            break;
-         case "variantList":
-            return newVariantMenu[menuDB][this._data[idx]._data[section].video.menuType]?.[this._data[idx]._data[section].video.animation] || [];
-         case "variantChange":
-            this._data[idx]._data[section].video.color = newColorMenu[menuDB][this._data[idx]._data[section].video.menuType][this._data[idx]._data[section].video.animation][this._data[idx]._data[section].video.variant][0][0] //Object.keys(aaColorMenu[menuDB][this._data[idx]._data[section].video.menuType][this._data[idx]._data[section].video.animation][this._data[idx]._data[section].video.variant])[0];
-            break;
-         case "colorList":
-            return newColorMenu[menuDB][this._data[idx]._data[section].video.menuType]?.[this._data[idx]._data[section].video.animation]?.[this._data[idx]._data[section].video.variant] || [];
-         case "dbPath":
-            return this._data[idx]._data[section].video.color === "random" 
-            ? `autoanimations.${menuDB}.${this._data[idx]._data[section].video.menuType}.${this._data[idx]._data[section].video.animation}.${this._data[idx]._data[section].video.variant}`
-            : `autoanimations.${menuDB}.${this._data[idx]._data[section].video.menuType}.${this._data[idx]._data[section].video.animation}.${this._data[idx]._data[section].video.variant}.${this._data[idx]._data[section].video.color}`
-      }
+   menuTypeList(menuDB = "static") {
+      return newTypeMenu[menuDB] || [];
+   }
+   animationList(section, idx, section02 = "video", menuDB = "static") {
+      let menuType = this._data[idx]._data[section][section02].menuType;
+
+      return newNameMenu[menuDB][menuType] || [];
+   }
+   variantList(section, idx, section02 = "video", menuDB = "static") {
+      let menuType = this._data[idx]._data[section][section02].menuType;
+      let animation = this._data[idx]._data[section][section02].animation;
+
+      return newVariantMenu[menuDB][menuType]?.[animation] || [];
+   }
+   colorList(section, idx, section02 = "video", menuDB = "static") {
+      let menuType = this._data[idx]._data[section][section02].menuType;
+      let animation = this._data[idx]._data[section][section02].animation;
+      let variant = this._data[idx]._data[section][section02].variant;
+
+      return newColorMenu[menuDB][menuType]?.[animation]?.[variant] || [];
+   }
+
+   getDBPath(section, idx, section02 = "video", menuDB = "static") {
+      let menuType = this._data[idx]._data[section][section02].menuType;
+      let animation = this._data[idx]._data[section][section02].animation;
+      let variant = this._data[idx]._data[section][section02].variant;
+      let color = this._data[idx]._data[section][section02].color;
+      return color === "random" 
+      ? `autoanimations.${menuDB}.${menuType}.${animation}.${variant}`
+      : `autoanimations.${menuDB}.${menuType}.${animation}.${variant}.${color}`
+
+   }
+   menuTypeChange(section, idx, section02 = "video", menuDB = "static") {
+      let menuType = this._data[idx]._data[section][section02].menuType;
+      this._data[idx]._data[section][section02].animation = newNameMenu[menuDB][menuType][0][0];
+
+      let animation = this._data[idx]._data[section][section02].animation;
+      this._data[idx]._data[section][section02].variant = newVariantMenu[menuDB][menuType][animation][0][0];
+
+      let variant = this._data[idx]._data[section][section02].variant;
+      this._data[idx]._data[section][section02].color = newColorMenu[menuDB][menuType][animation][variant][0][0]
+   }
+
+   animationChange(section, idx, section02 = "video", menuDB = "static") {
+      let menuType = this._data[idx]._data[section][section02].menuType;
+      let animation = this._data[idx]._data[section][section02].animation;
+      this._data[idx]._data[section][section02].variant = newVariantMenu[menuDB][menuType][animation][0][0];
+
+      let variant = this._data[idx]._data[section][section02].variant;
+      this._data[idx]._data[section][section02].color = newColorMenu[menuDB][menuType][animation][variant][0][0];
+   }
+
+   variantChange(section, idx, section02 = "video", menuDB = "static") {
+      let menuType = this._data[idx]._data[section][section02].menuType;
+      let animation = this._data[idx]._data[section][section02].animation;
+      let variant = this._data[idx]._data[section][section02].variant;
+      this._data[idx]._data[section][section02].color = newColorMenu[menuDB][menuType][animation][variant][0][0];
    }
 
    optionsInfo() {
@@ -155,6 +174,121 @@ export class CategoryStore extends WorldSettingArrayStore {
    get animationMenu() { return newNameMenu }
    get variantMenu() { return newVariantMenu }
    get colorMenu() { return newColorMenu }
+
+   databaseToClipboard() {
+      const dbPath = category.getDBPath(section, idx, animation._data[section][section02].dbSection);
+      const app = new CopyDBPath({
+          target: document.getElementById("clipboard"),
+          props: { dbPath },
+      });
+      app.$destroy();
+   };
+
+   async openMacro(data) {
+      if (!data) {
+         ui.warn(`Automated Animations: Cannot locate Macro ${data}`);
+         return;
+      }
+      // Credit to Wasp, Zhell, Gazkhan and MrVauxs for the code in this section
+      if (data.startsWith("Compendium")) {
+          let packArray = data.split(".");
+          let pack = game.packs.get(`${packArray[1]}.${packArray[2]}`);
+          if (!pack) {
+              ui.notifications.info(
+                  `Autoanimations | Compendium ${packArray[1]}.${packArray[2]} was not found`
+              );
+              return;
+          }
+          let macroFilter = pack.index.filter((m) => m.data === packArray[3]);
+          if (!macroFilter.length) {
+              console.log("YES");
+              ui.notifications.info(
+                  `Autoanimations | A macro named ${packArray[3]} was not found in Compendium ${packArray[1]}.${packArray[2]}`
+              );
+              return;
+          }
+          let macroDocument = await pack.getDocument(macroFilter[0]._id);
+          macroDocument.sheet.render(true);
+      } else {
+          if (!data) {
+              return;
+          }
+          let getTest = game.macros.getName(data);
+          if (!getTest) {
+              ui.notifications.info(
+                  `Autoanimations | Could not find the macro named ${data}`
+              );
+              return;
+          }
+          game.macros.getName(data).sheet.render(true);
+      }
+  }
+
+  playSound(data) {
+   const currentSection = data || {};
+   const file = currentSection?.file;
+   const volume = currentSection?.volume ?? .75;
+   const startTime = currentSection?.startTime ?? 0;
+   new Sequence()
+       .sound()
+       .file(file)
+       .volume(volume)
+       .startTime(startTime)
+       .play();
+   }
+
+   async selectCustom(section, section02 = "video", idx) {
+      const current = this._data[idx]._data[section][section02].customPath;
+      const picker = new FilePicker({
+         type: "imagevideo",
+         current,
+         callback: (path) => {
+            this._data[idx]._data[section][section02].customPath = path;
+            this._data[idx]._updateSubscribers()
+            },
+      });
+      setTimeout(() => {
+         picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
+      }, 100);
+      await picker.browse(current);
+
+   }
+
+   async selectSound(section, idx) {
+      const current = this._data[idx]._data[section].sound.file;
+      const picker = new FilePicker({
+          type: "audio",
+          current,
+          callback: (path) => {
+            this._data[idx]._data[section].sound.file = path;
+            this._data[idx]._updateSubscribers()
+            },
+      });
+      setTimeout(() => {
+          picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
+      }, 100);
+      await picker.browse(current);
+  }
+
+  async selectSoundNested(section, section02, idx) {
+   const current = this._data[idx]._data[section][section02].sound.file;
+   const picker = new FilePicker({
+       type: "audio",
+       current,
+       callback: (path) => {
+         this._data[idx]._data[section][section02].sound.file = path;
+         this._data[idx]._updateSubscribers()
+      },
+   });
+   setTimeout(() => {
+       picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
+   }, 100);
+   await picker.browse(current);
+   }
+
+   openSequencerViewer() {
+      Sequencer.DatabaseViewer.show(true)
+   }
 
 }
 

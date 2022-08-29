@@ -1,14 +1,14 @@
 <script>
-    import VideoSelect from "./components/VideoSelect.svelte";
-    import MeleeOptions from "./components/options/MeleeOptions.svelte";
-    import SoundSettings from "./components/SoundSettings.svelte";
-    import SoundOnly from "./components/SoundOnly.svelte";
-    import Explosion from "./components/Explosion.svelte";
-    import ExtraTarget from "./components/ExtraTarget.svelte";
-    import ExtraSource from "./components/ExtraSource.svelte";
-    import SectionButtons from "./components/SectionButtons.svelte";
-    import Macro from "./components/Macro.svelte";
-    import Canvas3D from "./components/Canvas3D.svelte";
+    import VideoSelect from "../components/VideoSelect.svelte";
+    import MeleeOptions from "../components/options/MeleeOptions.svelte";
+    import SoundSettings from "../components/SoundSettings.svelte";
+    import SoundOnly from "../components/SoundOnly.svelte";
+    import Explosion from "../components/Explosion.svelte";
+    import ExtraTarget from "../components/ExtraTarget.svelte";
+    import ExtraSource from "../components/ExtraSource.svelte";
+    import SectionButtons from "../components/SectionButtons.svelte";
+    import Macro from "../components/Macro.svelte";
+    import Canvas3D from "../components/Canvas3D.svelte";
 
     export let animation;
     export let idx;
@@ -34,7 +34,7 @@
         <SoundOnly {animation} />
     </div>
     <div hidden={!macroEnabled}>
-        <Macro {animation} />
+        <Macro {animation} {category} />
     </div>
     <div hidden={soundOnly}>
         <div
@@ -51,7 +51,7 @@
                     {category}
                 />
                 <MeleeOptions {animation} {category} />
-                <SoundSettings {animation} section="primary" />
+                <SoundSettings {animation} {category} {idx} section="primary" />
             </div>
             <Explosion {animation} {idx} {category} />
             <ExtraTarget {animation} {idx} {category} />

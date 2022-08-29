@@ -2,8 +2,9 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
-
-    import NumberInput from "../NumberInput.svelte";
+    console.log(TJSSvgFolder)
+    import NumberInput from "./inputComponents/NumberInput.svelte";
+    import Opacity from "./inputComponents/Opacity.svelte";
 
     export let animation;
     export let category;
@@ -124,33 +125,7 @@
                 </td>
                 <td>
                     <!--Set Animation Opacity-->
-                    <div class="flexcol">
-                        <label for="aaOpacity"
-                            >{localize("autoanimations.menus.opacity")}</label
-                        >
-                        <div
-                            class="form-group"
-                            style="display: flex; margin-right: 2em; margin-left: 2em;"
-                        >
-                            <input
-                                type="number"
-                                id="aaOpacity"
-                                bind:value={$animation.primary.options.opacity}
-                                placeholder="1"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                            />
-                            <input
-                                style="border:none; background:none;margin-left: 3px"
-                                type="range"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                                bind:value={$animation.primary.options.opacity}
-                            />
-                        </div>
-                    </div>
+                    <Opacity {animation} />
                 </td>
                 <td>
                     <!--Set Z-Index of Animation-->
@@ -161,6 +136,19 @@
                         field={"zIndex"}
                     />
                 </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.wait")}
+                    section={"primary"}
+                    field={"wait"}
+                    step="0.01"
+                />
+                </td>
+                <td></td>
             </tr>
         </table>
         <table class="d">
@@ -185,10 +173,13 @@
                             ? 'aa-disableOpacity'
                             : ''}"
                     >
+                        <div>
                         <label for=""
                             >{localize("autoanimations.menus.persistant")}
                             {localize("autoanimations.menus.type")}</label
                         >
+                        </div>
+                        <div>
                         <select
                             bind:value={$animation.primary.options.persistType}
                             style="width:11em; height: 1em"
@@ -216,6 +207,7 @@
                                 >
                             {/if}
                         </select>
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -232,7 +224,7 @@
                             <select
                                 bind:value={$animation.primary.options
                                     .occlusionMode}
-                                style="text-align: center;align-self: center;width: 15em"
+                                style="text-align: center;align-self: center;width: 13em"
                             >
                                 <option value="3"
                                     >{localize(

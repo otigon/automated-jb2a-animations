@@ -11,7 +11,6 @@ export function primary({ video = {}, sound = {}, options = {}, dbSection = "" }
       video: createVideo(video),
       sound: createSound(sound),
       options,
-      dbSection,
    }
 }
 
