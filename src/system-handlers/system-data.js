@@ -54,6 +54,10 @@ export default class systemData {
             this.workflow = "on";
         }
 
+        if (this.workflow === "on") {
+            this.workflowBackup = msg || {};
+        }
+
         this.itemMacro = this.item.data?.flags?.itemacro?.macro?.data?.name ?? "";
         this.itemType = this.item.data?.type?.toLowerCase() ?? this.item?.type ?? "";
 
