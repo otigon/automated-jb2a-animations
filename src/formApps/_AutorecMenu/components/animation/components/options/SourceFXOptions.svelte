@@ -4,6 +4,7 @@
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
     import NumberInput from "./inputComponents/NumberInput.svelte";
+    import ScaleRadius from "./inputComponents/ScaleRadius.svelte";
     import Opacity from "./inputComponents/Opacity.svelte";
 
     export let animation;
@@ -99,15 +100,14 @@
                 </td>
                 <td>
                     <!--Set Animation Opacity-->
-                    <Opacity {animation} />
+                    <Opacity {animation} section="source" />
                 </td>
                 <td>
-                    <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
-                    <NumberInput
+                    <!--Set Size of Animation-->
+                    <ScaleRadius
                         {animation}
-                        label={localize("autoanimations.menus.scale")}
                         section={"source"}
-                        field={"scale"}
+                        field={"size"}
                         step="0.01"
                     />
                 </td>

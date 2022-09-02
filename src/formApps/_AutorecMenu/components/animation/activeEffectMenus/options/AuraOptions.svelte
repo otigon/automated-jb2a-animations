@@ -3,8 +3,8 @@
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
-    import NumberInput from "./inputComponents/NumberInput.svelte";
-    import Opacity from "./inputComponents/Opacity.svelte";
+    import NumberInput from "../../components/options/inputComponents/NumberInput.svelte";
+    import Opacity from "../../components/options/inputComponents/Opacity.svelte";
 
     export let animation;
     export let category;
@@ -41,7 +41,7 @@
                         <input
                             type="checkbox"
                             id="Below {animation._data.id}"
-                            bind:checked={$animation.primary.options.below}
+                            bind:checked={$animation.data.options.below}
                         />
                     </div>
                 </td>
@@ -54,7 +54,7 @@
                         <input
                             type="checkbox"
                             id="Vis {animation._data.id}"
-                            bind:checked={$animation.primary.options.unbindVisibility}
+                            bind:checked={$animation.data.options.unbindVisibility}
                         />
                     </div>
                 </td>
@@ -67,7 +67,7 @@
                         <input
                             type="checkbox"
                             id="Alpha {animation._data.id}"
-                            bind:checked={$animation.primary.options.unbindAlpha}
+                            bind:checked={$animation.data.options.unbindAlpha}
                         />
                     </div>
                 </td>
@@ -82,7 +82,7 @@
                         <input
                             type="checkbox"
                             id="Masked {animation._data.id}"
-                            bind:checked={$animation.primary.options.isMasked}
+                            bind:checked={$animation.data.options.isMasked}
                         />
                     </div>
                 </td>
@@ -95,7 +95,7 @@
                         <input
                             type="checkbox"
                             id="Ignore {animation._data.id}"
-                            bind:checked={$animation.primary.options.ignoreTarget}
+                            bind:checked={$animation.data.options.ignoreTarget}
                         />
                     </div>
                 </td>
@@ -104,7 +104,7 @@
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.z-index")}
-                    section={"primary"}
+                    section={"data"}
                     field={"zIndex"}
                     step="1"
                 />
@@ -113,14 +113,14 @@
             <tr>
                 <td>
                     <!--Set Animation Opacity-->
-                    <Opacity {animation} />
+                    <Opacity {animation} section="data" />
                 </td>
                 <td>
                     <!--Set Radius of Animation-->
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.radius")}
-                    section={"primary"}
+                    section={"data"}
                     field={"radius"}
                     step="0.01"
                 />
@@ -136,7 +136,7 @@
                         <input
                             type="checkbox"
                             id="Width {animation._data.id}"
-                            bind:checked={$animation.primary.options.addTokenWidth}
+                            bind:checked={$animation.data.options.addTokenWidth}
                         />
                     </div>
                 </td>
@@ -147,7 +147,7 @@
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.wait")}
-                    section={"primary"}
+                    section={"data"}
                     field={"wait"}
                     step="0.01"
                 />

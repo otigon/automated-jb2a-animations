@@ -12,6 +12,7 @@
     import BuildTemplateFx from "../animation/menus/BuildTemplateFX.svelte";
     import BuildAura from "../animation/menus/BuildAura.svelte";
     import BuildPreset from "../animation/menus/BuildPreset.svelte";
+    import BuildActiveEffects from "../animation/menus/BuildActiveEffects.svelte";
 
     import Animation            from "../animation/Animation.svelte";
 
@@ -56,7 +57,7 @@
          component: BuildPreset,
       },
       "aaAutorec-aefx": {
-         
+         component: BuildActiveEffects,
       }
    }
 

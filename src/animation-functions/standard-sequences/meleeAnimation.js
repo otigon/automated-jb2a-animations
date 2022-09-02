@@ -54,7 +54,7 @@ export async function meleeSeq(handler, animationData) {
         // Play Macro if Awaiting
         if (data.playMacro && data.macro.playWhen === "1") {
             let userData = data.macro.args;
-            aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
+            aaSeq.macro(data.macro.name, handler.workflow, handler, userData)
         }
         // Extra Effects => Source Token if active
         if (sourceFX.enabled) {
@@ -186,9 +186,10 @@ export async function meleeSeq(handler, animationData) {
         aaSeq.addSequence(await AAAnimationData._sounds({ animationData, switchSound, targetSound, explosionSound: true }))
         // Macro if Concurrent
         if (data.playMacro && data.macro.playWhen === "0") {
+            console.log(data.macro)
             let userData = data.macro.args;
             new Sequence()
-                .macro(data.macro.name, handler.workflow, handler, [...userData])
+                .macro(data.macro.name, handler.workflow, handler, userData)
                 .play()
         }
         aaSeq.play()

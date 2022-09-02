@@ -15,8 +15,9 @@ export function explosion() {
          below: false,
          isMasked: false,
          opacity: 1,
-         radius: 1.5,
-         zIndex: 1
+         setRadius: true,
+         size: 1.5,
+         zIndex: 1,
       }
    }
 }

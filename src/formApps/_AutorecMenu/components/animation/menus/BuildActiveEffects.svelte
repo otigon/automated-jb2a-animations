@@ -1,36 +1,28 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
-    import DualAttach from "../presetMenus/DualAttach.svelte";
-    import ProjectileToTemplate from "../presetMenus/ProjectileToTemplate.svelte";
-    import Teleportation from "../presetMenus/Teleportation.svelte";
-    import Thunderwave from "../presetMenus/Thunderwave.svelte";
     import DualAnimation from "../presetMenus/DualAnimation.svelte";
     import TripleAnimation from "../presetMenus/TripleAnimation.svelte";
+    import BuildAeOnToken from "../activeEffectMenus/BuildAEOnToken.svelte";
+    import BuildAeAura from "../activeEffectMenus/BuildAEAura.svelte";
     import SectionButtons from "../components/SectionButtons02.svelte";
     import Macro from "../components/Macro.svelte";
     import SoundOnly from "../components/SoundOnly.svelte";
 
-    import * as reset from "../presetMenus/presetDefaults.js";
+    import * as reset from "../activeEffectMenus/aeDefaults.js";
 
     export let animation;
     export let category;
     export let idx;
 
-    $: presetType = $animation.presetType;
+    $: activeEffectType = $animation.activeEffectType;
 
-    let presetContent = {
-        dualattach: {
-            component: DualAttach,
+    let aeContent = {
+        onToken: {
+            component: BuildAeOnToken,
         },
-        proToTemp: {
-            component: ProjectileToTemplate,
-        },
-        teleportation: {
-            component: Teleportation,
-        },
-        thunderwave: {
-            component: Thunderwave,
+        aura: {
+            component: BuildAeAura,
         },
         dualAnim: {
             component: DualAnimation,
@@ -41,21 +33,15 @@
         "": {},
     };
 
-    $: presetRoute = presetContent[presetType].component;
+    $: activeEffectRoute = aeContent[activeEffectType].component;
 
-    function changePreset() {
-        switch (animation._data.presetType) {
-            case "dualattach":
-                $animation.data = structuredClone(reset.dualAttach);
+    function changeAE() {
+        switch (animation._data.activeEffectType) {
+            case "onToken":
+                $animation.data = structuredClone(reset.onToken);
                 break;
-            case "teleportation":
-                $animation.data = structuredClone(reset.teleportation);
-                break;
-            case "thunderwave":
-                $animation.data = structuredClone(reset.thunderwave);
-                break;
-            case "proToTemp":
-                $animation.data = structuredClone(reset.proToTemp);
+            case "aura":
+                $animation.data = structuredClone(reset.aura);
                 break;
             case "dualAnim":
                 $animation.data = structuredClone(reset.dual);
@@ -81,31 +67,23 @@
     <div class="aa-pickAnim">
         <div
             class="flexcol"
-            style="grid-row: 2 / 3;grid-column: 2 / 3;margin-bottom: 0.75em;"
+            style="grid-row: 2 / 3;grid-column: 2 / 3;margin-bottom: 1em;"
         >
-            <label for="1"
-                >{localize("autoanimations.menus.preset")}
+            <label for=""
+                >{localize("autoanimations.menus.animation")}
                 {localize("autoanimations.menus.type")}</label
             >
             <select
-                bind:value={$animation.presetType}
-                on:change={() => changePreset()}
-                style="background-color: rgba(21, 154, 169, 0.4);width: 95%;"
+                bind:value={$animation.activeEffectType}
+                on:change={() => changeAE()}
+                style="background-color: rgba(21, 154, 169, 0.4);width: 12em;"
             >
-                <option value="">Select a Preset</option>
-                <option value="dualattach"
-                    >{localize("autoanimations.presetTypes.dualattach")}</option
+                <option value="">Select Type</option>
+                <option value="onToken"
+                    >{localize("autoanimations.animTypes.onToken")}</option
                 >
-                <option value="proToTemp"
-                    >{localize("autoanimations.presetTypes.proToTemp")}</option
-                >
-                <option value="teleportation"
-                    >{localize(
-                        "autoanimations.presetTypes.animTeleportation"
-                    )}</option
-                >
-                <option value="thunderwave"
-                    >{localize("autoanimations.presetTypes.thunderwave")} D&D 5e</option
+                <option value="aura"
+                    >{localize("autoanimations.animTypes.typeAuras")}</option
                 >
                 <option value="dualAnim"
                     >{localize("autoanimations.menus.dual")}</option
@@ -116,14 +94,13 @@
             </select>
         </div>
     </div>
-    <svelte:component this={presetRoute} {animation} {category} {idx} />
+    <svelte:component this={activeEffectRoute} {animation} {category} {idx} />
 </div>
 
 <style lang="scss">
     .aa-pickAnim {
         display: grid;
         grid-template-columns: 25% 50% 25%;
-        padding: 5px;
         margin-right: 5%;
         margin-left: 5%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;

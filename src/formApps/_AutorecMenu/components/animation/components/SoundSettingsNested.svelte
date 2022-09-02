@@ -21,11 +21,7 @@
 <div class="aa-sound-border">
     <TJSSvgFolder
         {folder}
-        label={`${localize("autoanimations.menus.sound")} ${
-            $animation[section][section02].sound.enable
-                ? localize("autoanimations.menus.enabled")
-                : localize("autoanimations.menus.disabled")
-        }`}
+        label={localize("autoanimations.menus.sound")}
     >
         <div slot="summary-end">
             <input

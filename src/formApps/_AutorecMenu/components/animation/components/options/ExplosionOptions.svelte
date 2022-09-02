@@ -4,6 +4,7 @@
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
     import NumberInput from "./inputComponents/NumberInput.svelte";
+    import ScaleRadius from "./inputComponents/ScaleRadius.svelte";
     import Opacity from "./inputComponents/Opacity.svelte";
 
     export let animation;
@@ -62,12 +63,11 @@
                     />
                 </td>
                 <td>
-                    <!--Set Radius of Animation-->
-                    <NumberInput
+                    <!--Set Size of Animation-->
+                    <ScaleRadius
                         {animation}
-                        label={localize("autoanimations.menus.radius")}
                         section={"explosion"}
-                        field={"radius"}
+                        field={"size"}
                         placeholder="1.5"
                         step="0.01"
                     />

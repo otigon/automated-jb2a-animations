@@ -49,10 +49,13 @@
 
     $: menuTab = category.key.split("-")[1];
 
+    function addEntry() {
+      category.createEntry(structuredClone(addDefaultData[menuTab]))
+    }
 </script>
 
 <header>
-    <TJSIconButton button={buttonAdd} on:click={() => category.createEntry(addDefaultData[menuTab])} />
+    <TJSIconButton button={buttonAdd} on:click={() => addEntry()} />
     <ButtonOpenCloseAll {category} />
     <TJSInput {input} />
     <TJSIconButton button={buttonSort} on:click={() => category.sortAlpha()} />

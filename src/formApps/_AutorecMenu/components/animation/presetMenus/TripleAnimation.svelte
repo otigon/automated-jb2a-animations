@@ -6,6 +6,7 @@
     import SoundSettings from "../components/SoundSettingsNested.svelte";
     import SectionHeader from "../components/SectionHeader.svelte";
     import Opacity from "./inputComponents/Opacity.svelte";
+    import ScaleRadius from "./inputComponents/ScaleRadius.svelte";
 
     export let animation;
     export let category;
@@ -70,23 +71,31 @@
                         <Opacity {animation} section="intro"/>
                     </td>
                     <td>
+                        <!--Set Size of Animation-->
+                        <ScaleRadius
+                            {animation}
+                            section={"intro"}
+                            field={"size"}
+                            step="0.01"
+                        />
+                    </td>    
+                </tr>
+                <tr>
+                    <td>
                         <div>
                             <label for=""
-                                >{localize("autoanimations.menus.scale")}</label
+                                >{localize("autoanimations.menus.wait")}</label
                             >
                         </div>
                         <div>
                             <input
                                 type="number"
-                                bind:value={$animation.data.intro.options.scale}
+                                bind:value={$animation.data.intro.options.wait}
                                 placeholder="1"
-                                step=".01"
+                                step="1"
                             />
                         </div>
                     </td>
-                </tr>
-                <tr>
-                    <td></td>
                     <td>
                         <div>
                             <label for=""
@@ -156,20 +165,14 @@
                         <Opacity {animation} section="loop"/>
                     </td>
                     <td>
-                        <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.scale")}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.loop.options.scale}
-                                placeholder="1"
-                                step=".01"
-                            />
-                        </div>
-                    </td>
+                        <!--Set Size of Animation-->
+                        <ScaleRadius
+                            {animation}
+                            section={"loop"}
+                            field={"size"}
+                            step="0.01"
+                        />
+                    </td>    
                 </tr>
                 <tr>
                     <td>
@@ -223,7 +226,21 @@
                     </td>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td>
+                        <div>
+                            <label for=""
+                                >{localize("autoanimations.menus.wait")}</label
+                            >
+                        </div>
+                        <div>
+                            <input
+                                type="number"
+                                bind:value={$animation.data.loop.options.wait}
+                                placeholder="1"
+                                step="1"
+                            />
+                        </div>
+                    </td>
                     <td>
                         <div>
                             <label for=""
@@ -286,18 +303,14 @@
                         <Opacity {animation} section="outro"/>
                     </td>
                     <td>
-                        <div>
-                            <label for="">{localize("autoanimations.menus.scale")}</label>
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.outro.options.scale}
-                                placeholder="1"
-                                step=".01"
-                            />
-                        </div>
-                    </td>
+                        <!--Set Size of Animation-->
+                        <ScaleRadius
+                            {animation}
+                            section={"outro"}
+                            field={"size"}
+                            step="0.01"
+                        />
+                    </td>    
                     <td>
                         <div>
                             <label for=""

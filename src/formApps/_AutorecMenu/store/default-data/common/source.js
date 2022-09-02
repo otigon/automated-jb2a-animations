@@ -18,8 +18,9 @@ export function source() {
          isMasked: false,
          opacity: 1,
          repeat: 1,
-         scale: 1,
-         zIndex: 1
+         setRadius: false,
+         size: 1,
+         zIndex: 1,
       },
    };
 }

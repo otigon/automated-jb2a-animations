@@ -585,7 +585,10 @@
             "bind": "Bind",
             "effect": "Effect",
             "fadeIn": "Fade In",
-            "fadeOut": "Fade Out"
+            "fadeOut": "Fade Out",
+            "select": "Select",
+            "dual": "Dual",
+            "triple": "Triple"
         },
         "optionsInfo": {
 

@@ -1,5 +1,5 @@
 <script>
-    import VideoSelect from "../components/VideoSelect.svelte";
+    import VideoSelect from "../components/VideoSelect02.svelte";
     import MeleeOptions from "../components/options/MeleeOptions.svelte";
     import SoundSettings from "../components/SoundSettings.svelte";
     import SoundOnly from "../components/SoundOnly.svelte";

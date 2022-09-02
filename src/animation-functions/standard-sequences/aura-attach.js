@@ -51,8 +51,8 @@ export async function auraSeq(handler, animationData) {
             aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
                 .play()
         }
-        let adjustedSize = data.addTokenWidth ? data.size + (sourceToken.w / canvas.grid.size) : data.size;
-
+        let adjustedSize = data.addTokenWidth ? data.radius * 2 + (sourceToken.w / canvas.grid.size) : data.radius * 2;
+        console.log(adjustedSize)
         if (!checkAnim) {
             let newEffect = aaSeq.effect();
             aaSeq.addSequence(sourceFX.sourceSeq)
@@ -98,7 +98,7 @@ export async function auraSeq(handler, animationData) {
         aaSeq.addSequence(sourceFX.sourceSeq)
         for (let target of handler.allTargets) {
             let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0
-            let adjustedSize = data.addTokenWidth ? data.size + (target.w / canvas.grid.size) : data.size;
+            let adjustedSize = data.addTokenWidth ? data.radius + (target.w / canvas.grid.size) : data.radius;
 
             if (!checkAnim) {
                 let newEffect = aaSeq.effect();

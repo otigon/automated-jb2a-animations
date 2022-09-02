@@ -129,7 +129,7 @@ export async function teleportationSeq(handler, animationData) {
         let aaSeq = new Sequence();
         if (data.playMacro && data.macro.playWhen === "1") {
             let userData = data.macro.args;
-            aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
+            aaSeq.macro(data.macro.name, handler.workflow, handler, userData)
         }
         aaSeq.addSequence(sourceFX.sourceSeq)
         if (data.playSound) {
@@ -178,7 +178,7 @@ export async function teleportationSeq(handler, animationData) {
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;
             new Sequence()
-                .macro(data.macro.name, handler.workflow, handler, [...userData])
+                .macro(data.macro.name, handler.workflow, handler, userData)
                 .play()
         }
         aaSeq.play()

@@ -5,6 +5,7 @@
     import SectionHeader from "../components/SectionHeader.svelte";
     import VideoSelect from "../components/VideoSelect.svelte";
     import Opacity from "./inputComponents/Opacity.svelte";
+    import ScaleRadius from "./inputComponents/ScaleRadius.svelte";
 
     export let animation;
     export let category;
@@ -38,10 +39,10 @@
                 <div>
                     <label for="">Range Marker</label>
                 </div>
-                <div>
+                <div class="flexcol">
                     <select
                     bind:value={$animation.data.options.measureType}
-                    style="background-color: rgba(21, 154, 169, 0.4);width: 95%;"
+                    style="width: 95%;"
                 >
                     <option value="alternating"
                         >{localize(
@@ -125,19 +126,13 @@
                     </div>
                 </td>
                 <td>
-                    <div>
-                        <label for=""
-                            >{localize("autoanimations.menus.scale")}</label
-                        >
-                    </div>
-                    <div>
-                        <input
-                            type="number"
-                            bind:value={$animation.data.start.options.scale}
-                            placeholder="1"
-                            step=".01"
-                        />
-                    </div>
+                    <!--Set Size of Animation-->
+                    <ScaleRadius
+                        {animation}
+                        section={"start"}
+                        field={"size"}
+                        step="0.01"
+                    />
                 </td>
             </tr>
             <tr>
@@ -253,19 +248,13 @@
                     </div>
                 </td>
                 <td>
-                    <div>
-                        <label for=""
-                            >{localize("autoanimations.menus.scale")}</label
-                        >
-                    </div>
-                    <div>
-                        <input
-                            type="number"
-                            bind:value={$animation.data.end.options.scale}
-                            placeholder="1"
-                            step=".01"
-                        />
-                    </div>
+                    <!--Set Size of Animation-->
+                    <ScaleRadius
+                        {animation}
+                        section={"end"}
+                        field={"size"}
+                        step="0.01"
+                    />
                 </td>
             </tr>
             <tr>

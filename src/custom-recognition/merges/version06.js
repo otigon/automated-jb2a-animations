@@ -18,7 +18,7 @@ async function mergeVersion06(data) {
         templatefx: [],
         aura: [],
         preset: [],
-        aefx: {},
+        aefx: [],
         version: 5,
     };
 
@@ -46,6 +46,7 @@ async function mergeVersion06(data) {
                 opacity: exp?.opacity ?? 1,
                 radius: exp?.radius ?? 1.5,
                 zIndex: exp?.zIndex ?? 1,
+                setRadius: true,
             },
             sound: {
                 delay: audio?.e01?.delay ?? 0,
@@ -172,7 +173,7 @@ async function mergeVersion06(data) {
                 data.delay = oldMO.delay ?? 0;
                 data.opacity = oldMO.opacity ?? 1;
                 data.repeat = oldMO.repeat ?? 1;
-                data.scale = oldMO.scale ?? 1;
+                data.size = oldMO.scale ?? 1;
                 data.zIndex = oldMO.zIndex ?? 1;
                 break;
             case "range":
@@ -191,8 +192,9 @@ async function mergeVersion06(data) {
                 data.opacity = oldMO.opacity ?? 1;
                 data.persistent = oldMO.persistent ?? false;
                 data.repeat = oldMO.repeat ?? 1;
-                data.scale = oldMO.scale ?? 1;
-                data.staticType = oldMO.type ?? "targetDefault";
+                data.setRadius = false;
+                data.size = oldMO.scale ?? 1;
+                data.playOn = oldMO.type === "targetDefault" ? "default" : oldMO.type === "sourceTarget" ? "both" : !oldMO.type ? "default" : oldMO.type;
                 data.unbindAlpha = oldMO.unbindAlpha ?? false;
                 data.unbindVisibility = oldMO.unbindVisibility ?? false;
                 data.zIndex = oldMO.zIndex ?? 1;
@@ -271,43 +273,6 @@ async function mergeVersion06(data) {
             customPath,
         };
         return primary;
-    }
-
-
-
-    async function primaryMenu(oldMO, newMO, type) {
-
-        let { menuType, variant, custom, customPath, name, animation, color, audio, macro,
-            soundOnly, explosion, levels3d, meleeSwitch, ...rest } = oldMO
-        newMO.id = randomID();
-        newMO.name = name;
-        newMO.hidden = true;
-        //newMO.animation = animation;
-        //newMO.color = color;
-        newMO.options = rest;
-        if (type) {
-            newMO.options.persistent = newMO.options.persist || false;
-        }
-        newMO.primary = {
-            menuType,
-            animation,
-            variant: variant,
-            color,
-            enableCustom: custom,
-            customPath,
-        }
-        if (meleeSwitch) { newMO.meleeSwitch = meleeSwitch; }
-        newMO.audio = audio || {};
-        newMO.macro = macro || {};
-        newMO.levels3d = await new3d(levels3d);
-        newMO.soundOnly = soundOnly?.enable || false;
-        newMO.explosions = explosion || {};
-        if (!newMO.primary.menuType || !newMO.primary.variant || !newMO.primary.animation || !newMO.primary.color) {
-            newMO.primary.menuType = "";
-            newMO.primary.variant = "";
-            newMO.primary.animation = "";
-            newMO.primary.color = "";
-        }
     }
 
     if (meleeObject) {
@@ -403,8 +368,6 @@ async function mergeVersion06(data) {
             let current;
             switch (oldMO.animation) {
                 case "bardicinspiration":
-                case "bless":
-                case "shieldspell":
                 case "huntersmark":
                 case "sneakattack":
                     break;
@@ -424,139 +387,131 @@ async function mergeVersion06(data) {
                     current = await updateThunderwave(oldMO, newMO);
                     newMenu.preset.push(current);
                     break;
+                case "bless":
+                    current = await updateBless(oldMO, newMO);
+                    newMenu.preset.push(current);
+                    break;
+                case "shieldspell":
+                    current = await updateShield(oldMO, newMO);
+                    newMenu.preset.push(current);
+                    break;
             }
         }
         await game.settings.set('autoanimations', 'aaAutorec-preset', newMenu.preset)
     }
-    if (aefxObject) {
-        const aefxLength = Object.keys(aefxObject).length;
-        for (var i = 0; i < aefxLength; i++) {
-            const oldMO = aefxObject[i]
-            newMenu.aefx[i] = {};
-            const newMO = newMenu.aefx[i];
-            switch (oldMO.aeType) {
-                case "static":
-                    await primaryMenu(oldMO, newMO)
-                    newMO.animType = "static";
-                    newMO.type = "source";
-                    break;
-                // TO-DO: Combine Auras on AE to be same as Static. Requires adding a few extra options, and a switch from Scale to Radius
-                case "auras":
-                    //await primaryMenu(oldMO, newMO)
-                    //newMO.animType = "aura";
-                    break;
-                //case "preset":
-                    //switch (oldMO.menuType) {
-                        //case "bless":
-                            //await updateBless(oldMO, newMO)
-                            //newMO.animType = "preset";
-                            //break;
-                        //case "shieldspell":
-                            //await updateShield(oldMO, newMO)
-                            //newMO.animType = "preset";
-                            //break;
-                    //}
-                    //break;
-            }
-            await primaryMenu(oldMO, newMO)
-        }
-    }
 
-    /*
-    async function updateBI(oldData, newData) {
-        newData.id = uuidv4();
-        newData.data = {};
-        const root = newData.data;
-        let { animateSelf, animateTarget, below, marker, name, scale, selfAnimation, selfColor, selfMarkerColor, targetAnimation, targetColor, targetMarkerColor, macro, audio } = oldData;
-        root.audio = {
-            delay: audio?.a01?.delay ?? 0,
-            enable: audio?.a01?.enable ?? false,
-            file: audio?.a01?.file ?? "",
-            startTime: audio?.a01?.startTime ?? 0,
-            volume: audio?.a01?.volume ?? 0,
-        };
-        root.macro = macro || {};
-        newData.presetType = "bardicinspiration";
-        //root.below = below;
-        //root.scale = scale;
-        newData.label = name;
-        //newData.hidden = true;
-        root.options = {
-            below: below || false,
-            scale: scale || 1,
+    async function updateBless(oldMO, newMO) {
+
+        let {addCTA, animation, audio, below, color, macro, name, scale, unbindAlpha, unbindVisibility} = oldMO;
+
+        newMO.id = uuidv4();
+        newMO.label = name;
+        newMO.presetType = "dualAnim";
+
+        newMO.macro = macro || {};
+
+        newMO.data = {
+            intro: {
+                customPath: convertToCustom("intro"),
+                options: {
+                    below: below || false,
+                    fadeIn: 500,
+                    opacity: 1,
+                    size: scale || 1,
+                    wait: -500,
+                },
+                sound: {
+                    delay: audio?.a01?.delay ?? 0,
+                    enable: audio?.a01?.enable ?? false,
+                    file: audio?.a01?.file ?? "",
+                    startTime: audio?.a01?.startTime ?? 0,
+                    volume: audio?.a01?.volume ?? 1,
+                },
+            },
+            loop: {
+                customPath: convertToCustom("loop"),
+                options: {
+                    below: below || false,
+                    fadeOut: 500,
+                    opacity: 1,
+                    persistent: addCTA || false,
+                    size: scale || 1,
+                    unbindAlpha: unbindAlpha || false,
+                    unbindVisibility: unbindVisibility || false,
+                },
+            },
         }
-        root.self = {
-            enable: animateSelf || false,
-            animation: selfAnimation === "music" ? "notes" : selfAnimation,
-            color: selfColor,
+
+        function convertToCustom(inOut) {
+            let newColor = color || "blue";
+
+            return `autoanimations.static.spell.bless.${inOut}.${newColor}`
         }
-        if (!root.self.animation || !root.self.color) {
-            root.self.animation = "";
-            root.self.variant = "";
-            root.self.color = "";
-        } else if (root.self.animation === "bardicinspiration") {
-            root.self.variant = "inspire";
-        } else { root.self.variant = "01" }
-        root.target = {
-            enable: animateTarget || false,
-            animation: targetAnimation === "music" ? "notes" : targetAnimation,
-            color: targetColor,
-        }
-        // TO-DO, assign VARIANTS somehow
-        if (!root.target.animation || !root.target.color) {
-            root.target.animation = "";
-            root.target.color = "";
-        } else if (root.target.animation === "bardicinspiration") {
-            root.target.variant = "inspire";
-        } else { root.target.variant = "01" }
-        root.marker = {
-            enable: marker || false,
-            selfColor: selfMarkerColor || "",
-            targetColor: targetMarkerColor || "",
-        }
+
+        return newMO;
     }
-    async function updateBless(oldData, newData) {
-        newData.id = randomID();
-        newData.bless = {};
-        const root = newData.bless;
-        let { below, color, name, scale, macro, unbindAlpha, unbindVisibility, audio, addCTA: persistent, ...rest } = oldData;
-        root.audio = audio || {};
-        root.macro = macro || {};
-        newData.presetType = "bless";
-        newData.name = name;
-        newData.hidden = true;
-        root.below = below;
-        root.scale = scale;
-        root.menuType = "spell";
-        root.animation = "bless";
-        root.variant = "01";
-        root.color = color;
-        root.unbindAlpha = unbindAlpha || false;
-        root.unbindVisibility = unbindVisibility || false;
-        root.persistent = persistent;
+    async function updateShield(oldMO, newMO) {
+
+        let {addCTA, animation, audio, below, color, endeffect, macro, name, scale, unbindAlpha, unbindVisibility, variant} = oldMO;
+
+        newMO.id = uuidv4();
+        newMO.label = name;
+        newMO.presetType = "tripleAnim";
+
+        newMO.macro = macro || {};
+
+        newMO.data = {
+            intro: {
+                customPath: convertToCustom("intro"),
+                options: {
+                    below: below || false,
+                    fadeIn: 500,
+                    opacity: 1,
+                    size: scale || 1,
+                    wait: -500,
+                },
+                sound: {
+                    delay: audio?.a01?.delay ?? 0,
+                    enable: audio?.a01?.enable ?? false,
+                    file: audio?.a01?.file ?? "",
+                    startTime: audio?.a01?.startTime ?? 0,
+                    volume: audio?.a01?.volume ?? 1,
+                },
+            },
+            loop: {
+                customPath: convertToCustom("loop"),
+                options: {
+                    below: below || false,
+                    fadeOut: 500,
+                    opacity: 1,
+                    persistent: addCTA || false,
+                    size: scale || 1,
+                    unbindAlpha: unbindAlpha || false,
+                    unbindVisibility: unbindVisibility || false,
+                    wait: -1000,
+                },
+            },
+            outro: {
+                customPath: convertToCustom("outro"),
+                options: {
+                    fadeOut: 500,
+                    opacity: 1,
+                    size: scale || 1,
+                },
+                sound: { enable: false }
+            }
+        }
+
+        function convertToCustom(type) {
+            let newColor = color || "blue";
+            let newVariant = variant || "01";
+            let newType = type || "loop"
+
+            return `autoanimations.static.spell.shieldspell.${newType}.${newVariant}.${newColor}`
+        }
+
+        return newMO;
     }
-    async function updateShield(oldData, newData) {
-        newData.id = randomID();
-        newData.shield = {};
-        const root = newData.shield;
-        let { below, color, endeffect, name, scale, variant, macro, addCTA: persistent, unbindAlpha, unbindVisibility, audio } = oldData;
-        root.audio = audio || {};
-        root.macro = macro || {};
-        newData.presetType = "shieldspell";
-        newData.name = name;
-        newData.hidden = true;
-        root.menuType = "spell";
-        root.animation = "shieldspell";
-        root.variant = variant;
-        root.color = color;
-        root.endEffect = endeffect;
-        root.unbindAlpha = unbindAlpha;
-        root.unbindVisibility = unbindVisibility;
-        root.persistent = persistent;
-        root.below = below;
-        root.scale = scale;
-    }
-    */
     async function updateTele(oldData, newData) {
         newData.id = uuidv4();
         newData.data = {};
@@ -589,8 +544,8 @@ async function mergeVersion06(data) {
             enableCustom: custom || false,
             customPath,
             options: {
-                below,
-                scale,
+                below: below || false,
+                size: scale || 1,
             }
         }
         root.between = {
@@ -614,7 +569,7 @@ async function mergeVersion06(data) {
             customPath: customPath02,
             options: {
                 below,
-                scale: scale02,
+                size: scale02,
                 delay,
             }
         }
@@ -628,13 +583,11 @@ async function mergeVersion06(data) {
     }
     async function updateDAttach(oldData, newData) {
         newData.id = uuidv4();
-        //newData.data = {};
-        //const root = newData.data;
+
         let { name, below, macro, audio, menuType, subAnimation, variant, color, custom, customPath, playbackRate, onlyX } = oldData;
         newData.macro = macro || {};
         newData.presetType = "dualattach";
         newData.label = name;
-        //newData.hidden = true;
         newData.data = {
             video: {
                 dbSection: "range",
@@ -660,15 +613,6 @@ async function mergeVersion06(data) {
         if (!newData.data.menuType || !newData.data.animation || !newData.data.variant || !newData.data.color) {
             resetVideo(newData.data, "range")
         }
-        //root.menuType = menuType;
-        //root.animation = subAnimation;
-        //root.variant = variant;
-        //root.color = color;
-        //root.enableCustom = custom || false;
-        //root.customPath = customPath;
-        //root.playbackRate = playbackRate;
-        //root.onlyX = onlyX;
-        //root.below = below;
         return newData;
     }
     async function updateFireball(oldData, newData) {
@@ -683,7 +627,6 @@ async function mergeVersion06(data) {
         root.macro = macro || {};
         newData.presetType = "proToTemp";
         newData.label = name;
-        //newData.hidden = true;
         root.removeTemplate = removeTemplate;
         root.projectile = {
             dbSection: "range",
@@ -805,7 +748,60 @@ async function mergeVersion06(data) {
         root.below = below;
 
     }
+    async function updateBI(oldData, newData) {
+        newData.id = uuidv4();
+        newData.data = {};
+        const root = newData.data;
+        let { animateSelf, animateTarget, below, marker, name, scale, selfAnimation, selfColor, selfMarkerColor, targetAnimation, targetColor, targetMarkerColor, macro, audio } = oldData;
+        root.audio = {
+            delay: audio?.a01?.delay ?? 0,
+            enable: audio?.a01?.enable ?? false,
+            file: audio?.a01?.file ?? "",
+            startTime: audio?.a01?.startTime ?? 0,
+            volume: audio?.a01?.volume ?? 0,
+        };
+        root.macro = macro || {};
+        newData.presetType = "bardicinspiration";
+        //root.below = below;
+        //root.scale = scale;
+        newData.label = name;
+        //newData.hidden = true;
+        root.options = {
+            below: below || false,
+            scale: scale || 1,
+        }
+        root.self = {
+            enable: animateSelf || false,
+            animation: selfAnimation === "music" ? "notes" : selfAnimation,
+            color: selfColor,
+        }
+        if (!root.self.animation || !root.self.color) {
+            root.self.animation = "";
+            root.self.variant = "";
+            root.self.color = "";
+        } else if (root.self.animation === "bardicinspiration") {
+            root.self.variant = "inspire";
+        } else { root.self.variant = "01" }
+        root.target = {
+            enable: animateTarget || false,
+            animation: targetAnimation === "music" ? "notes" : targetAnimation,
+            color: targetColor,
+        }
+        // TO-DO, assign VARIANTS somehow
+        if (!root.target.animation || !root.target.color) {
+            root.target.animation = "";
+            root.target.color = "";
+        } else if (root.target.animation === "bardicinspiration") {
+            root.target.variant = "inspire";
+        } else { root.target.variant = "01" }
+        root.marker = {
+            enable: marker || false,
+            selfColor: selfMarkerColor || "",
+            targetColor: targetMarkerColor || "",
+        }
+    }
     */
+
     async function updateThunderwave(oldData, newData) {
         newData.id = uuidv4();
         //newData.data = {};
@@ -839,6 +835,316 @@ async function mergeVersion06(data) {
         };
         return newData;
     }
+
+    if (aefxObject) {
+        const aefxLength = Object.keys(aefxObject).length;
+
+        for (var i = 0; i < aefxLength; i++) {
+            const oldMO = aefxObject[i]
+            //newMenu.aefx[i] = {};
+            //const newMO = newMenu.aefx[i];
+            let newMO = {};
+            let current;
+            switch (oldMO.aeType) {
+                case "static":
+                    current = await convertAEOnToken(oldMO, newMO)
+                    current.activeEffectType = "onToken";
+                    current.data.options.type = "source";
+                    newMenu.aefx.push(current);
+                    break;
+                case "auras":
+                    current = await convertAEAura(oldMO, newMO)
+                    current.activeEffectType = "aura";
+                    newMenu.aefx.push(current);
+                    break;
+                case "preset":
+                    switch (oldMO.menuType) {
+                        case "bless":
+                            current = await convertAEBless(oldMO, newMO)
+                            current.activeEffectType = "dualAnim";
+                            newMenu.aefx.push(current);
+                            break;
+                        case "shieldspell":
+                            current = await convertAEShield(oldMO, newMO)
+                            current.activeEffectType = "tripleAnim";
+                            newMenu.aefx.push(current);
+                            break;
+                    }
+                    break;
+            }
+        }
+        await game.settings.set('autoanimations', 'aaAutorec-aefx', newMenu.aefx)
+    }
+
+
+    async function convertAEOnToken(oldMO, newMO) {
+
+        let { aeDelay, aeType, animation, audio, below, color, custom, customPath, delay, explosion, macro, menuType, name,
+            opacity, persistent, repeat, scale, soundOnly, type, unbindAlpha, unbindVisibility, variant } = oldMO;
+
+        newMO.id = uuidv4();
+        newMO.label = name;
+
+        newMO.explosion = await convertExplosionV6(explosion, audio)
+
+        newMO.data = {
+            options: {
+                addTokenWidth: false,
+                aeDelay: aeDelay || 0,
+                below: below || false,
+                delay: delay || 250,
+                isMasked: false,
+                opacity: opacity,
+                persistent: persistent || false,
+                playOn: "source",
+                repeat: repeat || 1,
+                size: scale || 1,
+                setRadius: false,
+                unbindAlpha: unbindAlpha || false,
+                unbindVisibility: unbindVisibility || false,
+                zIndex: 1,
+            },
+            sound: {
+                delay: audio?.a01?.delay ?? 0,
+                enable: audio?.a01?.enable ?? false,
+                file: audio?.a01?.file ?? "",
+                startTime: audio?.a01?.startTime ?? 0,
+                volume: audio?.a01?.volume ?? 1,
+            },
+            video: {
+                animation: animation,
+                color: color,
+                customPath: customPath || "",
+                dbSection: "static",
+                enableCustom: custom || false,
+                menuType: menuType,
+                variant: variant,
+            }
+        }
+
+        const newVideo = newMO.data.video;
+        if (!newVideo.menuType || !newVideo.animation || !newVideo.variant || !newVideo.color) {
+            resetVideo(newMO.data.video)
+        }
+
+        newMO.macro = macro || {};
+
+        newMO.soundOnly = {
+            sound: {
+                delay: audio?.a01?.delay ?? 0,
+                enable: soundOnly?.enable ?? false,
+                file: audio?.a01?.file ?? "",
+                startTime: audio?.a01?.startTime ?? 0,
+                volume: audio?.a01?.volume ?? 1,
+            }
+        }
+
+        newMO.source = newExtraFX();
+
+        return newMO;
+    }
+
+    async function convertAEAura(oldMO, newMO) {
+
+        let { aeDelay, aeType, animation, audio, below, color, custom, customPath, macro, menuType, name,
+            opacity, scale, soundOnly, type, unbindAlpha, unbindVisibility, variant } = oldMO;
+
+        newMO.id = uuidv4();
+        newMO.label = name;
+
+        newMO.data = {
+            options: {
+                addTokenWidth: false,
+                aeDelay: aeDelay || 0,
+                below: below || false,
+                isMasked: false,
+                opacity: opacity,
+                size: scale || 1,
+                setRadius: false,
+                unbindAlpha: unbindAlpha || false,
+                unbindVisibility: unbindVisibility || false,
+                zIndex: 1,
+            },
+            sound: {
+                delay: audio?.a01?.delay ?? 0,
+                enable: audio?.a01?.enable ?? false,
+                file: audio?.a01?.file ?? "",
+                startTime: audio?.a01?.startTime ?? 0,
+                volume: audio?.a01?.volume ?? 1,
+            },
+            video: {
+                animation: animation,
+                color: color,
+                customPath: customPath || "",
+                dbSection: "static",
+                enableCustom: custom || false,
+                menuType: menuType,
+                variant: variant,
+            }
+        }
+
+        const newVideo = newMO.data.video;
+        if (!newVideo.menuType || !newVideo.animation || !newVideo.variant || !newVideo.color) {
+            resetVideo(newMO.data.video)
+        }
+
+        newMO.macro = macro || {};
+
+        newMO.soundOnly = {
+            sound: {
+                delay: audio?.a01?.delay ?? 0,
+                enable: soundOnly?.enable ?? false,
+                file: audio?.a01?.file ?? "",
+                startTime: audio?.a01?.startTime ?? 0,
+                volume: audio?.a01?.volume ?? 1,
+            }
+        }
+
+        newMO.source = newExtraFX();
+        return newMO;
+    }
+
+    async function convertAEBless(oldMO, newMO) {
+
+        let { addCTA, aeType, animation, audio, below, color, custom, macro, menuType, name,
+            scale, soundOnly, type, unbindAlpha, unbindVisibility, variant } = oldMO;
+
+        newMO.id = uuidv4();
+        newMO.label = name;
+
+        newMO.data = {
+            intro: {
+                customPath: convertToCustom("intro"),
+                options: {
+                    below: below || false,
+                    fadeIn: 500,
+                    opacity: 1,
+                    size: scale || 1,
+                    wait: -500,
+                },
+                sound: {
+                    delay: audio?.a01?.delay ?? 0,
+                    enable: soundOnly?.enable ?? false,
+                    file: audio?.a01?.file ?? "",
+                    startTime: audio?.a01?.startTime ?? 0,
+                    volume: audio?.a01?.volume ?? 1,
+                }
+            },
+            loop: {
+                customPath: convertToCustom("loop"),
+                options: {
+                    below: below || false,
+                    fadeOut: 500,
+                    opacity: 1,
+                    persistent: addCTA || false,
+                    size: scale || 1,
+                    unbindAlpha: unbindAlpha || false,
+                    unbindVisibility: unbindVisibility || false,
+                }
+            }
+        }
+
+        newMO.macro = macro || {};
+
+        newMO.soundOnly = {
+            sound: {
+                delay: audio?.a01?.delay ?? 0,
+                enable: soundOnly?.enable ?? false,
+                file: audio?.a01?.file ?? "",
+                startTime: audio?.a01?.startTime ?? 0,
+                volume: audio?.a01?.volume ?? 1,
+            }
+        }
+
+        newMO.source = newExtraFX();
+
+        function convertToCustom(inOut) {
+            let newColor = color || "blue";
+
+            return `autoanimations.static.spell.bless.${inOut}.${newColor}`
+            //return `modules/jb2a_patreon/1st_Level/Bless/Bless_01_Regular_${newColor}_${inOut}_400x400.webm`;
+        }
+
+        return newMO;
+    }
+
+    async function convertAEShield(oldMO, newMO) {
+
+        let { addCTA, aeType, animation, audio, below, color, custom, endEffect, macro, menuType, name,
+            scale, soundOnly, type, unbindAlpha, unbindVisibility, variant } = oldMO;
+
+        newMO.id = uuidv4();
+        newMO.label = name;
+
+        newMO.data = {
+            intro: {
+                customPath: convertToCustom("intro"),
+                options: {
+                    below: below || false,
+                    fadeIn: 500,
+                    opacity: 1,
+                    size: scale || 1,
+                    wait: -500,
+                },
+                sound: {
+                    delay: audio?.a01?.delay ?? 0,
+                    enable: soundOnly?.enable ?? false,
+                    file: audio?.a01?.file ?? "",
+                    startTime: audio?.a01?.startTime ?? 0,
+                    volume: audio?.a01?.volume ?? 1,
+                }
+            },
+            loop: {
+                customPath: convertToCustom("loop"),
+                options: {
+                    below: below || false,
+                    fadeOut: 500,
+                    opacity: 1,
+                    persistent: addCTA || false,
+                    size: scale || 1,
+                    unbindAlpha: unbindAlpha || false,
+                    unbindVisibility: unbindVisibility || false,
+                    wait: -1000,
+                }
+            },
+            outro: {
+                customPath: convertToCustom("outro"),
+                options: {
+                    fadeOut: 500,
+                    opacity: 1,
+                    size: scale || 1,
+                },
+                sound: { enable: false }
+            }
+        }
+
+        newMO.macro = macro || {};
+
+        newMO.soundOnly = {
+            sound: {
+                delay: audio?.a01?.delay ?? 0,
+                enable: soundOnly?.enable ?? false,
+                file: audio?.a01?.file ?? "",
+                startTime: audio?.a01?.startTime ?? 0,
+                volume: audio?.a01?.volume ?? 1,
+            }
+        }
+
+        newMO.source = newExtraFX();
+
+        function convertToCustom(type) {
+            let newColor = color || "blue";
+            let newVariant = variant || "01";
+            let newType = type || "loop"
+
+            return `autoanimations.static.spell.shieldspell.${newType}.${newVariant}.${newColor}`
+            //return `modules/jb2a_patreon/1st_Level/Shield/Shield_${newVariant}_Regular_${newColor}_${section}_400x400.webm`;
+        }
+
+        return newMO;
+    }
+
 }
+
 
 export { mergeVersion06 }

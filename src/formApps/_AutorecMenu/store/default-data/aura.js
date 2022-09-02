@@ -17,6 +17,7 @@ export const aura = [
             unbindAlpha: false,
             unbindVisbility: false,
             zIndex: 1,
+            radius: 3,
          },
       }),
       source: common.source(),

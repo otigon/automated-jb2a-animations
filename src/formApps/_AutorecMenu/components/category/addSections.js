@@ -1,104 +1,64 @@
-import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 
 const melee = {
-    explosion: {
-        options: {},
-        sound: {},
-        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-    },
+    explosion: setStatic(),
     label: "",
     levels3d: {
-        data: {},
+        data: {color01: "#FFFFFF", color02: "#FFFFFF"},
+        sound: setSound(),
     },
     macro: {},
     meleeSwitch: {
         options: {},
         video: { menuType: 'weapon', animation: 'arrow', variant: 'regular', color: 'regular' },
-        sound: {},
+        sound: setSound(),
     },
     menu: 'melee',
     primary: {
         options: {},
-        sound: {},
+        sound: setSound(),
         video: { dbSection: "melee", menuType: 'weapon', animation: 'club', variant: '01', color: 'white' },
     },
-    source: {
-        options: {},
-        sound: {},
-        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-    },
-    target: {
-        options: {},
-        sound: {},
-        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-    },
-    soundOnly: {
-        sound: {}
-    }
+    source: setStatic(),
+    target: setStatic(),
+    soundOnly: { sound: setSound()},
 }
 
 const range = {
-    explosion: {
-        options: {},
-        sound: {},
-        video: { dbSection: "static",menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-    },
+    explosion: setStatic(),
     label: "",
     levels3d: {
-        data: {},
+        data: {color01: "#FFFFFF", color02: "#FFFFFF"},
+        sound: setSound(),
     },
     macro: {},
     menu: 'range',
     primary: {
         options: {},
-        sound: {},
+        sound: setSound(),
         video: { dbSection: "range",menuType: 'weapon', animation: 'arrow', variant: 'regular', color: 'regular' },
     },
-    source: {
-        options: {},
-        sound: {},
-        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-    },
-    target: {
-        options: {},
-        sound: {},
-        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-    },
-    soundOnly: {
-        sound: {}
-    }
+    source: setStatic(),
+    target: setStatic(),
+    soundOnly: { sound: setSound()},
 }
 
 const ontoken = {
-    explosion: {
-        options: {},
-        sound: {},
-        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-    },
+    explosion: setStatic(),
     label: "",
     levels3d: {
-        data: {},
+        data: {color01: "#FFFFFF", color02: "#FFFFFF"},
+        sound: setSound(),
     },
     macro: {},
     menu: 'ontoken',
     primary: {
-        options: {},
-        sound: {},
+        options: {playOn: "default"},
+        sound: setSound(),
         video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },       
     },
-    source: {
-        options: {},
-        sound: {},
-        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-    },
-    target: {
-        options: {},
-        sound: {},
-        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-    },
-    soundOnly: {
-        sound: {}
-    }
+    source: setStatic(),
+    target: setStatic(),
+    soundOnly: { sound: setSound()},
 }
 
 const templatefx = {
@@ -107,30 +67,15 @@ const templatefx = {
     menu: "templatefx",
     primary: {
         options: {},
-        sound: {},
+        sound: setSound(),
         video: { dbSection: "templatefx", menuType: 'circle', animation: 'calllightning', variant: '01', color: 'blue' },
     },
-    source: {
-        options: {},
-        sound: {},
-        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-    },
-    target: {
-        options: {},
-        sound: {},
-        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-    },
-    soundOnly: {
-        sound: {}
-    }
+    source: setStatic(),
+    target: setStatic(),
+    soundOnly: { sound: setSound()},
 }
 
 const aura = {
-    explosion: {
-        options: {},
-        sound: {},
-        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-    },
     label: "",
     levels3d: {
         data: {},
@@ -139,28 +84,49 @@ const aura = {
     menu: 'ontoken',
     primary: {
         options: {},
-        sound: {},
+        sound: setSound(),
         video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
     },
-    source: {
-        options: {},
-        sound: {},
-        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-    },
-    target: {
-        options: {},
-        sound: {},
-        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
-    },
-    soundOnly: {
-        sound: {}
-    }
+    source: setStatic(),
+    target: setStatic(),
+    soundOnly: { sound: setSound()},
 }
 
 const preset = {
-    id: uuidv4(),
     label: "",
     presetType: "",
+    soundOnly: {
+        sound: {}
+    },
+    macro: {},
 }
 
-export { melee, range, ontoken, templatefx, aura, preset }
+const aefx = {
+    label: "",
+    activeEffectType: "",
+    source: setStatic(),
+    soundOnly: { sound: setSound()},
+    macro: {},
+}
+
+function setStatic() {
+    return {
+        options: {},
+        sound: setSound(),
+        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
+    }
+}
+function setSound() {
+    return {
+        delay: 0,
+        enable: false,
+        file: "",
+        startTime: 0,
+        volume: 1,
+    }
+}
+
+function setPrimary() {
+
+}
+export { melee, range, ontoken, templatefx, aura, preset, aefx }

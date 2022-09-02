@@ -2,7 +2,7 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
-    console.log(TJSSvgFolder)
+
     import NumberInput from "./inputComponents/NumberInput.svelte";
     import Opacity from "./inputComponents/Opacity.svelte";
 

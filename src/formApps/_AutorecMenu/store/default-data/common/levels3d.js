@@ -9,8 +9,8 @@ export function levels3d() {
       data: {
          alpha: void 0,
          arc: void 0,
-         color01: void 0,
-         color0: void 0,
+         color01: "#FFFFFF",
+         color02: "#FFFFFF",
          delay: void 0,
          emittersize: void 0,
          gravity: void 0,

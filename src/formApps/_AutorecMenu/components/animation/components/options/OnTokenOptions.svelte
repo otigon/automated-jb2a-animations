@@ -4,6 +4,7 @@
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
     import NumberInput from "./inputComponents/NumberInput.svelte";
+    import ScaleRadius from "./inputComponents/ScaleRadius.svelte";
     import Opacity from "./inputComponents/Opacity.svelte";
 
     export let animation;
@@ -141,12 +142,11 @@
                     <Opacity {animation} />
                 </td>
                 <td>
-                    <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
-                    <NumberInput
+                    <!--Set Size of Animation-->
+                    <ScaleRadius
                         {animation}
-                        label={localize("autoanimations.menus.scale")}
                         section={"primary"}
-                        field={"scale"}
+                        field={"size"}
                         step="0.01"
                     />
                 </td>
@@ -164,11 +164,64 @@
                 <td>
                     <NumberInput
                     {animation}
+                    label={localize("autoanimations.menus.fadeIn")}
+                    section={"primary"}
+                    field={"fadeIn"}
+                    placeholder=250
+                    step="0.01"
+                />
+                </td>
+                <td>
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.fadeOut")}
+                    section={"primary"}
+                    field={"fadeOut"}
+                    placeholder=500
+                    step="0.01"
+                />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <NumberInput
+                    {animation}
                     label={localize("autoanimations.menus.wait")}
                     section={"primary"}
                     field={"wait"}
                     step="0.01"
                 />
+                </td>
+                <td>
+                    <!--Choose how to play the animation-->
+                    <div
+                        class="form-group"
+                    >
+                        <div>
+                            <label for="">{localize("autoanimations.menus.playOn")}</label>
+                        </div>
+                        <div>
+                            <select
+                                bind:value={$animation.primary.options.playOn}
+                                style="width:90%; height: 1em"
+                            >
+                                <option value="source"
+                                >{localize("autoanimations.menus.source")}</option
+                                >
+                                <option value="target"
+                                    >{localize("autoanimations.menus.target")}</option
+                                >
+                                <option value="default"
+                                    >{localize(
+                                        "autoanimations.menus.targetDefault"
+                                    )}</option
+                                >
+                                <option value="both"
+                                    >{localize("autoanimations.menus.both")}</option
+                                >
+                            </select>
+                        </div>
+                    </div>
                 </td>
             </tr>
         </table>

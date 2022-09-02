@@ -87,11 +87,14 @@ export class AAAnimationData {
             repeat: primaryOptions.repeat || 1,
             delay: primaryOptions.delay || 250,
             scale: primaryOptions.scale || 1,
+            setRadius: primaryOptions.setRadius || false,
+            size: primaryOptions.size || 1,
+            radius: primaryOptions.radius || 1,
             scaleX: primaryOptions.scaleX || 1,
             scaleY: primaryOptions.scaleY || 1,
             opacity: primaryOptions.opacity || 1,
             persistent: primaryOptions.persistent || false,
-            staticType: primaryOptions.staticType || "targetDefault",
+            playOn: primaryOptions.playOn || "targetDefault",
             isShieldFX: primaryOptions.menuType === 'shieldfx' ? true : false,
             anchorX: primaryOptions.anchorX || 0.5,
             anchorY: primaryOptions.anchorY || 0.5,
@@ -141,7 +144,8 @@ export class AAAnimationData {
             macro: {
                 enabled: flags.macro?.enable ?? false,
                 name: flags.macro?.name ?? "",
-                args: flags.macro?.args ? flags.macro.args.split(',').map(s => s.trim()) : "",
+                //args: flags.macro?.args ? flags.macro.args.split(',').map(s => s.trim()) : "",
+                args: this.strToObj(flags.macro?.args),
                 playWhen: flags.macro?.playWhen ?? "0",
             }
         }
@@ -161,6 +165,22 @@ export class AAAnimationData {
         data.playSwitchSound = data.switchAudio.enable && data.switchAudio.file && data.switchType !== "off" ? true : false;
         if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
         return data;
+    }
+
+    static strToObj(data) {
+
+        if (!data) { return []; }
+        let obj = {};
+        try {
+            if (data && typeof data === 'string') {
+                let objStr = data.replaceAll("\n", "").match(/\{(.)+\}/g);
+                eval("obj =" + objStr);
+            }
+            return obj
+        }
+        catch (err) {
+            return data.split(',').map(s => s.trim())
+        }
     }
 
     static async _explosionData(handler, autorec) {

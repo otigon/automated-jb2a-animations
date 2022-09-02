@@ -3,9 +3,9 @@
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
-    import NumberInput from "./inputComponents/NumberInput.svelte";
-    import ScaleRadius from "./inputComponents/ScaleRadius.svelte";
-    import Opacity from "./inputComponents/Opacity.svelte";
+    import NumberInput from "../../components/options/inputComponents/NumberInput.svelte";
+    import ScaleRadius from "../../components/options/inputComponents/ScaleRadius.svelte";
+    import Opacity from "../../presetMenus/inputComponents/Opacity02.svelte";
 
     export let animation;
     export let category;
@@ -20,7 +20,12 @@
         label: game.i18n.localize("autoanimations.menus.options"),
     };
 
-    $: persistent = $animation.target.options.persistent;
+    $: persistent = $animation.data.options.persistent;
+    $: isRadius = $animation.data.options.setRadius;
+
+    const addWidth = game.i18n.localize("autoanimations.menus.add") + " " + game.i18n.localize("autoanimations.menus.token") + " " + game.i18n.localize("autoanimations.menus.width");
+
+
 </script>
 
 <div class="aa-options-border">
@@ -37,13 +42,13 @@
                 <td>
                     <!--Set belowToken-->
                     <div class="form-group">
-                        <label for="SBelow {animation._data.id}"
+                        <label for="Below {animation._data.id}"
                             >{localize("autoanimations.menus.below")}
                         </label>
                         <input
                             type="checkbox"
-                            id="SBelow {animation._data.id}"
-                            bind:checked={$animation.target.options.below}
+                            id="Below {animation._data.id}"
+                            bind:checked={$animation.data.options.below}
                         />
                     </div>
                 </td>
@@ -52,7 +57,7 @@
                     <NumberInput
                         {animation}
                         label={localize("autoanimations.menus.repeat")}
-                        section={"target"}
+                        section={"data"}
                         field={"repeat"}
                         isDisabled={persistent ? "aa-disableOpacity" : ""}
                     />
@@ -64,24 +69,23 @@
                         label={localize("autoanimations.menus.repeat") +
                             " " +
                             localize("autoanimations.menus.delay")}
-                        section={"target"}
+                        section={"data"}
                         field={"delay"}
-                        placeholder="250"
                         isDisabled={persistent ? "aa-disableOpacity" : ""}
                     />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <!--Set OnlyX-->
+                    <!--Set Persistence-->
                     <div class="form-group">
-                        <label for="TPersist {animation._data.id}"
+                        <label for="Persist {animation._data.id}"
                             >{localize("autoanimations.menus.persistant")}
                         </label>
                         <input
                             type="checkbox"
-                            id="TPersist {animation._data.id}"
-                            bind:checked={$animation.target.options.persistent}
+                            id="Persist {animation._data.id}"
+                            bind:checked={$animation.data.options.persistent}
                         />
                     </div>
                 </td>
@@ -92,14 +96,14 @@
                             ? ''
                             : 'aa-disableOpacity'}"
                     >
-                        <label for="TVis {animation._data.id}"
+                        <label for="Vis {animation._data.id}"
                             >{localize("autoanimations.menus.bind")}
                             {localize("autoanimations.menus.visibility")}
                         </label>
                         <input
                             type="checkbox"
-                            id="TVis {animation._data.id}"
-                            bind:checked={$animation.target.options
+                            id="Vis {animation._data.id}"
+                            bind:checked={$animation.data.options
                                 .unbindVisibility}
                         />
                     </div>
@@ -111,14 +115,15 @@
                             ? ''
                             : 'aa-disableOpacity'}"
                     >
-                        <label for="TAlpha {animation._data.id}"
+                        <label for="Alpha {animation._data.id}"
                             >{localize("autoanimations.menus.bind")}
                             {localize("autoanimations.menus.alpha")}
                         </label>
                         <input
                             type="checkbox"
-                            id="TAlpha {animation._data.id}"
-                            bind:checked={$animation.target.options.unbindAlpha}
+                            id="Alpha {animation._data.id}"
+                            bind:checked={$animation.data.options
+                                .unbindAlpha}
                         />
                     </div>
                 </td>
@@ -127,13 +132,13 @@
                 <td>
                     <!--Set Masking-->
                     <div class="form-group">
-                        <label for="SMasked {animation._data.id}"
+                        <label for="Masked {animation._data.id}"
                             >{localize("autoanimations.menus.mask")}
                         </label>
                         <input
                             type="checkbox"
-                            id="SMasked {animation._data.id}"
-                            bind:checked={$animation.target.options.isMasked}
+                            id="Masked {animation._data.id}"
+                            bind:checked={$animation.data.options.isMasked}
                         />
                     </div>
                 </td>
@@ -142,33 +147,27 @@
                     <Opacity {animation} />
                 </td>
                 <td>
-                    <!--Set Size of Animation-->
+                    <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
                     <ScaleRadius
                         {animation}
-                        section={"target"}
-                        field={"size"}
+                        section={"data"}
+                        field={"scale"}
                         step="0.01"
                     />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <!--Set the Z-Index of the Animation-->
+                    <!--Set Z-Index of Animation-->
                     <NumberInput
                         {animation}
                         label={localize("autoanimations.menus.z-index")}
-                        section={"target"}
+                        section={"data"}
                         field={"zIndex"}
                     />
                 </td>
                 <td>
-                    <!--Set Delay for proceeding animation-->
-                    <NumberInput
-                        {animation}
-                        label={localize("autoanimations.menus.delay")}
-                        section={"target"}
-                        field={"wait"}
-                    />
+                    
                 </td>
             </tr>
         </table>

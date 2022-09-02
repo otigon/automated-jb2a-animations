@@ -29,7 +29,7 @@ export async function ontokenSeq(handler, animationData) {
     // Play Macro if Awaiting
     if (data.playMacro && data.macro.playWhen === "1") {
         let userData = data.macro.args;
-        aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
+        aaSeq.macro(data.macro.name, handler.workflow, handler, userData)
     }
     // Extra Effects => Source Token if active
     if (sourceFX.enabled) {
@@ -39,9 +39,9 @@ export async function ontokenSeq(handler, animationData) {
     aaSeq.thenDo(function () {
         Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
     })
-    let sourceTokenGS = sourceToken.w / canvas.grid.size;
+    let sourceTokenGS = data.setRadius ? data.size : (sourceToken.w / canvas.grid.size) * 1.5 * data.size;
     let explosionSound = false;
-    if (data.staticType === "source" || data.staticType === "sourcetarget" || (data.staticType === "targetDefault" && handler.allTargets.length < 1)) {
+    if (data.playOn === "source" || data.playOn === "sourcetarget" || (data.playOn === "targetDefault" && handler.allTargets.length < 1)) {
         const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
         const playPersist = (!checkAnim && data.persistent) ? true : false;
         if (data.isShieldFX) {
@@ -53,7 +53,7 @@ export async function ontokenSeq(handler, animationData) {
                 bottomEffect.name("spot" + ` ${sourceToken.id}`)
             }
             bottomEffect.opacity(data.opacity)
-            bottomEffect.size(sourceTokenGS * 1.5 * data.scale, {gridUnits: true})
+            bottomEffect.size(sourceTokenGS, {gridUnits: true})
             bottomEffect.belowTokens(true)
             if (data.isMasked) {
                 bottomEffect.mask(sourceToken)
@@ -73,7 +73,7 @@ export async function ontokenSeq(handler, animationData) {
                 topEffect.name("spot" + ` ${sourceToken.id}`)
             }
             topEffect.opacity(data.opacity)
-            topEffect.size(sourceTokenGS * 1.5 * data.scale, {gridUnits: true})
+            topEffect.size(sourceTokenGS, {gridUnits: true})
             topEffect.belowTokens(false)
             if (data.isMasked) {
                 topEffect.mask(sourceToken)
@@ -93,7 +93,7 @@ export async function ontokenSeq(handler, animationData) {
                 aaEffect.name("spot" + ` ${sourceToken.id}`)
             }
             aaEffect.opacity(data.opacity)
-            aaEffect.size(sourceTokenGS * 1.5 * data.scale, {gridUnits: true})
+            aaEffect.size(sourceTokenGS, {gridUnits: true})
             aaEffect.belowTokens(data.below)
             if (data.isMasked) {
                 aaEffect.mask(sourceToken)
@@ -125,11 +125,11 @@ export async function ontokenSeq(handler, animationData) {
     }
     let targetSound = false;
     // Target Effect sections
-    if ((data.staticType === 'target' || data.staticType === 'targetDefault' || data.staticType === 'sourcetarget') && handler.allTargets.length > 0) {
+    if ((data.playOn === 'target' || data.playOn === 'targetDefault' || data.playOn === 'sourcetarget') && handler.allTargets.length > 0) {
         //for (var i = 0; i < handler.allTargets.length; i++) {
         //let target = handler.allTargets[i]
         for (let target of handler.allTargets) {
-            let targetTokenGS = target.w / canvas.grid.size
+            let targetTokenGS = data.setRadius ? data.size : (target.w / canvas.grid.size) * 1.5 * data.size;
             let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0
             let hit;
             if (handler.playOnMiss) {
@@ -144,7 +144,7 @@ export async function ontokenSeq(handler, animationData) {
                     bottomEffect.file(bottomAnim)
                     bottomEffect.name("spot" + ` ${target.id}`)
                     bottomEffect.opacity(data.opacity)
-                    bottomEffect.size(targetTokenGS * 1.5 * data.scale, {gridUnits: true})
+                    bottomEffect.size(targetTokenGS, {gridUnits: true})
                     bottomEffect.belowTokens(true)
                     if (data.isMasked) {
                         bottomEffect.mask(target)
@@ -159,7 +159,7 @@ export async function ontokenSeq(handler, animationData) {
                     topEffect.file(onToken.fileData)
                     topEffect.name("spot" + ` ${target.id}`)
                     topEffect.opacity(data.opacity)
-                    topEffect.size(targetTokenGS * 1.5 * data.scale, {gridUnits: true})
+                    topEffect.size(targetTokenGS, {gridUnits: true})
                     topEffect.belowTokens(false)
                     if (data.isMasked) {
                         topEffect.mask(target)
@@ -177,7 +177,7 @@ export async function ontokenSeq(handler, animationData) {
                     aaEffect.name("spot" + ` ${target.id}`)
                     aaEffect.opacity(data.opacity)
                     //aaEffect.scale(scale * data.scale)
-                    aaEffect.size(effectScale * 1.5 * data.scale, {gridUnits: true})
+                    aaEffect.size(effectScale, {gridUnits: true})
                     aaEffect.belowTokens(data.below)
                     if (data.isMasked) {
                         aaEffect.mask(target)
@@ -212,12 +212,12 @@ export async function ontokenSeq(handler, animationData) {
             }
         }
     }
-    aaSeq.addSequence(await AAAnimationData._sounds({ animationData, explosionSound: data.staticType !== "source" && explosionSound, targetSound }))
+    aaSeq.addSequence(await AAAnimationData._sounds({ animationData, explosionSound: data.playOn !== "source" && explosionSound, targetSound }))
     // Macro if Concurrent
     if (data.playMacro && data.macro.playWhen === "0") {
         let userData = data.macro.args;
         new Sequence()
-            .macro(data.macro.name, handler.workflow, handler, [...userData])
+            .macro(data.macro.name, handler.workflow, handler, userData)
             .play()
     }
     aaSeq.play()

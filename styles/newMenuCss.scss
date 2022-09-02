@@ -488,6 +488,33 @@
             cursor: not-allowed;
           }
     }
+    .aaSelect {
+        table {
+            border-collapse: separate;
+            border: none;
+            background: none;
+            font-size: 0.8em;
+            text-align: center;
+            padding-right: 1em;
+            padding-left: 1em;
+            }
+        table.aaMenu {
+            td {
+                border: none;
+                select {
+                    align-self: center;
+                }
+                label {
+                    font-size: large;
+                    font-family: "Modesto Condensed", "Palatino Linotype", serif;
+                    font-weight: bold;
+                }
+            }
+            tr {
+                background: transparent;
+            }
+        }
+    }
     
 }
 
