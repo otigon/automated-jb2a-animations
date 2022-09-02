@@ -219,16 +219,6 @@
     border-radius: 20px;
 }
 
-.aa-options-border {
-    margin-right: 3%;
-    margin-left: 3%;
-    border: 1px solid rgba(109, 109, 109, 0.75);
-    border-radius: 5px;
-    background: rgba(207, 171, 112, 0.09);
-    padding: 5px;
-    margin-bottom: 5px;
-}
-
 .aa-3wide {
     display: grid;
     grid-template-columns: 32.67% 32.67% 32.67%;
@@ -349,15 +339,6 @@
     margin-bottom: 5px;
 }
 
-.aa-primary-border {
-    margin-right: 3%;
-    margin-left: 3%;
-    border: 3px solid rgba(0, 0, 0, 0.6);
-    border-radius: 5px;
-    background: rgb(200 200 200);
-    margin-bottom: 5px;
-}
-
 .aa-cblabel {
     line-height: 1.25em;
     width: 7em;
@@ -399,6 +380,15 @@
     }
 }
 #AA-autorec-settings-New {
+    .aa-primary-border {
+        margin-right: 3%;
+        margin-left: 3%;
+        border: 3px solid rgba(0, 0, 0, 0.6);
+        border-radius: 5px;
+        background: rgb(200 200 200);
+        margin-bottom: 5px;
+    }
+    
     table {
         border-collapse: separate;
         border: none;
@@ -519,6 +509,13 @@
 }
 
 .aa-options-border {
+    margin-right: 3%;
+    margin-left: 3%;
+    border: 1px solid rgba(109, 109, 109, 0.75);
+    border-radius: 5px;
+    background: rgba(207, 171, 112, 0.09);
+    padding: 5px;
+    margin-bottom: 5px;
     input[type="checkbox"] {
         /* Add if not using autoprefixer */
         -webkit-appearance: none;

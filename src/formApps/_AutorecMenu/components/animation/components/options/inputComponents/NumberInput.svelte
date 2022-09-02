@@ -1,6 +1,6 @@
 <script>
     export let animation;
-    export let section;
+    export let section = "primary";
     export let field;
     export let label;
     export let isDisabled = "";

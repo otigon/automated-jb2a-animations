@@ -17,7 +17,8 @@ import {
    newTypeMenu,
    newNameMenu,
    newVariantMenu,
-   newColorMenu
+   newColorMenu,
+   aaReturnWeapons,
 } from "../../../../animation-functions/databases/jb2a-menu-options.js";
 console.log(WorldSettingArrayStore)
 export class CategoryStore extends WorldSettingArrayStore {
@@ -174,6 +175,7 @@ export class CategoryStore extends WorldSettingArrayStore {
    get animationMenu() { return newNameMenu }
    get variantMenu() { return newVariantMenu }
    get colorMenu() { return newColorMenu }
+   get returnWeapons() { return aaReturnWeapons }
 
    databaseToClipboard() {
       const dbPath = category.getDBPath(section, idx, animation._data[section][section02].dbSection);
