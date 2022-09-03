@@ -34,7 +34,7 @@ export async function createActiveEffectsPF1(effect) {
         if (aaDebug) { aaDebugger("Failed to find the Token for the Active Effect") }
         return;
     }
-    const aeNameField = effect.data?.label + `${aeToken.id}`
+    const aeNameField = effect.label + `${aeToken.id}`
     const checkAnim = Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
     if (checkAnim) {
         if (aaDebug) { aaDebugger("Animation is already present on the Token, returning.") }
@@ -42,7 +42,7 @@ export async function createActiveEffectsPF1(effect) {
     }
 
     // Checks to see if the BUFF has an Item Origin. If YES get that item, otherwise assign empty object
-    const itemOrigin = effect.data.origin;
+    const itemOrigin = effect.origin;
     const originatingItem = itemOrigin ? await fromUuid(itemOrigin) : {}
     /*
     // If A-A flags are preset on the AE, ensure they are up-to-date
@@ -79,11 +79,11 @@ export async function createActiveEffectsPF1(effect) {
     // Update the Active Effect flags with flagData
     //await effect.update({ 'flags.autoanimations': flagData })
 
-    if (effect.data?.flags?.pf1?.origin?.item) {
-        let item = aeToken.actor.items.get(effect.data?.flags?.pf1?.origin?.item)
-        let flags = item?.data?.flags?.autoanimations;
+    if (effect.flags?.pf1?.origin?.item) {
+        let item = aeToken.actor.items.get(effect.flags?.pf1?.origin?.item)
+        let flags = item?.flags?.autoanimations;
         if (flags) {
-            effect.data.flags.autoanimations = flags;
+            effect.flags.autoanimations = flags;
         }
     }
 
@@ -113,11 +113,11 @@ export async function createActiveEffectsPF1(effect) {
  */
 export async function deleteActiveEffectsPF1(effect) {
     const aeToken = effect.parent?.token || canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id));
-    if (effect.data?.flags?.pf1?.origin?.item) {
-        let item = aeToken.actor.items.get(effect.data?.flags?.pf1?.origin?.item)
-        let flags = item?.data?.flags?.autoanimations;
+    if (effect.flags?.pf1?.origin?.item) {
+        let item = aeToken.actor.items.get(effect.flags?.pf1?.origin?.item)
+        let flags = item?.flags?.autoanimations;
         if (flags) {
-            effect.data.flags.autoanimations = flags;
+            effect.flags.autoanimations = flags;
         }
     }
     const aaDebug = game.settings.get("autoanimations", "debug")
@@ -130,7 +130,7 @@ export async function deleteActiveEffectsPF1(effect) {
     // If no animations, exit early, Else continue with gathering data
     if (aaEffects.length > 0) {
         //const itemData = aaEffects[0].data?.flags?.autoanimations ?? {};
-        const itemData = effect.data?.flags?.autoanimations ?? {};
+        const itemData = effect.flags?.autoanimations ?? {};
 
         const data = {
             token: undefined,
@@ -179,7 +179,7 @@ export async function deleteActiveEffectsPF1(effect) {
         Sequencer.EffectManager.endEffects({ origin: effect.uuid, object: handler.sourceToken })
     } else {
 
-        const itemData = effect.data?.flags?.autoanimations ?? {};
+        const itemData = effect.flags?.autoanimations ?? {};
         //const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
         const data = {
             token: aeToken,

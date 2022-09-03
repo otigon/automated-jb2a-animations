@@ -9,7 +9,7 @@ export async function deleteEffectsSfrpg(item) {
 
     // If no animations, exit early, Else continue with gathering data
     if (aaEffects.length > 0) {  
-        const itemData = item.data?.flags?.autoanimations ?? {};
+        const itemData = item.flags?.autoanimations ?? {};
         const data = {
             token: undefined,
             targets: [],
@@ -56,7 +56,7 @@ export async function deleteEffectsSfrpg(item) {
         // End all Animations on the token with .origin(effect.uuid)
         Sequencer.EffectManager.endEffects({ origin: item.uuid, object: handler.sourceToken })
     } else {
-        const itemData = item.data?.flags?.autoanimations ?? {};
+        const itemData = item.flags?.autoanimations ?? {};
         //const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
         const data = {
             token: aeToken,

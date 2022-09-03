@@ -28,7 +28,7 @@ export async function createActiveEffectswfrp4e(effect) {
         if (aaDebug) { aaDebugger("Failed to find the Token for the Active Effect") }
         return;
     }
-    const aeNameField = effect.data?.label + `${aeToken.id}`
+    const aeNameField = effect.label + `${aeToken.id}`
     const checkAnim = Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
     if (checkAnim) {
         if (aaDebug) { aaDebugger("Animation is already present on the Token, returning.") }
@@ -88,7 +88,7 @@ export async function deleteActiveEffectswfrp4e(effect) {
 
     // If no animations, exit early, Else continue with gathering data
     if (aaEffects.length > 0) {  
-        const itemData = effect.data?.flags?.autoanimations ?? {};
+        const itemData = effect.flags?.autoanimations ?? {};
         const data = {
             token: undefined,
             targets: [],
@@ -135,7 +135,7 @@ export async function deleteActiveEffectswfrp4e(effect) {
         // End all Animations on the token with .origin(effect.uuid)
         Sequencer.EffectManager.endEffects({ origin: effect.uuid, object: handler.sourceToken })
     } else {
-        const itemData = effect.data?.flags?.autoanimations ?? {};
+        const itemData = effect.flags?.autoanimations ?? {};
         //const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
         const data = {
             token: aeToken,
