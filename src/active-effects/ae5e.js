@@ -16,7 +16,7 @@ export function disableAnimations() {
  * 
  */
 export async function createActiveEffects5e(effect) {
-    if (effect.data?.disabled) { return; }
+    if (effect.disabled) { return; }
     //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
     //await wait(150)
     const aaDebug = game.settings.get("autoanimations", "debug")
@@ -30,7 +30,7 @@ export async function createActiveEffects5e(effect) {
         if (aaDebug) { aaDebugger("Failed to find the Token for the Active Effect") }
         return;
     }
-    const aeNameField = effect.data?.label + `${aeToken.id}`
+    const aeNameField = effect.label + `${aeToken.id}`
     const checkAnim = Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
     if (checkAnim) {
         if (aaDebug) { aaDebugger("Animation is already present on the Token, returning.") }
@@ -88,7 +88,7 @@ export async function deleteActiveEffects5e(effect) {
 
     // If no animations, exit early, Else continue with gathering data
     if (aaEffects.length > 0) {  
-        const itemData = effect.data?.flags?.autoanimations ?? {};
+        const itemData = effect.flags?.autoanimations ?? {};
         const data = {
             token: undefined,
             targets: [],
@@ -135,7 +135,7 @@ export async function deleteActiveEffects5e(effect) {
         // End all Animations on the token with .origin(effect.uuid)
         Sequencer.EffectManager.endEffects({ origin: effect.uuid, object: handler.sourceToken })
     } else {
-        const itemData = effect.data?.flags?.autoanimations ?? {};
+        const itemData = effect.flags?.autoanimations ?? {};
         //const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
         const data = {
             token: aeToken,
@@ -190,19 +190,19 @@ export async function checkConcentration(effect) {
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Check effect label and return if it is not equal to "concentrating"
-    const label = effect.data?.label || "";
+    const label = effect.label || "";
     if (label.toLowerCase() !== "concentrating") { return; }
 
     // Get Originating Item. If no Origin, return
-    const origin = effect.data?.origin
+    const origin = effect.origin
     if (!origin) {
         if (aaDebug) { aaDebugger("Failed to find an Origin for Concentration") }
         return;
     }
 
     // Get arrays of Background and Foreground Tiles with the A-A Origin flag UUID matching the Effect Origin
-    const bgTiles = canvas.background.placeables.filter(i => i.data?.flags?.autoanimations?.origin === origin)
-    const fgTiles = canvas.foreground.placeables.filter(i => i.data?.flags?.autoanimations?.origin === origin);
+    const bgTiles = canvas.background.placeables.filter(i => i.flags?.autoanimations?.origin === origin)
+    const fgTiles = canvas.foreground.placeables.filter(i => i.flags?.autoanimations?.origin === origin);
     if (bgTiles.length < 1 && fgTiles.length < 1) {
         if (aaDebug) { aaDebugger("Failed to find any Tiles tied to Concentration") }
         return;

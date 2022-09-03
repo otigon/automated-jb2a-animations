@@ -236,9 +236,9 @@ Hooks.once('ready', async function () {
                             return null;
                         }
                     }
-                    const itemId = extractItemId(msg.data.content);
+                    const itemId = extractItemId(msg.content);
                     if (!itemId) { return; }
-                    const tokenId = msg.data.speaker.token;
+                    const tokenId = msg.speaker.token;
                     const sourceToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId));
 
                     if (!sourceToken) { return; }
@@ -285,7 +285,7 @@ Hooks.once('ready', async function () {
                     const controlledTokens = canvas.tokens.controlled;
                     let token;
                     if (controlledTokens.length > 0) {
-                        token = controlledTokens.find(token => token.data.actorId === SwadeTokenOrActor.id);
+                        token = controlledTokens.find(token => token.system.actorId === SwadeTokenOrActor.id);
                     }
                     if (token) { SwadeTokenOrActor = token; }
                     swadeData(SwadeTokenOrActor, SwadeItem)
@@ -309,7 +309,7 @@ Hooks.once('ready', async function () {
                 }
                 Hooks.on("BRSW-RollItem", async (data, html) => {
                     const {actorOrToken, item} = await get_brsw_data (data)
-                    if (item.data.flags?.autoanimations?.animType === "template" || (item.data.flags?.autoanimations?.animType === "preset" && item.data.flags?.autoanimations?.animation === "fireball")) {
+                    if (item.flags?.autoanimations?.animType === "template" || (item.flags?.autoanimations?.animType === "preset" && item.flags?.autoanimations?.animation === "fireball")) {
                         return //Return to prevent duplicate effects on placing a template.
                     } else { swadeData(actorOrToken, item) }
                 });
@@ -319,7 +319,7 @@ Hooks.once('ready', async function () {
                 })
                 Hooks.on("BRSW-CreateItemCardNoRoll", async (data) => {
                     const {actorOrToken, item} = await get_brsw_data (data)
-                    if (item.data.flags?.autoanimations?.animType === "template" || (item.data.flags?.autoanimations?.animType === "preset" && item.data.flags?.autoanimations?.animation === "fireball")) {
+                    if (item.flags?.autoanimations?.animType === "template" || (item.flags?.autoanimations?.animType === "preset" && item.flags?.autoanimations?.animation === "fireball")) {
                         return //Return to prevent duplicate effects on placing a template.
                     } else { swadeData(actorOrToken, item) }
                 })
@@ -593,7 +593,7 @@ async function midiTemplateAnimations(msg) {
 
 function checkMessege(msg) {
     try {
-        return msg.data?.flags['midi-qol'].type;
+        return msg.flags['midi-qol'].type;
     } catch (exception) {
         return false;
     }
@@ -647,11 +647,11 @@ async function setUp5eCore(msg) {
     switch (game.system.id) {
         case "dnd5e":
             handler = await systemData.make(msg);
-            rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
+            rollType = (msg.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.flavor?.toLowerCase() ?? "pass");
             break;
         case "sw5e":
             handler = await systemData.make(msg);
-            rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
+            rollType = msg.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
 
@@ -843,48 +843,48 @@ async function pf2eReady(msg) {
 
     const itemType = handler.itemType;
     let damage; //= /*handler.item.damageValue ||*/ //handler.item?.data.data.damage?.length || handler.item?.data?.data?.damage?.value["0"]?.value;
-    const spellType = handler.item?.data?.data?.spellType?.value ?? "utility";
+    const spellType = handler.item?.system?.spellType?.value ?? "utility";
     const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
-    if (handler.shouldPlayImmediately && !msg.data.flavor?.toLowerCase().includes("damage")) {
+    if (handler.shouldPlayImmediately && !msg.flavor?.toLowerCase().includes("damage")) {
         trafficCop(handler);
         return;
     }
     if (handler.shouldPlayImmediately) { return };
     switch (itemType) {
         case "spell":
-            damage = msg.isDamageRoll || handler.item?.data?.data?.damage?.value["0"]?.value;
+            damage = msg.isDamageRoll || handler.item?.system?.damage?.value["0"]?.value;
             switch (spellType) {
                 case "utility":
                     if (!damage) {
                         trafficCop(handler);
-                    } else if (msg.data.flavor?.toLowerCase().includes("damage")) {
+                    } else if (msg.flavor?.toLowerCase().includes("damage")) {
                         trafficCop(handler);
                     }
                     break;
                 case "save":
                     if (!damage) {
                         trafficCop(handler);
-                    } else if (msg.data.flavor?.toLowerCase().includes("damage")) {
+                    } else if (msg.flavor?.toLowerCase().includes("damage")) {
                         trafficCop(handler);
                     }
                     break;
                 case "heal":
-                    if (msg.data.flavor?.toLowerCase().includes('healing')) {
+                    if (msg.flavor?.toLowerCase().includes('healing')) {
                         trafficCop(handler);
                     }
-                    if (handler.item.data?.data?.category?.value === "focus") {
+                    if (handler.item.system?.category?.value === "focus") {
                         trafficCop(handler);
                     }
                     break;
                 case "attack":
                     switch (playOnDmg) {
                         case true:
-                            if (msg.data.flavor?.toLowerCase().includes("damage")) {
+                            if (msg.flavor?.toLowerCase().includes("damage")) {
                                 trafficCop(handler);
                             }
                             break;
                         default:
-                            if (msg.data.flags.pf2e?.context?.type.includes("attack")) {
+                            if (msg.flags.pf2e?.context?.type.includes("attack")) {
                                 trafficCop(handler);
                             }
                     }
@@ -915,8 +915,8 @@ async function pf2eReady(msg) {
 }
 
 function handlePf2eStrike(msg, handler, playOnDmg) {
-    const isDamageRoll = !!msg.data.flags.pf2e?.damageRoll; /*msg.data.flavor?.toLowerCase().includes("damage")*/
-    const isAttackRoll = msg.data.flags.pf2e?.context?.type.includes("attack");
+    const isDamageRoll = !!msg.flags.pf2e?.damageRoll; /*msg.data.flavor?.toLowerCase().includes("damage")*/
+    const isAttackRoll = msg.flags.pf2e?.context?.type.includes("attack");
     if (!isAttackRoll && !isDamageRoll) {
         return false;
     }
@@ -1042,7 +1042,7 @@ async function dccReady(input) {
             return;
         }
         trafficCop(handler);
-    } else if (input.data?.flags?.dcc?.RollType === "Damage" || input.data?.flags?.dcc?.RollType === "SpellCheck") {
+    } else if (input.flags?.dcc?.RollType === "Damage" || input.flags?.dcc?.RollType === "SpellCheck") {
         let handler = await systemData.make(input)
         if (!handler.item || !handler.sourceToken) {
             return;
