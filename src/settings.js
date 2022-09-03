@@ -141,6 +141,7 @@ export default function aaSettings() {
 				scope: 'world',
 				config: true,
 				type: String,
+                default: "",
 				filePicker: "imagevideo"
 			});
 			game.settings.register("autoanimations", "EnableFumble", {
@@ -157,6 +158,7 @@ export default function aaSettings() {
 				scope: 'world',
 				config: true,
 				type: String,
+                default: "",
 				filePicker: "imagevideo"
 			});
 			game.settings.register("autoanimations", "EnableOnRecoveryRoll", {
@@ -174,6 +176,7 @@ export default function aaSettings() {
 				scope: 'world',
 				config: true,
 				type: String,
+                default: "",
 				filePicker: "imagevideo"
 			});
 				game.settings.register("autoanimations", "EnableOnMightRoll", {
@@ -191,6 +194,7 @@ export default function aaSettings() {
 				scope: 'world',
 				config: true,
 				type: String,
+                default: "",
 				filePicker: "imagevideo"
 			});
 			game.settings.register("autoanimations", "EnableOnSpeedRoll", {
@@ -208,6 +212,7 @@ export default function aaSettings() {
 				scope: 'world',
 				config: true,
 				type: String,
+                default: "",
 				filePicker: "imagevideo"
 			});
 			game.settings.register("autoanimations", "EnableOnIntellecRoll", {
@@ -225,6 +230,7 @@ export default function aaSettings() {
 				scope: 'world',
 				config: true,
 				type: String,
+                default: "",
 				filePicker: "imagevideo"
 			});
 			}
@@ -310,6 +316,7 @@ export default function aaSettings() {
                     //name: "Choose A File",
                     scope: 'world',
                     config: true,
+                    default: "",
                     type: String,
                     filePicker: "imagevideo"
                 });
@@ -326,6 +333,7 @@ export default function aaSettings() {
                     name: game.i18n.format("AUTOANIM.critmissAnim_name"),
                     scope: 'world',
                     config: true,
+                    default: "",
                     type: String,
                     filePicker: "imagevideo"
                 });
