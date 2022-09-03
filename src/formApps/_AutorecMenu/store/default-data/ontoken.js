@@ -15,7 +15,7 @@ export const ontoken = [
             repeat: 1,
             setRadius: false,
             size: 1.5,
-            staticType: "default",
+            playOn: "default",
             unbindAlpha: false,
             unbindVisibility: false,
             zIndex: 1
@@ -42,7 +42,7 @@ export const ontoken = [
             repeat: 1,
             setRadius: false,
             size: 1.5,
-            staticType: "default",
+            playOn: "default",
             unbindAlpha: false,
             unbindVisibility: false,
             zIndex: 1
@@ -69,7 +69,7 @@ export const ontoken = [
             repeat: 1,
             setRadius: false,
             size: 1,
-            staticType: "target",
+            playOn: "target",
             unbindAlpha: false,
             unbindVisibility: false,
             zIndex: 1
@@ -96,7 +96,7 @@ export const ontoken = [
             repeat: 1,
             setRadius: false,
             size: 1,
-            staticType: "target",
+            playOn: "target",
             unbindAlpha: false,
             unbindVisibility: false,
             zIndex: 1
@@ -123,7 +123,7 @@ export const ontoken = [
             repeat: 1,
             setRadius: false,
             size: 1,
-            staticType: "target",
+            playOn: "target",
             unbindAlpha: false,
             unbindVisibility: false,
             zIndex: 1

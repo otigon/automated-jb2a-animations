@@ -18,7 +18,7 @@ export class AASystemData {
      static async dnd5e(input, isChat) {
         let midiWorkflowAvailable = false;
         if (game.modules.get('midi-qol')?.active && isChat) {
-            const workflowId = getProperty(input, "data.flags.midi-qol.workflowId");
+            const workflowId = getProperty(input, "flags.midi-qol.workflowId");
             let workflow = workflowId ? MidiQOL.Workflow.getWorkflow(workflowId) : undefined;
             if (workflow) {
                 input = workflow;
