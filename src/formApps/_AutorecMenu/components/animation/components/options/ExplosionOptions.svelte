@@ -41,17 +41,13 @@
         <table class="d">
             <tr>
                 <td>
-                    <!--Set belowToken-->
-                    <div class="form-group">
-                        <label for="EBelow {animation._data.id}"
-                            >{localize("autoanimations.menus.below")}
-                        </label>
-                        <input
-                            type="checkbox"
-                            id="EBelow {animation._data.id}"
-                            bind:checked={$animation.explosion.options.below}
-                        />
-                    </div>
+                    <!--Set Elevation of Animation-->
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.elevation")}
+                    section={"explosion"}
+                    field={"elevation"}
+                    />
                 </td>
                 <td>
                     <!--Set the Z-Index of the Animation-->

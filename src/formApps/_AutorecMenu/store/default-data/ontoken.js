@@ -7,15 +7,15 @@ export const ontoken = [
       primary: common.primary({
          video: { dbSection: "static", menuType: "spell", animation: 'curewounds', variant: '01', color: 'blue' },
          options: {
-            below: true,
             delay: 500,
+            elevation: 0,
             isMasked: false,
             opacity: 1,
             persistent: false,
             repeat: 1,
             setRadius: false,
             size: 1.5,
-            staticType: "targetDefault",
+            staticType: "default",
             unbindAlpha: false,
             unbindVisibility: false,
             zIndex: 1
@@ -34,15 +34,15 @@ export const ontoken = [
       primary: common.primary({
          video: { dbSection: "static", menuType: "spell", animation: 'generichealing', variant: '01', color: 'blue' },
          options: {
-            below: true,
             delay: 500,
+            elevation: 0,
             isMasked: false,
             opacity: 1,
             persistent: false,
             repeat: 1,
             setRadius: false,
             size: 1.5,
-            staticType: "targetDefault",
+            staticType: "default",
             unbindAlpha: false,
             unbindVisibility: false,
             zIndex: 1
@@ -61,8 +61,8 @@ export const ontoken = [
       primary: common.primary({
          video: { dbSection: "static", menuType: "spell", animation: 'tollthedead', variant: 'complete', color: 'green' },
          options: {
-            below: false,
             delay: 500,
+            elevation: 1000,
             isMasked: false,
             opacity: 1,
             persistent: false,
@@ -88,8 +88,8 @@ export const ontoken = [
       primary: common.primary({
          video: { dbSection: "static", menuType: "creature", animation: "bite", variant: "01", color: "red" },
          options: {
-            below: false,
             delay: 500,
+            elevation: 1000,
             isMasked: false,
             opacity: 1,
             persistent: false,
@@ -115,8 +115,8 @@ export const ontoken = [
       primary: common.primary({
          video: { dbSection: "static", menuType: "creature", animation: "claw", variant: "01", color: "red" },
          options: {
-            below: false,
             delay: 500,
+            elevation: 1000,
             isMasked: false,
             opacity: 1,
             persistent: false,

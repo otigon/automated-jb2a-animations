@@ -26,7 +26,7 @@ export async function fireballSeq(handler, animationData, config) {
             variant: projectileData.variant || "01",
             color: projectileData.color || "orange",
             customPath: projectileData.enableCustom && projectileData.customPath ? projectileData.customPath : false,
-            below: projectileData.below || false,
+            elevation: projectileData.elevation ?? 1000,
             repeat: projectileData.repeat || 1,
             delay: projectileData.delay || 250,
             wait: projectileData.wait || 0,
@@ -38,7 +38,7 @@ export async function fireballSeq(handler, animationData, config) {
             variant: explosion01Data.variant || "01",
             color: explosion01Data.color || "blue",
             customPath : explosion01Data.enableCustom && explosion01Data.customPath ? explosion01Data.customPath : false,
-            below: explosion01Data.below || false,
+            elevation: explosion01Data.elevation ?? 1000,
             repeat: explosion01Data.repeat || 1,
             delay: explosion01Data.delay || 250,
             scale: explosion01Data.scale || 1,
@@ -50,14 +50,14 @@ export async function fireballSeq(handler, animationData, config) {
             variant: explosion02Data.variant || "01",
             color: explosion02Data.color || "blue",
             customPath : explosion02Data.enableCustom && explosion02Data.customPath ? explosion02Data.customPath : false,
-            below: explosion02Data.below || false,
+            elevation: explosion02Data.elevation ?? 1000,
             repeat: explosion02Data.repeat || 1,
             delay: explosion02Data.delay || 250,
             scale: explosion02Data.scale || 1,
         },
         afterImage: {
             enable: afterData.enable && afterData.customPath ? afterData.enable : false,
-            below: afterData.below || false,
+            elevation: afterData.elevation ?? elevation,
             persistent: afterData.persistent || false,
             scale: afterData.scale || 1,
             wait: afterData.wait || 0,
@@ -310,7 +310,7 @@ export async function fireballSeq(handler, animationData, config) {
             .file(cleanData.afterImage.customPath, true)
             .size(size)
             .atLocation(position)
-            .belowTokens(true)
+            .elevation(0)
             .persist(true)
             .origin(handler.itemUuid)
             .fadeIn(250)

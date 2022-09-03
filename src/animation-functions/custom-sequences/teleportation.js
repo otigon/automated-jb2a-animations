@@ -28,7 +28,7 @@ export async function teleportationSeq(handler, animationData) {
         variant: rootStart.variant,
         color: rootStart.color,
         scale: rootStart.scale || 1,
-        below: rootStart.below || false,
+        elevation: rootStart.elevation ?? 1000,
         isMasked: rootStart.isMasked || false,
         opacity: rootStart.opacity || 0,
         customPath: rootStart.enableCustom ? rootStart.customPath || "" : false,
@@ -40,7 +40,7 @@ export async function teleportationSeq(handler, animationData) {
         variant: rootEnd.variant,
         color: rootEnd.color,
         scale: rootEnd.scale || 1,
-        below: rootEnd.below || false,
+        elevation: rootEnd.elevation ?? 1000,
         isMasked: rootEnd.isMasked || false,
         delay: rootEnd.delay || 0,
         customPath: rootEnd.enableCustom ? rootEnd.customPath || "" : false,
@@ -51,7 +51,7 @@ export async function teleportationSeq(handler, animationData) {
         animation: rootBetween.animation,
         variant: rootBetween.variant,
         color: rootBetween.color,
-        below: rootBetween.below || false,
+        elevation: rootBetween.elevation ?? 1000,
         enable: rootBetween.enable || false,
         playbackRate: rootBetween.playbackRate || 1,
         customPath: rootBetween.enableCustom ? rootBetween.customPath || "" : false,
@@ -85,7 +85,7 @@ export async function teleportationSeq(handler, animationData) {
         .scaleIn(0, 500)
         .fadeOut(500)
         .name("teleportation")
-        .belowTokens(true)
+        .elevation(0)
         .persist(true)
         .opacity(0.5)
         .filter("Glow", {
@@ -138,7 +138,7 @@ export async function teleportationSeq(handler, animationData) {
         let startEffect = aaSeq.effect()
             startEffect.file(startFile.file)
             startEffect.atLocation(sourceToken)
-            startEffect.belowTokens(startData.below)
+            startEffect.elevation(startData.elevation)
             startEffect.size(sourceTokenGS * 1.5 * startData.scale, { gridUnits: true })
             startEffect.fadeIn(500)
             startEffect.fadeOut(500)
@@ -162,7 +162,7 @@ export async function teleportationSeq(handler, animationData) {
         let endEffect = aaSeq.effect()
             endEffect.file(endFile.file)
             endEffect.atLocation({ x: centerPos[0], y: centerPos[1] })
-            endEffect.belowTokens(endData.below)
+            endEffect.elevation(endData.elevation)
             endEffect.size(sourceTokenGS * 1.5 * endData.scale, { gridUnits: true })
             startEffect.fadeIn(500)
             startEffect.fadeOut(500)

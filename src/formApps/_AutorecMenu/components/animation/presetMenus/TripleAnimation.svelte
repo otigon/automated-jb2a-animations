@@ -55,15 +55,18 @@
             <table class='d'>
                 <tr>
                     <td>
-                        <!--Set belowToken-->
-                        <div class="form-group">
-                            <label for="BelowIntro {animation._data.id}"
-                                >{localize("autoanimations.menus.below")}
+                        <div>
+                            <label for=""
+                                >{localize("autoanimations.menus.elevation")}</label
+                            >
+                        </div>
+                        <div>
                             <input
-                                type="checkbox"
-                                id="BelowIntro {animation._data.id}"
-                                bind:checked={$animation.data.intro.options.below}
-                            /></label>
+                                type="number"
+                                bind:value={$animation.data.intro.options.elevation}
+                                placeholder="1"
+                                step="1"
+                            />
                         </div>
                     </td>
                     <td>
@@ -149,15 +152,18 @@
             <table class='d'>
                 <tr>
                     <td>
-                        <!--Set belowToken-->
-                        <div class="form-group">
-                            <label for="BelowIntro {animation._data.id}"
-                                >{localize("autoanimations.menus.below")}
+                        <div>
+                            <label for=""
+                                >{localize("autoanimations.menus.elevation")}</label
+                            >
+                        </div>
+                        <div>
                             <input
-                                type="checkbox"
-                                id="BelowIntro {animation._data.id}"
-                                bind:checked={$animation.data.loop.options.below}
-                            /></label>
+                                type="number"
+                                bind:value={$animation.data.loop.options.elevation}
+                                placeholder="1"
+                                step="1"
+                            />
                         </div>
                     </td>
                     <td>

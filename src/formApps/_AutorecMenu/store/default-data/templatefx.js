@@ -7,8 +7,8 @@ export const templatefx = [
       primary: common.primary({
          video: { dbSection: "templatefx", menuType: "circle", animation: "calllightning", variant: '01', color: 'blueorange' },
          options: {
-            below: false,
             delay: 500,
+            elevation: 1000,
             isMasked: false,
             occlusionAlpha: 0.7,
             occlusionMode: "3",
@@ -33,8 +33,8 @@ export const templatefx = [
       primary: common.primary({
          video: { dbSection: "templatefx", menuType: "circle", animation: "fogcloud", variant: '01', color: 'white' },
          options: {
-            below: false,
             delay: 500,
+            elevation: 1000,
             isMasked: false,
             occlusionAlpha: 0.65,
             occlusionMode: "3",

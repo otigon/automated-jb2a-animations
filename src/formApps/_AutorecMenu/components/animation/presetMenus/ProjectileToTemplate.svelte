@@ -49,18 +49,21 @@
             <table class="d">
                 <tr>
                     <td>
-                        <!--Set belowToken-->
-                        <div class="form-group">
-                            <label for="Below {animation._data.id}"
-                                >{localize("autoanimations.menus.below")}
-                            </label>
+                        <div>
+                            <label for=""
+                                >{localize("autoanimations.menus.elevation")}</label
+                            >
+                        </div>
+                        <div>
                             <input
-                                type="checkbox"
-                                id="Below {animation._data.id}"
-                                bind:checked={$animation.data.projectile.options.below}
+                                type="number"
+                                bind:value={$animation.data.projectile.options.elevation}
+                                placeholder="1"
+                                step="1"
                             />
                         </div>
-                    </td><td>
+                    </td>
+                    <td>
                         <div>
                             <label for=""
                                 >{localize(
@@ -156,18 +159,20 @@
                 <table class="d">
                     <tr>
                         <td>
-                            <!--Set belowToken-->
-                            <div class="form-group">
-                                <label for="Below {animation._data.id}"
-                                    >{localize("autoanimations.menus.below")}
-                                </label>
+                            <div>
+                                <label for=""
+                                    >{localize("autoanimations.menus.elevation")}</label
+                                >
+                            </div>
+                            <div>
                                 <input
-                                    type="checkbox"
-                                    id="Below {animation._data.id}"
-                                    bind:checked={$animation.data.preExplosion.options.below}
+                                    type="number"
+                                    bind:value={$animation.data.preExplosion.options.elevation}
+                                    placeholder="1"
+                                    step="1"
                                 />
                             </div>
-                        </td>
+                        </td>    
                         <td>
                             <div>
                                 <label for=""
@@ -262,15 +267,17 @@
             <table class="d">
                 <tr>
                     <td>
-                        <!--Set belowToken-->
-                        <div class="form-group">
-                            <label for="Below {animation._data.id}"
-                                >{localize("autoanimations.menus.below")}
-                            </label>
+                        <div>
+                            <label for=""
+                                >{localize("autoanimations.menus.elevation")}</label
+                            >
+                        </div>
+                        <div>
                             <input
-                                type="checkbox"
-                                id="Below {animation._data.id}"
-                                bind:checked={$animation.data.explosion.options.below}
+                                type="number"
+                                bind:value={$animation.data.explosion.options.elevation}
+                                placeholder="1"
+                                step="1"
                             />
                         </div>
                     </td>
@@ -389,27 +396,29 @@
             <table class="d">
                 <tr>
                     <td>
-                        <!--Set belowToken-->
-                        <div class="form-group">
-                            <label for="Below {animation._data.id}"
-                                >{localize("autoanimations.menus.below")}
-                            </label>
+                        <div>
+                            <label for=""
+                                >{localize("autoanimations.menus.elevation")}</label
+                            >
+                        </div>
+                        <div>
                             <input
-                                type="checkbox"
-                                id="Below {animation._data.id}"
-                                bind:checked={$animation.data.afterImage.options.below}
+                                type="number"
+                                bind:value={$animation.data.afterImage.options.elevation}
+                                placeholder="1"
+                                step="1"
                             />
                         </div>
                     </td>
                     <td>
-                        <!--Set belowToken-->
+                        <!--Set Persistence-->
                         <div class="form-group">
-                            <label for="Below {animation._data.id}"
+                            <label for="Persist {animation._data.id}"
                                 >{localize("autoanimations.menus.persistant")}
                             </label>
                             <input
                                 type="checkbox"
-                                id="Below {animation._data.id}"
+                                id="Persist {animation._data.id}"
                                 bind:checked={$animation.data.afterImage.options.persistent}
                             />
                         </div>

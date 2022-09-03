@@ -26,8 +26,8 @@ export const preset = [
                opacity: 1,
                setRadius: false,
                size: 1.5,
-               below: false,
-            },
+               elevation: 1000,
+               },
          },
          end: {
             dbSection: "static",
@@ -39,7 +39,7 @@ export const preset = [
             enableCustom: false,
             options: {
                delay: 250,
-               below: false,
+               elevation: 1000,
                isMasked: false,
                setRadius: false,
                size: 1.5,
@@ -56,7 +56,7 @@ export const preset = [
             customPath: "",
             options: {
                enable: false,
-               below: false,
+               elevation: 1000,
                playbackRate: 1,
                opacity: 1,
             },
@@ -80,7 +80,7 @@ export const preset = [
             customPath: "",
             enableCustom: false,
             options: {
-               below: false,
+               elevation: 1000,
                delay: 250,
                opacity: 1,
                removeTemplate: false,
@@ -99,7 +99,7 @@ export const preset = [
             enableCustom: false,
             options: {
                delay: 250,
-               below: false,
+               elevation: 1000,
                isMasked: false,
                scale: 1.5,
                opacity: 1,
@@ -115,7 +115,7 @@ export const preset = [
             enableCustom: false,
             customPath: "",
             options: {
-               below: false,
+               elevation: 1000,
                delay: 250,
                opacity: 1,
                repeat: 1,

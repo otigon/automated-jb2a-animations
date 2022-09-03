@@ -117,7 +117,7 @@ export async function meleeSeq(handler, animationData) {
                     .repeats(data.repeat, data.delay)
                     .missed(!hit)
                     .name("spot" + ` ${target.id}`)
-                    .belowTokens(data.below)
+                    .elevation(data.elevation)
                 if (switchReturn) {
                     aaSeq.effect()
                         .file(range.returnFile, true)
@@ -140,7 +140,7 @@ export async function meleeSeq(handler, animationData) {
                         .randomizeMirrorY()
                         .missed(!hit)
                         .name("spot" + ` ${target.id}`)
-                        .belowTokens(data.below)
+                        .elevation(data.elevation)
                         .zIndex(data.zIndex)
                 } else {
                     aaSeq.effect()
@@ -154,7 +154,7 @@ export async function meleeSeq(handler, animationData) {
                         .randomizeMirrorY()
                         .missed(!hit)
                         .name("spot" + ` ${target.id}`)
-                        .belowTokens(data.below)
+                        .elevation(data.elevation)
                         .anchor({ x: 0.4, y: 0.5 })
                         .zIndex(data.zIndex)
                 }
@@ -169,7 +169,7 @@ export async function meleeSeq(handler, animationData) {
                     explosionSeq.size(data.explosion?.radius * 2, {gridUnits: true})
                     explosionSeq.delay(data.explosion?.delay)
                     explosionSeq.repeats(data.repeat, data.delay)
-                    explosionSeq.belowTokens(data.explosion?.below)
+                    explosionSeq.elevation(data.explosion?.elevation)
                     explosionSeq.zIndex(data.explosion.zIndex)
                     explosionSeq.opacity(data.explosion.opacity)
                     if (data.explosion?.isMasked) {

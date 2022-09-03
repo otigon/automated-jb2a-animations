@@ -10,7 +10,7 @@ export async function runDcc(input) {
             return;
         }
         trafficCop(handler);
-    } else if (input.data?.flags?.dcc?.RollType === "Damage" || input.data?.flags?.dcc?.RollType === "SpellCheck") {
+    } else if (input.flags?.dcc?.RollType === "Damage" || input.flags?.dcc?.RollType === "SpellCheck") {
         let handler = await systemData.make(input)
         if (!handler.item || !handler.sourceToken) {
             return;

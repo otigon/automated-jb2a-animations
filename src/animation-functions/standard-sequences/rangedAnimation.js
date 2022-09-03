@@ -77,7 +77,7 @@ export async function rangeSeq(handler, animationData) {
                 .opacity(data.opacity)
                 .missed(!hit)
                 .name("spot" + ` ${target.id}`)
-                .belowTokens(data.below)
+                .elevation(data.elevation)
                 .zIndex(data.zIndex)
             if (switchReturn) {
                 aaSeq.effect()
@@ -97,7 +97,7 @@ export async function rangeSeq(handler, animationData) {
                     explosionSeq.size(data.explosion?.radius * 2, {gridUnits: true})
                     explosionSeq.delay(data.explosion?.delay)
                     explosionSeq.repeats(data.repeat, data.delay)
-                    explosionSeq.belowTokens(data.explosion?.below)
+                    explosionSeq.elevation(data.explosion?.elevation)
                     explosionSeq.zIndex(data.explosion.zIndex)
                     explosionSeq.opacity(data.explosion.opacity)
                     if (data.explosion?.isMasked) {

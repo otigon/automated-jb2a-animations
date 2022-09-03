@@ -10,7 +10,7 @@ export const aura = [
          options: {
             addTokenWidth: true,
             auraRadius: 3,
-            below: true,
+            elevation: 0,
             ignoreTarget: true,
             isMasked: false,
             opacity: 0.75,

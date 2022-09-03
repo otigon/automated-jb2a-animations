@@ -40,17 +40,13 @@
         <table class="d">
             <tr>
                 <td>
-                    <!--Set belowToken-->
-                    <div class="form-group">
-                        <label for="Below {animation._data.id}"
-                            >{localize("autoanimations.menus.below")}
-                        </label>
-                        <input
-                            type="checkbox"
-                            id="Below {animation._data.id}"
-                            bind:checked={$animation.data.options.below}
-                        />
-                    </div>
+                    <!--Set Elevation of Animation-->
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.elevation")}
+                    section={"data"}
+                    field={"elevation"}
+                />
                 </td>
                 <td>
                     <!--Set Number of times the animation plays-->

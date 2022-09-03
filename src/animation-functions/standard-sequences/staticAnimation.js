@@ -41,7 +41,7 @@ export async function ontokenSeq(handler, animationData) {
     })
     let sourceTokenGS = data.setRadius ? data.size : (sourceToken.w / canvas.grid.size) * 1.5 * data.size;
     let explosionSound = false;
-    if (data.playOn === "source" || data.playOn === "sourcetarget" || (data.playOn === "targetDefault" && handler.allTargets.length < 1)) {
+    if (data.playOn === "source" || data.playOn === "both" || (data.playOn === "default" && handler.allTargets.length < 1)) {
         const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
         const playPersist = (!checkAnim && data.persistent) ? true : false;
         if (data.isShieldFX) {
@@ -54,7 +54,7 @@ export async function ontokenSeq(handler, animationData) {
             }
             bottomEffect.opacity(data.opacity)
             bottomEffect.size(sourceTokenGS, {gridUnits: true})
-            bottomEffect.belowTokens(true)
+            bottomEffect.elevation(1000)
             if (data.isMasked) {
                 bottomEffect.mask(sourceToken)
             }
@@ -74,7 +74,7 @@ export async function ontokenSeq(handler, animationData) {
             }
             topEffect.opacity(data.opacity)
             topEffect.size(sourceTokenGS, {gridUnits: true})
-            topEffect.belowTokens(false)
+            topEffect.elevation(0)
             if (data.isMasked) {
                 topEffect.mask(sourceToken)
             }
@@ -94,7 +94,7 @@ export async function ontokenSeq(handler, animationData) {
             }
             aaEffect.opacity(data.opacity)
             aaEffect.size(sourceTokenGS, {gridUnits: true})
-            aaEffect.belowTokens(data.below)
+            aaEffect.elevation(data.elevation)
             if (data.isMasked) {
                 aaEffect.mask(sourceToken)
             }
@@ -114,7 +114,7 @@ export async function ontokenSeq(handler, animationData) {
                 explosionSeq.size(data.explosion?.radius * 2, {gridUnits: true})
                 explosionSeq.delay(data.explosion?.delay)
                 explosionSeq.repeats(data.repeat, data.delay)
-                explosionSeq.belowTokens(data.explosion?.below)
+                explosionSeq.elevation(data.explosion?.elevation)
                 explosionSeq.zIndex(data.explosion.zIndex)
                 explosionSeq.opacity(data.explosion.opacity)
                 if (data.explosion?.isMasked) {
@@ -125,7 +125,7 @@ export async function ontokenSeq(handler, animationData) {
     }
     let targetSound = false;
     // Target Effect sections
-    if ((data.playOn === 'target' || data.playOn === 'targetDefault' || data.playOn === 'sourcetarget') && handler.allTargets.length > 0) {
+    if ((data.playOn === 'target' || data.playOn === 'default' || data.playOn === 'both') && handler.allTargets.length > 0) {
         //for (var i = 0; i < handler.allTargets.length; i++) {
         //let target = handler.allTargets[i]
         for (let target of handler.allTargets) {
@@ -145,7 +145,7 @@ export async function ontokenSeq(handler, animationData) {
                     bottomEffect.name("spot" + ` ${target.id}`)
                     bottomEffect.opacity(data.opacity)
                     bottomEffect.size(targetTokenGS, {gridUnits: true})
-                    bottomEffect.belowTokens(true)
+                    bottomEffect.elevation(0)
                     if (data.isMasked) {
                         bottomEffect.mask(target)
                     }
@@ -160,7 +160,7 @@ export async function ontokenSeq(handler, animationData) {
                     topEffect.name("spot" + ` ${target.id}`)
                     topEffect.opacity(data.opacity)
                     topEffect.size(targetTokenGS, {gridUnits: true})
-                    topEffect.belowTokens(false)
+                    topEffect.elevation(1000)
                     if (data.isMasked) {
                         topEffect.mask(target)
                     }
@@ -178,7 +178,7 @@ export async function ontokenSeq(handler, animationData) {
                     aaEffect.opacity(data.opacity)
                     //aaEffect.scale(scale * data.scale)
                     aaEffect.size(effectScale, {gridUnits: true})
-                    aaEffect.belowTokens(data.below)
+                    aaEffect.elevation(data.elevation)
                     if (data.isMasked) {
                         aaEffect.mask(target)
                     }
@@ -197,7 +197,7 @@ export async function ontokenSeq(handler, animationData) {
                         explosionSeq.size(data.explosion?.radius * 2, {gridUnits: true})
                         explosionSeq.delay(data.explosion?.delay)
                         explosionSeq.repeats(data.repeat, data.delay)
-                        explosionSeq.belowTokens(data.explosion?.below)
+                        explosionSeq.elevation(data.explosion?.elevation)
                         explosionSeq.zIndex(data.explosion.zIndex)
                         explosionSeq.opacity(data.explosion.opacity)        
                         if (data.explosion?.isMasked) {

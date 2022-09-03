@@ -12,7 +12,7 @@ export function explosion() {
       video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
       sound: sound(),
       options: {
-         below: false,
+         elevation: 1000,
          isMasked: false,
          opacity: 1,
          setRadius: true,

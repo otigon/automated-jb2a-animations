@@ -40,7 +40,7 @@ async function mergeVersion06(data) {
         let data = {
             enable: exp?.enable ?? false,
             options: {
-                below: exp?.below ?? false,
+                elevation: exp?.below ? 0 : 1000,
                 delay: exp?.delay ?? 250,
                 isMasked: exp?.isMasked ?? false,
                 opacity: exp?.opacity ?? 1,
@@ -169,7 +169,7 @@ async function mergeVersion06(data) {
 
         switch (type) {
             case "melee":
-                data.below = oldMO.below ?? false;
+                data.elevation = oldMO.below ? 0 : 1000;
                 data.delay = oldMO.delay ?? 0;
                 data.opacity = oldMO.opacity ?? 1;
                 data.repeat = oldMO.repeat ?? 1;
@@ -177,7 +177,7 @@ async function mergeVersion06(data) {
                 data.zIndex = oldMO.zIndex ?? 1;
                 break;
             case "range":
-                data.below = oldMO.below ?? false;
+                data.elevation = oldMO.below ? 0 : 1000;
                 data.delay = oldMO.delay ?? 0;
                 data.onlyX = oldMO.onlyX ?? false;
                 data.opacity = oldMO.opacity ?? 1;
@@ -186,7 +186,7 @@ async function mergeVersion06(data) {
                 data.zIndex = oldMO.zIndex ?? 1;
                 break;
             case "ontoken":
-                data.below = oldMO.below ?? false;
+                data.elevation = oldMO.below ? 0 : 1000;
                 data.delay = oldMO.delay ?? 0;
                 data.isMasked = oldMO.isMasked ?? false;
                 data.opacity = oldMO.opacity ?? 1;
@@ -200,7 +200,7 @@ async function mergeVersion06(data) {
                 data.zIndex = oldMO.zIndex ?? 1;
                 break;
             case "templatefx":
-                data.below = oldMO.below ?? false;
+                data.elevation = oldMO.below ? 0 : 1000;
                 data.delay = oldMO.delay ?? 0;
                 data.isMasked = oldMO.isMasked ?? false;
                 data.occlusionAlpha = oldMO.occlusionAlpha ?? 0;
@@ -217,7 +217,7 @@ async function mergeVersion06(data) {
             case "aura":
                 data.addTokenWidth = oldMO.addTokenWidth ?? false;
                 data.radius = oldMO.scale ?? false;
-                data.below = oldMO.below ?? false;
+                data.elevation = oldMO.below ? 0 : 1000;
                 data.ignoreTarget = oldMO.ignoretargets ?? false;
                 data.isMasked = oldMO.isMasked ?? false;
                 data.opacity = oldMO.opacity ?? 1;
@@ -414,7 +414,7 @@ async function mergeVersion06(data) {
             intro: {
                 customPath: convertToCustom("intro"),
                 options: {
-                    below: below || false,
+                    elevation: below ? 0 : 1000,
                     fadeIn: 500,
                     opacity: 1,
                     size: scale || 1,
@@ -431,7 +431,7 @@ async function mergeVersion06(data) {
             loop: {
                 customPath: convertToCustom("loop"),
                 options: {
-                    below: below || false,
+                    elevation: below ? 0 : 1000,
                     fadeOut: 500,
                     opacity: 1,
                     persistent: addCTA || false,
@@ -464,7 +464,7 @@ async function mergeVersion06(data) {
             intro: {
                 customPath: convertToCustom("intro"),
                 options: {
-                    below: below || false,
+                    elevation: below ? 0 : 1000,
                     fadeIn: 500,
                     opacity: 1,
                     size: scale || 1,
@@ -481,7 +481,7 @@ async function mergeVersion06(data) {
             loop: {
                 customPath: convertToCustom("loop"),
                 options: {
-                    below: below || false,
+                    elevation: below ? 0 : 1000,
                     fadeOut: 500,
                     opacity: 1,
                     persistent: addCTA || false,
@@ -544,7 +544,7 @@ async function mergeVersion06(data) {
             enableCustom: custom || false,
             customPath,
             options: {
-                below: below || false,
+                elevation: below ? 0 : 1000,
                 size: scale || 1,
             }
         }
@@ -568,7 +568,7 @@ async function mergeVersion06(data) {
             enableCustom: custom02 || false,
             customPath: customPath02,
             options: {
-                below,
+                elevation: below ? 0 : 1000,
                 size: scale02,
                 delay,
             }
@@ -601,7 +601,7 @@ async function mergeVersion06(data) {
             options: {
                 playbackRate,
                 onlyX,
-                below,
+                elevation: below ? 0 : 1000,
             },
             sound: {
                 delay: audio?.a01?.delay ?? 0,
@@ -638,7 +638,7 @@ async function mergeVersion06(data) {
                 repeat: projectileRepeat,
                 delay: projectileDelay,
                 wait: wait01,
-                below: below,    
+                elevation: below ? 0 : 1000,    
             },
             sound: {
                 enable: audio?.a01?.enable ?? false,
@@ -662,7 +662,7 @@ async function mergeVersion06(data) {
                 delay: explosion01Delay,
                 scale: explosion01Scale,
                 wait: wait02,
-                below: below,
+                elevation: below ? 0 : 1000,
             },
             sound: {
                 enable: audio?.e01?.enable ?? false,
@@ -703,7 +703,7 @@ async function mergeVersion06(data) {
             enable: afterEffect,
             customPath: afterEffectPath,
             options: {
-                below: true,
+                elevation: 0,
                 persistent: false,
                 scale: 1,
                 wait: wait03,
@@ -817,7 +817,7 @@ async function mergeVersion06(data) {
             variant: "mid",
             color: color || "blue",
             options: {
-                below,
+                elevation: below ? 0 : 1000,
                 repeat,
                 delay,
                 scaleX,
@@ -891,7 +891,7 @@ async function mergeVersion06(data) {
             options: {
                 addTokenWidth: false,
                 aeDelay: aeDelay || 0,
-                below: below || false,
+                elevation: below ? 0 : 1000,
                 delay: delay || 250,
                 isMasked: false,
                 opacity: opacity,
@@ -956,7 +956,7 @@ async function mergeVersion06(data) {
             options: {
                 addTokenWidth: false,
                 aeDelay: aeDelay || 0,
-                below: below || false,
+                elevation: below ? 0 : 1000,
                 isMasked: false,
                 opacity: opacity,
                 size: scale || 1,
@@ -1016,7 +1016,7 @@ async function mergeVersion06(data) {
             intro: {
                 customPath: convertToCustom("intro"),
                 options: {
-                    below: below || false,
+                    elevation: below ? 0 : 1000,
                     fadeIn: 500,
                     opacity: 1,
                     size: scale || 1,
@@ -1033,7 +1033,7 @@ async function mergeVersion06(data) {
             loop: {
                 customPath: convertToCustom("loop"),
                 options: {
-                    below: below || false,
+                    elevation: below ? 0 : 1000,
                     fadeOut: 500,
                     opacity: 1,
                     persistent: addCTA || false,
@@ -1080,7 +1080,7 @@ async function mergeVersion06(data) {
             intro: {
                 customPath: convertToCustom("intro"),
                 options: {
-                    below: below || false,
+                    elevation: below ? 0 : 1000,
                     fadeIn: 500,
                     opacity: 1,
                     size: scale || 1,
@@ -1097,7 +1097,7 @@ async function mergeVersion06(data) {
             loop: {
                 customPath: convertToCustom("loop"),
                 options: {
-                    below: below || false,
+                    elevation: below ? 0 : 1000,
                     fadeOut: 500,
                     opacity: 1,
                     persistent: addCTA || false,

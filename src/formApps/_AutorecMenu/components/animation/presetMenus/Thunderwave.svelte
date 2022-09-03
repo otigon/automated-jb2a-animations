@@ -41,15 +41,17 @@
             <table class="d">
                 <tr>
                     <td>
-                        <!--Set belowToken-->
-                        <div class="form-group">
-                            <label for="Below {animation._data.id}"
-                                >{localize("autoanimations.menus.below")}
-                            </label>
+                        <div>
+                            <label for=""
+                                >{localize("autoanimations.menus.elevation")}</label
+                            >
+                        </div>
+                        <div>
                             <input
-                                type="checkbox"
-                                id="Below {animation._data.id}"
-                                bind:checked={$animation.data.options.below}
+                                type="number"
+                                bind:value={$animation.data.options.elevation}
+                                placeholder="1"
+                                step="1"
                             />
                         </div>
                     </td>

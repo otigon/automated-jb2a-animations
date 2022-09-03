@@ -10,48 +10,48 @@ export async function runPf2e(msg) {
 
     const itemType = handler.itemType;
     let damage; //= /*handler.item.damageValue ||*/ //handler.item?.data.data.damage?.length || handler.item?.data?.data?.damage?.value["0"]?.value;
-    const spellType = handler.item?.data?.data?.spellType?.value ?? "utility";
+    const spellType = handler.item?.system?.spellType?.value ?? "utility";
     const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
-    if (handler.shouldPlayImmediately && !msg.data.flavor?.toLowerCase().includes("damage")) {
+    if (handler.shouldPlayImmediately && !msg.flavor?.toLowerCase().includes("damage")) {
         trafficCop(handler);
         return;
     }
     if (handler.shouldPlayImmediately) { return };
     switch (itemType) {
         case "spell":
-            damage = handler.item?.data?.data?.damage?.value["0"]?.value;
+            damage = handler.item?.system?.damage?.value["0"]?.value;
             switch (spellType) {
                 case "utility":
                     if (!damage) {
                         trafficCop(handler);
-                    } else if (msg.data.flavor?.toLowerCase().includes("damage")) {
+                    } else if (msg.flavor?.toLowerCase().includes("damage")) {
                         trafficCop(handler);
                     }
                     break;
                 case "save":
                     if (!damage) {
                         trafficCop(handler);
-                    } else if (msg.data.flavor?.toLowerCase().includes("damage")) {
+                    } else if (msg.flavor?.toLowerCase().includes("damage")) {
                         trafficCop(handler);
                     }
                     break;
                 case "heal":
-                    if (msg.data.flavor?.toLowerCase().includes('healing')) {
+                    if (msg.flavor?.toLowerCase().includes('healing')) {
                         trafficCop(handler);
                     }
-                    if (handler.item.data?.data?.category?.value === "focus") {
+                    if (handler.item.system?.category?.value === "focus") {
                         trafficCop(handler);
                     }
                     break;
                 case "attack":
                     switch (playOnDmg) {
                         case true:
-                            if (msg.data.flavor?.toLowerCase().includes("damage")) {
+                            if (msg.flavor?.toLowerCase().includes("damage")) {
                                 trafficCop(handler);
                             }
                             break;
                         default:
-                            if (msg.data.flags.pf2e?.context?.type.includes("attack")) {
+                            if (msg.flags.pf2e?.context?.type.includes("attack")) {
                                 trafficCop(handler);
                             }
                     }
@@ -80,8 +80,8 @@ export async function runPf2e(msg) {
     }
 
     function handlePf2eStrike(msg, handler, playOnDmg) {
-        const isDamageRoll = !!msg.data.flags.pf2e?.damageRoll; /*msg.data.flavor?.toLowerCase().includes("damage")*/
-        const isAttackRoll = msg.data.flags.pf2e?.context?.type.includes("attack");
+        const isDamageRoll = !!msg.flags.pf2e?.damageRoll; /*msg.data.flavor?.toLowerCase().includes("damage")*/
+        const isAttackRoll = msg.flags.pf2e?.context?.type.includes("attack");
         if (!isAttackRoll && !isDamageRoll) {
             return false;
         }

@@ -59,7 +59,7 @@ export async function auraSeq(handler, animationData) {
             newEffect.persist()
             newEffect.origin(handler.itemUuid)
             newEffect.size(adjustedSize, { gridUnits: true })
-            newEffect.belowTokens(data.below)
+            newEffect.elevation(data.elevation)
             if (data.isMasked) {
                 newEffect.mask(sourceToken)
             }
@@ -105,7 +105,7 @@ export async function auraSeq(handler, animationData) {
                 newEffect.persist()
                 newEffect.origin(handler.itemUuid)
                 newEffect.size(adjustedSize, { gridUnits: true })
-                newEffect.belowTokens(data.below)
+                newEffect.elevation(data.elevation)
                 if (data.isMasked) {
                     newEffect.mask(target)
                 }    

@@ -23,7 +23,7 @@ export async function dualSeq(handler, animationData) {
         variant: daData.variant || "01",
         color: daData.color || "blue",
         customPath: daData.enableCustom && daData.customPath ? daData.customPath : false,
-        below: daData.below || false,
+        elevation: daData.elevation ?? 1000,
         onlyX: daData.onlyX || false,
         playbackRate: daData.playbackRate || 1,
     }
@@ -74,7 +74,7 @@ export async function dualSeq(handler, animationData) {
                 .persist(true)
                 .playbackRate(cleanData.playbackRate)
                 .origin(handler.itemUuid)
-                .belowTokens(cleanData.below)
+                .elevation(cleanData.elevation)
                 //.playIf(!checkTarget)
             }
         }

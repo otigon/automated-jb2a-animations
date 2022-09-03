@@ -588,7 +588,8 @@
             "fadeOut": "Fade Out",
             "select": "Select",
             "dual": "Dual",
-            "triple": "Triple"
+            "triple": "Triple",
+            "elevation": "Elevation"
         },
         "optionsInfo": {
 

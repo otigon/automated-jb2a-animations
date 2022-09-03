@@ -187,9 +187,9 @@ Hooks.once('ready', async function () {
                             return null;
                         }
                     }
-                    const itemId = extractItemId(msg.data.content);
+                    const itemId = extractItemId(msg.content);
                     if (!itemId) { return; }
-                    const tokenId = msg.data.speaker.token;
+                    const tokenId = msg.speaker.token;
                     const sourceToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId));
 
                     if (!sourceToken) { return; }
@@ -233,7 +233,7 @@ Hooks.once('ready', async function () {
                     const controlledTokens = canvas.tokens.controlled;
                     let token;
                     if (controlledTokens.length > 0) {
-                        token = controlledTokens.find(token => token.data.actorId === SwadeTokenOrActor.id);
+                        token = controlledTokens.find(token => token.actorId === SwadeTokenOrActor.id);
                     }
                     if (token) { SwadeTokenOrActor = token; }
                     systemSupport.aaSwade.runSwade(SwadeTokenOrActor, SwadeItem)
@@ -257,7 +257,7 @@ Hooks.once('ready', async function () {
                 }
                 Hooks.on("BRSW-RollItem", async (data, html) => {
                     const {actorOrToken, item} = await get_brsw_data (data)
-                    if (item.data.flags?.autoanimations?.animType === "template" || (item.data.flags?.autoanimations?.animType === "preset" && item.data.flags?.autoanimations?.animation === "fireball")) {
+                    if (item.flags?.autoanimations?.animType === "template" || (item.flags?.autoanimations?.animType === "preset" && item.flags?.autoanimations?.animation === "fireball")) {
                         return //Return to prevent duplicate effects on placing a template.
                     } else { systemSupport.aaSwade.runSwade(actorOrToken, item) }
                 });
@@ -267,7 +267,7 @@ Hooks.once('ready', async function () {
                 })
                 Hooks.on("BRSW-CreateItemCardNoRoll", async (data) => {
                     const {actorOrToken, item} = await get_brsw_data (data)
-                    if (item.data.flags?.autoanimations?.animType === "template" || (item.data.flags?.autoanimations?.animType === "preset" && item.data.flags?.autoanimations?.animation === "fireball")) {
+                    if (item.flags?.autoanimations?.animType === "template" || (item.flags?.autoanimations?.animType === "preset" && item.flags?.autoanimations?.animation === "fireball")) {
                         return //Return to prevent duplicate effects on placing a template.
                     } else { systemSupport.aaSwade.runSwade(actorOrToken, item) }
                 })
@@ -334,7 +334,7 @@ Hooks.once('ready', async function () {
                     if (game.user.id !== userId) { return; }
                     if (item.type !== 'feat') { return; }
 
-                    if (!diff.data.isActive) {
+                    if (!diff.isActive) {
                         deleteEffectsSfrpg(item, token)
                     } else {
                         const sfrpgData = {

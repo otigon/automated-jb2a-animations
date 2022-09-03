@@ -12,7 +12,7 @@ export function source() {
       video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue', enableCustom: false, customPath: "" },
       sound: sound(),
       options: {
-         below: false,
+         elevation: 1000,
          delay: 0,
          wait: 0,
          isMasked: false,

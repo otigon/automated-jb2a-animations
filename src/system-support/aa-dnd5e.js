@@ -10,11 +10,11 @@ export async function runDnd5e(msg) {
     switch (game.system.id) {
         case "dnd5e":
             handler = await systemData.make(msg);
-            rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
+            rollType = (msg.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.flavor?.toLowerCase() ?? "pass");
             break;
         case "sw5e":
             handler = await systemData.make(msg);
-            rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
+            rollType = msg.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
 
