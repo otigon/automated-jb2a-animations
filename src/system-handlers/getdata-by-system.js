@@ -34,13 +34,13 @@ export class AASystemData {
             if (!item || !token) return {};
 
             //const token = this.getToken(input)
-            const ammo = input.item?.data?.flags?.autoanimations?.options?.ammo;
-            const ammoType = input.item?.data?.data?.consume?.type;
-            item = ammo && ammoType === "ammo" ? token.actor.items?.get(input.item.data.data.consume.target) : item;
+            const ammo = input.item?.flags?.autoanimations?.options?.ammo;
+            const ammoType = input.item?.system?.consume?.type;
+            item = ammo && ammoType === "ammo" ? token.actor.items?.get(input.item.system.consume.target) : item;
             if (!item || !token) { return {}; }
 
             const hitTargets = Array.from(input.hitTargets);
-            targets = input.item?.data?.data?.target?.type === 'self' ? [token] : targets;
+            targets = input.item?.system.target?.type === 'self' ? [token] : targets;
             if (game.modules.get('midi-qol')?.active) {
                 switch (true) {
                     case (game.settings.get("autoanimations", "playonmiss")):
@@ -55,10 +55,10 @@ export class AASystemData {
             }
 
             let reach = 0;
-            if (token.actor?.data?.data?.details?.race?.toLowerCase() === 'bugbear') {
+            if (token.actor?.system?.details?.race?.toLowerCase() === 'bugbear') {
                 reach += 5;
             }
-            if (item.data?.data?.properties?.rch) {
+            if (item.system?.properties?.rch) {
                 reach += 5;
             }
             return { item, token, targets, hitTargets, reach };
@@ -77,18 +77,18 @@ export class AASystemData {
             let {item, itemId, token, targets} = await this.getRequiredData(input)
             if (!item || !token) return {};
 
-            if (item.data?.flags?.autoanimations?.options?.ammo && item.data?.data?.consume?.type === "ammo") {
-                itemId = item.data.data.consume.target;
+            if (item.flags?.autoanimations?.options?.ammo && item.system?.consume?.type === "ammo") {
+                itemId = item.system.consume.target;
                 item = token.actor.items?.get(itemId) ?? "";
             }
 
             //const targets = Array.from(input.user.targets);
 
             let reach = 0;
-            if (token.actor?.data?.data?.details?.race?.toLowerCase() === 'bugbear') {
+            if (token.actor?.system?.details?.race?.toLowerCase() === 'bugbear') {
                 reach += 5;
             }
-            if (item.data?.data?.properties?.rch) {
+            if (item.system?.properties?.rch) {
                 reach += 5;
             }
 
@@ -136,9 +136,9 @@ export class AASystemData {
             let {item, token, targets} = await this.getRequiredData(input)
             if (!item || !token) return {};
 
-            const ammo = input.item?.data?.flags?.autoanimations?.options?.ammo;
-            const ammoType = input.item?.data?.data?.consume?.type;
-            item = ammo && ammoType === "ammo" ? token.actor.items?.get(input.item.data.data.consume.target) : item;
+            const ammo = input.item?.flags?.autoanimations?.options?.ammo;
+            const ammoType = input.item?.system?.consume?.type;
+            item = ammo && ammoType === "ammo" ? token.actor.items?.get(input.item.system.consume.target) : item;
             if (!item || !token) { return {}; }
 
             const hitTargets = Array.from(input.hitTargets);
@@ -157,10 +157,10 @@ export class AASystemData {
             }
 
             let reach = 0;
-            if (token.actor?.data?.data?.details?.race?.toLowerCase() === 'bugbear') {
+            if (token.actor?.system?.details?.race?.toLowerCase() === 'bugbear') {
                 reach += 5;
             }
-            if (item.data?.data?.properties?.rch) {
+            if (item.system?.properties?.rch) {
                 reach += 5;
             }
             return { item, token, targets, hitTargets, reach };
@@ -178,18 +178,18 @@ export class AASystemData {
             let {item, itemId, token, targets} = await this.getRequiredData(input)
             if (!item || !token) return {};
 
-            if (item.data?.flags?.autoanimations?.options?.ammo && item.data?.data?.consume?.type === "ammo") {
-                itemId = item.data.data.consume.target;
+            if (item.flags?.autoanimations?.options?.ammo && item.system?.consume?.type === "ammo") {
+                itemId = item.system.consume.target;
                 item = token.actor.items?.get(itemId) ?? "";
             }
 
             //const targets = Array.from(input.user.targets);
 
             let reach = 0;
-            if (token.actor?.data?.data?.details?.race?.toLowerCase() === 'bugbear') {
+            if (token.actor?.system?.details?.race?.toLowerCase() === 'bugbear') {
                 reach += 5;
             }
-            if (item.data?.data?.properties?.rch) {
+            if (item.system?.properties?.rch) {
                 reach += 5;
             }
 
@@ -223,7 +223,7 @@ export class AASystemData {
         //const targets = Array.from(input.user.targets);
         //if (!item || !token) { return {}; }
 
-        let outcome = input.data?.flags?.pf2e?.context?.outcome;
+        let outcome = input.flags?.pf2e?.context?.outcome;
         outcome = outcome ? outcome.toLowerCase() : "";
         let hitTargets;
         if (targets.length < 2 && !game.settings.get('autoanimations', 'playonDamageCore') && outcome) {
@@ -598,12 +598,12 @@ export class AASystemData {
         }
         if (!item && game.system.id === 'pf2e') {
             // Code taken with permission from XDY in a PR for PF2E flat checks: https://github.com/jessev14/pf2-flat-check/pull/8/files
-            const originUUID = data.data.flags.pf2e?.origin?.uuid;
+            const originUUID = data.flags?.pf2e?.origin?.uuid;
             const actor = input.actor;
             if (!item && !data.isDamageRoll && originUUID?.match(/Item.(\w+)/) && RegExp.$1 === 'xxPF2ExUNARMEDxx') {
                 const actionIds = originUUID.match(/Item.(\w+)/);
                 if (actionIds && actionIds[1]) {
-                    item = actor?.data.data?.actions.filter((atk) => atk?.type === "strike").filter((a) => a.item.id === actionIds[1])[0] || null;
+                    item = actor?.system?.actions.filter((atk) => atk?.type === "strike").filter((a) => a.item.id === actionIds[1])[0] || null;
                 }
             }
         }
@@ -642,14 +642,14 @@ export class AASystemData {
                         data.data?.item?.id ??
                         //data.data?.flags?.dnd5e?.roll?.itemId ?? 
                         //data.data?.flags?.sw5e?.roll?.itemId ??
-                        data.data?.flags?.[system]?.roll?.itemId ?? 
+                        data.flags?.[system]?.roll?.itemId ?? 
                         //data.data?.flags?.ose?.itemId ??
                         //data.data?.flags?.dcc?.ItemId ??
-                        data.data?.flags?.[system]?.ItemId ??
-                        data.data?.flags?.["midi-qol"]?.itemId ??
+                        data.flags?.[system]?.ItemId ??
+                        data.flags?.["midi-qol"]?.itemId ??
                         data._roll?.options?.itemId ??
-                        data.data?.flags?.itemId ??
-                        data.data?.flags?.itemID ??
+                        data.flags?.itemId ??
+                        data.flags?.itemID ??
                         data.roll?.data._id ??
                         this._extractItemId(data.data?.content) ??
                         this._extractItemId(data.msg?.data?.content) ??
@@ -664,9 +664,9 @@ export class AASystemData {
      */
     static async getItem(input) {
         const data = input || {};
-        const item =    data.data?.item ??
-                        data.data?.itemSource ??
-                        data.data?.SwadeItem ??
+        const item =    data.item ??
+                        data.itemSource ??
+                        data.SwadeItem ??
                         data.token?.actor?.items?.get(data.itemId) ??
                         await fromUuid(`Item.${data.itemId}`) ??
                         void 0;
@@ -681,10 +681,10 @@ export class AASystemData {
     static getTokenId(input) {
         const data = input || {};
         const tokenId = data.tokenId ??
-                        data.data?.speaker?.token ??
+                        data.speaker?.token ??
                         data.uuid ??
                         data.token?.id ??
-                        data.msg?.data?.speaker?.token ??
+                        data.msg?.speaker?.token ??
                         data._roll?.options?.tokenId ??
                         data.info?.speaker?.token ??
                         void 0;
@@ -699,7 +699,7 @@ export class AASystemData {
      */
     static async getToken(input) {
         const data = input || {};
-        const token =   data.data.token ??
+        const token =   data.token ??
                         canvas.tokens.get(data.tokenId) ??
                         canvas.scene.tokens.get(data.tokenId) ??
                         canvas.tokens.placeables.find(token => token.actor?.items?.get(data.itemId) != null) ??

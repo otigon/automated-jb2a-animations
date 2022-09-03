@@ -14,7 +14,7 @@ export async function createActiveEffectsPF2e(item) {
         if (aaDebug) { aaDebugger("This is not a PF2e Ruleset, exiting early") }
         return;
     }
-    if (item.data?.data?.references?.parent && game.settings.get("autoanimations", "disableNestedEffects")) {
+    if (item.system?.references?.parent && game.settings.get("autoanimations", "disableNestedEffects")) {
         if (aaDebug) { aaDebugger("This is a nested Ruleset, exiting early") }
         return;
     }
@@ -86,7 +86,7 @@ export async function deleteActiveEffectsPF2e(item) {
 
     // If no animations, exit early, Else continue with gathering data
     if (aaEffects.length > 0) {
-        const itemData = item.data?.flags?.autoanimations ?? {};
+        const itemData = item.flags?.autoanimations ?? {};
         const data = {
             token: undefined,
             targets: [],
@@ -133,7 +133,7 @@ export async function deleteActiveEffectsPF2e(item) {
         // End all Animations on the token with .origin(effect.uuid)
         Sequencer.EffectManager.endEffects({ origin: item.uuid, object: handler.sourceToken })
     } else {
-        const itemData = item.data?.flags?.autoanimations ?? {};
+        const itemData = item.flags?.autoanimations ?? {};
         //const aeToken = canvas.tokens.get(itemData.aaAeTokenId)
         const itemId = item.id;
         const aeToken = canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null)

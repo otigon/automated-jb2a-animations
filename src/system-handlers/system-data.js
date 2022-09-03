@@ -47,7 +47,7 @@ export default class systemData {
 
         if (this.isActiveEffect) {
             if (this.systemId === 'dnd5e' || this.systemId === 'pf1' || this.systemId === 'wfrp4e' || this.systemId === "sfrpg") {
-                this.itemName = this.item.data?.label || "placeholder";
+                this.itemName = this.item.label || "placeholder";
             }
             if (this.systemId === 'pf2e') {
                 this.itemName = this.item.name.replace(/[^A-Za-z0-9 .*_-]/g, "");
@@ -55,8 +55,12 @@ export default class systemData {
             this.workflow = "on";
         }
 
-        this.itemMacro = this.item.data?.flags?.itemacro?.macro?.data?.name ?? "";
-        this.itemType = this.item.data?.type?.toLowerCase() ?? this.item?.type ?? "";
+        if (this.workflow === "on") {
+            this.workflowBackup = msg || {};
+        }
+
+        this.itemMacro = this.item.flags?.itemacro?.macro?.name ?? "";
+        this.itemType = this.item.type?.toLowerCase() ?? "";
 
         this.sourceToken = data.token?.isEmbedded ? data.token?.object : data.token;
         this.actor = data.token?.actor;
@@ -192,12 +196,12 @@ export default class systemData {
     getDistanceTo(target) {
         if (game.system.id === 'pf1') {
             const scene = game.scenes.active;
-            const gridSize = scene.data.grid;
+            const gridSize = scene.grid.size;
 
-            const left = (token) => token.data.x;
-            const right = (token) => token.data.x + token.w;
-            const top = (token) => token.data.y;
-            const bottom = (token) => token.data.y + token.h;
+            const left = (token) => token.x;
+            const right = (token) => token.x + token.w;
+            const top = (token) => token.y;
+            const bottom = (token) => token.y + token.h;
 
             const isLeftOf = right(this.sourceToken) <= left(target);
             const isRightOf = left(this.sourceToken) >= right(target);
@@ -210,17 +214,17 @@ export default class systemData {
             let y2 = top(target);
 
             if (isLeftOf) {
-                x1 += (this.sourceToken.data.width - 1) * gridSize;
+                x1 += (this.sourceToken.width - 1) * gridSize;
             }
             else if (isRightOf) {
-                x2 += (target.data.width - 1) * gridSize;
+                x2 += (target.width - 1) * gridSize;
             }
 
             if (isAbove) {
-                y1 += (this.sourceToken.data.height - 1) * gridSize;
+                y1 += (this.sourceToken.height - 1) * gridSize;
             }
             else if (isBelow) {
-                y2 += (target.data.height - 1) * gridSize;
+                y2 += (target.height - 1) * gridSize;
             }
 
             const ray = new Ray({ x: x1, y: y1 }, { x: x2, y: y2 });
@@ -228,12 +232,12 @@ export default class systemData {
             return distance;
         } else {
             var x, x1, y, y1, d, r, segments = [], rdistance, distance;
-            for (x = 0; x < this.sourceToken.data.width; x++) {
-                for (y = 0; y < this.sourceToken.data.height; y++) {
-                    const origin = new PIXI.Point(...canvas.grid.getCenter(this.sourceToken.data.x + (canvas.dimensions.size * x), this.sourceToken.data.y + (canvas.dimensions.size * y)));
-                    for (x1 = 0; x1 < target.data.width; x1++) {
-                        for (y1 = 0; y1 < target.data.height; y1++) {
-                            const dest = new PIXI.Point(...canvas.grid.getCenter(target.data.x + (canvas.dimensions.size * x1), target.data.y + (canvas.dimensions.size * y1)));
+            for (x = 0; x < this.sourceToken.width; x++) {
+                for (y = 0; y < this.sourceToken.height; y++) {
+                    const origin = new PIXI.Point(...canvas.grid.getCenter(this.sourceToken.x + (canvas.dimensions.size * x), this.sourceToken.y + (canvas.dimensions.size * y)));
+                    for (x1 = 0; x1 < target.width; x1++) {
+                        for (y1 = 0; y1 < target.height; y1++) {
+                            const dest = new PIXI.Point(...canvas.grid.getCenter(target.x + (canvas.dimensions.size * x1), target.y + (canvas.dimensions.size * y1)));
                             const r = new Ray(origin, dest);
                             segments.push({ ray: r });
                         }
