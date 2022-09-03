@@ -2,7 +2,7 @@
 export const flagMigrations = {
 
     async handle(item) {
-        let flags = item.data?.flags?.autoanimations;
+        let flags = item.flags?.autoanimations;
         if (!flags) return;
 
         if (this.upToDate(flags)) return flags;
@@ -13,14 +13,14 @@ export const flagMigrations = {
         }
 
         for (let [version, migration] of Object.entries(this.migrations)) {
-            let flagVersion = item.data.flags.autoanimations.version;
+            let flagVersion = item.flags.autoanimations.version;
 
             if (flagVersion >= Number(version)) continue;
 
             await migration(item);
         }
 
-        return item.data.flags.autoanimations;
+        return item.flags.autoanimations;
     },
 
     upToDate(flags) {
@@ -30,7 +30,7 @@ export const flagMigrations = {
 
     migrations: {
         "1": async (item) => {
-            const oldFlags = item.data?.flags?.autoanimations;
+            const oldFlags = item.flags?.autoanimations;
             const type = oldFlags.animType;
 
             const data = {
@@ -431,7 +431,7 @@ export const flagMigrations = {
              * allSounds.explosion.volume --------------> audio.e01.volume
              * 
              */
-            const v2Flags = item.data?.flags?.autoanimations || {};
+            const v2Flags = item.flags?.autoanimations || {};
             const allSounds = v2Flags.allSounds || {};
             v2Flags.audio = {
                 a01: {
@@ -454,7 +454,7 @@ export const flagMigrations = {
             console.warn(`DEBUG | Automated Animations | Version 2 Flag Migration Complete`, v2Flags)
         },
         "3": async (item) => {
-            const v3Flags = item.data?.flags?.autoanimations || {};
+            const v3Flags = item.flags?.autoanimations || {};
             if (v3Flags.killAnim) {
                 v3Flags.version = 3;
                 await item.update({ 'flags.-=autoanimations': null })
@@ -485,7 +485,7 @@ export const flagMigrations = {
             }
         },
         "4": async (item) => {
-            const v4Flags = item.data?.flags?.autoanimations || {};
+            const v4Flags = item.flags?.autoanimations || {};
             const options = v4Flags.options || {}
             if (v4Flags.killAnim) {
                 v4Flags.version = 4;
