@@ -39,7 +39,7 @@ export default class systemData {
 
         if (this.systemId === 'pf2e') {
             const pf2eRuleTypes = ['condition', 'effect', 'feat'];
-            this.isPF2eRuleset = pf2eRuleTypes?.includes(this.item.type);    
+            this.isPF2eRuleset = pf2eRuleTypes?.includes(this.item.type);
         }
 
         this.isActiveEffect = this.item?.uuid?.includes("ActiveEffect") || this.isPF2eRuleset ? true : false;
@@ -93,7 +93,7 @@ export default class systemData {
                 this.animNameFinal = this.animation;
                 break;
         }
-        
+
         this.animEnd = endTiming(this.animNameFinal);
         this.autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
 
@@ -108,8 +108,8 @@ export default class systemData {
         if (!this.autorecObject && game.system.id === 'pf2e') {
             /* fallback assignment for PF2e to capture Rule Element Strikes */
             this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
-        } 
-        
+        }
+
         // If there is no match and there are alternative names, then attempt to use those names instead
         if (!this.autorecObject && data.extraNames?.length && !this.isActiveEffect && !this.pf2eRuleset) {
             for (const name of data.extraNames) {
@@ -135,22 +135,22 @@ export default class systemData {
         this.isAutorecTemplate = (this.isAutorecTemplateItem || this.isAutorecFireball) && !this.isCustomized ? true : false;
 
         this.isOverrideTemplate = (this.animType === "template" && this.isCustomized) || (this.animType === "preset" && this.flags.animation === "fireball" && this.isCustomized) ? true : false;
-        this.isOverrideAura = this.animType === "aura" && this.isCustomized ? true: false;
+        this.isOverrideAura = this.animType === "aura" && this.isCustomized ? true : false;
         this.isOverrideTeleport = (this.animType === "preset" && this.flags.animation === "teleportation") || this.isAutorecTeleport ? true : false;
         //this.isAutorecTeleport = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === 'teleportation' ? true: false;
         this.decoupleSound = game.settings.get("autoanimations", "decoupleSound");
-        this.isThunderwave5e = (this.animType === 'preset' && this.isCustomized && this.flags.animation === 'thunderwave'); 
+        this.isThunderwave5e = (this.animType === 'preset' && this.isCustomized && this.flags.animation === 'thunderwave');
     }
 
-    get shouldPlayImmediately () {
+    get shouldPlayImmediately() {
         return this.isOverrideAura || this.isAutorecAura || this.isOverrideTemplate || this.isAutorecTemplate || this.isOverrideTeleport || this.isAutorecTeleport || this.isThunderwave5e || this.isAutoThunderwave5e;
     }
 
-    get soundNoAnimation () {
+    get soundNoAnimation() {
         return this.flags.audio?.a01?.enable && this.flags.audio?.a01?.file
     }
 
-    get macroOnly () {
+    get macroOnly() {
         return this.flags.macro?.enable && this.flags.macro?.name
     }
 
@@ -191,30 +191,8 @@ export default class systemData {
             const ray = new Ray({ x: x1, y: y1 }, { x: x2, y: y2 });
             const distance = canvas.grid.grid.measureDistances([{ ray }], { gridSpaces: true })[0];
             return distance;
-        } else {
-            var x, x1, y, y1, d, r, segments = [], rdistance, distance;
-            for (x = 0; x < this.sourceToken.width; x++) {
-                for (y = 0; y < this.sourceToken.height; y++) {
-                    const origin = new PIXI.Point(...canvas.grid.getCenter(this.sourceToken.x + (canvas.dimensions.size * x), this.sourceToken.y + (canvas.dimensions.size * y)));
-                    for (x1 = 0; x1 < target.width; x1++) {
-                        for (y1 = 0; y1 < target.height; y1++) {
-                            const dest = new PIXI.Point(...canvas.grid.getCenter(target.x + (canvas.dimensions.size * x1), target.y + (canvas.dimensions.size * y1)));
-                            const r = new Ray(origin, dest);
-                            segments.push({ ray: r });
-                        }
-                    }
-                }
-            }
-            if (segments.length === 0) {
-                return -1;
-            }
-            rdistance = canvas.grid.measureDistances(segments, { gridSpaces: true });
-            distance = rdistance[0];
-            rdistance.forEach(d => {
-                if (d < distance)
-                    distance = d;
-            });
-            return distance;
+        } else {   
+            return canvas.grid.measureDistance(this.sourceToken, target, {gridSpaces: true});
         }
     }
 
