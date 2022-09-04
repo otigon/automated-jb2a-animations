@@ -10,7 +10,7 @@ export async function templateAnimation(handler, animationData, config) {
     const sourceToken = handler.sourceToken;
 
     const template = config ? config : canvas.templates.placeables[canvas.templates.placeables.length - 1];
-    const templateData = template.data || {};
+    const templateData = config ? template || {}: template.document || {};
     const templateType = templateData?.t;
 
     const data = animationData.primary;
@@ -109,7 +109,7 @@ export async function templateAnimation(handler, animationData, config) {
         }
     } else {
 
-        const templateType = templateData.t;
+        //const templateType = templateData.t;
 
         let aaSeq = await new Sequence("Automated Animations")
         if ((data.persistent && data.persistType !== "attachtemplate") || !data.persistent) {

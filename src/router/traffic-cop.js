@@ -189,7 +189,10 @@ export async function trafficCop(handler) {
                     case "sw5e":
                     case "tormenta20":
                     case "swade":
-                        if (game.modules.get("mars-5e")?.active) {
+                        if (game.modules.get("midi-qol")?.active) {
+                            templateAnimation(handler, animationData);
+                        }
+                        else if (game.modules.get("mars-5e")?.active) {
                             templateAnimation(handler, animationData, config);
                         } else {
                             aaTemplateHook = Hooks.once("createMeasuredTemplate", (config) => {

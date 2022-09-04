@@ -179,14 +179,16 @@ Hooks.once('ready', async function () {
             case (true):
                 Hooks.on("midi-qol.DamageRollComplete", (workflow) => { setUpMidi(workflow) });
                 //Hooks.on('midi-qol.preambleComplete', (workflow) => { midiAOE(workflow) });
-                Hooks.on("createChatMessage", (msg) => { midiTemplateAnimations(msg) });
+                //Hooks.on("createChatMessage", (msg) => { midiTemplateAnimations(msg) });
                 Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAttackDamage(workflow) });
+                Hooks.on("dnd5e.useItem", (item, consume, dialog, template) => { instantAnimations({item, consume, dialog, template}) })
                 break;
             case (false):
                 Hooks.on("midi-qol.AttackRollComplete", (workflow) => { setUpMidi(workflow) });
                 Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAttack(workflow) });
                 //Hooks.on('midi-qol.preambleComplete', (workflow) => { midiAOE(workflow) });
-                Hooks.on("createChatMessage", (msg) => { midiTemplateAnimations(msg) });
+                //Hooks.on("createChatMessage", (msg) => { midiTemplateAnimations(msg) });
+                Hooks.on("dnd5e.useItem", (item, consume, dialog, template) => { instantAnimations({item, consume, dialog, template}) })
                 break;
         }
         if (game.settings.get("autoanimations", "EnableCritical") || game.settings.get("autoanimations", "EnableCriticalMiss")) {
@@ -585,6 +587,18 @@ async function midiTemplateAnimations(msg) {
         return;
     }
     //let breakOut = checkMessege(msg);
+    if ((handler.shouldPlayImmediately) /*&& (breakOut === 0 || game.modules.get("betterrolls5e")?.active)*/) {
+        trafficCop(handler);
+    } else { return; }
+}
+
+async function instantAnimations(data) {
+    if (killAllAnimations) { return; }
+    console.log(data)
+    const handler = await systemData.make(data);
+    if (!handler.item || !handler.sourceToken) {
+        return;
+    }
     if ((handler.shouldPlayImmediately) /*&& (breakOut === 0 || game.modules.get("betterrolls5e")?.active)*/) {
         trafficCop(handler);
     } else { return; }
