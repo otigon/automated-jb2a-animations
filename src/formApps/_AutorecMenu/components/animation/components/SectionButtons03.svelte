@@ -1,21 +1,8 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
-    import { currentStore } from "./videoPreview/previewStore.js";
-
     export let animation;
-    export let category;
-    export let idx;
 
-    $: currentIDX = category.stores.videoIDX;
-
-    async function seePreview() {
-        currentIDX.set(idx);
-        currentStore.set(category);
-        //currentCategory.set(category)
-        category.loadPreviews(category);
-        //new VideoPreview({ animation }).render(true);
-    }
 </script>
 
 <div class="aa-autorec-headerButton">
