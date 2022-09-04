@@ -10,6 +10,8 @@
     "verified": "10",
     "maximum": "10"
   },
+  "minimumCoreVersion": "10",
+  "compatibleCoreVersion": "10",
   "scripts": [],
   "esmodules": [
     "src/autoAnimations.js"
