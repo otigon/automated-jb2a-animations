@@ -1,23 +1,43 @@
 <script>
-    import { fade } from "svelte/transition";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { getPreviewFile } from "./getPreviewFile.js";
+    import { currentStore } from "./previewStore.js";
 
     import { getContext } from "svelte";
 
-    export let animation;
-    //export let category;
+    $: newStore = $currentStore;
+    $: videoIDX = $currentStore.stores.videoIDX;
+
+    $: idx = $videoIDX;
+    $: animationSection = $newStore[idx];
+    $: animation = $animationSection;
 
     const { application } = getContext("external");
+    $: enableSource = animation.source.enable;
+    $: sCustom = animation.source.video.enableCustom;
+    $: sCustomPath = animation.source.video.customPath;
+    $: sDbSection = animation.source.video.dbSection;
+    $: sMenuType = animation.source.video.menuType;
+    $: sAnim = animation.source.video.animation;
+    $: sVariant = animation.source.video.variant;
+    $: sColor = animation.source.video.color;
+    $: sCompiledPath = sCustom && sCustomPath 
+                    ? sCustomPath 
+                    : sColor === "random" 
+                    ? `autoanimations.${sDbSection}.${sMenuType}.${sAnim}.${sVariant}`
+                    : `autoanimations.${sDbSection}.${sMenuType}.${sAnim}.${sVariant}.${sColor}`
+    $: sFilePath = sCustom && sCustomPath && sCustomPath.split(".").length < 3
+                    ? sCustomPath 
+                    : getPreviewFile(sCompiledPath)
 
-    $: name = $animation.label;
-    $: custom = $animation.primary.video.enableCustom;
-    $: customPath = $animation.primary.video.customPath;
-    $: dbSection = $animation.primary.video.dbSection;
-    $: menuType = $animation.primary.video.menuType;
-    $: anim = $animation.primary.video.animation;
-    $: variant = $animation.primary.video.variant;
-    $: color = $animation.primary.video.color;
+    $: name = animation.label;
+    $: custom = animation.primary.video.enableCustom;
+    $: customPath = animation.primary.video.customPath;
+    $: dbSection = animation.primary.video.dbSection;
+    $: menuType = animation.primary.video.menuType;
+    $: anim = animation.primary.video.animation;
+    $: variant = animation.primary.video.variant;
+    $: color = animation.primary.video.color;
     $: compiledPath = custom && customPath 
                     ? customPath 
                     : color === "random" 
@@ -27,35 +47,65 @@
                     ? customPath 
                     : getPreviewFile(compiledPath)
 
-    /*
-    let closeNow = false;
-    closePreviewWindow.subscribe((value) => {
-        closeNow = value;
-    });
+    $: enableExplosion = animation.explosion?.enable ?? false;
+    $: eCustom = animation.explosion?.video?.enableCustom;
+    $: eCustomPath = animation.explosion?.video?.customPath;
+    $: eDbSection = animation.explosion?.video?.dbSection;
+    $: eMenuType = animation.explosion?.video?.menuType;
+    $: eAnim = animation.explosion?.video?.animation;
+    $: eVariant = animation.explosion?.video?.variant;
+    $: eColor = animation.explosion?.video?.color;
+    $: eCompiledPath = eCustom && eCustomPath 
+                    ? eCustomPath 
+                    : color === "random" 
+                    ? `autoanimations.${eDbSection}.${eMenuType}.${eAnim}.${eVariant}`
+                    : `autoanimations.${eDbSection}.${eMenuType}.${eAnim}.${eVariant}.${eColor}`
+    $: eFilePath = eCustom && eCustomPath && eCustomPath.split(".").length < 3
+                    ? eCustomPath 
+                    : getPreviewFile(eCompiledPath)
 
-    let idx;
-    index.subscribe((value) => {
-        idx = value;
-    });
+    $: enableTarget = animation.target?.enable ?? false;
+    $: tCustom = animation.target?.video?.enableCustom;
+    $: tCustomPath = animation.target?.video?.customPath;
+    $: tDbSection = animation.target?.video?.dbSection;
+    $: tMenuType = animation.target?.video?.menuType;
+    $: tAnim = animation.target?.video?.animation;
+    $: tVariant = animation.target?.video?.variant;
+    $: tColor = animation.target?.video?.color;
+    $: tCompiledPath = tCustom && tCustomPath 
+                    ? tCustomPath 
+                    : sColor === "random" 
+                    ? `autoanimations.${tDbSection}.${tMenuType}.${tAnim}.${tVariant}`
+                    : `autoanimations.${tDbSection}.${tMenuType}.${tAnim}.${tVariant}.${tColor}`
+    $: tFilePath = tCustom && tCustomPath && tCustomPath.split(".").length < 3
+                    ? tCustomPath 
+                    : getPreviewFile(tCompiledPath)
 
-    let dbType;
-    databaseType.subscribe((value) => {
-        dbType = value;
-    });
-    $: name = $storeAutorec[dbType][idx].name;
-
-    $: if (closeNow) {
-        application.close();
-        closePreviewWindow.set(false);
-    }
-    */
+   let name = "TESTING";
+   let filePath = "modules/jb2a_patreon/Library/1st_Level/Arms_Of_Hadar/ArmsOfHadar_01_Dark_Green_500x500.webm"
 </script>
 
 <div class="flexcol">
     <label class="aa-section-label" for=""><i>{name}</i> - {localize("autoanimations.menus.preview")}</label>
 </div>
 <div class="flexcol aa-full-preview">
-    <div class="flexcol" style="grid-row:1/2" transition:fade>
+    {#if enableSource}
+        <div class="flexcol" style="grid-row:1/2">
+            <label for="">{localize("autoanimations.menus.source")} {localize("autoanimations.menus.animation")}</label>
+            <div class="aa-video-overlay">
+                <video
+                    class="aaVideoPreview"
+                    src={sFilePath}
+                    autoplay="autoplay"
+                    controls
+                    loop
+                >
+                    <track kind="captions" />
+                </video>
+            </div>
+        </div>
+    {/if}
+    <div class="flexcol" style="grid-row:1/2">
         <label for="">{localize("autoanimations.menus.primary")} {localize("autoanimations.menus.animation")}</label>
         <div class="aa-video-overlay">
             <video
@@ -63,12 +113,47 @@
                 src={filePath}
                 autoplay="autoplay"
                 controls
+                controlsList="nodownload"
+                disablepictureinpicture
                 loop
             >
                 <track kind="captions" />
             </video>
         </div>
     </div>
+    {#if enableExplosion}
+        <div class="flexcol" style="grid-row:1/2">
+            <label for="">{localize("autoanimations.variants.secondary")} {localize("autoanimations.menus.animation")}</label>
+            <div class="aa-video-overlay">
+                <video
+                    class="aaVideoPreview"
+                    src={eFilePath}
+                    autoplay="autoplay"
+                    controls
+                    loop
+                >
+                    <track kind="captions" />
+                </video>
+            </div>
+        </div>
+    {/if}
+    {#if enableTarget}
+        <div class="flexcol" style="grid-row:1/2">
+            <label for="">{localize("autoanimations.menus.target")} {localize("autoanimations.menus.animation")}</label>
+            <div class="aa-video-overlay">
+                <video
+                    class="aaVideoPreview"
+                    src={tFilePath}
+                    autoplay="autoplay"
+                    controls
+                    loop
+                >
+                    <track kind="captions" />
+                </video>
+            </div>
+        </div>
+    {/if}
+
 </div>
 
 <style lang="scss">

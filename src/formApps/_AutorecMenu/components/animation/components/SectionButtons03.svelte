@@ -7,10 +7,7 @@
     export let category;
     export let idx;
 
-    export let show3d = false;
-
     $: currentIDX = category.stores.videoIDX;
-    //$: currentCategory = category.stores.currentCategory;
 
     async function seePreview() {
         currentIDX.set(idx);
@@ -23,20 +20,6 @@
 
 <div class="aa-autorec-headerButton">
     <div style="grid-row:1/2; grid-column:1/2">
-        <label for="" on:click={() => seePreview()}
-            >{localize("autoanimations.menus.preview")}
-            <i class="fas fa-film fa-lg aa-zoom" /></label
-        >
-    </div>
-    <div style="grid-row:1/2; grid-column:2/3">
-        <label for="" on:click={() => (show3d = !show3d)}
-            >{localize("autoanimations.menus.3dcanvas")}
-            <i
-                class="fas fa-cube fa-lg aa-zoom {show3d ? 'aa-green' : ''}"
-            /></label
-        >
-    </div>
-    <div style="grid-row:1/2; grid-column:3/4">
         <label
             for=""
             on:click={() =>
@@ -52,7 +35,7 @@
             /></label
         >
     </div>
-    <div style="grid-row:1/2; grid-column:4/5">
+    <div style="grid-row:1/2; grid-column:2/3">
         <label
             for=""
             on:click={() =>
@@ -71,5 +54,14 @@
 <style lang="scss">
     .aa-autorec-headerButton label {
         font-size: small;
+    }
+    .aa-autorec-headerButton {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 30px;
+        padding: 5px;
+        text-align: center;
+        align-items: center;
+        color: black;
     }
 </style>

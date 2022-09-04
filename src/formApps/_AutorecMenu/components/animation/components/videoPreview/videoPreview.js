@@ -27,7 +27,7 @@ export default class TotalPreview extends TJSDialog {
             width: "auto",
             height: "auto",
             closeOnSubmit: true,
-            id: `Item-Video-Preview`,
+            id: `Autorec-Video-Preview`,
         })
     }
 

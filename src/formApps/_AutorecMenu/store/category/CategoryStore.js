@@ -11,7 +11,9 @@ import { aaSessionStorage }   from "../../../../sessionStorage.js";
 import { constants }          from "../../../../constants.js";
 import { gameSettings }       from "../../../../gameSettings.js";
 
-import OptionsDialog from "../../components/animation/components/options/optionsInfoDialog.js"
+import OptionsDialog from "../../components/animation/components/options/optionsInfoDialog.js";
+
+import VideoPreview from "../../components/animation/components/videoPreview/videoPreview.js";
 
 import { 
    newTypeMenu,
@@ -20,7 +22,7 @@ import {
    newColorMenu,
    aaReturnWeapons,
 } from "../../../../animation-functions/databases/jb2a-menu-options.js";
-console.log(WorldSettingArrayStore)
+
 export class CategoryStore extends WorldSettingArrayStore {
    /**
     * A filter function / Svelte store that can be used with DynArrayReducer and set as a store to TJSInput.
@@ -56,8 +58,11 @@ export class CategoryStore extends WorldSettingArrayStore {
       this.#stores = {
          allFoldersOpened: writable(void 0),
 
-         scrollTop: aaSessionStorage.getStore(`${constants.moduleId}-category-scrolltop-${key}`, 0)
+         scrollTop: aaSessionStorage.getStore(`${constants.moduleId}-category-scrolltop-${key}`, 0),
+         // This allow setting the current Index of the section for the Video Preview app
+         videoIDX: writable(void 0),
       };
+      
    }
 
    get filterSearch() { return CategoryStore.#filterSearch; }
@@ -101,6 +106,17 @@ export class CategoryStore extends WorldSettingArrayStore {
       });
 
       this.updateSubscribers();
+   }
+
+
+   loadPreviews() {
+      if (
+         Object.values(ui.windows).find(
+            (w) => w.id === `Autorec-Video-Preview`
+         )
+      ) { return; }
+
+      new VideoPreview().render(true);
    }
 
    getMenuDB(section, idx, isOnToken) {

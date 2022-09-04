@@ -26,7 +26,7 @@
     $: macroEnabled = $animation.macro.enable;
 </script>
 
-<SectionButtons {animation} bind:show3d />
+<SectionButtons {animation} bind:show3d {category} {idx}/>
 {#if show3d && !soundOnly}
     <Canvas3D {animation} />
 {:else}

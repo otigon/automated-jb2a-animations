@@ -1,12 +1,31 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
-    export let animation;
+    import { currentStore } from "./videoPreview/previewStore.js";
 
+    export let animation;
+    export let category;
+    export let idx;
+
+    $: currentIDX = category.stores.videoIDX;
+
+    async function seePreview() {
+        currentIDX.set(idx);
+        currentStore.set(category);
+        //currentCategory.set(category)
+        category.loadPreviews(category);
+        //new VideoPreview({ animation }).render(true);
+    }
 </script>
 
 <div class="aa-autorec-headerButton">
     <div style="grid-row:1/2; grid-column:1/2">
+        <label for="" on:click={() => seePreview()}
+            >{localize("autoanimations.menus.preview")}
+            <i class="fas fa-film fa-lg aa-zoom" /></label
+        >
+    </div>
+    <div style="grid-row:1/2; grid-column:2/3">
         <label
             for=""
             on:click={() =>
@@ -22,7 +41,7 @@
             /></label
         >
     </div>
-    <div style="grid-row:1/2; grid-column:2/3">
+    <div style="grid-row:1/2; grid-column:3/4">
         <label
             for=""
             on:click={() =>
@@ -44,7 +63,7 @@
     }
     .aa-autorec-headerButton {
         display: grid;
-        grid-template-columns: 50% 50%;
+        grid-template-columns: 33% 33% 33%;
         grid-template-rows: 30px;
         padding: 5px;
         text-align: center;

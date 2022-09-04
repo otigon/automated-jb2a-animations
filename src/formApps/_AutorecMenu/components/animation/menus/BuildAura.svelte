@@ -18,7 +18,7 @@ $: macroEnabled = $animation.macro.enable;
 
 </script>
 
-<SectionButtons {animation} />
+<SectionButtons {animation} {category} {idx}/>
 <div hidden={!soundOnly}>
     <SoundOnly {animation}/>
 </div>

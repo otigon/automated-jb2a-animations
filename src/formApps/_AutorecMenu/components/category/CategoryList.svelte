@@ -20,7 +20,7 @@
     export let category;
 
     $: dataReducer = category.dataReducer;
-    console.log(category)
+
     // Svelte doesn't have events for the animate directive; `animateEvents` wraps an animate function and provides
     // events, but also an optional ability to set a store w/ the current animation state. This is used below to set
     // the `no-scroll` class on the main element to remove overflow-y when animating.

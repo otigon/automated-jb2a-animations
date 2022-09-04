@@ -7,7 +7,7 @@
     import Thunderwave from "../presetMenus/Thunderwave.svelte";
     import DualAnimation from "../presetMenus/DualAnimation.svelte";
     import TripleAnimation from "../presetMenus/TripleAnimation.svelte";
-    import SectionButtons from "../components/SectionButtons02.svelte";
+    import SectionButtons from "../components/SectionButtons03.svelte";
     import Macro from "../components/Macro.svelte";
     import SoundOnly from "../components/SoundOnly.svelte";
 

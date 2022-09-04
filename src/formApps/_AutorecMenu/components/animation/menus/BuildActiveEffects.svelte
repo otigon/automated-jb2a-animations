@@ -5,7 +5,7 @@
     import TripleAnimation from "../presetMenus/TripleAnimation.svelte";
     import BuildAeOnToken from "../activeEffectMenus/BuildAEOnToken.svelte";
     import BuildAeAura from "../activeEffectMenus/BuildAEAura.svelte";
-    import SectionButtons from "../components/SectionButtons02.svelte";
+    import SectionButtons from "../components/SectionButtons03.svelte";
     import Macro from "../components/Macro.svelte";
     import SoundOnly from "../components/SoundOnly.svelte";
 
