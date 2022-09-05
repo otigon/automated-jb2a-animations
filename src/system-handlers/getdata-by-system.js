@@ -18,7 +18,7 @@ export class AASystemData {
      static async dnd5e(input, isChat) {
         let midiWorkflowAvailable = false;
         if (game.modules.get('midi-qol')?.active && isChat) {
-            const workflowId = getProperty(input, "data.flags.midi-qol.workflowId");
+            const workflowId = getProperty(input, "flags.midi-qol.workflowId");
             let workflow = workflowId ? MidiQOL.Workflow.getWorkflow(workflowId) : undefined;
             if (workflow) {
                 input = workflow;
@@ -39,7 +39,7 @@ export class AASystemData {
             item = ammo && ammoType === "ammo" ? token.actor.items?.get(input.item.system.consume.target) : item;
             if (!item || !token) { return {}; }
 
-            const hitTargets = Array.from(input.hitTargets);
+            const hitTargets = Array.from(input.hitTargets || {});
             targets = input.item?.system.target?.type === 'self' ? [token] : targets;
             if (game.modules.get('midi-qol')?.active) {
                 switch (true) {
@@ -639,7 +639,7 @@ export class AASystemData {
         const data = input || {};
         const itemId =  data.item?.id ??
                         data.itemId ??
-                        data.data?.item?.id ??
+                        data.item?.id ??
                         //data.data?.flags?.dnd5e?.roll?.itemId ?? 
                         //data.data?.flags?.sw5e?.roll?.itemId ??
                         data.flags?.[system]?.roll?.itemId ?? 
@@ -650,9 +650,9 @@ export class AASystemData {
                         data._roll?.options?.itemId ??
                         data.flags?.itemId ??
                         data.flags?.itemID ??
-                        data.roll?.data._id ??
-                        this._extractItemId(data.data?.content) ??
-                        this._extractItemId(data.msg?.data?.content) ??
+                        data.roll?._id ??
+                        this._extractItemId(data.content) ??
+                        this._extractItemId(data.msg?.content) ??
                         void 0;
         return itemId;
     }
@@ -664,7 +664,8 @@ export class AASystemData {
      */
     static async getItem(input) {
         const data = input || {};
-        const item =    data.item ??
+        const item =    data.data?.item ??
+                        data.item ??
                         data.itemSource ??
                         data.SwadeItem ??
                         data.token?.actor?.items?.get(data.itemId) ??

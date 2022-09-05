@@ -197,23 +197,23 @@ export async function checkConcentration(effect) {
     }
 
     // Get arrays of Background and Foreground Tiles with the A-A Origin flag UUID matching the Effect Origin
-    const bgTiles = canvas.background.placeables.filter(i => i.flags?.autoanimations?.origin === origin)
-    const fgTiles = canvas.foreground.placeables.filter(i => i.flags?.autoanimations?.origin === origin);
-    if (bgTiles.length < 1 && fgTiles.length < 1) {
+    const tiles = canvas.tiles.placeables.filter(i => i.data.flags?.autoanimations?.origin === origin)
+    //const fgTiles = canvas.foreground.placeables.filter(i => i.flags?.autoanimations?.origin === origin);
+    if (tiles.length < 1) {
         if (aaDebug) { aaDebugger("Failed to find any Tiles tied to Concentration") }
         return;
     }
     let tileIdArray = []
-    if (bgTiles.length || fgTiles.length) {
+    if (tiles.length) {
         //if (bgTiles.length) {
-        for (let tile of bgTiles) {
+        for (let tile of tiles) {
             tileIdArray.push(tile.id)
         }
         //}
         //if (fgTiles.length) {
-        for (let tile of fgTiles) {
-            tileIdArray.push(tile.id)
-        }
+        //for (let tile of fgTiles) {
+            //tileIdArray.push(tile.id)
+        //}
         //}
         socketlibSocket.executeAsGM("removeTile", tileIdArray)
     }
