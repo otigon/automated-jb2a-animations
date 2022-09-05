@@ -11,8 +11,6 @@
     export let idx;
     export let category;
  
-    $: menuDB = animation._data[section][section02].dbSection;
-
     $: dbSection = $animation[section][section02].dbSection;
     $: menuType = $animation[section][section02].menuType;
     $: anim = $animation[section][section02].animation;
@@ -28,15 +26,14 @@
             <td>
                 <label
                 for=""
-                on:click={() => category.databaseToClipboard()}
+                on:click={() => category.databaseToClipboard(section, idx, section02, dbSection)}
                 style="align-self: center; position:relative; bottom: -10px;font-size:large;"
                 title="Copy Database Path"
                 >{localize("autoanimations.menus.copy")} DB {localize(
                     "autoanimations.menus.path"
                 )}
                 <i
-                    class="fas fa-database aa-zoom"
-                    style="color: rgba(50, 79, 245, 0.5);"
+                    class="fas fa-database aa-zoom aa-blue aa-disableOpacity"
                 /></label
                 >
                 <div id="clipboard" />
@@ -50,7 +47,7 @@
                     <select
                         bind:value={$animation[section][section02].menuType}
                         on:change={async () =>
-                            await category.menuTypeChange(section, idx, section02, menuDB)}
+                            await category.menuTypeChange(section, idx, section02, dbSection)}
                     >
                         {#each category.typeMenu[$animation[section][section02].dbSection] as [key, name]}
                             <option value={key}>{name}</option>
@@ -71,7 +68,7 @@
                     <select
                         bind:value={$animation[section][section02].animation}
                         on:change={async () =>
-                            await category.animationChange(section, idx, section02, menuDB)}
+                            await category.animationChange(section, idx, section02, dbSection)}
                     >
                         {#each category.animationMenu[dbSection][menuType] as [key, name]}
                             <option value={key}>{name}</option>
@@ -88,7 +85,7 @@
                     <select
                         bind:value={$animation[section][section02].variant}
                         on:change={async () =>
-                            await category.variantChange(section, idx, section02, menuDB)}
+                            await category.variantChange(section, idx, section02, dbSection)}
                     >
                         {#each category.variantMenu[dbSection][menuType][anim] as [key, name]}
                             <option value={key}>{name}</option>

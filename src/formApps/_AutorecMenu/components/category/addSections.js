@@ -54,7 +54,7 @@ const ontoken = {
     primary: {
         options: {playOn: "default"},
         sound: setSound(),
-        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },       
+        video: { dbSection: "static", menuType: 'spell', animation: 'curewounds', variant: '01', color: 'blue' },       
     },
     source: setStatic(),
     target: setStatic(),
@@ -85,7 +85,7 @@ const aura = {
     primary: {
         options: {},
         sound: setSound(),
-        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
+        video: { dbSection: "static", menuType: 'spell', animation: 'curewounds', variant: '01', color: 'blue' },       
     },
     source: setStatic(),
     target: setStatic(),
@@ -113,7 +113,7 @@ function setStatic() {
     return {
         options: {},
         sound: setSound(),
-        video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
+        video: { dbSection: "static", menuType: 'spell', animation: 'curewounds', variant: '01', color: 'blue' },       
     }
 }
 function setSound() {

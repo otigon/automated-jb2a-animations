@@ -8,7 +8,6 @@
     import Opacity from "./inputComponents/Opacity.svelte";
 
     export let animation;
-    export let category;
 
     const folder = {
         styles: {
@@ -20,32 +19,10 @@
         label: game.i18n.localize("autoanimations.menus.options"),
     };
 
-    /*
-    $: below = $animation.source.options.below;
-    $: buttonBelow = {
-        icon: below ? "fas fa-check" : "fas fa-times",
-        title: "autoanimations.menus.add",
-        styles: { 'margin-left': 'auto', 'margin-right': 'auto', 'margin-top': '.1em', 'border-radius': '50%' },
-    }
-
-    $: mask = $animation.source.options.isMasked;
-    $: buttonMask = {
-        icon: mask ? "fas fa-check" : "fas fa-times",
-        title: "autoanimations.menus.add",
-        styles: { 'margin-left': 'auto', 'margin-right': 'auto', 'margin-top': '.1em', 'border-radius': '50%' },
-    }
-    */
 </script>
 
 <div class="aa-options-border">
     <TJSSvgFolder {folder}>
-        <div slot="summary-end">
-            <i
-                class="fas fa-info-circle aa-info-icon aa-zoom aa-adjust-pos"
-                title={localize("autoanimations.menus.quickReference")}
-                on:click={() => category.optionsInfo()}
-            />
-        </div>
         <table class="d">
             <tr>
                 <td>
@@ -53,8 +30,9 @@
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.elevation")}
-                    section={"source"}
-                    field={"elevation"}
+                    section="source"
+                    field="elevation"
+                    placeholder=1000
                     />
                 </td>
                 <td>
@@ -62,8 +40,8 @@
                     <NumberInput
                         {animation}
                         label={localize("autoanimations.menus.repeat")}
-                        section={"source"}
-                        field={"repeat"}
+                        section="source"
+                        field="repeat"
                     />
                 </td>
                 <td>
@@ -73,8 +51,8 @@
                         label={localize("autoanimations.menus.repeat") +
                             " " +
                             localize("autoanimations.menus.delay")}
-                        section={"source"}
-                        field={"delay"}
+                        section="source"
+                        field="delay"
                         placeholder="250"
                     />
                 </td>
@@ -102,8 +80,8 @@
                     <!--Set Size of Animation-->
                     <ScaleRadius
                         {animation}
-                        section={"source"}
-                        field={"size"}
+                        section="source"
+                        field="size"
                         step="0.01"
                     />
                 </td>
@@ -114,8 +92,8 @@
                     <NumberInput
                         {animation}
                         label={localize("autoanimations.menus.z-index")}
-                        section={"source"}
-                        field={"zIndex"}
+                        section="source"
+                        field="zIndex"
                     />
                 </td>
                 <td>
@@ -123,8 +101,8 @@
                     <NumberInput
                         {animation}
                         label={localize("autoanimations.menus.wait")}
-                        section={"source"}
-                        field={"delayAfter"}
+                        section="source"
+                        field="delayAfter"
                     />
                 </td>
             </tr>
@@ -133,8 +111,4 @@
 </div>
 
 <style lang="scss">
-    .aa-adjust-pos {
-        position: relative;
-        left: 10px;
-    }
 </style>

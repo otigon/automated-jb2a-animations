@@ -3,7 +3,7 @@
 	
 	export let dbPath;
 
-	let textarea;
+	let textarea = dbPath;
 	
 	onMount(() => {
 		textarea.select();

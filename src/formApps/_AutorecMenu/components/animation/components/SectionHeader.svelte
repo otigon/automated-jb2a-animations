@@ -1,20 +1,29 @@
 <script>
-export let title;
+    export let title;
 </script>
 
-<div class="aa-header-section">
-    <div class="aa-header">
-        <div
-            class="flexcol"
-            style="grid-row:1/2; grid-column:3/4"
-        >
-            <label for=""
-                >{title}</label
-            >
-        </div>
+<div class="aa-SectionHeader">
+    <div class="flexcol">
+        <label for="">{title}</label>
     </div>
 </div>
 
-<style lang='scss'>
-
+<style lang="scss">
+    .aa-SectionHeader {
+        border-bottom: 2px solid rgba(181, 69, 52, 0.5);
+        margin-right: 5%;
+        margin-left: 5%;
+        margin-bottom: 5px;
+        label {
+            align-self: center;
+            font-family: "Modesto Condensed", "Palatino Linotype", serif;
+            font-size: x-large;
+            font-weight: bold;
+            text-align: center;
+            margin-right: 6%;
+            margin-left: 6%;
+            color: black;
+            padding: 2px;
+        }
+    }
 </style>

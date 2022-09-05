@@ -5,9 +5,9 @@ import FullVideoPreview from "./autorecPreviews.svelte";
 export default class TotalPreview extends TJSDialog {
     constructor(data) {
         super({
-            title: 'A-A Full Preview',
+            title: 'Autorec Video Preview',
             draggable: true,
-            resizeable: true,
+            resizable: false,
             modal: false,
             zIndex:null,
             content: {

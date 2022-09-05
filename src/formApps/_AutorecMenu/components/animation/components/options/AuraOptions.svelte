@@ -1,7 +1,7 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
-    import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
+    import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
 
     import NumberInput from "./inputComponents/NumberInput.svelte";
     import Opacity from "./inputComponents/Opacity.svelte";
@@ -19,16 +19,23 @@
         label: game.i18n.localize("autoanimations.menus.options"),
     };
 
+    const optionsInfo = {
+        icon: "fas fa-info-circle",
+        title: "autoanimations.menus.quickReference",
+        styles: {
+            "--tjs-icon-button-diameter": "1.em",
+            position: "relative",
+            left: "10px",
+            color: "rgba(50, 79, 245, 0.5)"
+        }
+    }
+
     </script>
 
 <div class="aa-options-border">
     <TJSSvgFolder {folder}>
         <div slot="summary-end">
-            <i
-                class="fas fa-info-circle aa-info-icon aa-zoom aa-adjust-pos"
-                title={localize("autoanimations.menus.quickReference")}
-                on:click={() => category.optionsInfo()}
-            />
+            <TJSIconButton button={optionsInfo} on:click={() => category.optionsInfo()}/>
         </div>
         <table class="d">
             <tr>
@@ -37,8 +44,9 @@
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.elevation")}
-                    section={"primary"}
-                    field={"elevation"}
+                    section="primary"
+                    field="elevation"
+                    placeholder=1000
                     />
                 </td>
                 <td>
@@ -100,8 +108,8 @@
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.z-index")}
-                    section={"primary"}
-                    field={"zIndex"}
+                    section="primary"
+                    field="zIndex"
                     step="1"
                 />
                 </td>
@@ -116,8 +124,8 @@
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.radius")}
-                    section={"primary"}
-                    field={"radius"}
+                    section="primary"
+                    field="radius"
                     step="0.01"
                 />
                 </td>
@@ -143,8 +151,8 @@
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.wait")}
-                    section={"primary"}
-                    field={"wait"}
+                    section="primary"
+                    field="wait"
                     step="0.01"
                 />
                 </td>
@@ -155,8 +163,4 @@
 </div>
 
 <style lang="scss">
-    .aa-adjust-pos {
-        position: relative;
-        left: 10px;
-    }
 </style>

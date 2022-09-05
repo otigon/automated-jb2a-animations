@@ -19,21 +19,6 @@
         },
     };
 
-    /*
-    $: below = $animation.explosion.options.below;
-    $: buttonBelow = {
-        icon: below ? "fas fa-check" : "fas fa-times",
-        title: "autoanimations.menus.add",
-        styles: { 'margin-left': 'auto', 'margin-right': 'auto', 'margin-top': '.1em', 'border-radius': '50%' },
-    }
-
-    $: mask = $animation.explosion.options.isMasked;
-    $: buttonMask = {
-        icon: mask ? "fas fa-check" : "fas fa-times",
-        title: "autoanimations.menus.add",
-        styles: { 'margin-left': 'auto', 'margin-right': 'auto', 'margin-top': '.1em', 'border-radius': '50%' },
-    }
-    */
 </script>
 
 <div class="aa-options-border">
@@ -45,8 +30,9 @@
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.elevation")}
-                    section={"explosion"}
-                    field={"elevation"}
+                    section="explosion"
+                    field="elevation"
+                    placeholder=1000
                     />
                 </td>
                 <td>
@@ -54,16 +40,16 @@
                     <NumberInput
                         {animation}
                         label={localize("autoanimations.menus.z-index")}
-                        section={"explosion"}
-                        field={"zIndex"}
+                        section="explosion"
+                        field="zIndex"
                     />
                 </td>
                 <td>
                     <!--Set Size of Animation-->
                     <ScaleRadius
                         {animation}
-                        section={"explosion"}
-                        field={"size"}
+                        section="explosion"
+                        field="size"
                         placeholder="1.5"
                         step="0.01"
                     />

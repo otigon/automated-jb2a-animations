@@ -9,7 +9,7 @@ import { video } from "./video.js";
 export function explosion() {
    return {
       enable: false,
-      video: { dbSection: "static", menuType: 'chains', animation: 'diamond', variant: '01', color: 'blue' },
+      video: { dbSection: "static", menuType: 'spell', animation: 'curewounds', variant: '01', color: 'blue', enableCustom: false, customPath: "" },
       sound: sound(),
       options: {
          elevation: 1000,

@@ -37,7 +37,7 @@
         </div>
         <div class={!$animation.target.enable ? "aa-isDisabled" : ""}>
             <VideoSelect {animation} section="target" {title} {idx} {category}/>
-            <TargetFxOptions {animation} {category} />
+            <TargetFxOptions {animation} />
             <SoundSettings {animation} {category} {idx} section="target" />
         </div>
     </TJSSvgFolder>

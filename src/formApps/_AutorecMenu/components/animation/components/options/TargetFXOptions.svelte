@@ -8,7 +8,6 @@
     import Opacity from "./inputComponents/Opacity.svelte";
 
     export let animation;
-    export let category;
 
     const folder = {
         styles: {
@@ -25,13 +24,6 @@
 
 <div class="aa-options-border">
     <TJSSvgFolder {folder}>
-        <div slot="summary-end">
-            <i
-                class="fas fa-info-circle aa-info-icon aa-zoom aa-adjust-pos"
-                title={localize("autoanimations.menus.quickReference")}
-                on:click={() => category.optionsInfo()}
-            />
-        </div>
         <table class="d">
             <tr>
                 <td>
@@ -39,8 +31,9 @@
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.elevation")}
-                    section={"target"}
-                    field={"elevation"}
+                    section="target"
+                    field="elevation"
+                    placeholder=1000
                     />
                 </td>
                 <td>
@@ -48,8 +41,8 @@
                     <NumberInput
                         {animation}
                         label={localize("autoanimations.menus.repeat")}
-                        section={"target"}
-                        field={"repeat"}
+                        section="target"
+                        field="repeat"
                         isDisabled={persistent ? "aa-disableOpacity" : ""}
                     />
                 </td>
@@ -60,8 +53,8 @@
                         label={localize("autoanimations.menus.repeat") +
                             " " +
                             localize("autoanimations.menus.delay")}
-                        section={"target"}
-                        field={"delay"}
+                        section="target"
+                        field="delay"
                         placeholder="250"
                         isDisabled={persistent ? "aa-disableOpacity" : ""}
                     />
@@ -141,8 +134,8 @@
                     <!--Set Size of Animation-->
                     <ScaleRadius
                         {animation}
-                        section={"target"}
-                        field={"size"}
+                        section="target"
+                        field="size"
                         step="0.01"
                     />
                 </td>
@@ -153,8 +146,8 @@
                     <NumberInput
                         {animation}
                         label={localize("autoanimations.menus.z-index")}
-                        section={"target"}
-                        field={"zIndex"}
+                        section="target"
+                        field="zIndex"
                     />
                 </td>
                 <td>
@@ -162,8 +155,8 @@
                     <NumberInput
                         {animation}
                         label={localize("autoanimations.menus.delay")}
-                        section={"target"}
-                        field={"wait"}
+                        section="target"
+                        field="wait"
                     />
                 </td>
             </tr>
@@ -172,8 +165,4 @@
 </div>
 
 <style lang="scss">
-    .aa-adjust-pos {
-        position: relative;
-        left: 10px;
-    }
 </style>

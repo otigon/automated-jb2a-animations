@@ -12,7 +12,7 @@ import { constants }          from "../../../../constants.js";
 import { gameSettings }       from "../../../../gameSettings.js";
 
 import OptionsDialog from "../../components/animation/components/options/optionsInfoDialog.js";
-
+import CopyClipBoard from "../../components/animation/components/copyOnClick.svelte"
 import VideoPreview from "../../components/animation/components/videoPreview/videoPreview.js";
 
 import { 
@@ -147,7 +147,16 @@ export class CategoryStore extends WorldSettingArrayStore {
       return newColorMenu[menuDB][menuType]?.[animation]?.[variant] || [];
    }
 
-   getDBPath(section, idx, section02 = "video", menuDB = "static") {
+   async databaseToClipboard(section, idx, section02, dbSection) {
+      const dbPath = await this.getDBPath(section, idx, section02, dbSection);
+      const app = new CopyClipBoard({
+          target: document.getElementById("clipboard"),
+          props: {dbPath},
+      });
+      app.$destroy();
+   };
+
+   async getDBPath(section, idx, section02 = "video", menuDB = "static") {
       let menuType = this._data[idx]._data[section][section02].menuType;
       let animation = this._data[idx]._data[section][section02].animation;
       let variant = this._data[idx]._data[section][section02].variant;
@@ -185,6 +194,11 @@ export class CategoryStore extends WorldSettingArrayStore {
    }
 
    optionsInfo() {
+      if (
+         Object.values(ui.windows).find(
+            (w) => w.id === `Options-Information`
+         )
+      ) { return; }
       new OptionsDialog().render(true)
    }
    get typeMenu() { return newTypeMenu }
@@ -192,15 +206,6 @@ export class CategoryStore extends WorldSettingArrayStore {
    get variantMenu() { return newVariantMenu }
    get colorMenu() { return newColorMenu }
    get returnWeapons() { return aaReturnWeapons }
-
-   databaseToClipboard() {
-      const dbPath = category.getDBPath(section, idx, animation._data[section][section02].dbSection);
-      const app = new CopyDBPath({
-          target: document.getElementById("clipboard"),
-          props: { dbPath },
-      });
-      app.$destroy();
-   };
 
    async openMacro(data) {
       if (!data) {

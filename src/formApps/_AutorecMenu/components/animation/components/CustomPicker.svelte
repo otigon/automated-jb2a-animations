@@ -13,7 +13,7 @@
 
 <table class="c">
     <tr>
-        <td style="width: 8em; border: none;">
+        <td style="width: 6em; border: none;">
             <div class="flexrow">
                 <label for="" class="aa-customFont">{label}</label>
                 <input
@@ -31,7 +31,7 @@
             style="font-weight:normal; font-size:small; border-radius: 5px;text-align:left"
             />
         </td>
-        <td style="width: 12%;border: none" class={isCustom ? "" : "aa-disableOpacity"}>
+        <td style="width: 4em;border: none" class={isCustom ? "" : "aa-disableOpacity"}>
             <i class="fas fa-file-import"
             title="File Picker"
             style="font-size:1.5em"
@@ -39,7 +39,7 @@
             />
             <i class="fas fa-database"
             title="Sequencer Database Viewer"
-            style="font-size:1.5em;margin-left: 10px"
+            style="font-size:1.5em;margin-left: 5px"
             on:click|preventDefault={() => category.openSequencerViewer()}
             />    
         </td>

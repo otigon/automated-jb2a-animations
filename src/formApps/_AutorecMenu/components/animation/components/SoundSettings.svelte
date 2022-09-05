@@ -15,13 +15,12 @@
             "--tjs-summary-chevron-size": "0.7em",
         },
     };
+
+    $: isValid = $animation[section].sound.file && $animation[section].sound.enable
 </script>
 
 <div class="aa-sound-border">
-    <TJSSvgFolder
-        {folder}
-        label={localize("autoanimations.menus.sound")}
-    >
+    <TJSSvgFolder {folder} label={localize("autoanimations.menus.sound")}>
         <div slot="summary-end">
             <input
                 type="checkbox"
@@ -30,29 +29,31 @@
                 bind:checked={$animation[section].sound.enable}
             />
         </div>
-        <div class={!$animation[section].sound.enable ? "aa-isDisabled" : ""}>
+        <div
+            class={!$animation[section].sound.enable ? "aa-disableOpacity" : ""}
+        >
             <div class="aa-Sound-container">
                 <div style="grid-row: 1/2; grid-column: 1/2">
-                    {#if $animation[section].sound.enable && $animation[section].sound.file}
-                        <i
-                            class="fas fa-music aa-video-preview"
-                            on:click={() => category.playSound(animation._data[section].sound)}
-                        />
-                    {/if}
+                    <i
+                        class="fas fa-music aa-blue {isValid ? "" : "aa-disableOpacity"}"
+                        style="font-size: 1.5em;"
+                        title="Play Sound"
+                        on:click={() =>
+                            category.playSound(animation._data[section].sound)}
+                    />
                 </div>
-                <div style="grid-row: 1/2; grid-column: 2/4">
+                <div style="grid-row: 1/2; grid-column: 2/3">
                     <input
                         type="text"
                         bind:value={$animation[section].sound.file}
                         style="font-weight:normal; font-size:small"
                     />
                 </div>
-                <div style="grid-row: 1/2; grid-column: 4/5">
+                <div style="grid-row: 1/2; grid-column: 3/4">
                     <button
-                        class="file-picker"
                         on:click|preventDefault={() =>
                             category.selectSound(section, idx)}
-                        ><i class="fas fa-file-import fa-fw" /></button
+                        ><i class="fas fa-file-import" /></button
                     >
                 </div>
             </div>
@@ -116,28 +117,4 @@
 </div>
 
 <style lang="scss">
-    .aa-Sound-container {
-        display: grid;
-        grid-template-columns: 5% 41% 41% 10%;
-        grid-gap: 1%;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        align-items: center;
-        margin-right: 6%;
-        margin-left: 3%;
-        font-size: small;
-        font-weight: normal;
-    }
-    .aa-Sound-container button {
-        border-radius: 10px;
-        border: 2px outset rgb(142, 142, 142);
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
-        background: #dddddd;
-    }
-    .aa-isDisabled {
-        pointer-events: none;
-        opacity: 0.4;
-    }
 </style>
