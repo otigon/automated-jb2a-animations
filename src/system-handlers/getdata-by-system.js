@@ -39,7 +39,7 @@ export class AASystemData {
             item = ammo && ammoType === "ammo" ? token.actor.items?.get(input.item.system.consume.target) : item;
             if (!item || !token) { return {}; }
 
-            const hitTargets = Array.from(input.hitTargets);
+            const hitTargets = Array.from(input.hitTargets || {});
             targets = input.item?.system.target?.type === 'self' ? [token] : targets;
             if (game.modules.get('midi-qol')?.active) {
                 switch (true) {
@@ -650,7 +650,7 @@ export class AASystemData {
                         data._roll?.options?.itemId ??
                         data.flags?.itemId ??
                         data.flags?.itemID ??
-                        //data.roll?._id ??
+                        data.roll?._id ??
                         this._extractItemId(data.content) ??
                         this._extractItemId(data.msg?.content) ??
                         void 0;
@@ -664,7 +664,8 @@ export class AASystemData {
      */
     static async getItem(input) {
         const data = input || {};
-        const item =    data.item ??
+        const item =    data.data?.item ??
+                        data.item ??
                         data.itemSource ??
                         data.SwadeItem ??
                         data.token?.actor?.items?.get(data.itemId) ??

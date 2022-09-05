@@ -42,7 +42,7 @@ export default class systemData {
 
         if (this.systemId === 'pf2e') {
             const pf2eRuleTypes = ['condition', 'effect', 'feat'];
-            this.isPF2eRuleset = pf2eRuleTypes?.includes(this.item.type);    
+            this.isPF2eRuleset = pf2eRuleTypes?.includes(this.item.type);
         }
 
         this.isActiveEffect = this.item?.uuid?.includes("ActiveEffect") || this.isPF2eRuleset ? true : false;
@@ -98,7 +98,7 @@ export default class systemData {
                 this.animNameFinal = this.animation;
                 break;
         }
-        
+
         this.animEnd = endTiming(this.animNameFinal);
 
         //this.autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
@@ -191,7 +191,7 @@ export default class systemData {
         return this.flags.audio?.a01?.enable && this.flags.audio?.a01?.file
     }
 
-    get macroOnly () {
+    get macroOnly() {
         return this.flags.macro?.enable && this.flags.macro?.name
     }
 
@@ -232,7 +232,7 @@ export default class systemData {
             const ray = new Ray({ x: x1, y: y1 }, { x: x2, y: y2 });
             const distance = canvas.grid.grid.measureDistances([{ ray }], { gridSpaces: true })[0];
             return distance;
-        } else {
+        } else {   
             return canvas.grid.measureDistance(this.sourceToken, target, {gridSpaces: true});
         }
     }
