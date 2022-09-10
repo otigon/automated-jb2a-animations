@@ -1,8 +1,6 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
-    import DualAnimation from "../presetMenus/DualAnimation.svelte";
-    import TripleAnimation from "../presetMenus/TripleAnimation.svelte";
     import BuildAeOnToken from "../activeEffectMenus/BuildAEOnToken.svelte";
     import BuildAeAura from "../activeEffectMenus/BuildAEAura.svelte";
     import SectionButtons from "../components/SectionButtons03.svelte";
@@ -24,12 +22,6 @@
         aura: {
             component: BuildAeAura,
         },
-        dualAnim: {
-            component: DualAnimation,
-        },
-        tripleAnim: {
-            component: TripleAnimation,
-        },
         "": {},
     };
 
@@ -42,12 +34,6 @@
                 break;
             case "aura":
                 $animation.data = structuredClone(reset.aura);
-                break;
-            case "dualAnim":
-                $animation.data = structuredClone(reset.dual);
-                break;
-            case "tripleAnim":
-                $animation.data = structuredClone(reset.triple);
                 break;
         }
     }
@@ -84,12 +70,6 @@
                 >
                 <option value="aura"
                     >{localize("autoanimations.animTypes.typeAuras")}</option
-                >
-                <option value="dualAnim"
-                    >{localize("autoanimations.menus.dual")}</option
-                >
-                <option value="tripleAnim"
-                    >{localize("autoanimations.menus.triple")}</option
                 >
             </select>
         </div>

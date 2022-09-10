@@ -3,7 +3,7 @@
     import OnTokenOptions from "../components/options/OnTokenOptions.svelte";
     import SoundSettings from "../components/SoundSettings.svelte";
     import SoundOnly from "../components/SoundOnly.svelte";
-    import Explosion from "../components/Explosion.svelte";
+    import Secondary from "../components/Secondary.svelte";
     import ExtraTarget from "../components/ExtraTarget.svelte";
     import ExtraSource from "../components/ExtraSource.svelte";
     import SectionButtons from "../components/SectionButtons.svelte";
@@ -52,7 +52,7 @@
                 <OnTokenOptions {animation} {category} />
                 <SoundSettings {animation} {category} {idx} section="primary" />
             </div>
-            <Explosion {animation} {idx} {category} />
+            <Secondary {animation} {idx} {category} />
             <ExtraTarget {animation} {idx} {category} />
         </div>
     </div>

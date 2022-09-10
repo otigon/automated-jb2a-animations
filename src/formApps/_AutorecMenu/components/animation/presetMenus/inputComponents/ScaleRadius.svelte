@@ -6,18 +6,18 @@
     export let placeholder = 1;
     export let step = 1;
 
-    $: isRadius = $animation.data[section].options.setRadius;
+    $: isRadius = $animation.data[section].options.isRadius;
 
     const scaleLabel = game.i18n.localize("autoanimations.menus.scale");
     const radiusLabel = game.i18n.localize("autoanimations.menus.radius");
 
     function switchScale() {
-        if (!animation._data.data[section].options.setRadius) { return; }
-        $animation.data[section].options.setRadius = false;
+        if (!animation._data.data[section].options.isRadius) { return; }
+        $animation.data[section].options.isRadius = false;
     }
     function switchRadius() {
-        if (animation._data.data[section].options.setRadius) { return; }
-        $animation.data[section].options.setRadius = true;
+        if (animation._data.data[section].options.isRadius) { return; }
+        $animation.data[section].options.isRadius = true;
     }
 </script>
 

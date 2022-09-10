@@ -7,16 +7,18 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "weapon", animation: 'bolt', variant: 'physical', color: 'orange' },
          options: {
-            delay: 500,
+            delay: 0,
             elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -29,16 +31,18 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "weapon", animation: 'arrow', variant: 'regular', color: 'regular' },
          options: {
-            delay: 500,
+            delay: 0,
             elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -51,16 +55,18 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "spell", animation: 'disintegrate', variant: '01', color: 'green' },
          options: {
-            delay: 500,
+            delay: 0,
             elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -73,16 +79,18 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "spell", animation: 'eldritchblast', variant: '01', color: 'purple' },
          options: {
-            delay: 500,
+            delay: 0,
             elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -95,16 +103,18 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "spell", animation: 'firebolt', variant: '01', color: 'orange' },
          options: {
-            delay: 500,
+            delay: 0,
             elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -117,16 +127,18 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "spell", animation: 'guidingbolt', variant: '01', color: 'yellowblue' },
          options: {
-            delay: 500,
+            delay: 0,
             elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -139,16 +151,18 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "spell", animation: 'magicmissile', variant: '01', color: 'purple' },
          options: {
-            delay: 500,
+            delay: 0,
             elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -161,16 +175,18 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "spell", animation: 'rayoffrost', variant: '01', color: 'blue' },
          options: {
-            delay: 500,
+            delay: 0,
             elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -183,16 +199,18 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "spell", animation: 'scorchingray', variant: '01', color: 'orange' },
          options: {
-            delay: 500,
+            delay: 0,
             elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -205,16 +223,18 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "spell", animation: 'witchbolt', variant: '01', color: 'blue' },
          options: {
-            delay: 500,
+            delay: 0,
             elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),

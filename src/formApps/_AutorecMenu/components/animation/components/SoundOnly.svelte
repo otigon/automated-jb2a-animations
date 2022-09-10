@@ -93,6 +93,40 @@
                 </div>
             </td>
         </tr>
+        <tr>
+            <td>
+                <!--Set Repeats-->
+                <div>
+                    <label for=""
+                        >{localize("autoanimations.menus.repeat")}</label
+                    >
+                </div>
+                <div>
+                    <input
+                        type="number"
+                        bind:value={$animation.soundOnly.sound.repeat}
+                        placeholder="1"
+                        step="1"
+                    />
+                </div>
+            </td>
+            <td>
+                <!--Set Repeat Delay-->
+                <div>
+                    <label for=""
+                        >{localize("autoanimations.menus.repeat")} {localize("autoanimations.menus.delay")}</label
+                    >
+                </div>
+                <div>
+                    <input
+                        type="number"
+                        bind:value={$animation.soundOnly.sound.repeatDelay}
+                        placeholder="250"
+                        step="1"
+                    />
+                </div>
+            </td>
+        </tr>
     </table>
 </div>
 

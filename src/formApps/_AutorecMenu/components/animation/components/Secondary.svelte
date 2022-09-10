@@ -4,7 +4,7 @@
 
     import SoundSettings from "./SoundSettings.svelte";
     import VideoSelect from "./VideoSelect.svelte";
-    import ExplosionOptions from "./options/ExplosionOptions.svelte";
+    import SecondaryOptions from "./options/SecondaryOptions.svelte";
 
     export let animation;
     export let idx;
@@ -31,14 +31,14 @@
             <input
                 type="checkbox"
                 style="align-self:center"
-                title="Toggle Explosion On/Off"
-                bind:checked={$animation.explosion.enable}
+                title="Toggle Secondary On/Off"
+                bind:checked={$animation.secondary.enable}
             />
         </div>
-        <div class={!$animation.explosion.enable ? "aa-isDisabled" : ""}>
-            <VideoSelect {animation} section="explosion" {title} {idx} {category}/>
-            <ExplosionOptions {animation} />
-            <SoundSettings {animation} {category} {idx} section="explosion" />
+        <div class={!$animation.secondary.enable ? "aa-isDisabled" : ""}>
+            <VideoSelect {animation} section="secondary" {title} {idx} {category}/>
+            <SecondaryOptions {animation} />
+            <SoundSettings {animation} {category} {idx} section="secondary" />
         </div>
     </TJSSvgFolder>
 </div>

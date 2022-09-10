@@ -7,13 +7,15 @@ export const ontoken = [
       primary: common.primary({
          video: { dbSection: "static", menuType: "spell", animation: 'curewounds', variant: '01', color: 'blue' },
          options: {
-            delay: 500,
+            delay: 0,
             elevation: 0,
             isMasked: false,
+            isRadius: false,
+            isWait: false,
             opacity: 1,
             persistent: false,
             repeat: 1,
-            setRadius: false,
+            repeatDelay: 500,
             size: 1.5,
             playOn: "default",
             unbindAlpha: false,
@@ -21,7 +23,7 @@ export const ontoken = [
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -34,13 +36,15 @@ export const ontoken = [
       primary: common.primary({
          video: { dbSection: "static", menuType: "spell", animation: 'generichealing', variant: '01', color: 'blue' },
          options: {
-            delay: 500,
+            delay: 0,
             elevation: 0,
             isMasked: false,
+            isRadius: false,
+            isWait: false,
             opacity: 1,
             persistent: false,
             repeat: 1,
-            setRadius: false,
+            repeatDelay: 500,
             size: 1.5,
             playOn: "default",
             unbindAlpha: false,
@@ -48,7 +52,7 @@ export const ontoken = [
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -61,13 +65,15 @@ export const ontoken = [
       primary: common.primary({
          video: { dbSection: "static", menuType: "spell", animation: 'tollthedead', variant: 'complete', color: 'green' },
          options: {
-            delay: 500,
+            delay: 0,
             elevation: 1000,
             isMasked: false,
+            isRadius: false,
+            isWait: false,
             opacity: 1,
             persistent: false,
             repeat: 1,
-            setRadius: false,
+            repeatDelay: 500,
             size: 1,
             playOn: "target",
             unbindAlpha: false,
@@ -75,7 +81,7 @@ export const ontoken = [
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -88,13 +94,15 @@ export const ontoken = [
       primary: common.primary({
          video: { dbSection: "static", menuType: "creature", animation: "bite", variant: "01", color: "red" },
          options: {
-            delay: 500,
+            delay: 0,
             elevation: 1000,
             isMasked: false,
+            isRadius: false,
+            isWait: false,
             opacity: 1,
             persistent: false,
             repeat: 1,
-            setRadius: false,
+            repeatDelay: 500,
             size: 1,
             playOn: "target",
             unbindAlpha: false,
@@ -102,7 +110,7 @@ export const ontoken = [
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -115,13 +123,15 @@ export const ontoken = [
       primary: common.primary({
          video: { dbSection: "static", menuType: "creature", animation: "claw", variant: "01", color: "red" },
          options: {
-            delay: 500,
+            delay: 0,
             elevation: 1000,
             isMasked: false,
+            isRadius: false,
+            isWait: false,
             opacity: 1,
             persistent: false,
             repeat: 1,
-            setRadius: false,
+            repeatDelay: 500,
             size: 1,
             playOn: "target",
             unbindAlpha: false,
@@ -129,7 +139,7 @@ export const ontoken = [
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),

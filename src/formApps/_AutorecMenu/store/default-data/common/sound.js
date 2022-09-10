@@ -5,11 +5,13 @@
  *
  * @returns {DataSound}
  */
-export function sound({ enable = false, delay = 0, file = void 0, startTime = 0, volume = 0.75 } = {}) {
+export function sound({ enable = false, delay = 0, file = void 0, startTime = 0, volume = 0.75, repeat = 1, repeatDelay = 250 } = {}) {
    return {
       enable,
       delay,
       file,
+      repeat,
+      repeatDelay,
       startTime,
       volume
    }

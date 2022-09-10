@@ -6,6 +6,7 @@
     import NumberInput from "./inputComponents/NumberInput.svelte";
     import ScaleRadius from "./inputComponents/ScaleRadius.svelte";
     import Opacity from "./inputComponents/Opacity.svelte";
+    import WaitDelay from "./inputComponents/WaitDelay.svelte";
 
     export let animation;
 
@@ -52,7 +53,7 @@
                             " " +
                             localize("autoanimations.menus.delay")}
                         section="source"
-                        field="delay"
+                        field="repeatDelay"
                         placeholder="250"
                     />
                 </td>
@@ -98,11 +99,9 @@
                 </td>
                 <td>
                     <!--Set Delay for proceeding animation-->
-                    <NumberInput
+                    <WaitDelay
                         {animation}
-                        label={localize("autoanimations.menus.wait")}
                         section="source"
-                        field="delayAfter"
                     />
                 </td>
             </tr>

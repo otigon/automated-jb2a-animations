@@ -1,6 +1,6 @@
 
 const melee = {
-    explosion: setStatic(),
+    secondary: setStatic(),
     label: "",
     levels3d: {
         data: {color01: "#FFFFFF", color02: "#FFFFFF"},
@@ -9,7 +9,7 @@ const melee = {
     macro: {},
     meleeSwitch: {
         options: {},
-        video: { menuType: 'weapon', animation: 'arrow', variant: 'regular', color: 'regular' },
+        video: { dbSection: "range", menuType: 'weapon', animation: 'arrow', variant: 'regular', color: 'regular' },
         sound: setSound(),
     },
     menu: 'melee',
@@ -24,7 +24,7 @@ const melee = {
 }
 
 const range = {
-    explosion: setStatic(),
+    secondary: setStatic(),
     label: "",
     levels3d: {
         data: {color01: "#FFFFFF", color02: "#FFFFFF"},
@@ -43,7 +43,7 @@ const range = {
 }
 
 const ontoken = {
-    explosion: setStatic(),
+    secondary: setStatic(),
     label: "",
     levels3d: {
         data: {color01: "#FFFFFF", color02: "#FFFFFF"},
@@ -81,7 +81,7 @@ const aura = {
         data: {},
     },
     macro: {},
-    menu: 'ontoken',
+    menu: 'aura',
     primary: {
         options: {},
         sound: setSound(),
@@ -99,6 +99,7 @@ const preset = {
         sound: {}
     },
     macro: {},
+    menu: 'preset',
 }
 
 const aefx = {
@@ -107,6 +108,8 @@ const aefx = {
     source: setStatic(),
     soundOnly: { sound: setSound()},
     macro: {},
+    menu: 'aefx',
+    secondary: setStatic(),
 }
 
 function setStatic() {

@@ -6,26 +6,26 @@
     export let placeholder = 1;
     export let step = 1;
 
-    $: isRadius = $animation[section].options.setRadius;
+    $: isRadius = $animation[section].options.isRadius;
 
     const scaleLabel = game.i18n.localize("autoanimations.menus.scale");
     const radiusLabel = game.i18n.localize("autoanimations.menus.radius");
 
     function switchScale() {
-        if (!animation._data[section].options.setRadius) { return; }
-        $animation[section].options.setRadius = false;
+        if (!animation._data[section].options.isRadius) { return; }
+        $animation[section].options.isRadius = false;
     }
     function switchRadius() {
-        if (animation._data[section].options.setRadius) { return; }
-        $animation[section].options.setRadius = true;
+        if (animation._data[section].options.isRadius) { return; }
+        $animation[section].options.isRadius = true;
     }
 </script>
 
 <div class="{isDisabled}">
     <div>
-        <label for="" class="aaLabelBorder {!isRadius ? "aaIsSelected" : "aaNotSelected"}" on:click={() => switchScale()}>{scaleLabel}</label>
+        <label for="" class="aaLabelBorder {!isRadius ? "aaIsSelected" : ""}" on:click={() => switchScale()}>{scaleLabel}</label>
         <label for=""> &nbsp|&nbsp </label>
-        <label for="" class="aaLabelBorder {isRadius ? "aaIsSelected" : "aaNotSelected"}" on:click={() => switchRadius()}>{radiusLabel}</label>
+        <label for="" class="aaLabelBorder {isRadius ? "aaIsSelected" : ""}" on:click={() => switchRadius()}>{radiusLabel}</label>
     </div>
     <div>
         <input
@@ -39,13 +39,13 @@
 
 <style lang='scss'>
     .aaLabelBorder {
+        color: rgba(91, 91, 91, 0.623);
         border-radius: 5px;
+        border: 1px solid rgba(91, 91, 91, 0.623);
         padding: 1px 5px 1px 5px;
     }
     .aaIsSelected {
+        color: black;
         border: 1px solid black;
-    }
-    .aaNotSelected {
-        border: 1px solid rgba(115, 115, 115, 0.623);
     }
 </style>

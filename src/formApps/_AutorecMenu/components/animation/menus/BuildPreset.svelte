@@ -5,8 +5,6 @@
     import ProjectileToTemplate from "../presetMenus/ProjectileToTemplate.svelte";
     import Teleportation from "../presetMenus/Teleportation.svelte";
     import Thunderwave from "../presetMenus/Thunderwave.svelte";
-    import DualAnimation from "../presetMenus/DualAnimation.svelte";
-    import TripleAnimation from "../presetMenus/TripleAnimation.svelte";
     import SectionButtons from "../components/SectionButtons03.svelte";
     import Macro from "../components/Macro.svelte";
     import SoundOnly from "../components/SoundOnly.svelte";
@@ -32,12 +30,6 @@
         thunderwave: {
             component: Thunderwave,
         },
-        dualAnim: {
-            component: DualAnimation,
-        },
-        tripleAnim: {
-            component: TripleAnimation,
-        },
         "": {},
     };
 
@@ -56,12 +48,6 @@
                 break;
             case "proToTemp":
                 $animation.data = structuredClone(reset.proToTemp);
-                break;
-            case "dualAnim":
-                $animation.data = structuredClone(reset.dual);
-                break;
-            case "tripleAnim":
-                $animation.data = structuredClone(reset.triple);
                 break;
         }
     }

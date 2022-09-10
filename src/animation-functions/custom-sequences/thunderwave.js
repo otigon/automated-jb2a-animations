@@ -146,7 +146,7 @@ export async function twSeq(handler, animationData, config) {
             .opacity(cleanData.opacity)
             .size(3, { gridUnits: true })
             .elevation(cleanData.elevation)
-            .repeats(cleanData.repeat, cleanData.delay)
+            .repeats(cleanData.repeat, cleanData.repeatDelay)
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;
             new Sequence()

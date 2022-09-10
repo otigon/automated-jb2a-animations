@@ -21,7 +21,7 @@
     };
 
     $: persistent = $animation.data.options.persistent;
-    $: isRadius = $animation.data.options.setRadius;
+    //$: isRadius = $animation.data.options.isRadius;
 
     const addWidth = game.i18n.localize("autoanimations.menus.add") + " " + game.i18n.localize("autoanimations.menus.token") + " " + game.i18n.localize("autoanimations.menus.width");
 

@@ -5,6 +5,7 @@
 
     import NumberInput from "./inputComponents/NumberInput.svelte";
     import Opacity from "./inputComponents/Opacity.svelte";
+    import WaitDelay from "./inputComponents/WaitDelay.svelte";
 
     export let animation;
     export let category;
@@ -66,7 +67,7 @@
                             " " +
                             localize("autoanimations.menus.delay")}
                         section="primary"
-                        field="delay"
+                        field="repeatDelay"
                         placeholder="250"
                     />
                 </td>
@@ -99,13 +100,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <NumberInput
-                    {animation}
-                    label={localize("autoanimations.menus.wait")}
-                    section="primary"
-                    field="wait"
-                    step="0.01"
-                />
+                    <WaitDelay {animation}/>
                 </td>
                 <td></td>
             </tr>

@@ -4,6 +4,7 @@ const aaNameMenu = {};
 const aaColorMenu = {};
 const aaVariantMenu = {};
 let aaReturnWeapons;
+let aaRangeWeapons;
 
 const newTypeMenu = {};
 const newNameMenu = {};
@@ -12,6 +13,7 @@ const newColorMenu = {};
 
 async function menuOptions(database) {
     aaReturnWeapons = Object.keys(database.return.weapon)
+    aaRangeWeapons = Object.keys(database.range.weapon)
     const jb2a = database;
 
     const menuSets = ['range', 'return', 'melee', 'static', 'templatefx']
@@ -113,7 +115,7 @@ async function menuOptions(database) {
     console.log(Object.entries(aaTypeMenu.melee))
 }
 
-export { aaTypeMenu, aaNameMenu, aaVariantMenu, aaColorMenu, aaReturnWeapons, newTypeMenu, newNameMenu, newVariantMenu, newColorMenu }
+export { aaTypeMenu, aaNameMenu, aaVariantMenu, aaColorMenu, aaReturnWeapons, newTypeMenu, newNameMenu, newVariantMenu, newColorMenu, aaRangeWeapons }
 
 
 async function addRandom(menu) {

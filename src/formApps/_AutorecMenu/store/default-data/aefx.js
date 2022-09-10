@@ -4,17 +4,16 @@ export const aefx = [
    {
       ...common.main({ label: "frightened" }),
       menu: "aefx",
-      activeEffectType: "dualAnim",
+      activeEffectType: "onToken",
       data: {
-         intro: {
-            options: {},
-            sound: {enable: false}
+         options: {
+
          },
-         loop: {
-            options: {},
-         }
+         sound: {enable: false},
+         video: { dbSection: "static", menuType: "creature", animation: "claw", variant: "01", color: "red" },
       },
       source: common.source(),
       macro: common.macro(),
+      secondary: common.secondary(),
    }
 ];

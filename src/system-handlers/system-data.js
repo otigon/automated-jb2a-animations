@@ -180,6 +180,13 @@ export default class systemData {
         //return this.isOverrideAura || this.isAutorecAura || this.isOverrideTemplate || this.isAutorecTemplate || this.isOverrideTeleport || this.isAutorecTeleport || this.isThunderwave5e || this.isAutoThunderwave5e;
     }
 
+    get onUse5e () {
+        const menuType = this.isCustomized ? this.menu : this.autorecObject.menu;
+        const presetType = this.isCustomized ? this.flags?.preset?.presetType : this.autorecObject.presetType;
+        return menuType === "aura" || (menuType === "preset" && presetType === 'teleportation')
+
+    }
+
     get isTemplateItem () {
         const menuType = this.isCustomized ? this.menu : this.autorecObject.menu;
         const presetType = this.isCustomized ? this.flags?.preset?.presetType : this.autorecObject.presetType;

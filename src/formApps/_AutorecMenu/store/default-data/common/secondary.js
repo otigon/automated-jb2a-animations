@@ -1,28 +1,32 @@
 import { sound } from "./sound.js";
-import { video } from "./video.js";
+//import { video } from "./video.js";
 
 /**
- * Creates default explosion data.
+ * Creates default secondary data.
  *
- * @returns {DataExplosion}
+ * @returns {DataSecondary}
  */
-export function explosion() {
+export function secondary() {
    return {
       enable: false,
       video: { dbSection: "static", menuType: 'spell', animation: 'curewounds', variant: '01', color: 'blue', enableCustom: false, customPath: "" },
       sound: sound(),
       options: {
+         delay: 0,
          elevation: 1000,
+         isWait: false,
          isMasked: false,
          opacity: 1,
-         setRadius: true,
+         repeat: 1,
+         repeatDelay: 250,
+         isRadius: true,
          size: 1.5,
          zIndex: 1,
       }
    }
 }
 /**
- * @typedef {object} DataExplosion
+ * @typedef {object} DataSecondary
  *
  * @property {boolean=false}        enable -
  *
@@ -30,11 +34,11 @@ export function explosion() {
  *
  * @property {DataSound}            sound -
  *
- * @property {DataExplosionOptions} options -
+ * @property {DataSecondaryOptions} options -
  */
 
 /**
- * @typedef DataExplosionOptions
+ * @typedef DataSecondaryOptions
  *
  * @property {boolean}     below -
  *

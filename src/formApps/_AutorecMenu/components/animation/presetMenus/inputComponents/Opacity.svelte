@@ -3,8 +3,8 @@
     export let animation;
     export let section;
     export let field = "opacity";
+    export let label = game.i18n.localize("autoanimations.menus.effect") + " " + game.i18n.localize("autoanimations.menus.opacity")
 
-    const label = game.i18n.localize("autoanimations.menus.effect") + " " + game.i18n.localize("autoanimations.menus.opacity")
 
 </script>
 

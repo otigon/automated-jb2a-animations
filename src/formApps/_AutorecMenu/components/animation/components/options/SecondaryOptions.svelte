@@ -6,6 +6,7 @@
     import NumberInput from "./inputComponents/NumberInput.svelte";
     import ScaleRadius from "./inputComponents/ScaleRadius.svelte";
     import Opacity from "./inputComponents/Opacity.svelte";
+    import WaitDelay from "./inputComponents/WaitDelay.svelte";
 
     export let animation;
 
@@ -30,28 +31,29 @@
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.elevation")}
-                    section="explosion"
+                    section="secondary"
                     field="elevation"
                     placeholder=1000
                     />
                 </td>
                 <td>
-                    <!--Set the Z-Index of the Animation-->
+                    <!--Set Number of times the animation plays-->
                     <NumberInput
                         {animation}
-                        label={localize("autoanimations.menus.z-index")}
-                        section="explosion"
-                        field="zIndex"
+                        label={localize("autoanimations.menus.repeat")}
+                        section="secondary"
+                        field="repeat"
                     />
                 </td>
                 <td>
-                    <!--Set Size of Animation-->
-                    <ScaleRadius
+                    <!--Set delay between repeats-->
+                    <NumberInput
                         {animation}
-                        section="explosion"
-                        field="size"
-                        placeholder="1.5"
-                        step="0.01"
+                        label={localize("autoanimations.menus.repeat") +
+                            " " +
+                            localize("autoanimations.menus.delay")}
+                        section="secondary"
+                        field="repeatDelay"
                     />
                 </td>
             </tr>
@@ -65,13 +67,37 @@
                         <input
                             type="checkbox"
                             id="EMasked {animation._data.id}"
-                            bind:checked={$animation.explosion.options.isMasked}
+                            bind:checked={$animation.secondary.options.isMasked}
                         />
                     </div>
                 </td>
                 <td>
+                    <!--Set the Z-Index of the Animation-->
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.z-index")}
+                        section="secondary"
+                        field="zIndex"
+                    />
+                </td>
+                <td>
+                    <!--Set Size of Animation-->
+                    <ScaleRadius
+                        {animation}
+                        section="secondary"
+                        field="size"
+                        placeholder="1.5"
+                        step="0.01"
+                    />
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <!--Set Animation Opacity-->
-                    <Opacity {animation} section="explosion"/>
+                    <Opacity {animation} section="secondary"/>
+                </td>
+                <td>
+                    <WaitDelay {animation} section="secondary"/>
                 </td>
             </tr>
         </table>

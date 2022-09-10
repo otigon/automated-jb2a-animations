@@ -19,7 +19,6 @@
 </script>
 
 <SectionHeader {title} />
-<!--Unless spawned from "Explosions", Show the main Animation Type Select-->
 <div class="aaSelect">
     <table class="aaMenu {$animation[section][section02].enableCustom ? 'aa-disableOpacity' : ""}">
         <tr>

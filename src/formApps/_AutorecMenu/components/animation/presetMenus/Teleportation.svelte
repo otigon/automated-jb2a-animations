@@ -140,7 +140,7 @@
             <tr>
                 <td>
                     <!--Set Token Alpha for start-->
-                    <Opacity {animation} section="start" field="alpha"/>
+                    <Opacity {animation} section="start" field="alpha" label={localize("autoanimations.menus.alpha")}/>
                 </td>
             <td>
                     <!--Set Animation Opacity-->

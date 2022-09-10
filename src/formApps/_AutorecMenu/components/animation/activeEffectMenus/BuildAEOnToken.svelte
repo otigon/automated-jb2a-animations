@@ -4,7 +4,7 @@
     import SoundSettings from "../components/SoundSettings.svelte";
     import SoundOnly from "../components/SoundOnly.svelte";
     import ExtraSource from "../components/ExtraSource.svelte";
-    import SectionButtons from "../components/SectionButtons02.svelte";
+    import Secondary from "../components/Secondary.svelte";
     import Macro from "../components/Macro.svelte";
 
     export let animation;
@@ -34,6 +34,7 @@
             <OnTokenOptions {animation} {category} />
             <SoundSettings {animation} {category} {idx} section="data" />
         </div>
+        <Secondary {animation} {idx} {category} />
     </div>
 </div>
 

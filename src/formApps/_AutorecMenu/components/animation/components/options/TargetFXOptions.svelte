@@ -54,7 +54,7 @@
                             " " +
                             localize("autoanimations.menus.delay")}
                         section="target"
-                        field="delay"
+                        field="repeatDelay"
                         placeholder="250"
                         isDisabled={persistent ? "aa-disableOpacity" : ""}
                     />
@@ -156,7 +156,7 @@
                         {animation}
                         label={localize("autoanimations.menus.delay")}
                         section="target"
-                        field="wait"
+                        field="delay"
                     />
                 </td>
             </tr>

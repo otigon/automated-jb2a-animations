@@ -121,7 +121,7 @@ export class CategoryStore extends WorldSettingArrayStore {
 
    getMenuDB(section, idx, isOnToken) {
       let menuDB = isOnToken ? "static" : this._data[idx]._data.menu === "ontoken" || this._data[idx]._data.menu === "aura" ? "static" : this._data[idx]._data.menu;
-      menuDB = section === 'explosion' ? "static" : menuDB;
+      menuDB = section === 'secondary' ? "static" : menuDB;
       return menuDB
    }
 

@@ -12,16 +12,17 @@ export function target() {
       video: { dbSection: "static", menuType: 'spell', animation: 'curewounds', variant: '01', color: 'blue', enableCustom: false, customPath: "" },
       sound: sound(),
       options: {
+         delay: 0,
          elevation: 1000,
          isMasked: false,
          opacity: 1,
          persistent: false,
          repeat: 1,
-         setRadius: false,
+         repeatDelay: 250,
+         isRadius: false,
          size: 1,
          unbindAlpha: false,
          unbindVisibility: false,
-         wait: 0,
          zIndex: 1
       }
    };

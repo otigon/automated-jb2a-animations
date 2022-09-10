@@ -1,29 +1,10 @@
-//import { AAITEMCHECK, AAITEMCHECKFREE } from "../animation-functions/item-arrays.js";
-//import thunderwaveAuto from "../animation-functions/thunderwave.js";
-/*
-import { huntersMark } from "../animation-functions/custom-sequences/hunters-mark.js";
-import { bardicInspiration } from "../animation-functions/custom-sequences/bardic-inspiration.js";
-import { rangedAnimations } from "../animation-functions/standard-sequences/rangedAnimation.js";
-import { meleeAnimation } from "../animation-functions/standard-sequences/meleeAnimation.js";
-import { teleportation } from "../animation-functions/custom-sequences/teleportation.js";
-import { templateAnimation } from "../animation-functions/standard-sequences/templateAnimation.js";
-import { shieldSpell } from "../animation-functions/custom-sequences/shield.js";
-import { sneakAttack } from "../animation-functions/custom-sequences/sneak-Attack.js";
-import { bless } from "../animation-functions/custom-sequences/bless.js";
-import { staticAnimation } from "../animation-functions/standard-sequences/staticAnimation.js";
-import { auras } from "../animation-functions/standard-sequences/aura-attach.js";
-import { fireball } from "../animation-functions/custom-sequences/fireball.js";
-import { particleEffects } from "../animation-functions/levels-particles/particleSystem.js";
-import { dualAttach } from "../animation-functions/custom-sequences/dual-attach.js";
-import { thunderwaveAuto } from "../animation-functions/custom-sequences/thunderwave.js";
-*/
 import { AAAnimationData } from "../aa-classes/AAAnimationData.js";
 import { aaDebugger } from "../constants/constants.js";
 import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 
 import * as animationSeq from "../animation-functions/index.js"
 
-const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+//const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function trafficCop(handler) {
     const aaDebug = game.settings.get("autoanimations", "debug")
@@ -109,7 +90,7 @@ export async function trafficCop(handler) {
         const targets = handler.allTargets?.length ?? 0;
         const animationData = isCustom ? await AAAnimationData._getAnimationData(handler) : await AAAnimationData._getAnimationData(handler, isAutorec);
         if (!isCustom && isAutorec) {
-            if (animationData.primary.soundOnly.enable || animationData.primary.macro.playWhen === "2") {
+            if (animationData.primary?.soundOnly?.enable || animationData?.primary?.macro?.playWhen === "2") {
                 const primaryData = animationData.primary;
                 const macroData = primaryData.macro;
 
@@ -187,7 +168,6 @@ export async function trafficCop(handler) {
                 //some do not need hook on template, depends on when damage is rolled
                 switch (game.system.id) {
                     case "a5e":
-                    case "dnd5e":
                     case "pf2e":
                     case "sw5e":
                     case "tormenta20":
@@ -233,7 +213,6 @@ export async function trafficCop(handler) {
                         break;
                     case "thunderwave":
                         switch (game.system.id) {
-                            case "dnd5e":
                             case "pf2e":
                             case "sw5e":
                             case "swade":
@@ -250,9 +229,8 @@ export async function trafficCop(handler) {
                                 animationSeq.twSeq(handler, animationData);
                         }
                         break;
-                    case "fireball":
+                    case "proToTemp":
                         switch (game.system.id) {
-                            case "dnd5e":
                             case "pf2e":
                             case "sw5e":
                             case "swade":

@@ -16,7 +16,8 @@
         },
     };
 
-    $: isValid = $animation[section].sound.file && $animation[section].sound.enable
+    $: isValid =
+        $animation[section].sound.file && $animation[section].sound.enable;
 </script>
 
 <div class="aa-sound-border">
@@ -35,7 +36,9 @@
             <div class="aa-Sound-container">
                 <div style="grid-row: 1/2; grid-column: 1/2">
                     <i
-                        class="fas fa-music aa-blue {isValid ? "" : "aa-disableOpacity"}"
+                        class="fas fa-music aa-blue {isValid
+                            ? ''
+                            : 'aa-disableOpacity'}"
                         style="font-size: 1.5em;"
                         title="Play Sound"
                         on:click={() =>
@@ -107,6 +110,40 @@
                                 bind:value={$animation[section].sound.delay}
                                 placeholder="0"
                                 step="0.01"
+                            />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <!--Set Repeats-->
+                        <div>
+                            <label for=""
+                                >{localize("autoanimations.menus.repeat")}</label
+                            >
+                        </div>
+                        <div>
+                            <input
+                                type="number"
+                                bind:value={$animation[section].sound.repeat}
+                                placeholder="1"
+                                step="1"
+                            />
+                        </div>
+                    </td>
+                    <td>
+                        <!--Set Repeat Delay-->
+                        <div>
+                            <label for=""
+                                >{localize("autoanimations.menus.repeat")} {localize("autoanimations.menus.delay")}</label
+                            >
+                        </div>
+                        <div>
+                            <input
+                                type="number"
+                                bind:value={$animation[section].sound.repeatDelay}
+                                placeholder="250"
+                                step="1"
                             />
                         </div>
                     </td>
