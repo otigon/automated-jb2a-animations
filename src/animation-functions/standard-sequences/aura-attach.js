@@ -8,16 +8,12 @@ export async function auraSeq(handler, animationData) {
 
     //const gridSize = canvas.grid.size
     const data = animationData.primary;
+    const secondary = animationData.secondary;
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
     const macro = animationData.macro;
     //const targetFX = animationData.targetFX;
 
-    if (data.isAuto) {
-        data.size = data.scale * 2;
-    } else {
-        data.size = data.auraRadius * 2;
-    }
 
     const easeArray = ['easeInOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutQuad', 'easeInCirc']
 
@@ -31,17 +27,19 @@ export async function auraSeq(handler, animationData) {
         //await wait(data.aeDelay)
     }
 
-    if (handler.allTargets.length === 0 || data.ignoreTargets) {
+    if (data.options.ignoreTarget) {
         selfAura()
-    } else {
+    } else if (!data.options.ignoreTarget && handler.allTargets.length) {
         targetAura();
     }
 
 
     async function selfAura() {
-        const randomEase = easeArray[Math.floor(Math.random() * easeArray.length)]
         let checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
-        //let playPersist = !checkAnim ? true : false;
+        if (checkAnim) { return; }
+
+        const randomEase = easeArray[Math.floor(Math.random() * easeArray.length)]
+
         let nameField;
         if (handler.isActiveEffect) {
             nameField = handler.itemName + `${sourceToken.id}`;
@@ -66,29 +64,54 @@ export async function auraSeq(handler, animationData) {
         aaSeq.thenDo(function () {
             Hooks.callAll("aa.animationStart", sourceToken)
         })
-        
+
         let adjustedSize = data.options.addTokenWidth ? data.options.radius * 2 + (sourceToken.w / canvas.grid.size) : data.options.radius * 2;
         console.log(adjustedSize)
-        if (!checkAnim) {
-            let newEffect = aaSeq.effect();
-            //aaSeq.addSequence(sourceFX.sourceSeq)
-            newEffect.persist()
-            newEffect.origin(handler.itemUuid)
-            newEffect.size(adjustedSize, { gridUnits: true })
-            newEffect.elevation(data.options.elevation)
-            if (data.options.isMasked) {
-                newEffect.mask(sourceToken)
+
+        let newEffect = aaSeq.effect();
+        //aaSeq.addSequence(sourceFX.sourceSeq)
+        newEffect.persist()
+        newEffect.origin(handler.itemUuid)
+        newEffect.size(adjustedSize, { gridUnits: true })
+        newEffect.elevation(data.options.elevation)
+        if (data.options.isMasked) {
+            newEffect.mask(sourceToken)
+        }
+        newEffect.file(aura.file)
+        newEffect.attachTo(sourceToken, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
+        newEffect.name(nameField)
+        newEffect.opacity(data.options.opacity)
+        newEffect.animateProperty("sprite", "width", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
+        newEffect.animateProperty("sprite", "height", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
+        newEffect.fadeIn(500)
+        newEffect.fadeOut(500)
+        newEffect.zIndex(data.options.zIndex)
+        if (data.options.isWait) {
+            newEffect.waitUntilFinished(data.options.delay)
+        } else {
+            newEffect.delay(data.options.delay)
+        }
+        //AAAnimationData.howToDelete("sequencerground")
+
+        if (secondary) {
+            let secondarySize = secondary.options.isRadius ? secondary.options.size * 2 : (sourceToken.w / canvas.grid.size) * 1.5 * secondary.options.size;
+            if (secondary.sound) {
+                aaSeq.addSequence(secondary.sound)
             }
-            newEffect.file(aura.file)
-            newEffect.attachTo(sourceToken, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
-            newEffect.name(nameField)
-            newEffect.opacity(data.options.opacity)
-            newEffect.animateProperty("sprite", "width", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
-            newEffect.animateProperty("sprite", "height", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
-            newEffect.fadeIn(2500)
-            newEffect.fadeOut(500)
-            newEffect.zIndex(data.options.zIndex)
-            AAAnimationData.howToDelete("sequencerground")
+            let secondarySeq = aaSeq.effect()
+            secondarySeq.atLocation(sourceToken)
+            secondarySeq.file(secondary.path?.file, true)
+            secondarySeq.size(secondarySize, { gridUnits: true })
+            secondarySeq.repeats(secondary.options.repeat, secondary.options.repeatDelay)
+            secondarySeq.delay(secondary.options.delay)
+            secondarySeq.elevation(secondary.options.elevation)
+            secondarySeq.zIndex(secondary.options.zIndex)
+            secondarySeq.opacity(secondary.options.opacity)
+            secondarySeq.fadeIn(secondary.options.fadeIn)
+            secondarySeq.fadeOut(secondary.options.fadeOut)
+            if (secondary.options.isMasked) {
+                secondarySeq.mask(sourceToken)
+            }
         }
         // Macro if Concurrent
         if (macro && macro.playWhen === "0") {
@@ -124,39 +147,68 @@ export async function auraSeq(handler, animationData) {
         })
         for (let i = 0; i < handler.allTargets.length; i++) {
             let currentTarget = handler.allTargets[i]
-        //for (let target of handler.allTargets) {
-            let checkAnim = Sequencer.EffectManager.getEffects({ object: currentTarget, origin: handler.itemUuid }).length > 0
-            let adjustedSize = data.options.addTokenWidth ? data.options.radius + (currentTarget.w / canvas.grid.size) : data.options.radius;
+            //for (let target of handler.allTargets) {
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: currentTarget, origin: handler.itemUuid }).length > 0;
+            if (checkAnim) { continue; }
+            let adjustedSize = data.options.addTokenWidth ? (data.options.radius * 2) + (currentTarget.w / canvas.grid.size) : data.options.radius;
 
-            if (!checkAnim) {
-                let newEffect = aaSeq.effect();
-                newEffect.persist()
-                newEffect.origin(handler.itemUuid)
-                newEffect.size(adjustedSize, { gridUnits: true })
-                newEffect.elevation(data.options.elevation)
-                if (data.options.isMasked) {
-                    newEffect.mask(currentTarget)
-                }    
-                newEffect.file(aura.file)
-                newEffect.attachTo(currentTarget, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
-                newEffect.name(`${currentTarget.name}-${handler.itemName}`)
-                newEffect.opacity(data.options.opacity)
-                newEffect.animateProperty("sprite", "width", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
-                newEffect.animateProperty("sprite", "height", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
-                newEffect.fadeIn(2500)
-                newEffect.fadeOut(500)
-                newEffect.zIndex(data.options.zIndex)
+            let newEffect = aaSeq.effect();
+            newEffect.persist()
+            newEffect.origin(handler.itemUuid)
+            newEffect.size(adjustedSize, { gridUnits: true })
+            newEffect.elevation(data.options.elevation)
+            if (data.options.isMasked) {
+                newEffect.mask(currentTarget)
             }
+            newEffect.file(aura.file)
+            newEffect.attachTo(currentTarget, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
+            newEffect.name(`${currentTarget.name}-${handler.itemName}`)
+            newEffect.opacity(data.options.opacity)
+            newEffect.animateProperty("sprite", "width", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
+            newEffect.animateProperty("sprite", "height", { from: 0, to: adjustedSize, duration: 2500, ease: randomEase, gridUnits: true })
+            newEffect.fadeIn(2500)
+            newEffect.fadeOut(500)
+            newEffect.zIndex(data.options.zIndex)
+
             if (i === handler.allTargets.length - 1 && data.options.isWait) {
-                nextSeq.waitUntilFinished(data.options.delay)
+                newEffect.waitUntilFinished(data.options.delay)
             } else if (!data.options.isWait) {
-                nextSeq.dely(data.options.delay)
+                newEffect.dely(data.options.delay)
             }
         }
+        // secondary animation and sound
+        if (secondary) {
+            if (secondary.sound) {
+                aaSeq.addSequence(secondary.sound)
+            }
+            for (let i = 0; i < handler.allTargets.length; i++) {
+                let currentTarget = handler.allTargets[i]
+
+                let secondarySeq = aaSeq.effect()
+                secondarySeq.atLocation(currentTarget)
+                secondarySeq.file(secondary.path?.file, true)
+                secondarySeq.size(secondary.options.size * 2, { gridUnits: true })
+                secondarySeq.repeats(secondary.options.repeat, secondary.options.repeatDelay)
+                if (i === handler.allTargets.length - 1 && secondary.options.isWait && targetFX.enable) {
+                    secondarySeq.waitUntilFinished(secondary.options.delay)
+                } else if (!secondary.options.isWait) {
+                    secondarySeq.delay(secondary.options.delay)
+                }
+                secondarySeq.elevation(secondary.options.elevation)
+                secondarySeq.zIndex(secondary.options.zIndex)
+                secondarySeq.opacity(secondary.options.opacity)
+                secondarySeq.fadeIn(secondary.options.fadeIn)
+                secondarySeq.fadeOut(secondary.options.fadeOut)
+                if (secondary.options.isMasked) {
+                    secondarySeq.mask(currentTarget)
+                }
+            }
+        }
+        // Target animation and sound
         if (targetFX.enable) {
             for (let i = 0; i < handler.allTargets.length; i++) {
                 let currentTarget = handler.allTargets[i]
-            
+
                 // Extra Effects => Target effect section
                 if (targetFX.enable) {
                     let targetSequence = AAAnimationData._targetSequence(targetFX, currentTarget, handler);

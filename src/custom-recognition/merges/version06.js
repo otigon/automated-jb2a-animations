@@ -162,7 +162,7 @@ async function mergeVersion06(data) {
             options: {
                 detect: oldData.detect || "automatic",
                 range: oldData.range || 2,
-                returning: oldData.return ?? false,
+                isReturning: oldData.return ?? false,
                 switchType: oldData.switchType || "on",
             }
         }
@@ -979,6 +979,7 @@ async function mergeVersion06(data) {
                 delay: delay || 250,
                 isMasked: false,
                 isRadius: false,
+                isWait: false,
                 opacity: opacity,
                 persistent: persistent || false,
                 playOn: "source",
@@ -1040,9 +1041,12 @@ async function mergeVersion06(data) {
             options: {
                 addTokenWidth: false,
                 aeDelay: aeDelay || 0,
+                delay: 0,
                 elevation: below ? 0 : 1000,
+                ignoreTarget: true,
                 isMasked: false,
                 isRadius: true,
+                isWait: true,
                 opacity: opacity,
                 size: scale || 1,
                 unbindAlpha: unbindAlpha || false,

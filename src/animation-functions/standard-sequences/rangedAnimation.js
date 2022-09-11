@@ -35,7 +35,7 @@ export async function rangeSeq(handler, animationData) {
         rangeSwitch = ['dagger', 'lasersword']
     }
     */
-    const switchReturn = aaReturnWeapons.some(el => data.video.animation.includes(el)) && !data.video.enableCustom ? data.options.isReturning : false;
+    const switchReturn = aaReturnWeapons.includes(data.video.animation) && !data.video.enableCustom ? data.options.isReturning : false;
     let returnDelay;
     switch (true) {
         case data.video.animation.includes('dagger'):

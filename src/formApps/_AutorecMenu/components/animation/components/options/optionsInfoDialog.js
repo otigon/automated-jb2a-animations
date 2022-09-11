@@ -1,6 +1,6 @@
 
 import { TJSDialog } from '@typhonjs-fvtt/runtime/svelte/application';
-import OptionsInfo from './optionsInfo.svelte'
+import OptionsInfo from './optionsInfo/optionsInfo.svelte'
 
 export default class OptionsInformation extends TJSDialog {
     constructor(data) {

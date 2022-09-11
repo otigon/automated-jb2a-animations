@@ -93,12 +93,6 @@
                 <option value="thunderwave"
                     >{localize("autoanimations.presetTypes.thunderwave")} D&D 5e</option
                 >
-                <option value="dualAnim"
-                    >{localize("autoanimations.menus.dual")}</option
-                >
-                <option value="tripleAnim"
-                    >{localize("autoanimations.menus.triple")}</option
-                >
             </select>
         </div>
     </div>

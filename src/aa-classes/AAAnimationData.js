@@ -6,10 +6,11 @@ export class AAAnimationData {
 
     static async _getAnimationData(handler, autoObject) {
         const autorecData = autoObject ? autoObject : false;
-        const menu = autorecData ? autoObject.menu : handler.menu;
+        let menu = autorecData ? autoObject.menu : handler.menu;
+        menu = menu === "aefx" ? autorecData ? autoObject.activeEffectType : handler.flags.activeEffectType : menu;
         const data = {
             primary: menu === "preset" ? await this.compilePreset(handler, autorecData) : await this.compilePrimary(handler, autorecData),
-            secondary: menu === "melee" || menu === "range" || menu === "ontoken" ? await this.compileSecondary(handler, autorecData) : {},
+            secondary: menu === "melee" || menu === "range" || menu === "ontoken" || menu === "aura" ? await this.compileSecondary(handler, autorecData) : false,
             sourceFX: await this.compileSource(handler, autorecData),
             targetFX: menu === "aefx" ? false : await this.compileTarget(handler, autorecData),
             macro: await this.compileMacro(handler, autorecData)
@@ -54,9 +55,9 @@ export class AAAnimationData {
 
     static async compilePrimary(handler, autoObject) {
         const topLevel = autoObject ? autoObject || {}: handler.flags || {};
-        const menu = topLevel.menu;
+        const menu = handler.isActiveEffect ? topLevel.activeEffectType : topLevel.menu;
 
-        const primary = topLevel.primary || {};
+        const primary = topLevel.primary || topLevel.data || {};
         const options = primary.options || {};
         const sound = primary.sound || {};
         const video = primary.video || {};
@@ -105,7 +106,7 @@ export class AAAnimationData {
             options: {
                 detect: options.detect || "automatic",
                 range: options.range || 2,
-                returning: options.returning ?? false,
+                isReturning: options.isReturning ?? false,
                 switchType: options.switchType || "on",
             },
             sound: this.setSound(sound)
@@ -130,6 +131,7 @@ export class AAAnimationData {
                 return {
                     delay: data.delay || 0,
                     elevation: data.elevation ?? 1000,
+                    isReturning: data.isReturning ?? false,
                     repeat: data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
                     onlyX: data.onlyX ?? false,
@@ -139,7 +141,7 @@ export class AAAnimationData {
                 };
             case "ontoken":
                 return {
-                    addTokenWidth: options.addTokenWidth ?? false,
+                    addTokenWidth: data.addTokenWidth ?? false,
                     delay: data.delay ?? 1,
                     elevation: data.elevation ?? 1000,
                     fadeIn: data.fadeIn ?? 250,
@@ -181,13 +183,13 @@ export class AAAnimationData {
                     elevation: data.elevation ?? 1000,
                     unbindAlpha: data.unbindAlpha ?? false,
                     unbindVisibility: data.unbindVisibility ?? false,
-                    isMasked: data.isMasked ?? false,
                     ignoreTarget: data.ignoreTarget ?? false,
+                    isMasked: data.isMasked ?? false,
+                    isWait: data.isWait ?? false,
                     zIndex: data.zIndex || 1,
                     opacity: data.opacity ?? 1,
                     radius: data.radius || 3,
                     addTokenWidth: data.addTokenWidth ?? false,
-                    isWait: data.isWait ?? false,
                     delay: data.delay || 1,
                 };
         }
@@ -196,14 +198,14 @@ export class AAAnimationData {
     static async compileSecondary(handler, autoObject) {
         const topLevel = autoObject ? autoObject || {}: handler.flags || {};
 
-        const explosion = topLevel.explosion || {};
-        if (!explosion.enable) { return false; }
-        const video = explosion.video || {};
-        const options = explosion.options || {};
-        const sound = explosion.sound || {};
+        const secondary = topLevel.secondary || {};
+        if (!secondary.enable) { return false; }
+        const video = secondary.video || {};
+        const options = secondary.options || {};
+        const sound = secondary.sound || {};
 
         const data = {
-            enable: explosion.enable ?? false,
+            enable: secondary.enable ?? false,
             video: {
                 dbSection: "static",
                 menuType: video.menuType,
@@ -234,7 +236,7 @@ export class AAAnimationData {
             addSoundDelay = data.options.delay;
         }
         data.sound = this.setSound(sound, addSoundDelay)
-        data.path = explosion.enable ? await buildFile(false, data.video.menuType, data.video.animation, "static", data.video.variant, data.video.color, data.video.customPath) : "";
+        data.path = secondary.enable ? await buildFile(false, data.video.menuType, data.video.animation, "static", data.video.variant, data.video.color, data.video.customPath) : "";
 
         return data;
     }
@@ -361,7 +363,8 @@ export class AAAnimationData {
         }
 
         //const playNow = (targetFX.enabled && hit) ? true : false;
-        let targetTokenGS = target.w / canvas.grid.size
+        //let targetTokenGS = target.w / canvas.grid.size
+        const targetTokenGS = targetFX.options.isRadius ? targetFX.options.size * 2 : (target.w / canvas.grid.size) * 1.5 * targetFX.options.size;
 
         //targetFX.tFXScale = targetFX.enable ? 2 * target.w / targetFX.data.metadata?.width : 1;
         targetFX.targetSeq = new Sequence();
@@ -394,7 +397,7 @@ export class AAAnimationData {
 
         return targetFX;
     }
-
+    /*
     static async _sounds(soundSettings) {
         const data = soundSettings.animationData.primary;
         //const sourceFX = flagData.sourceFX;
@@ -546,7 +549,7 @@ export class AAAnimationData {
         if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
         return data;
     }
-
+    */
     static strToObj(data) {
 
         if (!data) { return []; }
@@ -562,7 +565,7 @@ export class AAAnimationData {
             return data.split(',').map(s => s.trim())
         }
     }
-
+    /*
     static async _explosionData(handler, autorec) {
         const explosionData = autorec ? autorec.explosion || {} : handler.flags?.explosion || {};
         const video = explosionData.video || {};
@@ -716,7 +719,7 @@ export class AAAnimationData {
         targetFX.data = targetFX.enabled ? await buildFile(false, targetFX.menuType, targetFX.animation, "static", targetFX.variant, targetFX.color, targetFX.customTargetPath) : {};
         return targetFX
     }
-
+    */
 
     static howToDelete(type) {
         if (game.settings.get("autoanimations", "noTips")) { return; }

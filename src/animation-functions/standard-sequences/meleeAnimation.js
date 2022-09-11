@@ -31,7 +31,12 @@ export async function meleeSeq(handler, animationData) {
     const macro = animationData.macro;
 
     //const returnWeapons = ['dagger', 'hammer', 'greatsword', 'chakram']
-    const switchReturn = aaReturnWeapons.some(el => data.meleeSwitch.video.animation.includes(el)) ? data.meleeSwitch.options.returning : false;
+    //const switchReturn = aaReturnWeapons.some(el => data.meleeSwitch.video.animation.includes(el)) ? data.meleeSwitch.options.isReturning : false;
+    const switchReturn = data.meleeSwitch.options.switchType === "on" && aaReturnWeapons.includes(data.video.animation)
+        ? data.meleeSwitch.options.isReturning
+        : data.meleeSwitch.options.switchType === "custom" && aaReturnWeapons.includes(data.meleeSwitch.video.animation)
+        ? data.meleeSwitch.options.isReturning
+        : false;
     let returnDelay = 1000;
 
     switch (true) {
@@ -126,7 +131,7 @@ export async function meleeSeq(handler, animationData) {
                     rangeSeq.stretchTo(currentTarget)
                     rangeSeq.opacity(data.options.opacity)
                     rangeSeq.zIndex(data.options.zIndex)
-                    rangeSeq.randomizeMirrorY()
+                    //rangeSeq.randomizeMirrorY()
                     rangeSeq.repeats(data.options.repeat, data.options.repeatDelay)
                     rangeSeq.missed(!hit)
                     rangeSeq.name("spot" + ` ${currentTarget.id}`)

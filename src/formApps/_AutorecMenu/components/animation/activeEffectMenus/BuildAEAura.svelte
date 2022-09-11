@@ -3,7 +3,7 @@ import VideoSelect from "../components/VideoSelect.svelte";
 import AuraOptions from "./options/AuraOptions.svelte";
 import SoundSettings from "../components/SoundSettings.svelte";
 import ExtraSource from "../components/ExtraSource.svelte";
-import SectionButtons from "../components/SectionButtons02.svelte";
+import Secondary from "../components/Secondary.svelte";
 import Macro from "../components/Macro.svelte";
 import SoundOnly from "../components/SoundOnly.svelte";
 
@@ -31,6 +31,7 @@ $: macroEnabled = $animation.macro.enable;
     <AuraOptions {animation} {category} />
     <SoundSettings {animation} {category} {idx} section="data"/>
     </div>
+    <Secondary {animation} {idx} {category} />
 </div>
 
 <style lang='scss'>

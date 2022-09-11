@@ -20,6 +20,7 @@ export const aura = [
             radius: 3,
          },
       }),
+      secondary: common.secondary(),
       source: common.source(),
       target: common.target()
    }

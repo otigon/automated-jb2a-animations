@@ -87,6 +87,7 @@ const aura = {
         sound: setSound(),
         video: { dbSection: "static", menuType: 'spell', animation: 'curewounds', variant: '01', color: 'blue' },       
     },
+    secondary: setStatic(),
     source: setStatic(),
     target: setStatic(),
     soundOnly: { sound: setSound()},
@@ -110,6 +111,7 @@ const aefx = {
     macro: {},
     menu: 'aefx',
     secondary: setStatic(),
+    target: {enable: false}
 }
 
 function setStatic() {

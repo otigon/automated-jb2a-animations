@@ -7,6 +7,8 @@
     import Opacity from "./inputComponents/Opacity.svelte";
     import WaitDelay from "./inputComponents/WaitDelay.svelte";
 
+    import {aaReturnWeapons} from "../../../../../../animation-functions/databases/jb2a-menu-options.js"
+
     //import { ripple } from "@typhonjs-fvtt/svelte-standard/action";
 
     export let animation;
@@ -33,6 +35,10 @@
         }
     }
 
+    $: menuType = $animation.primary.video.menuType;
+    $: anim = $animation.primary.video.animation;
+    $: shouldShow = menuType === "weapon" && aaReturnWeapons.includes(anim) ? true : false;
+    $: isCustom = $animation.primary.video.enableCustom;
 </script>
 
 <div class="aa-options-border">
@@ -77,7 +83,7 @@
             <tr>
                 <td>
                     <!--Set OnlyX-->
-                    <div class="form-group">
+                    <div class="form-group {isCustom ? "" : "aa-disableOpacity"}">
                         <label for="OnlyX {animation._data.id}"
                             >{localize("autoanimations.menus.only")} X
                         </label>
@@ -103,7 +109,19 @@
                 </td>
             </tr>
             <tr>
-                <td></td>
+                <td>
+                    <!--Set Return animation-->
+                    <div class="form-group {shouldShow ? "" : "aa-disableOpacity"}">
+                        <label for="OnlyX {animation._data.id}"
+                            >{localize("autoanimations.menus.return")} {localize("autoanimations.menus.animation")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="OnlyX {animation._data.id}"
+                            bind:checked={$animation.primary.options.isReturning}
+                        />
+                    </div>
+                </td>
                 <td>
                     <WaitDelay {animation}/>
                 </td>

@@ -5,6 +5,7 @@
 
     import NumberInput from "../../components/options/inputComponents/NumberInput.svelte";
     import Opacity from "../../components/options/inputComponents/Opacity.svelte";
+    import WaitDelay from "../../components/options/inputComponents/WaitDelay.svelte";
 
     export let animation;
     export let category;
@@ -13,7 +14,7 @@
         styles: {
             "--tjs-summary-font-family":
                 '"Modesto Condensed", "Palatino Linotype", serif',
-            "--tjs-summary-font-size": "1.2em",
+            "--tjs-summary-font-size": "1.1em",
             "--tjs-summary-chevron-size": "0.7em",
         },
         label: game.i18n.localize("autoanimations.menus.options"),
@@ -83,17 +84,6 @@
                     </div>
                 </td>
                 <td>
-                    <!--Ignore Targets?-->
-                    <div class="form-group">
-                        <label for="Ignore {animation._data.id}"
-                            >{localize("autoanimations.menus.ignoreTargets")}
-                       </label>
-                        <input
-                            type="checkbox"
-                            id="Ignore {animation._data.id}"
-                            bind:checked={$animation.data.options.ignoreTarget}
-                        />
-                    </div>
                 </td>
                 <td>
                     <!--Set Z-Index-->
@@ -140,13 +130,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <NumberInput
-                    {animation}
-                    label={localize("autoanimations.menus.wait")}
-                    section={"data"}
-                    field={"wait"}
-                    step="0.01"
-                />
+                    <WaitDelay {animation} section="data"/>
                 </td>
                 <td></td>
             </tr>

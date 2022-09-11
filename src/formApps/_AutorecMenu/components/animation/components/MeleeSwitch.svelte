@@ -5,6 +5,8 @@
     //import SoundSettings from "./SoundSettings.svelte";
     import VideoSelect from "./VideoSelect.svelte";
 
+    import { aaReturnWeapons } from "../../../../../animation-functions/databases/jb2a-menu-options.js"
+
     export let animation;
     export let category;
     export let idx;
@@ -23,6 +25,11 @@
     $: switchType = $animation.meleeSwitch.options.switchType;
     $: disableSection = switchType !== "custom";
     $: detect = $animation.meleeSwitch.options.detect;
+
+    //$: shouldShow = menuType === "weapon" && aaReturnWeapons.includes(anim) ? true : false;
+    $: anim = $animation.primary.video.animation;
+    $: switchAnim = $animation.meleeSwitch.video.animation;
+    $: shouldShow = switchType === "on" ? aaReturnWeapons.includes(anim) : switchType === "custom" ? aaReturnWeapons.includes(switchAnim) : false;
 </script>
 
 <div class="aa-sound-border">
@@ -111,6 +118,21 @@
                                 </div>
                             </div>
                         </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!--Set Return animation-->
+                            <div class="form-group {shouldShow ? "" : "aa-disableOpacity"}">
+                                <label for="OnlyX {animation._data.id}"
+                                    >{localize("autoanimations.menus.return")} {localize("autoanimations.menus.animation")}
+                                </label>
+                                <input
+                                    type="checkbox"
+                                    id="OnlyX {animation._data.id}"
+                                    bind:checked={$animation.meleeSwitch.options.isReturning}
+                                />
+                            </div>
+                        </td>        
                     </tr>
                 </table>
             </div>

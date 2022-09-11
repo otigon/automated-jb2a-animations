@@ -16,7 +16,7 @@
     $: activeEffectType = $animation.activeEffectType;
 
     let aeContent = {
-        onToken: {
+        ontoken: {
             component: BuildAeOnToken,
         },
         aura: {
@@ -65,7 +65,7 @@
                 style="background-color: rgba(21, 154, 169, 0.4);width: 12em;"
             >
                 <option value="">Select Type</option>
-                <option value="onToken"
+                <option value="ontoken"
                     >{localize("autoanimations.animTypes.onToken")}</option
                 >
                 <option value="aura"

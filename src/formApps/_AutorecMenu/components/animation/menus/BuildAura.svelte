@@ -5,6 +5,7 @@ import SoundSettings from "../components/SoundSettings.svelte";
 import ExtraSource from "../components/ExtraSource.svelte";
 import ExtraTarget from "../components/ExtraTarget.svelte";
 import SectionButtons from "../components/SectionButtons02.svelte";
+import Secondary from "../components/Secondary.svelte";
 import Macro from "../components/Macro.svelte";
 import SoundOnly from "../components/SoundOnly.svelte";
 
@@ -33,6 +34,7 @@ $: macroEnabled = $animation.macro.enable;
     <AuraOptions {animation} {category} />
     <SoundSettings {animation} {category} {idx} section="primary"/>
     </div>
+    <Secondary {animation} {idx} {category} />
     <ExtraTarget {animation} {idx} {category} />
 </div>
 

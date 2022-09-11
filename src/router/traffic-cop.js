@@ -79,10 +79,7 @@ export async function trafficCop(handler) {
         let animType = isCustom ? handler.animType : isAutorec.menu;
         let presetType = isCustom ? handler.flags?.preset?.presetType : isAutorec.presetType;
         if (!isCustom && animType === 'aefx') {
-            animType = isAutorec.animType;
-            if (animType === 'preset') {
-                presetType = isAutorec.menuType;
-            }
+            animType = isAutorec.activeEffectType;
         }
         if (!isCustom && animType === 'aefx' && animType === 'preset') {
             presetType = isAutorec.presetType;
@@ -92,7 +89,7 @@ export async function trafficCop(handler) {
         if (!isCustom && isAutorec) {
             if (animationData.primary?.soundOnly?.enable || animationData?.primary?.macro?.playWhen === "2") {
                 const primaryData = animationData.primary;
-                const macroData = primaryData.macro;
+                const macroData = primaryData.macro;s
 
                 let aaSeq = new Sequence();
                 let play = false;

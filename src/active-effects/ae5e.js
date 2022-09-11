@@ -11,6 +11,7 @@ import { AnimationState } from "../AnimationState.js";
  *
  */
 export async function createActiveEffects5e(effect) {
+
     if (effect.disabled) { return; }
     //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
     //await wait(150)

@@ -448,7 +448,8 @@
             "onToken": "On Token",
             "presets": "Presets",
             "templates": "Templates",
-            "typeAuras": "Aura"
+            "typeAuras": "Aura",
+            "aefx": "Active Effects"
         },
         "presetTypes": {
             "bardicinspiration": "Bardic Inspiration",

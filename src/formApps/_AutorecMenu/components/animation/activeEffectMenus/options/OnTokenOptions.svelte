@@ -6,6 +6,7 @@
     import NumberInput from "../../components/options/inputComponents/NumberInput.svelte";
     import ScaleRadius from "../../components/options/inputComponents/ScaleRadius.svelte";
     import Opacity from "../../presetMenus/inputComponents/Opacity02.svelte";
+    import WaitDelay from "../../components/options/inputComponents/WaitDelay.svelte";
 
     export let animation;
     export let category;
@@ -25,6 +26,7 @@
 
     const addWidth = game.i18n.localize("autoanimations.menus.add") + " " + game.i18n.localize("autoanimations.menus.token") + " " + game.i18n.localize("autoanimations.menus.width");
 
+    $: isRadius = $animation.data.options.isRadius;
 
 </script>
 
@@ -139,10 +141,6 @@
                     </div>
                 </td>
                 <td>
-                    <!--Set Animation Opacity-->
-                    <Opacity {animation} />
-                </td>
-                <td>
                     <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
                     <ScaleRadius
                         {animation}
@@ -151,8 +149,30 @@
                         step="0.01"
                     />
                 </td>
+                <td>
+                    <!--Add Token Width-->
+                    <div class="form-group {isRadius ? "" : "aa-disableOpacity"}">
+                        <label for="Width {animation._data.id}"
+                            >{localize("autoanimations.menus.add")}
+                            {localize("autoanimations.menus.token")}
+                            {localize("autoanimations.menus.width")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="Width {animation._data.id}"
+                            bind:checked={$animation.data.options.addTokenWidth}
+                        />
+                    </div>
+                </td>
             </tr>
             <tr>
+                <td>
+                    <!--Set Animation Opacity-->
+                    <Opacity {animation} />
+                </td>
+                <td>
+                    <WaitDelay {animation} section="data"/>
+                </td>
                 <td>
                     <!--Set Z-Index of Animation-->
                     <NumberInput
@@ -161,9 +181,6 @@
                         section={"data"}
                         field={"zIndex"}
                     />
-                </td>
-                <td>
-                    
                 </td>
             </tr>
         </table>

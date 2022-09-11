@@ -23,7 +23,7 @@ const aura = {
         enableCustom: false,
         customPath: "",
     },
-    options: {ignoreTargets: true},
+    options: {ignoreTarget: true},
     sound: {enable: false},
 }
 

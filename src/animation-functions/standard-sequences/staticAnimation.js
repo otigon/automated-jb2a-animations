@@ -112,7 +112,7 @@ export async function ontokenSeq(handler, animationData) {
             if (playPersist) { aaEffect.attachTo(sourceToken, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility }); aaEffect.persist(true); aaEffect.origin(handler.itemUuid) }
             if (checkAnim) { aaEffect.playIf(false); }
             if (data.options.isWait) {
-                aaEffect.waitUntilFinished(data.options.wait)
+                aaEffect.waitUntilFinished(data.options.delay)
             }
         }
         if (secondary) {
@@ -121,7 +121,7 @@ export async function ontokenSeq(handler, animationData) {
                 aaSeq.addSequence(secondary.sound)
             }
             let secondarySeq = aaSeq.effect()
-            secondarySeq.atLocation("spot" + ` ${sourceToken.id}`)
+            secondarySeq.atLocation(sourceToken)
             secondarySeq.file(secondary.path?.file, true)
             secondarySeq.size(secondarySize, { gridUnits: true })
             secondarySeq.repeats(secondary.options.repeat, secondary.options.repeatDelay)
