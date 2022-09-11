@@ -11,6 +11,7 @@ import { AnimationState } from "../AnimationState.js";
  *
  */
 export async function createActiveEffects5e(effect) {
+
     if (effect.disabled) { return; }
     //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
     //await wait(150)
@@ -124,7 +125,7 @@ export async function deleteActiveEffects5e(effect) {
         if (macroData.shouldRun) {
             let userData = macroData.args;
             new Sequence()
-                .macro(macroData.name, "off", handler, [...userData])
+                .macro(macroData.name, "off", handler, userData)
                 .play()
         }
 
@@ -162,7 +163,7 @@ export async function deleteActiveEffects5e(effect) {
         if (macroData.shouldRun) {
             let userData = macroData.args;
             new Sequence()
-                .macro(macroData.name, "off", handler, [...userData])
+                .macro(macroData.name, "off", handler, userData)
                 .play()
         }
     }

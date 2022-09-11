@@ -171,7 +171,7 @@ export async function deleteActiveEffectsPF1(effect) {
         if (macroData.shouldRun) {
             let userData = macroData.args;
             new Sequence()
-                .macro(macroData.name, "off", handler, [...userData])
+                .macro(macroData.name, "off", handler, userData)
                 .play()
         }
 
@@ -210,7 +210,7 @@ export async function deleteActiveEffectsPF1(effect) {
         if (macroData.shouldRun) {
             let userData = macroData.args;
             new Sequence()
-                .macro(macroData.name, "off", handler, [...userData])
+                .macro(macroData.name, "off", handler, userData)
                 .play()
         }
     }

@@ -6,11 +6,11 @@ import { video as createVideo } from "./video.js";
  *
  * @returns {DataPrimary}
  */
-export function primary({ video = {}, sound = {}, options = {} } = {}) {
+export function primary({ video = {}, sound = {}, options = {}, dbSection = "" } = {}) {
    return {
       video: createVideo(video),
       sound: createSound(sound),
-      options
+      options,
    }
 }
 

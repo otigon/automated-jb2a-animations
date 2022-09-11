@@ -26,8 +26,8 @@
             "autoRecSetting": "Configure Automatic Recognition",
             "toggleAnimations": "Toggle Animations",
             "toggleAnimations_hint": "Requires refresh if turning Animations ON",
-            "ON": "ON",
-            "OFF": "OFF",
+            "ON": "On",
+            "OFF": "Off",
             "settingDisableAutoRec": "Disable Automatic Recognition",
             "settingDisableAutoRecHint": "Only Custom configured Items will play animations",
             "globaldelay_name": "Global Delay",
@@ -322,7 +322,10 @@
             "diamond": "Diamond",
             "spike": "Spike",
             "square": "Square",
-            "blob": "Blob"
+            "blob": "Blob",
+            "intro": "Intro",
+            "outro_explode": "Outro Explode",
+            "outro_fade": "Outro Fade"
         },
         "variants": {
             "1":"01",
@@ -436,7 +439,8 @@
             "ray": "Ray",
             "leaves": "Leaves",
             "chains": "Chains",
-            "shrapnel": "Shrapnel"
+            "shrapnel": "Shrapnel",
+            "shieldspell":"Shield"
         },
         "animTypes": {
             "melee": "Melee",
@@ -444,7 +448,8 @@
             "onToken": "On Token",
             "presets": "Presets",
             "templates": "Templates",
-            "typeAuras": "Aura"
+            "typeAuras": "Aura",
+            "aefx": "Active Effects"
         },
         "presetTypes": {
             "bardicinspiration": "Bardic Inspiration",
@@ -459,7 +464,7 @@
             "proToTemp": "Projectile to Template"
         },
         "menus": {
-            "masking": "Masking",
+            "mask": "Mask",
             "primary": "Primary",
             "animation": "Animation",
             "extra": "Extra",
@@ -576,7 +581,16 @@
             "level": "Level",
             "duplicate": "Duplicate",
             "3dcanvas": "3d Canvas",
-            "only": "Only"
+            "only": "Only",
+            "all": "All",
+            "bind": "Bind",
+            "effect": "Effect",
+            "fadeIn": "Fade In",
+            "fadeOut": "Fade Out",
+            "select": "Select",
+            "dual": "Dual",
+            "triple": "Triple",
+            "elevation": "Elevation"
         },
         "optionsInfo": {
 

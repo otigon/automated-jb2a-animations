@@ -4,17 +4,16 @@ export const aefx = [
    {
       ...common.main({ label: "frightened" }),
       menu: "aefx",
-      primary: common.primary({
-         video: { menuType: "conditions", animation: "drop", variant: "01", color: "green" },
+      activeEffectType: "ontoken",
+      data: {
          options: {
-            persistent: true,
-            below: false,
-            opacity: 1,
-            repeat: 1,
-            delay: 250,
-            scale: 1,
-            staticType: "source",
-         }
-      })
+
+         },
+         sound: {enable: false},
+         video: { dbSection: "static", menuType: "creature", animation: "claw", variant: "01", color: "red" },
+      },
+      source: common.source(),
+      macro: common.macro(),
+      secondary: common.secondary(),
    }
 ];

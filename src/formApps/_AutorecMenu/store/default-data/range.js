@@ -5,18 +5,20 @@ export const range = [
       ...common.main({ label: "crossbow" }),
       menu: "range",
       primary: common.primary({
-         video: { menuType: "weapon", animation: 'bolt', variant: 'physical', color: 'orange' },
+         video: { dbSection: "range", menuType: "weapon", animation: 'bolt', variant: 'physical', color: 'orange' },
          options: {
-            below: false,
-            delay: 500,
+            delay: 0,
+            elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -27,18 +29,20 @@ export const range = [
       ...common.main({ label: "bow" }),
       menu: "range",
       primary: common.primary({
-         video: { menuType: "weapon", animation: 'arrow', variant: 'regular', color: 'regular' },
+         video: { dbSection: "range", menuType: "weapon", animation: 'arrow', variant: 'regular', color: 'regular' },
          options: {
-            below: false,
-            delay: 500,
+            delay: 0,
+            elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -49,18 +53,20 @@ export const range = [
       ...common.main({ label: "disintegrate" }),
       menu: "range",
       primary: common.primary({
-         video: { menuType: "spell", animation: 'disintegrate', variant: '01', color: 'green' },
+         video: { dbSection: "range", menuType: "spell", animation: 'disintegrate', variant: '01', color: 'green' },
          options: {
-            below: false,
-            delay: 500,
+            delay: 0,
+            elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -71,18 +77,20 @@ export const range = [
       ...common.main({ label: "eldritchblast" }),
       menu: "range",
       primary: common.primary({
-         video: { menuType: "spell", animation: 'eldritchblast', variant: '01', color: 'purple' },
+         video: { dbSection: "range", menuType: "spell", animation: 'eldritchblast', variant: '01', color: 'purple' },
          options: {
-            below: false,
-            delay: 500,
+            delay: 0,
+            elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -93,18 +101,20 @@ export const range = [
       ...common.main({ label: "firebolt" }),
       menu: "range",
       primary: common.primary({
-         video: { menuType: "spell", animation: 'firebolt', variant: '01', color: 'orange' },
+         video: { dbSection: "range", menuType: "spell", animation: 'firebolt', variant: '01', color: 'orange' },
          options: {
-            below: false,
-            delay: 500,
+            delay: 0,
+            elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -115,18 +125,20 @@ export const range = [
       ...common.main({ label: "guidingbolt" }),
       menu: "range",
       primary: common.primary({
-         video: { menuType: "spell", animation: 'guidingbolt', variant: '01', color: 'yellowblue' },
+         video: { dbSection: "range", menuType: "spell", animation: 'guidingbolt', variant: '01', color: 'yellowblue' },
          options: {
-            below: false,
-            delay: 500,
+            delay: 0,
+            elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -137,18 +149,20 @@ export const range = [
       ...common.main({ label: "magicmissile" }),
       menu: "range",
       primary: common.primary({
-         video: { menuType: "spell", animation: 'magicmissile', variant: '01', color: 'purple' },
+         video: { dbSection: "range", menuType: "spell", animation: 'magicmissile', variant: '01', color: 'purple' },
          options: {
-            below: false,
-            delay: 500,
+            delay: 0,
+            elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -159,18 +173,20 @@ export const range = [
       ...common.main({ label: "rayoffrost" }),
       menu: "range",
       primary: common.primary({
-         video: { menuType: "spell", animation: 'rayoffrost', variant: '01', color: 'blue' },
+         video: { dbSection: "range", menuType: "spell", animation: 'rayoffrost', variant: '01', color: 'blue' },
          options: {
-            below: false,
-            delay: 500,
+            delay: 0,
+            elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -181,18 +197,20 @@ export const range = [
       ...common.main({ label: "scorchingray" }),
       menu: "range",
       primary: common.primary({
-         video: { menuType: "spell", animation: 'scorchingray', variant: '01', color: 'orange' },
+         video: { dbSection: "range", menuType: "spell", animation: 'scorchingray', variant: '01', color: 'orange' },
          options: {
-            below: false,
-            delay: 500,
+            delay: 0,
+            elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),
@@ -203,18 +221,20 @@ export const range = [
       ...common.main({ label: "witchbolt" }),
       menu: "range",
       primary: common.primary({
-         video: { menuType: "spell", animation: 'witchbolt', variant: '01', color: 'blue' },
+         video: { dbSection: "range", menuType: "spell", animation: 'witchbolt', variant: '01', color: 'blue' },
          options: {
-            below: false,
-            delay: 500,
+            delay: 0,
+            elevation: 1000,
+            isWait: false,
             onlyX: false,
             opacity: 1,
             repeat: 1,
+            repeatDelay: 500,
             returning: false,
             zIndex: 1
          }
       }),
-      explosion: common.explosion(),
+      secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
       source: common.source(),

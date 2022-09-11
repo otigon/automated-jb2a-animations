@@ -17,7 +17,7 @@ export async function biSeq(handler, animationData) {
     if (!biData) { return; }
     const cleanData = {
         scale: biData.scale || 1,
-        below: biData.below || false,
+        elevation: biData.elevation || 1000,
         self: {
             enable: biData.self?.enable || false,
             animation: biData.self?.animation || "bardicinspiration",
@@ -69,7 +69,7 @@ export async function biSeq(handler, animationData) {
     // Play Macro if Awaiting
     if (data.playMacro && data.macro.playWhen === "1") {
         let userData = data.macro.args;
-        aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
+        aaSeq.macro(data.macro.name, handler.workflow, handler, userData)
     }
     // Extra Effects => Source Token if active
     if (sourceFX.enabled) {
@@ -99,7 +99,7 @@ export async function biSeq(handler, animationData) {
                 .fadeOut(500)
                 .atLocation(sourceToken)
                 .size(sourceTokenGS, { gridUnits: true })
-                .belowTokens(true)
+                .elevation(0)
         }
     }
     let targetSound = false;
@@ -124,7 +124,7 @@ export async function biSeq(handler, animationData) {
                     .fadeOut(500)
                     .atLocation(target)
                     .size(targetTokenGS, { gridUnits: true })
-                    .belowTokens(true)
+                    .elevation(0)
             }
             if (targetFX.enabled) {
                 let targetSequence = AAAnimationData._targetSequence(targetFX, target, handler);
@@ -138,7 +138,7 @@ export async function biSeq(handler, animationData) {
     if (data.playMacro && data.macro.playWhen === "0") {
         let userData = data.macro.args;
         new Sequence()
-            .macro(data.macro.name, handler.workflow, handler, [...userData])
+            .macro(data.macro.name, handler.workflow, handler, userData)
             .play()
     }
     aaSeq.play()

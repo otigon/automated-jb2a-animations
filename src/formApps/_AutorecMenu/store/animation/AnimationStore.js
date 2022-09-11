@@ -1,8 +1,16 @@
-import { propertyStore }      from "@typhonjs-fvtt/runtime/svelte/store";
+import { propertyStore } from "@typhonjs-fvtt/runtime/svelte/store";
 
-import { CategoryStore }      from "../category/CategoryStore.js";
-import { aaSessionStorage }   from "../../../../sessionStorage.js";
-import { constants }          from "../../../../constants.js";
+import { CategoryStore } from "../category/CategoryStore.js";
+import { aaSessionStorage } from "../../../../sessionStorage.js";
+import { constants } from "../../../../constants.js";
+/*
+import {
+   aaTypeMenu,
+   aaNameMenu,
+   aaVariantMenu,
+   aaColorMenu,
+} from "../../../../animation-functions/databases/jb2a-menu-options.js";
+*/
 
 export class AnimationStore extends CategoryStore.EntryStore {
    /** @type {AnimationPropertyStores} */
@@ -13,8 +21,7 @@ export class AnimationStore extends CategoryStore.EntryStore {
    /**
     * @param {object}   data -
     */
-   constructor(data = {})
-   {
+   constructor(data = {}) {
       super(data);
 
       // Save sessionStorage ID.
@@ -34,16 +41,13 @@ export class AnimationStore extends CategoryStore.EntryStore {
     *
     * @param {CategoryStore} categoryStore - The source WorldSettingArrayStore instance.
     */
-   static duplicate(data, categoryStore)
-   {
+   static duplicate(data, categoryStore) {
       // Provide a unique label appending an indexed counter.
-      if (typeof data?.label === 'string')
-      {
+      if (typeof data?.label === 'string') {
          let cntr = 1;
          const baseName = data.label ?? '';
 
-         do
-         {
+         do {
             data.label = `${baseName}-${cntr++}`;
          } while (categoryStore.findEntry((entry) => entry.label === data.label) !== void 0);
       }
@@ -59,8 +63,7 @@ export class AnimationStore extends CategoryStore.EntryStore {
    /**
     * @returns {boolean} Current folder open state.
     */
-   get folderState()
-   {
+   get folderState() {
       return aaSessionStorage.getItem(this.#sessionStorage.folderOpen);
    }
 
@@ -82,15 +85,30 @@ export class AnimationStore extends CategoryStore.EntryStore {
    /**
     * @param {object}   data -
     */
-   set(data)
-   {
-      if (data.label !== void 0)
-      {
+   set(data) {
+      if (data.label !== void 0) {
          if (typeof data.label !== 'string') { throw new TypeError(`'data.label' is not a string.`); }
          this._data.label = data.label;
       }
 
       this._updateSubscribers();
+   }
+
+   async selectCustom(section, section02 = "video") {
+      const current = this._data[section][section02].customPath;
+      const picker = new FilePicker({
+         type: "imagevideo",
+         current,
+         callback: (path) => {
+            this._data[section][section02].customPath = path;
+            this._updateSubscribers()
+            },
+      });
+      setTimeout(() => {
+         picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
+      }, 100);
+      await picker.browse(current);
+
    }
 }
 

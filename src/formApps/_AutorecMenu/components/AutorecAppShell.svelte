@@ -28,6 +28,6 @@
     $: storePosition($position);
 </script>
 
-<ApplicationShell bind:elementRoot>
+<ApplicationShell bind:elementRoot stylesContent={{ color: "black" }}>
     <CategorySelect />
 </ApplicationShell>

@@ -1,10 +1,34 @@
 <script>
     import CategoryControl      from "./CategoryControl.svelte";
     import CategoryList         from "./CategoryList.svelte";
+    import { TJSDialog }        from "@typhonjs-fvtt/runtime/svelte/application";
+    import { getContext } from "svelte";
 
+    import MenuManager from "./MenuManager.svelte";
     import { autoRecStores }    from "../../store/AutoRecStores.js";
 
     const selected = autoRecStores.selected;
+
+    const bottomLabel = game.i18n.localize("autoanimations.menus.menuManager")
+
+    function manageMenu() {
+        new TJSDialog({
+            modal: false,
+            draggable: true,
+            resizable: true,
+            title: "Autorec Menu Manager",
+            stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
+            content: {
+                class: MenuManager,
+                props: {
+                    app: application,
+                },
+            },
+        }).render(true);
+    }
+
+    const { application } = getContext("external");
+
 </script>
 
 <header>
@@ -21,6 +45,11 @@
 <CategoryControl category={$selected} />
 <CategoryList category={$selected} />
 
+<footer>
+  <ul on:click={()=> manageMenu()}>
+    {bottomLabel}
+    </ul>
+</footer>
 <style lang=scss>
   header {
     flex: none;
@@ -70,5 +99,31 @@
       }
     }
   }
+  footer {
+    position: absolute;
+    bottom: 0;
+    flex: none;
+    padding: 0.5em 0.5em;
+
+    background: rgb(160, 159, 159);
+    border-top: 1px solid rgb(100, 100, 100);
+
+    height: fit-content;
+    width: 100%;
+
+    font-size: 1em;
+    font-weight: bold;
+    ul {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+
+      padding: 0;
+      margin: 0;
+    }
+  }
+
 </style>
 

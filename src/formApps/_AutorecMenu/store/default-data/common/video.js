@@ -3,7 +3,7 @@
  *
  * @returns {DataVideo}
  */
-export function video({ menuType, animation, variant, color, enableCustom = false, customPath = ""} = {}) {
+export function video({ menuType, animation, variant, color, enableCustom = false, customPath = "", dbSection} = {}) {
    if (menuType !== void 0 && typeof menuType !== 'string') { throw new TypeError(`'menuType' is not a string.`); }
    if (animation !== void 0 && typeof animation !== 'string') { throw new TypeError(`'animation' is not a string.`); }
    if (variant !== void 0 && typeof variant !== 'string') { throw new TypeError(`'variant' is not a string.`); }
@@ -12,6 +12,7 @@ export function video({ menuType, animation, variant, color, enableCustom = fals
    if (typeof customPath !== 'string') { throw new TypeError(`'customPath' is not a string.`); }
 
    return {
+      dbSection,
       menuType,
       animation,
       variant,
@@ -24,6 +25,8 @@ export function video({ menuType, animation, variant, color, enableCustom = fals
 /**
  * @typedef {object} DataVideo
  *
+ * @property {string} dbSection -
+ * 
  * @property {string}   menuType -
  *
  * @property {string}   animation -

@@ -6,19 +6,21 @@ export const aura = [
       menu: "aura",
       macro: common.macro(),
       primary: common.primary({
-         video: { menuType: "spell", animation: "spiritguardians", variant: '01', color: 'darkblue' },
+         video: { dbSection: "static", menuType: "spell", animation: "spiritguardians", variant: '01', color: 'darkblue' },
          options: {
             addTokenWidth: true,
             auraRadius: 3,
-            below: true,
+            elevation: 0,
             ignoreTarget: true,
             isMasked: false,
             opacity: 0.75,
             unbindAlpha: false,
             unbindVisbility: false,
             zIndex: 1,
+            radius: 3,
          },
       }),
+      secondary: common.secondary(),
       source: common.source(),
       target: common.target()
    }

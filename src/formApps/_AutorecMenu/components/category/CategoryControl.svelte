@@ -12,6 +12,8 @@
     import ButtonOpenCloseAll       from "./ButtonOpenCloseAll.svelte";
     import { createOverflowItems }  from "./createOverflowItems.js";
 
+    import * as addDefaultData from "./addSections.js"
+
     /** @type {CategoryStore} */
     export let category;
 
@@ -44,10 +46,16 @@
     $: menu = {
        items: createOverflowItems(category),
     }
+
+    $: menuTab = category.key.split("-")[1];
+
+    function addEntry() {
+      category.createEntry(structuredClone(addDefaultData[menuTab]))
+    }
 </script>
 
 <header>
-    <TJSIconButton button={buttonAdd} on:click={() => category.createEntry()} />
+    <TJSIconButton button={buttonAdd} on:click={() => addEntry()} />
     <ButtonOpenCloseAll {category} />
     <TJSInput {input} />
     <TJSIconButton button={buttonSort} on:click={() => category.sortAlpha()} />

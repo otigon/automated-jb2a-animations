@@ -9,17 +9,22 @@ import { video } from "./video.js";
 export function source() {
    return {
       enable: false,
-      video: video(),
+      video: { dbSection: "static", menuType: 'spell', animation: 'curewounds', variant: '01', color: 'blue', enableCustom: false, customPath: "" },
       sound: sound(),
       options: {
-         below: false,
+         addTokenWidth:false,
          delay: 0,
-         delayAfter: 0,
+         elevation: 1000,
+         fadeIn: 250,
+         fadeOut: 500,
+         isWait: true,
          isMasked: false,
+         isRadius: false,
          opacity: 1,
          repeat: 1,
-         scale: 1,
-         zIndex: 1
+         repeatDelay: 0,
+         size: 1,
+         zIndex: 1,
       },
    };
 }

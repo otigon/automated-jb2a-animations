@@ -9,17 +9,20 @@ import { video } from "./video.js";
 export function target() {
    return {
       enable: false,
-      video: video(),
+      video: { dbSection: "static", menuType: 'spell', animation: 'curewounds', variant: '01', color: 'blue', enableCustom: false, customPath: "" },
       sound: sound(),
       options: {
-         below: false,
+         addTokenWidth: false,
          delay: 0,
-         delayAfter: 0,
+         elevation: 1000,
          isMasked: false,
+         isRadius: false,
+         //isWait: false,
          opacity: 1,
          persistent: false,
          repeat: 1,
-         scale: 1,
+         repeatDelay: 250,
+         size: 1,
          unbindAlpha: false,
          unbindVisibility: false,
          zIndex: 1

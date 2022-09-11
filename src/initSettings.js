@@ -184,6 +184,7 @@ export function initSettings(gameSettings) {
                scope: scope.world,
                type: String,
                config: true,
+               default: "",
                filePicker: "imagevideo"
             }
          });
@@ -209,6 +210,7 @@ export function initSettings(gameSettings) {
                scope: scope.world,
                type: String,
                config: true,
+               default: "",
                filePicker: "imagevideo"
             }
          });
@@ -234,6 +236,7 @@ export function initSettings(gameSettings) {
                scope: scope.world,
                type: String,
                config: true,
+               default: "",
                filePicker: "imagevideo"
             }
          });
@@ -259,6 +262,7 @@ export function initSettings(gameSettings) {
                scope: scope.world,
                type: String,
                config: true,
+               default: "",
                filePicker: "imagevideo"
             }
          });
@@ -284,6 +288,7 @@ export function initSettings(gameSettings) {
                scope: scope.world,
                type: String,
                config: true,
+               default: "",
                filePicker: "imagevideo"
             }
          });
@@ -309,6 +314,7 @@ export function initSettings(gameSettings) {
                scope: scope.world,
                type: String,
                config: true,
+               default: "",
                filePicker: "imagevideo"
             }
          });
@@ -430,6 +436,7 @@ export function initSettings(gameSettings) {
                   scope: scope.world,
                   config: true,
                   type: String,
+                  default: "",
                   filePicker: 'imagevideo'
                }
             });
@@ -456,6 +463,7 @@ export function initSettings(gameSettings) {
                   scope: scope.world,
                   config: true,
                   type: String,
+                  default: "",
                   filePicker: 'imagevideo'
                }
             });

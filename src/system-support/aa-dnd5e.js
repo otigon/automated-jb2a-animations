@@ -10,11 +10,11 @@ export async function runDnd5e(msg) {
     switch (game.system.id) {
         case "dnd5e":
             handler = await systemData.make(msg);
-            rollType = (msg.data?.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.data?.flavor?.toLowerCase() ?? "pass");
+            rollType = (msg.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.flavor?.toLowerCase() ?? "pass");
             break;
         case "sw5e":
             handler = await systemData.make(msg);
-            rollType = msg.data?.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
+            rollType = msg.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
             break;
     }
 
@@ -54,4 +54,39 @@ export async function runDnd5e(msg) {
             }
             break;
     }
+}
+
+export async function useItem(input) {
+    const animationNow = game.settings.get("autoanimations", "playonDamageCore");
+    if (input.item?.hasAreaTarget || input.item?.hasAttack || input.item?.hasDamage) { return; }
+
+    let handler = await systemData.make(input);
+    if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
+    trafficCop(handler)
+}
+export async function rollAttack(input) {
+    const animationNow = game.settings.get("autoanimations", "playonDamageCore");
+    if (input.item?.hasAreaTarget || (input.item?.hasDamage && animationNow)) { return; }
+
+    let handler = await systemData.make(input);
+    if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
+    trafficCop(handler)
+}
+export async function rollDamage(input) {
+    const animationNow = game.settings.get("autoanimations", "playonDamageCore");
+    if (input.item?.hasAreaTarget || (input.item?.hasAttack && !animationNow)) { return; }
+    
+    let handler = await systemData.make(input);
+    if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
+    trafficCop(handler)
+}
+export async function templateItem(input) {
+    if (input.userId !== game.user.id) { return };
+
+    const itemUuid = input.template?.flags?.dnd5e?.origin;
+    const item = itemUuid ? await fromUuid(itemUuid) : "";
+    if (!item) { return; }
+    let handler = await systemData.make({item: item});
+    if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
+    trafficCop(handler)
 }

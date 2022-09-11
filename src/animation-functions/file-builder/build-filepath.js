@@ -11,16 +11,16 @@ export async function buildFile(getMeta, dbType, name, animationType, animationV
     let color;
     let returnFile;
     let fileData;
-    let metadata;
+    //let metadata;
 
     if (customPath) {
         file = customPath;
         fileData = customPath;
         //msFile = customPath;
-        if (getMeta) {
-            fileData = customPath;
-            metadata = await getVideoDimensionsOf(fileData);
-        }    
+        //if (getMeta) {
+            //fileData = customPath;
+            //metadata = await getVideoDimensionsOf(fileData);
+        //}    
     } else {
         const jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
         const path = name.replace(/melee|range|double/gi, function (x) {
@@ -50,7 +50,7 @@ export async function buildFile(getMeta, dbType, name, animationType, animationV
         //metadata = await getVideoDimensionsOf(fileData);
     }
 
-    return { file, metadata, returnFile, fileData }
+    return { file, returnFile, fileData }
 }
 
 function getVideoDimensionsOf(url) {

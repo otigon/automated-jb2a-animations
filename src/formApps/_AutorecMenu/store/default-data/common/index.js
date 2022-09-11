@@ -1,4 +1,4 @@
-export * from './explosion.js';
+export * from './secondary.js';
 export * from './levels3d.js';
 export * from './macro.js';
 export * from './main.js';

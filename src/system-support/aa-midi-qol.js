@@ -5,6 +5,7 @@ import systemData from "../system-handlers/system-data.js"
 */
 // setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
 export async function setUpMidi(workflow) {
+    if (workflow.item?.hasAreaTarget) { return; }
     let handler = await systemData.make(workflow);
     if (!handler.item || !handler.sourceToken) {
         return;
@@ -24,7 +25,7 @@ export async function setUpMidiNoAttackDamage(workflow) {
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
 export async function setUpMidiNoAttack(workflow) {
-    if (workflow.item?.hasAttack) { return; }
+    if (workflow.item?.hasAttack || workflow.item?.hasAreaTarget) { return; }
     let handler = await systemData.make(workflow);
     if (!handler.item || !handler.sourceToken) {
         return;
@@ -32,19 +33,26 @@ export async function setUpMidiNoAttack(workflow) {
     if (handler.shouldPlayImmediately) { return; }
     trafficCop(handler)
 }
-/*
-// For AOE items when using Midi QOL
-async function midiAOE(workflow) {
-    if (killAllAnimations) { return; }
-    const handler = await systemData.make(workflow);
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-    if (handler.shouldPlayImmediately) {
-        trafficCop(handler);
-    } else { return; }
+// For Auras and Teleportation
+export async function useItem(input) {
+    if (input.item?.hasAreaTarget || input.item?.hasAttack || input.item?.hasDamage) { return; }
+
+    let handler = await systemData.make(input);
+    if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
+    trafficCop(handler)
 }
-*/
+// For Template Animations
+export async function templateItem(input) {
+    if (input.userId !== game.user.id) { return };
+
+    const itemUuid = input.template?.flags?.dnd5e?.origin;
+    const item = itemUuid ? await fromUuid(itemUuid) : "";
+    if (!item) { return; }
+    let handler = await systemData.make({item: item});
+    if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
+    trafficCop(handler)
+}
+/*
 // Special cases required when using Midi-QOL. Houses only the Template Animations right now
 export async function midiTemplateAnimations(msg) {
     if (game.user.id !== msg.user?.id) {
@@ -55,11 +63,11 @@ export async function midiTemplateAnimations(msg) {
         return;
     }
     //let breakOut = checkMessege(msg);
-    if ((handler.shouldPlayImmediately) /*&& (breakOut === 0 || game.modules.get("betterrolls5e")?.active)*/) {
+    if ((handler.shouldPlayImmediately)) {
         trafficCop(handler);
     } else { return; }
 }
-
+*/
 export async function criticalCheck(workflow) {
     if (!workflow.isCritical && !workflow.isFumble) { return; }
     let critical = workflow.isCritical;

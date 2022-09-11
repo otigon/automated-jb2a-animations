@@ -11,47 +11,25 @@ export async function dualSeq(handler, animationData) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
-    //const daData =  handler.flags?.preset?.dualattach;
     const data = animationData.primary;
-
-    const daData = data.isAuto ? handler.autorecObject?.dualattach : handler.flags?.preset?.dualattach;
-
-    if (!daData) { return; }
-    const cleanData = {
-        menuType: daData.menuType || "spell",
-        animation: daData.animation || "witchbolt",
-        variant: daData.variant || "01",
-        color: daData.color || "blue",
-        customPath: daData.enableCustom && daData.customPath ? daData.customPath : false,
-        below: daData.below || false,
-        onlyX: daData.onlyX || false,
-        playbackRate: daData.playbackRate || 1,
-    }
-
     const sourceFX = animationData.sourceFX;
-    /*
-    if (data.isAuto) {
-        data.itemName = data.subAnimation || "";
-    } else {
-        data.itemName = data.options?.name || "";
-    }
-    */
-    const animFile = await buildFile(false, cleanData.menuType, cleanData.animation, "range", cleanData.variant, cleanData.color, cleanData.customPath)
+
+    const animFile = await buildFile(false, data.video.menuType, data.video.animation, "range", data.video.variant, data.video.color, data.video.customPath)
 
     if (handler.debug) { aaDebugger("Dual Attach Animation Start", animationData, animFile) }
 
-    const onlyX = cleanData.enableCustom ? cleanData.onlyX : false;
+    const onlyX = data.video.customPath ? data.options.onlyX : false;
 
     const sourceToken = handler.sourceToken;
     let effectExists = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid })
-    if (aaDebug) { aaDebugger("Dual Attach Animation Start", data, cleanData, animFile) }
+    if (aaDebug) { aaDebugger("Dual Attach Animation Start", data, data, animFile) }
     async function cast() {
 
         let aaSeq = new Sequence();
         // Play Macro if Awaiting
         if (data.playMacro && data.macro.playWhen === "1") {
             let userData = data.macro.args;
-            aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
+            aaSeq.macro(data.macro.name, handler.workflow, handler, userData)
         }
         // Extra Effects => Source Token if active
         if (sourceFX.enabled) {
@@ -72,16 +50,16 @@ export async function dualSeq(handler, animationData) {
                 .attachTo(sourceToken)
                 .stretchTo(target, { attachTo: true, onlyX: onlyX })
                 .persist(true)
-                .playbackRate(cleanData.playbackRate)
+                .playbackRate(data.options.playbackRate)
                 .origin(handler.itemUuid)
-                .belowTokens(cleanData.below)
+                .elevation(data.options.elevation)
                 //.playIf(!checkTarget)
             }
         }
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;
             new Sequence()
-                .macro(data.macro.name, handler.workflow, handler, [...userData])
+                .macro(data.macro.name, handler.workflow, handler, userData)
                 .play()
         }
         aaSeq.play()

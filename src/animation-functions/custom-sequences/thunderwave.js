@@ -25,7 +25,7 @@ export async function twSeq(handler, animationData, config) {
         color: twData.color || "blue",
         repeat: twData.repeat || 1,
         delay: twData.delay || 250,
-        below: twData.below || false,
+        elevation: twData.elevation ?? 1000,
         opacity: twData.opacity || 1,
         removeTemplate: twData.removeTemplate || false
     }
@@ -124,7 +124,7 @@ export async function twSeq(handler, animationData, config) {
         // Play Macro if Awaiting
         if (data.playMacro && data.macro.playWhen === "1") {
             let userData = data.macro.args;
-            aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
+            aaSeq.macro(data.macro.name, handler.workflow, handler, userData)
         }
         // Extra Effects => Source Token if active
         if (sourceFX.enabled) {
@@ -145,12 +145,12 @@ export async function twSeq(handler, animationData, config) {
             //.scale(scale)
             .opacity(cleanData.opacity)
             .size(3, { gridUnits: true })
-            .belowTokens(cleanData.below)
-            .repeats(cleanData.repeat, cleanData.delay)
+            .elevation(cleanData.elevation)
+            .repeats(cleanData.repeat, cleanData.repeatDelay)
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;
             new Sequence()
-                .macro(data.macro.name, handler.workflow, handler, [...userData])
+                .macro(data.macro.name, handler.workflow, handler, userData)
                 .play()
         }
         aaSeq.play()

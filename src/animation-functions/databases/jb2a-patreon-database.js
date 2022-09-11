@@ -6088,6 +6088,100 @@ JB2APATREONDB.static = {
             }
         },
     },
+    shieldspell: {
+        intro: {
+            '01': {
+                blue: [l1`Shield/Shield_01_Regular_Blue_Intro_400x400.webm`],
+                green: [l1`Shield/Shield_01_Regular_Green_Intro_400x400.webm`],
+                purple: [l1`Shield/Shield_01_Regular_Purple_Intro_400x400.webm`],
+                red: [l1`Shield/Shield_01_Regular_Red_Intro_400x400.webm`],
+                yellow: [l1`Shield/Shield_01_Regular_Yellow_Intro_400x400.webm`],
+            },
+            '02': {
+                blue: [l1`Shield/Shield_02_Regular_Blue_Intro_400x400.webm`],
+                green: [l1`Shield/Shield_02_Regular_Green_Intro_400x400.webm`],
+                purple: [l1`Shield/Shield_02_Regular_Purple_Intro_400x400.webm`],
+                red: [l1`Shield/Shield_02_Regular_Red_Intro_400x400.webm`],
+                yellow: [l1`Shield/Shield_01_Regular_Yellow_Intro_400x400.webm`],
+            },
+            '03': {
+                blue: [l1`Shield/Shield_03_Regular_Blue_Intro_400x400.webm`],
+                green: [l1`Shield/Shield_03_Regular_Green_Intro_400x400.webm`],
+                purple: [l1`Shield/Shield_02_Regular_Purple_Intro_400x400.webm`],
+                red: [l1`Shield/Shield_03_Regular_Red_Intro_400x400.webm`],
+                yellow: [l1`Shield/Shield_03_Regular_Yellow_Intro_400x400.webm`],
+            },
+        },
+        loop: {
+            '01': {
+                blue: [l1`Shield/Shield_01_Regular_Blue_Loop_400x400.webm`],
+                green: [l1`Shield/Shield_01_Regular_Green_Loop_400x400.webm`],
+                purple: [l1`Shield/Shield_01_Regular_Purple_Loop_400x400.webm`],
+                red: [l1`Shield/Shield_01_Regular_Red_Loop_400x400.webm`],
+                yellow: [l1`Shield/Shield_01_Regular_Yellow_Loop_400x400.webm`],
+            },
+            '02': {
+                blue: [l1`Shield/Shield_02_Regular_Blue_Loop_400x400.webm`],
+                green: [l1`Shield/Shield_02_Regular_Green_Loop_400x400.webm`],
+                purple: [l1`Shield/Shield_02_Regular_Purple_Loop_400x400.webm`],
+                red: [l1`Shield/Shield_02_Regular_Red_Loop_400x400.webm`],
+                yellow: [l1`Shield/Shield_02_Regular_Yellow_Loop_400x400.webm`],
+            },
+            '03': {
+                blue: [l1`Shield/Shield_03_Regular_Blue_Loop_400x400.webm`],
+                green: [l1`Shield/Shield_03_Regular_Green_Loop_400x400.webm`],
+                purple: [l1`Shield/Shield_03_Regular_Purple_Loop_400x400.webm`],
+                red: [l1`Shield/Shield_03_Regular_Red_Loop_400x400.webm`],
+                yellow: [l1`Shield/Shield_03_Regular_Yellow_Loop_400x400.webm`],
+            },
+        },
+        outro_explode: {
+            '01': {
+                blue: [l1`Shield/Shield_01_Regular_Blue_OutroExplode_400x400.webm`],
+                green: [l1`Shield/Shield_01_Regular_Green_OutroExplode_400x400.webm`],
+                purple: [l1`Shield/Shield_01_Regular_Purple_OutroExplode_400x400.webm`],
+                red: [l1`Shield/Shield_01_Regular_Red_OutroExplode_400x400.webm`],
+                yellow: [l1`Shield/Shield_01_Regular_Red_OutroFade_400x400.webm`],
+            },
+            '02': {
+                blue: [l1`Shield/Shield_02_Regular_Blue_OutroExplode_400x400.webm`],
+                green: [l1`Shield/Shield_02_Regular_Green_OutroExplode_400x400.webm`],
+                purple: [l1`Shield/Shield_02_Regular_Purple_OutroExplode_400x400.webm`],
+                red: [l1`Shield/Shield_02_Regular_Red_OutroExplode_400x400.webm`],
+                yellow: [l1`Shield/Shield_02_Regular_Yellow_OutroExplode_400x400.webm`],
+            },
+            '03': {
+                blue: [l1`Shield/Shield_03_Regular_Blue_OutroExplode_400x400.webm`],
+                green: [l1`Shield/Shield_03_Regular_Green_OutroExplode_400x400.webm`],
+                purple: [l1`Shield/Shield_03_Regular_Purple_OutroExplode_400x400.webm`],
+                red: [l1`Shield/Shield_03_Regular_Red_OutroExplode_400x400.webm`],
+                yellow: [l1`Shield/Shield_03_Regular_Yellow_OutroExplode_400x400.webm`],
+            },
+        },
+        outro_fade: {
+            '01': {
+                blue: [l1`Shield/Shield_01_Regular_Blue_OutroFade_400x400.webm`],
+                green: [l1`Shield/Shield_01_Regular_Green_OutroFade_400x400.webm`],
+                purple: [l1`Shield/Shield_01_Regular_Green_OutroFade_400x400.webm`],
+                red: [l1`Shield/Shield_01_Regular_Red_OutroFade_400x400.webm`],
+                yellow: [l1`Shield/Shield_01_Regular_Yellow_OutroFade_400x400.webm`],
+            },
+            '02': {
+                blue: [l1`Shield/Shield_02_Regular_Blue_OutroFade_400x400.webm`],
+                green: [l1`Shield/Shield_02_Regular_Green_OutroFade_400x400.webm`],
+                purple: [l1`Shield/Shield_02_Regular_Purple_OutroFade_400x400.webm`],
+                red: [l1`Shield/Shield_02_Regular_Red_OutroFade_400x400.webm`],
+                yellow: [l1`Shield/Shield_02_Regular_Yellow_OutroFade_400x400.webm`],
+            },
+            '03': {
+                blue: [l1`Shield/Shield_03_Regular_Blue_OutroFade_400x400.webm`],
+                green: [l1`Shield/Shield_03_Regular_Green_OutroFade_400x400.webm`],
+                purple: [l1`Shield/Shield_03_Regular_Purple_OutroFade_400x400.webm`],
+                red: [l1`Shield/Shield_03_Regular_Red_OutroFade_400x400.webm`],
+                yellow: [l1`Shield/Shield_03_Regular_Yellow_OutroFade_400x400.webm`],
+            },
+        },
+    },
     shrapnel: {
         bomb: {
             '01': {

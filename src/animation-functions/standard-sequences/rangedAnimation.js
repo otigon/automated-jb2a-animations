@@ -1,6 +1,7 @@
-import { buildFile } from "../file-builder/build-filepath.js"
+//import { buildFile } from "../file-builder/build-filepath.js"
 import { aaDebugger } from "../../constants/constants.js"
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
+import { aaReturnWeapons } from "../databases/jb2a-menu-options.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -15,26 +16,30 @@ export async function rangeSeq(handler, animationData) {
     await wait(globalDelay);
 
     const data = animationData.primary;
+    const secondary = animationData.secondary;
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
+    const macro = animationData.macro;
 
-    const attack = await buildFile(false, data.menuType, data.animation, "range", data.variant, data.color, data.customPath)
+    //const attack = await buildFile(false, data.video.menuType, data.video.animation, "range", data.video.variant, data.video.color, data.video.customPath)
 
-    if (handler.debug) { aaDebugger("Ranged Animation Start", animationData, attack) }
+    if (handler.debug) { aaDebugger("Ranged Animation Start", animationData) }
 
     const sourceToken = handler.sourceToken;
     const onlyX = data.enableCustom ? data.onlyX : false;
+    /*
     let rangeSwitch;
     if (moduleIncludes("jb2a_patreon")) {
         rangeSwitch = ['sword', 'greatsword', 'mace', 'dagger', 'spear', 'greataxe', 'handaxe', 'lasersword', 'hammer', 'chakram']
     } else {
         rangeSwitch = ['dagger', 'lasersword']
     }
-    const switchReturn = rangeSwitch.some(el => data.animation.includes(el)) ? data.isReturning : false;
+    */
+    const switchReturn = aaReturnWeapons.includes(data.video.animation) && !data.video.enableCustom ? data.options.isReturning : false;
     let returnDelay;
     switch (true) {
-        case data.animation.includes('dagger'):
-        case data.animation.includes('hammer'):
+        case data.video.animation.includes('dagger'):
+        case data.video.animation.includes('hammer'):
             returnDelay = 1000;
             break;
         default:
@@ -46,75 +51,131 @@ export async function rangeSeq(handler, animationData) {
         let aaSeq = await new Sequence("Automated Animations")
 
         // Play Macro if Awaiting
-        if (data.playMacro && data.macro.playWhen === "1") {
-            let userData = data.macro.args;
-            aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
+        if (macro && macro.playWhen === "1") {
+            let userData = macro.args;
+            aaSeq.macro(macro.name, handler.workflow, handler, userData)
         }
         // Extra Effects => Source Token if active
-        if (sourceFX.enabled) {
+        if (sourceFX.enable) {
             aaSeq.addSequence(sourceFX.sourceSeq)
+        }
+        // Primary Sound
+        if (data.sound) {
+            aaSeq.addSequence(data.sound)
         }
         // Animation Start Hook
         aaSeq.thenDo(function () {
             Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
         })
-        let targetSound = false;
-        // Target Effect sections
-        for (let target of handler.allTargets) {
+        // Primary Animation
+        for (let i = 0; i < handler.allTargets.length; i++) {
+        //for (let currentTarget of handler.allTargets) {
+            let currentTarget = handler.allTargets[i]
             let hit;
             if (handler.playOnMiss) {
-                hit = handler.hitTargetsId.includes(target.id) ? true : false;
+                hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
             } else {
                 hit = true;
             }
-            if (hit) { targetSound = true }
-            aaSeq.effect()
-                .file(attack.file)
-                .atLocation(sourceToken)
-                .stretchTo(target, { onlyX: onlyX })
-                .randomizeMirrorY()
-                .repeats(data.repeat, data.delay)
-                .opacity(data.opacity)
-                .missed(!hit)
-                .name("spot" + ` ${target.id}`)
-                .belowTokens(data.below)
-                .zIndex(data.zIndex)
+            //if (hit) { targetSound = true }
+            let nextSeq = aaSeq.effect()
+            nextSeq.file(data.path.file)
+            nextSeq.atLocation(sourceToken)
+            nextSeq.stretchTo(currentTarget, { onlyX: onlyX })
+            nextSeq.randomizeMirrorY()
+            nextSeq.repeats(data.options.repeat, data.options.repeatDelay)
+            nextSeq.opacity(data.options.opacity)
+            nextSeq.missed(!hit)
+            nextSeq.name("spot" + ` ${currentTarget.id}`)
+            nextSeq.elevation(data.options.elevation)
+            nextSeq.zIndex(data.options.zIndex)
             if (switchReturn) {
-                aaSeq.effect()
-                    .file(attack.returnFile, true)
-                    .opacity(data.opacity)
-                    .delay(returnDelay)
-                    .atLocation(sourceToken)
-                    .repeats(data.repeat, data.delay)
-                    .stretchTo("spot" + ` ${target.id}`)
-                    .zIndex(data.zIndex)
+                let returnSeq = aaSeq.effect()
+                returnSeq.file(data.path.returnFile, true)
+                returnSeq.opacity(data.options.opacity)
+                returnSeq.atLocation(sourceToken)
+                returnSeq.repeats(data.options.repeat, data.options.repeatDelay)
+                returnSeq.stretchTo("spot" + ` ${currentTarget.id}`)
+                returnSeq.zIndex(data.options.zIndex)
+                if (i === handler.allTargets.length - 1 && data.options.isWait) {
+                    returnSeq.waitUntilFinished(data.options.delay)
+                    returnSeq.delay(returnDelay)
+                } else if (!data.options.isWait) {
+                    returnSeq.delay(returnDelay + data.options.delay)
+                }
             }
-            if (data.explosion.enabled) {
-                let explosionSeq = aaSeq.effect()
-                explosionSeq.atLocation("spot" + ` ${target.id}`)
-                explosionSeq.file(data.explosion?.data?.file, true)
-                    //.scale({ x: data.explosion?.scale, y: data.explosion?.scale })
-                    explosionSeq.size(data.explosion?.radius * 2, {gridUnits: true})
-                    explosionSeq.delay(data.explosion?.delay)
-                    explosionSeq.repeats(data.repeat, data.delay)
-                    explosionSeq.belowTokens(data.explosion?.below)
-                    explosionSeq.zIndex(data.explosion.zIndex)
-                    explosionSeq.opacity(data.explosion.opacity)
-                    if (data.explosion?.isMasked) {
-                        explosionSeq.mask(target)
-                    }        
+            /*
+            if (!switchReturn) {
+                if (data.options.isWait) {
+                    nextSeq.waitUntilFinished(data.options.delay)
+                } else {
+                    nextSeq.delay(data.options.delay)
+                }    
             }
-            if (targetFX.enabled && hit) {
-                let targetSequence = AAAnimationData._targetSequence(targetFX, target, handler);
-                aaSeq.addSequence(targetSequence.targetSeq)
+            */
+            if (i === handler.allTargets.length - 1 && !switchReturn && data.options.isWait) {
+                nextSeq.waitUntilFinished(data.options.delay)
+            } else if (!data.options.isWait) {
+                nextSeq.delay(data.options.delay)
             }
         }
-        aaSeq.addSequence(await AAAnimationData._sounds({ animationData, targetSound, explosionSound: true }))
+        // secondary animation and sound
+        if (secondary) {
+            if (secondary.sound) {
+                aaSeq.addSequence(secondary.sound)
+            }
+            for (let i = 0; i < handler.allTargets.length; i++) {
+            //for (let currentTarget of handler.allTargets) {
+                let currentTarget = handler.allTargets[i]
+                let hit;
+                if (handler.playOnMiss) {
+                    hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
+                } else {
+                    hit = true;
+                }
+                let secondarySeq = aaSeq.effect()
+                secondarySeq.atLocation("spot" + ` ${currentTarget.id}`)
+                secondarySeq.file(secondary.path?.file, true)
+                secondarySeq.size(secondary.options.size * 2, { gridUnits: true })
+                secondarySeq.repeats(secondary.options.repeat, secondary.options.repeatDelay)
+                if (i === handler.allTargets.length - 1 && secondary.options.isWait && targetFX.enable) {
+                    secondarySeq.waitUntilFinished(secondary.options.delay)
+                } else if (!secondary.options.isWait) {
+                    secondarySeq.delay(secondary.options.delay)
+                }
+                secondarySeq.elevation(secondary.options.elevation)
+                secondarySeq.zIndex(secondary.options.zIndex)
+                secondarySeq.opacity(secondary.options.opacity)
+                secondarySeq.fadeIn(secondary.options.fadeIn)
+                secondarySeq.fadeOut(secondary.options.fadeOut)
+                if (secondary.options.isMasked) {
+                    secondarySeq.mask(currentTarget)
+                }
+            }
+        }
+        // Target animation and sound
+        if (targetFX.enable) {
+            if (targetFX.sound) {
+                aaSeq.addSequence(targetFX.sound)
+            }
+            for (let currentTarget of handler.allTargets) {
+                let hit;
+                if (handler.playOnMiss) {
+                    hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
+                } else {
+                    hit = true;
+                }
+                if (hit) {
+                    let targetSequence = AAAnimationData._targetSequence(targetFX, currentTarget, handler);
+                    aaSeq.addSequence(targetSequence.targetSeq)
+                }
+            }
+        }
         // Macro if Concurrent
-        if (data.playMacro && data.macro.playWhen === "0") {
-            let userData = data.macro.args;
+        if (macro && macro.playWhen === "0") {
+            let userData = macro.args;
             new Sequence()
-                .macro(data.macro.name, handler.workflow, handler, [...userData])
+                .macro(macro.name, handler.workflow, handler, userData)
                 .play()
         }
         aaSeq.play()

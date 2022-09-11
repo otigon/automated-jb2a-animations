@@ -2,127 +2,133 @@ import * as common from "./common";
 
 export const preset = [
    {
-      ...common.main({ label: "bardicinspiration" }),
-      menu: "preset",
-      presetType: "bardicinspiration",
-      macro: common.macro(),
-      source: common.source(),
-      target: common.target(),
-      sound: common.sound(),
-      data: {
-         self: {
-            enable: true,
-            animation: "bardicinspiration",
-            variant: "inspire",
-            color: "yellowblue",
-         },
-         target: {
-            enable: true,
-            animation: "bardicinspiration",
-            variant: "inspire",
-            color: "yellowblue",
-         },
-         marker: {
-            enable: true,
-            selfColor: "yellowblue",
-            targetColor: "yellowblue",
-         },
-         options: {
-            below: false,
-            scale: 1
-         },
-      }
-   },
-
-   {
-      ...common.main({ label: "bless" }),
-      menu: "preset",
-      presetType: "bless",
-      macro: common.macro(),
-      sound: common.sound(),
-      options: {
-         below: true,
-         persistent: false,
-         scale: 1.5,
-         unbindAlpha: false,
-         unbindVisbility: false
-      },
-      data: {
-         color: "yellow"
-      },
-      source: common.source()
-   },
-
-   {
-      ...common.main({ label: "shield" }),
-      menu: "preset",
-      presetType: "shieldspell",
-      macro: common.macro(),
-      sound: common.sound(),
-      options: {
-         below: false,
-         persistent: false,
-         scale: 1,
-         unbindAlpha: false,
-         unbindVisbility: false
-      },
-      data: {
-         animation: "shieldspell",
-         menuType: "spell",
-         variant: "01",
-         color: "blue",
-         endEffect: "outro_explode"
-      },
-      source: common.source()
-   },
-
-   {
       ...common.main({ label: "mistystep" }),
       menu: "preset",
       presetType: "teleportation",
       macro: common.macro(),
-      sound: common.sound(),
-      options: {
-         range: 30,
-         hideFromPlayers: false,
-         measureType: "alternating",
-      },
       data: {
+         options: {
+            range: 30,
+            hideFromPlayers: false,
+            measureType: "alternating",
+         },   
          start: {
+            dbSection: "static",
+            menuType: "spell",
             animation: "mistystep",
-            below: false,
+            variant: "01",   
             color: "blue",
             customPath: "",
             enableCustom: false,
-            isMasked: false,
-            menuType: "spell",
-            opacity: 1,
-            scale: 1.5,
-            variant: "01",
+            options: {
+               isMasked: false,
+               alpha: 0,
+               opacity: 1,
+               isRadius: false,
+               size: 1.5,
+               elevation: 1000,
+               },
          },
          end: {
+            dbSection: "static",
+            menuType: "spell",
             animation: "mistystep",
-            below: false,
+            variant: "02",
             color: "blue",
             customPath: "",
-            delay: 250,
             enableCustom: false,
-            isMasked: false,
-            menuType: "spell",
-            scale: 1.5,
-            variant: "02",
+            options: {
+               delay: 250,
+               elevation: 1000,
+               isMasked: false,
+               isRadius: false,
+               size: 1.5,
+               opacity: 1,
+            },
          },
          between: {
-            enable: false,
+            dbSection: "range",
+            menuType: "spell",
             animation: "chainlightning",
-            below: false,
+            variant: "primary",
+            color: "blue",
+            enableCustom: false,
+            customPath: "",
+            options: {
+               enable: false,
+               elevation: 1000,
+               playbackRate: 1,
+               opacity: 1,
+            },
+         },
+         sound: common.sound(),
+      },
+      source: common.source()
+   },
+   {
+      ...common.main({ label: "fireball" }),
+      menu: "preset",
+      presetType: "proToTemp",
+      macro: common.macro(),
+      data: {
+         projectile: {
+            dbSection: "range",
+            menuType: "spell",
+            animation: "fireballbeam",
+            variant: "01",
+            color: "orange",
+            customPath: "",
+            enableCustom: false,
+            options: {
+               elevation: 1000,
+               delay: 250,
+               opacity: 1,
+               removeTemplate: false,
+               repeat: 1,
+               wait: -1800,
+            },
+            sound: common.sound(),
+         },
+         preExplosion: {
+            dbSection: "static",
+            menuType: "spell",
+            animation: "curewounds",
+            variant: "01",
             color: "blue",
             customPath: "",
             enableCustom: false,
+            options: {
+               delay: 250,
+               elevation: 1000,
+               isMasked: false,
+               scale: 1.5,
+               opacity: 1,
+            },
+            sound: common.sound(),
+         },
+         explosion: {
+            dbSection: "static",
             menuType: "spell",
-            playbackRate: 1,
-            variant: "primary",
-         }
+            animation: "fireball",
+            variant: "explode",
+            color: "orange",
+            enableCustom: false,
+            customPath: "",
+            options: {
+               elevation: 1000,
+               delay: 250,
+               opacity: 1,
+               repeat: 1,
+               scale: 1.25,
+               wait: -1000,
+            },
+            sound: common.sound(),
+         },
+         afterImage: {
+            enable: false,
+            customPath: "",
+            options: {}
+        }    
       },
       source: common.source()
    }

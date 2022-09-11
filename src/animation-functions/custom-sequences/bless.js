@@ -23,7 +23,7 @@ export async function blessSeq(handler, animationData) {
     if (!blessData) { return; }
     const cleanData = {
         color: blessData.color || "blue",
-        below: blessData.below || false,
+        elevation: blessData.elevation ?? 1000,
         persistent: blessData.persistent || false,
         scale: blessData.scale || 1,
         unbindAlpha: blessData.unbindAlpha || false,
@@ -56,7 +56,7 @@ export async function blessSeq(handler, animationData) {
         // Play Macro if Awaiting
         if (data.playMacro && data.macro.playWhen === "1") {
             let userData = data.macro.args;
-            aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
+            aaSeq.macro(data.macro.name, handler.workflow, handler, userData)
         }
         // Extra Effects => Source Token if active
         if (sourceFX.enabled) {
@@ -74,14 +74,14 @@ export async function blessSeq(handler, animationData) {
                 .file(bless.file01)
                 .attachTo(sourceToken, {bindAlpha: cleanData.unbindAlpha, bindVisibility: cleanData.unbindVisibility})
                 .size(sourceTokenGS, { gridUnits: true })
-                .belowTokens(cleanData.below)
+                .elevation(cleanData.elevation)
                 .waitUntilFinished(-500)
             let endSection = aaSeq.effect();
             endSection.file(bless.file02)
             endSection.size(sourceTokenGS, { gridUnits: true })
             endSection.origin(handler.itemUuid)
             endSection.attachTo(sourceToken, {bindAlpha: cleanData.unbindAlpha, bindVisibility: cleanData.unbindVisibility})
-            endSection.belowTokens(cleanData.below)
+            endSection.elevation(cleanData.elevation)
             endSection.loopProperty("sprite", "width", { from: (sourceTokenGS * 0.95), to: (sourceTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
             endSection.loopProperty("sprite", "height", { from: (sourceTokenGS * 0.95), to: (sourceTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
             endSection.fadeOut(500)
@@ -97,7 +97,7 @@ export async function blessSeq(handler, animationData) {
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;
             new Sequence()
-                .macro(data.macro.name, handler.workflow, handler, [...userData])
+                .macro(data.macro.name, handler.workflow, handler, userData)
                 .play()
         }
         aaSeq.play()
@@ -111,7 +111,7 @@ export async function blessSeq(handler, animationData) {
         // Play Macro if Awaiting
         if (data.playMacro && data.macro.playWhen === "1") {
             let userData = data.macro.args;
-            aaSeq.macro(data.macro.name, handler.workflow, handler, [...userData])
+            aaSeq.macro(data.macro.name, handler.workflow, handler, userData)
         }
         // Extra Effects => Source Token if active
         if (sourceFX.enabled) {
@@ -134,14 +134,14 @@ export async function blessSeq(handler, animationData) {
                     .file(bless.file01)
                     .attachTo(target, {bindAlpha: cleanData.unbindAlpha, bindVisibility: cleanData.unbindVisibility})
                     .size(targetTokenGS, { gridUnits: true })
-                    .belowTokens(cleanData.below)
+                    .elevation(cleanData.elevation)
                     .waitUntilFinished(-500)
                 let endSection = aaSeq.effect();
                 endSection.file(bless.file02)
                 endSection.size(targetTokenGS, { gridUnits: true })
                 endSection.origin(handler.itemUuid)
                 endSection.attachTo(target, {bindAlpha: cleanData.unbindAlpha, bindVisibility: cleanData.unbindVisibility})
-                endSection.belowTokens(cleanData.below)
+                endSection.elevation(cleanData.elevation)
                 endSection.loopProperty("sprite", "width", { from: (targetTokenGS * 0.95), to: (targetTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
                 endSection.loopProperty("sprite", "height", { from: (targetTokenGS * 0.95), to: (targetTokenGS * 1.05), duration: 2000, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
                 endSection.fadeOut(500)
@@ -158,7 +158,7 @@ export async function blessSeq(handler, animationData) {
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;
             new Sequence()
-                .macro(data.macro.name, handler.workflow, handler, [...userData])
+                .macro(data.macro.name, handler.workflow, handler, userData)
                 .play()
         }
         aaSeq.play()
