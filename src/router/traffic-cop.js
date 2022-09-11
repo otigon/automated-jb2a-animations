@@ -257,7 +257,10 @@ export async function trafficCop(handler) {
                             case "pf2e":
                             case "sw5e":
                             case "swade":
-                                if (game.modules.get("mars-5e")?.active/* || game.modules.get('midi-qol')?.active*/) {
+                                if (game.modules.get("midi-qol")?.active) {
+                                    fireball(handler, animationData);
+                                }        
+                                else if (game.modules.get("mars-5e")?.active/* || game.modules.get('midi-qol')?.active*/) {
                                     fireball(handler, animationData);
                                 } else {
                                     aaTemplateHook = Hooks.once("createMeasuredTemplate", (config) => {
