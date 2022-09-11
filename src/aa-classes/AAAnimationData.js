@@ -9,7 +9,7 @@ export class AAAnimationData {
         const menu = autorecData ? autoObject.menu : handler.menu;
         const data = {
             primary: menu === "preset" ? await this.compilePreset(handler, autorecData) : await this.compilePrimary(handler, autorecData),
-            explosion: menu === "melee" || menu === "range" || menu === "ontoken" ? await this.compileExplosion(handler, autorecData) : {},
+            secondary: menu === "melee" || menu === "range" || menu === "ontoken" ? await this.compileSecondary(handler, autorecData) : {},
             sourceFX: await this.compileSource(handler, autorecData),
             targetFX: menu === "aefx" ? false : await this.compileTarget(handler, autorecData),
             macro: await this.compileMacro(handler, autorecData)
@@ -139,10 +139,11 @@ export class AAAnimationData {
                 };
             case "ontoken":
                 return {
-                    elevation: data.elevation ?? 1000,
-                    fadeIn: data.fadeIn ?? 500,
-                    fadeOut: data.fadeOut ?? 500,
+                    addTokenWidth: options.addTokenWidth ?? false,
                     delay: data.delay ?? 1,
+                    elevation: data.elevation ?? 1000,
+                    fadeIn: data.fadeIn ?? 250,
+                    fadeOut: data.fadeOut ?? 500,
                     isMasked: data.isMasked ?? false,
                     isWait: data.isWait ?? false,
                     opacity: data.opacity ?? 1,
@@ -158,21 +159,22 @@ export class AAAnimationData {
                 };
             case "templatefx":
                 return {
-                    elevation: data.elevation ?? 1000,
                     delay: data.delay ?? 1,
+                    elevation: data.elevation ?? 1000,
                     isMasked: data.isMasked ?? false,
-                    scaleX: data.scaleX || 1,
-                    scaleY: data.scaleY || 1,
+                    isWait: data.isWait ?? false,
+                    occlusionMode: data.occlusionMode || "3",
+                    occlusionAlpha: data.occlusionAlpha ?? 1,
+                    opacity: data.opacity ?? 1,
+                    persistent: data.persistent ?? false,
+                    persistType: data.persistType || "sequencerground",
                     removeTemplate:  data.removeTemplate ?? false,
                     repeat: data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
-                    opacity: data.opacity ?? 1,
-                    isWait: data.isWait ?? false,
+                    rotate: data.rotate ?? 0,
+                    scaleX: data.scaleX || 1,
+                    scaleY: data.scaleY || 1,
                     zIndex: data.zIndex || 1,
-                    persistent: data.persistent ?? false,
-                    persistType: data.persistType || "sequencerground",
-                    occlusionMode: data.occlusionMode || "3",
-                    occlusionAlpha: data.occlusionAlpha ?? 1,
                 };
             case "aura":
                 return {
@@ -191,7 +193,7 @@ export class AAAnimationData {
         }
     }
 
-    static async compileExplosion(handler, autoObject) {
+    static async compileSecondary(handler, autoObject) {
         const topLevel = autoObject ? autoObject || {}: handler.flags || {};
 
         const explosion = topLevel.explosion || {};
@@ -211,8 +213,11 @@ export class AAAnimationData {
                 customPath: video.enableCustom && video.customPath ? video.customPath : false,
             },
             options: {
+                addTokenWidth: options.addTokenWidth ?? false,
                 delay: options.delay ?? 0,
                 elevation: options.elevation ?? 1000,
+                fadeIn: options.fadeIn ?? 250,
+                fadeOut: options.fadeOut ?? 250,
                 zIndex: options.zIndex || 1,
                 size: options.size || 1,
                 isRadius: options.isRadius ?? false,
@@ -253,8 +258,11 @@ export class AAAnimationData {
                 customPath: video.enableCustom && video.customPath ? video.customPath : false,
             },
             options: {
+                addTokenWidth: options.addTokenWidth ?? false,
                 delay: options.delay ?? 0,
                 elevation: options.elevation ?? 1000,
+                fadeIn: options.fadeIn ?? 250,
+                fadeOut: options.fadeOut ?? 500,
                 isWait: options.isWait ?? false,
                 isMasked: options.isMasked ?? false,
                 isRadius: options.isRadius ?? false,
@@ -279,11 +287,6 @@ export class AAAnimationData {
         data.sourceSeq = new Sequence();
         if (data.sound) {
             data.sourceSeq.addSequence(data.sound)
-            //data.sourceSeq.sound()
-                //.file(data.sound.file, true)
-                //.volume(data.sound.volume)
-                //.delay(data.sound.delay)
-                //.startTime(data.sound.startTime)
         }
         if (data.enable) {
             let sourceEffect = data.sourceSeq.effect()
@@ -298,7 +301,8 @@ export class AAAnimationData {
                 sourceEffect.mask(handler.sourceToken)
             }
             sourceEffect.opacity(data.options.opacity)
-            sourceEffect.fadeOut(500)
+            sourceEffect.fadeIn(data.options.fadeIn)
+            sourceEffect.fadeOut(data.options.fadeOut)
             if (data.options.isWait) {
                 sourceEffect.waitUntilFinished(data.options.delay)
             } else {
@@ -327,18 +331,19 @@ export class AAAnimationData {
                 customPath: video.enableCustom && video.customPath ? video.customPath : false,
             },
             options: {
+                addTokenWidth: options.addTokenWidth ?? false,
                 delay: options.delay ?? 0,
                 elevation: options.elevation ?? 1000,
+                isMasked: options.isMasked ?? false,
+                //isWait: options.isWait ?? false,
+                isRadius: options.isRadius ?? false,
                 repeat: options.repeat || 1,
                 repeatDelay: options.repeatDelay ?? 250,
                 persistent: options.persistent ?? false,
                 unbindAlpha: options.unbindAlpha ?? false,
                 unbindVisibility: options.unbindVisibility ?? false,
-                isMasked: options.isMasked ?? false,
-                isWait: options.isWait ?? false,
                 opacity: options.opacity || 1,
                 size: options.size || 1,
-                isRadius: options.isRadius ?? false,
                 zIndex: options.zIndex || 1,
             },
             sound: this.setSound(sound, options.delay ?? 0)

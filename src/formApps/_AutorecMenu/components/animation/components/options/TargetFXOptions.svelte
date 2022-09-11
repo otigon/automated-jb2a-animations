@@ -20,6 +20,7 @@
     };
 
     $: persistent = $animation.target.options.persistent;
+    $: isRadius = $animation.target.options.isRadius;
 </script>
 
 <div class="aa-options-border">
@@ -131,6 +132,17 @@
                     <Opacity {animation} />
                 </td>
                 <td>
+                    <!--Set the Z-Index of the Animation-->
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.z-index")}
+                        section="target"
+                        field="zIndex"
+                    />
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <!--Set Size of Animation-->
                     <ScaleRadius
                         {animation}
@@ -139,16 +151,20 @@
                         step="0.01"
                     />
                 </td>
-            </tr>
-            <tr>
                 <td>
-                    <!--Set the Z-Index of the Animation-->
-                    <NumberInput
-                        {animation}
-                        label={localize("autoanimations.menus.z-index")}
-                        section="target"
-                        field="zIndex"
-                    />
+                    <!--Add Token Width-->
+                    <div class="form-group {isRadius ? "" : "aa-disableOpacity"}">
+                        <label for="TWidth {animation._data.id}"
+                            >{localize("autoanimations.menus.add")}
+                            {localize("autoanimations.menus.token")}
+                            {localize("autoanimations.menus.width")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="TWidth {animation._data.id}"
+                            bind:checked={$animation.target.options.addTokenWidth}
+                        />
+                    </div>
                 </td>
                 <td>
                     <!--Set Delay for proceeding animation-->

@@ -20,6 +20,7 @@
         },
     };
 
+    $: isRadius = $animation.secondary.options.isRadius;
 </script>
 
 <div class="aa-options-border">
@@ -72,6 +73,10 @@
                     </div>
                 </td>
                 <td>
+                    <!--Set Animation Opacity-->
+                    <Opacity {animation} section="secondary"/>
+                </td>
+                <td>
                     <!--Set the Z-Index of the Animation-->
                     <NumberInput
                         {animation}
@@ -80,6 +85,8 @@
                         field="zIndex"
                     />
                 </td>
+            </tr>
+            <tr>
                 <td>
                     <!--Set Size of Animation-->
                     <ScaleRadius
@@ -90,15 +97,49 @@
                         step="0.01"
                     />
                 </td>
+                <td>
+                    <!--Add Token Width-->
+                    <div class="form-group {isRadius ? "" : "aa-disableOpacity"}">
+                        <label for="Width2 {animation._data.id}"
+                            >{localize("autoanimations.menus.add")}
+                            {localize("autoanimations.menus.token")}
+                            {localize("autoanimations.menus.width")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="Width2 {animation._data.id}"
+                            bind:checked={$animation.secondary.options.addTokenWidth}
+                        />
+                    </div>
+                </td>
+                <td>
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.fadeIn")}
+                    section="secondary"
+                    field="fadeIn"
+                    placeholder=250
+                />
+                </td>
             </tr>
             <tr>
                 <td>
-                    <!--Set Animation Opacity-->
-                    <Opacity {animation} section="secondary"/>
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.fadeOut")}
+                    section="secondary"
+                    field="fadeOut"
+                    placeholder=250
+                />
                 </td>
                 <td>
-                    <WaitDelay {animation} section="secondary"/>
+                    <!--Set Delay for proceeding animation-->
+                    <WaitDelay
+                        {animation}
+                        section="secondary"
+                    />
                 </td>
+                <td></td>
             </tr>
         </table>
     </TJSSvgFolder>

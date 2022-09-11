@@ -33,6 +33,7 @@
     }
 
     $: persistent = $animation.primary.options.persistent;
+    $: isRadius = $animation.primary.options.isRadius;
 </script>
 
 <div class="aa-options-border">
@@ -147,6 +148,17 @@
                     <Opacity {animation} />
                 </td>
                 <td>
+                    <!--Set Z-Index of Animation-->
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.z-index")}
+                        section="primary"
+                        field="zIndex"
+                    />
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <!--Set Size of Animation-->
                     <ScaleRadius
                         {animation}
@@ -155,16 +167,20 @@
                         step="0.01"
                     />
                 </td>
-            </tr>
-            <tr>
                 <td>
-                    <!--Set Z-Index of Animation-->
-                    <NumberInput
-                        {animation}
-                        label={localize("autoanimations.menus.z-index")}
-                        section="primary"
-                        field="zIndex"
-                    />
+                    <!--Add Token Width-->
+                    <div class="form-group {isRadius ? "" : "aa-disableOpacity"}">
+                        <label for="Width {animation._data.id}"
+                            >{localize("autoanimations.menus.add")}
+                            {localize("autoanimations.menus.token")}
+                            {localize("autoanimations.menus.width")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="Width {animation._data.id}"
+                            bind:checked={$animation.primary.options.addTokenWidth}
+                        />
+                    </div>
                 </td>
                 <td>
                     <NumberInput
@@ -174,8 +190,10 @@
                     field="fadeIn"
                     placeholder=250
                     step="0.01"
-                />
+                    />
                 </td>
+            </tr>
+            <tr>
                 <td>
                     <NumberInput
                     {animation}
@@ -184,10 +202,8 @@
                     field="fadeOut"
                     placeholder=500
                     step="0.01"
-                />
+                    />
                 </td>
-            </tr>
-            <tr>
                 <td>
                     <WaitDelay {animation}/>
                 </td>

@@ -144,7 +144,16 @@
                 </td>
             </tr>
             <tr>
-                <td></td>
+                <td>
+                    <!--Adjust Rotation of Effect-->
+                    <NumberInput
+                        {animation}
+                        label="Adjust Rotation"
+                        section="primary"
+                        field="rotate"
+                        placeholder=0
+                    />
+                </td>
                 <td>
                     <WaitDelay {animation}/>
                 </td>

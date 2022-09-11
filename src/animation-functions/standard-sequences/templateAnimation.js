@@ -150,6 +150,7 @@ export async function templateSeq(handler, animationData, config) {
             coneRaySeq.origin(handler.itemUuid)
             coneRaySeq.elevation(data.options.elevation)
             coneRaySeq.zIndex(data.options.zIndex)
+            coneRaySeq.rotate(data.options.rotate)
             if (data.options.isMasked) {
                 coneRaySeq.mask(template)
             }
@@ -193,6 +194,7 @@ export async function templateSeq(handler, animationData, config) {
             circRectSeq.origin(handler.itemUuid)
             circRectSeq.elevation(data.options.elevation)
             circRectSeq.zIndex(data.options.zIndex)
+            circRectSeq.rotate(data.options.rotate)
             if (data.options.isMasked) {
                 circRectSeq.mask(template)
             }

@@ -133,6 +133,8 @@ export async function ontokenSeq(handler, animationData) {
             secondarySeq.elevation(secondary.options.elevation)
             secondarySeq.zIndex(secondary.options.zIndex)
             secondarySeq.opacity(secondary.options.opacity)
+            secondarySeq.fadeIn(secondary.options.fadeIn)
+            secondarySeq.fadeOut(secondary.options.fadeOut)
             if (secondary.options.isMasked) {
                 secondarySeq.mask(sourceToken)
             }
@@ -242,6 +244,8 @@ export async function ontokenSeq(handler, animationData) {
                 secondarySeq.elevation(secondary.options.elevation)
                 secondarySeq.zIndex(secondary.options.zIndex)
                 secondarySeq.opacity(secondary.options.opacity)
+                secondarySeq.fadeIn(secondary.options.fadeIn)
+                secondarySeq.fadeOut(secondary.options.fadeOut)
                 if (secondary.options.isMasked) {
                     secondarySeq.mask(currentTarget)
                 }

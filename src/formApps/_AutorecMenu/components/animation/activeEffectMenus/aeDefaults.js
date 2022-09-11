@@ -1,27 +1,3 @@
-const dual = {
-    intro: {
-        options: {},
-        sound: {enable: false}
-    },
-    loop: {
-        options: {}
-    },
-}
-
-const triple = {
-    intro: {
-        options: {},
-        sound: {enable: false}
-    },
-    loop: {
-        options: {}
-    },
-    outro: {
-        options: {},
-        sound: {enable: false}
-    }
-}
-
 const onToken = {
 
     video: {
@@ -47,8 +23,8 @@ const aura = {
         enableCustom: false,
         customPath: "",
     },
-    options: {},
+    options: {ignoreTargets: true},
     sound: {enable: false},
 }
 
-export { dual, triple, onToken, aura }
+export { onToken, aura }

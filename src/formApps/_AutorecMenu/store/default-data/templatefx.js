@@ -9,8 +9,8 @@ export const templatefx = [
          options: {
             delay: 0,
             elevation: 1000,
-            isWait: false,
             isMasked: false,
+            isWait: false,
             occlusionAlpha: 0.7,
             occlusionMode: "3",
             opacity: 0.75,
@@ -19,6 +19,7 @@ export const templatefx = [
             removeTemplate: true,
             repeat: 1,
             repeatDelay: 500,
+            rotate: 0,
             scaleX: 1,
             scaleY: 1,
             zIndex: 1
@@ -47,6 +48,7 @@ export const templatefx = [
             removeTemplate: true,
             repeat: 1,
             repeatDelay: 500,
+            rotate: 0,
             scaleX: 1,
             scaleY: 1,
             zIndex: 1

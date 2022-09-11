@@ -20,6 +20,7 @@
         label: game.i18n.localize("autoanimations.menus.options"),
     };
 
+    $: isRadius = $animation.source.options.isRadius;
 </script>
 
 <div class="aa-options-border">
@@ -78,6 +79,17 @@
                     <Opacity {animation} section="source" />
                 </td>
                 <td>
+                    <!--Set the Z-Index of the Animation-->
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.z-index")}
+                        section="source"
+                        field="zIndex"
+                    />
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <!--Set Size of Animation-->
                     <ScaleRadius
                         {animation}
@@ -86,15 +98,39 @@
                         step="0.01"
                     />
                 </td>
+                <td>
+                    <!--Add Token Width-->
+                    <div class="form-group {isRadius ? "" : "aa-disableOpacity"}">
+                        <label for="SWidth {animation._data.id}"
+                            >{localize("autoanimations.menus.add")}
+                            {localize("autoanimations.menus.token")}
+                            {localize("autoanimations.menus.width")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="SWidth {animation._data.id}"
+                            bind:checked={$animation.source.options.addTokenWidth}
+                        />
+                    </div>
+                </td>
+                <td>
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.fadeIn")}
+                    section="source"
+                    field="fadeIn"
+                    placeholder=250
+                />
+                </td>
             </tr>
             <tr>
                 <td>
-                    <!--Set the Z-Index of the Animation-->
                     <NumberInput
-                        {animation}
-                        label={localize("autoanimations.menus.z-index")}
-                        section="source"
-                        field="zIndex"
+                    {animation}
+                    label={localize("autoanimations.menus.fadeOut")}
+                    section="source"
+                    field="fadeOut"
+                    placeholder=500
                     />
                 </td>
                 <td>
@@ -104,6 +140,7 @@
                         section="source"
                     />
                 </td>
+                <td></td>
             </tr>
         </table>
     </TJSSvgFolder>
