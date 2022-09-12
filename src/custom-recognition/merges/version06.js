@@ -81,12 +81,8 @@ async function mergeVersion06(data) {
     async function convertV6(oldMO, newMO, type) {
         let { menuType, variant, custom, customPath, name, animation, color, audio, macro,
             soundOnly, explosion, levels3d, meleeSwitch, ...rest } = oldMO
-
-        if (type !== "aura" && type !== "templatefx") {
-            newMO.secondary = await convertExplosionV6(explosion, audio, oldMO)
-        }
-
-        newMO.id = uuidv4();
+        
+            newMO.id = uuidv4();
         newMO.label = name;
 
         if (type !== "aura" && type !== "templatefx") {
@@ -120,6 +116,11 @@ async function mergeVersion06(data) {
                 customPath,
             },
         }
+
+        if (type !== "templatefx") {
+            newMO.secondary = await convertExplosionV6(explosion, audio, oldMO)
+        }
+
         const primaryVideo = newMO.primary.video;
         if (!primaryVideo.menuType || !primaryVideo.animation || !primaryVideo.variant || !primaryVideo.color) {
             resetVideo(newMO.primary.video, type)
@@ -335,8 +336,7 @@ async function mergeVersion06(data) {
             let current = await convertV6(oldMO, newMO, "melee")
             newMenu.melee.push(current)
         }
-        await game.settings.set('autoanimations', 'aaAutorec-melee', newMenu.melee)
-        //await compileNewMenu(meleeObject, "melee")
+        //await game.settings.set('autoanimations', 'aaAutorec-melee', newMenu.melee)
     }
     if (rangeObject) {
         const dataLength = Object.keys(rangeObject).length;
@@ -349,8 +349,7 @@ async function mergeVersion06(data) {
             newMenu.range.push(current)
             //await primaryMenu(oldMO, newMO)
         }
-        await game.settings.set('autoanimations', 'aaAutorec-range', newMenu.range)
-        //await compileNewMenu(rangeObject, "range")
+        //await game.settings.set('autoanimations', 'aaAutorec-range', newMenu.range)
     }
     if (staticObject) {
         const dataLength = Object.keys(staticObject).length;
@@ -364,8 +363,7 @@ async function mergeVersion06(data) {
             //await primaryMenu(oldMO, newMO)
             //newMO.options.staticType = oldMO.type;
         }
-        await game.settings.set('autoanimations', 'aaAutorec-ontoken', newMenu.ontoken)
-        //await compileNewMenu(staticObject, "static")
+        //await game.settings.set('autoanimations', 'aaAutorec-ontoken', newMenu.ontoken)
     }
     if (templateObject) {
         const dataLength = Object.keys(templateObject).length;
@@ -387,8 +385,7 @@ async function mergeVersion06(data) {
             }
             newMenu.templatefx.push(current)
         }
-        await game.settings.set('autoanimations', 'aaAutorec-templatefx', newMenu.templatefx)
-        //await compileNewMenu(templateObject, "templatefx")
+        //await game.settings.set('autoanimations', 'aaAutorec-templatefx', newMenu.templatefx)
     }
     if (auraObject) {
         const dataLength = Object.keys(auraObject).length;
@@ -401,8 +398,7 @@ async function mergeVersion06(data) {
             newMenu.aura.push(current)
             //await primaryMenu(oldMO, newMO)
         }
-        await game.settings.set('autoanimations', 'aaAutorec-aura', newMenu.aura)
-        //await compileNewMenu(auraObject, "aura")
+        //await game.settings.set('autoanimations', 'aaAutorec-aura', newMenu.aura)
     }
 
     if (presetObject) {
@@ -444,8 +440,49 @@ async function mergeVersion06(data) {
                     //break;
             }
         }
-        await game.settings.set('autoanimations', 'aaAutorec-preset', newMenu.preset)
+        //await game.settings.set('autoanimations', 'aaAutorec-preset', newMenu.preset)
     }
+
+    if (aefxObject) {
+        const aefxLength = Object.keys(aefxObject).length;
+
+        for (var i = 0; i < aefxLength; i++) {
+            const oldMO = aefxObject[i]
+            //newMenu.aefx[i] = {};
+            //const newMO = newMenu.aefx[i];
+            let newMO = {};
+            let current;
+            switch (oldMO.aeType) {
+                case "static":
+                    current = await convertAEOnToken(oldMO, newMO)
+                    current.activeEffectType = "ontoken";
+                    current.data.options.type = "source";
+                    newMenu.aefx.push(current);
+                    break;
+                case "auras":
+                    current = await convertAEAura(oldMO, newMO)
+                    current.activeEffectType = "aura";
+                    newMenu.aefx.push(current);
+                    break;
+                case "preset":
+                    switch (oldMO.menuType) {
+                        case "bless":
+                            current = await convertAEBless(oldMO, newMO)
+                            current.activeEffectType = "ontoken";
+                            newMenu.aefx.push(current);
+                            break;
+                        case "shieldspell":
+                            current = await convertAEShield(oldMO, newMO)
+                            current.activeEffectType = "ontoken";
+                            newMenu.aefx.push(current);
+                            break;
+                    }
+                    break;
+            }
+        }
+        //await game.settings.set('autoanimations', 'aaAutorec-aefx', newMenu.aefx)
+    }
+
     /*
     async function updateBless(oldMO, newMO) {
 
@@ -920,47 +957,6 @@ async function mergeVersion06(data) {
         return newData;
     }
 
-    if (aefxObject) {
-        const aefxLength = Object.keys(aefxObject).length;
-
-        for (var i = 0; i < aefxLength; i++) {
-            const oldMO = aefxObject[i]
-            //newMenu.aefx[i] = {};
-            //const newMO = newMenu.aefx[i];
-            let newMO = {};
-            let current;
-            switch (oldMO.aeType) {
-                case "static":
-                    current = await convertAEOnToken(oldMO, newMO)
-                    current.activeEffectType = "onToken";
-                    current.data.options.type = "source";
-                    newMenu.aefx.push(current);
-                    break;
-                case "auras":
-                    current = await convertAEAura(oldMO, newMO)
-                    current.activeEffectType = "aura";
-                    newMenu.aefx.push(current);
-                    break;
-                case "preset":
-                    switch (oldMO.menuType) {
-                        case "bless":
-                            current = await convertAEBless(oldMO, newMO)
-                            current.activeEffectType = "onToken";
-                            newMenu.aefx.push(current);
-                            break;
-                        case "shieldspell":
-                            current = await convertAEShield(oldMO, newMO)
-                            current.activeEffectType = "onToken";
-                            newMenu.aefx.push(current);
-                            break;
-                    }
-                    break;
-            }
-        }
-        await game.settings.set('autoanimations', 'aaAutorec-aefx', newMenu.aefx)
-    }
-
-
     async function convertAEOnToken(oldMO, newMO) {
 
         let { aeDelay, aeType, animation, audio, below, color, custom, customPath, delay, explosion, macro, menuType, name,
@@ -1036,6 +1032,18 @@ async function mergeVersion06(data) {
 
         newMO.id = uuidv4();
         newMO.label = name;
+        newMO.secondary = {
+            enable: false,
+            options: {},
+            sound:{enable: false},
+            video: {
+                dbSection: "static",
+                menuType: "spell",
+                animation: "curewounds",
+                variant: "01",
+                color: "blue",
+            }
+        }
 
         newMO.data = {
             options: {
@@ -1317,6 +1325,9 @@ async function mergeVersion06(data) {
 
         return newMO;
     }
+
+
+    return newMenu;
 }
 
 

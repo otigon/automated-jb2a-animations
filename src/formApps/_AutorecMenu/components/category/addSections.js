@@ -1,6 +1,6 @@
 
 const melee = {
-    secondary: setStatic(),
+    id: "",
     label: "",
     levels3d: {
         data: {color01: "#FFFFFF", color02: "#FFFFFF"},
@@ -18,13 +18,14 @@ const melee = {
         sound: setSound(),
         video: { dbSection: "melee", menuType: 'weapon', animation: 'club', variant: '01', color: 'white' },
     },
+    secondary: setStatic(),
+    soundOnly: { sound: setSound()},
     source: setStatic(),
     target: setStatic(),
-    soundOnly: { sound: setSound()},
 }
 
 const range = {
-    secondary: setStatic(),
+    id: "",
     label: "",
     levels3d: {
         data: {color01: "#FFFFFF", color02: "#FFFFFF"},
@@ -37,13 +38,14 @@ const range = {
         sound: setSound(),
         video: { dbSection: "range",menuType: 'weapon', animation: 'arrow', variant: 'regular', color: 'regular' },
     },
+    secondary: setStatic(),
     source: setStatic(),
     target: setStatic(),
     soundOnly: { sound: setSound()},
 }
 
 const ontoken = {
-    secondary: setStatic(),
+    id: "",
     label: "",
     levels3d: {
         data: {color01: "#FFFFFF", color02: "#FFFFFF"},
@@ -56,12 +58,14 @@ const ontoken = {
         sound: setSound(),
         video: { dbSection: "static", menuType: 'spell', animation: 'curewounds', variant: '01', color: 'blue' },       
     },
+    secondary: setStatic(),
     source: setStatic(),
     target: setStatic(),
     soundOnly: { sound: setSound()},
 }
 
 const templatefx = {
+    id: "",
     label: "",
     macro: {},
     menu: "templatefx",
@@ -76,6 +80,7 @@ const templatefx = {
 }
 
 const aura = {
+    id: "",
     label: "",
     levels3d: {
         data: {},
@@ -94,6 +99,7 @@ const aura = {
 }
 
 const preset = {
+    id: "",
     label: "",
     presetType: "",
     soundOnly: {
@@ -104,14 +110,15 @@ const preset = {
 }
 
 const aefx = {
+    id: "",
     label: "",
     activeEffectType: "",
-    source: setStatic(),
-    soundOnly: { sound: setSound()},
     macro: {},
     menu: 'aefx',
     secondary: setStatic(),
-    target: {enable: false}
+    soundOnly: { sound: setSound()},
+    source: setStatic(),
+    target: setStatic(),
 }
 
 function setStatic() {

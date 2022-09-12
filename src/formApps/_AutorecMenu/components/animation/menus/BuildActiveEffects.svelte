@@ -29,8 +29,8 @@
 
     function changeAE() {
         switch (animation._data.activeEffectType) {
-            case "onToken":
-                $animation.data = structuredClone(reset.onToken);
+            case "ontoken":
+                $animation.data = structuredClone(reset.ontoken);
                 break;
             case "aura":
                 $animation.data = structuredClone(reset.aura);

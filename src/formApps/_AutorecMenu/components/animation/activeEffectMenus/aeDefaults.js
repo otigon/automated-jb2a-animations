@@ -1,4 +1,4 @@
-const onToken = {
+const ontoken = {
 
     video: {
         dbSection: "static",
@@ -27,4 +27,4 @@ const aura = {
     sound: {enable: false},
 }
 
-export { onToken, aura }
+export { ontoken, aura }

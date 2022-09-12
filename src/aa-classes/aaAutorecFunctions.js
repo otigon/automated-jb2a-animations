@@ -47,6 +47,47 @@ export class AAAutorecFunctions {
         saveDataToFile(JSON.stringify(data, null, 2), "text/json", filename);
     }
 
+    static async mergeMenus(updatedImport, selectedMenus) {
+        console.log("Merging the requested Menus", updatedImport, selectedMenus)
+
+        let currentMenu = {
+            melee:await game.settings.get('autoanimations', 'aaAutorec-melee'),
+            range: await game.settings.get('autoanimations', 'aaAutorec-range'),
+            ontoken: await game.settings.get('autoanimations', 'aaAutorec-ontoken'),
+            templatefx: await game.settings.get('autoanimations', 'aaAutorec-templatefx'),
+            aura: await game.settings.get('autoanimations', 'aaAutorec-aura'),
+            preset: await game.settings.get('autoanimations', 'aaAutorec-preset'),
+            aefx: await game.settings.get('autoanimations', 'aaAutorec-aefx'),
+        }
+
+        let mergeMenu = updatedImport;
+
+        let mergeList = []
+        if (selectedMenus.melee) { mergeList.push("melee")}
+        if (selectedMenus.range) { mergeList.push("range")}
+        if (selectedMenus.ontoken) { mergeList.push("ontoken")}
+        if (selectedMenus.templatefx) { mergeList.push("templatefx")}
+        if (selectedMenus.aura) { mergeList.push("aura")}
+        if (selectedMenus.preset) { mergeList.push("preset")}
+        if (selectedMenus.aefx) { mergeList.push("aefx")}
+
+        console.log(mergeList, currentMenu, mergeMenu)
+
+        for (var i = 0; i < mergeList.length; i++) {
+            let existingMenu = currentMenu[mergeList[i]];
+            let incomingMenu = mergeMenu[mergeList[i]];
+
+            for (var a = 0; a < incomingMenu.length; a++) {
+                let incomingSectionLabel = incomingMenu[a].label.replace(/\s+/g, '').toLowerCase();
+                let newSection = existingMenu.find(section => {
+                    return section.label.replace(/\s+/g, '').toLowerCase() === incomingSectionLabel;
+                })
+                if (!newSection) { currentMenu[mergeList[i]].push(incomingMenu[a])}
+            }
+            game.settings.set('autoanimations', `aaAutorec-${mergeList[i]}`, currentMenu[mergeList[i]])
+        }
+    }
+    /*
     static async mergeMenu(json) {
         //const currentMenuBackup = (game.settings.get('autoanimations', 'aaAutorec'))
         //const filename = `Merged-Menu-Recovery.json`;
@@ -140,7 +181,7 @@ export class AAAutorecFunctions {
         await game.settings.set("autoanimations", "aaAutorec", oldData);
         autorecData.set(oldData)
     }
-
+    */
     static async overwriteMenu(json) {
         const data = JSON.parse(json);
         console.warn("autoanimations | Import settings ", data);

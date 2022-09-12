@@ -9,6 +9,8 @@
        TJSMenu,
        TJSToggleIconButton }        from "@typhonjs-fvtt/svelte-standard/component";
 
+    import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+
     import ButtonOpenCloseAll       from "./ButtonOpenCloseAll.svelte";
     import { createOverflowItems }  from "./createOverflowItems.js";
 
@@ -50,7 +52,9 @@
     $: menuTab = category.key.split("-")[1];
 
     function addEntry() {
-      category.createEntry(structuredClone(addDefaultData[menuTab]))
+      let newData = structuredClone(addDefaultData[menuTab]);
+      newData.id = uuidv4();
+      category.createEntry(newData)
     }
 </script>
 

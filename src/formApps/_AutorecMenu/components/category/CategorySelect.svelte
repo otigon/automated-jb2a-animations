@@ -1,10 +1,9 @@
 <script>
     import CategoryControl      from "./CategoryControl.svelte";
     import CategoryList         from "./CategoryList.svelte";
-    import { TJSDialog }        from "@typhonjs-fvtt/runtime/svelte/application";
     import { getContext } from "svelte";
 
-    import MenuManager from "./MenuManager.svelte";
+    import MenuManager from "./menuManager/MenuManagerApp.js"
     import { autoRecStores }    from "../../store/AutoRecStores.js";
 
     const selected = autoRecStores.selected;
@@ -12,19 +11,13 @@
     const bottomLabel = game.i18n.localize("autoanimations.menus.menuManager")
 
     function manageMenu() {
-        new TJSDialog({
-            modal: false,
-            draggable: true,
-            resizable: true,
-            title: "Autorec Menu Manager",
-            stylesContent: { background: "rgba(125, 125, 125, 0.75)" },
-            content: {
-                class: MenuManager,
-                props: {
-                    app: application,
-                },
-            },
-        }).render(true);
+      if (
+         Object.values(ui.windows).find(
+            (w) => w.id === `Autorec-Menu-Manager`
+         )
+      ) { return; }
+      let manage = new MenuManager()
+      manage.render(true, { focus: true });
     }
 
     const { application } = getContext("external");

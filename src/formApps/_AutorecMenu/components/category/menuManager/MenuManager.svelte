@@ -2,7 +2,8 @@
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import { getContext } from "svelte";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { AAAutorecFunctions } from "../../../../aa-classes/AAAutorecFunctions.js";
+    import { AAAutorecFunctions } from "../../../../../aa-classes/AAAutorecFunctions.js";
+    import ImportMenus from "./ImportMenus.svelte";
 
     const { application } = getContext("external");
 
@@ -19,29 +20,14 @@
         });
 
         async function setDefault() {
-            //const oldData = game.settings.get("autoanimations", "aaAutorec");
-            //const filename = `Default-Restore-Menu-Recovery.json`;
-            /*
-            saveDataToFile(
-                JSON.stringify(oldData, null, 2),
-                "text/json",
-                filename
-            );
-            */
-            //ui.notifications.info(
-                //"Exporting Menu Backup before Restoring Default"
-            //);
-
-            //await game.settings.set("autoanimations", "aaAutorec");
-            Hooks.call('AutomaticAnimations.Clear.Data')
+            Hooks.call("AutomaticAnimations.Clear.Data");
             application.close();
         }
     }
 
     /**TO-DO: Rework the Merge functions to go menu by menu.*/
+    // TO-DO: Allow for Single Menu Merges. Dialog to choose which sub-menus to merge
     async function mergeMenu() {
-        ui.notifications.info("Automated Animations: Merge Menu function is not working at the moemnt")
-        return;
         let d = TJSDialog.confirm({
             title: "WARNING!!",
             modal: true,
@@ -69,16 +55,34 @@
                         );
                     readTextFromFile(form.data.files[0]).then(async (json) => {
                         await application.close();
-                        AAAutorecFunctions.mergeMenu(json);
+                        selectMenus(json, "merge");
                     });
                 },
             });
             return await d;
         }
+        ui.notifications.info("Automated Animations: Merge Menu function is not working at the moment");
     }
 
+    function selectMenus(json, option) {
+            const data = JSON.parse(json);
+            new TJSDialog({
+                modal: true,
+                title: "IMPORT SETTINGS",
+                content: {
+                    class: ImportMenus,
+                    props: {
+                        type: option,
+                        menu: data,
+                    },
+                },
+                defaultYes: false,
+            }).render(true);
+        }
+
+    // TO-DO: Allow for Single Menu Overwrites. Dialog to choose which sub-menus to overwrite
     async function overwriteMenu() {
-        let d = TJSDialog.confirm({
+        let c = TJSDialog.confirm({
             title: "WARNING!!",
             modal: true,
             content: `<p style="text-align:center">This will <strong>ERASE</strong> your current menu and is <strong>IRREVERSIBLE. Continue?</strong></p>`,
@@ -104,68 +108,103 @@
                         );
                     readTextFromFile(form.data.files[0]).then(async (json) => {
                         await application.close();
-                        await AAAutorecFunctions.overwriteMenu(json);
+                        selectMenus(json, "overwrite");
+                        //await AAAutorecFunctions.overwriteMenu(json);
                     });
                 },
             });
             await d;
         }
     }
-    /**TO-DO: Rework export. Should this export to a single JSON, or should each menu export separately?*/
-    function exportMenu() {
-        ui.notifications.info("Automated Animations: Export Menu function is not working at the moemnt")
-        return;
-        AAAutorecFunctions.exportMenu();
+
+    async function exportMenu() {
+        const exportData = {
+            melee: await game.settings.get("autoanimations", "aaAutorec-melee"),
+            range: await game.settings.get("autoanimations", "aaAutorec-range"),
+            ontoken: await game.settings.get(
+                "autoanimations",
+                "aaAutorec-ontoken"
+            ),
+            templatefx: await game.settings.get(
+                "autoanimations",
+                "aaAutorec-templatefx"
+            ),
+            aura: await game.settings.get("autoanimations", "aaAutorec-aura"),
+            preset: await game.settings.get(
+                "autoanimations",
+                "aaAutorec-preset"
+            ),
+            aefx: await game.settings.get("autoanimations", "aaAutorec-aefx"),
+            /**TO-DO: Set up VERSION Game Setting. OR should this be a field set on each Section???*/
+            //version = await game.settings.get('autoanimations', 'aaAutorec-version')
+        };
+
+        console.log(exportData);
+        exportToJSON();
+
+        function exportToJSON() {
+            const filename = `FVTT-Autoanimation-Autorec-Export.json`;
+            saveDataToFile(
+                JSON.stringify(exportData, null, 2),
+                "text/json",
+                filename
+            );
+            application.close();
+        }
+
+        /*
+        new TJSDialog({
+            modal: true,
+            title: "WARNING!!",
+            content: {
+                class: ExportMenus,
+            },
+            defaultYes: false,
+        }).render(true)
+        */
     }
-    
 </script>
 
-<div
-    class="flexcol aa-tabs"
-    style="border-bottom: 3px inset rgba(0, 0, 0, 0.5);"
->
+<div class="flexcol aa-tabs">
     <div style="grid-row:1/2;grid-column:1/2">
-        <button
-            on:click={() => restoreDefault()}
-            class="aa-orange">{localize("autoanimations.settings.restoreDefault")}</button
+        <button on:click={() => restoreDefault()} class="aa-orange"
+            >{localize("autoanimations.settings.restoreDefault")}</button
         >
     </div>
     <div style="grid-row:1/2;grid-column:2/3">
-        <label for=""
-            >{localize("autoanimations.settings.restoreHint")}</label
-        >
+        <label for="">{localize("autoanimations.settings.restoreHint")}</label>
     </div>
 </div>
-<div
-    class="flexcol aa-tabs"
-    style="border-bottom: 3px inset rgba(0, 0, 0, 0.5);"
->
+<div class="flexcol aa-tabs">
     <div style="grid-row:2/3;grid-column:1/2">
-        <button on:click|preventDefault={() => mergeMenu()} class="aa-green"
-            >{localize("autoanimations.menus.merge")} {localize("autoanimations.menus.menu")}</button
+        <button
+            on:click|preventDefault={() => mergeMenu("merge")}
+            class="aa-green"
+            >{localize("autoanimations.menus.merge")}
+            {localize("autoanimations.menus.menu")}</button
         >
     </div>
     <div style="grid-row:2/3;grid-column:2/3">
         <label for="">{localize("autoanimations.settings.mergeHint")}</label>
     </div>
 </div>
-<div
-    class="flexcol aa-tabs"
-    style="border-bottom: 3px inset rgba(0, 0, 0, 0.5);"
->
+<div class="flexcol aa-tabs">
     <div style="grid-row:3/4;grid-column:1/2">
-        <button on:click={() => overwriteMenu()} class="aa-red"
-            >{localize("autoanimations.menus.overwrite")} {localize("autoanimations.menus.menu")}</button
+        <button on:click={() => overwriteMenu("overwrite")} class="aa-red"
+            >{localize("autoanimations.menus.overwrite")}
+            {localize("autoanimations.menus.menu")}</button
         >
     </div>
     <div style="grid-row:3/4;grid-column:2/3">
-        <label for="">{localize("autoanimations.settings.overwriteHint")}</label>
+        <label for="">{localize("autoanimations.settings.overwriteHint")}</label
+        >
     </div>
 </div>
 <div class="flexcol aa-tabs">
     <div style="grid-row:4/5;grid-column:1/2">
         <button on:click|preventDefault={() => exportMenu()} class="aa-blue"
-            >{localize("autoanimations.menus.export")} {localize("autoanimations.menus.menu")}</button
+            >{localize("autoanimations.menus.export")}
+            {localize("autoanimations.menus.menu")}</button
         >
     </div>
     <div style="grid-row:4/5;grid-column:2/3">
@@ -188,14 +227,15 @@
     }
     .aa-tabs {
         display: grid;
-        grid-template-columns: 40% 60%;
-        grid-gap: 5px;
+        grid-template-columns: 40% 59%;
+        grid-gap: 1%;
         padding: 5px;
         align-items: center;
-        margin-right: 2%;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
+        align-content: center;
+        border: 2px inset grey;
+        background: rgb(190, 190, 190);
+        border-radius: 5px;
+        margin-bottom: 5px;
     }
     .aa-tabs button {
         border-radius: 10px;
@@ -204,5 +244,6 @@
         font-weight: bold;
         font-size: large;
         color: black;
+        line-height: 2em;
     }
 </style>
