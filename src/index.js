@@ -145,7 +145,24 @@ Hooks.once('ready', async function () {
             ui.notifications.error(game.i18n.format("autoanimation.settings.error"));
         }
     }
-    autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'), true, true)
+
+    /**
+     * Runs the Autorec menu through migrations on start-up if necessary
+     */
+
+    /*
+    if (game.settings.get('autoanimations', 'aaAutorec-version') < 5) {
+        autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'), {shouldSubmit: true})
+    } else {
+        autoRecMigration.handle("systemMerge", {shouldSubmit: true, newSchema: true, submitAll: true})
+    }
+    */
+    //if (isNewerVersion(game.modules.get('autoanimations').version, '3.5.0')) {
+        //autoRecMigration.handle("systemMerge", {shouldSubmit: true, newSchema: true, submitAll: true})
+    //} else {
+        //autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'), {shouldSubmit: true, newSchema: true})
+    //}
+
     if (game.modules.get("midi-qol")?.active) {
         Hooks.on("deleteItem", async (item) => {storeDeletedItems(item)})
         switch (game.settings.get("autoanimations", "playonDamage")) {

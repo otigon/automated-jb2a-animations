@@ -47,14 +47,14 @@
                     ? customPath 
                     : getPreviewFile(compiledPath)
 
-    $: enableExplosion = animation.explosion?.enable ?? false;
-    $: eCustom = animation.explosion?.video?.enableCustom;
-    $: eCustomPath = animation.explosion?.video?.customPath;
-    $: eDbSection = animation.explosion?.video?.dbSection;
-    $: eMenuType = animation.explosion?.video?.menuType;
-    $: eAnim = animation.explosion?.video?.animation;
-    $: eVariant = animation.explosion?.video?.variant;
-    $: eColor = animation.explosion?.video?.color;
+    $: enableSecondary = animation.secondary?.enable ?? false;
+    $: eCustom = animation.secondary?.video?.enableCustom;
+    $: eCustomPath = animation.secondary?.video?.customPath;
+    $: eDbSection = animation.secondary?.video?.dbSection;
+    $: eMenuType = animation.secondary?.video?.menuType;
+    $: eAnim = animation.secondary?.video?.animation;
+    $: eVariant = animation.secondary?.video?.variant;
+    $: eColor = animation.secondary?.video?.color;
     $: eCompiledPath = eCustom && eCustomPath 
                     ? eCustomPath 
                     : color === "random" 
@@ -98,6 +98,8 @@
                     src={sFilePath}
                     autoplay="autoplay"
                     controls
+                    controlsList="nodownload"
+                    disablepictureinpicture    
                     loop
                 >
                     <track kind="captions" />
@@ -121,7 +123,7 @@
             </video>
         </div>
     </div>
-    {#if enableExplosion}
+    {#if enableSecondary}
         <div class="flexcol" style="grid-row:1/2">
             <label for="">{localize("autoanimations.variants.secondary")} {localize("autoanimations.menus.animation")}</label>
             <div class="aa-video-overlay">
@@ -130,6 +132,8 @@
                     src={eFilePath}
                     autoplay="autoplay"
                     controls
+                    controlsList="nodownload"
+                    disablepictureinpicture    
                     loop
                 >
                     <track kind="captions" />
@@ -146,6 +150,8 @@
                     src={tFilePath}
                     autoplay="autoplay"
                     controls
+                    controlsList="nodownload"
+                    disablepictureinpicture    
                     loop
                 >
                     <track kind="captions" />

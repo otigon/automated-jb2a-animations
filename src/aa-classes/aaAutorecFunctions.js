@@ -182,6 +182,7 @@ export class AAAutorecFunctions {
         autorecData.set(oldData)
     }
     */
+   /*
     static async overwriteMenu(json) {
         const data = JSON.parse(json);
         console.warn("autoanimations | Import settings ", data);
@@ -193,5 +194,6 @@ export class AAAutorecFunctions {
         console.log("hello trying this")
         await autoRecMigration.handle(data, true)
     }
+    */
 
 }

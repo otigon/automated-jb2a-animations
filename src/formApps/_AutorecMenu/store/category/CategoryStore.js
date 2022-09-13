@@ -209,7 +209,7 @@ export class CategoryStore extends WorldSettingArrayStore {
 
    async openMacro(data) {
       if (!data) {
-         ui.warn(`Automated Animations: Cannot locate Macro ${data}`);
+         ui.notifications.info(`Automated Animations: Cannot locate Macro ${data}`);
          return;
       }
       // Credit to Wasp, Zhell, Gazkhan and MrVauxs for the code in this section

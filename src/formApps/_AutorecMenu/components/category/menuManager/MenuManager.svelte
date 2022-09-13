@@ -121,19 +121,10 @@
         const exportData = {
             melee: await game.settings.get("autoanimations", "aaAutorec-melee"),
             range: await game.settings.get("autoanimations", "aaAutorec-range"),
-            ontoken: await game.settings.get(
-                "autoanimations",
-                "aaAutorec-ontoken"
-            ),
-            templatefx: await game.settings.get(
-                "autoanimations",
-                "aaAutorec-templatefx"
-            ),
+            ontoken: await game.settings.get("autoanimations", "aaAutorec-ontoken"),
+            templatefx: await game.settings.get("autoanimations", "aaAutorec-templatefx"),
             aura: await game.settings.get("autoanimations", "aaAutorec-aura"),
-            preset: await game.settings.get(
-                "autoanimations",
-                "aaAutorec-preset"
-            ),
+            preset: await game.settings.get("autoanimations", "aaAutorec-preset"),
             aefx: await game.settings.get("autoanimations", "aaAutorec-aefx"),
             /**TO-DO: Set up VERSION Game Setting. OR should this be a field set on each Section???*/
             //version = await game.settings.get('autoanimations', 'aaAutorec-version')

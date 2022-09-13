@@ -43,7 +43,7 @@
     }
 
     async function mergeMenus(selectedMenus) {
-        const updatedImport = await autoRecMigration.handle(menu, false, false)
+        const updatedImport = await autoRecMigration.handle(menu)
         AAAutorecFunctions.mergeMenus(updatedImport, selectedMenus)
     }
 
@@ -53,7 +53,7 @@
 
         async function overwriteNow() {
             console.log(selectedMenus)
-            await autoRecMigration.handle(menu, true, false, selectedMenus)
+            await autoRecMigration.handle(menu, {shouldSubmit: true, ...selectedMenus})
         }
 
     }

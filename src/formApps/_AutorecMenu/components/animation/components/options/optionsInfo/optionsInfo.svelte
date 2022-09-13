@@ -31,11 +31,6 @@
             icon: 'fab fa-creative-commons-by',
             section: 'aura'
         },
-        {
-            label: 'autoanimations.animTypes.presets',
-            icon: 'fas fa-gift',
-            section: 'melee'
-        },
     ]
 
 

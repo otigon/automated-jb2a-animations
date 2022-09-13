@@ -68,7 +68,17 @@ export function initSettings(gameSettings) {
          }
       }
    });
-
+   /*
+   settings.push({
+      namespace,
+      key: 'aaAutorec-version',
+      options: {
+         type: Number,
+         default: 4,
+         config:false,
+      }
+   });
+   */
    settings.push({
       namespace,
       key: 'disableAutoRec',
