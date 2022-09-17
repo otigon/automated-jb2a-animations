@@ -26,6 +26,7 @@ export const templatefx = [
          }
       }),
       macro: common.macro(),
+      secondary: common.secondary(),
       source: common.source(),
       target: common.target(),
    },
@@ -55,6 +56,7 @@ export const templatefx = [
          }
       }),
       macro: common.macro(),
+      secondary: common.secondary(),
       source: common.source(),
       target: common.target(),
    }

@@ -16,6 +16,8 @@ import AAActiveEffectMenu from "./formApps/ActiveEffects/activeEffectMenu.js";
 import AAAutorecMenu from "./formApps/AutorecMenu/aaAutorecMenu.js";
 
 import AAItemMenu from "./formApps/ItemMenu/itemMenu.js";
+import ItemMenuApp from "./formApps/_ItemMenu/ItemMenuApp.js";
+
 
 import { setupSocket } from "./socketset.js";
 import { flagMigrations } from "./system-handlers/flagMerge.js";
@@ -34,8 +36,6 @@ import { showMainMenu } from "./formApps/AutorecMenu/showMainUI.js";
 import "../styles/newMenuCss.scss";
 
 import { aaDeletedItems } from "./DeletedItems.js";
-
-const log = () => { };
 
 Hooks.once('socketlib.ready', function () {
     setupSocket();
@@ -70,11 +70,27 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
         } else {
             //new AAItemSettings(app.document, {}).render(true);
             new AAItemMenu(app.document, {}).render(true);
+            //new ItemMenuApp(app.document, {}).render(true, { focus: true });
         }
     });
+    const aaBtnNew = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-pizza-slice"></i>A-A</a>`);
+    aaBtnNew.click(async ev => {
+        //await flagMigrations.handle(app.document);
+        // if this is a PF1 "Buff" effect or PF2e Ruleset Item (Active Effects) spawn the Active Effect menu. Otherwise continue as normal
+        if ((game.system.id === 'pf1' && app.item?.type === 'buff') || (game.system.id === 'pf2e' && pf2eRuleTypes.includes(app.item?.type))) {
+            new AAActiveEffectMenu(app.document, {}).render(true);
+        } else {
+            //new AAItemSettings(app.document, {}).render(true);
+            //new AAItemMenu(app.document, {}).render(true);
+            new ItemMenuApp(app.document, {}).render(true, { focus: true });
+        }
+    });
+
     html.closest('.app').find('.aa-item-settings').remove();
     let titleElement = html.closest('.app').find('.window-title');
     aaBtn.insertAfter(titleElement);
+    aaBtnNew.insertAfter(titleElement);
+
 });
 
 Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {

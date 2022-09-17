@@ -6,15 +6,18 @@
     export let animation;
     export let category;
     export let idx;
+    export let type = "autorec";
 
     $: currentIDX = category.stores.videoIDX;
 
     async function seePreview() {
-        currentIDX.set(idx);
+        if (type === "item") {
+            currentIDX.set("item");
+        } else {
+            currentIDX.set(idx);
+        }
         currentStore.set(category);
-        //currentCategory.set(category)
         category.loadPreviews(category);
-        //new VideoPreview({ animation }).render(true);
     }
 </script>
 

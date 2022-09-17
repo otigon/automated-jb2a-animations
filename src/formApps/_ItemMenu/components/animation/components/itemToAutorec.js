@@ -1,33 +1,31 @@
 
 import { TJSDialog } from '@typhonjs-fvtt/runtime/svelte/application';
-import FullVideoPreview from "./autorecPreviews.svelte";
+import CopyToAutorec from './CopyToAutorec.svelte';
 
-export default class TotalPreview extends TJSDialog {
+export default class ItemToAutorec extends TJSDialog {
     constructor(data) {
         super({
-            title: 'Video Preview',
+            title: 'Item to Autorec',
             draggable: true,
-            resizable: false,
-            modal: false,
+            resizable:true,
+            modal: true,
             zIndex:null,
             content: {
-                class: FullVideoPreview,
+                class: CopyToAutorec, 
                 props: {
                     ...data
                 }
             },
-            //close: () => this.options.reject(),
-            //...options
         });
     }
 
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             minimizable: true,
-            width: "auto",
-            height: "auto",
+            width: 600,
+            height: 300,
             closeOnSubmit: true,
-            id: `AA-Video-Preview`,
+            id: `Item to Autorec`,
         })
     }
 

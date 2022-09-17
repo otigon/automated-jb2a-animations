@@ -6,17 +6,11 @@
     import { getContext } from "svelte";
 
     $: newStore = $currentStore;
-
     $: videoIDX = $currentStore.stores.videoIDX;
 
-    
     $: idx = $videoIDX;
-
-    $: animationSection = idx === "item" ? newStore : $newStore[idx];
-
+    $: animationSection = $newStore[idx];
     $: animation = $animationSection;
-
-    $: previewType = idx === "item" ? "Item" : "Autorec";
 
     const { application } = getContext("external");
     $: enableSource = animation.source.enable;
@@ -87,10 +81,12 @@
                     ? tCustomPath 
                     : getPreviewFile(tCompiledPath)
 
+   let name = "TESTING";
+   let filePath = "modules/jb2a_patreon/Library/1st_Level/Arms_Of_Hadar/ArmsOfHadar_01_Dark_Green_500x500.webm"
 </script>
 
 <div class="flexcol">
-    <label class="aa-section-label" for=""><i>{name}</i> - {previewType} {localize("autoanimations.menus.preview")}</label>
+    <label class="aa-section-label" for=""><i>{name}</i> - {localize("autoanimations.menus.preview")}</label>
 </div>
 <div class="flexcol aa-full-preview">
     {#if enableSource}

@@ -444,11 +444,11 @@
         },
         "animTypes": {
             "melee": "Melee",
-            "ranged": "Range",
-            "onToken": "On Token",
-            "presets": "Presets",
-            "templates": "Templates",
-            "typeAuras": "Aura",
+            "range": "Range",
+            "ontoken": "On Token",
+            "preset": "Preset",
+            "templatefx": "Templates",
+            "aura": "Aura",
             "aefx": "Active Effects"
         },
         "presetTypes": {
@@ -590,7 +590,13 @@
             "select": "Select",
             "dual": "Dual",
             "triple": "Triple",
-            "elevation": "Elevation"
+            "elevation": "Elevation",
+            "isinthe": "is in the",
+            "useammo": "Use Ammo",
+            "item": "Item",
+            "globalFound": "Global match found",
+            "globalNotFound": "Global match not found",
+            "label": "Label"
         },
         "optionsInfo": {
 

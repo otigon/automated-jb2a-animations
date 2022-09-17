@@ -117,9 +117,7 @@ async function mergeVersion05(data) {
             },
         }
 
-        if (type !== "templatefx") {
-            newMO.secondary = await convertExplosionV6(explosion, audio, oldMO)
-        }
+        newMO.secondary = await convertExplosionV6(explosion, audio, oldMO)
 
         const primaryVideo = newMO.primary.video;
         if (!primaryVideo.menuType || !primaryVideo.animation || !primaryVideo.variant || !primaryVideo.color) {

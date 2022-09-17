@@ -66,10 +66,10 @@
             >
                 <option value="">Select Type</option>
                 <option value="ontoken"
-                    >{localize("autoanimations.animTypes.onToken")}</option
+                    >{localize("autoanimations.animTypes.ontoken")}</option
                 >
                 <option value="aura"
-                    >{localize("autoanimations.animTypes.typeAuras")}</option
+                    >{localize("autoanimations.animTypes.aura")}</option
                 >
             </select>
         </div>

@@ -13,6 +13,7 @@ export async function templateSeq(handler, animationData, config) {
     const templateType = templateData?.t;
 
     const data = animationData.primary;
+    const secondary = animationData.secondary;
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
     const macro = animationData.macro;
@@ -214,6 +215,42 @@ export async function templateSeq(handler, animationData, config) {
                 circRectSeq.waitUntilFinished(data.options.delay)
             }
         }
+
+        // secondary animation and sound
+        if (secondary && handler.allTargets.length) {
+            if (secondary.sound) {
+                aaSeq.addSequence(secondary.sound)
+            }
+            for (let i = 0; i < handler.allTargets.length; i++) {
+                //for (let currentTarget of handler.allTargets) {
+                let currentTarget = handler.allTargets[i]
+                let hit;
+                if (handler.playOnMiss) {
+                    hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
+                } else {
+                    hit = true;
+                }
+                let secondarySeq = aaSeq.effect()
+                secondarySeq.atLocation(currentTarget)
+                secondarySeq.file(secondary.path?.file, true)
+                secondarySeq.size(secondary.options.size * 2, { gridUnits: true })
+                secondarySeq.repeats(secondary.options.repeat, secondary.options.repeatDelay)
+                if (i === handler.allTargets.length - 1 && secondary.options.isWait && targetFX.enable) {
+                    secondarySeq.waitUntilFinished(secondary.options.delay)
+                } else if (!secondary.options.isWait) {
+                    secondarySeq.delay(secondary.options.delay)
+                }
+                secondarySeq.elevation(secondary.options.elevation)
+                secondarySeq.zIndex(secondary.options.zIndex)
+                secondarySeq.opacity(secondary.options.opacity)
+                secondarySeq.fadeIn(secondary.options.fadeIn)
+                secondarySeq.fadeOut(secondary.options.fadeOut)
+                if (secondary.options.isMasked) {
+                    secondarySeq.mask(currentTarget)
+                }
+            }
+        }
+
         if (macro && macro.playWhen === "0") {
             let userData = macro.args;
             new Sequence()

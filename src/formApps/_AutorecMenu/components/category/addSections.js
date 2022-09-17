@@ -1,27 +1,24 @@
-
+import * as common from "../../store/default-data/common";
 const melee = {
     id: "",
     label: "",
-    levels3d: {
-        data: {color01: "#FFFFFF", color02: "#FFFFFF"},
-        sound: setSound(),
-    },
+    levels3d: common.levels3d(),
     macro: {},
     meleeSwitch: {
         options: {},
+        sound: common.sound(),
         video: { dbSection: "range", menuType: 'weapon', animation: 'arrow', variant: 'regular', color: 'regular' },
-        sound: setSound(),
     },
     menu: 'melee',
     primary: {
         options: {},
-        sound: setSound(),
+        sound: common.sound(),
         video: { dbSection: "melee", menuType: 'weapon', animation: 'club', variant: '01', color: 'white' },
     },
-    secondary: setStatic(),
-    soundOnly: { sound: setSound()},
-    source: setStatic(),
-    target: setStatic(),
+    secondary: common.secondary(),
+    soundOnly: { sound: common.sound()},
+    source: common.source(),
+    target: common.target(),
 }
 
 const range = {
@@ -74,6 +71,7 @@ const templatefx = {
         sound: setSound(),
         video: { dbSection: "templatefx", menuType: 'circle', animation: 'calllightning', variant: '01', color: 'blue' },
     },
+    secondary: setStatic(),
     source: setStatic(),
     target: setStatic(),
     soundOnly: { sound: setSound()},
@@ -138,7 +136,4 @@ function setSound() {
     }
 }
 
-function setPrimary() {
-
-}
 export { melee, range, ontoken, templatefx, aura, preset, aefx }

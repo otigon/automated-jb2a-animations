@@ -10,7 +10,7 @@ export class AAAnimationData {
         menu = menu === "aefx" ? autorecData ? autoObject.activeEffectType : handler.flags.activeEffectType : menu;
         const data = {
             primary: menu === "preset" ? await this.compilePreset(handler, autorecData) : await this.compilePrimary(handler, autorecData),
-            secondary: menu === "melee" || menu === "range" || menu === "ontoken" || menu === "aura" ? await this.compileSecondary(handler, autorecData) : false,
+            secondary: menu !== "preset" ? await this.compileSecondary(handler, autorecData) : false,
             sourceFX: await this.compileSource(handler, autorecData),
             targetFX: menu === "aefx" ? false : await this.compileTarget(handler, autorecData),
             macro: await this.compileMacro(handler, autorecData)
