@@ -1,6 +1,5 @@
 import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
 
-import CopyToAutorec from "./CopyToAutorec.svelte"
 import ItemToAutorec from "./itemToAutorec.js";
 
 /**
@@ -13,35 +12,56 @@ import ItemToAutorec from "./itemToAutorec.js";
  * @returns {object[]} Overflow menu items.
  */
 export function copyToFrom(animation, isInAutorec) {
-   let menu = game.i18n.localize(`autoanimations.animTypes.${animation._data.menu}`)
-   return [
-      {
-         label: "Copy From Autorec",
-         icon: "far fa-clone",
-         onclick: () => animation.copyFromAutorec(isInAutorec)
-      },
-      {
-         label: "Copy To Autorec", // TODO: localize,
-         icon: "far fa-clone",
-
-         onclick: async () => {
-            if (!game.user.isGM) { 
-               console.error("Automated Animations | NON-GM users cannot copy items to the Global Automatic Recognition Menu");
-               return;
-            }
-            const label = animation.label !== "" ? `'${animation._data.label}'` : "'No Item Name'";
-            /*
-            const result = await TJSDialog.confirm({
-               title: "Copy Item to Global Autorec",
-               content: `Are you sure you want copy ${label} to the Global ${menu} Menu?`,
-               draggable: false,
-               modal: true
-            })
-            */
-            new ItemToAutorec({animation}).render(true)
-
-            //if (result) { animation.copyToAutorec() }
+   let menu = game.i18n.localize(`autoanimations.animTypes.${isInAutorec.menu}`)
+   let contents = [];
+   let copyFrom = {
+      label: "Copy From Autorec",
+      icon: "far fa-clone",
+      onclick: async () => {
+         if (!animation._data.isEnabled) { return; }
+         if (!game.user.isGM) {
+            console.error("Automated Animations | NON-GM users cannot copy items to the Global Automatic Recognition Menu");
+            return;
          }
+         const label = isInAutorec.label;
+
+         const result = await TJSDialog.confirm({
+            title: "Copy Item From Global Menu",
+            content: `Are you sure you want copy <strong>${label}</strong> from the <strong>Global ${menu} Menu?</strong>`,
+            draggable: false,
+            modal: true
+         })
+
+         if (result) { animation.copyFromAutorec(isInAutorec) }
       }
-   ];
+   }
+
+   let copyTo = {
+      label: "Copy To Autorec", // TODO: localize,
+      icon: "far fa-clone",
+
+      onclick: async () => {
+         if (!animation._data.isEnabled) { return; }
+         if (!game.user.isGM) {
+            console.error("Automated Animations | NON-GM users cannot copy items to the Global Automatic Recognition Menu");
+            return;
+         }
+         if (!animation._data.isEnabled || !animation._data.menu) {
+            ui.notifications.info("Automated Animations | There is no data present on this item to copy to the Global Automatic Recognition Menu");
+            return;
+         }
+         //const label = animation.label !== "" ? `'${animation._data.label}'` : "'No Item Name'";
+
+         new ItemToAutorec({ animation }).render(true)
+      }
+   }
+
+   if (game.user.isGM) {
+      contents.push(copyFrom)
+      contents.push(copyTo)
+   } else {
+      contents.push(copyFrom)
+   }
+
+   return contents;
 }

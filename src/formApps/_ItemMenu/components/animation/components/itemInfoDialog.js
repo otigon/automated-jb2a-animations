@@ -1,16 +1,17 @@
 
 import { TJSDialog } from '@typhonjs-fvtt/runtime/svelte/application';
-import CopyToAutorec from './CopyToAutorec.svelte';
+import ItemInfo from './itemInfo/ItemInfo.svelte'
 
-export default class ItemToAutorec extends TJSDialog {
+export default class ItemInfoDialog extends TJSDialog {
     constructor(data) {
         super({
-            title: 'Item to Autorec',
-            resizable:true,
-            modal: true,
+            title: 'Options Info',
             draggable: true,
+            resizable:true,
+            modal: false,
+            zIndex:null,
             content: {
-                class: CopyToAutorec, 
+                class: ItemInfo, 
                 props: {
                     ...data
                 }
@@ -20,10 +21,11 @@ export default class ItemToAutorec extends TJSDialog {
 
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            width: "auto",
+            minimizable: true,
+            width: 600,
             height: "auto",
             closeOnSubmit: true,
-            id: `AA-Copy-Item-To-Global`,
+            id: `Item-Information`,
         })
     }
 

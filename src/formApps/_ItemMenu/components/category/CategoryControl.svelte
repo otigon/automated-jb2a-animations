@@ -195,8 +195,6 @@
       {#if isInAutorec}
         <label for="" style="font-size: 15px; font-weight:bold">
           {localize('autoanimations.menus.globalFound')} <br />
-          {localize('autoanimations.menus.menu')}: {localize(`autoanimations.animTypes.${isInAutorec.menu}`)} 
-          {localize('autoanimations.menus.label')}: {isInAutorec.label}
         </label>
       {:else}
         <label for="" style="font-size: 15px; font-weight:bold">
@@ -249,7 +247,7 @@
 
 <main>
   {#if !menuType || !isEnabled || !isCustomized}
-    <div class="sectionBorder" style="margin-top:5em">
+    <div class="sectionBorder">
       <svelte:component this={NoneChosen} {isEnabled} {isCustomized} {isInAutorec} />
     </div>
   {:else}

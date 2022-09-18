@@ -34,9 +34,7 @@
     if (!newFlagData.hasOwnProperty('menu')) {
         newFlagData.menu = "";
     }
-    if (!newFlagData.hasOwnProperty('label')) {
-        newFlagData.label = item.name;
-    }
+    newFlagData.label = item.name;
 
     const flagData = {
         fromAmmo: aaFlags.fromAmmo ?? false,

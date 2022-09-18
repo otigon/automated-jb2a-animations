@@ -31,7 +31,7 @@ export async function trafficCop(handler) {
         return;
     }
 
-    if (handler.isDisabled) {
+    if (!handler.isEnabled) {
         if (handler.soundNoAnimation || handler.macroOnly) {
             let aaSeq = new Sequence()
             if (handler.soundNoAnimation) {
@@ -76,7 +76,7 @@ export async function trafficCop(handler) {
     //const animationData = isCustom ? await AAanimationData._getAnimationData(handler) : await AAanimationData._getAnimationData(isAutorec)
     if (isCustom || (isAutorec && !game.settings.get("autoanimations", "disableAutoRec"))) {
 
-        let animType = isCustom ? handler.animType : isAutorec.menu;
+        let animType = isCustom ? handler.menu : isAutorec.menu;
         let presetType = isCustom ? handler.flags?.preset?.presetType : isAutorec.presetType;
         if (!isCustom && animType === 'aefx') {
             animType = isAutorec.activeEffectType;

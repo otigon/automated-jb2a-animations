@@ -284,59 +284,73 @@ export class AnimationStore extends ObjectEntryStore {
       let id = this._data.id;
 
       let menu = data.menu
-      if (menu !== "preset") {
-         this._data.menu = data.menu
-         this._data.primary = data.primary;
-         this._data.secondary = data.secondary;
-         this._data.source = data.source;
-         this._data.target = data.target;
-         this._data.soundOnly = data.soundOnly;
-         this._data.macro = data.macro;
-      } else {
-         this._data.menu = data.menu
-         this._data.presetType = data.presetType;
-         this._data.data = data.data;
-         this._data.soundOnly = data.soundOnly;
-         this._data.macro = data.macro;
+      switch (menu) {
+         case "melee":
+            this._data.menu = data.menu;
+            this._data.levels3d = data.levels3d;
+            this._data.macro = data.macro;   
+            this._data.meleeSwitch = data.meleeSwitch;
+            this._data.primary = data.primary;
+            this._data.secondary = data.secondary;
+            this._data.source = data.source;
+            this._data.target = data.target;
+            this._data.soundOnly = data.soundOnly;
+            break;
+         case "range":
+         case "ontoken":
+         case "templatefx":
+         case "aura":
+            this._data.menu = data.menu;
+            this._data.levels3d = data.levels3d;
+            this._data.macro = data.macro;   
+            this._data.primary = data.primary;
+            this._data.secondary = data.secondary;
+            this._data.source = data.source;
+            this._data.target = data.target;
+            this._data.soundOnly = data.soundOnly;
+            break;
+         case "preset":
+            this._data.menu = data.menu
+            this._data.presetType = data.presetType;
+            this._data.data = data.data;
+            this._data.soundOnly = data.soundOnly;
+            this._data.macro = data.macro;   
+            break;
       }
       this._updateSubscribers()
    }
-   async copyToAutorec() {
+   async copyToAutorec(label) {
       //ui.notifications.info("Work In Progress")
       let menu = this._data.menu;
       if (menu === "default") {
          console.warn("Automated Animations | You are attempting to copy an Item to the Global menu, but you haven't configured the item!")
       }
       let data = structuredClone(this._data);
+      data.id = uuidv4();
+      data.label = label;
       switch(menu) {
          case "melee":
-            data.id = uuidv4();
             delete data.presetType;
             break;
          case "range":
-            data.id = uuidv4();
             delete data.presetType;
             delete data.meleeSwitch;
             break;
          case "ontoken":
-            data.id = uuidv4();
             delete data.presetType;
             delete data.meleeSwitch;
             break;
          case "templatefx":
-            data.id = uuidv4();
             delete data.presetType;
             delete data.meleeSwitch;
             delete data.levels3d;
             break;
          case "aura":
-            data.id = uuidv4();
             delete data.presetType;
             delete data.meleeSwitch;
             delete data.levels3d;
             break;
          case "preset":
-            data.id = uuidv4();
             delete data.meleeSwitch;
             delete data.levels3d;
             delete data.source;

@@ -26,13 +26,13 @@
 </script>
 
 <div class="aa-autorec-headerButton">
-    <div style="grid-row:1/2; grid-column:1/2">
+    <div style="grid-row:1/2; grid-column:1/2" class="sectionButton" >
         <label for="" on:click={() => seePreview()}
             >{localize("autoanimations.menus.preview")}
             <i class="fas fa-film fa-lg aa-zoom" /></label
         >
     </div>
-    <div style="grid-row:1/2; grid-column:2/3">
+    <div style="grid-row:1/2; grid-column:2/3" class="sectionButton">
         <label for="" on:click={() => (show3d = !show3d)}
             >{localize("autoanimations.menus.3dcanvas")}
             <i
@@ -40,7 +40,7 @@
             /></label
         >
     </div>
-    <div style="grid-row:1/2; grid-column:3/4">
+    <div style="grid-row:1/2; grid-column:3/4" class="sectionButton">
         <label
             for=""
             on:click={() =>
@@ -56,7 +56,7 @@
             /></label
         >
     </div>
-    <div style="grid-row:1/2; grid-column:4/5">
+    <div style="grid-row:1/2; grid-column:4/5" class="sectionButton">
         <label
             for=""
             on:click={() =>
@@ -75,5 +75,10 @@
 <style lang="scss">
     .aa-autorec-headerButton label {
         font-size: small;
+    }
+    .sectionButton {
+        background: rgba(0, 0, 0, 0.17);
+        padding: .2em;
+        border-radius: 1em;
     }
 </style>

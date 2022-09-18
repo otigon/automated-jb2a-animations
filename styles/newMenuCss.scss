@@ -789,7 +789,10 @@
 
 .aa-autorec-headerButton {
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 23.5% 23.5% 23.5% 23.5%;
+    margin-right: 3%;
+    margin-left: 3%;
+    grid-gap: 2%;
     grid-template-rows: 30px;
     padding: 5px;
     text-align: center;
