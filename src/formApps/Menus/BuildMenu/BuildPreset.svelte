@@ -1,19 +1,18 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
-    import DualAttach from "../presetMenus/DualAttach.svelte";
-    import ProjectileToTemplate from "../presetMenus/ProjectileToTemplate.svelte";
-    import Teleportation from "../presetMenus/Teleportation.svelte";
-    import Thunderwave from "../presetMenus/Thunderwave.svelte";
-    import SectionButtons from "../components/SectionButtons03.svelte";
-    import Macro from "../components/Macro.svelte";
-    import SoundOnly from "../components/SoundOnly.svelte";
-
-    import * as reset from "../presetMenus/presetDefaults.js";
+    import DualAttach           from "../Presets/DualAttach.svelte"
+    import ProjectileToTemplate from "../Presets/ProjectileToTemplate.svelte";
+    import Teleportation        from "../Presets/Teleportation.svelte";
+    import Thunderwave          from "../Presets/Thunderwave.svelte";
+    import SectionButtons       from "../Components/SectionButtons03.svelte";
+    import Macro                from "../Components/Macro.svelte";
+    import SoundOnly            from "../Components/SoundOnly.svelte";
+    import * as reset           from "../Presets/presetDefaults";
 
     export let animation;
     export let category;
-    export let idx;
+    export let idx = 0;
 
     $: presetType = $animation.presetType;
 

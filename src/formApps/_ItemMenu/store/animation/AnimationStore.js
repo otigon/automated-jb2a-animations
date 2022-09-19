@@ -3,8 +3,8 @@ import { writable }           from "svelte/store";
 import { uuidv4 }             from "@typhonjs-fvtt/runtime/svelte/util";
 import { isObject }           from '@typhonjs-fvtt/runtime/svelte/util';
 
-import OptionsDialog from "../../../_AutorecMenu/components/animation/components/options/optionsInfoDialog.js"
-import VideoPreview from "../../../_AutorecMenu/components/animation/components/videoPreview/videoPreview.js"
+import OptionsDialog from "../../../Menus/Components/options/optionsInfoDialog.js"
+import VideoPreview  from "../../../Menus/Components/videoPreview/videoPreview.js"
 
 //import { CategoryStore } from "../category/CategoryStore.js";
 //import { aaSessionStorage } from "../../../../sessionStorage.js";

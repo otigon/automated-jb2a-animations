@@ -1,17 +1,18 @@
 <script>
-    import VideoSelect from "../../../../_AutorecMenu/components/animation/components/VideoSelect.svelte";
-    import AuraOptions from "../../../../_AutorecMenu/components/animation/components/options/AuraOptions.svelte";
-    import SoundSettings from "../../../../_AutorecMenu/components/animation/components/SoundSettings.svelte";
-    import ExtraSource from "../../../../_AutorecMenu/components/animation/components/ExtraSource.svelte";
-    import ExtraTarget from "../../../../_AutorecMenu/components/animation/components/ExtraTarget.svelte";
-    import SectionButtons from "../../../../_AutorecMenu/components/animation/components/SectionButtons02.svelte";
-    import Secondary from "../../../../_AutorecMenu/components/animation/components/Secondary.svelte";
-    import Macro from "../../../../_AutorecMenu/components/animation/components/Macro.svelte";
-    import SoundOnly from "../../../../_AutorecMenu/components/animation/components/SoundOnly.svelte";
+    import VideoSelect      from "../Components/VideoSelect.svelte";
+    import AuraOptions      from "../Components/options/AuraOptions.svelte";
+    import SoundSettings    from "../Components/SoundSettings.svelte";
+    import ExtraSource      from "../Components/ExtraSource.svelte";
+    import ExtraTarget      from "../Components/ExtraTarget.svelte";
+    import SectionButtons   from "../Components/SectionButtons02.svelte";
+    import Secondary        from "../Components/Secondary.svelte";
+    import Macro            from "../Components/Macro.svelte";
+    import SoundOnly        from "../Components/SoundOnly.svelte";
 
     export let animation;
     export let idx = 0;
     export let category;
+    export let fromMenu;
 
     let title =
         game.i18n.localize("autoanimations.menus.primary") +
@@ -22,7 +23,7 @@
     $: macroEnabled = $animation.macro.enable;
 </script>
 
-<SectionButtons {animation} {category} {idx} type="item" />
+<SectionButtons {animation} {category} {idx} type={fromMenu} />
 <div hidden={!soundOnly}>
     <SoundOnly {animation} />
 </div>

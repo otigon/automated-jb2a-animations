@@ -3,9 +3,9 @@
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
-    import NumberInput from "../../components/options/inputComponents/NumberInput.svelte";
-    import Opacity from "../../components/options/inputComponents/Opacity.svelte";
-    import WaitDelay from "../../components/options/inputComponents/WaitDelay.svelte";
+    import NumberInput  from "../../Components/options/inputComponents/NumberInput.svelte";
+    import Opacity      from "../../Components/options/inputComponents/Opacity.svelte";
+    import WaitDelay    from "../../Components/options/inputComponents/WaitDelay.svelte";
 
     export let animation;
     export let category;

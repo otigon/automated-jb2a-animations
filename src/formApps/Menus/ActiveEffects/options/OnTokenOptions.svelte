@@ -3,10 +3,10 @@
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
-    import NumberInput from "../../components/options/inputComponents/NumberInput.svelte";
-    import ScaleRadius from "../../components/options/inputComponents/ScaleRadius.svelte";
-    import Opacity from "../../presetMenus/inputComponents/Opacity02.svelte";
-    import WaitDelay from "../../components/options/inputComponents/WaitDelay.svelte";
+    import NumberInput  from "../../Components/options/inputComponents/NumberInput.svelte";
+    import ScaleRadius  from "../../Components/options/inputComponents/ScaleRadius.svelte";
+    import Opacity      from "../../Presets/inputComponents/Opacity02.svelte";
+    import WaitDelay    from "../../components/options/inputComponents/WaitDelay.svelte";
 
     export let animation;
     export let category;

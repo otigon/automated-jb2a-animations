@@ -1,17 +1,18 @@
 <script>
-    import VideoSelect from "../components/VideoSelect.svelte";
-    import AuraOptions from "../components/options/AuraOptions.svelte";
-    import SoundSettings from "../components/SoundSettings.svelte";
-    import ExtraSource from "../components/ExtraSource.svelte";
-    import ExtraTarget from "../components/ExtraTarget.svelte";
-    import SectionButtons from "../components/SectionButtons02.svelte";
-    import Secondary from "../components/Secondary.svelte";
-    import Macro from "../components/Macro.svelte";
-    import SoundOnly from "../components/SoundOnly.svelte";
+    import VideoSelect      from "../Components/VideoSelect.svelte";
+    import TemplateOptions  from "../Components/options/TemplateOptions.svelte";
+    import SoundSettings    from "../Components/SoundSettings.svelte";
+    import ExtraTarget      from "../Components/ExtraTarget.svelte";
+    import ExtraSource      from "../Components/ExtraSource.svelte";
+    import Secondary        from "../Components/Secondary.svelte";
+    import SectionButtons   from "../Components/SectionButtons02.svelte";
+    import Macro            from "../Components/Macro.svelte";
+    import SoundOnly        from "../Components/SoundOnly.svelte";
 
     export let animation;
-    export let idx;
+    export let idx = 0;
     export let category;
+    export let fromMenu;
 
     let title =
         game.i18n.localize("autoanimations.menus.primary") +
@@ -22,7 +23,7 @@
     $: macroEnabled = $animation.macro.enable;
 </script>
 
-<SectionButtons {animation} {category} {idx} />
+<SectionButtons {animation} {category} {idx} type={fromMenu} />
 <div hidden={!soundOnly}>
     <SoundOnly {animation} />
 </div>
@@ -40,7 +41,7 @@
                 {idx}
                 {category}
             />
-            <AuraOptions {animation} {category} />
+            <TemplateOptions {animation} {category} />
             <SoundSettings {animation} {category} {idx} section="primary" />
         </div>
         <Secondary {animation} {idx} {category} />

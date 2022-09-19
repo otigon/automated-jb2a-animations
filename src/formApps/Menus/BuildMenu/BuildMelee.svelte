@@ -1,21 +1,24 @@
 <script>
-    import VideoSelect from "../components/VideoSelect.svelte";
-    import RangeOptions from "../components/options/RangeOptions.svelte";
-    import SoundSettings from "../components/SoundSettings.svelte";
-    import SoundOnly from "../components/SoundOnly.svelte";
-    import Secondary from "../components/Secondary.svelte";
-    import ExtraTarget from "../components/ExtraTarget.svelte";
-    import ExtraSource from "../components/ExtraSource.svelte";
-    import SectionButtons from "../components/SectionButtons.svelte";
-    import Macro from "../components/Macro.svelte";
-    import Canvas3D from "../components/Canvas3D.svelte";
+    import VideoSelect      from "../Components/VideoSelect.svelte";
+    import MeleeOptions     from "../Components/options/MeleeOptions.svelte";
+    import SoundSettings    from "../Components/SoundSettings.svelte";
+    import SoundOnly        from "../Components/SoundOnly.svelte";
+    import Secondary        from "../Components/Secondary.svelte";
+    import ExtraTarget      from "../Components/ExtraTarget.svelte";
+    import ExtraSource      from "../Components/ExtraSource.svelte";
+    import SectionButtons   from "../Components/SectionButtons.svelte";
+    import Macro            from "../Components/Macro.svelte";
+    import Canvas3D         from "../Components/Canvas3D.svelte";
+    import MeleeSwitch      from "../Components/MeleeSwitch.svelte";
 
     export let animation;
-    export let idx;
+    export let idx = 0;
     export let category;
+    export let fromMenu;
 
     $: show3d = false;
 
+    //console.log(category)
     let title =
         game.i18n.localize("autoanimations.menus.primary") +
         " " +
@@ -25,7 +28,7 @@
     $: macroEnabled = $animation.macro.enable;
 </script>
 
-<SectionButtons {animation} bind:show3d {category} {idx}/>
+<SectionButtons {animation} bind:show3d {category} {idx} type={fromMenu}/>
 {#if show3d && !soundOnly}
     <Canvas3D {animation} />
 {:else}
@@ -49,8 +52,9 @@
                     {idx}
                     {category}
                 />
-                <RangeOptions {animation} {category} />
+                <MeleeOptions {animation} {category} />
                 <SoundSettings {animation} {category} {idx} section="primary" />
+                <MeleeSwitch {animation} {idx} {category} />
             </div>
             <Secondary {animation} {idx} {category} />
             <ExtraTarget {animation} {idx} {category} />

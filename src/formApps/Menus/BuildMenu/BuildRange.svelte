@@ -1,18 +1,19 @@
 <script>
-    import VideoSelect from "../../../../_AutorecMenu/components/animation/components/VideoSelect.svelte";
-    import OnTokenOptions from "../../../../_AutorecMenu/components/animation/components/options/OnTokenOptions.svelte";
-    import SoundSettings from "../../../../_AutorecMenu/components/animation/components/SoundSettings.svelte";
-    import SoundOnly from "../../../../_AutorecMenu/components/animation/components/SoundOnly.svelte";
-    import Secondary from "../../../../_AutorecMenu/components/animation/components/Secondary.svelte";
-    import ExtraTarget from "../../../../_AutorecMenu/components/animation/components/ExtraTarget.svelte";
-    import ExtraSource from "../../../../_AutorecMenu/components/animation/components/ExtraSource.svelte";
-    import SectionButtons from "../../../../_AutorecMenu/components/animation/components/SectionButtons.svelte";
-    import Macro from "../../../../_AutorecMenu/components/animation/components/Macro.svelte";
-    import Canvas3D from "../../../../_AutorecMenu/components/animation/components/Canvas3D.svelte";
+    import VideoSelect      from "../Components/VideoSelect.svelte";
+    import RangeOptions     from "../Components/options/RangeOptions.svelte";
+    import SoundSettings    from "../Components/SoundSettings.svelte";
+    import SoundOnly        from "../Components/SoundOnly.svelte";
+    import Secondary        from "../Components/Secondary.svelte";
+    import ExtraTarget      from "../Components/ExtraTarget.svelte";
+    import ExtraSource      from "../Components/ExtraSource.svelte";
+    import SectionButtons   from "../Components/SectionButtons.svelte";
+    import Macro            from "../Components/Macro.svelte";
+    import Canvas3D         from "../Components/Canvas3D.svelte";
 
     export let animation;
     export let idx = 0;
     export let category;
+    export let fromMenu;
 
     $: show3d = false;
 
@@ -25,7 +26,7 @@
     $: macroEnabled = $animation.macro.enable;
 </script>
 
-<SectionButtons {animation} bind:show3d {category} {idx} type="item"/>
+<SectionButtons {animation} bind:show3d {category} {idx} type={fromMenu}/>
 {#if show3d && !soundOnly}
     <Canvas3D {animation} />
 {:else}
@@ -49,7 +50,7 @@
                     {idx}
                     {category}
                 />
-                <OnTokenOptions {animation} {category} />
+                <RangeOptions {animation} {category} />
                 <SoundSettings {animation} {category} {idx} section="primary" />
             </div>
             <Secondary {animation} {idx} {category} />

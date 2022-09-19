@@ -1,9 +1,10 @@
 <script>
-    import VideoSelect from "../components/VideoSelect.svelte";
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import SoundSettings from "../components/SoundSettings.svelte";
-    import Opacity from "./inputComponents/Opacity02.svelte";
+
+    import VideoSelect      from "../Components/VideoSelect.svelte";
+    import SoundSettings    from "../Components/SoundSettings.svelte";
+    import Opacity          from "./inputComponents/Opacity02.svelte";
 
     export let animation;
     export let category;

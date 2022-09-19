@@ -11,9 +11,9 @@ import { aaSessionStorage }   from "../../../../sessionStorage.js";
 import { constants }          from "../../../../constants.js";
 import { gameSettings }       from "../../../../gameSettings.js";
 
-import OptionsDialog from "../../components/animation/components/options/optionsInfoDialog.js";
-import CopyClipBoard from "../../components/animation/components/copyOnClick.svelte"
-import VideoPreview from "../../components/animation/components/videoPreview/videoPreview.js";
+import OptionsDialog from "../../../Menus/Components/options/optionsInfoDialog";
+import CopyClipBoard from "../../../Menus/Components/copyOnClick.svelte"
+import VideoPreview  from "../../../Menus/Components/videoPreview/videoPreview.js";
 
 import { 
    newTypeMenu,

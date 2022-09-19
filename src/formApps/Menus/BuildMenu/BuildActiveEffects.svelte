@@ -1,13 +1,12 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
-    import BuildAeOnToken from "../activeEffectMenus/BuildAEOnToken.svelte";
-    import BuildAeAura from "../activeEffectMenus/BuildAEAura.svelte";
-    import SectionButtons from "../components/SectionButtons03.svelte";
-    import Macro from "../components/Macro.svelte";
-    import SoundOnly from "../components/SoundOnly.svelte";
-
-    import * as reset from "../activeEffectMenus/aeDefaults.js";
+    import BuildAeOnToken   from "../ActiveEffects/BuildAEOnToken.svelte";
+    import BuildAeAura      from "../ActiveEffects/BuildAEAura.svelte";
+    import SectionButtons   from "../Components/SectionButtons03.svelte";
+    import Macro            from "../Components/Macro.svelte";
+    import SoundOnly        from "../Components/SoundOnly.svelte";
+    import * as reset       from "../ActiveEffects/aeDefaults.js";
 
     export let animation;
     export let category;

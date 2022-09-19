@@ -5,7 +5,7 @@
     //import SoundSettings from "./SoundSettings.svelte";
     import VideoSelect from "./VideoSelect.svelte";
 
-    import { aaReturnWeapons } from "../../../../../animation-functions/databases/jb2a-menu-options.js"
+    import { aaReturnWeapons } from "../../../animation-functions/databases/jb2a-menu-options.js"
 
     export let animation;
     export let category;

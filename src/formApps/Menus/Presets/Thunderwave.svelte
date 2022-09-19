@@ -3,9 +3,9 @@
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
-    import SectionHeader from "../components/SectionHeader.svelte";
-    import SoundSettings from "../components/SoundSettings.svelte";
-    import Opacity from "./inputComponents/Opacity02.svelte";
+    import SectionHeader    from "../Components/SectionHeader.svelte";
+    import SoundSettings    from "../Components/SoundSettings.svelte";
+    import Opacity          from "./inputComponents/Opacity02.svelte";
 
     export let animation;
     export let category;

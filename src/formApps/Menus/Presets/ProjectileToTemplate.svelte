@@ -2,11 +2,10 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
-    import SectionHeader from "../components/SectionHeader.svelte";
-
-    import VideoSelect from "../components/VideoSelect.svelte";
-    import SoundSettings from "../components/SoundSettingsNested.svelte";
-    import Opacity from "./inputComponents/Opacity.svelte";
+    import SectionHeader    from "../Components/SectionHeader.svelte";
+    import VideoSelect      from "../Components/VideoSelect.svelte";
+    import SoundSettings    from "../Components/SoundSettingsNested.svelte";
+    import Opacity          from "./inputComponents/Opacity.svelte";
     
     export let animation;
     export let category;

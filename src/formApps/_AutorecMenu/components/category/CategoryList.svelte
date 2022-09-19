@@ -1,18 +1,18 @@
 <script>
-    import { flip }             from "svelte/animate";
-    import { quintOut }         from "svelte/easing";
-    import { writable }         from "svelte/store";
+    import { flip }              from "svelte/animate";
+    import { quintOut }          from "svelte/easing";
+    import { writable }          from "svelte/store";
 
-    import { applyScrolltop }   from "@typhonjs-fvtt/runtime/svelte/action";
-    import { animateEvents }    from "@typhonjs-fvtt/runtime/svelte/animate";
+    import { applyScrolltop }    from "@typhonjs-fvtt/runtime/svelte/action";
+    import { animateEvents }     from "@typhonjs-fvtt/runtime/svelte/animate";
 
-    import BuildMelee from "../animation/menus/BuildMelee.svelte";
-    import BuildRange from "../animation/menus/BuildRange.svelte";
-    import BuildOnToken from "../animation/menus/BuildOnToken.svelte";
-    import BuildTemplateFx from "../animation/menus/BuildTemplateFX.svelte";
-    import BuildAura from "../animation/menus/BuildAura.svelte";
-    import BuildPreset from "../animation/menus/BuildPreset.svelte";
-    import BuildActiveEffects from "../animation/menus/BuildActiveEffects.svelte";
+    import BuildMelee            from "../../../Menus/BuildMenu/BuildMelee.svelte";
+    import BuildRange            from "../../../Menus/BuildMenu/BuildRange.svelte";
+    import BuildOnToken          from "../../../Menus/BuildMenu/BuildOnToken.svelte";
+    import BuildTemplateFx       from "../../../Menus/BuildMenu/BuildTemplateFX.svelte";
+    import BuildAura             from "../../../Menus/BuildMenu/BuildAura.svelte";
+    import BuildPreset           from "../../../Menus/BuildMenu/BuildPreset.svelte";
+    import BuildActiveEffects    from "../../../Menus/BuildMenu/BuildActiveEffects.svelte";
 
     import Animation            from "../animation/Animation.svelte";
 

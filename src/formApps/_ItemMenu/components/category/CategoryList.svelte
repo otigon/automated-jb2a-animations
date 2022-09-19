@@ -1,11 +1,11 @@
 <script>
 
-   import BuildMelee from "./menus/BuildMelee.svelte";
-   import BuildRange from "./menus/BuildRange.svelte";
-   import BuildOnToken from "./menus/BuildOnToken.svelte";
-   import BuildTemplateFx from "./menus/BuildTemplateFX.svelte";
-   import BuildAura from "./menus/BuildAura.svelte";
-   import BuildPreset from "./menus/BuildPreset.svelte";
+   import BuildMelee       from "../../../Menus/BuildMenu/BuildMelee.svelte";
+   import BuildRange       from "../../../Menus/BuildMenu/BuildRange.svelte";
+   import BuildOnToken     from "../../../Menus/BuildMenu/BuildOnToken.svelte";
+   import BuildTemplateFx  from "../../../Menus/BuildMenu/BuildTemplateFX.svelte";
+   import BuildAura        from "../../../Menus/BuildMenu/BuildAura.svelte";
+   import BuildPreset      from "../../../Menus/BuildMenu/BuildPreset.svelte";
 
    export let animation;
 
@@ -39,7 +39,7 @@
 
    <div class={!isEnabled || !isCustomized ? "aa-disableOpacity" : ""}>
       <div class="sectionBorder">
-         <svelte:component this={menuRoute} {animation} category={animation} />
+         <svelte:component this={menuRoute} {animation} category={animation} fromMenu="item"/>
       </div>
    </div>
 
