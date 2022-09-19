@@ -81,7 +81,7 @@ export default class systemData {
 
 
         //this.isDisabled = this.flags.killAnim || false;
-        this.isEnabled = this.flags.isEnabled ?? false;
+        this.isEnabled = this.flags.isEnabled ?? true;
         //this.isCustomized = this.flags.override || false;
         this.isCustomized = this.flags.isCustomized || false;
 

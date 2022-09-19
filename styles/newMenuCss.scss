@@ -188,9 +188,6 @@
     min-width: 550px;
     max-width: 1024px;
 
-    details {
-        margin-left: .3em;
-    }
     .window-content {
         padding: 0;
         overflow: inherit;
@@ -205,7 +202,7 @@
         --tjs-icon-button-background: rgba(0, 0, 0, 0.1);
         --tjs-icon-button-background-hover: rgba(0, 0, 0, 0.15);
         --tjs-icon-button-background-selected: rgba(0, 0, 0, 0.2);
-
+        --tjs-summary-margin: 0 0 0 1%;
         // This is how you style the action ripple background!
         //--tjs-action-ripple-background: linear-gradient(64.5deg, rgba(245, 116, 185, 1) 40%, rgba(89, 97, 223, 1) 60% );
     }
@@ -214,7 +211,9 @@
     .window-content>* {
         flex: unset;
     }
-
+    summary {
+        width: 98%;
+    }
     .aa-Sound-container {
         display: grid;
         grid-template-columns: 6% 90% 4%;

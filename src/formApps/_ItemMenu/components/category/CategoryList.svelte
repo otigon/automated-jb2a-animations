@@ -37,22 +37,13 @@
 
 </script>
 
-<main>
    <div class={!isEnabled || !isCustomized ? "aa-disableOpacity" : ""}>
       <div class="sectionBorder">
          <svelte:component this={menuRoute} {animation} category={animation} />
       </div>
    </div>
-</main>
 
 <style lang="scss">
-   main {
-      position: relative;
-      overflow-y: auto;
-      padding: 0 3%;
-      padding-bottom: 68px;
-      scrollbar-width: thin; // For Firefox
-   }
    .sectionBorder {
       background: rgb(186, 186, 186);
       border: 2px solid rgba(0, 0, 0, 0.75);

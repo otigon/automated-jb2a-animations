@@ -64,39 +64,51 @@
     <Macro {animation} {category} />
 </div>
 <div hidden={soundOnly}>
-    <div class="aa-pickAnim">
-        <div
-            class="flexcol"
-            style="grid-row: 2 / 3;grid-column: 2 / 3;margin-bottom: 0.75em;"
-        >
-            <label for="1"
-                >{localize("autoanimations.menus.preset")}
-                {localize("autoanimations.menus.type")}</label
+    <div hidden={$animation.macro.enable && $animation.macro.playWhen === "2"}>
+        <div class="aa-pickAnim">
+            <div
+                class="flexcol"
+                style="grid-row: 2 / 3;grid-column: 2 / 3;margin-bottom: 0.75em;"
             >
-            <select
-                bind:value={$animation.presetType}
-                on:change={() => changePreset()}
-                style="background-color: rgba(21, 154, 169, 0.4);width: 95%;"
-            >
-                <option value="">Select a Preset</option>
-                <option value="dualattach"
-                    >{localize("autoanimations.presetTypes.dualattach")}</option
+                <label for="1"
+                    >{localize("autoanimations.menus.preset")}
+                    {localize("autoanimations.menus.type")}</label
                 >
-                <option value="proToTemp"
-                    >{localize("autoanimations.presetTypes.proToTemp")}</option
+                <select
+                    bind:value={$animation.presetType}
+                    on:change={() => changePreset()}
+                    style="background-color: rgba(21, 154, 169, 0.4);width: 95%;"
                 >
-                <option value="teleportation"
-                    >{localize(
-                        "autoanimations.presetTypes.animTeleportation"
-                    )}</option
-                >
-                <option value="thunderwave"
-                    >{localize("autoanimations.presetTypes.thunderwave")} D&D 5e</option
-                >
-            </select>
+                    <option value="">Select a Preset</option>
+                    <option value="dualattach"
+                        >{localize(
+                            "autoanimations.presetTypes.dualattach"
+                        )}</option
+                    >
+                    <option value="proToTemp"
+                        >{localize(
+                            "autoanimations.presetTypes.proToTemp"
+                        )}</option
+                    >
+                    <option value="teleportation"
+                        >{localize(
+                            "autoanimations.presetTypes.animTeleportation"
+                        )}</option
+                    >
+                    <option value="thunderwave"
+                        >{localize("autoanimations.presetTypes.thunderwave")} D&D
+                        5e</option
+                    >
+                </select>
+            </div>
         </div>
+        <svelte:component
+            this={presetRoute}
+            {animation}
+            category={animation}
+            {idx}
+        />
     </div>
-    <svelte:component this={presetRoute} {animation} category={animation} {idx} />
 </div>
 
 <style lang="scss">

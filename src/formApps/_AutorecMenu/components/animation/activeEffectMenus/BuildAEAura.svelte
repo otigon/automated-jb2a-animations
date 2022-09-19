@@ -13,18 +13,8 @@ export let category;
 
 let title = game.i18n.localize("autoanimations.menus.primary") + " " + game.i18n.localize("autoanimations.menus.animation")
 
-$: soundOnly = $animation.soundOnly.sound.enable;
-$: macroEnabled = $animation.macro.enable;
-
 </script>
 
-<div hidden={!soundOnly}>
-    <SoundOnly {animation}/>
-</div>
-<div hidden={!macroEnabled}>
-    <Macro {animation} {category} />
-</div>
-<div hidden={soundOnly}>
     <ExtraSource {animation} {idx} {category}/>
     <div class="aa-primary-border">
     <VideoSelect {animation} section="data" {title} {idx} {category}/>
@@ -32,7 +22,6 @@ $: macroEnabled = $animation.macro.enable;
     <SoundSettings {animation} {category} {idx} section="data"/>
     </div>
     <Secondary {animation} {idx} {category} />
-</div>
 
 <style lang='scss'>
 

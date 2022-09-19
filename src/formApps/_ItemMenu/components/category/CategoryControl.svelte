@@ -187,7 +187,7 @@
       />
     </div>
     <div
-      style="grid-row: 1 / 3; grid-column: 2/3;"
+      style="grid-row: 1 / 2; grid-column: 2/3;"
       class="autorecLabel {isInAutorec ? 'aa-bgGreen' : 'aa-bgRed'} {!isEnabled
         ? 'aa-disableOpacity'
         : ''}"
@@ -203,7 +203,7 @@
       {/if}
     </div>
     <div
-      style="grid-row: 1/3; grid-column: 3/4"
+      style="grid-row: 1/2; grid-column: 3/4"
       class={!isEnabled ? "aa-disableOpacity" : ""}
     >
       <TJSToggleIconButton button={buttonOverflow} slot="summary-end">
@@ -211,7 +211,7 @@
       </TJSToggleIconButton>
     </div>
     <div
-      style="grid-row: 3/4; grid-column: 2/3; padding-bottom: 10px;margin-left: 1.5em"
+      style="grid-row: 2/4; grid-column: 2/4; padding-bottom: 10px;margin-left: 1.5em"
       class={!isEnabled || !isCustomized ? "aa-disableOpacity" : ""}
     >
       <label for="" style="font-weight:bold;"

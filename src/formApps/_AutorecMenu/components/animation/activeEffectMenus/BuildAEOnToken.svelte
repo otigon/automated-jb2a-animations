@@ -16,17 +16,8 @@
         " " +
         game.i18n.localize("autoanimations.menus.animation");
 
-    $: soundOnly = $animation.soundOnly.sound.enable;
-    $: macroEnabled = $animation.macro.enable;
 </script>
 
-<div hidden={!soundOnly}>
-    <SoundOnly {animation} />
-</div>
-<div hidden={!macroEnabled}>
-    <Macro {animation} {category} />
-</div>
-<div hidden={soundOnly}>
     <div hidden={$animation.macro.enable && $animation.macro.playWhen === "2"}>
         <ExtraSource {animation} {idx} {category} />
         <div class="aa-primary-border">
@@ -36,7 +27,6 @@
         </div>
         <Secondary {animation} {idx} {category} />
     </div>
-</div>
 
 <style lang="scss">
 </style>

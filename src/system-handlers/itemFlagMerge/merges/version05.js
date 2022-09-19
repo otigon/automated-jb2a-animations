@@ -47,9 +47,9 @@ export async function version05(flags) {
         //await item.update({ 'flags.-=autoanimations': null })
         //await item.update({ 'flags.autoanimations': v5Flags })
         return;
-    } else if (v4Flags.override && (!v4Flags.options?.enableCustom) && (!v4Flags.animType || !v4Flags.options?.menuType || !v4Flags.animation || !v4Flags.options?.variant || !v4Flags.color)) {
+    } else if (v4Flags.override && v4Flags.animType !== "preset" && (!v4Flags.options?.enableCustom) && (!v4Flags.animType || !v4Flags.options?.menuType || !v4Flags.animation || !v4Flags.options?.variant || !v4Flags.color)) {
         // Item is customized but has critical errors in the Animation settings. Delete flags
-        console.warn("Item is customized but has critical errors in the Animation settings. Delete flags")
+        console.warn("Item is customized but has critical errors in the Primary Animation settings. Delete flags")
         return void 0;
         //await item.update({ 'flags.-=autoanimations': null })
         //return;
@@ -136,7 +136,6 @@ export async function version05(flags) {
                 file: oldMO.audio?.a01?.file,
             }
         }
-
         newMO.source = convertExtraFX(sourceToken, audio, "source");
         newMO.target = convertExtraFX(targetToken, audio, "target");
         return newMO;
@@ -151,6 +150,7 @@ export async function version05(flags) {
         const sound = audio || {};
         const type = section === "source" ? "s01" : "t01";
         const data = {
+            enable: oldData.enable ?? false,
             options: {
                 addTokenWidth:false,
                 delay: section === "source" ? oldData.delayAfter ?? 0 : oldData.delayStart ?? 0,
@@ -176,7 +176,7 @@ export async function version05(flags) {
             video: {
                 dbSection: "static",
                 menuType: oldData.menuType,
-                animation: oldData.animation,
+                animation: oldData.name,
                 variant: oldData.variant,
                 color: oldData.color,
                 enableCustom: oldData.enableCustom ?? false,
@@ -242,12 +242,12 @@ export async function version05(flags) {
                 data.isWait = false;
                 data.delay = 0;
                 data.elevation = oldMO.below ? 0 : 1000;
-                data.onlyX = oldMO.onlyX ?? false;
-                data.opacity = oldMO.opacity ?? 1;
-                data.repeat = oldMO.repeat ?? 1;
-                data.repeatDelay = oldMO.delay ?? 0;
+                data.onlyX = options.onlyX ?? false;
+                data.opacity = options.opacity ?? 1;
+                data.repeat = options.repeat ?? 1;
+                data.repeatDelay = options.delay ?? 0;
                 data.returning = false;
-                data.zIndex = oldMO.zIndex ?? 1;
+                data.zIndex = options.zIndex ?? 1;
                 break;
             case "ontoken":
                 data.isWait = false;
@@ -257,45 +257,45 @@ export async function version05(flags) {
                 data.fadeOut = 500;
                 data.isMasked = false;
                 data.isRadius = false;
-                data.opacity = oldMO.opacity ?? 1;
-                data.persistent = false;
-                data.repeat = oldMO.repeat ?? 1;
-                data.repeatDelay = oldMO.delay ?? 0;
-                data.size = oldMO.scale ?? 1;
-                data.playOn = oldMO.staticType === "targetDefault" ? "default" : oldMO.staticType === "sourceTarget" ? "both" : !oldMO.staticType ? "default" : oldMO.staticType;
-                data.unbindAlpha = oldMO.unbindAlpha ?? false;
-                data.unbindVisibility = oldMO.unbindVisibility ?? false;
-                data.zIndex = oldMO.zIndex ?? 1;
+                data.opacity = options.opacity ?? 1;
+                data.persistent = options.persistent ?? false;
+                data.repeat = options.repeat ?? 1;
+                data.repeatDelay = options.delay ?? 0;
+                data.size = options.scale ?? 1;
+                data.playOn = options.staticType === "targetDefault" ? "default" : options.staticType === "sourceTarget" ? "both" : !options.staticType ? "default" : options.staticType;
+                data.unbindAlpha = options.unbindAlpha ?? false;
+                data.unbindVisibility = options.unbindVisibility ?? false;
+                data.zIndex = options.zIndex ?? 1;
                 break;
             case "templatefx":
                 data.isWait = false;
                 data.delay = 0;
                 data.elevation = oldMO.below ? 0 : 1000;
                 data.isMasked = false;
-                data.occlusionAlpha = oldMO.occlusionAlpha ?? 0;
-                data.occlusionMode = oldMO.occlusionMode ?? 0;
-                data.opacity = oldMO.opacity ?? 1;
-                data.persistType = oldMO.persistType ?? 1;
-                data.persistent = oldMO.persist ?? false;
-                data.removeTemplate = oldMO.removeTemplate ?? 1;
-                data.repeat = oldMO.repeat ?? 1;
-                data.repeatDelay = oldMO.delay ?? 0;
-                data.scaleX = oldMO.scaleX ?? 1;
-                data.scaleY = oldMO.scaleY ?? 1;
-                data.zIndex = oldMO.zIndex ?? 1;
+                data.occlusionAlpha = options.occlusionAlpha ?? 0;
+                data.occlusionMode = options.occlusionMode ?? 0;
+                data.opacity = options.opacity ?? 1;
+                data.persistType = options.persistType || "sequencerground";
+                data.persistent = options.persistent ?? false;
+                data.removeTemplate = options.removeTemplate ?? 1;
+                data.repeat = options.repeat ?? 1;
+                data.repeatDelay = options.delay ?? 0;
+                data.scaleX = options.scaleX ?? 1;
+                data.scaleY = options.scaleY ?? 1;
+                data.zIndex = options.zIndex ?? 1;
                 break;
             case "aura":
                 data.isWait = false;
                 data.delay = 0;
-                data.addTokenWidth = oldMO.addTokenWidth ?? false;
-                data.radius = oldMO.auraRadius ?? 3;
-                data.elevation = oldMO.below ? 0 : 1000;
-                data.ignoreTarget = oldMO.ignoretargets ?? false;
+                data.addTokenWidth = options.addTokenWidth ?? false;
+                data.radius = options.auraRadius ?? 3;
+                data.elevation = options.below ? 0 : 1000;
+                data.ignoreTarget = options.ignoretargets ?? false;
                 data.isMasked = false;
-                data.opacity = oldMO.opacity ?? 1;
-                data.unbindAlpha = oldMO.unbindAlpha ?? false;
-                data.unbindVisibility = oldMO.unbindVisibility ?? false;
-                data.zIndex = oldMO.zIndex ?? 1;
+                data.opacity = options.opacity ?? 1;
+                data.unbindAlpha = options.unbindAlpha ?? false;
+                data.unbindVisibility = options.unbindVisibility ?? false;
+                data.zIndex = options.zIndex ?? 1;
                 break;
         }
         return data;
@@ -418,9 +418,9 @@ export async function version05(flags) {
         let { animLevel, animType, animation, audio, color, killAnim, macro, options, override, sourceToken, targetToken } = oldData;
 
         newData.id = uuidv4();
-        newMO.isEnabled = true;
-        newMO.isCustomized = true;
-        newMO.fromAmmo = options?.ammo ?? false;
+        newData.isEnabled = true;
+        newData.isCustomized = true;
+        newData.fromAmmo = options?.ammo ?? false;
         newData.menu = "preset"
         newData.presetType = "dualattach";
 
@@ -441,6 +441,7 @@ export async function version05(flags) {
                 playbackRate: options?.playbackRate,
                 onlyX: options?.onlyX ?? false,
                 elevation: animLevel ? 0 : 1000,
+                opacity: 1,
             },
             sound: {
                 delay: audio?.a01?.delay ?? 0,
@@ -449,8 +450,8 @@ export async function version05(flags) {
                 volume: audio?.a01?.volume ?? 1,
             }
         };
-        if (!newData.data.menuType || !newData.data.animation || !newData.data.variant || !newData.data.color) {
-            resetVideo(newData.data, "range")
+        if (!newData.data.video.menuType || !newData.data.video.animation || !newData.data.video.variant || !newData.data.video.color) {
+            resetVideo(newData.data.video, "range")
         }
         newData.soundOnly = {
             sound: {
@@ -476,9 +477,9 @@ export async function version05(flags) {
             wait02, wait03} = fireballData;
 
         newData.id = uuidv4();
-        newMO.isEnabled = true;
-        newMO.isCustomized = true;
-        newMO.fromAmmo = options?.ammo ?? false;
+        newData.isEnabled = true;
+        newData.isCustomized = true;
+        newData.fromAmmo = options?.ammo ?? false;
         newData.menu = "preset"
         newData.presetType = "proToTemp";
     
@@ -493,10 +494,11 @@ export async function version05(flags) {
             variant: projectileVariant,
             color: projectileColor,
             options: {
-                repeat: projectileRepeat,
-                repeatDelay: projectileDelay,
+                repeat: projectileRepeat ?? 1,
+                repeatDelay: projectileDelay ?? 250,
                 wait: wait01,
-                elevation: animLevel ? 0 : 1000,    
+                elevation: animLevel ? 0 : 1000,
+                removeTemplate: oldData?.options?.removeTemplate ?? false,
             },
             sound: {
                 enable: audio?.a01?.enable ?? false,
@@ -532,7 +534,7 @@ export async function version05(flags) {
         }
         if (!root.preExplosion.menuType || !root.preExplosion.animation || !root.preExplosion.variant || !root.preExplosion.color) {
             root.preExplosion.enable = false;
-            resetVideo(root.explosion01, "static")
+            resetVideo(root.preExplosion, "static")
         } else { root.preExplosion.enable = true }
         root.explosion = {
             dbSection: "static",
@@ -541,11 +543,11 @@ export async function version05(flags) {
             variant: explosion02Variant,
             color: explosion02Color,
             options: {
-                elevation: below ? 0 : 1000,
+                elevation: animLevel ? 0 : 1000,
                 repeat: explosion02Repeat,
                 repeatDelay: explosion02Delay,
                 scale: explosion02Scale,
-                wait: wait03,
+                wait: -500,
             },
             sound: {
                 enable: audio?.e02?.enable ?? false,
@@ -556,7 +558,7 @@ export async function version05(flags) {
             }
         }
         if (!root.explosion.menuType || !root.explosion.animation || !root.explosion.variant || !root.explosion.color) {
-            resetVideo(root.explosion, "range")
+            resetVideo(root.explosion, "static")
         }
         root.afterImage = {
             enable: afterEffect,
@@ -585,16 +587,16 @@ export async function version05(flags) {
         let { animLevel, animType, animation, audio, color, color02, killAnim, macro, options, override } = oldData;
 
         newData.id = uuidv4();
-        newMO.isEnabled = true;
-        newMO.isCustomized = true;
-        newMO.fromAmmo = options?.ammo ?? false;
+        newData.isEnabled = true;
+        newData.isCustomized = true;
+        newData.fromAmmo = options?.ammo ?? false;
         newData.menu = "preset"
         newData.presetType = "teleportation";
 
         newData.macro = macro || {};
 
         root.options = {
-            hideFromPlayers: false,
+            hideFromPlayers: options?.hideFromPlayers ?? false,
             range: options?.teleDist ?? 30,
             measureType: options?.measureType ?? "alternating",
         }
@@ -613,7 +615,11 @@ export async function version05(flags) {
             enableCustom: options.enableCustom ?? false,
             customPath: options.customPath ?? "",
             options: {
+                alpha: 0,
                 elevation: animLevel ? 0 : 1000,
+                isMasked: false,
+                isRadius: false,
+                opacity: 1,
                 size: options?.scale || 1,
             }
         }
@@ -640,6 +646,9 @@ export async function version05(flags) {
                 elevation: animLevel ? 0 : 1000,
                 size: options?.scale02 ?? 1,
                 delay: options?.delay ?? 500,
+                isMasked: false,
+                isRadius: false,
+                opacity: 1,
             }
         }
         if (!root.start.menuType || !root.start.animation || !root.start.variant || !root.start.color) {
@@ -664,9 +673,9 @@ export async function version05(flags) {
         let { animLevel, animType, animation, audio, color, killAnim, macro, options, override } = oldData;
 
         newData.id = uuidv4();
-        newMO.isEnabled = true;
-        newMO.isCustomized = true;
-        newMO.fromAmmo = options?.ammo ?? false;
+        newData.isEnabled = true;
+        newData.isCustomized = true;
+        newData.fromAmmo = options?.ammo ?? false;
         newData.menu = "preset"
         newData.presetType = "thunderwave";
 

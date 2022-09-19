@@ -252,7 +252,7 @@ async function mergeVersion05(data) {
                 data.occlusionAlpha = oldMO.occlusionAlpha ?? 0;
                 data.occlusionMode = oldMO.occlusionMode ?? 0;
                 data.opacity = oldMO.opacity ?? 1;
-                data.persistType = oldMO.persistType ?? 1;
+                data.persistType = oldMO.persistType || "sequencerground";
                 data.persistent = oldMO.persist ?? false;
                 data.removeTemplate = oldMO.removeTemplate ?? 1;
                 data.repeat = oldMO.repeat ?? 1;

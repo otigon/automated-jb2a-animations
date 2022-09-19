@@ -50,31 +50,38 @@
     <Macro {animation} {category} />
 </div>
 <div hidden={soundOnly}>
-    <div class="aa-pickAnim">
-        <div
-            class="flexcol"
-            style="grid-row: 2 / 3;grid-column: 2 / 3;margin-bottom: 1em;"
-        >
-            <label for=""
-                >{localize("autoanimations.menus.animation")}
-                {localize("autoanimations.menus.type")}</label
+    <div hidden={$animation.macro.enable && $animation.macro.playWhen === "2"}>
+        <div class="aa-pickAnim">
+            <div
+                class="flexcol"
+                style="grid-row: 2 / 3;grid-column: 2 / 3;margin-bottom: 1em;"
             >
-            <select
-                bind:value={$animation.activeEffectType}
-                on:change={() => changeAE()}
-                style="background-color: rgba(21, 154, 169, 0.4);width: 12em;"
-            >
-                <option value="">Select Type</option>
-                <option value="ontoken"
-                    >{localize("autoanimations.animTypes.ontoken")}</option
+                <label for=""
+                    >{localize("autoanimations.menus.animation")}
+                    {localize("autoanimations.menus.type")}</label
                 >
-                <option value="aura"
-                    >{localize("autoanimations.animTypes.aura")}</option
+                <select
+                    bind:value={$animation.activeEffectType}
+                    on:change={() => changeAE()}
+                    style="background-color: rgba(21, 154, 169, 0.4);width: 12em;"
                 >
-            </select>
+                    <option value="">Select Type</option>
+                    <option value="ontoken"
+                        >{localize("autoanimations.animTypes.ontoken")}</option
+                    >
+                    <option value="aura"
+                        >{localize("autoanimations.animTypes.aura")}</option
+                    >
+                </select>
+            </div>
         </div>
+        <svelte:component
+            this={activeEffectRoute}
+            {animation}
+            {category}
+            {idx}
+        />
     </div>
-    <svelte:component this={activeEffectRoute} {animation} {category} {idx} />
 </div>
 
 <style lang="scss">

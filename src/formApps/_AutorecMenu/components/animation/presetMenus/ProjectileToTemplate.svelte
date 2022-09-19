@@ -89,7 +89,7 @@
                         <div>
                             <input
                                 type="number"
-                                bind:value={$animation.data.projectile.options.delay}
+                                bind:value={$animation.data.projectile.options.repeatDelay}
                                 placeholder="1"
                                 step="1"
                             />
@@ -199,7 +199,7 @@
                             <div>
                                 <input
                                     type="number"
-                                    bind:value={$animation.data.preExplosion.options.delay}
+                                    bind:value={$animation.data.preExplosion.options.repeatDelay}
                                     placeholder="1"
                                     step="1"
                                 />
@@ -307,7 +307,7 @@
                         <div>
                             <input
                                 type="number"
-                                bind:value={$animation.data.explosion.options.delay}
+                                bind:value={$animation.data.explosion.options.repeatDelay}
                                 placeholder="1"
                                 step="1"
                             />
