@@ -1,3 +1,5 @@
+import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+
 export async function version05(flags) {
 
     if (!flags) { 
@@ -5,7 +7,7 @@ export async function version05(flags) {
         await item.update({ 'flags.-=autoanimations': null })
         return;
     }
-    const v4Flags = item.data?.flags?.autoanimations || {};
+    const v4Flags = flags || {};
     //const v5Flags = {};
 
     if (v4Flags.killAnim && !v4Flags.macro?.enable && !v4Flags.audio?.a01?.enable) {
@@ -16,6 +18,7 @@ export async function version05(flags) {
             fromAmmo: false,
             version: 5,
         }
+        console.warn("Item is Disabled, and no Macro or Sound is set to play")
         return v5Flags;
         //await item.update({ 'flags.-=autoanimations': null })
         //await item.update({ 'flags.autoanimations': v5Flags })
@@ -32,23 +35,27 @@ export async function version05(flags) {
             fromAmmo: false,
             version: 5,
         }
+        console.warn("Item is Disabled and either a Macro or Sound is set to play.")
         return v5Flags;
         //await item.update({ 'flags.-=autoanimations': null })
         //await item.update({ 'flags.autoanimations': v5Flags })
         return;
     } else if (!v4Flags.killAnim && !v4Flags.override) {
         // Item is enabled but not customized, delete flags
+        console.warn("Item is enabled but not customized, delete flags")
         return void 0;
         //await item.update({ 'flags.-=autoanimations': null })
         //await item.update({ 'flags.autoanimations': v5Flags })
         return;
     } else if (v4Flags.override && (!v4Flags.options?.enableCustom) && (!v4Flags.animType || !v4Flags.options?.menuType || !v4Flags.animation || !v4Flags.options?.variant || !v4Flags.color)) {
         // Item is customized but has critical errors in the Animation settings. Delete flags
+        console.warn("Item is customized but has critical errors in the Animation settings. Delete flags")
         return void 0;
         //await item.update({ 'flags.-=autoanimations': null })
         //return;
     } else if (v4Flags.autoOverride?.enable) {
         // Item was set to old Auto-Override, delete flags
+        console.warn("Item was set to old Auto-Override, delete flags")
         return void 0;
         //await item.update({ 'flags.-=autoanimations': null })
         //return;        
@@ -135,6 +142,10 @@ export async function version05(flags) {
         return newMO;
     }
 
+    function setDBSection(type) {
+        return type === "aura" || type === "ontoken" ? "static" : type;  
+    }
+
     function convertExtraFX(extraFX, audio, section) {
         const oldData = extraFX || {};
         const sound = audio || {};
@@ -176,6 +187,7 @@ export async function version05(flags) {
         if (!video.menuType || !video.animation || !video.variant || !video.color) {
             resetVideo(data.video, "static")
         }
+        return data;
     }
 
     function compileMeleeSwitch(oldMO) {

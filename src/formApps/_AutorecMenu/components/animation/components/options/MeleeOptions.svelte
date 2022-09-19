@@ -92,7 +92,7 @@
                         {animation}
                         label={localize("autoanimations.menus.scale")}
                         section="primary"
-                        field="scale"
+                        field="size"
                         step="0.01"
                     />
                 </td>

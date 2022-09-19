@@ -75,7 +75,7 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
     });
     const aaBtnNew = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-pizza-slice"></i>A-A</a>`);
     aaBtnNew.click(async ev => {
-        //await flagMigrations.handle(app.document);
+        await flagMigrations.handle(app.document);
         // if this is a PF1 "Buff" effect or PF2e Ruleset Item (Active Effects) spawn the Active Effect menu. Otherwise continue as normal
         if ((game.system.id === 'pf1' && app.item?.type === 'buff') || (game.system.id === 'pf2e' && pf2eRuleTypes.includes(app.item?.type))) {
             new AAActiveEffectMenu(app.document, {}).render(true);
