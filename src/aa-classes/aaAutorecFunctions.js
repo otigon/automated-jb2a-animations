@@ -29,7 +29,19 @@ export class AAAutorecFunctions {
     }
 
     static singleMenuSearch(menu, name) {
+        if (!name) { 
+            console.warn("Automated Animations | No Name was provided for the Global Menu search")
+            return;
+        }
         return menu.find(x => name.includes(this.rinseName(x.label))) || false;
+    }
+
+    static singleMenuStrictSearch(menu, name) {
+        if (!name) { 
+            console.warn("Automated Animations | No Name was provided for the Global Menu search")
+            return;
+        }
+        return menu.find(x => name === this.rinseName(x.label)) || false;
     }
 
     static allMenuSearch(menus, name) {

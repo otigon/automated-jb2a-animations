@@ -18,6 +18,8 @@
         },
         label: game.i18n.localize("autoanimations.menus.options"),
     };
+
+    $: isCustom = $animation.data.video.enableCustom;
 </script>
 
 <div class="aa-section-border">
@@ -35,7 +37,9 @@
                     <td>
                         <div>
                             <label for=""
-                                >{localize("autoanimations.menus.elevation")}</label
+                                >{localize(
+                                    "autoanimations.menus.elevation"
+                                )}</label
                             >
                         </div>
                         <div>
@@ -61,17 +65,35 @@
                         <div>
                             <input
                                 type="number"
-                                bind:value={$animation.data.options.playbackRate}
+                                bind:value={$animation.data.options
+                                    .playbackRate}
                                 placeholder="1"
                                 step=".01"
                             />
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <td />
+                    <td>
+                        <!--Set Only X Scaling-->
+                        <div class="form-group {!isCustom ? "aa-disableOpacity" : ""}">
+                            <label for="Remove {animation._data.id}"
+                                >{localize("autoanimations.menus.only")} X
+                            </label>
+                            <input
+                                type="checkbox"
+                                id="Remove {animation._data.id}"
+                                bind:checked={$animation.data.options.onlyX}
+                            />
+                        </div>
+                    </td>
+                    <td />
+                </tr>
             </table>
         </TJSSvgFolder>
     </div>
-    <SoundSettings {animation} {category} {idx} section="data"/>
+    <SoundSettings {animation} {category} {idx} section="data" />
 </div>
 
 <style lang="scss">

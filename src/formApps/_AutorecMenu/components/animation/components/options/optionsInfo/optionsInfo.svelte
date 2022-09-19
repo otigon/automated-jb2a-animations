@@ -12,22 +12,22 @@
             section: "melee"
         },
         {
-            label: 'autoanimations.animTypes.ranged',
+            label: 'autoanimations.animTypes.range',
             icon: 'fas fa-people-arrows',
             section: 'range'
         },
         {
-            label: 'autoanimations.animTypes.onToken',
+            label: 'autoanimations.animTypes.ontoken',
             icon: 'fas fa-child',
             section: 'ontoken'
         },
         {
-            label: 'autoanimations.animTypes.templates',
+            label: 'autoanimations.animTypes.templatefx',
             icon: 'fas fa-shapes',
             section: 'templatefx'
         },
         {
-            label: 'autoanimations.animTypes.typeAuras',
+            label: 'autoanimations.animTypes.aura',
             icon: 'fab fa-creative-commons-by',
             section: 'aura'
         },

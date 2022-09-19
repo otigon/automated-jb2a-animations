@@ -2,7 +2,7 @@ import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 
 import { endTiming } from "../constants/timings.js";
 import { AASystemData } from "./getdata-by-system.js";
-import { flagMigrations } from "./flagMerge.js";
+import { flagMigrations } from "./itemFlagMerge/itemFlagMerge.js";
 //import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import { AAAutorecFunctions } from "../aa-classes/AAAutorecFunctions.js";
 
@@ -14,7 +14,8 @@ export default class systemData {
         if (!data.item) { /*this._log("Retrieval Failed")*/; return {}; }
         //this._log("Data Retrieved", data)
 
-        const flags = await flagMigrations.handle(data.item);
+        // TO-DO - Update the Item Merge script
+        const flags = data.item.flags.autoanimations//await flagMigrations.handle(data.item);
 
         return new systemData(data, flags, msg);
     }
@@ -30,7 +31,7 @@ export default class systemData {
         this.systemId = game.system.id;
         this.workflow = msg || "";
         this.flags = flagData ?? {};
-        this.animation = this.flags.animation || "";
+        //this.animation = this.flags.animation || "";
 
         this.reachCheck = data.reach || 0;
         this.item = data.item;
@@ -79,16 +80,15 @@ export default class systemData {
         this._userAD = midiActive ? midiSettings?.autoRollDamage : "";
 
 
-        this.isDisabled = this.flags.killAnim || false;
-        this.isCustomized = this.flags.override || false;
+        //this.isDisabled = this.flags.killAnim || false;
+        this.isEnabled = this.flags.isEnabled ?? true;
+        //this.isCustomized = this.flags.override || false;
+        this.isCustomized = this.flags.isCustomized || false;
 
         //changed from flags.animType to match Autorec menu
         this.menu = this.flags.menu || "";
 
-        this.bards = this.flags.bards ?? {};
-
-        this.autorecOverrides = this.flags.autoOverride ?? {};
-
+        /*
         this.animNameFinal;
         switch (true) {
             case ((!this.flags.override) || ((this.flags.override) && (this.animation === ``))):
@@ -98,7 +98,7 @@ export default class systemData {
                 this.animNameFinal = this.animation;
                 break;
         }
-
+        */
         this.animEnd = endTiming(this.animNameFinal);
 
         //this.autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
@@ -164,7 +164,7 @@ export default class systemData {
             this.isThunderwave5e = (this.animType === 'preset' && this.isCustomized && this.flags.preset?.presetType === 'thunderwave'); 
         }
         */
-        this.decoupleSound = game.settings.get("autoanimations", "decoupleSound");
+        //this.decoupleSound = game.settings.get("autoanimations", "decoupleSound");
     }
 
     get shouldPlayImmediately () {

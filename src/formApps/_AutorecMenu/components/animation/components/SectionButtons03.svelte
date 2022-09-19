@@ -6,7 +6,7 @@
 </script>
 
 <div class="aa-autorec-headerButton">
-    <div style="grid-row:1/2; grid-column:1/2">
+    <div style="grid-row:1/2; grid-column:2/3" class="sectionButton">
         <label
             for=""
             on:click={() =>
@@ -22,7 +22,7 @@
             /></label
         >
     </div>
-    <div style="grid-row:1/2; grid-column:2/3">
+    <div style="grid-row:1/2; grid-column:3/4" class="sectionButton">
         <label
             for=""
             on:click={() =>
@@ -42,13 +42,9 @@
     .aa-autorec-headerButton label {
         font-size: small;
     }
-    .aa-autorec-headerButton {
-        display: grid;
-        grid-template-columns: 50% 50%;
-        grid-template-rows: 30px;
-        padding: 5px;
-        text-align: center;
-        align-items: center;
-        color: black;
+    .sectionButton {
+        background: rgba(0, 0, 0, 0.17);
+        padding: .2em;
+        border-radius: 1em;
     }
 </style>

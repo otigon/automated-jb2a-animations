@@ -81,7 +81,7 @@
                         <div>
                             <input
                                 type="number"
-                                bind:value={$animation.data.options.delay}
+                                bind:value={$animation.data.options.repeatDelay}
                                 placeholder="1"
                                 step="1"
                             />
@@ -95,19 +95,50 @@
                     <td>
                         <div>
                             <label for=""
-                                >{localize("autoanimations.menus.scale")}</label
+                                >{localize("autoanimations.menus.scale")} X</label
                             >
                         </div>
                         <div>
                             <input
                                 type="number"
-                                bind:value={$animation.data.options.scale}
+                                bind:value={$animation.data.options.scaleX}
                                 placeholder="1"
                                 step=".01"
                             />
                         </div>
                     </td>
-
+                    <td>
+                        <div>
+                            <label for=""
+                                >{localize("autoanimations.menus.scale")} Y</label
+                            >
+                        </div>
+                        <div>
+                            <input
+                                type="number"
+                                bind:value={$animation.data.options.scaleY}
+                                placeholder="1"
+                                step=".01"
+                            />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <!--Set Only X Scaling-->
+                        <div class="form-group">
+                            <label for="Remove {animation._data.id}"
+                                >{localize("autoanimations.menus.remove")} X
+                            </label>
+                            <input
+                                type="checkbox"
+                                id="Remove {animation._data.id}"
+                                bind:checked={$animation.data.options.removeTemplate}
+                            />
+                        </div>
+                    </td>
+                    <td></td>
                 </tr>
             </table>
         </TJSSvgFolder>

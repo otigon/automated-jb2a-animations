@@ -44,6 +44,7 @@ async function mergeVersion05(data) {
                 delay: exp?.delay ?? 250,
                 isMasked: exp?.isMasked ?? false,
                 isRadius: true,
+                isWait: false,
                 opacity: exp?.opacity ?? 1,
                 size: exp?.radius ?? 1.5,
                 repeat: oldMO.repeat ?? 1,
@@ -73,7 +74,7 @@ async function mergeVersion05(data) {
             data.video.animation = "curewounds";
             data.video.variant = "01";
             data.video.color = "blue";
-0        }
+        }
 
         return data;
     }
@@ -117,9 +118,7 @@ async function mergeVersion05(data) {
             },
         }
 
-        if (type !== "templatefx") {
-            newMO.secondary = await convertExplosionV6(explosion, audio, oldMO)
-        }
+        newMO.secondary = await convertExplosionV6(explosion, audio, oldMO)
 
         const primaryVideo = newMO.primary.video;
         if (!primaryVideo.menuType || !primaryVideo.animation || !primaryVideo.variant || !primaryVideo.color) {
@@ -253,7 +252,7 @@ async function mergeVersion05(data) {
                 data.occlusionAlpha = oldMO.occlusionAlpha ?? 0;
                 data.occlusionMode = oldMO.occlusionMode ?? 0;
                 data.opacity = oldMO.opacity ?? 1;
-                data.persistType = oldMO.persistType ?? 1;
+                data.persistType = oldMO.persistType || "sequencerground";
                 data.persistent = oldMO.persist ?? false;
                 data.removeTemplate = oldMO.removeTemplate ?? 1;
                 data.repeat = oldMO.repeat ?? 1;
@@ -266,7 +265,7 @@ async function mergeVersion05(data) {
                 data.isWait = false;
                 data.delay = 0;
                 data.addTokenWidth = oldMO.addTokenWidth ?? false;
-                data.radius = oldMO.scale ?? false;
+                data.radius = oldMO.scale ?? 3;
                 data.elevation = oldMO.below ? 0 : 1000;
                 data.ignoreTarget = oldMO.ignoretargets ?? false;
                 data.isMasked = oldMO.isMasked ?? false;
@@ -726,11 +725,11 @@ async function mergeVersion05(data) {
             ex01Type, explosion01, explosion01Variant, explosion01Color, explosion01Repeat, explosion01Delay, explosion01Scale, wait02,
             ex02Type, explosion02, explosion02Variant, explosion02Color, explosion02Repeat, explosion02Delay, explosion02Scale,
             afterEffect, afterEffectPath, wait03, soundOnly } = oldData;
-        root.audio = audio || {};
+        //root.audio = audio || {};
         newData.macro = macro || {};
         newData.presetType = "proToTemp";
         newData.label = name;
-        root.removeTemplate = removeTemplate;
+        //root.removeTemplate = removeTemplate;
         root.projectile = {
             dbSection: "range",
             menuType: rangeType,
@@ -739,9 +738,10 @@ async function mergeVersion05(data) {
             color: projectileColor,
             options: {
                 repeat: projectileRepeat,
-                delay: projectileDelay,
+                repeatDelay: projectileDelay,
                 wait: wait01,
-                elevation: below ? 0 : 1000,    
+                elevation: below ? 0 : 1000,
+                removeTemplate: removeTemplate,
             },
             sound: {
                 enable: audio?.a01?.enable ?? false,
@@ -762,7 +762,7 @@ async function mergeVersion05(data) {
             color: explosion01Color,
             options: {
                 repeat: explosion01Repeat,
-                delay: explosion01Delay,
+                repeatDelay: explosion01Delay,
                 scale: explosion01Scale,
                 wait: wait02,
                 elevation: below ? 0 : 1000,
@@ -786,8 +786,9 @@ async function mergeVersion05(data) {
             variant: explosion02Variant,
             color: explosion02Color,
             options: {
+                elevation: below ? 0 : 1000,
                 repeat: explosion02Repeat,
-                delay: explosion02Delay,
+                repeatDelay: explosion02Delay,
                 scale: explosion02Scale,
                 wait: wait03,
             },
@@ -809,7 +810,6 @@ async function mergeVersion05(data) {
                 elevation: 0,
                 persistent: false,
                 scale: 1,
-                wait: wait03,
             }
         }
         newData.soundOnly = {

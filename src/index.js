@@ -16,9 +16,11 @@ import AAActiveEffectMenu from "./formApps/ActiveEffects/activeEffectMenu.js";
 import AAAutorecMenu from "./formApps/AutorecMenu/aaAutorecMenu.js";
 
 import AAItemMenu from "./formApps/ItemMenu/itemMenu.js";
+import ItemMenuApp from "./formApps/_ItemMenu/ItemMenuApp.js";
+
 
 import { setupSocket } from "./socketset.js";
-import { flagMigrations } from "./system-handlers/flagMerge.js";
+import { flagMigrations } from "./system-handlers/itemFlagMerge/itemFlagMerge.js";
 import { autoRecMigration } from "./custom-recognition/autoRecMerge.js";
 
 import * as systemSupport from "./system-support/index.js"
@@ -34,8 +36,6 @@ import { showMainMenu } from "./formApps/AutorecMenu/showMainUI.js";
 import "../styles/newMenuCss.scss";
 
 import { aaDeletedItems } from "./DeletedItems.js";
-
-const log = () => { };
 
 Hooks.once('socketlib.ready', function () {
     setupSocket();
@@ -69,12 +69,16 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
             new AAActiveEffectMenu(app.document, {}).render(true);
         } else {
             //new AAItemSettings(app.document, {}).render(true);
-            new AAItemMenu(app.document, {}).render(true);
+            new ItemMenuApp(app.document, {}).render(true, { focus: true });
+            //new AAItemMenu(app.document, {}).render(true);
+            //new ItemMenuApp(app.document, {}).render(true, { focus: true });
         }
     });
+
     html.closest('.app').find('.aa-item-settings').remove();
     let titleElement = html.closest('.app').find('.window-title');
     aaBtn.insertAfter(titleElement);
+
 });
 
 Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {

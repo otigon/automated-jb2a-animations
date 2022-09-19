@@ -6,26 +6,29 @@
     export let animation;
     export let category;
     export let idx;
+    export let type = "autorec";
 
     $: currentIDX = category.stores.videoIDX;
 
     async function seePreview() {
-        currentIDX.set(idx);
+        if (type === "item") {
+            currentIDX.set("item");
+        } else {
+            currentIDX.set(idx);
+        }
         currentStore.set(category);
-        //currentCategory.set(category)
         category.loadPreviews(category);
-        //new VideoPreview({ animation }).render(true);
     }
 </script>
 
-<div class="aa-autorec-headerButton">
-    <div style="grid-row:1/2; grid-column:1/2">
+<div class="aa-autorec-headerButton02">
+    <div style="grid-row:1/2; grid-column:1/2" class="sectionButton">
         <label for="" on:click={() => seePreview()}
             >{localize("autoanimations.menus.preview")}
             <i class="fas fa-film fa-lg aa-zoom" /></label
         >
     </div>
-    <div style="grid-row:1/2; grid-column:2/3">
+    <div style="grid-row:1/2; grid-column:2/3" class="sectionButton">
         <label
             for=""
             on:click={() =>
@@ -41,7 +44,7 @@
             /></label
         >
     </div>
-    <div style="grid-row:1/2; grid-column:3/4">
+    <div style="grid-row:1/2; grid-column:3/4" class="sectionButton">
         <label
             for=""
             on:click={() =>
@@ -58,16 +61,24 @@
 </div>
 
 <style lang="scss">
-    .aa-autorec-headerButton label {
+    .aa-autorec-headerButton02 label {
         font-size: small;
     }
-    .aa-autorec-headerButton {
+    .aa-autorec-headerButton02 {
         display: grid;
-        grid-template-columns: 33% 33% 33%;
+        grid-template-columns: 33.33% 33.33% 33.33%;
+        margin-right: 6%;
+        margin-left: 3%;
+        grid-gap: 2%;
         grid-template-rows: 30px;
         padding: 5px;
         text-align: center;
         align-items: center;
         color: black;
+    }
+    .sectionButton {
+        background: rgba(0, 0, 0, 0.17);
+        padding: .2em;
+        border-radius: 1em;
     }
 </style>

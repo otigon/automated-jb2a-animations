@@ -131,7 +131,7 @@ export function initSettings(gameSettings) {
          default: false,
       }
    });
-
+   /*
    settings.push({
       namespace,
       key: 'decoupleSound',
@@ -144,7 +144,7 @@ export function initSettings(gameSettings) {
          default: false,
       }
    });
-
+   */
    settings.push({
       namespace,
       key: 'rangeSwitch',
