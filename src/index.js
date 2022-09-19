@@ -20,7 +20,7 @@ import ItemMenuApp from "./formApps/_ItemMenu/ItemMenuApp.js";
 
 
 import { setupSocket } from "./socketset.js";
-import { flagMigrations } from "./system-handlers/flagMerge.js";
+import { flagMigrations } from "./system-handlers/itemFlagMerge/itemFlagMerge.js";
 import { autoRecMigration } from "./custom-recognition/autoRecMerge.js";
 
 import * as systemSupport from "./system-support/index.js"

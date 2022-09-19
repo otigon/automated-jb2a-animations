@@ -5,11 +5,10 @@
 
     import { getContext}        from "svelte";
     import { AnimationStore } from "../store/animation/AnimationStore.js"
-
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
-
     import CategoryControl       from "./category/CategoryControl.svelte";
 
+    import { flagMigrations } from "../../../system-handlers/itemFlagMerge/itemFlagMerge.js"
     //import { constants}         from "../../../constants.js";
 
     export let elementRoot;
@@ -34,8 +33,10 @@
     if (!newFlagData.hasOwnProperty('menu')) {
         newFlagData.menu = "";
     }
+    if (!newFlagData.hasOwnProperty('version')) {
+        newFlagData.version = Object.keys(flagMigrations.migrations).map((n) => Number(n)).reverse()[0]
+    }
     newFlagData.label = item.name;
-
     const flagData = {
         fromAmmo: aaFlags.fromAmmo ?? false,
         isEnabled: aaFlags.isEnabled ?? true,
