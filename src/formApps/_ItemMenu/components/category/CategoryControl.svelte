@@ -11,19 +11,19 @@
 
 
   import CategoryList from "./CategoryList.svelte";
-  import Slider from "../animation/components/Slider.svelte";
+  import Slider from "../../../Menus/Components/options/inputComponents/Slider.svelte";
 
   import { AAAutorecFunctions } from "../../../../aa-classes/AAAutorecFunctions";
-  import { copyToFrom } from "../animation/components/copyToFrom";
+  import { copyToFrom } from "../../../Menus/Components/copyitem/copyToFrom";
 
   import NoneChosen from "./menus/NoneChosen.svelte";
-  import * as changeMenu from "./menus/change-menu";
+  import * as changeSection from "../../../_AutorecMenu/store/default-data/newSection"
 
   async function switchVideo() {
     let newMenu = $animation.menu;
     if (!newMenu) { return; }
 
-    let newData = changeMenu[newMenu]($animation);
+    let newData = changeSection[newMenu]($animation);
     if (!newMenu) { 
         delete $animation.data;
         $animation.primary = {};
@@ -38,6 +38,7 @@
         delete $animation.primary;
         delete $animation.levels3d;
         delete $animation.meleeSwitch;
+        delete $animation.secondary;
         delete $animation.primary;
         delete $animation.source;
         delete $animation.target;

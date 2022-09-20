@@ -1,24 +1,5 @@
 import * as common from "./common";
 
-function meleeSwitch() {
-   return {
-      video: {
-         dbSection: "range",
-         menuType: "weapon",
-         animation: "arrow",
-         variant: "regular",
-         color: "regular",
-      },
-      sound: common.sound(),
-      options: {
-         detect: "automatic",
-         range: 2,
-         returning: false,
-         switchType: "on",
-      }
-   }
-}
-
 export const melee = [
    {
       ...common.main({ label: "dagger" }),
@@ -39,7 +20,7 @@ export const melee = [
       secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: meleeSwitch(),
+      meleeSwitch: common.meleeSwitch(),
       source: common.source(),
       target: common.target(),
    },
@@ -63,7 +44,7 @@ export const melee = [
       secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: meleeSwitch(),
+      meleeSwitch: common.meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
@@ -87,7 +68,7 @@ export const melee = [
       secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: meleeSwitch(),
+      meleeSwitch: common.meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
@@ -111,7 +92,7 @@ export const melee = [
       secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: meleeSwitch(),
+      meleeSwitch: common.meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
@@ -135,7 +116,7 @@ export const melee = [
       secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: meleeSwitch(),
+      meleeSwitch: common.meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
@@ -159,7 +140,7 @@ export const melee = [
       secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: meleeSwitch(),
+      meleeSwitch: common.meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
@@ -183,7 +164,7 @@ export const melee = [
       secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: meleeSwitch(),
+      meleeSwitch: common.meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
@@ -207,7 +188,7 @@ export const melee = [
       secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: meleeSwitch(),
+      meleeSwitch: common.meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
@@ -231,7 +212,7 @@ export const melee = [
       secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: meleeSwitch(),
+      meleeSwitch: common.meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
@@ -255,7 +236,7 @@ export const melee = [
       secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: meleeSwitch(),
+      meleeSwitch: common.meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
@@ -279,7 +260,7 @@ export const melee = [
       secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: meleeSwitch(),
+      meleeSwitch: common.meleeSwitch(),
       source: common.source(),
       target: common.target()
    },
@@ -303,7 +284,7 @@ export const melee = [
       secondary: common.secondary(),
       levels3d: common.levels3d(),
       macro: common.macro(),
-      meleeSwitch: meleeSwitch(),
+      meleeSwitch: common.meleeSwitch(),
       source: common.source(),
       target: common.target()
    }

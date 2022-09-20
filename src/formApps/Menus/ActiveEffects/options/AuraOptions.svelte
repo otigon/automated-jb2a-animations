@@ -46,7 +46,7 @@
                     <!--Set Visibility Binding-->
                     <div class="form-group">
                         <label for="Vis {animation._data.id}"
-                            >{localize("autoanimations.menus.visibility")}
+                            >{localize("autoanimations.menus.bind") + " " + localize("autoanimations.menus.visibility")}
                         </label>
                         <input
                             type="checkbox"
@@ -59,7 +59,7 @@
                     <!--Set Alpha Binding-->
                     <div class="form-group">
                         <label for="Alpha {animation._data.id}"
-                            >{localize("autoanimations.menus.alpha")}
+                            >{localize("autoanimations.menus.bind") + " " + localize("autoanimations.menus.alpha")}
                         </label>
                         <input
                             type="checkbox"
@@ -84,6 +84,7 @@
                     </div>
                 </td>
                 <td>
+                    <strong>{localize("autoanimations.menus.ignoreTargets")}</strong>
                 </td>
                 <td>
                     <!--Set Z-Index-->

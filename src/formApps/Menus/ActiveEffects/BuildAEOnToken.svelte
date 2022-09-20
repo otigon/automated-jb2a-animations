@@ -8,7 +8,7 @@
     import Macro from "../components/Macro.svelte";
 
     export let animation;
-    export let idx;
+    export let idx = 0;
     export let category;
 
     let title =

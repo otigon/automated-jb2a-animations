@@ -141,11 +141,26 @@
                     </div>
                 </td>
                 <td>
+                    <!--Set Animation Opacity-->
+                    <Opacity {animation} />
+                </td>
+                <td>
+                    <!--Set Z-Index of Animation-->
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.z-index")}
+                        section={"data"}
+                        field={"zIndex"}
+                    />
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
                     <ScaleRadius
                         {animation}
                         section={"data"}
-                        field={"scale"}
+                        field={"size"}
                         step="0.01"
                     />
                 </td>
@@ -164,23 +179,38 @@
                         />
                     </div>
                 </td>
+                <td>
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.fadeIn")}
+                    section="data"
+                    field="fadeIn"
+                    placeholder=250
+                    step="0.01"
+                    />
+                </td>
             </tr>
             <tr>
                 <td>
-                    <!--Set Animation Opacity-->
-                    <Opacity {animation} />
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.fadeOut")}
+                    section="data"
+                    field="fadeOut"
+                    placeholder=500
+                    step="0.01"
+                    />
                 </td>
                 <td>
                     <WaitDelay {animation} section="data"/>
                 </td>
                 <td>
-                    <!--Set Z-Index of Animation-->
-                    <NumberInput
-                        {animation}
-                        label={localize("autoanimations.menus.z-index")}
-                        section={"data"}
-                        field={"zIndex"}
-                    />
+                    <div>
+                        <label for=""><strong>{localize("autoanimations.menus.playOn")}</strong></label>
+                    </div>
+                    <div>
+                        <label for="">{localize("autoanimations.menus.source")}</label>
+                    </div>
                 </td>
             </tr>
         </table>

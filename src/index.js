@@ -15,13 +15,14 @@ import { deleteEffectsSfrpg } from "./active-effects/sfrpg/aeSfrpg.js"
 import AAActiveEffectMenu from "./formApps/ActiveEffects/activeEffectMenu.js";
 import AAAutorecMenu from "./formApps/AutorecMenu/aaAutorecMenu.js";
 
-import AAItemMenu from "./formApps/ItemMenu/itemMenu.js";
+//import AAItemMenu from "./formApps/ItemMenu/itemMenu.js";
+import AEMenuApp from "./formApps/_ActiveEffects/AEMenuApp.js";
 import ItemMenuApp from "./formApps/_ItemMenu/ItemMenuApp.js";
 
 
 import { setupSocket } from "./socketset.js";
-import { flagMigrations } from "./system-handlers/itemFlagMerge/itemFlagMerge.js";
-import { autoRecMigration } from "./custom-recognition/autoRecMerge.js";
+import { flagMigrations } from "./mergeScripts/items/itemFlagMerge.js";
+import { autoRecMigration } from "./mergeScripts/autorec/autoRecMerge.js";
 
 import * as systemSupport from "./system-support/index.js"
 
@@ -87,8 +88,9 @@ Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
     }
     const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
     aaBtn.click(async ev => {
-        await flagMigrations.handle(app.document);
-        new AAActiveEffectMenu(app.document, {}).render(true);
+        //await flagMigrations.handle(app.document);
+        new AEMenuApp(app.document, {}).render(true, { focus: true });
+        //new AAActiveEffectMenu(app.document, {}).render(true);
     });
     html.closest('.app').find('.aa-item-settings').remove();
     let titleElement = html.closest('.app').find('.window-title');
@@ -194,7 +196,7 @@ Hooks.once('ready', async function () {
         Hooks.on("deleteItem", async (item) => {storeDeletedItems(item)})
         switch (game.system.id) {
             case "dnd5e":
-                Hooks.on("dnd5e.displayCard", async (item, chat, options) => {systemSupport.aaDnd5e.useItem({item, chat, options})});
+                Hooks.on("dnd5e.displayCard", async (item, chat, card) => {systemSupport.aaDnd5e.useItem({item, chat, card})});
                 Hooks.on("dnd5e.rollAttack", async (item, roll) => {systemSupport.aaDnd5e.rollAttack({item, roll})})
                 Hooks.on("dnd5e.rollDamage", async (item, roll) => {systemSupport.aaDnd5e.rollDamage({item, roll})})
                 Hooks.on("createMeasuredTemplate", async (template, data, userId) => {systemSupport.aaDnd5e.templateItem({template, data, userId})})

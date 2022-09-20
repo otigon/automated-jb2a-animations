@@ -1,4 +1,4 @@
-import { autoRecMigration } from "../custom-recognition/autoRecMerge";
+//import { autoRecMigration } from "../mergeScripts/autorec/autoRecMerge.js";
 
 export class AAAutorecFunctions {
 

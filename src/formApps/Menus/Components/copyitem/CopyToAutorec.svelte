@@ -1,7 +1,7 @@
 <script>
     import { getContext}        from "svelte";
 
-    import { AAAutorecFunctions } from "../../../../../aa-classes/AAAutorecFunctions";
+    import { AAAutorecFunctions } from "../../../../aa-classes/aaAutorecFunctions.js";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
     export let animation;

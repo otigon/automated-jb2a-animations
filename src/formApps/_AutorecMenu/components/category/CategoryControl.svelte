@@ -14,8 +14,8 @@
     import ButtonOpenCloseAll       from "./ButtonOpenCloseAll.svelte";
     import { createOverflowItems }  from "./createOverflowItems.js";
 
-    import * as addDefaultData from "./addSections.js"
-
+    //import * as addDefaultData from "./addSections.js"
+    import * as newSection from "../../store/default-data/newSection"
     /** @type {CategoryStore} */
     export let category;
 
@@ -52,8 +52,9 @@
     $: menuTab = category.key.split("-")[1];
 
     function addEntry() {
-      let newData = structuredClone(addDefaultData[menuTab]);
-      newData.id = uuidv4();
+      console.log(menuTab)
+      let newData = newSection[menuTab]()//structuredClone(addDefaultData[menuTab]);
+      //newData.id = uuidv4();
       category.createEntry(newData)
     }
 </script>

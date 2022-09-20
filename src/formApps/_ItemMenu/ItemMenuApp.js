@@ -3,7 +3,7 @@ import { SvelteApplication }    from "@typhonjs-fvtt/runtime/svelte/application"
 import { ItemAppShell } from "./components";
 import { showAutorecMenu } from "../_AutorecMenu/showUI";
 
-import ItemInfoDialog from "./components/animation/components/itemInfoDialog.js"
+import ItemInfoDialog from "./components/animation/itemInfoDialog.js"
 import { constants }            from "../../constants.js";
 
 export default class ItemMenuApp extends SvelteApplication {

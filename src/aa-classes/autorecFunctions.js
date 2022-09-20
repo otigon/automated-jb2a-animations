@@ -3,7 +3,7 @@ import { JB2APATREONDB } from "../animation-functions/databases/jb2a-patreon-dat
 import {
     autorecData,
 } from "../formApps/AutorecMenu/autorecPreviews.js";
-import { autoRecMigration } from "../custom-recognition/autoRecMerge.js"
+import { autoRecMigration } from "../mergeScripts/autorec/autoRecMerge.js"
 
 export class AutorecFunctions {
 

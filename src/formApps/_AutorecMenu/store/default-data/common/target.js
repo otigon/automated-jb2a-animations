@@ -15,9 +15,11 @@ export function target() {
          addTokenWidth: false,
          delay: 0,
          elevation: 1000,
+         fadeIn: 250,
+         fadeOut: 500,
          isMasked: false,
+         isWait: false,
          isRadius: false,
-         //isWait: false,
          opacity: 1,
          persistent: false,
          repeat: 1,
@@ -25,7 +27,7 @@ export function target() {
          size: 1,
          unbindAlpha: false,
          unbindVisibility: false,
-         zIndex: 1
+         zIndex: 1,
       }
    };
 }

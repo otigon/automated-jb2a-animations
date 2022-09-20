@@ -31,6 +31,7 @@
             "--tjs-icon-button-diameter": "1.em",
             position: "relative",
             left: "10px",
+            bottom: "-2px",
             color: "rgba(50, 79, 245, 0.5)"
         }
     }

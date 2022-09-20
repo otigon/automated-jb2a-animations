@@ -8,7 +8,7 @@ import Macro from "../components/Macro.svelte";
 import SoundOnly from "../components/SoundOnly.svelte";
 
 export let animation;
-export let idx;
+export let idx = 0;
 export let category;
 
 let title = game.i18n.localize("autoanimations.menus.primary") + " " + game.i18n.localize("autoanimations.menus.animation")

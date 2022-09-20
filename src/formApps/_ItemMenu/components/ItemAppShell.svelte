@@ -4,11 +4,11 @@
     import * as common from "../../_AutorecMenu/store/default-data/common"
 
     import { getContext}        from "svelte";
-    import { AnimationStore } from "../store/animation/AnimationStore.js"
+    import { AnimationStore } from "../store/AnimationStore.js"
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     import CategoryControl       from "./category/CategoryControl.svelte";
 
-    import { flagMigrations } from "../../../system-handlers/itemFlagMerge/itemFlagMerge.js"
+    import { flagMigrations } from "../../../mergeScripts/items/itemFlagMerge.js"
     //import { constants}         from "../../../constants.js";
 
     export let elementRoot;

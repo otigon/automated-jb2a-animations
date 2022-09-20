@@ -78,12 +78,12 @@ export async function trafficCop(handler) {
 
         let animType = isCustom ? handler.menu : isAutorec.menu;
         let presetType = isCustom ? handler.flags?.preset?.presetType : isAutorec.presetType;
-        if (!isCustom && animType === 'aefx') {
-            animType = isAutorec.activeEffectType;
+        if (animType === 'aefx') {
+            animType = isCustom ? handler.flags.activeEffectType : isAutorec.activeEffectType;
         }
-        if (!isCustom && animType === 'aefx' && animType === 'preset') {
-            presetType = isAutorec.presetType;
-        }
+        //if (!isCustom && animType === 'aefx' && animType === 'preset') {
+            //presetType = isAutorec.presetType;
+        //}
         const targets = handler.allTargets?.length ?? 0;
         const animationData = isCustom ? await AAAnimationData._getAnimationData(handler) : await AAAnimationData._getAnimationData(handler, isAutorec);
         if (!isCustom && isAutorec) {

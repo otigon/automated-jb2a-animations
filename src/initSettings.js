@@ -1,5 +1,5 @@
 import AutorecShim from './formApps/AutorecMenu/appShim.js'
-import { aaAutorec } from './custom-recognition/aaAutoRecList.js';
+import { aaAutorec } from './mergeScripts/autorec/aaAutoRecList.js';
 import { AnimationState } from './AnimationState.js';
 
 /**

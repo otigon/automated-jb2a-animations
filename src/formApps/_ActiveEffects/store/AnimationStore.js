@@ -3,8 +3,8 @@ import { writable }           from "svelte/store";
 import { uuidv4 }             from "@typhonjs-fvtt/runtime/svelte/util";
 import { isObject }           from '@typhonjs-fvtt/runtime/svelte/util';
 
-import OptionsDialog from "../../../Menus/Components/options/optionsInfoDialog.js"
-import VideoPreview  from "../../../Menus/Components/videoPreview/videoPreview.js"
+import OptionsDialog from "../../Menus/Components/options/optionsInfoDialog.js"
+import VideoPreview  from "../../Menus/Components/videoPreview/videoPreview.js"
 
 //import { CategoryStore } from "../category/CategoryStore.js";
 //import { aaSessionStorage } from "../../../../sessionStorage.js";
@@ -16,7 +16,7 @@ import {
    newVariantMenu,
    newColorMenu,
    aaReturnWeapons
-} from "../../../../animation-functions/databases/jb2a-menu-options.js";
+} from "../../../animation-functions/databases/jb2a-menu-options.js";
 
 
 export class AnimationStore extends ObjectEntryStore {
@@ -278,92 +278,32 @@ export class AnimationStore extends ObjectEntryStore {
       if (!isObject(data)) {
          ui.notifications.info("Automated Animations | Global Autorec data is not valid")
       }
-      let isCustomized = this._data.isCustomized;
-      let isEnabled = this._data.isEnabled;
-      let label = this._data.label;
-      let id = this._data.id;
 
-      let menu = data.menu
-      switch (menu) {
-         case "melee":
-            this._data.menu = data.menu;
-            this._data.levels3d = data.levels3d;
-            this._data.macro = data.macro;   
-            this._data.meleeSwitch = data.meleeSwitch;
-            this._data.primary = data.primary;
-            this._data.secondary = data.secondary;
-            this._data.source = data.source;
-            this._data.target = data.target;
-            this._data.soundOnly = data.soundOnly;
-            break;
-         case "range":
-         case "ontoken":
-         case "templatefx":
-         case "aura":
-            this._data.menu = data.menu;
-            this._data.levels3d = data.levels3d;
-            this._data.macro = data.macro;   
-            this._data.primary = data.primary;
-            this._data.secondary = data.secondary;
-            this._data.source = data.source;
-            this._data.target = data.target;
-            this._data.soundOnly = data.soundOnly;
-            break;
-         case "preset":
-            this._data.menu = data.menu
-            this._data.presetType = data.presetType;
-            this._data.data = data.data;
-            this._data.soundOnly = data.soundOnly;
-            this._data.macro = data.macro;   
-            break;
-      }
+      this._data.activeEffectType = data.activeEffectType;
+      this._data.macro = data.macro;
+      this._data.data = data.data;
+      this._data.secondary = data.secondary;
+      this._data.source = data.source;
+      this._data.soundOnly = data.soundOnly;
+
       this._updateSubscribers()
    }
    async copyToAutorec(label) {
       //ui.notifications.info("Work In Progress")
-      let menu = this._data.menu;
+      let menu = this._data.activeEffectType;
       if (menu === "default") {
          console.warn("Automated Animations | You are attempting to copy an Item to the Global menu, but you haven't configured the item!")
       }
       let data = structuredClone(this._data);
       data.id = uuidv4();
       data.label = label;
-      switch(menu) {
-         case "melee":
-            delete data.presetType;
-            break;
-         case "range":
-            delete data.presetType;
-            delete data.meleeSwitch;
-            break;
-         case "ontoken":
-            delete data.presetType;
-            delete data.meleeSwitch;
-            break;
-         case "templatefx":
-            delete data.presetType;
-            delete data.meleeSwitch;
-            delete data.levels3d;
-            break;
-         case "aura":
-            delete data.presetType;
-            delete data.meleeSwitch;
-            delete data.levels3d;
-            break;
-         case "preset":
-            delete data.meleeSwitch;
-            delete data.levels3d;
-            delete data.source;
-            delete data.target;
-            break;
-      }
-      delete data.fromAmmo;
+
       delete data.isCustomized;
       delete data.isEnabled;
       
-      let currentMenu = await game.settings.get('autoanimations', `aaAutorec-${menu}`);
+      let currentMenu = await game.settings.get('autoanimations', `aaAutorec-aefx`);
       currentMenu.push(data);
-      await game.settings.set('autoanimations', `aaAutorec-${menu}`, currentMenu)
+      await game.settings.set('autoanimations', `aaAutorec-aefx`, currentMenu)
 
       //console.log("Item Transferred to Autorec")
    }

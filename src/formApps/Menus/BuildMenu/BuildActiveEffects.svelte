@@ -6,7 +6,7 @@
     import SectionButtons   from "../Components/SectionButtons03.svelte";
     import Macro            from "../Components/Macro.svelte";
     import SoundOnly        from "../Components/SoundOnly.svelte";
-    import * as reset       from "../ActiveEffects/aeDefaults.js";
+    import { aefx }       from "../../_AutorecMenu/store/default-data/newSection/aefx.js"
 
     export let animation;
     export let category;
@@ -27,12 +27,13 @@
     $: activeEffectRoute = aeContent[activeEffectType].component;
 
     function changeAE() {
+        let newData = aefx({}, animation._data.activeEffectType)
         switch (animation._data.activeEffectType) {
             case "ontoken":
-                $animation.data = structuredClone(reset.ontoken);
+                $animation.data = newData.data;
                 break;
             case "aura":
-                $animation.data = structuredClone(reset.aura);
+                $animation.data = newData.data;
                 break;
         }
     }

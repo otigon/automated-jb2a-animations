@@ -2,6 +2,7 @@
     import CategoryControl      from "./CategoryControl.svelte";
     import CategoryList         from "./CategoryList.svelte";
     import { getContext } from "svelte";
+    import { TJSIconButton, TJSToggleIconButton } from "@typhonjs-fvtt/svelte-standard/component";
 
     import MenuManager from "./menuManager/MenuManagerApp.js"
     import { autoRecStores }    from "../../store/AutoRecStores.js";
@@ -38,8 +39,8 @@
 <CategoryControl category={$selected} />
 <CategoryList category={$selected} />
 
-<footer>
-  <ul on:click={()=> manageMenu()}>
+<footer class="aa-AutorecManager" on:click={()=> manageMenu()}>
+  <ul >
     {bottomLabel}
     </ul>
 </footer>
@@ -98,7 +99,8 @@
     flex: none;
     padding: 0.5em 0.5em;
 
-    background: rgb(160, 159, 159);
+    background: rgb(159, 160, 160);
+    transition: background .5s;
     border-top: 1px solid rgb(100, 100, 100);
 
     height: fit-content;
@@ -116,6 +118,11 @@
       padding: 0;
       margin: 0;
     }
+  }
+  footer:hover {
+      text-shadow: 0 0 3px rgba(255, 0, 0, 0.4);
+      //background: linear-gradient(64.5deg, rgb(167, 167, 167) 40%, rgb(120, 120, 120) 60% );
+      background: rgb(145, 145, 145);
   }
 
 </style>

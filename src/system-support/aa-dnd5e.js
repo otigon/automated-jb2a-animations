@@ -56,7 +56,9 @@ export async function runDnd5e(msg) {
     }
 }
 
-export async function useItem(input) {
+export async function useItem(input, chat, card) {
+    //console.log( card instanceof ChatMessage)
+
     const animationNow = game.settings.get("autoanimations", "playonDamageCore");
     if (input.item?.hasAreaTarget || input.item?.hasAttack || input.item?.hasDamage) { return; }
 

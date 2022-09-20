@@ -2,7 +2,7 @@ import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 
 import { endTiming } from "../constants/timings.js";
 import { AASystemData } from "./getdata-by-system.js";
-import { flagMigrations } from "./itemFlagMerge/itemFlagMerge.js";
+import { flagMigrations } from "../mergeScripts/items/itemFlagMerge.js";
 //import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import { AAAutorecFunctions } from "../aa-classes/AAAutorecFunctions.js";
 

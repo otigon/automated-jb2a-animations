@@ -167,6 +167,26 @@
                     </div>
                 </td>
                 <td>
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.fadeIn")}
+                    section="target"
+                    field="fadeIn"
+                    placeholder=250
+                    />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.fadeOut")}
+                    section="target"
+                    field="fadeOut"
+                    placeholder=500
+                    />
+                </td>
+                <td>
                     <!--Set Delay for proceeding animation-->
                     <NumberInput
                         {animation}
@@ -175,6 +195,7 @@
                         field="delay"
                     />
                 </td>
+                <td></td>
             </tr>
         </table>
     </TJSSvgFolder>

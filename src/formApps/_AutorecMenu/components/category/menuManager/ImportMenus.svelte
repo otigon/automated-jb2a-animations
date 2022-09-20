@@ -2,7 +2,7 @@
     import { TJSDialog }    from "@typhonjs-fvtt/runtime/svelte/application";
     import { localize }     from "@typhonjs-fvtt/runtime/svelte/helper";
     import { getContext }   from "svelte";
-    import { autoRecMigration } from "../../../../../custom-recognition/autoRecMerge.js"
+    import { autoRecMigration } from "../../../../../mergeScripts/autorec/autoRecMerge.js"
     import { AAAutorecFunctions } from "../../../../../aa-classes/aaAutorecFunctions.js"
 
     const { application } = getContext("external");

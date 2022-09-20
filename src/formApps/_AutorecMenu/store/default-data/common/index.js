@@ -7,3 +7,4 @@ export * from './sound.js';
 export * from './source.js';
 export * from './target.js';
 export * from './video.js';
+export * from './meleeSwitch.js'
