@@ -12,7 +12,7 @@
     export let animation;
     export let idx = 0;
     export let category;
-    export let fromMenu;
+    export let fromMenu = 'autorec';
 
     let title =
         game.i18n.localize("autoanimations.menus.primary") +

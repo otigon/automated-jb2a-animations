@@ -13,7 +13,7 @@
     export let animation;
     export let idx = 0;
     export let category;
-    export let fromMenu;
+    export let fromMenu = 'autorec';
 
     $: show3d = false;
 

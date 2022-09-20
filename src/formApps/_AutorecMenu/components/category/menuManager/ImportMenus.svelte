@@ -90,7 +90,7 @@
             <div>
                 <input type="checkbox" bind:checked={range} />
                 <label for=""
-                    >{localize("autoanimations.animTypes.ranged")}</label
+                    >{localize("autoanimations.animTypes.range")}</label
                 >
             </div>
         </td>
@@ -100,7 +100,7 @@
             <div>
                 <input type="checkbox" bind:checked={ontoken} />
                 <label for=""
-                    >{localize("autoanimations.animTypes.onToken")}</label
+                    >{localize("autoanimations.animTypes.ontoken")}</label
                 >
             </div>
         </td>
@@ -108,7 +108,7 @@
             <div>
                 <input type="checkbox" bind:checked={templatefx} />
                 <label for=""
-                    >{localize("autoanimations.animTypes.templates")}</label
+                    >{localize("autoanimations.animTypes.templatefx")}</label
                 >
             </div>
         </td>
@@ -118,7 +118,7 @@
             <div>
                 <input type="checkbox" bind:checked={aura} />
                 <label for=""
-                    >{localize("autoanimations.animTypes.typeAuras")}</label
+                    >{localize("autoanimations.animTypes.aura")}</label
                 >
             </div>
         </td>
@@ -126,7 +126,7 @@
             <div>
                 <input type="checkbox" bind:checked={preset} />
                 <label for=""
-                    >{localize("autoanimations.animTypes.presets")}</label
+                    >{localize("autoanimations.animTypes.preset")}</label
                 >
             </div>
         </td>
