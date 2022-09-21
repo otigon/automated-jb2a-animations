@@ -1,7 +1,7 @@
 import { buildFile } from "../file-builder/build-filepath.js"
 import { aaDebugger } from "../../constants/constants.js";
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
-import { aaReturnWeapons, aaRangeWeapons } from "../databases/jb2a-menu-options.js";
+import { aaReturnWeapons, aaRangeWeapons } from "../../database/jb2a-menu-options.js";
 
 //import { AAITEMCHECK } from "./item-arrays.js";
 //import { animationDefault } from "./file-builder/options.js";

@@ -1,7 +1,7 @@
 //import { buildFile } from "../file-builder/build-filepath.js"
 import { aaDebugger } from "../../constants/constants.js"
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
-import { aaReturnWeapons } from "../databases/jb2a-menu-options.js";
+import { aaReturnWeapons } from "../../database/jb2a-menu-options.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 

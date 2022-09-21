@@ -16,7 +16,7 @@ import {
    newVariantMenu,
    newColorMenu,
    aaReturnWeapons
-} from "../../../animation-functions/databases/jb2a-menu-options.js";
+} from "../../../database/jb2a-menu-options.js";
 
 
 export class AnimationStore extends ObjectEntryStore {

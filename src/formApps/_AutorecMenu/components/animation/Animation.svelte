@@ -47,6 +47,8 @@
       items: createOverflowItems(animation, category),
    }
 
+   $: status = animation.stores.folderOpen
+   $: currentState = $status;
 </script>
 
 <div>
@@ -55,7 +57,9 @@
         <TJSToggleIconButton button={buttonOverflow} slot=summary-end>
             <TJSMenu {menu} />
         </TJSToggleIconButton>
+        {#if currentState}
         <svelte:component this={menuRoute} {animation} {idx} {category}/>
+        {/if}
    </TJSSvgFolder>
 </div>
 

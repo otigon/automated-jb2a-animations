@@ -1,6 +1,6 @@
-import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
-import { aaColorMenu } from "../databases/jb2a-menu-options.js";
+import { JB2APATREONDB } from "../../database/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "../../database/jb2a-free-database.js";
+import { aaColorMenu } from "../../database/jb2a-menu-options.js";
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 import { aaDebugger } from "../../constants/constants.js";
 

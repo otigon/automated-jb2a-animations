@@ -68,6 +68,7 @@ export const autoRecMigration = {
             if (options.aefx || options.submitAll) {
                 await game.settings.set('autoanimations', 'aaAutorec-aefx', currentAutorec.aefx)
             }
+            await game.settings.set('autoanimations', 'aaAutorec', {version: Object.keys(this.migrations).map(n => Number(n)).reverse()[0]})
             //TO-DO: Create Version game setting
             //await game.settings.set('autoanimations', 'aaAutorec-version', Object.keys(this.migrations).map(n => Number(n)).reverse()[0])
             //await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)

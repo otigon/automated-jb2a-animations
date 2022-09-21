@@ -22,7 +22,7 @@
         aaNameMenu,
         aaVariantMenu,
         aaColorMenu,
-    } from "../../animation-functions/databases/jb2a-menu-options.js";
+    } from "../../database/jb2a-menu-options.js";
     import FullAutoPreview from "./fullAutoPreview.js";
     import { storeAutorec, databaseType, index } from "./autorecPreviews.js";
 

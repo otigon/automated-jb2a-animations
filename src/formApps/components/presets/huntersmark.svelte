@@ -3,7 +3,7 @@
     import { fade } from "svelte/transition";
     import SoundSettings from "../soundSettings.svelte";
 
-    import { aaColorMenu } from "../../../animation-functions/databases/jb2a-menu-options.js";
+    import { aaColorMenu } from "../../../database/jb2a-menu-options.js";
 
     export let flagData;
     export let isAutoRec;

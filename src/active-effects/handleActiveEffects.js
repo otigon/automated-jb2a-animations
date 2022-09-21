@@ -1,26 +1,23 @@
-import { trafficCop } from "../../router/traffic-cop.js";
-import systemData from "../../system-handlers/system-data.js";
-import { aaDebugger } from "../../constants/constants.js";
-//import { flagMigrations } from "../../system-handlers/flagMerge.js";
-
-var killAllAnimations;
-export function disableAnimations() {
-    socket.off('module.sequencer')
-    killAllAnimations = true;
-}
+import { trafficCop } from "../router/traffic-cop.js";
+import systemData from "../system-handlers/system-data.js";
+import { aaDebugger } from "../constants/constants.js";
+//import { flagMigrations } from "../system-handlers/flagMerge.js";
+import { socketlibSocket } from "../socketset.js";
+import { AnimationState } from "../AnimationState.js";
 
 /**
- * 
- * @param {*} // The Active Effect being applied 
- * 
+ *
+ * @param {*} // The Active Effect being applied
+ *
  */
-export async function createActiveEffectswfrp4e(effect) {
-    //console.log("Effect Triggered");
+export async function createActiveEffects(effect) {
+
+    if (effect.disabled) { return; }
     //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
     //await wait(150)
     const aaDebug = game.settings.get("autoanimations", "debug")
 
-    if (killAllAnimations) { return; }
+    if (!AnimationState.enabled) { return; }
 
     // Gets the Token that the Active Effect is applied to
     const aeToken = effect.parent?.token || canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id));
@@ -34,7 +31,6 @@ export async function createActiveEffectswfrp4e(effect) {
         if (aaDebug) { aaDebugger("Animation is already present on the Token, returning.") }
         return;
     }
-
     /*
     // Sets data for the System Handler
     const flagData = {
@@ -51,13 +47,13 @@ export async function createActiveEffectswfrp4e(effect) {
     }
     await effect.update({ 'flags.autoanimations': flagData })
     */
-
     // Initilizes the A-A System Handler
     const data = {
         token: aeToken,
         targets: [],
         item: effect,
     }
+
     let handler = await systemData.make(null, null, data);
 
     // Exits early if Item or Source Token returns null. Total Failure
@@ -75,12 +71,12 @@ export async function createActiveEffectswfrp4e(effect) {
 }
 
 /**
- * 
+ *
  * @param {*} effect // The Active Effect being removed
- * 
+ *
  */
-export async function deleteActiveEffectswfrp4e(effect) {
-    const aeToken = effect.parent?.token || canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id));
+export async function deleteActiveEffects(effect) {
+    const aeToken = effect.parent?.token || canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Finds all active Animations on the scene that match .origin(effect.uuid)
@@ -103,12 +99,12 @@ export async function deleteActiveEffectswfrp4e(effect) {
             //Sets macro data if it is defined on the Item and is active
             macroData.shouldRun = true;
             macroData.name = itemData.macro?.name ?? "";
-            macroData.args = itemData.macro?.args ? itemData.macro?.args.split(',').map(s => s.trim()) : "";
+            macroData.args = itemData.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
         } else if (handler.autorecObject && handler.autorecObject?.macro?.enable && handler.autorecObject?.macro?.name) {
             //Sets macro data if none is defined/active on the item and it is present in the Automatic Recognition Menu
             macroData.shouldRun = true;
             macroData.name = handler.autorecObject?.macro?.name ?? "";
-            macroData.args = handler.autorecObject?.macro?.args ? handler.autorecObject?.macro?.args.split(',').map(s => s.trim()) : "";
+            macroData.args = handler.autorecObject?.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
         }
 
         // Filters the active Animations to isolate the ones active on the Token
@@ -149,12 +145,12 @@ export async function deleteActiveEffectswfrp4e(effect) {
             //Sets macro data if it is defined on the Item and is active
             macroData.shouldRun = true;
             macroData.name = itemData.macro?.name ?? "";
-            macroData.args = itemData.macro?.args ? itemData.macro?.args.split(',').map(s => s.trim()) : "";
+            macroData.args = itemData.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
         } else if (handler.autorecObject && handler.autorecObject?.macro?.enable && handler.autorecObject?.macro?.name) {
             //Sets macro data if none is defined/active on the item and it is present in the Automatic Recognition Menu
             macroData.shouldRun = true;
             macroData.name = handler.autorecObject?.macro?.name ?? "";
-            macroData.args = handler.autorecObject?.macro?.args ? handler.autorecObject?.macro?.args.split(',').map(s => s.trim()) : "";
+            macroData.args = handler.autorecObject?.macro?.args ? macroData.args.split(',').map(s => s.trim()) : "";
         }
         // If no Item or Source Token was found, exit early with Debug
         if (!handler.item || !handler.sourceToken) {
@@ -173,16 +169,56 @@ export async function deleteActiveEffectswfrp4e(effect) {
 }
 
 /**
- * 
- * @param {Active Effect being updated} effect 
- * @param {Toggle Check On/Off for Effect} toggle 
+ *
+ * @param {Active Effect being updated} effect
+ * @param {Toggle Check On/Off for Effect} toggle
  */
-export async function toggleActiveEffectswfrp4e(effect, toggle) {
+export async function toggleActiveEffects(effect, toggle) {
 
     if (toggle.disabled === true) {
-        deleteActiveEffectswfrp4e(effect)
+        deleteActiveEffects(effect)
     } else if (toggle.disabled === false) {
-        createActiveEffectswfrp4e(effect);
+        createActiveEffects(effect);
     }
 }
 
+// Used to delete Tile effects when Midi-QOL Concentration is lost
+export async function checkConcentration(effect) {
+    const aaDebug = game.settings.get("autoanimations", "debug")
+
+    // Check effect label and return if it is not equal to "concentrating"
+    const label = effect.label || "";
+    if (label.toLowerCase() !== "concentrating") { return; }
+
+    // Get Originating Item. If no Origin, return
+    const origin = effect.origin
+    if (!origin) {
+        if (aaDebug) { aaDebugger("Failed to find an Origin for Concentration") }
+        return;
+    }
+
+    // Get arrays of Background and Foreground Tiles with the A-A Origin flag UUID matching the Effect Origin
+    const tiles = canvas.tiles.placeables.filter(i => i.data.flags?.autoanimations?.origin === origin)
+    //const fgTiles = canvas.foreground.placeables.filter(i => i.flags?.autoanimations?.origin === origin);
+    if (tiles.length < 1) {
+        if (aaDebug) { aaDebugger("Failed to find any Tiles tied to Concentration") }
+        return;
+    }
+    let tileIdArray = []
+    if (tiles.length) {
+        //if (bgTiles.length) {
+        for (let tile of tiles) {
+            tileIdArray.push(tile.id)
+        }
+        //}
+        //if (fgTiles.length) {
+        //for (let tile of fgTiles) {
+            //tileIdArray.push(tile.id)
+        //}
+        //}
+        socketlibSocket.executeAsGM("removeTile", tileIdArray)
+    }
+
+    //Sequencer.EffectManager.endEffects({ origin: origin })
+
+}

@@ -126,11 +126,12 @@
             aura: await game.settings.get("autoanimations", "aaAutorec-aura"),
             preset: await game.settings.get("autoanimations", "aaAutorec-preset"),
             aefx: await game.settings.get("autoanimations", "aaAutorec-aefx"),
+            version: await game.settings.get('autoanimations', 'aaAutorec'),
             /**TO-DO: Set up VERSION Game Setting. OR should this be a field set on each Section???*/
             //version = await game.settings.get('autoanimations', 'aaAutorec-version')
         };
 
-        console.log(exportData);
+        console.warn('Automated Animations | Global Automatic Recognition Menu Export', exportData);
         exportToJSON();
 
         function exportToJSON() {

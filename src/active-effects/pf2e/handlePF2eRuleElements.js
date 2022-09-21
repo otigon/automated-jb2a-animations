@@ -5,7 +5,7 @@ import systemData from "../../system-handlers/system-data.js";
 import { AnimationState } from "../../AnimationState.js";
 
 
-export async function createActiveEffectsPF2e(item) {
+export async function createRuleElementPF2e(item) {
     //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
     //await wait(150)
     const aePF2eTypes = ['condition', 'effect', 'feat']
@@ -75,7 +75,7 @@ export async function createActiveEffectsPF2e(item) {
 
 }
 
-export async function deleteActiveEffectsPF2e(item) {
+export async function deleteRuleElementPF2e(item) {
     const aePF2eTypes = ['condition', 'effect', 'feat']
     if (!aePF2eTypes.includes(item.type)) { return; }
 
