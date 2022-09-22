@@ -1,4 +1,5 @@
 import { showMainMenu } from './showMainUI.js';
+import { showAutorecMenu } from '../_AutorecMenu/showUI.js'
 
 export default class AutorecShim extends FormApplication
 {
@@ -9,7 +10,7 @@ export default class AutorecShim extends FormApplication
    {
       super({}, options);
 
-      showMainMenu();
+      showAutorecMenu();
    }
 
    async _updateObject(event, formData) {}
