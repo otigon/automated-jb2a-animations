@@ -83,7 +83,7 @@ export default class systemData {
         //this.isDisabled = this.flags.killAnim || false;
         this.isEnabled = this.flags.isEnabled ?? true;
         //this.isCustomized = this.flags.override || false;
-        this.isCustomized = this.flags.isCustomized || false;
+        this.isCustomized = this.flags.isCustomized && this.flags.menu || false;
 
         //changed from flags.animType to match Autorec menu
         this.menu = this.flags.menu || "";
@@ -118,9 +118,14 @@ export default class systemData {
         //this.isAutorecTemplateItem = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.templatefx, this.rinsedName);
 
         //this.autorecObject = this.isActiveEffect || this.pf2eRuleset ? AutorecFunctions._findObjectIn5eAE(this.autorecSettings, this.rinsedName) : null;
-        this.autorecObject = this.isActiveEffect || this.pf2eRuleset ? AAAutorecFunctions.singleMenuSearch(this.autorecSettings.aefx, this.rinsedName) : null;
+        if (this.isActiveEffect || this.pf2eRuleset) {
+            this.autorecObject = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.aefx, this.rinsedName);
+        } else {
+            this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, this.rinsedName);
+        }
+        //this.autorecObject = this.isActiveEffect || this.pf2eRuleset ? AAAutorecFunctions.singleMenuSearch(this.autorecSettings.aefx, this.rinsedName) : null;
 
-        if (!this.autorecObject) {
+        if (!this.autorecObject && game.system.id === "pf2e") {
             /* fallback assignment for active effects, default assignment otherwise. */
             this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, this.rinsedName);
         } 

@@ -56,7 +56,7 @@
 <style lang="scss">
     .aa-macro {
         display: grid;
-        grid-template-columns: 40% 55% 5%;
+        grid-template-columns: 50% 45% 5%;
         grid-gap: 5px;
         padding: 5px;
         align-items: center;

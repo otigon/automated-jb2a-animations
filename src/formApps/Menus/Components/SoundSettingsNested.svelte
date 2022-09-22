@@ -51,12 +51,11 @@
                     />
                 </div>
                 <div style="grid-row: 1/2; grid-column: 3/4">
-                    <button
-                        class="file-picker"
-                        on:click|preventDefault={() =>
-                            category.selectSoundNested(section, section02, idx)}
-                        ><i class="fas fa-file-import fa-fw" /></button
-                    >
+                    <i class="fas fa-file-import" 
+                    title="File Picker"
+                    style="font-size:1.5em"
+                    on:click|preventDefault={() => category.selectSoundNested(section, section02, idx)}
+                    />
                 </div>
             </div>
             <table class="d">

@@ -4,7 +4,7 @@ import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function ontokenSeq(handler, animationData) {
+export async function ontoken(handler, animationData) {
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);

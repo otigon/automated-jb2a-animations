@@ -44,7 +44,7 @@
 
 <SectionButtons {animation} />
 <div hidden={!soundOnly}>
-    <SoundOnly {animation} />
+    <SoundOnly {animation} {category} />
 </div>
 <div hidden={!macroEnabled}>
     <Macro {animation} {category} />

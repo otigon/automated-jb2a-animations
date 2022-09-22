@@ -5,7 +5,7 @@ import { aaReturnWeapons } from "../../database/jb2a-menu-options.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function rangeSeq(handler, animationData) {
+export async function range(handler, animationData) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }

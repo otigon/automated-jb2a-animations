@@ -1,7 +1,7 @@
 import { buildFile } from "../file-builder/build-filepath.js"
 import { aaDebugger } from "../../constants/constants.js"
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
-export async function teleportationSeq(handler, animationData) {
+export async function teleportation(handler, animationData) {
 
     const sourceToken = handler.sourceToken;
     const data = animationData.primary;

@@ -110,6 +110,22 @@ export class AnimationStore extends CategoryStore.EntryStore {
       await picker.browse(current);
 
    }
+
+   async selectSound(section) {
+      const current = this._data[section].sound.file;
+      const picker = new FilePicker({
+          type: "audio",
+          current,
+          callback: (path) => {
+            this._data[section].sound.file = path;
+            this._updateSubscribers()
+            },
+      });
+      setTimeout(() => {
+          picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
+      }, 100);
+      await picker.browse(current);
+  }
 }
 
 /**

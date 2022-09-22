@@ -7,7 +7,7 @@ import { aaReturnWeapons, aaRangeWeapons } from "../../database/jb2a-menu-option
 //import { animationDefault } from "./file-builder/options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function meleeSeq(handler, animationData) {
+export async function melee(handler, animationData) {
     console.log(animationData)
     //function moduleIncludes(test) {
         //return !!game.modules.get(test);

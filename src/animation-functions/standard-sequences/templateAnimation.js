@@ -4,7 +4,7 @@ import { aaDebugger } from "../../constants/constants.js"
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function templateSeq(handler, animationData, config) {
+export async function templatefx(handler, animationData, config) {
 
     const sourceToken = handler.sourceToken;
 

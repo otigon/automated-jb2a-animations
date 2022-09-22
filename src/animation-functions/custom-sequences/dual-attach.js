@@ -4,7 +4,7 @@ import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function dualSeq(handler, animationData) {
+export async function dualattach(handler, animationData) {
     const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Sets JB2A database and Global Delay

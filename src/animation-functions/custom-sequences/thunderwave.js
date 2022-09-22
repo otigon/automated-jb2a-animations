@@ -5,7 +5,7 @@ import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function twSeq(handler, animationData, config) {
+export async function thunderwave(handler, animationData, config) {
 
     function moduleIncludes(test) {
         return !!game.modules.get(test);

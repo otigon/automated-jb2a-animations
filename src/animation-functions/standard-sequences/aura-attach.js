@@ -4,7 +4,7 @@ import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function auraSeq(handler, animationData) {
+export async function aura(handler, animationData) {
 
     //const gridSize = canvas.grid.size
     const data = animationData.primary;

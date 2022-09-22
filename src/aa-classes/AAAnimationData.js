@@ -20,9 +20,9 @@ export class AAAnimationData {
 
     static async compileMacro(handler, autoObject) {
         const macro = autoObject ? autoObject.macro : handler.flags?.macro;
-        if (!macro || !macro.enable) { console.log("Automated Animations: Failed to compile Macro data"); return false}
+        if (!macro || !macro.enable || !macro.name) { console.log("Automated Animations: Failed to compile Macro data"); return false}
         const data = {
-            enabled: macro.enabled ?? false,
+            enable: macro.enable ?? false,
             name: macro.name ?? "",
             //args: flags.macro?.args ? flags.macro.args.split(',').map(s => s.trim()) : "",
             args: this.strToObj(macro.args),
@@ -559,11 +559,13 @@ export class AAAnimationData {
                 let objStr = data.replaceAll("\n", "").match(/\{(.)+\}/g);
                 eval("obj =" + objStr);
             }
-            return obj
+            return obj || data.split(',').map(s => s.trim())
         }
         catch (err) {
             return data.split(',').map(s => s.trim())
         }
+
+
     }
     /*
     static async _explosionData(handler, autorec) {
@@ -789,10 +791,6 @@ export class AAAnimationData {
                 return dualAttach();
             case "thunderwave":
                 return thunderwave();
-            case "dualAnim":
-                return dualAnim();
-            case "tripleAnim":
-                return tripleAnim();
         }
 
         function proToTemp () {
@@ -824,7 +822,7 @@ export class AAAnimationData {
                         wait: projectileOptions.wait ?? -500,
                         opacity: projectileOptions.opacity ?? 1,
                     },
-                    sound: this.setSound(projectileSound)
+                    sound: setSound(projectileSound)
                 },
                 preExplosion: {
                     enable: preExplosion.enable || false,
@@ -841,7 +839,7 @@ export class AAAnimationData {
                         wait: preExplosionOptions.wait ?? -500,
                         opacity: preExplosionOptions.opacity ?? 1,
                     },
-                    sound: this.setSound(preExplosionSound)
+                    sound: setSound(preExplosionSound)
                 },
                 explosion: {
                     enable: explosion.enable || false,
@@ -858,7 +856,7 @@ export class AAAnimationData {
                         wait: explosionOptions.wait ?? -500,
                         opacity: explosionOptions.opacity ?? 1,
                     },
-                    sound: this.setSound(explosionSound)
+                    sound: setSound(explosionSound)
 
                 },
                 afterImage: {
@@ -937,7 +935,7 @@ export class AAAnimationData {
                     range: options.range ?? 30,
                     measureType: options.measureType || "alternating",
                 },
-                sound: this.setSound(sound)
+                sound: setSound(sound)
             }
             return data;
         }
@@ -963,7 +961,7 @@ export class AAAnimationData {
                     opacity: options.opacity ?? 1,
                     playbackRate: options.playbackRate,
                 },
-                sound: this.setSound(sound)
+                sound: setSound(sound)
             }
 
             return data;
@@ -989,97 +987,27 @@ export class AAAnimationData {
             return data;
         }
 
-        function dualAnim() {
-            const flags = topLevel.data || {};
+        function setSound(data, addDelay = 0) {
 
-            const intro = flags.intro || {};
-            const introOptions = intro.options || {};
-            const introSound = intro.sound || {};
-            const loop = flags.loop || {};
-            const loopOptions = loop.options || {};
-
-            const data = {
-                intro: {
-                    customPath: intro.customPath,
-                    options: {
-                        elevation: introOptions.elevation ?? 1000,
-                        fadeIn: introOptions.fadeIn || 1,
-                        opacity: introOptions.opacity ?? 1,
-                        size: introOptions.size || 1,
-                        isRadius: introOptions.isRadius ?? false,
-                        wait: introOptions.wait ?? 0,
-                    },
-                    sound: this.setSound(introSound)
-                },
-                loop: {
-                    customPath: loop.customPath,
-                    options: {
-                        elevation: loopOptions.elevation ?? 1000,
-                        fadeIn: loopOptions.fadeIn || 1,
-                        opacity: loopOptions.opacity ?? 1,
-                        persistent: loopOptions.persistent ?? false,
-                        size: loopOptions.size || 1,
-                        isRadius: loopOptions.isRadius ?? false,
-                        unbindAlpha: loopOptions.unbindAlpha ?? false,
-                        unbindVisibility: loopOptions.unbindVisibility ?? false,
-                    },
-                },
+            const input = {
+                enable: data.enable ?? false,
+                file: data.file,
+                delay: data.delay ?? 0,
+                startTime: data.startTime ?? 0,
+                volume: data.volume ?? 1,
+                repeat: data.repeat || 1,
+                repeatDelay: data.repeatDelay ?? 250,
             }
-            return data;
+            if (!input.enable || !input.file) { return false }
+            let soundSeq = new Sequence()
+            let section = soundSeq.sound()
+            section.file(input.file)
+            section.delay(input.delay + addDelay)
+            section.startTime(input.startTime)
+            section.volume(input.volume)
+            section.repeats(input.repeat, input.repeatDelay)
+            return soundSeq;
         }
-
-        function tripleAnim() {
-            const flags = topLevel.data || {};
-
-            const intro = flags.intro || {};
-            const introOptions = intro.options || {};
-            const introSound = intro.sound || {};
-            const loop = flags.loop || {};
-            const loopOptions = loop.options || {};
-            const outro = flags.outro || {};
-            const outroOptions = outro.options || {};
-            const outroSound = outro.sound || {};
-
-            const data = {
-                intro: {
-                    customPath: intro.customPath,
-                    options: {
-                        elevation: introOptions.elevation ?? 1000,
-                        fadeIn: introOptions.fadeIn || 1,
-                        opacity: introOptions.opacity ?? 1,
-                        size: introOptions.size || 1,
-                        isRadius: introOptions.isRadius ?? false,
-                        wait: introOptions.wait ?? 0,
-                    },
-                    sound: this.setSound(introSound)
-                },
-                loop: {
-                    customPath: loop.customPath,
-                    options: {
-                        elevation: loopOptions.elevation ?? 1000,
-                        fadeIn: loopOptions.fadeIn || 1,
-                        opacity: loopOptions.opacity ?? 1,
-                        persistent: loopOptions.persistent ?? false,
-                        size: loopOptions.size || 1,
-                        isRadius: loopOptions.isRadius ?? false,
-                        unbindAlpha: loopOptions.unbindAlpha ?? false,
-                        unbindVisibility: loopOptions.unbindVisibility ?? false,
-                        wait: loopOptions.wait ?? 0,
-                    },
-                },
-                outro: {
-                    customPath: outro.customPath,
-                    options: {
-                        elevation: outroOptions.elevation ?? 1000,
-                        fadeOut: outroOptions.fadeOut || 1,
-                        opacity: outroOptions.opacity ?? 1,
-                        size: outroOptions.size || 1,
-                        isRadius: outroOptions.isRadius ?? false,
-                    },
-                    sound: this.setSound(outroSound)
-                },
-            }
-            return data;
-        }
+    
     }
 }
