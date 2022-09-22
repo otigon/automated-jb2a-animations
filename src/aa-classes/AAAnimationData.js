@@ -4,22 +4,23 @@ import { particleDefaultValues } from "../animation-functions/levels-particles/p
 
 export class AAAnimationData {
 
-    static async _getAnimationData(handler, autoObject) {
-        const autorecData = autoObject ? autoObject : false;
-        let menu = autorecData ? autoObject.menu : handler.menu;
-        menu = menu === "aefx" ? autorecData ? autoObject.activeEffectType : handler.flags.activeEffectType : menu;
+    static async _getAnimationData(handler, flagData) {
+        if (!flagData) { return; }
+        //const autorecData = autoObject ? autoObject : false;
+        let menu = flagData.menu;
+        menu = menu === "aefx" ? flagData.activeEffectType : menu;
         const data = {
-            primary: menu === "preset" ? await this.compilePreset(handler, autorecData) : await this.compilePrimary(handler, autorecData),
-            secondary: menu !== "preset" ? await this.compileSecondary(handler, autorecData) : false,
-            sourceFX: await this.compileSource(handler, autorecData),
-            targetFX: menu === "aefx" ? false : await this.compileTarget(handler, autorecData),
-            macro: await this.compileMacro(handler, autorecData)
+            primary: menu === "preset" ? await this.compilePreset(handler, flagData) : await this.compilePrimary(handler, flagData),
+            secondary: menu !== "preset" ? await this.compileSecondary(flagData) : false,
+            sourceFX: await this.compileSource(handler, flagData),
+            targetFX: flagData.menu === "aefx" ? false : await this.compileTarget(flagData),
+            macro: await this.compileMacro(flagData)
         }
         return data;
     }
 
-    static async compileMacro(handler, autoObject) {
-        const macro = autoObject ? autoObject.macro : handler.flags?.macro;
+    static async compileMacro(flagData) {
+        const macro = flagData;
         if (!macro || !macro.enable || !macro.name) { console.log("Automated Animations: Failed to compile Macro data"); return false}
         const data = {
             enable: macro.enable ?? false,
@@ -53,8 +54,8 @@ export class AAAnimationData {
         return soundSeq;
     }
 
-    static async compilePrimary(handler, autoObject) {
-        const topLevel = autoObject ? autoObject || {}: handler.flags || {};
+    static async compilePrimary(handler, flagData) {
+        const topLevel = flagData || {};
         const menu = handler.isActiveEffect ? topLevel.activeEffectType : topLevel.menu;
 
         const primary = topLevel.primary || topLevel.data || {};
@@ -195,8 +196,8 @@ export class AAAnimationData {
         }
     }
 
-    static async compileSecondary(handler, autoObject) {
-        const topLevel = autoObject ? autoObject || {}: handler.flags || {};
+    static async compileSecondary(flagData) {
+        const topLevel = flagData || {};
 
         const secondary = topLevel.secondary || {};
         if (!secondary.enable) { return false; }
@@ -241,13 +242,15 @@ export class AAAnimationData {
         return data;
     }
 
-    static async compileSource(handler, autoObject) {
-        const topLevel = autoObject ? autoObject || {}: handler.flags || {};
-        
+    static async compileSource(handler, flagData) {
+        const topLevel = flagData || {};
+
         const source = topLevel.source || {};
         const video = source.video || {};
         const options = source.options || {};
         const sound = source.sound || {};
+
+        if (!source.enable) { return false; }
 
         const data = {
             enable: source.enable ?? false,
@@ -314,14 +317,16 @@ export class AAAnimationData {
         return data;
     }
 
-    static async compileTarget(handler, autoObject) {
-        const topLevel = autoObject ? autoObject || {}: handler.flags || {};
-        const target = topLevel.target || {};
+    static async compileTarget(flagData) {
+        const topLevel = flagData || {};
 
+        const target = topLevel.target || {};
         const video = target.video || {};
         const options = target.options || {};
         const sound = target.sound || {};
     
+        if (!target.enable) { return false; }
+
         const data = {
             enable: target.enable ?? false,
             video: {
@@ -778,8 +783,8 @@ export class AAAnimationData {
         return data;
     }
 
-    static async compilePreset(handler, autoObject) {
-        const topLevel = autoObject ? autoObject || {}: handler.flags || {};
+    static async compilePreset(handler, flagData) {
+        const topLevel = flagData || {};
         const presetType = topLevel.presetType;
 
         switch (presetType) {

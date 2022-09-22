@@ -1,6 +1,7 @@
 import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 
 import * as common from "../common";
+import * as options from "../options"
 
 export function aefx(current = {}, type) {
     if (type === "ontoken") {
@@ -17,7 +18,7 @@ export function aefx(current = {}, type) {
                     enableCustom: false,
                     customPath: "",
                 },
-                options: aefx(type),
+                options: options.aefx(type),
                 sound: common.sound(),
             },
             secondary: current.secondary || common.secondary(),
@@ -38,7 +39,7 @@ export function aefx(current = {}, type) {
                     enableCustom: false,
                     customPath: "",
                 },
-                options: aefx(type),
+                options: options.aefx(type),
                 sound: common.sound(),
             },
             secondary: current.secondary || common.secondary(),

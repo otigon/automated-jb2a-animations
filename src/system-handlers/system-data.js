@@ -15,7 +15,7 @@ export default class systemData {
         //this._log("Data Retrieved", data)
 
         // TO-DO - Update the Item Merge script
-        const flags = data.item.flags.autoanimations//await flagMigrations.handle(data.item);
+        const flags = data.item?.flags?.autoanimations//await flagMigrations.handle(data.item);
 
         return new systemData(data, flags, msg);
     }
@@ -75,15 +75,11 @@ export default class systemData {
         //midi-qol specific settings
         this.playOnMiss = data.playOnMiss || (midiActive || game.system.id === 'pf2e' ? game.settings.get("autoanimations", "playonmiss") : false) || false;
         //this.playOnMiss = true;
-        const midiSettings = midiActive ? game.settings.get("midi-qol", "ConfigSettings") : false
-        this._gmAD = midiActive ? midiSettings?.gmAutoDamage : "";
-        this._userAD = midiActive ? midiSettings?.autoRollDamage : "";
+        //const midiSettings = midiActive ? game.settings.get("midi-qol", "ConfigSettings") : false
+        //this._gmAD = midiActive ? midiSettings?.gmAutoDamage : "";
+        //this._userAD = midiActive ? midiSettings?.autoRollDamage : "";
 
 
-        //this.isDisabled = this.flags.killAnim || false;
-        this.isEnabled = this.flags.isEnabled ?? true;
-        //this.isCustomized = this.flags.override || false;
-        this.isCustomized = this.flags.isCustomized && this.flags.menu || false;
 
         //changed from flags.animType to match Autorec menu
         this.menu = this.flags.menu || "";
@@ -142,6 +138,11 @@ export default class systemData {
             }
         }
 
+        //this.isDisabled = this.flags.killAnim || false;
+        this.isEnabled = this.flags.isEnabled ?? true;
+        //this.isCustomized = this.flags.override || false;
+        this.isCustomized = this.isActiveEffect ? this.flags.isCustomized && this.flags.activeEffectType ? true : false : this.flags.isCustomized && this.flags.menu ? true : false;
+        this.templateData = data.templateData ? data.templateData : undefined;
         /*
         this.isAutorecTemplateItem = false;
         this.isAutorecAura = false;

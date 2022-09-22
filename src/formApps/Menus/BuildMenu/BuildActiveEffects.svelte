@@ -28,6 +28,8 @@
 
     function changeAE() {
         let newData = aefx({}, animation._data.activeEffectType)
+        console.log(animation._data.activeEffectType)
+        console.log(newData)
         switch (animation._data.activeEffectType) {
             case "ontoken":
                 $animation.data = newData.data;

@@ -18,7 +18,7 @@ export async function trafficCop(handler) {
     if (!handler.isCustomized && !handler.autorecObject || (handler.autorecObject && autorecDisabled)) { return; }
 
     const data = handler.isCustomized ? handler.flags : handler.autorecObject;
-    const animationData = await AAAnimationData._getAnimationData(handler, handler.autorecObject)
+    const animationData = await AAAnimationData._getAnimationData(handler, data)
 
     if (animationData.macro && animationData.macro.enable && animationData.macro.playWhen === "2") {
         new Sequence()

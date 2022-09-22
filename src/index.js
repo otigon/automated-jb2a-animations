@@ -5,7 +5,8 @@ import { trafficCop } from "./router/traffic-cop.js";
 import { jb2aAAPatreonDatabase } from "./database/jb2a-patreon-database.js";
 import { jb2aAAFreeDatabase } from "./database/jb2a-free-database.js";
 
-import systemData from "./system-handlers/system-data.js";
+//import systemData from "./system-handlers/system-data.js";
+import {AutoAnimations} from "./system-support/external.js"
 
 import { registerActiveEffectHooks } from "./active-effects/handleActiveEffectHooks";
 
@@ -86,7 +87,7 @@ Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
     }
     const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
     aaBtn.click(async ev => {
-        //await flagMigrations.handle(app.document);
+        await flagMigrations.handle(app.document);
         new AEMenuApp(app.document, {}).render(true, { focus: true });
         //new AAActiveEffectMenu(app.document, {}).render(true);
     });
@@ -151,26 +152,10 @@ Hooks.once('ready', async function () {
     // Initializes all AutoRecStores backed by individual game settings.
     autoRecStores.initialize();
 
+    // Check if the Autorec menu requires merge scripts to run
+    handleAutorec();
 
-    /**
-     * Runs the Autorec menu through migrations on start-up if necessary
-     */
-
-    /*
-    if (game.settings.get('autoanimations', 'aaAutorec-version') < 5) {
-        autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'), {shouldSubmit: true})
-    } else {
-        autoRecMigration.handle("systemMerge", {shouldSubmit: true, newSchema: true, submitAll: true})
-    }
-    */
-    //if (isNewerVersion(game.modules.get('autoanimations').version, '3.5.0')) {
-        //autoRecMigration.handle("systemMerge", {shouldSubmit: true, newSchema: true, submitAll: true})
-    //} else {
-        //autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'), {shouldSubmit: true, newSchema: true})
-    //}
-
-    // Register Hooks by system
-    
+    // Register Hooks by system    
     Hooks.on("deleteItem", async (item) => {storeDeletedItems(item)})
 
     if (game.modules.get("midi-qol")?.active) {
@@ -358,28 +343,22 @@ function storeDeletedItems(item) {
     aaDeletedItems.set(item.id, item)
 }
 
-/* External call for animations
-* sourceToken as the originating token
-* targets as an array from the user
-* item as the item instance being used
-* options to override settings e.g. playOnMiss: true, hitTargets: Array of TokenIDs
-*/
-class AutoAnimations
-{
-    static async playAnimation(sourceToken, targets, item, options = {}) {
-        if (!AnimationState.enabled) { return; }
-        const data = {
-            token: sourceToken,
-            targets: targets,
-            item: item,
-            ...options
-        }
-        let handler = await systemData.make(null, null, data)
-        trafficCop(handler);
+function handleAutorec() {
+    let versionCheck = game.settings.get('autoanimations', 'aaAutorec').version;
+    let currentVersion = Object.keys(autoRecMigration.migrations).map((n) => Number(n)).reverse()[0];
+
+    // Version 5 and up uses a different game setting per menu
+    if (versionCheck < 5) {
+        let oldData = game.settings.get('autoanimations', 'aaAutorec');
+        autoRecMigration.handle(oldData, {shouldSubmit: true, submitAll: true});
+    } else if (versionCheck < currentVersion) {
+        console.warn("Automated Animations | Updating Global Automatic Recognition Menu");
+        autoRecMigration.handle(null, {shouldSubmit: true, submitAll: true, newSchema: true});
     }
 }
+
 window.AutoAnimations = AutoAnimations;
 function moduleIncludes(test) {
     return !!game.modules.get(test);
 }
-window.AAAutoRec = AAAutorecMenu;
+//window.AAAutoRec = AAAutorecMenu;
