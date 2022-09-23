@@ -143,7 +143,6 @@
         : game.i18n.localize("autoanimations.menus.no");
 
     function optionsInfo() {
-        console.log(TJSSvgFolder)
         new OptionsDialog().render(true);
     }
 

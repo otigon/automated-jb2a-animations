@@ -181,7 +181,6 @@ export class AnimationStore extends ObjectEntryStore {
          }
          let macroFilter = pack.index.filter((m) => m.data === packArray[3]);
          if (!macroFilter.length) {
-            console.log("YES");
             ui.notifications.info(
                `Autoanimations | A macro named ${packArray[3]} was not found in Compendium ${packArray[1]}.${packArray[2]}`
             );
@@ -364,8 +363,6 @@ export class AnimationStore extends ObjectEntryStore {
       let currentMenu = await game.settings.get('autoanimations', `aaAutorec-${menu}`);
       currentMenu.push(data);
       await game.settings.set('autoanimations', `aaAutorec-${menu}`, currentMenu)
-
-      //console.log("Item Transferred to Autorec")
    }
 }
 

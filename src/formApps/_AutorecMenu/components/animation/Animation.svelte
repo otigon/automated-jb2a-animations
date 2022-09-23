@@ -13,14 +13,14 @@
 
    /** @type {AnimationStore} */
    export let animation;
-   //console.log(animation)
+
    /** @type {CategoryStore} */
    export let category;
-   //console.log(category)
+
    //** Menu builder set in the Category List. Determines which menu set will be rendered*/
    export let menuRoute;
    export let idx;
-   //console.log(idx)
+
    /**
     * @type {object} Defines folder data for TJSIconFolder.
     */

@@ -13,17 +13,23 @@ export class AAAnimationData {
             secondary: menu !== "preset" ? await this.compileSecondary(flagData) : false,
             sourceFX: await this.compileSource(handler, flagData),
             targetFX: flagData.menu === "aefx" ? false : await this.compileTarget(flagData),
-            macro: await this.compileMacro(flagData)
+            macro: await this.compileMacro(handler, flagData)
         }
         return data;
     }
 
-    static async compileMacro(flagData) {
-        const macro = flagData;
-        if (!macro || !macro.enable || !macro.name) { console.log("Automated Animations: Failed to compile Macro data"); return false}
+    static async compileMacro(handler, flagData) {
+        const macro = flagData.macro;
+        if (!macro || !macro.enable || !macro.name) { return false}
+        const isItemMacro = macro.name.startsWith("ItemMacro");
+        let itemMacro;
+        if (isItemMacro) {
+            itemMacro = handler.item.getMacro()
+        }
+        if (isItemMacro && !itemMacro.command) { return false}
         const data = {
             enable: macro.enable ?? false,
-            name: macro.name ?? "",
+            name: isItemMacro ? itemMacro : macro.name,
             args: this.strToObj(macro.args),
             playWhen: macro.playWhen ?? "0",    
         }

@@ -100,8 +100,6 @@ export class AAAutorecManager
         if (menus.preset) { mergeList.push("preset")};
         if (menus.aefx) { mergeList.push("aefx")};
 
-        //console.log(mergeList, currentMenu, mergeMenu)
-
         for (var i = 0; i < mergeList.length; i++) {
             let existingMenu = currentMenu[mergeList[i]];
             let incomingMenu = mergeMenu[mergeList[i]];

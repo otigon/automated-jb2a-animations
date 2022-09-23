@@ -49,16 +49,7 @@
     }
 
     async function overwriteMenus(selectedMenus) {
-        //console.log("Overwriteing the requested Menus", selectedMenus, menu)
         AAAutorecManager.overwriteMenus(menu, {shouldSubmit: true, ...selectedMenus})
-
-        //overwriteNow()
-
-        //async function overwriteNow() {
-            //AAAutorecManager.overwriteMenus(menu, {shouldSubmit: true, ...selectedMenus})
-            //await autoRecMigration.handle(menu, {shouldSubmit: true, ...selectedMenus})
-        //}
-
     }
 </script>
 

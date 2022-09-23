@@ -17,8 +17,6 @@ async function menuOptions(database) {
     const jb2a = database;
 
     const menuSets = ['range', 'return', 'melee', 'static', 'templatefx']
-    //console.log(Object.keys(jb2a.melee).forEach(function(a) {testMenu.push({[a]: game.i18n.localize(`autoanimations.menuTypes.${a}`)})} ))
-    //console.log(testMenu)
 
     //Object.keys(jb2a.melee).reduce((o, type) => ({...o, [type]: Object.keys(jb2a.melee[type]).forEach(function(a) {meleeMenu.animation.push({[a]: game.i18n.localize(`autoanimations.animations.${a}`)})} )}), {})
     /** Build new TYPE menu choices ending in Array */
@@ -99,11 +97,6 @@ async function menuOptions(database) {
     delete newVariantMenu.range._template
     delete newVariantMenu.return._template
 
-    //console.log(newTypeMenu)
-    //console.log(newNameMenu)
-    //console.log(newVariantMenu)
-    console.log(newColorMenu)
-
     for (let section of menuSets) {
         aaTypeMenu[section] = Object.keys(jb2a[section]).reduce((o, type) => ({ ...o, [type]: game.i18n.localize(`autoanimations.menuTypes.${type}`) }), {});
         aaNameMenu[section] = Object.keys(jb2a[section]).reduce((o, type) => ({ ...o, [type]: Object.keys(jb2a[section][type]).reduce((o, name) => ({ ...o, [name]: game.i18n.localize(`autoanimations.animations.${name}`) }), {}) }), {});
@@ -112,7 +105,6 @@ async function menuOptions(database) {
     }
     await addRandom(aaColorMenu)
     await remove_Template(aaTypeMenu)
-    console.log(Object.entries(aaTypeMenu.melee))
 }
 
 export { aaTypeMenu, aaNameMenu, aaVariantMenu, aaColorMenu, aaReturnWeapons, newTypeMenu, newNameMenu, newVariantMenu, newColorMenu, aaRangeWeapons }

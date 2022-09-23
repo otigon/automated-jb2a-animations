@@ -102,20 +102,12 @@
 
   // Applies flags on Item Update wihtout Closing APP
   async function applyFlags() {
-    console.log(
-      "Automated Animations | Submitting flag updates to Item",
-      $animation
-    );
     await item.update({ 'flags.-=autoanimations': null })
     await item.update({ "flags.autoanimations": $animation });
   }
 
   // Applies flags on Item Update and Closes the APP
   async function closeApp() {
-    console.log(
-      "Automated Animations | Submitting flag updates to Item",
-      $animation
-    );
     await item.update({ 'flags.-=autoanimations': null })
     await item.update({ "flags.autoanimations": $animation });
     application.close();

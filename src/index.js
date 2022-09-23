@@ -142,7 +142,6 @@ Hooks.on("aa.initialize", async () => {
 
     Sequencer.Database.registerEntries("autoanimations", obj01, true);
     if (game.settings.get("autoanimations", "killAllAnim") === "off") {
-        console.log("ANIMATIONS ARE OFF")
         AnimationState.enabled = false;
     }
     Hooks.callAll('aa.ready', obj01)

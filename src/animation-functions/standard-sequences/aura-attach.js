@@ -66,7 +66,6 @@ export async function aura(handler, animationData) {
         })
 
         let adjustedSize = data.options.addTokenWidth ? data.options.radius * 2 + (sourceToken.w / canvas.grid.size) : data.options.radius * 2;
-        console.log(adjustedSize)
 
         let newEffect = aaSeq.effect();
         //aaSeq.addSequence(sourceFX.sourceSeq)

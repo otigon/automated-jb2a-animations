@@ -52,7 +52,6 @@
     $: menuTab = category.key.split("-")[1];
 
     function addEntry() {
-      console.log(menuTab)
       let newData = newSection[menuTab]()//structuredClone(addDefaultData[menuTab]);
       //newData.id = uuidv4();
       category.createEntry(newData)

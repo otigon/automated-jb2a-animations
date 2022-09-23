@@ -54,7 +54,7 @@ export async function melee(handler, animationData) {
     } else if (data.meleeSwitch.options.switchType === "custom") {
         range = await buildFile(false, data.meleeSwitch.video.menuType, data.meleeSwitch.video.animation, "range", data.meleeSwitch.video.variant, data.meleeSwitch.video.color, data.meleeSwitch.video.customPath)
     }
-    console.log(range)
+
     //const attack = await buildFile(false, data.video.menuType, data.video.animation, "melee", data.video.variant, data.video.color, data.video.customPath);
     //TO-DO set up Range Switch for Melee in new Menus
     //const range = await buildFile(false, data.switchMenuType, data.switchAnimation, "range", data.switchVariant, data.switchColor);

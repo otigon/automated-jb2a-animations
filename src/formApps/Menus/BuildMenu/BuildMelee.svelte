@@ -18,7 +18,6 @@
 
     $: show3d = false;
 
-    //console.log(category)
     let title =
         game.i18n.localize("autoanimations.menus.primary") +
         " " +
