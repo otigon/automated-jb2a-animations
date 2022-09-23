@@ -63,7 +63,6 @@ export const preset = [
          },
          sound: common.sound(),
       },
-      source: common.source()
    },
    {
       ...common.main({ label: "fireball" }),
@@ -90,6 +89,7 @@ export const preset = [
             sound: common.sound(),
          },
          preExplosion: {
+            enable: false,
             dbSection: "static",
             menuType: "spell",
             animation: "curewounds",
@@ -103,6 +103,7 @@ export const preset = [
                isMasked: false,
                scale: 1.5,
                opacity: 1,
+               wait: 0,
             },
             sound: common.sound(),
          },
@@ -127,9 +128,12 @@ export const preset = [
          afterImage: {
             enable: false,
             customPath: "",
-            options: {}
+            options: {
+               elevation: 0,
+               persistent: false,
+               scale: 1,
+            }
         }    
       },
-      source: common.source()
    }
 ];

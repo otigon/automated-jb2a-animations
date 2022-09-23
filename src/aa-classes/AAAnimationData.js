@@ -6,7 +6,6 @@ export class AAAnimationData {
 
     static async _getAnimationData(handler, flagData) {
         if (!flagData) { return; }
-        //const autorecData = autoObject ? autoObject : false;
         let menu = flagData.menu;
         menu = menu === "aefx" ? flagData.activeEffectType : menu;
         const data = {
@@ -25,11 +24,28 @@ export class AAAnimationData {
         const data = {
             enable: macro.enable ?? false,
             name: macro.name ?? "",
-            //args: flags.macro?.args ? flags.macro.args.split(',').map(s => s.trim()) : "",
             args: this.strToObj(macro.args),
             playWhen: macro.playWhen ?? "0",    
         }
         return data;
+    }
+
+    static strToObj(data) {
+
+        if (!data) { return []; }
+        let obj = {};
+        try {
+            if (data && typeof data === 'string') {
+                let objStr = data.replaceAll("\n", "").match(/\{(.)+\}/g);
+                eval("obj =" + objStr);
+            }
+            return obj || data.split(',').map(s => s.trim())
+        }
+        catch (err) {
+            return data.split(',').map(s => s.trim())
+        }
+
+
     }
 
     static setSound(data, addDelay = 0) {
@@ -133,11 +149,11 @@ export class AAAnimationData {
                     delay: data.delay || 0,
                     elevation: data.elevation ?? 1000,
                     isReturning: data.isReturning ?? false,
-                    repeat: data.repeat || 1,
-                    repeatDelay: data.repeatDelay ?? 1,
+                    isWait: data.isWait ?? false,
                     onlyX: data.onlyX ?? false,
                     opacity: data.opacity ?? 1,
-                    isWait: data.isWait ?? false,
+                    repeat: data.repeat || 1,
+                    repeatDelay: data.repeatDelay ?? 1,
                     zIndex: data.zIndex || 1,
                 };
             case "ontoken":
@@ -148,6 +164,7 @@ export class AAAnimationData {
                     fadeIn: data.fadeIn ?? 250,
                     fadeOut: data.fadeOut ?? 500,
                     isMasked: data.isMasked ?? false,
+                    isRadius: data.isRadius ?? false,
                     isWait: data.isWait ?? false,
                     opacity: data.opacity ?? 1,
                     persistent: data.persistent ?? false,
@@ -155,7 +172,6 @@ export class AAAnimationData {
                     repeat: data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
                     size: data.size || 1,
-                    isRadius: data.isRadius ?? false,
                     unbindAlpha: data.unbindAlpha ?? false,
                     unbindVisibility: data.unbindVisibility ?? false,
                     zIndex: data.zIndex || 1,
@@ -181,17 +197,17 @@ export class AAAnimationData {
                 };
             case "aura":
                 return {
+                    addTokenWidth: data.addTokenWidth ?? false,
+                    delay: data.delay || 1,
                     elevation: data.elevation ?? 1000,
-                    unbindAlpha: data.unbindAlpha ?? false,
-                    unbindVisibility: data.unbindVisibility ?? false,
                     ignoreTarget: data.ignoreTarget ?? false,
                     isMasked: data.isMasked ?? false,
                     isWait: data.isWait ?? false,
-                    zIndex: data.zIndex || 1,
                     opacity: data.opacity ?? 1,
-                    radius: data.radius || 3,
-                    addTokenWidth: data.addTokenWidth ?? false,
-                    delay: data.delay || 1,
+                    size: data.size || 3,
+                    unbindAlpha: data.unbindAlpha ?? false,
+                    unbindVisibility: data.unbindVisibility ?? false,
+                    zIndex: data.zIndex || 1,
                 };
         }
     }
@@ -221,14 +237,14 @@ export class AAAnimationData {
                 elevation: options.elevation ?? 1000,
                 fadeIn: options.fadeIn ?? 250,
                 fadeOut: options.fadeOut ?? 250,
-                zIndex: options.zIndex || 1,
-                size: options.size || 1,
-                isRadius: options.isRadius ?? false,
                 isMasked: options.isMasked ?? false,
+                isRadius: options.isRadius ?? false,
                 isWait: options.isWait ?? false,
                 opacity: options.opacity || 1,
                 repeat: options.repeat || 1,
                 repeatDelay: options.repeatDelay ?? 250,
+                size: options.size || 1,
+                zIndex: options.zIndex || 1,
             },
             //sound: this.setSound(sound, topLevel.primary.options),
         }
@@ -268,9 +284,9 @@ export class AAAnimationData {
                 elevation: options.elevation ?? 1000,
                 fadeIn: options.fadeIn ?? 250,
                 fadeOut: options.fadeOut ?? 500,
-                isWait: options.isWait ?? false,
                 isMasked: options.isMasked ?? false,
                 isRadius: options.isRadius ?? false,
+                isWait: options.isWait ?? false,
                 opacity: options.opacity || 1,
                 repeat: options.repeat || 1,
                 repeatDelay: options.repeatDelay || 1,
@@ -344,13 +360,13 @@ export class AAAnimationData {
                 isMasked: options.isMasked ?? false,
                 //isWait: options.isWait ?? false,
                 isRadius: options.isRadius ?? false,
+                opacity: options.opacity || 1,
+                persistent: options.persistent ?? false,
                 repeat: options.repeat || 1,
                 repeatDelay: options.repeatDelay ?? 250,
-                persistent: options.persistent ?? false,
+                size: options.size || 1,
                 unbindAlpha: options.unbindAlpha ?? false,
                 unbindVisibility: options.unbindVisibility ?? false,
-                opacity: options.opacity || 1,
-                size: options.size || 1,
                 zIndex: options.zIndex || 1,
             },
             sound: this.setSound(sound, options.delay ?? 0)
@@ -402,331 +418,6 @@ export class AAAnimationData {
 
         return targetFX;
     }
-    /*
-    static async _sounds(soundSettings) {
-        const data = soundSettings.animationData.primary;
-        //const sourceFX = flagData.sourceFX;
-        const targetFX = soundSettings.animationData.targetFX;
-        let soundSeq = new Sequence();
-        if (data.playSound || (data.playSwitchSound && soundSettings.switchSound)) {
-            if (!soundSettings.switchSound) {
-                soundSeq.sound()
-                    .file(data.itemAudio.file, true)
-                    .volume(data.itemAudio.volume)
-                    .delay(data.itemAudio.delay)
-                    .repeats(data.itemAudio.repeat, data.delay)
-                    .startTime(data.itemAudio.startTime)
-            } else if (soundSettings.switchSound && data.switchAudio?.enable) {
-                soundSeq.sound()
-                    .file(data.switchAudio.file, true)
-                    .volume(data.switchAudio.volume)
-                    .delay(data.switchAudio.delay)
-                    .repeats(data.switchAudio.repeat, data.delay)
-                    .startTime(data.switchAudio.startTime)
-            }
-        }
-        if (data.explosion.playSound && soundSettings.explosionSound) {
-            soundSeq.sound()
-                .file(data.explosion?.audio?.file, true)
-                .playIf(data.explosion?.playSound)
-                .delay(data.explosion?.audio?.delay + data.explosion?.delay)
-                .volume(data.explosion?.audio?.volume)
-                .repeats(data.explosion?.audio?.repeat, data.delay)
-                .startTime(data.explosion?.audio?.startTime)
-        }
-        if (targetFX.playSound && soundSettings.targetSound) {
-            soundSeq.sound()
-                .file(targetFX.itemAudio?.file, true)
-                .volume(targetFX.itemAudio?.volume)
-                .delay(targetFX.itemAudio?.delay + targetFX.startDelay)
-                .repeats(targetFX.itemAudio?.repeat, targetFX.itemAudio?.soundDelay)
-                .startTime(targetFX.itemAudio?.startTime)
-        }
-        return soundSeq;
-    }
-
-    static async _primaryData(handler, autoObject) {
-        const flags = autoObject ? autoObject || {}: handler.flags || {};
-        const meleeSwitch = flags.meleeSwitch || {};
-        const options = flags.options || {};
-
-        const primaryVideo = flags.primary?.video || {};
-        const primaryOptions = flags.primary?.options || {};
-        const primaryAudio = flags.primary?.sound || {};
-
-        const data = {
-            isAuto: autoObject ? true : false,
-            menuType: primaryVideo.menuType,
-            animation: primaryVideo.animation?.toLowerCase(),
-            variant: primaryVideo.variant,
-            color: primaryVideo.color?.toLowerCase() ?? "",
-            enableCustom: primaryVideo.enableCustom || false,
-            customPath: primaryVideo.enableCustom ? primaryVideo.customPath : false,
-
-            preset: flags.preset,
-
-            options: options,
-            zIndex: primaryOptions.zIndex || 1,
-            isMasked: primaryOptions.isMasked || false,
-            isReturning: primaryOptions.returning || false,
-            addTokenWidth: primaryOptions.addTokenWidth || false,
-            elevation: primaryOptions.elevation ?? 1000,
-            aeDelay: primaryOptions.aeDelay || 250,
-            repeat: primaryOptions.repeat || 1,
-            delay: primaryOptions.delay || 250,
-            scale: primaryOptions.scale || 1,
-            isRadius: primaryOptions.isRadius || false,
-            size: primaryOptions.size || 1,
-            radius: primaryOptions.radius || 1,
-            scaleX: primaryOptions.scaleX || 1,
-            scaleY: primaryOptions.scaleY || 1,
-            opacity: primaryOptions.opacity || 1,
-            persistent: primaryOptions.persistent || false,
-            playOn: primaryOptions.playOn || "default",
-            isShieldFX: primaryOptions.menuType === 'shieldfx' ? true : false,
-            anchorX: primaryOptions.anchorX ?? 0.5,
-            anchorY: primaryOptions.anchorY ?? 0.5,
-            auraRadius: primaryOptions.auraRadius || 3.5,
-            teleDist: primaryOptions.teleDist || 30,
-            ignoreTargets: primaryOptions.ignoreTarget || false,
-            tempType: primaryOptions.tempType || "circle",
-            hideTemplate: primaryOptions.hideTemplate || false,
-            removeTemplate: primaryOptions.removeTemplate ?? false,
-            occlusionMode: parseInt(primaryOptions.occlusionMode ?? "3"),
-            occlusionAlpha: primaryOptions.occlusionAlpha ?? "0",
-            persistType: primaryOptions.persistType || "sequencerground",
-            measureType: primaryOptions.measureType || "alternating",
-            hideFromPlayers: primaryOptions.hideFromPlayers || false,
-            playbackRate: primaryOptions.playbackRate || 1,
-            onlyX: primaryOptions.onlyX ?? false,
-            unbindAlpha: primaryOptions.unbindAlpha ? false : true,
-            unbindVisibility: primaryOptions.unbindVisibility ? false : true,
-
-            itemAudio: {
-                enable: primaryAudio.enable || false,
-                file: primaryAudio.file,
-                volume: primaryAudio.volume || 0.25,
-                delay: primaryAudio.delay || 0,
-                repeat: handler.decoupleSound ? 1 : options.repeat || 1,
-                startTime: primaryAudio.startTime || 0,
-            },
-
-            switchAnimation: meleeSwitch.switchType === 'custom' ? meleeSwitch.animation || "" : flags.primary?.animation || "",
-            switchType: meleeSwitch.switchType || "on",
-            switchColor: meleeSwitch.switchType === 'custom' ? meleeSwitch.color || "white" : flags.primary?.color || "",
-            detect: meleeSwitch.detect ?? "auto",
-            return: meleeSwitch.returning || false,
-            switchVariant: meleeSwitch.switchType === 'custom' ? meleeSwitch.variant || "01" : flags.primary?.variant || '01',
-            switchMenuType: meleeSwitch.menuType || "weapon",
-            range: meleeSwitch.range ?? 2,
-            switchAudio: {
-                enable: flags.audio?.a02?.enable || false,
-                file: flags.audio?.a02?.file,
-                volume: flags.audio?.a02?.volume || 0.25,
-                delay: flags.audio?.a02?.delay || 0,
-                repeat: handler.decoupleSound ? 1 : options.repeat || 1,
-                startTime: flags.audio?.a02?.startTime || 0,
-            },
-            explosion: await this._explosionData(handler, autoObject),
-
-            macro: {
-                enabled: flags.macro?.enable ?? false,
-                name: flags.macro?.name ?? "",
-                //args: flags.macro?.args ? flags.macro.args.split(',').map(s => s.trim()) : "",
-                args: this.strToObj(flags.macro?.args),
-                playWhen: flags.macro?.playWhen ?? "0",
-            }
-        }
-
-        if (autoObject) {
-            data.soundOnly = {
-                enable: flags.soundOnly?.enable ?? false,
-                file: flags.soundOnly?.file ?? "",
-                volume: flags.soundOnly?.volume ?? 0.25,
-                delay: flags.soundOnly?.delay ?? 0,
-                startTime: flags.soundOnly?.startTime ?? 0,
-            }
-        }
-        //data.macro.args = data.macro.preArgs.split(',').map(s => s.trim());
-        data.playMacro = data.macro.enabled && data.macro.name ? true : false;
-        data.playSound = data.itemAudio?.enable && data.itemAudio?.file ? true : false;
-        data.playSwitchSound = data.switchAudio.enable && data.switchAudio.file && data.switchType !== "off" ? true : false;
-        if (data.switchAnimation === 'shortsword') { data.switchAnimation = 'sword' };
-        return data;
-    }
-    */
-    static strToObj(data) {
-
-        if (!data) { return []; }
-        let obj = {};
-        try {
-            if (data && typeof data === 'string') {
-                let objStr = data.replaceAll("\n", "").match(/\{(.)+\}/g);
-                eval("obj =" + objStr);
-            }
-            return obj || data.split(',').map(s => s.trim())
-        }
-        catch (err) {
-            return data.split(',').map(s => s.trim())
-        }
-
-
-    }
-    /*
-    static async _explosionData(handler, autorec) {
-        const explosionData = autorec ? autorec.explosion || {} : handler.flags?.explosion || {};
-        const video = explosionData.video || {};
-        const options = explosionData.options || {};
-        const sound = explosionData.sound || {};
-
-        //const explosions = autorec.explosion ?? {};
-        const explosion = {
-            enabled: explosionData.enable || false,
-
-            menuType: video.menuType || false,
-            animation: video.animation || "",
-            variant: video.variant ?? "",
-            color: video.color || "",
-            enableCustom: video.custom || false,
-            customPath: video.custom ? video.customPath : false,
-
-            delay: (options.delay || 1) + 500,
-            radius: options.radius || 1.5,
-            below: options.below || false,
-            isMasked: options.isMasked || false,
-            zIndex: options.zIndex || 1,
-            opacity: options.opacity || 1,
-            audio: {
-                enable: sound.enable || false,
-                file: sound.file ?? "",
-                volume: sound.volume || 0.75,
-                delay: sound.delay || 0,
-                repeat: handler.decoupleSound ? 1 : autorec.primary?.options?.repeat || 1,
-                startTime: sound.startTime || 0,
-            },
-        };
-        explosion.playSound = explosion.enabled && explosion.audio?.enable && explosion.audio?.file !== "";
-        explosion.data = explosion.enabled ? await buildFile(false, explosion.menuType, explosion.animation, "static", explosion.variant, explosion.color, explosion.customPath) : "";
-        return explosion;
-    }
-
-    static async _sourceFX(handler, autorec) {
-        const sourceData = autorec ? autorec.source || {} : handler.flags?.source || {};
-        const video = sourceData.video || {};
-        const options = sourceData.options || {};
-        const sound = sourceData.sound || {};
-
-        const sourceFX = {
-            menuType: video.menuType,
-            animation: video.animation,
-            variant: video.variant,
-            color: video.color,
-            enableCustom: video.enableCustom || false,
-            customPath: video.enableCustom ? video.customPath : false,
-
-            enabled: sourceData.enable || false,
-
-            repeat: options.repeat || 1,
-            delay: options.delay || 250,
-            below: options.below || false,
-            isMasked: options.isMasked || false,
-            startDelay: options.delayAfter || 500,
-            scale: options.scale || 1,
-            opacity: options.opacity || 1,
-            zIndex: options.zIndex || 1,
-
-            sound: {
-                enable: sound.enable || false,
-                file: sound.file,
-                volume: sound.volume || 0.25,
-                delay: sound.delay || 0,
-                repeat: handler.decoupleSound ? 1 : options.repeat || 1,
-                startTime: sound.startTime || 0,
-            }
-        }
-
-        if (sourceData.enable && (sourceFX.animation === "a1" || !sourceFX.animation) && !sourceFX.customSourcePath) {
-            sourceFX.enabled = false;
-            console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
-        }
-        const sourceTokenGS = handler.sourceToken.w / canvas.grid.size;
-        //const sourceScale = handler.sourceToken.w;
-        sourceFX.data = sourceFX.enabled ? await buildFile(false, sourceFX.menuType, sourceFX.animation, "static", sourceFX.variant, sourceFX.color, sourceFX.customSourcePath) : "";
-        //sourceFX.sFXScale = sourceFX.enabled ? 2 * sourceScale / sourceFX.data?.metadata?.width : 1;
-        sourceFX.sourceSeq = new Sequence();
-        if (sourceFX.sound.enable && sourceFX.sound.file && sourceFX.enabled) {
-            sourceFX.sourceSeq.sound()
-                .file(sourceFX.sound.file, true)
-                .volume(sourceFX.sound.volume)
-                .delay(sourceFX.sound.delay)
-                .startTime(sourceFX.sound.startTime)
-        }
-        if (sourceFX.enabled) {
-            let sourceEffect = sourceFX.sourceSeq.effect()
-            sourceEffect.file(sourceFX.data.file, true)
-            sourceEffect.atLocation(handler.sourceToken)
-            //.scale(sourceFX.sFXScale * sourceFX.scale)
-            sourceEffect.size(sourceTokenGS * 1.5 * sourceFX.scale, { gridUnits: true })
-            sourceEffect.repeats(sourceFX.repeat, sourceFX.delay)
-            sourceEffect.belowTokens(sourceFX.below)
-            sourceEffect.zIndex(sourceFX.zIndex)
-            if (sourceFX.isMasked) {
-                sourceEffect.mask(handler.sourceToken)
-            }
-            sourceEffect.opacity(sourceFX.opacity)
-            sourceEffect.fadeOut(500)
-            sourceEffect.waitUntilFinished(sourceFX.startDelay)
-            //.playIf(sourceFX.enabled)
-        }
-
-        return sourceFX;
-    }
-
-    static async _targetFX(handler, autorec) {
-        const targetData = autorec ? autorec.target || {} : handler.flags?.target || {};
-        const video = targetData.video || {};
-        const options = targetData.options || {};
-        const sound = targetData.sound || {};
-
-        const targetFX = {
-            menuType: video.menuType,
-            animation: video.animation,
-            variant: video.variant,
-            color: video.color,
-            enableCustom: video.enableCustom || false,
-            customPath: video.enableCustom ? video.customPath : false,
-
-            enabled: targetData.enable || false,
-
-            repeat: options.repeat || 1,
-            delay: options.delay || 250,
-            below: options.below || false,
-            isMasked: options.isMasked || false,
-            startDelay: options.delayAfter || 500,
-            scale: options.scale || 1,
-            opacity: options.opacity || 1,
-            zIndex: options.zIndex || 1,
-
-            sound: {
-                enable: sound.enable || false,
-                file: sound.file,
-                volume: sound.volume || 0.25,
-                delay: sound.delay || 0,
-                repeat: handler.decoupleSound ? 1 : options.repeat || 1,
-                startTime: sound.startTime || 0,
-            }
-
-        }
-
-        if (targetData.enable && (targetFX.animation === "a1" || !targetFX.animation) && !targetFX.customTargetPath) {
-            targetFX.enabled = false;
-            console.warn("AUTOMATED ANIMATIONS || Target Animation is enabled on this item but NO Animation is chosen!");
-        }
-        targetFX.playSound = targetFX.sound.enable && targetFX.enabled && targetFX.sound.file ? true : false;
-        targetFX.data = targetFX.enabled ? await buildFile(false, targetFX.menuType, targetFX.animation, "static", targetFX.variant, targetFX.color, targetFX.customTargetPath) : {};
-        return targetFX
-    }
-    */
 
     static howToDelete(type) {
         if (game.settings.get("autoanimations", "noTips")) { return; }

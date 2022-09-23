@@ -1,17 +1,19 @@
 import { JB2APATREONDB } from "./database/jb2a-patreon-database.js";
 import { JB2AFREEDB } from "./database/jb2a-free-database.js";
-import { trafficCop } from "./router/traffic-cop.js";
+//import { trafficCop } from "./router/traffic-cop.js";
 
 import { jb2aAAPatreonDatabase } from "./database/jb2a-patreon-database.js";
 import { jb2aAAFreeDatabase } from "./database/jb2a-free-database.js";
 
 //import systemData from "./system-handlers/system-data.js";
 import {AutoAnimations} from "./system-support/external.js"
+import { AAAutorecManager } from "./formApps/_AutorecMenu/components/category/menuManager/AAAutorecManager.js";
+import { playAnimation } from "./system-support/external.js";
 
 import { registerActiveEffectHooks } from "./active-effects/handleActiveEffectHooks";
 
 import AAActiveEffectMenu from "./formApps/ActiveEffects/activeEffectMenu.js";
-import AAAutorecMenu from "./formApps/AutorecMenu/aaAutorecMenu.js";
+//import AAAutorecMenu from "./formApps/AutorecMenu/aaAutorecMenu.js";
 
 //import AAItemMenu from "./formApps/ItemMenu/itemMenu.js";
 import AEMenuApp from "./formApps/_ActiveEffects/AEMenuApp.js";
@@ -87,7 +89,7 @@ Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
     }
     const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
     aaBtn.click(async ev => {
-        await flagMigrations.handle(app.document);
+        await flagMigrations.handle(app.document, {isActiveEffect: true});
         new AEMenuApp(app.document, {}).render(true, { focus: true });
         //new AAActiveEffectMenu(app.document, {}).render(true);
     });
@@ -230,6 +232,7 @@ Hooks.once('ready', async function () {
                     });
                 } else {
                     Hooks.on("attackRolled", async (data) => {
+                        debugger
                         Hooks.once("createChatMessage", async (msg) => {
                             if (msg.user.id !== game.user.id) { return };
                             systemSupport.aaSfrpg.runStarfinder(data, msg)
@@ -346,7 +349,7 @@ function storeDeletedItems(item) {
 function handleAutorec() {
     let versionCheck = game.settings.get('autoanimations', 'aaAutorec').version;
     let currentVersion = Object.keys(autoRecMigration.migrations).map((n) => Number(n)).reverse()[0];
-    debugger
+    //debugger
     // Version 5 and up uses a different game setting per menu
     if (versionCheck < 5) {
         let oldData = game.settings.get('autoanimations', 'aaAutorec');
@@ -358,6 +361,26 @@ function handleAutorec() {
 }
 
 window.AutoAnimations = AutoAnimations;
+window.AutomatedAnimations = {
+    AutorecManager: AAAutorecManager,
+    PlayAnimation: (data) => playAnimation(data),
+    GetAutorec: () => {
+        let menu = {
+            melee: game.settings.get('autoanimations', 'aaAutorec-melee'),
+            range: game.settings.get('autoanimations', 'aaAutorec-range'),
+            ontoken: game.settings.get('autoanimations', 'aaAutorec-ontoken'),
+            templatefx: game.settings.get('autoanimations', 'aaAutorec-templatefx'),
+            aura: game.settings.get('autoanimations', 'aaAutorec-aura'),
+            preset: game.settings.get('autoanimations', 'aaAutorec-preset'),
+            aefx: game.settings.get('autoanimations', 'aaAutorec-aefx'),
+            version: game.settings.get('autoanimations', 'aaAutorec').version,
+        }
+        console.warn(menu)
+    },
+}
+
+
+
 function moduleIncludes(test) {
     return !!game.modules.get(test);
 }

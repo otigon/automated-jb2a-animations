@@ -126,6 +126,15 @@ export class AnimationStore extends CategoryStore.EntryStore {
       }, 100);
       await picker.browse(current);
   }
+
+  async getSource() {
+      if (!this._data.metaData) {
+         console.log(`No Defined Source`)
+      } else {
+         let source = this._data.metaData.creator || "No Defined Source"
+         console.log(`Created by: ${source}`)
+      }
+  }
 }
 
 /**

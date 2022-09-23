@@ -20,6 +20,7 @@ import { trafficCop } from "../router/traffic-cop.js";
 export class AutoAnimations
 {
     static async playAnimation(sourceToken, targets, item, options = {}) {
+        console.warn("Automated Animations | AutoAnimations.playAnimation is deprecated in favor of AutomatedAnimations.PlayAnimation. This will be removed in Version 5")
         if (!AnimationState.enabled) { return; }
         if (!Array.isArray(targets)) {
             targets = Array.from(targets)
@@ -34,4 +35,26 @@ export class AutoAnimations
         let handler = await systemData.make(null, null, data)
         trafficCop(handler);
     }
+}
+
+export async function playAnimation(options = {}) {
+    if (!options) { return; }
+
+    let {sourceToken, targets, item, ...rest} = options;
+
+    if (!sourceToken || !targets || !item) { return; }
+
+    if (!AnimationState.enabled) { return; }
+    if (!Array.isArray(targets)) {
+        targets = Array.from(targets)
+    }
+    const data = {
+        token: sourceToken,
+        targets: targets,
+        item: item,
+        ...rest
+    }
+
+    let handler = await systemData.make(null, null, data)
+    trafficCop(handler);
 }

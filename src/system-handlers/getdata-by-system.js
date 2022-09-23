@@ -663,13 +663,15 @@ export class AASystemData {
      * @returns item
      */
     static async getItem(input) {
-        const data = input || {};
-        const item =    data.data?.item ??
-                        data.item ??
-                        data.itemSource ??
-                        data.SwadeItem ??
-                        data.token?.actor?.items?.get(data.itemId) ??
-                        await fromUuid(`Item.${data.itemId}`) ??
+        if (!input) { return; }
+        //const data = input || {};
+        const item =    input.data?.item ??
+                        input.data?.data?.item ??
+                        input.item ??
+                        input.itemSource ??
+                        input.SwadeItem ??
+                        input.token?.actor?.items?.get(data.itemId) ??
+                        await fromUuid(`Item.${input.itemId}`) ??
                         void 0;
         return item;
     }

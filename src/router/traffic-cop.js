@@ -17,12 +17,15 @@ export async function trafficCop(handler) {
     if (!handler.isEnabled) { return; }
     if (!handler.isCustomized && !handler.autorecObject || (handler.autorecObject && autorecDisabled)) { return; }
 
-    const data = handler.isCustomized ? handler.flags : handler.autorecObject;
-    const animationData = await AAAnimationData._getAnimationData(handler, data)
+    const data = handler.isCustomized ? structuredClone(handler.flags) : structuredClone(handler.autorecObject);
+    Hooks.callAll("aa.preDataSanitize", handler, data);
 
-    if (animationData.macro && animationData.macro.enable && animationData.macro.playWhen === "2") {
+    const sanitizedData = await AAAnimationData._getAnimationData(handler, data);
+    Hooks.callAll("aa.preAnimationStart", sanitizedData);
+
+    if (sanitizedData.macro && sanitizedData.macro.enable && sanitizedData.macro.playWhen === "2") {
         new Sequence()
-            .macro(animationData.macro.name, handler.workflow, handler, animationData.macro.args)
+            .macro(sanitizedData.macro.name, handler.workflow, handler, sanitizedData.macro.args)
             .play()
         return;
     }
@@ -64,11 +67,12 @@ export async function trafficCop(handler) {
             case "tormenta20":
             case "swade":
                 aaTemplateHook = Hooks.once("createMeasuredTemplate", (config) => {
-                    animate[animationType](handler, animationData, config);
+                    //Hooks.callAll("aa.preAnimationStart", sanitizedData, data);
+                    animate[animationType](handler, sanitizedData, config);
                 });
                 setTimeout(killHook, 30000)
             default:
-                animate[animationType](handler, animationData);
+                animate[animationType](handler, sanitizedData);
         }
         return;
     } else {
@@ -77,8 +81,8 @@ export async function trafficCop(handler) {
             if (aaDebug) { aaDebugger(`${animationType} Animation End", "NO TARGETS`) }
             return;
         }
-        Hooks.callAll("aa.preAnimationStart", animationData);
-        animate[animationType](handler, animationData);
+        //Hooks.callAll("aa.preAnimationStart", sanitizedData, data);
+        animate[animationType](handler, sanitizedData);
         return;
     }
     function killHook() {

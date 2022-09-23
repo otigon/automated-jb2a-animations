@@ -33,7 +33,9 @@ export const autoRecMigration = {
 
         if (!autoObject) { return; }
 
-        if (this.upToDate(autoObject)) { return; }
+        if (this.upToDate(autoObject) && !options.isOverwrite) {
+            return;
+        }
 
         ui.notifications.info("Automated Animations: Updating the Automatic Recognition Menu")
         let currentAutorec = autoObject;

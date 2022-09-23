@@ -80,7 +80,7 @@
     position: relative;
     overflow-y: auto;
     padding: 0 3%;
-    padding-bottom: 68px;
+    padding-bottom: 102px;
     scrollbar-width: thin;  // For Firefox
   }
 

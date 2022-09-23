@@ -32,6 +32,11 @@ export function createOverflowItems(animation, category)
 
             if (result) { category.deleteEntry(animation.id) }
          }
+      },
+      {
+         label: "Metadata",
+         icon: "fas fa-heart-pulse",
+         onclick: () => animation.getSource()
       }
    ];
 }

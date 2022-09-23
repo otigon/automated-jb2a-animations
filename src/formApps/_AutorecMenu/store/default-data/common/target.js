@@ -18,7 +18,7 @@ export function target() {
          fadeIn: 250,
          fadeOut: 500,
          isMasked: false,
-         isWait: false,
+         //isWait: false,
          isRadius: false,
          opacity: 1,
          persistent: false,
@@ -47,13 +47,19 @@ export function target() {
 /**
  * @typedef {object} DataTargetOptions
  *
- * @property {boolean}     below -
- *
+ * @property {boolean}     addTokenWidth -
+ * 
  * @property {number}      delay -
  *
- * @property {number}      delayAfter -
+ * @property {number}      elevation -
+ *
+ * @property {number}      fadeIn -
+ *
+ * @property {number}      fadeOut -
  *
  * @property {boolean}     isMasked -
+ *
+ * @property {boolean}     isRadius -
  *
  * @property {number}      opacity -
  *
@@ -61,7 +67,9 @@ export function target() {
  *
  * @property {number}      repeat -
  *
- * @property {number}      scale -
+ * @property {number}      repeatDelay -
+ *
+ * @property {number}      size -
  *
  * @property {boolean}     unbindAlpha -
  *

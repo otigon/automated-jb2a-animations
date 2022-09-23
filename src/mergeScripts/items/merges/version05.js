@@ -1,6 +1,6 @@
 import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 
-export async function version05(flags) {
+export async function version05(flags, isActiveEffect) {
 
     if (!flags) { 
         console.error("Automated Animations | Critical A-A Flag Errors found in version 05 merge. Removing A-A flags from item")
@@ -62,16 +62,20 @@ export async function version05(flags) {
     } else {
         const type = v4Flags.animType === "static" ? "ontoken" : v4Flags.animType === "template" ? "templatefx" : v4Flags.animType;
         const v5Flags = {};
-
-        switch(type) {
-            case "preset":
-                await routePreset(v4Flags, v5Flags);
-                break;
-            default:
-                await convertV6(v4Flags, v5Flags, type);
-                break;
+        if (isActiveEffect) {
+            await routeActiveEffect(v4Flags, v5Flags);
+        } else {
+            switch(type) {
+                case "preset":
+                    await routePreset(v4Flags, v5Flags);
+                    break;
+                default:
+                    await convertV6(v4Flags, v5Flags, type);
+                    break;
+            }    
         }
         v5Flags.version = 5;
+        console.warn(`Automated Animations | Version 5 Flag Migration Complete`, v5Flags)
         return v5Flags;
         //await item.update({ 'flags.-=autoanimations': null })
         //await item.update({ 'flags.autoanimations': v5Flags })
@@ -102,13 +106,7 @@ export async function version05(flags) {
 
         newMO.primary = {
             options: convertOptionsV6(oldMO, type),
-            sound: {
-                delay: oldMO.audio?.a01?.delay ?? 0,
-                enable: oldMO.audio?.a01?.enable ?? false,
-                startTime: oldMO.audio?.a01?.startTime ?? 0,
-                volume: oldMO.audio?.a01?.volume ?? 1,
-                file: oldMO.audio?.a01?.file,
-            },
+            sound: setSound(audio, "a01"),
             video: {
                 dbSection: setDBSection(type),
                 menuType: options?.menuType,
@@ -128,17 +126,35 @@ export async function version05(flags) {
         }
 
         newMO.soundOnly = {
-            sound: {
-                enable: false,
-                delay: oldMO.audio?.a01?.delay ?? 0,
-                startTime: oldMO.audio?.a01?.startTime ?? 0,
-                volume: oldMO.audio?.a01?.volume ?? 1,
-                file: oldMO.audio?.a01?.file,
-            }
+            sound: setSound(audio, "a01", true)
         }
         newMO.source = convertExtraFX(sourceToken, audio, "source");
         newMO.target = convertExtraFX(targetToken, audio, "target");
         return newMO;
+    }
+
+    async function setSound(audio = {}, section = "a01", rebase = false) {
+        if (rebase) {
+            return {
+                delay: 0,
+                enable: false,
+                file: "",
+                startTime: 0,
+                repeat: 1,
+                repeatDelay: 250,
+                volume: 1,
+            }    
+        } else {
+            return {
+                delay: audio?.[section]?.delay ?? 0,
+                enable: audio?.[section]?.enable ?? false,
+                file: audio?.[section]?.file ?? "",
+                startTime: audio?.[section]?.startTime ?? 0,
+                volume: audio?.[section]?.volume ?? 1,
+                repeat: 1,
+                repeatDelay: 250,
+            }
+        }
     }
 
     function setDBSection(type) {
@@ -147,7 +163,6 @@ export async function version05(flags) {
 
     function convertExtraFX(extraFX, audio, section) {
         const oldData = extraFX || {};
-        const sound = audio || {};
         const type = section === "source" ? "s01" : "t01";
         const data = {
             enable: oldData.enable ?? false,
@@ -166,13 +181,7 @@ export async function version05(flags) {
                 size: oldData.scale ?? 1,
                 zIndex: 1,
             },
-            sound: {
-                delay: sound[type]?.delay ?? 0,
-                enable: sound[type]?.enable ?? false,
-                startTime: sound[type]?.startTime ?? 0,
-                volume: sound[type]?.volume ?? 1,
-                file: sound[type]?.file,
-            },
+            sound: setSound(audio, type),
             video: {
                 dbSection: "static",
                 menuType: oldData.menuType,
@@ -192,7 +201,7 @@ export async function version05(flags) {
 
     function compileMeleeSwitch(oldMO) {
         let oldData = oldMO.meleeSwitch || {};
-        let oldSound = oldMO.audio || {};
+        let audio = oldMO.audio || {};
         const data = {
             video: {
                 dbSection: "range",
@@ -203,13 +212,7 @@ export async function version05(flags) {
                 enableCustom: false,
                 customPath: "",
             },
-            sound: {
-                delay: oldSound.audio?.a02?.delay ?? 0,
-                enable: oldSound.audio?.a02?.enable ?? false,
-                startTime: oldSound.audio?.a02?.startTime ?? 0,
-                volume: oldSound.audio?.a02?.volume ?? 1,
-                file: oldSound.audio?.a02?.file,
-            },
+            sound: setSound(audio, "a02"),
             options: {
                 detect: oldData.detect || "automatic",
                 range: oldData.range || 2,
@@ -229,9 +232,9 @@ export async function version05(flags) {
         const options = oldMO.options || {};
         switch (type) {
             case "melee":
-                data.isWait = false;
                 data.delay = 0;
                 data.elevation = oldMO.animLevel ? 0 : 1000;
+                data.isWait = false;
                 data.opacity = 1;
                 data.repeat = options.repeat ?? 1;
                 data.repeatDelay = options.delay ?? 0;
@@ -239,60 +242,63 @@ export async function version05(flags) {
                 data.zIndex = 1;
                 break;
             case "range":
-                data.isWait = false;
                 data.delay = 0;
                 data.elevation = oldMO.below ? 0 : 1000;
+                data.isReturning = false;
+                data.isWait = false;
                 data.onlyX = options.onlyX ?? false;
                 data.opacity = options.opacity ?? 1;
                 data.repeat = options.repeat ?? 1;
                 data.repeatDelay = options.delay ?? 0;
-                data.returning = false;
                 data.zIndex = options.zIndex ?? 1;
                 break;
             case "ontoken":
-                data.isWait = false;
+                data.addTokenWidth = false;
                 data.delay = 0;
                 data.elevation = oldMO.below ? 0 : 1000;
                 data.fadeIn = 250;
                 data.fadeOut = 500;
                 data.isMasked = false;
                 data.isRadius = false;
+                data.isWait = false;
                 data.opacity = options.opacity ?? 1;
                 data.persistent = options.persistent ?? false;
+                data.playOn = options.staticType === "targetDefault" ? "default" : options.staticType === "sourceTarget" ? "both" : !options.staticType ? "default" : options.staticType;
                 data.repeat = options.repeat ?? 1;
                 data.repeatDelay = options.delay ?? 0;
                 data.size = options.scale ?? 1;
-                data.playOn = options.staticType === "targetDefault" ? "default" : options.staticType === "sourceTarget" ? "both" : !options.staticType ? "default" : options.staticType;
                 data.unbindAlpha = options.unbindAlpha ?? false;
                 data.unbindVisibility = options.unbindVisibility ?? false;
                 data.zIndex = options.zIndex ?? 1;
                 break;
             case "templatefx":
-                data.isWait = false;
                 data.delay = 0;
                 data.elevation = oldMO.below ? 0 : 1000;
                 data.isMasked = false;
+                data.isWait = false;
                 data.occlusionAlpha = options.occlusionAlpha ?? 0;
                 data.occlusionMode = options.occlusionMode ?? 0;
                 data.opacity = options.opacity ?? 1;
-                data.persistType = options.persistType || "sequencerground";
                 data.persistent = options.persistent ?? false;
+                data.persistType = options.persistType || "sequencerground";
                 data.removeTemplate = options.removeTemplate ?? 1;
                 data.repeat = options.repeat ?? 1;
                 data.repeatDelay = options.delay ?? 0;
+                data.rotate = 0;
                 data.scaleX = options.scaleX ?? 1;
                 data.scaleY = options.scaleY ?? 1;
                 data.zIndex = options.zIndex ?? 1;
                 break;
             case "aura":
-                data.isWait = false;
-                data.delay = 0;
                 data.addTokenWidth = options.addTokenWidth ?? false;
-                data.radius = options.auraRadius ?? 3;
+                data.delay = 0;
                 data.elevation = options.below ? 0 : 1000;
                 data.ignoreTarget = options.ignoretargets ?? false;
                 data.isMasked = false;
+                data.isRadius = true;
+                data.isWait = false;
                 data.opacity = options.opacity ?? 1;
+                data.size = options.auraRadius ?? 3;
                 data.unbindAlpha = options.unbindAlpha ?? false;
                 data.unbindVisibility = options.unbindVisibility ?? false;
                 data.zIndex = options.zIndex ?? 1;
@@ -309,7 +315,7 @@ export async function version05(flags) {
             type: type || "",
             data: rest || {},
             explosion: addExplosion || {enable: false},
-            sound: {enable: false},
+            sound: setSound(audio, "a01", true),
         };
         return data3d;
     }
@@ -347,24 +353,21 @@ export async function version05(flags) {
         let data = {
             enable: exp?.enable ?? false,
             options: {
-                elevation: exp?.below ? 0 : 1000,
+                addTokenWidth: false,
                 delay: exp?.delay ?? 250,
+                elevation: exp?.below ? 0 : 1000,
+                fadeIn: 250,
+                fadeOut: 500,       
                 isMasked: exp?.isMasked ?? false,
                 isRadius: true,
                 isWait: false,
                 opacity: 1,
-                size: exp?.radius ?? 1.5,
                 repeat: oldMO.options?.repeat ?? 1,
                 repeatDelay: oldMO.delay ?? 0,
+                size: exp?.radius ?? 1.5,
                 zIndex: 1,
             },
-            sound: {
-                delay: audio?.e01?.delay ?? 0,
-                enable: audio?.e01?.enable ?? false,
-                file: audio?.e01?.file ?? "",
-                startTime: audio?.e01?.startTime ?? 0,
-                volume: audio?.e01?.volume ?? 1,
-            },
+            sound: setSound(audio, "e01"),
             video: {
                 dbSection: "static",
                 menuType: exp?.menuType,
@@ -443,24 +446,13 @@ export async function version05(flags) {
                 elevation: animLevel ? 0 : 1000,
                 opacity: 1,
             },
-            sound: {
-                delay: audio?.a01?.delay ?? 0,
-                enable: audio?.a01?.enable ?? false,
-                startTime: audio?.a01?.startTime ?? 0,
-                volume: audio?.a01?.volume ?? 1,
-            }
+            sound: setSound(audio, "a01"),
         };
         if (!newData.data.video.menuType || !newData.data.video.animation || !newData.data.video.variant || !newData.data.video.color) {
             resetVideo(newData.data.video, "range")
         }
         newData.soundOnly = {
-            sound: {
-                enable: false,
-                delay: oldData.audio?.a01?.delay ?? 0,
-                startTime: oldData.audio?.a01?.startTime ?? 0,
-                volume: oldData.audio?.a01?.volume ?? 1,
-                file: oldData.audio?.a01?.file,
-            }
+            sound: setSound(audio, "a01", true)
         }
         return newData;
     }
@@ -500,13 +492,7 @@ export async function version05(flags) {
                 elevation: animLevel ? 0 : 1000,
                 removeTemplate: oldData?.options?.removeTemplate ?? false,
             },
-            sound: {
-                enable: audio?.a01?.enable ?? false,
-                file: audio?.a01?.file ?? "",
-                volume: audio?.a01?.volume ?? 1,
-                startTime: audio?.a01?.startTime ?? 0,
-                delay: audio?.a01?.delay ?? 0,
-            }
+            sound: setSound(audio, "a01"),
         }
         if (!root.projectile.menuType || !root.projectile.animation || !root.projectile.variant || !root.projectile.color) {
             resetVideo(root.projectile, "range")
@@ -524,13 +510,7 @@ export async function version05(flags) {
                 wait: wait02,
                 elevation: animLevel ? 0 : 1000,
             },
-            sound: {
-                enable: audio?.e01?.enable ?? false,
-                file: audio?.e01?.file ?? "",
-                volume: audio?.e01?.volume ?? 1,
-                startTime: audio?.e01?.startTime ?? 0,
-                delay: audio?.e01?.delay ?? 0,
-            }
+            sound: setSound(audio, "e01"),
         }
         if (!root.preExplosion.menuType || !root.preExplosion.animation || !root.preExplosion.variant || !root.preExplosion.color) {
             root.preExplosion.enable = false;
@@ -549,13 +529,7 @@ export async function version05(flags) {
                 scale: explosion02Scale,
                 wait: -500,
             },
-            sound: {
-                enable: audio?.e02?.enable ?? false,
-                file: audio?.e02?.file ?? "",
-                volume: audio?.e02?.volume ?? 1,
-                startTime: audio?.e02?.startTime ?? 0,
-                delay: audio?.e02?.delay ?? 0,
-            }
+            sound: setSound(audio, "e02"),
         }
         if (!root.explosion.menuType || !root.explosion.animation || !root.explosion.variant || !root.explosion.color) {
             resetVideo(root.explosion, "static")
@@ -570,13 +544,7 @@ export async function version05(flags) {
             }
         }
         newData.soundOnly = {
-            sound: {
-                enable: false,
-                delay: oldData.audio?.a01?.delay ?? 0,
-                startTime: oldData.audio?.a01?.startTime ?? 0,
-                volume: oldData.audio?.a01?.volume ?? 1,
-                file: oldData.audio?.a01?.file,
-            }
+            sound: setSound(audio, "a01", true),
         }
         return newData;
     }
@@ -600,12 +568,7 @@ export async function version05(flags) {
             range: options?.teleDist ?? 30,
             measureType: options?.measureType ?? "alternating",
         }
-        root.sound = {
-            delay: audio?.a01?.delay ?? 0,
-            enable: audio?.a01?.enable ?? false,
-            startTime: audio?.a01?.startTime ?? 0,
-            volume: audio?.a01?.volume ?? 1,
-        }
+        root.sound = setSound(audio, "a01");
         root.start = {
             dbSection: "static",
             menuType: options?.menuType,
@@ -658,13 +621,7 @@ export async function version05(flags) {
             resetVideo(root.end, "static")
         }
         newData.soundOnly = {
-            sound: {
-                enable: false,
-                delay: oldData.audio?.a01?.delay ?? 0,
-                startTime: oldData.audio?.a01?.startTime ?? 0,
-                volume: oldData.audio?.a01?.volume ?? 1,
-                file: oldData.audio?.a01?.file,
-            }
+            sound: setSound(audio, "a01", true)
         }
         return newData;
     }
@@ -694,495 +651,389 @@ export async function version05(flags) {
                 opacity: options?.opacity ?? 1,
                 removeTemplate: options?.removeTemplate ?? false,
             }, 
-            sound: {
-                enable: audio?.a01?.enable ?? false,
-                file: audio?.a01?.file ?? "",
-                volume: audio?.a01?.volume ?? 1,
-                startTime: audio?.a01?.startTime ?? 0,
-                delay: audio?.a01?.delay ?? 0,
-            }
+            sound: setSound(audio, "a01"),
         };
         newData.soundOnly = {
-            sound: {
-                enable: false,
-                delay: oldData.audio?.a01?.delay ?? 0,
-                startTime: oldData.audio?.a01?.startTime ?? 0,
-                volume: oldData.audio?.a01?.volume ?? 1,
-                file: oldData.audio?.a01?.file,
-            }
+            sound: setSound(audio, "a01", true)
         }
         return newData;
     }
 
+    /**
+     * Active Effect Conversions
+     * Shield and Bless converted to OnToken menu
+     */
+     async function routeActiveEffect(oldMO, newMO) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-    if (v4Flags.override) {
-        if (primarySet.includes(v4Flags.animType)) {
-            await mergePrimary();
-            if (v5Flags.animType === "template") {v5Flags.animType = "templatefx"}
-            await item.update({ 'flags.-=autoanimations': null })
-            await item.update({ 'flags.autoanimations': v5Flags })
-            return;    
-        }
-        if (v4Flags.animType === "preset") {
-            v5Flags.version = 5;
-            v5Flags.preset = {};
-            v5Flags.animType = 'preset';
-            v5Flags.override = true;
-            v5Flags.killAnim = false;    
-            await mergePreset();
-            await item.update({ 'flags.-=autoanimations': null })
-            await item.update({ 'flags.autoanimations': v5Flags })
-            return;    
-        }
-    }
-    
-    async function new3d(data) {
-        let spriteType = data?.type || "";
-        switch (spriteType) {
-            case "sprite": 
-                return {type: data.type || "" , sprites: data || {}}
-            case "explosion":
-                return {type: data.type || "" , explosion: data || {}}
-            case "ray":
-                return {type: data.type || "" , ray: data || {}}
-            case "projectile":
-                return {type: data.type || "" , projectile: data || {}}
-            default:
-                return {type: ""}
-        }
-    }
-    
-    async function mergePrimary() {
-        let { options, explosions, audio, macro, levels3d, sourceToken, targetToken,
-            meleeSwitch, killAnim, override, animType, animation, color, animLevel } = v4Flags;
-        v5Flags.options ? v5Flags.options : v5Flags.options = {};
-        const newOptions = v5Flags.options;
-        v5Flags.killAnim = killAnim;
-        v5Flags.override = override;
-        v5Flags.animType = animType;
-        v5Flags.primary = {
-            menuType: options?.menuType || "",
-            animation,
-            variant: options?.variant || "",
-            color,
-            enableCustom: options?.enableCustom || false,
-            customPath: options?.customPath || "",
-        };
-        v5Flags.version = 5;
-        v5Flags.options = options;
-        v5Flags.explosions = explosions || {};
-        v5Flags.audio = audio || {};
-        v5Flags.macro = macro || {};
-        v5Flags.levels3d = await new3d(levels3d);
-        v5Flags.meleeSwitch = meleeSwitch || {};
-        v5Flags.preset = {};
-        newOptions.below = animLevel;
-        if (sourceToken?.enable) {
-            await convertSource(sourceToken)
-        }
-        if (targetToken?.enable) {
-            convertTarget(targetToken)
-        }
-    }
-    async function convertSource(data) {
-        let {menuType, name: animation, variant, color, enable, enableCustom, customPath, loops, loopDelay,
-            delayAfter, animLevel, ...rest} = data;
-        v5Flags.options ? v5Flags.options : v5Flags.options = {};
-        const newOptions = v5Flags.options;    
-        v5Flags.sourceToken = {
-            enable,
-            delayAfter,
-            primary: {
-                menuType,
-                animation,
-                variant,
-                color,
-                enableCustom,
-                customPath
-            },
-            options: rest,
-        }
-        
-        v5Flags.sourceToken.options.repeat = loops || 1;
-        v5Flags.sourceToken.options.delay = loopDelay || 250;
-        v5Flags.sourceToken.options.below = animLevel || false;
-    }
-    async function convertTarget(data) {
-        let {menuType, name: animation, variant, color, enable, enableCustom, customPath, loops, loopDelay,
-            delayStart, animLevel, ...rest} = data;
-        v5Flags.options ? v5Flags.options : v5Flags.options = {};
-        const newOptions = v5Flags.options;    
-
-        v5Flags.targetToken = {
-            enable,
-            delayStart,
-            primary: {
-                menuType,
-                animation,
-                variant,
-                color,
-                enableCustom,
-                customPath
-            },
-            options: rest,
-        }
-        v5Flags.targetToken.options.repeat = loops || 1;
-        v5Flags.targetToken.options.delay = loopDelay || 250;
-        v5Flags.targetToken.options.below = animLevel || false;
-    }
-
-    async function mergePreset() {
-        const preset = v5Flags.preset
-        switch (v4Flags.animation) {
-            case "bardicinspiration":
-                preset.bardicinspiration = {};
-                await updateBI()
-                break;
-            case "bless":
-                preset.bless = {};
-                await updateBless()
-                break;
-            case "shieldspell":
-                preset.shield = {};
-                await updateShield()
-                break;
-            case "teleportation":
-                preset.teleportation = {};
-                await updateTele()
-                break;
-            case "dualattach":
-                preset.dualattach = {};
-                await updateDAttach()
-                break;
-            case "fireball":
-                preset.fireball = {};
-                await updateFireball()
-                break;
-            case "huntersmark":
-                preset.huntersmark = {};
-                await updateHM()
-                break;
-            case "sneakattack":
-                preset.sneakattack = {};
-                await updateSneak()
-                break;
-            case "thunderwave":
-                preset.thunderwave = {};
-                await updateThunderwave()
-                break;
+        let current;
+        switch (oldMO.animType) {
+            case "static":
+                current = await convertAEOnToken(oldMO, newMO);
+                return current;
+            case "aura":
+                current = await convertAEAura(oldMO, newMO);
+                return current;
+            case "preset":
+                switch(oldMO.animation) {
+                    case "bless":
+                        current = await convertAEBless(oldMO, newMO);
+                        return current;
+                    case "shieldspell":
+                        current = await convertAEShield(oldMO, newMO);
+                        return current;
+                }
+                
         }
     }
 
-    async function updateBI() {
-        const preset = v5Flags.preset;
-        const root = preset.bardicinspiration;
-        const bards = v4Flags.bards;
-        preset.presetType = "bardicinspiration";
-        let { bardSelf, bardAnim, bardVariant, bardSelfColor, bardTarget, bardTargetAnim, bardTargetVariant,
-            bardTargetColor, marker, markerColor, markerColorTarget} = bards;
-        let {audio, macro, sourceToken, targetToken, animLevel} = v4Flags;
-        v5Flags.audio = audio || {};
-        v5Flags.macro = macro || {};
-        root.below = animLevel;
-        if (sourceToken?.enable) { convertSource(sourceToken) };
-        if (targetToken?.enable) { convertTarget(targetToken) }
-        preset.presetType = "bardicinspiration";
-        root.scale = v5Flags.options?.scale || 1;
-        root.self = {
-            enable: bardSelf || false,
-            animation: bardAnim === "music" ? "notes" : bardAnim,
-            variant: bardVariant,
-            color: bardSelfColor,
-        }
-        if (!root.self.animation || !root.self.color || !root.self.variant) {
-            root.self.enable = false;
-            root.self.animation = "";
-            root.self.variant = "";
-            root.self.color = "";
-        }
-        root.target = {
-            enable: bardTarget || false,
-            animation: bardTargetAnim === "music" ? "notes" : bardTargetAnim,
-            variant: bardTargetVariant,
-            color: bardTargetColor,
-        }
-        // TO-DO, assign VARIANTS somehow
-        if (!root.target.animation || !root.target.color || !root.target.variant) {
-            root.target.enable = false;
-            root.target.animation = "";
-            root.target.variant = "";
-            root.target.color = "";
-        }
-        root.marker = {
-            enable: marker || false,
-            selfColor: markerColor || "",
-            targetColor: markerColorTarget || "",
-        }
-    }
-
-    async function updateBless() {
-        const preset = v5Flags.preset;
-        const root = preset.bless;
-        preset.presetType = "bless";
-
-        let { color, options, audio, macro, sourceToken, targetToken, animLevel, scale } = v4Flags;
-        if (sourceToken?.enable) { convertSource(sourceToken) };
-        if (targetToken?.enable) { convertTarget(targetToken) };
-
-        v5Flags.audio = audio || {};
-        v5Flags.macro = macro || {};
-        root.below = animLevel;
-        root.scale = scale || 1;
-        root.menuType = "spell";
-        root.animation = "bless";
-        root.variant = "01";
-        root.color = color;
-        root.unbindAlpha = options?.unbindAlpha || false;
-        root.unbindVisibility = options?.unbindVisibility || false;
-        root.persistent = options?.persistent || false;
-    }
-
-    async function updateShield() {
-        const preset = v5Flags.preset;
-        const root = preset.shield;
-
-        let { audio, macro, sourceToken, options, color } = v4Flags;
-        root.audio = audio || {};
-        root.macro = macro || {};
-        preset.presetType = "shieldspell";
-        if (sourceToken?.enable) { convertSource(sourceToken) };
-
-        root.menuType = "spell";
-        root.animation = "shieldspell";
-        root.variant = options.variant;
-        root.color = color;
-
-        root.endEffect = options.shieldVar;
-        root.unbindAlpha = options.unbindAlpha;
-        root.unbindVisibility = options.unbindVisibility;
-        root.persistent = options.persistent;
-        root.below = v5Flags.animLevel;
-        root.scale = options.scale;
-    }
-
-    async function updateTele() {
-        const preset = v5Flags.preset;
-        preset.teleportation = {};
-        const root = preset.teleportation;
-
-        let { audio, macro, sourceToken, options, color, color02, animLevel} = v4Flags;
-        let { measureType, teleDist, hideFromPlayers, menuType, name, variant, enableCustom, customPath, scale,
-            menuType02, name02, variant02, enableCustom02, customPath02, scale02, delay }= options;
-        root.audio = audio || {};
-        root.macro = macro || {};
-        preset.presetType = "teleportation";
-        if (sourceToken?.enable) { convertSource(sourceToken) };
-
-        root.hideFromPlayers = hideFromPlayers;
-        root.range = teleDist;
-        root.measureType = measureType;
-        root.start = {
-            menuType,
-            animation: name,
-            variant,
-            color,
-            below: animLevel,
-            enableCustom: enableCustom || false,
-            customPath,
-            scale,
-        }
-        root.between = {
+    function newExtraFX() {
+        const data = {
             enable: false,
+            options: {
+                addTokenWidth: false,
+                delay: 0,
+                elevation: 1000,
+                fadeIn: 250,
+                fadeOut: 500,
+                isMasked: false,
+                isRadius: false,
+                isWait: true,
+                opacity: 1,
+                repeat: 1,
+                repeatDelay: 250,
+                size: 1,
+                zIndex: 1,       
+            },
+            sound: setSound(audio, "a01", true),
+            video: {
+                dbSection: "static",
+                menuType: "spell",
+                animation: "curewounds",
+                variant: "01",
+                color: "blue",
+                enableCustom: false,
+                customPath: "",
+            }
         }
-        root.end = {
-            menuType: menuType02,
-            animation: name02,
-            variant: variant02,
-            color: color02,
-            below: animLevel,
-            enableCustom: enableCustom02 || false,
-            customPath: customPath02,
-            scale: scale02,
-            delay
-        }
+        return data;
     }
 
-    async function updateDAttach() {
-        const preset = v5Flags.preset;
-        const root = preset.dualattach;
+    async function convertAEOnToken(oldMO, newMO) {
 
-        let { audio, macro, sourceToken, options, color, animLevel } = v4Flags;
-        let { menuType, name, variant, enableCustom, customPath, playbackRate, onlyX } = options;
-        root.audio = audio || {};
-        root.macro = macro || {};
-        preset.presetType = "dualattach";
-        if (sourceToken?.enable) { convertSource(sourceToken) };
+        let { animLevel, animation, audio, color, explosions, macro, options } = oldMO;
+        //let { aeDelay, aeType, animation, audio, below, color, custom, customPath, delay, explosion, macro, menuType, name,
+            //opacity, persistent, repeat, scale, soundOnly, type, unbindAlpha, unbindVisibility, variant } = oldMO;
 
-        root.menuType = menuType;
-        root.animation = name;
-        root.variant = variant;
-        root.color = color;
-        root.enableCustom = enableCustom || false;
-        root.customPath = customPath || "";
-        root.playbackRate = playbackRate || 1;
-        root.onlyX = onlyX || false;
-        root.below = animLevel || false;
-    }
+        newMO.id = uuidv4();
+        newData.isEnabled = true;
+        newData.isCustomized = true;
+        newMO.activeEffectType = "ontoken";
 
-    async function updateFireball() {
-        const preset = v5Flags.preset;
-        const root = preset.fireball;
-
-        let { audio, macro, options, sourceToken, animLevel } = v4Flags;
-        let { rangeType, projectile, projectileVariant, projectileColor, projectileRepeat, projectileDelay, wait01,
-            ex01Type, explosion01, explosion01Variant, explosion01Color, explosion01Repeat, explosion01Delay, explosion01Scale, wait02,
-            ex02Type, explosion02, explosion02Variant, explosion02Color, explosion02Repeat, explosion02Delay, explosion02Scale,
-            afterEffect, afterEffectPath, wait03 } = v4Flags.fireball;
-        root.audio = audio || {};
-        root.macro = macro || {};
-        preset.presetType = "fireball";
-        if (sourceToken?.enable) { convertSource(sourceToken) };
-
-        root.removeTemplate = options.removeTemplate || false;
-        root.projectile = {
-            menuType: rangeType,
-            animation: projectile,
-            variant: projectileVariant,
-            color: projectileColor,
-            repeat: projectileRepeat,
-            delay: projectileDelay,
-            wait: wait01,
-            below: animLevel,
+        newMO.data = {
+            options: {
+                addTokenWidth: false,
+                aeDelay: options?.aeDelay || 0,
+                elevation: animLevel ? 0 : 1000,
+                delay: 0,
+                isMasked: false,
+                isRadius: false,
+                isWait: false,
+                opacity: options?.opacity ?? 1,
+                persistent: options?.persistent ?? false,
+                playOn: "source",
+                repeat: options?.repeat ?? 1,
+                repeatDelay: options?.delay || 250,
+                size: options?.scale || 1,
+                unbindAlpha: options?.unbindAlpha ?? false,
+                unbindVisibility: options?.unbindVisibility ?? false,
+                zIndex: 1,
+            },
+            sound: setSound(audio, "a01"),
+            video: {
+                animation: animation,
+                color: color,
+                customPath: options?.customPath ?? "",
+                dbSection: "static",
+                enableCustom: options?.enableCustom ?? false,
+                menuType: options?.menuType,
+                variant: options?.variant,
+            }
         }
-        root.explosion01 = {
-            menuType: ex01Type,
-            animation: explosion01,
-            variant: explosion01Variant,
-            color: explosion01Color,
-            repeat: explosion01Repeat,
-            delay: explosion01Delay,
-            scale: explosion01Scale,
-            wait: wait02,
-            below: animLevel,
+
+        const newVideo = newMO.data.video;
+        if (!newVideo.menuType || !newVideo.animation || !newVideo.variant || !newVideo.color) {
+            resetVideo(newMO.data.video)
         }
-        if (!root.explosion01.menuType || !root.explosion01.animation || !root.explosion01.variant || !root.explosion01.color) {
-            root.explosion01.enable = false;
-        } else { root.explosion01.enable = true }
-        root.explosion02 = {
-            menuType: ex02Type,
-            animation: explosion02,
-            variant: explosion02Variant,
-            color: explosion02Color,
-            repeat: explosion02Repeat,
-            delay: explosion02Delay,
-            scale: explosion02Scale,
+
+        newMO.macro = macro || {};
+        newMO.menu = "aefx";
+        newMO.secondary = await convertExplosionV6(explosions, audio, oldMO)
+        newMO.soundOnly = {
+            sound: setSound(audio, "a01", true),
         }
-        if (!root.explosion02.menuType || !root.explosion02.animation || !root.explosion02.variant || !root.explosion02.color) {
-            root.explosion01.enable = false;
-        } else { root.explosion02.enable = true }
-        root.afterImage = {
-            enable: afterEffect,
-            customPath: afterEffectPath,
-            below: true,
-            scale: 1,
-            wait: wait03,
+        newMO.source = newExtraFX();
+
+        return newMO;
+    }
+
+    async function convertAEAura(oldMO, newMO) {
+
+        let { animLevel, animType, animation, audio, color, macro, options } = oldMO;
+
+        newMO.id = uuidv4();
+        newData.isEnabled = true;
+        newData.isCustomized = true;
+        newMO.activeEffectType = "ontoken";
+
+        newMO.secondary = {
+            enable: false,
+            options: {},
+            sound: setSound(audio, "a01", true),
+            video: {
+                dbSection: "static",
+                menuType: "spell",
+                animation: "curewounds",
+                variant: "01",
+                color: "blue",
+            }
         }
+
+        newMO.data = {
+            options: {
+                addTokenWidth: false,
+                aeDelay: options?.aeDelay || 0,
+                delay: 0,
+                elevation: animLevel ? 0 : 1000,
+                ignoreTarget: true,
+                isMasked: false,
+                isRadius: true,
+                isWait: true,
+                opacity: options?.opacity || 1,
+                size: options?.auraRadius || 3,
+                unbindAlpha: options?.unbindAlpha ?? false,
+                unbindVisibility: options?.unbindVisibility ?? false,
+                zIndex: 1,
+            },
+            sound: setSound(audio, "a01"),
+            video: {
+                animation: animation,
+                color: color,
+                customPath: options?.customPath || "",
+                dbSection: "static",
+                enableCustom: options?.enableCustom ?? false,
+                menuType: options?.menuType,
+                variant: options?.variant,
+            }
+        }
+
+        const newVideo = newMO.data.video;
+        if (!newVideo.menuType || !newVideo.animation || !newVideo.variant || !newVideo.color) {
+            resetVideo(newMO.data.video)
+        }
+
+        newMO.macro = macro || {};
+
+        newMO.soundOnly = {
+            sound: setSound(audio, "a01", true)
+        }
+
+        newMO.source = newExtraFX();
+        return newMO;
     }
 
-    async function updateHM() {
-        const preset = v5Flags.preset;
-        const root = preset.huntersmark;
+    async function convertAEBless(oldMO, newMO) {
 
-        let { audio, macro, sourceToken, targetToken, options, animLevel } = v4Flags;
-        let { variant, scale, persistent, anchorX, anchorY, color } = options;
-        root.audio = audio || {};
-        root.macro = macro || {};
-        preset.presetType = "huntersmark";
-        if (sourceToken?.enable) { convertSource(sourceToken) };
-        if (targetToken?.enable) { convertTarget(targetToken) }
+        let { animLevel, animType, animation, audio, color, macro, options } = oldMO;
 
-        root.variant = variant;
-        root.color = color;
-        root.scale = scale;
-        root.below = animLevel;
-        root.persistent = persistent;
-        root.anchorX = anchorX;
-        root.anchorY = anchorY;
+        newMO.id = uuidv4();
+        newData.isEnabled = true;
+        newData.isCustomized = true;
+        newMO.activeEffectType = "ontoken";
+        newMO.menu = "aefx";
+
+        newMO.macro = macro || {};
+
+        newMO.data = {
+            options: {
+                addTokenWidth: false,
+                aeDelay: 0,
+                delay: 0,
+                elevation: animLevel ? 0 : 1000,
+                fadeIn: 0,
+                fadeOut: 500,    
+                isMasked: false,
+                isRadius: false,
+                isWait: true,
+                opacity: 1,
+                persistent: options?.persistent ?? false,
+                playOn: "source",
+                repeat: 1,
+                repeatDelay: 250,
+                size: options?.scale || 1,
+                unbindAlpha: options?.unbindAlpha ?? false,
+                unbindVisibility: options?.unbindVisibility ?? false,
+                zIndex: 1,
+            },
+            sound: setSound(audio, "a01", true),
+            video: {
+                dbSection: "static",
+                menuType: "spell",
+                animation: "bless",
+                variant: "loop",
+                color: color || "blue",
+                enableCustom: false,
+                customPath: "",
+            },
+        }
+
+        newMO.secondary = {
+            enable: false,
+            options: {},
+            sound: setSound(audio, "a01", true),
+            video: {
+                dbSection: "static",
+                menuType: "spell",
+                animation: "curewounds",
+                variant: "01",
+                color: "blue",
+                enableCustom: false,
+                customPath: "",
+            },
+        }
+
+        newMO.soundOnly = {
+            sound: setSound(audio, "a01", true)
+        }
+
+        newMO.source = {
+            enable: true,
+            options: {
+                addTokenWidth: false,
+                delay: -500,
+                elevation: animLevel ? 0 : 1000,
+                fadeIn: 250,
+                fadeOut: 500,    
+                isMasked: false,
+                isRadius: false,
+                isWait: true,
+                opacity: 1,
+                repeat: 1,
+                repeatDelay: 250,
+                size: options?.scale || 1,
+                zIndex: 1,
+            },
+            sound: setSound(audio, "a01"),
+            video: {
+                dbSection: "static",
+                menuType: "spell",
+                animation: "bless",
+                variant: "intro",
+                color: color || "blue",
+                enableCustom: false,
+                customPath: "",
+            }
+        }
+
+        return newMO;
     }
 
-    async function updateSneak() {
-        const preset = v5Flags.preset;
-        const root = preset.sneakattack;
+    async function convertAEShield(oldMO, newMO) {
 
-        let { audio, macro, sourceToken, options, color, animLevel } = v4Flags;
-        let { variant, scale, anchorX, anchorY } = options;
-        root.audio = audio || {};
-        root.macro = macro || {};
-        preset.presetType = "sneakattack";
-        if (sourceToken?.enable) { convertSource(sourceToken) };
+        let { animLevel, animType, animation, audio, color, macro, options } = oldMO;
 
-        root.variant = variant;
-        root.color = color;
-        root.scale = scale;
-        root.anchorX = anchorX;
-        root.anchorY = anchorY;
-        root.below = animLevel;
+        newMO.id = uuidv4();
+        newData.isEnabled = true;
+        newData.isCustomized = true;
+        newMO.activeEffectType = "ontoken";
+        newMO.menu = "aefx";
+
+        newMO.data = {
+            options:{
+                isWait: true,
+                delay: -1000,
+                elevation: animLevel ? 0 : 1000,
+                fadeIn: 250,
+                fadeOut: 0,
+                isMasked: false,
+                isRadius: false,
+                opacity: 1,
+                persistent: options?.persistent || false,
+                repeat: 1,
+                repeatDelay: 250,
+                size: scale ?? 1,
+                playOn: "source",
+                unbindAlpha: options?.unbindAlpha ?? false,
+                unbindVisibility: options?.unbindVisibility ?? false,
+                zIndex: 1,
+            },
+            sound: setSound(audio, "a01", true),
+            video: {
+                dbSection: "static",
+                menuType: "shieldspell",
+                animation: "loop",
+                variant: variant || "01",
+                color: color || "blue",
+                enableCustom: false,
+                customPath: "",
+            }
+        }
+        newMO.source = {
+            enable: true,
+            options: {
+                delay: -500,
+                elevation: animLevel ? 0 : 1000,
+                fadeIn: 500,
+                fadeOut: 0,
+                isRadius: false,
+                isWait: true,
+                mask: false,
+                repeat: 1,
+                repeatDelay: 250,
+                size: options?.scale || 1,
+            },
+            sound: setSound(audio, "a01"),
+            video: {
+                dbSection: "static",
+                menuType: "shieldspell",
+                animation: "intro",
+                variant: variant || "01",
+                color: color || "blue",
+                enableCustom: false,
+                customPath: "",
+            }
+        }
+
+        newMO.secondary = {
+            options: {
+                delay: 0,
+                elevation: animLevel ? 0 : 1000,
+                isMasked: false,
+                isRadius: false,
+                isWait: false,
+                repeat: 1,
+                repeatDelay: 250,
+                size: options?.scale || 1,
+                opacity: 1,
+                zIndex: 1,
+            },
+            sound: setSound(audio, "a01", true),
+            video:{
+                dbSection: "static",
+                menuType: "shieldspell",
+                animation: endEffect || "outro_explode",
+                variant: variant || "01",
+                color: color || "blue",
+                enableCustom: false,
+                customPath: "",
+            }
+        }
+
+        newMO.macro = macro || {};
+
+        newMO.soundOnly = {
+            sound: setSound(audio, "a01", true),
+        }
+
+        return newMO;
     }
-
-    async function updateThunderwave() {
-        const preset = v5Flags.preset;
-        const root = preset.thunderwave;
-
-        let { audio, macro, sourceToken, options, color, animLevel } = v4Flags;
-        let { repeat, delay, scaleX, scaleY, opacity, removeTemplate, persistent, persistType, occlusionMode, occlusionAlpha } = options;
-        root.audio = audio || {};
-        root.macro = macro || {};
-        preset.presetType = "thunderwave";
-        if (sourceToken?.enable) { convertSource(sourceToken) };
-
-        root.color = color;
-        root.below = animLevel;
-        root.repeat = repeat;
-        root.delay = delay;
-        root.scaleX = scaleX;
-        root.scaleY = scaleY;
-        root.opacity = opacity;
-        root.removeTemplate = removeTemplate;
-        root.persistent = persistent;
-        root.persistType = persistType;
-        root.occlusionMode = occlusionMode;
-        root.occlusionAlpha = occlusionAlpha;
-    }
-    */
-    console.warn(`DEBUG | Automated Animations | Version 5 Flag Migration Complete`, v5Flags)
 }
