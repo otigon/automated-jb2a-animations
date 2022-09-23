@@ -494,7 +494,7 @@ export class AutorecFunctions {
         }
 
         //await game.settings.set("autoanimations", "aaAutorec", oldData);
-        debugger
+
         await autoRecMigration.handle(oldData, true)
     }
 

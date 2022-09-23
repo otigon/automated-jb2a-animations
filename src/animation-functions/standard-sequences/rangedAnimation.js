@@ -1,5 +1,4 @@
 //import { buildFile } from "../file-builder/build-filepath.js"
-import { aaDebugger } from "../../constants/constants.js"
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 import { aaReturnWeapons } from "../../database/jb2a-menu-options.js";
 
@@ -22,8 +21,6 @@ export async function range(handler, animationData) {
     const macro = animationData.macro;
 
     //const attack = await buildFile(false, data.video.menuType, data.video.animation, "range", data.video.variant, data.video.color, data.video.customPath)
-
-    if (handler.debug) { aaDebugger("Ranged Animation Start", animationData) }
 
     const sourceToken = handler.sourceToken;
     const onlyX = data.enableCustom ? data.onlyX : false;

@@ -563,6 +563,7 @@ export class AAAnimationData {
                 },
                 afterImage: {
                     customPath: afterImage.enable && afterImage.customPath ? afterImage.customPath : false,
+                    enable: afterImage.enable ?? false,
                     options: {
                         elevation: afterImageOptions.elevation ?? 1000,
                         persistent: afterImageOptions.persistent ?? false,

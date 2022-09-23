@@ -1,17 +1,11 @@
 import { AAAnimationData } from "../aa-classes/AAAnimationData.js";
-import { aaDebugger } from "../constants/constants.js";
-import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
-
-//import * as animationSeq from "../animation-functions/index.js"
-
-//const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+import { debug } from "../constants/constants.js";
 
 import * as animate from "../animation-functions"
 
 
 
 export async function trafficCop(handler) {
-    const aaDebug = game.settings.get("autoanimations", "debug");
     const autorecDisabled = game.settings.get("autoanimations", "disableAutoRec")
 
     if (!handler.isEnabled) { return; }
@@ -60,6 +54,7 @@ export async function trafficCop(handler) {
 
     if (animationType === "templatefx" || animationType === "proToTemp") {
         //sections for Template Hooks.once or straight to function
+        debug(`${animationType} Animation Start"`)
         switch (game.system.id) {
             case "a5e":
             case "pf2e":
@@ -78,9 +73,10 @@ export async function trafficCop(handler) {
     } else {
         if (targets < 1 && (animationType === "melee" || animationType === "range")) {
             Hooks.callAll("aa.animationEnd", handler.sourceToken, "no-target");
-            if (aaDebug) { aaDebugger(`${animationType} Animation End", "NO TARGETS`) }
+            debug(`${animationType} Animation End", "NO TARGETS`)
             return;
         }
+        debug(`${animationType} Animation Start"`)
         //Hooks.callAll("aa.preAnimationStart", sanitizedData, data);
         animate[animationType](handler, sanitizedData);
         return;

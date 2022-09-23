@@ -1,5 +1,4 @@
 import { buildFile } from "../file-builder/build-filepath.js";
-import { aaDebugger } from "../../constants/constants.js";
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -19,8 +18,6 @@ export async function aura(handler, animationData) {
 
     const sourceToken = handler.sourceToken;
     const aura = await buildFile(false, data.video.menuType, data.video.animation, "static", data.video.variant, data.video.color, data.video.customPath);
-
-    if (handler.debug) { aaDebugger("Aura Animation Start", animationData, aura) }
 
     if (handler.isActiveEffect) {
         // TO-DO add AE Delay to Active Effect options
@@ -90,7 +87,7 @@ export async function aura(handler, animationData) {
         } else {
             newEffect.delay(data.options.delay)
         }
-        //AAAnimationData.howToDelete("sequencerground")
+        AAAnimationData.howToDelete("sequencerground")
 
         if (secondary) {
             let secondarySize = secondary.options.isRadius ? secondary.options.size * 2 : (sourceToken.w / canvas.grid.size) * 1.5 * secondary.options.size;

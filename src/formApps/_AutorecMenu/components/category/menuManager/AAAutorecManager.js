@@ -1,4 +1,5 @@
 import { autoRecMigration } from "../../../../../mergeScripts/autorec/autoRecMerge";
+import { custom_warning } from "../../../../../constants/constants";
 
 export class AAAutorecManager
 {
@@ -76,7 +77,7 @@ export class AAAutorecManager
 
 
     static async mergeMenus(menu, menus = {}) {
-        console.warn("Automated Animations: Merging the requested Menus", menu, menus)
+        custom_warning("Merging the requested Menus", false, menu, menus)
         const updatedImport = await autoRecMigration.handle(menu, {...menus})
 
         let currentMenu = {

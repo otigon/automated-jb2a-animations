@@ -3,6 +3,7 @@ import { writable }           from "svelte/store";
 import { uuidv4 }             from "@typhonjs-fvtt/runtime/svelte/util";
 import { isObject }           from '@typhonjs-fvtt/runtime/svelte/util';
 
+import { custom_warning } from "../../../constants/constants.js";
 import OptionsDialog from "../../Menus/Components/options/optionsInfoDialog.js"
 import VideoPreview  from "../../Menus/Components/videoPreview/videoPreview.js"
 
@@ -291,7 +292,7 @@ export class AnimationStore extends ObjectEntryStore {
       //ui.notifications.info("Work In Progress")
       let menu = this._data.activeEffectType;
       if (menu === "default") {
-         console.warn("Automated Animations | You are attempting to copy an Item to the Global menu, but you haven't configured the item!")
+         custom_warning("You are attempting to copy an Item to the Global menu, but you haven't configured the item!")
       }
       let data = structuredClone(this._data);
       data.id = uuidv4();

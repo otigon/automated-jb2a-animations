@@ -1,5 +1,4 @@
 import { buildFile } from "../file-builder/build-filepath.js"
-import { aaDebugger } from "../../constants/constants.js";
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 import { aaReturnWeapons, aaRangeWeapons } from "../../database/jb2a-menu-options.js";
 
@@ -58,8 +57,6 @@ export async function melee(handler, animationData) {
     //const attack = await buildFile(false, data.video.menuType, data.video.animation, "melee", data.video.variant, data.video.color, data.video.customPath);
     //TO-DO set up Range Switch for Melee in new Menus
     //const range = await buildFile(false, data.switchMenuType, data.switchAnimation, "range", data.switchVariant, data.switchColor);
-
-    if (handler.debug) { aaDebugger("Melee Animation Start", animationData) }
 
     const sourceToken = handler.sourceToken;
     //const sourceScale = data.animation === "unarmedstrike" || data.animation === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;

@@ -1,6 +1,6 @@
 import { createActiveEffects, deleteActiveEffects, checkConcentration, toggleActiveEffects } from "./handleActiveEffects.js";
 import { createRuleElementPF2e, deleteRuleElementPF2e } from "./pf2e/handlePF2eRuleElements.js";
-
+import { debug } from "../constants/constants.js";
 
 export function registerActiveEffectHooks() {
     switch (game.system.id) {
@@ -37,7 +37,7 @@ export function registerActiveEffectHooks() {
         case "dnd5e":
             Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
                 if (game.settings.get("autoanimations", "disableAEAnimations")) {
-                    console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
+                    debug(`Active Effect Animations are Disabled`);
                     return;
                 }
                 if (game.user.id !== userId) { return; }
@@ -47,7 +47,7 @@ export function registerActiveEffectHooks() {
         case 'wfrp4e':
             Hooks.on("createActiveEffect", (effect, data, userId) => {
                 if (game.settings.get("autoanimations", "disableAEAnimations")) {
-                    console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
+                    debug(`Active Effect Animations are Disabled`);
                     return;
                 }
                 if (game.user.id !== userId) { return; }

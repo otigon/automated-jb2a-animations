@@ -1,4 +1,4 @@
-
+import { custom_warning } from "../constants/constants";
 export const flagMigrations = {
 
     async handle(item) {
@@ -451,7 +451,7 @@ export const flagMigrations = {
 
             await item.update({ 'flags.-=autoanimations': null })
             await item.update({ 'flags.autoanimations': v2Flags })
-            console.warn(`DEBUG | Automated Animations | Version 2 Flag Migration Complete`, v2Flags)
+            custom_warning(`Version 2 Flag Migration Complete`, false, v2Flags)
         },
         "3": async (item) => {
             const v3Flags = item.flags?.autoanimations || {};

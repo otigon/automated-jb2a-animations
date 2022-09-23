@@ -1,5 +1,4 @@
 //import { buildFile } from "../file-builder/build-filepath.js"
-import { aaDebugger } from "../../constants/constants.js"
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
@@ -17,8 +16,6 @@ export async function ontoken(handler, animationData) {
     const macro = animationData.macro;
 
     //const onToken = await buildFile(false, data.video.menuType, data.video.animation, "static", data.video.variant, data.video.color, data.video.customPath);
-
-    if (handler.debug) { aaDebugger("Static Animation Start", animationData) }
 
     if (handler.isActiveEffect) {
         //TO-DO: add AEDelay option on Active Effects
@@ -279,5 +276,5 @@ export async function ontoken(handler, animationData) {
     }
     aaSeq.play()
     Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
-    if (data.persistent) { AAAnimationData.howToDelete("sequencerground") }
+    if (data.options.persistent) { AAAnimationData.howToDelete("sequencerground") }
 }

@@ -1,4 +1,4 @@
-import { aaDebugger } from "../../constants/constants.js";
+import { debug } from "../../constants/constants.js";
 //import { flagMigrations } from "../../system-handlers/flagMerge.js";
 import { trafficCop } from "../../router/traffic-cop.js";
 import systemData from "../../system-handlers/system-data.js";
@@ -9,13 +9,13 @@ export async function createRuleElementPF2e(item) {
     //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
     //await wait(150)
     const aePF2eTypes = ['condition', 'effect', 'feat']
-    const aaDebug = game.settings.get("autoanimations", "debug")
+
     if (!aePF2eTypes.includes(item.type)) {
-        if (aaDebug) { aaDebugger("This is not a PF2e Ruleset, exiting early") }
+        debug("This is not a PF2e Ruleset, exiting early")
         return;
     }
     if (item.system?.references?.parent && game.settings.get("autoanimations", "disableNestedEffects")) {
-        if (aaDebug) { aaDebugger("This is a nested Ruleset, exiting early") }
+        debug("This is a nested Ruleset, exiting early")
         return;
     }
 
@@ -25,7 +25,7 @@ export async function createRuleElementPF2e(item) {
     const itemId = item.id;
     const aeToken = canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null)
     if (!aeToken) {
-        if (aaDebug) { aaDebugger("Failed to find the Token for the Active Effect") }
+        debug("Failed to find the Token for the Active Effect")
         return;
     }
     /*
@@ -40,7 +40,7 @@ export async function createRuleElementPF2e(item) {
     const aeNameField = item.name.replace(/[^A-Za-z0-9 .*_-]/g, "") + `${aeToken.id}`
     const checkAnim = await Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
     if (checkAnim) {
-        if (aaDebug) { aaDebugger("Animation is already present on the Token, returning.") }
+        debug("Animation is already present on the Token, returning.")
         return;
     }
     /*
@@ -66,7 +66,7 @@ export async function createRuleElementPF2e(item) {
 
     // Exits early if Item or Source Token returns null. Total Failure
     if (!handler.item || !handler.sourceToken) {
-        if (aaDebug) { aaDebugger("Failed to find the Item or Source Token", handler) }
+        debug("Failed to find the Item or Source Token", handler)
         return;
     }
 
@@ -78,8 +78,6 @@ export async function createRuleElementPF2e(item) {
 export async function deleteRuleElementPF2e(item) {
     const aePF2eTypes = ['condition', 'effect', 'feat']
     if (!aePF2eTypes.includes(item.type)) { return; }
-
-    const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Finds all active Animations on the scene that match .origin(effect.uuid)
     let aaEffects = Sequencer.EffectManager.getEffects({ origin: item.uuid })
@@ -118,7 +116,7 @@ export async function deleteRuleElementPF2e(item) {
         handler.sourceToken = currentEffect[0].source;
         // If no Item or Source Token was found, exit early with Debug
         if (!handler.item || !handler.sourceToken) {
-            if (aaDebug) { aaDebugger("Failed to find the Item or Source Token", handler) }
+            debug("Failed to find the Item or Source Token", handler)
             return;
         }
 
@@ -158,7 +156,7 @@ export async function deleteRuleElementPF2e(item) {
         }
         // If no Item or Source Token was found, exit early with Debug
         if (!handler.item || !handler.sourceToken) {
-            if (aaDebug) { aaDebugger("Failed to find the Item or Source Token", handler) }
+            debug("Failed to find the Item or Source Token", handler)
             return;
         }
 

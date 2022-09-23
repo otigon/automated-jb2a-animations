@@ -1,7 +1,7 @@
 import systemData from "../system-handlers/system-data.js";
 import { AnimationState } from "../AnimationState.js";
 import { trafficCop } from "../router/traffic-cop.js";
-
+import { custom_warning } from "../constants/constants.js";
 /**
  *  AutoAnimations class allows for external calls to directly play animations
  * 
@@ -20,7 +20,7 @@ import { trafficCop } from "../router/traffic-cop.js";
 export class AutoAnimations
 {
     static async playAnimation(sourceToken, targets, item, options = {}) {
-        console.warn("Automated Animations | AutoAnimations.playAnimation is deprecated in favor of AutomatedAnimations.PlayAnimation. This will be removed in Version 5")
+        custom_warning("AutoAnimations.playAnimation is deprecated in favor of AutomatedAnimations.PlayAnimation. This will be removed in Version 5")
         if (!AnimationState.enabled) { return; }
         if (!Array.isArray(targets)) {
             targets = Array.from(targets)

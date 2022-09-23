@@ -231,7 +231,6 @@ Hooks.once('ready', async function () {
                     });
                 } else {
                     Hooks.on("attackRolled", async (data) => {
-                        debugger
                         Hooks.once("createChatMessage", async (msg) => {
                             if (msg.user.id !== game.user.id) { return };
                             systemSupport.aaSfrpg.runStarfinder(data, msg)
@@ -348,7 +347,7 @@ function storeDeletedItems(item) {
 function handleAutorec() {
     let versionCheck = game.settings.get('autoanimations', 'aaAutorec').version;
     let currentVersion = Object.keys(autoRecMigration.migrations).map((n) => Number(n)).reverse()[0];
-    //debugger
+
     // Version 5 and up uses a different game setting per menu
     if (versionCheck < 5) {
         let oldData = game.settings.get('autoanimations', 'aaAutorec');

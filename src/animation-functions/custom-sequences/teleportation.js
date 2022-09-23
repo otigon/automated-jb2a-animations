@@ -1,5 +1,4 @@
 import { buildFile } from "../file-builder/build-filepath.js"
-import { aaDebugger } from "../../constants/constants.js"
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 export async function teleportation(handler, animationData) {
 
@@ -11,8 +10,6 @@ export async function teleportation(handler, animationData) {
     const startFile = await buildFile(true, data.start.menuType, data.start.animation, "static", data.start.variant, data.start.color, data.start.customPath);
     const endFile = await buildFile(true, data.end.menuType, data.end.animation, "static", data.end.variant, data.end.color, data.end.customPath);
     const betweenFile = await buildFile(false, data.between.menuType, data.between.animation, "range", data.between.variant, data.between.color, data.between.customPath);
-
-    if (handler.debug) { aaDebugger("Teleportation Animation Start", animationData, startFile, endFile) }
 
     let sourceTokenGS = sourceToken.w / canvas.grid.size;
 

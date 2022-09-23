@@ -153,7 +153,7 @@ async function mergeVersion05(data) {
             type: type || "",
             data: rest || {},
             explosion: addExplosion || {enable: false},
-            sound: setSound(audio, "a01", true),
+            sound: setSound({}, "a01", true),
         };
         return data3d;
     }
@@ -437,7 +437,7 @@ async function mergeVersion05(data) {
                     unbindVisibility: false,
                     zIndex: 1,
                 },
-                sound:  setSound(audio, "t01", true),
+                sound:  setSound({}, "t01", true),
                 video: {
                     dbSection: "static",
                     menuType: "spell",
@@ -466,7 +466,7 @@ async function mergeVersion05(data) {
                     size: 1,
                     zIndex: 1,       
                 },
-                sound:  setSound(audio, "s01", true),
+                sound:  setSound({}, "s01", true),
                 video: {
                     dbSection: "static",
                     menuType: "spell",
@@ -795,7 +795,7 @@ async function mergeVersion05(data) {
         newMO.secondary = {
             enable: false,
             options: {},
-            sound:setSound(audio, "a01", true),
+            sound:setSound({}, "a01", true),
             video: {
                 dbSection: "static",
                 menuType: "spell",
@@ -887,7 +887,7 @@ async function mergeVersion05(data) {
                 zIndex: 1,
 
             },
-            sound: setSound(audio, "a01", true),
+            sound: setSound({}, "a01", true),
             video: {
                 dbSection: "static",
                 menuType: "spell",
@@ -902,7 +902,7 @@ async function mergeVersion05(data) {
         newMO.secondary = {
             enable: false,
             options: {},
-            sound: setSound(audio, "a01", true),
+            sound: setSound({}, "a01", true),
             video: {
                 dbSection: "static",
                 menuType: "spell",
@@ -984,7 +984,7 @@ async function mergeVersion05(data) {
                 unbindVisibility: unbindVisibility ?? false,
                 zIndex: 1,
             },
-            sound: setSound(audio, "a01", true),
+            sound: setSound({}, "a01", true),
             video: {
                 dbSection: "static",
                 menuType: "shieldspell",
@@ -1037,7 +1037,7 @@ async function mergeVersion05(data) {
                 opacity: 1,
                 zIndex: 1,
             },
-            sound: setSound(audio, "a01", true),
+            sound: setSound({}, "a01", true),
             video:{
                 dbSection: "static",
                 menuType: "shieldspell",

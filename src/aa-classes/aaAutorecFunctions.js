@@ -1,4 +1,5 @@
 //import { autoRecMigration } from "../mergeScripts/autorec/autoRecMerge.js";
+import { custom_warning } from "../constants/constants";
 
 export class AAAutorecFunctions {
 
@@ -30,7 +31,7 @@ export class AAAutorecFunctions {
 
     static singleMenuSearch(menu, name) {
         if (!name) { 
-            console.warn("Automated Animations | No Name was provided for the Global Menu search")
+            custom_warning("No Name was provided for the Global Menu search")
             return;
         }
         return menu.find(x => name.includes(this.rinseName(x.label))) || false;
@@ -38,7 +39,7 @@ export class AAAutorecFunctions {
 
     static singleMenuStrictSearch(menu, name) {
         if (!name) { 
-            console.warn("Automated Animations | No Name was provided for the Global Menu search")
+            custom_warning("No Name was provided for the Global Menu search")
             return;
         }
         return menu.find(x => name === this.rinseName(x.label)) || false;
@@ -60,7 +61,7 @@ export class AAAutorecFunctions {
     }
 
     static async mergeMenus(updatedImport, selectedMenus) {
-        console.warn("Merging the requested Menus", updatedImport, selectedMenus)
+        custom_warning("Merging the requested Menus", false, updatedImport, selectedMenus)
 
         let currentMenu = {
             melee:await game.settings.get('autoanimations', 'aaAutorec-melee'),
@@ -83,7 +84,7 @@ export class AAAutorecFunctions {
         if (selectedMenus.preset) { mergeList.push("preset")}
         if (selectedMenus.aefx) { mergeList.push("aefx")}
 
-        console.log(mergeList, currentMenu, mergeMenu)
+        custom_warning("Merging these menus", false, mergeList)
 
         for (var i = 0; i < mergeList.length; i++) {
             let existingMenu = currentMenu[mergeList[i]];

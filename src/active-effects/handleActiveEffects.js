@@ -1,6 +1,6 @@
 import { trafficCop } from "../router/traffic-cop.js";
 import systemData from "../system-handlers/system-data.js";
-import { aaDebugger } from "../constants/constants.js";
+import { debug } from "../constants/constants.js";
 //import { flagMigrations } from "../system-handlers/flagMerge.js";
 import { socketlibSocket } from "../socketset.js";
 import { AnimationState } from "../AnimationState.js";
@@ -15,20 +15,19 @@ export async function createActiveEffects(effect) {
     if (effect.disabled) { return; }
     //const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
     //await wait(150)
-    const aaDebug = game.settings.get("autoanimations", "debug")
 
     if (!AnimationState.enabled) { return; }
 
     // Gets the Token that the Active Effect is applied to
     const aeToken = effect.parent?.token || canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id));
     if (!aeToken) {
-        if (aaDebug) { aaDebugger("Failed to find the Token for the Active Effect") }
+        debug("Failed to find the Token for the Active Effect")
         return;
     }
     const aeNameField = effect.label + `${aeToken.id}`
     const checkAnim = Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
     if (checkAnim) {
-        if (aaDebug) { aaDebugger("Animation is already present on the Token, returning.") }
+        debug("Animation is already present on the Token, returning.")
         return;
     }
     /*
@@ -58,7 +57,7 @@ export async function createActiveEffects(effect) {
 
     // Exits early if Item or Source Token returns null. Total Failure
     if (!handler.item || !handler.sourceToken) {
-        if (aaDebug) { aaDebugger("Failed to find the Item or Source Token", handler) }
+        debug("Failed to find the Item or Source Token", handler)
         return;
     }
     if (handler.isCustomized || (!handler.isCustomized && handler.autorecObject)) {
@@ -77,7 +76,6 @@ export async function createActiveEffects(effect) {
  */
 export async function deleteActiveEffects(effect) {
     const aeToken = effect.parent?.token || canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
-    const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Finds all active Animations on the scene that match .origin(effect.uuid)
     let aaEffects = Sequencer.EffectManager.getEffects({ origin: effect.uuid })
@@ -116,7 +114,7 @@ export async function deleteActiveEffects(effect) {
         handler.sourceToken = currentEffect[0].source;
         // If no Item or Source Token was found, exit early with Debug
         if (!handler.item || !handler.sourceToken) {
-            if (aaDebug) { aaDebugger("Failed to find the Item or Source Token", handler) }
+            debug("Failed to find the Item or Source Token", handler)
             return;
         }
 
@@ -154,7 +152,7 @@ export async function deleteActiveEffects(effect) {
         }
         // If no Item or Source Token was found, exit early with Debug
         if (!handler.item || !handler.sourceToken) {
-            if (aaDebug) { aaDebugger("Failed to find the Item or Source Token", handler) }
+            debug("Failed to find the Item or Source Token", handler)
             return;
         }
 
@@ -184,7 +182,6 @@ export async function toggleActiveEffects(effect, toggle) {
 
 // Used to delete Tile effects when Midi-QOL Concentration is lost
 export async function checkConcentration(effect) {
-    const aaDebug = game.settings.get("autoanimations", "debug")
 
     // Check effect label and return if it is not equal to "concentrating"
     const label = effect.label || "";
@@ -193,7 +190,7 @@ export async function checkConcentration(effect) {
     // Get Originating Item. If no Origin, return
     const origin = effect.origin
     if (!origin) {
-        if (aaDebug) { aaDebugger("Failed to find an Origin for Concentration") }
+        debug("Failed to find an Origin for Concentration")
         return;
     }
 
@@ -201,7 +198,7 @@ export async function checkConcentration(effect) {
     const tiles = canvas.tiles.placeables.filter(i => i.data.flags?.autoanimations?.origin === origin)
     //const fgTiles = canvas.foreground.placeables.filter(i => i.flags?.autoanimations?.origin === origin);
     if (tiles.length < 1) {
-        if (aaDebug) { aaDebugger("Failed to find any Tiles tied to Concentration") }
+        debug("Failed to find any Tiles tied to Concentration")
         return;
     }
     let tileIdArray = []

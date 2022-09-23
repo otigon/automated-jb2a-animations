@@ -1,4 +1,5 @@
 import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+import { custom_warning } from "../../../constants/constants";
 
 export async function version05(flags, isActiveEffect) {
 
@@ -18,7 +19,7 @@ export async function version05(flags, isActiveEffect) {
             fromAmmo: false,
             version: 5,
         }
-        console.warn("Item is Disabled, and no Macro or Sound is set to play")
+        custom_warning("Item is Disabled, and no Macro or Sound is set to play")
         return v5Flags;
         //await item.update({ 'flags.-=autoanimations': null })
         //await item.update({ 'flags.autoanimations': v5Flags })
@@ -35,27 +36,27 @@ export async function version05(flags, isActiveEffect) {
             fromAmmo: false,
             version: 5,
         }
-        console.warn("Item is Disabled and either a Macro or Sound is set to play.")
+        custom_warning("Item is Disabled and either a Macro or Sound is set to play.")
         return v5Flags;
         //await item.update({ 'flags.-=autoanimations': null })
         //await item.update({ 'flags.autoanimations': v5Flags })
         return;
     } else if (!v4Flags.killAnim && !v4Flags.override) {
         // Item is enabled but not customized, delete flags
-        console.warn("Item is enabled but not customized, delete flags")
+        custom_warning("Item is enabled but not customized, delete flags")
         return void 0;
         //await item.update({ 'flags.-=autoanimations': null })
         //await item.update({ 'flags.autoanimations': v5Flags })
         return;
     } else if (v4Flags.override && v4Flags.animType !== "preset" && (!v4Flags.options?.enableCustom) && (!v4Flags.animType || !v4Flags.options?.menuType || !v4Flags.animation || !v4Flags.options?.variant || !v4Flags.color)) {
         // Item is customized but has critical errors in the Animation settings. Delete flags
-        console.warn("Item is customized but has critical errors in the Primary Animation settings. Delete flags")
+        custom_warning("Item is customized but has critical errors in the Primary Animation settings. Delete flags")
         return void 0;
         //await item.update({ 'flags.-=autoanimations': null })
         //return;
     } else if (v4Flags.autoOverride?.enable) {
         // Item was set to old Auto-Override, delete flags
-        console.warn("Item was set to old Auto-Override, delete flags")
+        custom_warning("Item was set to old Auto-Override, delete flags")
         return void 0;
         //await item.update({ 'flags.-=autoanimations': null })
         //return;        
@@ -75,7 +76,7 @@ export async function version05(flags, isActiveEffect) {
             }    
         }
         v5Flags.version = 5;
-        console.warn(`Automated Animations | Version 5 Flag Migration Complete`, v5Flags)
+        custom_warning(`Automated Animations | Version 5 Flag Migration Complete`, false, v5Flags)
         return v5Flags;
         //await item.update({ 'flags.-=autoanimations': null })
         //await item.update({ 'flags.autoanimations': v5Flags })
@@ -126,7 +127,7 @@ export async function version05(flags, isActiveEffect) {
         }
 
         newMO.soundOnly = {
-            sound: setSound(audio, "a01", true)
+            sound: setSound({}, "a01", true)
         }
         newMO.source = convertExtraFX(sourceToken, audio, "source");
         newMO.target = convertExtraFX(targetToken, audio, "target");
@@ -315,7 +316,7 @@ export async function version05(flags, isActiveEffect) {
             type: type || "",
             data: rest || {},
             explosion: addExplosion || {enable: false},
-            sound: setSound(audio, "a01", true),
+            sound: setSound({}, "a01", true),
         };
         return data3d;
     }
@@ -452,7 +453,7 @@ export async function version05(flags, isActiveEffect) {
             resetVideo(newData.data.video, "range")
         }
         newData.soundOnly = {
-            sound: setSound(audio, "a01", true)
+            sound: setSound({}, "a01", true)
         }
         return newData;
     }
@@ -544,7 +545,7 @@ export async function version05(flags, isActiveEffect) {
             }
         }
         newData.soundOnly = {
-            sound: setSound(audio, "a01", true),
+            sound: setSound({}, "a01", true),
         }
         return newData;
     }
@@ -621,7 +622,7 @@ export async function version05(flags, isActiveEffect) {
             resetVideo(root.end, "static")
         }
         newData.soundOnly = {
-            sound: setSound(audio, "a01", true)
+            sound: setSound({}, "a01", true)
         }
         return newData;
     }
@@ -654,7 +655,7 @@ export async function version05(flags, isActiveEffect) {
             sound: setSound(audio, "a01"),
         };
         newData.soundOnly = {
-            sound: setSound(audio, "a01", true)
+            sound: setSound({}, "a01", true)
         }
         return newData;
     }
@@ -704,7 +705,7 @@ export async function version05(flags, isActiveEffect) {
                 size: 1,
                 zIndex: 1,       
             },
-            sound: setSound(audio, "a01", true),
+            sound: setSound({}, "a01", true),
             video: {
                 dbSection: "static",
                 menuType: "spell",
@@ -769,7 +770,7 @@ export async function version05(flags, isActiveEffect) {
         newMO.menu = "aefx";
         newMO.secondary = await convertExplosionV6(explosions, audio, oldMO)
         newMO.soundOnly = {
-            sound: setSound(audio, "a01", true),
+            sound: setSound({}, "a01", true),
         }
         newMO.source = newExtraFX();
 
@@ -788,7 +789,7 @@ export async function version05(flags, isActiveEffect) {
         newMO.secondary = {
             enable: false,
             options: {},
-            sound: setSound(audio, "a01", true),
+            sound: setSound({}, "a01", true),
             video: {
                 dbSection: "static",
                 menuType: "spell",
@@ -834,7 +835,7 @@ export async function version05(flags, isActiveEffect) {
         newMO.macro = macro || {};
 
         newMO.soundOnly = {
-            sound: setSound(audio, "a01", true)
+            sound: setSound({}, "a01", true)
         }
 
         newMO.source = newExtraFX();
@@ -874,7 +875,7 @@ export async function version05(flags, isActiveEffect) {
                 unbindVisibility: options?.unbindVisibility ?? false,
                 zIndex: 1,
             },
-            sound: setSound(audio, "a01", true),
+            sound: setSound({}, "a01", true),
             video: {
                 dbSection: "static",
                 menuType: "spell",
@@ -889,7 +890,7 @@ export async function version05(flags, isActiveEffect) {
         newMO.secondary = {
             enable: false,
             options: {},
-            sound: setSound(audio, "a01", true),
+            sound: setSound({}, "a01", true),
             video: {
                 dbSection: "static",
                 menuType: "spell",
@@ -902,7 +903,7 @@ export async function version05(flags, isActiveEffect) {
         }
 
         newMO.soundOnly = {
-            sound: setSound(audio, "a01", true)
+            sound: setSound({}, "a01", true)
         }
 
         newMO.source = {
@@ -966,7 +967,7 @@ export async function version05(flags, isActiveEffect) {
                 unbindVisibility: options?.unbindVisibility ?? false,
                 zIndex: 1,
             },
-            sound: setSound(audio, "a01", true),
+            sound: setSound({}, "a01", true),
             video: {
                 dbSection: "static",
                 menuType: "shieldspell",
@@ -1016,7 +1017,7 @@ export async function version05(flags, isActiveEffect) {
                 opacity: 1,
                 zIndex: 1,
             },
-            sound: setSound(audio, "a01", true),
+            sound: setSound({}, "a01", true),
             video:{
                 dbSection: "static",
                 menuType: "shieldspell",
@@ -1031,7 +1032,7 @@ export async function version05(flags, isActiveEffect) {
         newMO.macro = macro || {};
 
         newMO.soundOnly = {
-            sound: setSound(audio, "a01", true),
+            sound: setSound({}, "a01", true),
         }
 
         return newMO;

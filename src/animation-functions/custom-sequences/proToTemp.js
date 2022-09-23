@@ -1,5 +1,4 @@
 import { buildFile } from "../file-builder/build-filepath.js";
-import { aaDebugger } from "../../constants/constants.js";
 
 // Credit goes to Wasp-Sequencer Guy for the structure of the Fireball Sequence
 export async function proToTemp(handler, animationData, config) {
@@ -10,8 +9,6 @@ export async function proToTemp(handler, animationData, config) {
     const projectileAnimation = await buildFile(false, data.projectile.menuType, data.projectile.animation, "range", data.projectile.variant, data.projectile.color);
     const preExplosion = data.preExplosion.enable ? await buildFile(true, data.preExplosion.menuType, data.preExplosion.animation, "static", data.preExplosion.variant, data.preExplosion.color) : "";
     const explosion02 = data.explosion.animation !== "a1" ? await buildFile(true, data.explosion.menuType, data.explosion.animation, "static", data.explosion.variant, data.explosion.color) : "";
-
-    if (handler.debug) { aaDebugger("Fireball Animation Start", data, projectileAnimation, preExplosion, explosion02) }
 
     const template = config ? config : canvas.templates.placeables[canvas.templates.placeables.length - 1];
     const sourceToken = handler.sourceToken;
@@ -117,6 +114,6 @@ export async function proToTemp(handler, animationData, config) {
             .macro(data.macro.name, handler.workflow, handler, userData)
             .play()
     }
-    //if (data.afterImage.enable) { AAAnimationData.howToDelete("sequencerground") }
+    if (data.afterImage.enable && data.afterImage.persistent) { AAAnimationData.howToDelete("sequencerground") }
     aaSeq.play()
 }

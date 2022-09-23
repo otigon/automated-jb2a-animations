@@ -1,9 +1,8 @@
 import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
-
+import { debug } from "../constants/constants.js";
 import { endTiming } from "../constants/timings.js";
 import { AASystemData } from "./getdata-by-system.js";
 import { flagMigrations } from "../mergeScripts/items/itemFlagMerge.js";
-//import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import { AAAutorecFunctions } from "../aa-classes/AAAutorecFunctions.js";
 
 export default class systemData {
@@ -11,8 +10,7 @@ export default class systemData {
     static async make(msg, isChat, external) {
         const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
         const data = external ? external : AASystemData[systemID] ? await AASystemData[systemID](msg, isChat) : await AASystemData.standardChat(msg)
-        if (!data.item) { /*this._log("Retrieval Failed")*/; return {}; }
-        //this._log("Data Retrieved", data)
+        if (!data.item) { debug("Item Retrieval Failed", data); return {}; }
 
         // TO-DO - Update the Item Merge script
         const flags = data.item?.flags?.autoanimations//await flagMigrations.handle(data.item);
@@ -21,9 +19,7 @@ export default class systemData {
     }
 
     constructor(systemData, flagData, msg) {
-        this.debug = game.settings.get("autoanimations", "debug");
-        this._log("Getting System Data")
-
+        debug("Compiling Automated Animations data")
         const data = systemData;
         this.gameSystem = game.system.id;
 
@@ -248,10 +244,6 @@ export default class systemData {
         } else {   
             return canvas.grid.measureDistance(this.sourceToken, target, {gridSpaces: true});
         }
-    }
-
-    _log(...args) {
-        if (this.debug) console.log(`DEBUG | Automated Animations |`, ...args);
     }
 }
 
