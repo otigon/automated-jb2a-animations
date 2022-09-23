@@ -13,14 +13,14 @@
 
    /** @type {AnimationStore} */
    export let animation;
-   //console.log(animation)
+
    /** @type {CategoryStore} */
    export let category;
-   //console.log(category)
+
    //** Menu builder set in the Category List. Determines which menu set will be rendered*/
    export let menuRoute;
    export let idx;
-   //console.log(idx)
+
    /**
     * @type {object} Defines folder data for TJSIconFolder.
     */
@@ -47,6 +47,8 @@
       items: createOverflowItems(animation, category),
    }
 
+   $: status = animation.stores.folderOpen
+   $: currentState = $status;
 </script>
 
 <div>
@@ -55,7 +57,9 @@
         <TJSToggleIconButton button={buttonOverflow} slot=summary-end>
             <TJSMenu {menu} />
         </TJSToggleIconButton>
+        {#if currentState}
         <svelte:component this={menuRoute} {animation} {idx} {category}/>
+        {/if}
    </TJSSvgFolder>
 </div>
 

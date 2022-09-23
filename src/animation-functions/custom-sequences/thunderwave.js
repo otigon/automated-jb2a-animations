@@ -1,11 +1,10 @@
-import { JB2APATREONDB } from "../databases/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "../databases/jb2a-free-database.js";
-import { aaDebugger } from "../../constants/constants.js";
+import { JB2APATREONDB } from "../../database/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "../../database/jb2a-free-database.js";
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function twSeq(handler, animationData, config) {
+export async function thunderwave(handler, animationData, config) {
 
     function moduleIncludes(test) {
         return !!game.modules.get(test);
@@ -56,7 +55,6 @@ export async function twSeq(handler, animationData, config) {
     const getPosition = getRelativePosition(sourceToken, template)
     const angle = getPosition.angle;
     const anFile = filePath[getPosition.type][color]
-    if (handler.debug) { aaDebugger("Thunderwave Animation Start", data, anFile) }
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);

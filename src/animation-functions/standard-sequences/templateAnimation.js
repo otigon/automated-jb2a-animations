@@ -1,10 +1,9 @@
 import { buildFile } from "../file-builder/build-filepath.js";
 import { socketlibSocket } from "../../socketset.js";
-import { aaDebugger } from "../../constants/constants.js"
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function templateSeq(handler, animationData, config) {
+export async function templatefx(handler, animationData, config) {
 
     const sourceToken = handler.sourceToken;
 
@@ -32,8 +31,6 @@ export async function templateSeq(handler, animationData, config) {
     }
     */
     const tempAnimation = await buildFile(false, data.video.menuType, data.video.animation, "templatefx", data.video.variant, data.video.color, data.video.customPath)
-
-    if (handler.debug) { aaDebugger("Template Animation Start", animationData, tempAnimation) }
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);

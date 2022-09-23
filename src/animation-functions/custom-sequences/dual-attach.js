@@ -1,11 +1,9 @@
 import { buildFile } from "../file-builder/build-filepath.js";
-import { aaDebugger } from "../../constants/constants.js";
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function dualSeq(handler, animationData) {
-    const aaDebug = game.settings.get("autoanimations", "debug")
+export async function dualattach(handler, animationData) {
 
     // Sets JB2A database and Global Delay
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
@@ -16,13 +14,11 @@ export async function dualSeq(handler, animationData) {
 
     const animFile = await buildFile(false, data.video.menuType, data.video.animation, "range", data.video.variant, data.video.color, data.video.customPath)
 
-    if (handler.debug) { aaDebugger("Dual Attach Animation Start", animationData, animFile) }
-
     const onlyX = data.video.customPath ? data.options.onlyX : false;
 
     const sourceToken = handler.sourceToken;
     let effectExists = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid })
-    if (aaDebug) { aaDebugger("Dual Attach Animation Start", data, data, animFile) }
+
     async function cast() {
 
         let aaSeq = new Sequence();

@@ -11,6 +11,7 @@ export async function setUpMidi(workflow) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
+    debug("Playing Animation on Attack Roll")
     trafficCop(handler);
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
@@ -21,6 +22,7 @@ export async function setUpMidiNoAttackDamage(workflow) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
+    debug("Playing Animation, Item has no Attack or Damage")
     trafficCop(handler)
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
@@ -31,6 +33,7 @@ export async function setUpMidiNoAttack(workflow) {
         return;
     }
     if (handler.shouldPlayImmediately) { return; }
+    debug("Playing Animation, Item has no Attack")
     trafficCop(handler)
 }
 // For Auras and Teleportation
@@ -38,7 +41,8 @@ export async function useItem(input) {
     if (input.item?.hasAreaTarget || input.item?.hasAttack || input.item?.hasDamage) { return; }
 
     let handler = await systemData.make(input);
-    if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
+    if (!handler.item || !handler.sourceToken) { debug("No Item or Source Token", handler.item, handler.sourceToken); return;}
+    debug("Playing Animation, Item has no Attack or Damage")
     trafficCop(handler)
 }
 // For Template Animations
@@ -49,7 +53,8 @@ export async function templateItem(input) {
     const item = itemUuid ? await fromUuid(itemUuid) : "";
     if (!item) { return; }
     let handler = await systemData.make({item: item});
-    if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
+    if (!handler.item || !handler.sourceToken) { debug("No Item or Source Token", handler.item, handler.sourceToken); return;}
+    debug("Playing Animation for Template")
     trafficCop(handler)
 }
 /*
@@ -70,6 +75,7 @@ export async function midiTemplateAnimations(msg) {
 */
 export async function criticalCheck(workflow) {
     if (!workflow.isCritical && !workflow.isFumble) { return; }
+    debug("Checking for Crit or Fumble")
     let critical = workflow.isCritical;
     let fumble = workflow.isFumble;
     let token;

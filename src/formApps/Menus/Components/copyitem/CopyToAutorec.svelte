@@ -20,7 +20,6 @@
         currentMenu,
         AAAutorecFunctions.rinseName(nameToAdd)
     );
-    $: console.log(checkAutorec);
 
     function submitNewEntry() {
         animation.copyToAutorec(nameToAdd)

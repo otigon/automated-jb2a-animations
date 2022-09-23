@@ -43,20 +43,30 @@ export function source() {
 
 /**
  * @typedef {object} DataSourceOptions
- *
- * @property {boolean}     below -
- *
+ * 
+ * @property {boolean}     addTokenWidth -
+ * 
  * @property {number}      delay -
  *
- * @property {number}      delayAfter -
+ * @property {number}      elevation -
+ *
+ * @property {number}      fadeIn -
+ *
+ * @property {number}      fadeOut -
  *
  * @property {boolean}     isMasked -
+ *
+ * @property {boolean}     isRadius -
+ *
+ * @property {boolean}     isWait -
  *
  * @property {number}      opacity -
  *
  * @property {number}      repeat -
  *
- * @property {number}      scale -
+ * @property {number}      repeatDelay -
+ *
+ * @property {number}      size -
  *
  * @property {number}      zIndex -
  */

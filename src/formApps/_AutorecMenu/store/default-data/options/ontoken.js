@@ -6,8 +6,8 @@ export function ontoken() {
         fadeIn: 250,
         fadeOut: 500,
         isMasked: false,
-        isWait: false,
         isRadius: false,
+        isWait: false,
         opacity: 1,
         persistent: false,
         playOn: "default",
@@ -19,3 +19,39 @@ export function ontoken() {
         zIndex: 1,
     }
 }
+
+/**
+ * @typedef {object} DataOnTokenOptions
+ * 
+ * @property {boolean}     addTokenWidth -
+ * 
+ * @property {number}      delay -
+ *
+ * @property {number}      elevation -
+ *
+ * @property {number}      fadeIn -
+ *
+ * @property {number}      fadeOut -
+ *
+ * @property {boolean}     isMasked -
+ *
+ * @property {boolean}     isRadius -
+ *
+ * @property {boolean}     isWait -
+ *
+ * @property {boolean}     persistent -
+ *
+ * @property {string}      playOn -
+ *
+ * @property {number}      repeat -
+ *
+ * @property {number}      repeatDelay -
+ *
+ * @property {number}      size -
+ *
+ * @property {boolean}     unbindAlpha -
+ *
+ * @property {boolean}     unbindVisibility -
+ *
+ * @property {number}      zIndex -
+ */

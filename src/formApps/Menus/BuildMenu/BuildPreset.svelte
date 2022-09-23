@@ -53,17 +53,17 @@
 
     $: soundOnly = $animation.soundOnly.sound.enable;
     $: macroEnabled = $animation.macro.enable;
+    $: macroPlay = $animation.macro.playWhen;
 </script>
 
 <SectionButtons {animation} />
-<div hidden={!soundOnly}>
-    <SoundOnly {animation} />
+<div hidden={!soundOnly || (macroEnabled && macroPlay === "2")}>
+    <SoundOnly {animation} {category} />
 </div>
-<div hidden={!macroEnabled}>
+<div hidden={!macroEnabled || (soundOnly && macroPlay !== "2")}>
     <Macro {animation} {category} />
 </div>
-<div hidden={soundOnly}>
-    <div hidden={$animation.macro.enable && $animation.macro.playWhen === "2"}>
+<div hidden={soundOnly || (macroEnabled && macroPlay === "2")}>
         <div class="aa-pickAnim">
             <div
                 class="flexcol"
@@ -102,7 +102,6 @@
             </div>
         </div>
         <svelte:component this={presetRoute} {animation} {category} {idx} />
-    </div>
 </div>
 
 <style lang="scss">

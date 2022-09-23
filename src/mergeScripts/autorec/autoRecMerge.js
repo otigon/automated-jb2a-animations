@@ -14,10 +14,8 @@ export const autoRecMigration = {
      */
     async handle(autoObject, options = {}) {
 
-        if (!autoObject) { return; }
-
         if (options.newSchema) {
-            ui.notifications.info("Exporting your Autorec Menu before running Migration")
+            ui.notifications.info("Automated Animations | Exporting your Global Automatic Recognition Menu before running Migration")
             const data = (game.settings.get('autoanimations', 'aaAutorec'))
             const filename = `Autorec-Menu-Backup`;
             saveDataToFile(JSON.stringify(data, null, 2), "text/json", filename);
@@ -29,11 +27,15 @@ export const autoRecMigration = {
                 aura: game.settings.get('autoanimations', 'aaAutorec-aura'),
                 preset: game.settings.get('autoanimations', 'aaAutorec-preset'),
                 aefx: game.settings.get('autoanimations', 'aaAutorec-aefx'),
-                //version: game.settings.get('autoanimations', 'aaAutorec-version')
-            } 
+                version: game.settings.get('autoanimations', 'aaAutorec').version,
+            }
         }
 
-        if (this.upToDate(autoObject)) { return; }
+        if (!autoObject) { return; }
+
+        if (this.upToDate(autoObject) && !options.isOverwrite) {
+            return;
+        }
 
         ui.notifications.info("Automated Animations: Updating the Automatic Recognition Menu")
         let currentAutorec = autoObject;
@@ -68,10 +70,13 @@ export const autoRecMigration = {
             if (options.aefx || options.submitAll) {
                 await game.settings.set('autoanimations', 'aaAutorec-aefx', currentAutorec.aefx)
             }
-            //TO-DO: Create Version game setting
-            //await game.settings.set('autoanimations', 'aaAutorec-version', Object.keys(this.migrations).map(n => Number(n)).reverse()[0])
-            //await game.settings.set('autoanimations', 'aaAutorec', currentAutorec)
-            //autorecData.set(currentAutorec)
+            if (Object.keys(this.migrations).map(n => Number(n)).reverse()[0] === 5) {
+                game.settings.set('autoanimations', 'aaAutorec', {version: 5});
+            } else {
+                let versionHandler = game.settings.get('autoanimations', 'aaAutorec');
+                versionHandler.version = Object.keys(this.migrations).map(n => Number(n)).reverse()[0];
+                await game.settings.set('autoanimations', 'aaAutorec', versionHandler)    
+            }
         }
         ui.notifications.info("Automatic Recognition Menu update is Complete!")
     },

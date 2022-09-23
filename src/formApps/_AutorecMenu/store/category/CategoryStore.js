@@ -21,7 +21,7 @@ import {
    newVariantMenu,
    newColorMenu,
    aaReturnWeapons,
-} from "../../../../animation-functions/databases/jb2a-menu-options.js";
+} from "../../../../database/jb2a-menu-options.js";
 
 export class CategoryStore extends WorldSettingArrayStore {
    /**
@@ -224,7 +224,6 @@ export class CategoryStore extends WorldSettingArrayStore {
           }
           let macroFilter = pack.index.filter((m) => m.data === packArray[3]);
           if (!macroFilter.length) {
-              console.log("YES");
               ui.notifications.info(
                   `Autoanimations | A macro named ${packArray[3]} was not found in Compendium ${packArray[1]}.${packArray[2]}`
               );

@@ -1,19 +1,19 @@
-import { JB2APATREONDB } from "./animation-functions/databases/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./animation-functions/databases/jb2a-free-database.js";
-import { trafficCop } from "./router/traffic-cop.js";
+import { JB2APATREONDB } from "./database/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./database/jb2a-free-database.js";
+//import { trafficCop } from "./router/traffic-cop.js";
 
-import { jb2aAAPatreonDatabase } from "./animation-functions/databases/jb2a-patreon-database.js";
-import { jb2aAAFreeDatabase } from "./animation-functions/databases/jb2a-free-database.js";
+import { jb2aAAPatreonDatabase } from "./database/jb2a-patreon-database.js";
+import { jb2aAAFreeDatabase } from "./database/jb2a-free-database.js";
 
-import systemData from "./system-handlers/system-data.js";
-import { createActiveEffects5e, deleteActiveEffects5e, checkConcentration, toggleActiveEffects5e } from "./active-effects/ae5e.js";
-import { createActiveEffectsPF2e, deleteActiveEffectsPF2e } from "./active-effects/pf2e/aepf2e.js";
-import { createActiveEffectsPF1, deleteActiveEffectsPF1 } from "./active-effects/pf1/aePF1.js";
-import { createActiveEffectswfrp4e, deleteActiveEffectswfrp4e } from "./active-effects/wfrp4e/aewfrp4e.js";
-import { deleteEffectsSfrpg } from "./active-effects/sfrpg/aeSfrpg.js"
+//import systemData from "./system-handlers/system-data.js";
+import {AutoAnimations} from "./system-support/external.js"
+import { AAAutorecManager } from "./formApps/_AutorecMenu/components/category/menuManager/AAAutorecManager.js";
+import { playAnimation } from "./system-support/external.js";
+
+import { registerActiveEffectHooks } from "./active-effects/handleActiveEffectHooks";
 
 import AAActiveEffectMenu from "./formApps/ActiveEffects/activeEffectMenu.js";
-import AAAutorecMenu from "./formApps/AutorecMenu/aaAutorecMenu.js";
+//import AAAutorecMenu from "./formApps/AutorecMenu/aaAutorecMenu.js";
 
 //import AAItemMenu from "./formApps/ItemMenu/itemMenu.js";
 import AEMenuApp from "./formApps/_ActiveEffects/AEMenuApp.js";
@@ -56,7 +56,7 @@ Hooks.on('AutomaticAnimations.Clear.Data', async () => {
     await game.settings.set("autoanimations", "aaAutorec-templatefx", void 0);
 });
 
-// sets the A-A button on the Item Sheet title bar
+// Places the A-A button on Item sheet header
 Hooks.on(`renderItemSheet`, async (app, html, data) => {
     if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
         return;
@@ -82,13 +82,14 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
 
 });
 
+// Places the A-A button on Active Effect sheet header
 Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
     if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
         return;
     }
     const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
     aaBtn.click(async ev => {
-        //await flagMigrations.handle(app.document);
+        await flagMigrations.handle(app.document, {isActiveEffect: true});
         new AEMenuApp(app.document, {}).render(true, { focus: true });
         //new AAActiveEffectMenu(app.document, {}).render(true);
     });
@@ -98,20 +99,7 @@ Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
 });
 
 // Registers Database with Sequencer
-Hooks.on("aa.ready", () => {
-    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    Sequencer.Database.registerEntries("autoanimations", obj01, true);
-    if (game.settings.get("autoanimations", "killAllAnim") === "off") {
-        console.log("ANIMATIONS ARE OFF")
-        AnimationState.enabled = false;
-    }
-});
-
-Hooks.once('ready', async function () {
-    initSettings(gameSettings);
-
-    // Initializes all AutoRecStores backed by individual game settings.
-    autoRecStores.initialize();
+Hooks.on("aa.initialize", async () => {
 
     const s3Check = game.settings.get('autoanimations', 'jb2aLocation');
     const jb2aPatreonFound = moduleIncludes("jb2a_patreon");
@@ -152,25 +140,26 @@ Hooks.once('ready', async function () {
         }
     }
 
-    /**
-     * Runs the Autorec menu through migrations on start-up if necessary
-     */
-
-    /*
-    if (game.settings.get('autoanimations', 'aaAutorec-version') < 5) {
-        autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'), {shouldSubmit: true})
-    } else {
-        autoRecMigration.handle("systemMerge", {shouldSubmit: true, newSchema: true, submitAll: true})
+    Sequencer.Database.registerEntries("autoanimations", obj01, true);
+    if (game.settings.get("autoanimations", "killAllAnim") === "off") {
+        AnimationState.enabled = false;
     }
-    */
-    //if (isNewerVersion(game.modules.get('autoanimations').version, '3.5.0')) {
-        //autoRecMigration.handle("systemMerge", {shouldSubmit: true, newSchema: true, submitAll: true})
-    //} else {
-        //autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'), {shouldSubmit: true, newSchema: true})
-    //}
+    Hooks.callAll('aa.ready', obj01)
+});
+
+Hooks.once('ready', async function () {
+    initSettings(gameSettings);
+
+    // Initializes all AutoRecStores backed by individual game settings.
+    autoRecStores.initialize();
+
+    // Check if the Autorec menu requires merge scripts to run
+    handleAutorec();
+
+    // Register Hooks by system    
+    Hooks.on("deleteItem", async (item) => {storeDeletedItems(item)})
 
     if (game.modules.get("midi-qol")?.active) {
-        Hooks.on("deleteItem", async (item) => {storeDeletedItems(item)})
         switch (game.settings.get("autoanimations", "playonDamage")) {
             case (true):
                 Hooks.on("midi-qol.DamageRollComplete", (workflow) => { systemSupport.aaMidiqol.setUpMidi(workflow) });
@@ -193,7 +182,6 @@ Hooks.once('ready', async function () {
             Hooks.on("midi-qol.AttackRollComplete", (workflow) => { systemSupport.aaMidiqol.criticalCheck(workflow) })
         }
     } else {
-        Hooks.on("deleteItem", async (item) => {storeDeletedItems(item)})
         switch (game.system.id) {
             case "dnd5e":
                 Hooks.on("dnd5e.displayCard", async (item, chat, card) => {systemSupport.aaDnd5e.useItem({item, chat, card})});
@@ -345,142 +333,9 @@ Hooks.once('ready', async function () {
                 Hooks.on("createChatMessage", async (msg) => {systemSupport.aaStandard.runStandard(msg) });
         }
     }
+    registerActiveEffectHooks();
 
-    //Active Effect Hooks
-    switch (game.system.id) {
-        case "sfrpg":
-            Hooks.on("createActiveEffect", (item, data, userId) => {
-                if (game.user.id !== userId) { return; }
-                createActiveEffects5e(item);
-            })
-            Hooks.on("preDeleteActiveEffect", (item, data, userId) => {
-                if (game.user.id !== userId) { return; }
-                deleteActiveEffects5e(item)
-            })
-            //Hooks.on("itemActivationChanged", (actor, isActive, item) => {
-            //})
-
-            Hooks.on("updateItem", (item, diff, action, userId) => {
-                if (game.user.id !== userId) { return; }
-                Hooks.once("updateToken", async (token, actor, updates, userId) => {
-                    if (game.user.id !== userId) { return; }
-                    if (item.type !== 'feat') { return; }
-
-                    if (!diff.isActive) {
-                        deleteEffectsSfrpg(item, token)
-                    } else {
-                        const sfrpgData = {
-                            item,
-                            token,
-                            targets: game.user.targets
-                        }
-                        const handler = await systemData.make(sfrpgData)
-                        trafficCop(handler);
-                    }
-                })
-            })
-
-           /*
-            // Alternative option... not as useful because Update Token is called so much
-            Hooks.on("updateToken", async (token, actor, updates, userId) => {
-                if (game.user.id !== userId) { return; }
-                const itemId = Object.keys(updates.embedded?.hookData || {})[0]
-                if (!itemId) {return;}
-                const item = token.actor?.items?.get(itemId)
-                if (!item) {return;}
-                if (item.type !== 'feat') { return; }
-                const activeStatus = updates.embedded?.hookData?.[item.id]?.data?.isActive;
-                if (!activeStatus) {
-                    deleteEffectsSfrpg(item, token)
-                } else if (activeStatus){
-                    const sfrpgData = {
-                        item,
-                        token,
-                        targets: game.user.targets
-                    }
-                    const handler = await systemData.make(sfrpgData)
-                    console.log(handler)
-                    trafficCop(handler);
-                }
-            })
-            */
-            break;
-        case "dnd5e":
-            Hooks.on("createActiveEffect", (effect, data, userId) => {
-                if (game.settings.get("autoanimations", "disableAEAnimations")) {
-                    console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
-                    return;
-                }
-                if (game.user.id !== userId) { return; }
-                createActiveEffects5e(effect)
-            });
-            Hooks.on("preDeleteActiveEffect", (effect, data, userId) => {
-                if (game.user.id !== userId) { return; }
-
-                deleteActiveEffects5e(effect)
-                if (game.modules.get('midi-qol')?.active) {
-
-                    checkConcentration(effect)
-                }
-            });
-            Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
-                if (game.settings.get("autoanimations", "disableAEAnimations")) {
-                    console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
-                    return;
-                }
-                if (game.user.id !== userId) { return; }
-                toggleActiveEffects5e(data, toggle)
-            });
-            //}
-            break;
-        case 'pf2e':
-            Hooks.on("createItem", (item, data, userId) => {
-                if (game.user.id !== userId) { return; }
-                createActiveEffectsPF2e(item);
-            })
-            Hooks.on("preDeleteItem", (item, data, userId) => {
-                if (game.user.id !== userId) { return; }
-                deleteActiveEffectsPF2e(item)
-            })
-            break;
-        case "pf1":
-            Hooks.on("createActiveEffect", (effect, data, userId) => {
-                if (game.settings.get("autoanimations", "disableAEAnimations")) {
-                    console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
-                    return;
-                }
-                if (game.user.id !== userId) { return; }
-                createActiveEffectsPF1(effect)
-            });
-            Hooks.on("preDeleteActiveEffect", (effect, data, userId) => {
-                if (game.user.id !== userId) { return; }
-
-                deleteActiveEffectsPF1(effect)
-            });
-            /*
-            Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
-                if (game.settings.get("autoanimations", "disableAEAnimations")) {
-                    console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
-                    return;
-                }
-                if (game.user.id !== userId) { return; }
-                toggleActiveEffectsPF1(data, toggle)
-            });
-            */
-            //}
-            break;
-            case 'wfrp4e':
-                Hooks.on("createActiveEffect", (item, data, userId) => {
-                    if (game.user.id !== userId) { return; }
-                    createActiveEffectswfrp4e(item);
-                })
-                Hooks.on("preDeleteActiveEffect", (item, data, userId) => {
-                    if (game.user.id !== userId) { return; }
-                    deleteActiveEffectswfrp4e(item)
-                })
-                break;
-    }
-    Hooks.callAll("aa.ready", obj01)
+    Hooks.callAll("aa.initialize")
 });
 
 //export const aaDeletedItems = new Map();
@@ -489,28 +344,42 @@ function storeDeletedItems(item) {
     aaDeletedItems.set(item.id, item)
 }
 
-/* External call for animations
-* sourceToken as the originating token
-* targets as an array from the user
-* item as the item instance being used
-* options to override settings e.g. playOnMiss: true, hitTargets: Array of TokenIDs
-*/
-class AutoAnimations
-{
-    static async playAnimation(sourceToken, targets, item, options = {}) {
-        if (!AnimationState.enabled) { return; }
-        const data = {
-            token: sourceToken,
-            targets: targets,
-            item: item,
-            ...options
-        }
-        let handler = await systemData.make(null, null, data)
-        trafficCop(handler);
+function handleAutorec() {
+    let versionCheck = game.settings.get('autoanimations', 'aaAutorec').version;
+    let currentVersion = Object.keys(autoRecMigration.migrations).map((n) => Number(n)).reverse()[0];
+
+    // Version 5 and up uses a different game setting per menu
+    if (versionCheck < 5) {
+        let oldData = game.settings.get('autoanimations', 'aaAutorec');
+        autoRecMigration.handle(oldData, {shouldSubmit: true, submitAll: true});
+    } else if (versionCheck < currentVersion) {
+        console.warn("Automated Animations | Updating Global Automatic Recognition Menu");
+        autoRecMigration.handle(null, {shouldSubmit: true, submitAll: true, newSchema: true});
     }
 }
+
 window.AutoAnimations = AutoAnimations;
+window.AutomatedAnimations = {
+    AutorecManager: AAAutorecManager,
+    PlayAnimation: (data) => playAnimation(data),
+    GetAutorec: () => {
+        let menu = {
+            melee: game.settings.get('autoanimations', 'aaAutorec-melee'),
+            range: game.settings.get('autoanimations', 'aaAutorec-range'),
+            ontoken: game.settings.get('autoanimations', 'aaAutorec-ontoken'),
+            templatefx: game.settings.get('autoanimations', 'aaAutorec-templatefx'),
+            aura: game.settings.get('autoanimations', 'aaAutorec-aura'),
+            preset: game.settings.get('autoanimations', 'aaAutorec-preset'),
+            aefx: game.settings.get('autoanimations', 'aaAutorec-aefx'),
+            version: game.settings.get('autoanimations', 'aaAutorec').version,
+        }
+        console.warn(menu)
+    },
+}
+
+
+
 function moduleIncludes(test) {
     return !!game.modules.get(test);
 }
-window.AAAutoRec = AAAutorecMenu;
+//window.AAAutoRec = AAAutorecMenu;

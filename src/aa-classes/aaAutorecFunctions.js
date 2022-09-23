@@ -1,4 +1,5 @@
 //import { autoRecMigration } from "../mergeScripts/autorec/autoRecMerge.js";
+import { custom_warning } from "../constants/constants";
 
 export class AAAutorecFunctions {
 
@@ -30,7 +31,7 @@ export class AAAutorecFunctions {
 
     static singleMenuSearch(menu, name) {
         if (!name) { 
-            console.warn("Automated Animations | No Name was provided for the Global Menu search")
+            custom_warning("No Name was provided for the Global Menu search")
             return;
         }
         return menu.find(x => name.includes(this.rinseName(x.label))) || false;
@@ -38,7 +39,7 @@ export class AAAutorecFunctions {
 
     static singleMenuStrictSearch(menu, name) {
         if (!name) { 
-            console.warn("Automated Animations | No Name was provided for the Global Menu search")
+            custom_warning("No Name was provided for the Global Menu search")
             return;
         }
         return menu.find(x => name === this.rinseName(x.label)) || false;
@@ -60,7 +61,7 @@ export class AAAutorecFunctions {
     }
 
     static async mergeMenus(updatedImport, selectedMenus) {
-        console.log("Merging the requested Menus", updatedImport, selectedMenus)
+        custom_warning("Merging the requested Menus", false, updatedImport, selectedMenus)
 
         let currentMenu = {
             melee:await game.settings.get('autoanimations', 'aaAutorec-melee'),
@@ -83,7 +84,7 @@ export class AAAutorecFunctions {
         if (selectedMenus.preset) { mergeList.push("preset")}
         if (selectedMenus.aefx) { mergeList.push("aefx")}
 
-        console.log(mergeList, currentMenu, mergeMenu)
+        custom_warning("Merging these menus", false, mergeList)
 
         for (var i = 0; i < mergeList.length; i++) {
             let existingMenu = currentMenu[mergeList[i]];
@@ -99,113 +100,4 @@ export class AAAutorecFunctions {
             game.settings.set('autoanimations', `aaAutorec-${mergeList[i]}`, currentMenu[mergeList[i]])
         }
     }
-    /*
-    static async mergeMenu(json) {
-        //const currentMenuBackup = (game.settings.get('autoanimations', 'aaAutorec'))
-        //const filename = `Merged-Menu-Recovery.json`;
-        //saveDataToFile(JSON.stringify(currentMenuBackup, null, 2), "text/json", filename);
-        //ui.notifications.info("Exporting Menu Backup before Merging")
-
-        // Imported Autorec Menu
-        let newData = JSON.parse(json);
-
-        newData = await autoRecMigration.handle(newData, false)
-        // Existing Autorec Menu
-        const oldData = game.settings.get('autoanimations', 'aaAutorec');
-        // New Autorec Menu
-        oldData.search = "";
-
-        let idx;
-
-        const menuSections = ['melee', 'range', 'static', 'templatefx', 'aura', 'preset', 'aefx']
-
-        await mergeMenus();
-
-        async function mergeMenus() {
-            for (var i = 0; i < menuSections.length; i++) {
-                if (!newData[menuSections[i]]) { return; }
-                // Resets IDX to 0
-                if (!oldData[menuSections[i]]) {
-                    oldData[menuSections[i]] = {};
-                }
-                let sectionLength = Object.keys(oldData[menuSections[i]]).length
-                idx = sectionLength === 0 ? 0 : sectionLength;
-
-                // Sets Old and New Names arrays from the Section, spaces removed and toLowerCase()
-                const newSectionNames = await getAllNamesInSection(newData, menuSections[i]);
-                const oldSectionNames = await getAllNamesInSection(oldData, menuSections[i]);
-
-                // If Existing Menu has no Section, check if New Menu has Section. If NO, return. If YES set Merged Section = New Section
-                if (!oldData[menuSections[i]]) {
-                    if (!newData[menuSections[i]]) {
-                        oldData[menuSections[i]] = {};
-                        return;
-                    } else {
-                        oldData[menuSections[i]] = newData[menuSections[i]];
-                        return;
-                    }
-                }
-
-                // Compare Existing versus New and build new Merged Object for Section
-                //await checkOldData(oldData, oldSectionNames, newSectionNames, menuSections[i]);
-                await checkNewData(newData, oldSectionNames, newSectionNames, menuSections[i]);
-            }
-        }
-
-        async function getAllNamesInSection(obj, type) {
-            const nameArray = []
-            try { Object.keys(obj[type]).length }
-            catch (exception) { return nameArray }
-            const arrayLength = Object.keys(obj[type]).length
-            for (var i = 0; i < arrayLength; i++) {
-                if (!obj[type][i].name) { continue }
-
-                nameArray.push(obj[type][i].name.replace(/\s+/g, '').toLowerCase())
-            }
-            return nameArray;
-        }
-
-        async function findObjectByName(data, type, name) {
-            var newObject = Object.values(data[type])
-                .sort((a, b) => b.name.replace(/\s+/g, '').length - a.name.replace(/\s+/g, '').length)
-                .find(section => {
-                    //cutting out all spaces
-                    return name.includes(section.name.replace(/\s+/g, '').toLowerCase()) ? section : "";
-                })
-
-            return newObject
-        }
-
-        // Checks each Name field of the New Menu to see if it exists in the Current Menu. If it exists, continue, otherwise push to the new Merged Menu and increase IDX
-        async function checkNewData(newData, oldArray, newArray, section) {
-
-            let newDataLength = Object.keys(newData[section]).length;
-            for (var i = 0; i < newDataLength; i++) {
-                if (oldArray.includes(newArray[i])) {
-                    continue;
-                } else {
-                    let newSection = await findObjectByName(newData, section, newArray[i]);
-                    oldData[section][idx] = newSection;
-                    idx = idx + 1;
-                }
-            }
-        }
-        await game.settings.set("autoanimations", "aaAutorec", oldData);
-        autorecData.set(oldData)
-    }
-    */
-   /*
-    static async overwriteMenu(json) {
-        const data = JSON.parse(json);
-        console.warn("autoanimations | Import settings ", data);
-
-        //const oldData = (game.settings.get('autoanimations', 'aaAutorec'))
-        //const filename = `Overwritten-Menu-Recovery.json`;
-        //saveDataToFile(JSON.stringify(oldData, null, 2), "text/json", filename);
-        //ui.notifications.info("Exporting Menu Backup before Overwriting")
-        console.log("hello trying this")
-        await autoRecMigration.handle(data, true)
-    }
-    */
-
 }

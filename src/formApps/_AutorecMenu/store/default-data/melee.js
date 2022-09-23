@@ -13,7 +13,7 @@ export const melee = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
-            scale: 1,
+            size: 1,
             zIndex: 1,
          }
       }),
@@ -37,7 +37,7 @@ export const melee = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
-            scale: 1,
+            size: 1,
             zIndex: 1
          }
       }),
@@ -61,7 +61,7 @@ export const melee = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
-            scale: 1,
+            size: 1,
             zIndex: 1
          }
       }),
@@ -85,7 +85,7 @@ export const melee = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
-            scale: 1,
+            size: 1,
             zIndex: 1
          }
       }),
@@ -109,7 +109,7 @@ export const melee = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
-            scale: 1,
+            size: 1,
             zIndex: 1
          }
       }),
@@ -133,7 +133,7 @@ export const melee = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
-            scale: 1,
+            size: 1,
             zIndex: 1
          }
       }),
@@ -157,7 +157,7 @@ export const melee = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
-            scale: 1,
+            size: 1,
             zIndex: 1
          }
       }),
@@ -181,7 +181,7 @@ export const melee = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
-            scale: 1,
+            size: 1,
             zIndex: 1
          }
       }),
@@ -205,7 +205,7 @@ export const melee = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
-            scale: 1,
+            size: 1,
             zIndex: 1
          }
       }),
@@ -229,7 +229,7 @@ export const melee = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
-            scale: 1,
+            size: 1,
             zIndex: 1
          }
       }),
@@ -253,7 +253,7 @@ export const melee = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
-            scale: 1,
+            size: 1,
             zIndex: 1
          }
       }),
@@ -277,7 +277,7 @@ export const melee = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
-            scale: 1,
+            size: 1,
             zIndex: 1
          }
       }),

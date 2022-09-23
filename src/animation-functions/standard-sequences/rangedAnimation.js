@@ -1,11 +1,10 @@
 //import { buildFile } from "../file-builder/build-filepath.js"
-import { aaDebugger } from "../../constants/constants.js"
 import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
-import { aaReturnWeapons } from "../databases/jb2a-menu-options.js";
+import { aaReturnWeapons } from "../../database/jb2a-menu-options.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function rangeSeq(handler, animationData) {
+export async function range(handler, animationData) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -22,8 +21,6 @@ export async function rangeSeq(handler, animationData) {
     const macro = animationData.macro;
 
     //const attack = await buildFile(false, data.video.menuType, data.video.animation, "range", data.video.variant, data.video.color, data.video.customPath)
-
-    if (handler.debug) { aaDebugger("Ranged Animation Start", animationData) }
 
     const sourceToken = handler.sourceToken;
     const onlyX = data.enableCustom ? data.onlyX : false;

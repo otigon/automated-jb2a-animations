@@ -2,6 +2,8 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
     export let animation;
+    export let category;
+    export let idx;
     let section = "soundOnly";
 
     $: isValid = $animation.soundOnly.sound.enable && $animation.soundOnly.sound.file
@@ -21,7 +23,7 @@
                     class="fas fa-music aa-blue {isValid ? "" : "aa-disableOpacity"}"
                     style="font-size: 1.5em;"
                     title="Play Sound"
-                    on:click={() => animation.playSound(section)}
+                    on:click={() => category.playSound(animation._data[section].sound)}
                 />
         </div>
         <div style="grid-row: 1/2; grid-column: 2/3">
@@ -32,11 +34,11 @@
             />
         </div>
         <div style="grid-row: 1/2; grid-column: 3/4">
-            <button
-                class="file-picker"
-                on:click|preventDefault={() => animation.selectSound(section)}
-                ><i class="fas fa-file-import" /></button
-            >
+            <i class="fas fa-file-import" 
+                title="File Picker"
+                style="font-size:1.5em"
+                on:click|preventDefault={() => category.selectSound(section, idx)}
+            />
         </div>
     </div>
     <table class="d" style="padding-left: 2em; padding-right: 2em">

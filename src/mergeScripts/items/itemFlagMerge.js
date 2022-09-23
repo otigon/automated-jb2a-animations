@@ -2,7 +2,7 @@ import * as itemMerge from "./merges/versionIndex.js";
 
 export const flagMigrations = {
 
-    async handle(item) {
+    async handle(item, options = {}) {
         let flags = item.flags?.autoanimations;
         if (!flags) return;
 
@@ -18,7 +18,7 @@ export const flagMigrations = {
 
             if (flagVersion >= Number(version)) continue;
 
-            newFlagData = await migration(newFlagData);
+            newFlagData = await migration(newFlagData, options.isActiveEffect);
         }
         //let updatedFlags = item.flags?.autoanimations ?? {};
         if (!newFlagData) {

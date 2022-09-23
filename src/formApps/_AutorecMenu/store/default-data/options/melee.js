@@ -10,3 +10,33 @@ export function melee() {
         zIndex: 1,
     }
 }
+
+/**
+ * @typedef {object} DataMeleeOptions
+ * 
+ * @property {boolean}     addTokenWidth -
+ * 
+ * @property {number}      delay -
+ *
+ * @property {number}      elevation -
+ *
+ * @property {number}      fadeIn -
+ *
+ * @property {number}      fadeOut -
+ *
+ * @property {boolean}     ignoreTarget -
+ *
+ * @property {boolean}     isMasked -
+ *
+ * @property {boolean}     isWait -
+ *
+ * @property {number}      opacity -
+ *
+ * @property {number}      size -
+ *
+ * @property {boolean}     unbindAlpha -
+ *
+ * @property {boolean}     unbindVisibility -
+ *
+ * @property {number}      zIndex -
+ */

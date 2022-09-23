@@ -2,8 +2,9 @@
     import { TJSDialog }    from "@typhonjs-fvtt/runtime/svelte/application";
     import { localize }     from "@typhonjs-fvtt/runtime/svelte/helper";
     import { getContext }   from "svelte";
-    import { autoRecMigration } from "../../../../../mergeScripts/autorec/autoRecMerge.js"
-    import { AAAutorecFunctions } from "../../../../../aa-classes/aaAutorecFunctions.js"
+    import { autoRecMigration } from "../../../../../mergeScripts/autorec/autoRecMerge.js";
+    import { AAAutorecFunctions } from "../../../../../aa-classes/aaAutorecFunctions.js";
+    import { AAAutorecManager } from "./AAAutorecManager.js"
 
     const { application } = getContext("external");
 
@@ -44,18 +45,11 @@
 
     async function mergeMenus(selectedMenus) {
         const updatedImport = await autoRecMigration.handle(menu)
-        AAAutorecFunctions.mergeMenus(updatedImport, selectedMenus)
+        AAAutorecManager.mergeMenus(menu, {...selectedMenus})
     }
 
     async function overwriteMenus(selectedMenus) {
-        console.log("Overwriteing the requested Menus", selectedMenus, menu)
-        overwriteNow()
-
-        async function overwriteNow() {
-            console.log(selectedMenus)
-            await autoRecMigration.handle(menu, {shouldSubmit: true, ...selectedMenus})
-        }
-
+        AAAutorecManager.overwriteMenus(menu, {shouldSubmit: true, ...selectedMenus})
     }
 </script>
 

@@ -4,7 +4,7 @@
     import { storeItemData } from "../ItemMenu/itemPreviewStore.js"
     import ChooseAnimation from "./chooseAnimation.svelte";
     import SoundSettings from "./soundSettings.svelte";
-    import { aaReturnWeapons } from "../../animation-functions/databases/jb2a-menu-options.js"
+    import { aaReturnWeapons } from "../../database/jb2a-menu-options.js"
     import {
         storeAutorec,
     } from "../AutorecMenu/autorecPreviews.js";
@@ -14,7 +14,7 @@
         aaNameMenu,
         aaVariantMenu,
         aaColorMenu,
-    } from "../../animation-functions/databases/jb2a-menu-options.js";
+    } from "../../database/jb2a-menu-options.js";
 
     export let flagData;
     export let primaryMenuType;

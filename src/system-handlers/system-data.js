@@ -1,9 +1,8 @@
 import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
-
+import { debug } from "../constants/constants.js";
 import { endTiming } from "../constants/timings.js";
 import { AASystemData } from "./getdata-by-system.js";
 import { flagMigrations } from "../mergeScripts/items/itemFlagMerge.js";
-//import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
 import { AAAutorecFunctions } from "../aa-classes/AAAutorecFunctions.js";
 
 export default class systemData {
@@ -11,19 +10,16 @@ export default class systemData {
     static async make(msg, isChat, external) {
         const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
         const data = external ? external : AASystemData[systemID] ? await AASystemData[systemID](msg, isChat) : await AASystemData.standardChat(msg)
-        if (!data.item) { /*this._log("Retrieval Failed")*/; return {}; }
-        //this._log("Data Retrieved", data)
+        if (!data.item) { debug("Item Retrieval Failed", data); return {}; }
 
         // TO-DO - Update the Item Merge script
-        const flags = data.item.flags.autoanimations//await flagMigrations.handle(data.item);
+        const flags = data.item?.flags?.autoanimations//await flagMigrations.handle(data.item);
 
         return new systemData(data, flags, msg);
     }
 
     constructor(systemData, flagData, msg) {
-        this.debug = game.settings.get("autoanimations", "debug");
-        this._log("Getting System Data")
-
+        debug("Compiling Automated Animations data")
         const data = systemData;
         this.gameSystem = game.system.id;
 
@@ -75,15 +71,11 @@ export default class systemData {
         //midi-qol specific settings
         this.playOnMiss = data.playOnMiss || (midiActive || game.system.id === 'pf2e' ? game.settings.get("autoanimations", "playonmiss") : false) || false;
         //this.playOnMiss = true;
-        const midiSettings = midiActive ? game.settings.get("midi-qol", "ConfigSettings") : false
-        this._gmAD = midiActive ? midiSettings?.gmAutoDamage : "";
-        this._userAD = midiActive ? midiSettings?.autoRollDamage : "";
+        //const midiSettings = midiActive ? game.settings.get("midi-qol", "ConfigSettings") : false
+        //this._gmAD = midiActive ? midiSettings?.gmAutoDamage : "";
+        //this._userAD = midiActive ? midiSettings?.autoRollDamage : "";
 
 
-        //this.isDisabled = this.flags.killAnim || false;
-        this.isEnabled = this.flags.isEnabled ?? true;
-        //this.isCustomized = this.flags.override || false;
-        this.isCustomized = this.flags.isCustomized || false;
 
         //changed from flags.animType to match Autorec menu
         this.menu = this.flags.menu || "";
@@ -118,9 +110,14 @@ export default class systemData {
         //this.isAutorecTemplateItem = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.templatefx, this.rinsedName);
 
         //this.autorecObject = this.isActiveEffect || this.pf2eRuleset ? AutorecFunctions._findObjectIn5eAE(this.autorecSettings, this.rinsedName) : null;
-        this.autorecObject = this.isActiveEffect || this.pf2eRuleset ? AAAutorecFunctions.singleMenuSearch(this.autorecSettings.aefx, this.rinsedName) : null;
+        if (this.isActiveEffect || this.pf2eRuleset) {
+            this.autorecObject = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.aefx, this.rinsedName);
+        } else {
+            this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, this.rinsedName);
+        }
+        //this.autorecObject = this.isActiveEffect || this.pf2eRuleset ? AAAutorecFunctions.singleMenuSearch(this.autorecSettings.aefx, this.rinsedName) : null;
 
-        if (!this.autorecObject) {
+        if (!this.autorecObject && game.system.id === "pf2e") {
             /* fallback assignment for active effects, default assignment otherwise. */
             this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, this.rinsedName);
         } 
@@ -137,6 +134,11 @@ export default class systemData {
             }
         }
 
+        //this.isDisabled = this.flags.killAnim || false;
+        this.isEnabled = this.flags.isEnabled ?? true;
+        //this.isCustomized = this.flags.override || false;
+        this.isCustomized = this.isActiveEffect ? this.flags.isCustomized && this.flags.activeEffectType ? true : false : this.flags.isCustomized && this.flags.menu ? true : false;
+        this.templateData = data.templateData ? data.templateData : undefined;
         /*
         this.isAutorecTemplateItem = false;
         this.isAutorecAura = false;
@@ -242,10 +244,6 @@ export default class systemData {
         } else {   
             return canvas.grid.measureDistance(this.sourceToken, target, {gridSpaces: true});
         }
-    }
-
-    _log(...args) {
-        if (this.debug) console.log(`DEBUG | Automated Animations |`, ...args);
     }
 }
 

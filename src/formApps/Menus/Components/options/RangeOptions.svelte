@@ -7,7 +7,7 @@
     import Opacity from "./inputComponents/Opacity.svelte";
     import WaitDelay from "./inputComponents/WaitDelay.svelte";
 
-    import {aaReturnWeapons} from "../../../../animation-functions/databases/jb2a-menu-options.js"
+    import {aaReturnWeapons} from "../../../../database/jb2a-menu-options.js"
 
     //import { ripple } from "@typhonjs-fvtt/svelte-standard/action";
 

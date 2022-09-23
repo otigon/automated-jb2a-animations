@@ -3,6 +3,7 @@ import { writable }           from "svelte/store";
 import { uuidv4 }             from "@typhonjs-fvtt/runtime/svelte/util";
 import { isObject }           from '@typhonjs-fvtt/runtime/svelte/util';
 
+import { custom_warning } from "../../../constants/constants.js";
 import OptionsDialog from "../../Menus/Components/options/optionsInfoDialog.js"
 import VideoPreview  from "../../Menus/Components/videoPreview/videoPreview.js"
 
@@ -16,7 +17,7 @@ import {
    newVariantMenu,
    newColorMenu,
    aaReturnWeapons
-} from "../../../animation-functions/databases/jb2a-menu-options.js";
+} from "../../../database/jb2a-menu-options.js";
 
 
 export class AnimationStore extends ObjectEntryStore {
@@ -181,7 +182,6 @@ export class AnimationStore extends ObjectEntryStore {
          }
          let macroFilter = pack.index.filter((m) => m.data === packArray[3]);
          if (!macroFilter.length) {
-            console.log("YES");
             ui.notifications.info(
                `Autoanimations | A macro named ${packArray[3]} was not found in Compendium ${packArray[1]}.${packArray[2]}`
             );
@@ -292,7 +292,7 @@ export class AnimationStore extends ObjectEntryStore {
       //ui.notifications.info("Work In Progress")
       let menu = this._data.activeEffectType;
       if (menu === "default") {
-         console.warn("Automated Animations | You are attempting to copy an Item to the Global menu, but you haven't configured the item!")
+         custom_warning("You are attempting to copy an Item to the Global menu, but you haven't configured the item!")
       }
       let data = structuredClone(this._data);
       data.id = uuidv4();
@@ -304,8 +304,6 @@ export class AnimationStore extends ObjectEntryStore {
       let currentMenu = await game.settings.get('autoanimations', `aaAutorec-aefx`);
       currentMenu.push(data);
       await game.settings.set('autoanimations', `aaAutorec-aefx`, currentMenu)
-
-      //console.log("Item Transferred to Autorec")
    }
 }
 

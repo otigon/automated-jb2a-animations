@@ -127,7 +127,7 @@
                     {animation}
                     label={localize("autoanimations.menus.radius")}
                     section="primary"
-                    field="radius"
+                    field="size"
                     step="0.01"
                 />
                 </td>
@@ -148,11 +148,29 @@
                 </td>
             </tr>
             <tr>
-                <td></td>
+                <td>
+                    <!--Set Z-Index-->
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.fadeIn")}
+                    section="primary"
+                    field="fadeIn"
+                    step="1"
+                />
+                </td>
                 <td>
                     <WaitDelay {animation}/>
                 </td>
-                <td></td>
+                <td>
+                    <!--Set Z-Index-->
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.fadeOut")}
+                    section="primary"
+                    field="fadeOut"
+                    step="1"
+                />
+                </td>
             </tr>
         </table>
     </TJSSvgFolder>

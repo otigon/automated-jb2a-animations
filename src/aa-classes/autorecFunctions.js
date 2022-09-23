@@ -1,5 +1,5 @@
-import { JB2AFREEDB } from "../animation-functions/databases/jb2a-free-database.js"
-import { JB2APATREONDB } from "../animation-functions/databases/jb2a-patreon-database.js"
+import { JB2AFREEDB } from "../database/jb2a-free-database.js"
+import { JB2APATREONDB } from "../database/jb2a-patreon-database.js"
 import {
     autorecData,
 } from "../formApps/AutorecMenu/autorecPreviews.js";
@@ -494,7 +494,7 @@ export class AutorecFunctions {
         }
 
         //await game.settings.set("autoanimations", "aaAutorec", oldData);
-        debugger
+
         await autoRecMigration.handle(oldData, true)
     }
 

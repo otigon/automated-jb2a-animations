@@ -2,7 +2,8 @@
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import { getContext } from "svelte";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { AAAutorecFunctions } from "../../../../../aa-classes/AAAutorecFunctions.js";
+    //import { AAAutorecFunctions } from "../../../../../aa-classes/AAAutorecFunctions.js";
+    import { AAAutorecManager } from "./AAAutorecManager";
     import ImportMenus from "./ImportMenus.svelte";
 
     const { application } = getContext("external");
@@ -118,6 +119,9 @@
     }
 
     async function exportMenu() {
+        AAAutorecManager.exportMenu()
+        application.close();
+        /*
         const exportData = {
             melee: await game.settings.get("autoanimations", "aaAutorec-melee"),
             range: await game.settings.get("autoanimations", "aaAutorec-range"),
@@ -126,11 +130,10 @@
             aura: await game.settings.get("autoanimations", "aaAutorec-aura"),
             preset: await game.settings.get("autoanimations", "aaAutorec-preset"),
             aefx: await game.settings.get("autoanimations", "aaAutorec-aefx"),
-            /**TO-DO: Set up VERSION Game Setting. OR should this be a field set on each Section???*/
-            //version = await game.settings.get('autoanimations', 'aaAutorec-version')
+            version: await game.settings.get('autoanimations', 'aaAutorec').version,
         };
 
-        console.log(exportData);
+        console.warn('Automated Animations | Global Automatic Recognition Menu Export', exportData);
         exportToJSON();
 
         function exportToJSON() {
@@ -142,7 +145,7 @@
             );
             application.close();
         }
-
+        */
         /*
         new TJSDialog({
             modal: true,

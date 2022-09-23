@@ -18,3 +18,39 @@ export function templatefx() {
         zIndex: 1,
     }
 }
+
+/**
+ * @typedef {object} DataTemplateFXOptions
+ * 
+ * @property {number}      delay -
+ *
+ * @property {number}      elevation -
+ *
+ * @property {boolean}     isMasked -
+ *
+ * @property {boolean}     isWait -
+ *
+ * @property {number}      occlusionAlpha -
+ *
+ * @property {number}      occlusionMode -
+ *
+ * @property {number}      opacity -
+ *
+ * @property {boolean}     persistent -
+ *
+ * @property {string}      persistType -
+ *
+ * @property {boolean}     removeTemplate -
+ *
+ * @property {number}      repeat -
+ *
+ * @property {number}      repeatDelay -
+ *
+ * @property {number}      rotate -
+ *
+ * @property {number}      scaleX -
+ *
+ * @property {number}      scaleY -
+ *
+ * @property {number}      zIndex -
+ */
