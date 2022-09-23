@@ -7,6 +7,20 @@ export class AAAutorecManager
         Hooks.call("AutomaticAnimations.Clear.Data");
     }
 
+    static async getAutorecEntries() {
+        let menu = {
+            melee: game.settings.get('autoanimations', 'aaAutorec-melee'),
+            range: game.settings.get('autoanimations', 'aaAutorec-range'),
+            ontoken: game.settings.get('autoanimations', 'aaAutorec-ontoken'),
+            templatefx: game.settings.get('autoanimations', 'aaAutorec-templatefx'),
+            aura: game.settings.get('autoanimations', 'aaAutorec-aura'),
+            preset: game.settings.get('autoanimations', 'aaAutorec-preset'),
+            aefx: game.settings.get('autoanimations', 'aaAutorec-aefx'),
+            version: game.settings.get('autoanimations', 'aaAutorec').version,
+        }
+        return menu;
+    }
+
     static async addMetaData(data, options) {
 
         if (!data) { return; }
