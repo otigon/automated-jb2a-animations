@@ -68,13 +68,7 @@ export class AnimationStore extends ObjectEntryStore {
    }
 
    loadPreviews() {
-      if (
-         Object.values(ui.windows).find(
-            (w) => w.id === `Autorec-Video-Preview`
-         )
-      ) { return; }
-
-      new VideoPreview().render(true);
+      VideoPreview.show();
    }
 
    getMenuDB(section, idx, isOnToken) {
@@ -271,7 +265,7 @@ export class AnimationStore extends ObjectEntryStore {
    }
 
    async copyFromAutorec(data) {
-      if (!data) { 
+      if (!data) {
          ui.notifications.info("Automated Animations | There is no Global match found to copy!")
          return;
       }
@@ -300,7 +294,7 @@ export class AnimationStore extends ObjectEntryStore {
 
       delete data.isCustomized;
       delete data.isEnabled;
-      
+
       let currentMenu = await game.settings.get('autoanimations', `aaAutorec-aefx`);
       currentMenu.push(data);
       await game.settings.set('autoanimations', `aaAutorec-aefx`, currentMenu)

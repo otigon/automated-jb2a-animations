@@ -5,11 +5,13 @@
 
     import { getContext } from "svelte";
 
+    export let storageStore = void 0;
+
     $: newStore = $currentStore;
 
     $: videoIDX = $currentStore.stores.videoIDX;
 
-    
+
     $: idx = $videoIDX;
 
     $: animationSection = idx === "item" ? newStore : $newStore[idx];
@@ -27,13 +29,13 @@
     $: sAnim = animation.source.video.animation;
     $: sVariant = animation.source.video.variant;
     $: sColor = animation.source.video.color;
-    $: sCompiledPath = sCustom && sCustomPath 
-                    ? sCustomPath 
-                    : sColor === "random" 
+    $: sCompiledPath = sCustom && sCustomPath
+                    ? sCustomPath
+                    : sColor === "random"
                     ? `autoanimations.${sDbSection}.${sMenuType}.${sAnim}.${sVariant}`
                     : `autoanimations.${sDbSection}.${sMenuType}.${sAnim}.${sVariant}.${sColor}`
     $: sFilePath = sCustom && sCustomPath && sCustomPath.split(".").length < 3
-                    ? sCustomPath 
+                    ? sCustomPath
                     : getPreviewFile(sCompiledPath)
 
     $: name = animation.label;
@@ -44,13 +46,13 @@
     $: anim = animation.primary.video.animation;
     $: variant = animation.primary.video.variant;
     $: color = animation.primary.video.color;
-    $: compiledPath = custom && customPath 
-                    ? customPath 
-                    : color === "random" 
+    $: compiledPath = custom && customPath
+                    ? customPath
+                    : color === "random"
                     ? `autoanimations.${dbSection}.${menuType}.${anim}.${variant}`
                     : `autoanimations.${dbSection}.${menuType}.${anim}.${variant}.${color}`
     $: filePath = custom && customPath && customPath.split(".").length < 3
-                    ? customPath 
+                    ? customPath
                     : getPreviewFile(compiledPath)
 
     $: enableSecondary = animation.secondary?.enable ?? false;
@@ -61,13 +63,13 @@
     $: eAnim = animation.secondary?.video?.animation;
     $: eVariant = animation.secondary?.video?.variant;
     $: eColor = animation.secondary?.video?.color;
-    $: eCompiledPath = eCustom && eCustomPath 
-                    ? eCustomPath 
-                    : color === "random" 
+    $: eCompiledPath = eCustom && eCustomPath
+                    ? eCustomPath
+                    : color === "random"
                     ? `autoanimations.${eDbSection}.${eMenuType}.${eAnim}.${eVariant}`
                     : `autoanimations.${eDbSection}.${eMenuType}.${eAnim}.${eVariant}.${eColor}`
     $: eFilePath = eCustom && eCustomPath && eCustomPath.split(".").length < 3
-                    ? eCustomPath 
+                    ? eCustomPath
                     : getPreviewFile(eCompiledPath)
 
     $: enableTarget = animation.target?.enable ?? false;
@@ -78,15 +80,23 @@
     $: tAnim = animation.target?.video?.animation;
     $: tVariant = animation.target?.video?.variant;
     $: tColor = animation.target?.video?.color;
-    $: tCompiledPath = tCustom && tCustomPath 
-                    ? tCustomPath 
-                    : sColor === "random" 
+    $: tCompiledPath = tCustom && tCustomPath
+                    ? tCustomPath
+                    : sColor === "random"
                     ? `autoanimations.${tDbSection}.${tMenuType}.${tAnim}.${tVariant}`
                     : `autoanimations.${tDbSection}.${tMenuType}.${tAnim}.${tVariant}.${tColor}`
     $: tFilePath = tCustom && tCustomPath && tCustomPath.split(".").length < 3
-                    ? tCustomPath 
+                    ? tCustomPath
                     : getPreviewFile(tCompiledPath)
 
+    // Application position store reference. Stores need to be a top level variable to be accessible for reactivity.
+    const position = application.position;
+
+    // A debounced callback that serializes application state after 500-millisecond delay.
+    const storeAppState = foundry.utils.debounce(() => $storageStore = application.state.get(), 500);
+
+    // Reactive statement to invoke debounce callback on Position changes.
+    $: storeAppState($position);
 </script>
 
 <div class="flexcol">
@@ -94,7 +104,7 @@
 </div>
 <div class="flexcol aa-full-preview">
     {#if enableSource}
-        <div class="flexcol" style="grid-row:1/2">
+        <div class="flexcol">
             <label for="">{localize("autoanimations.menus.source")} {localize("autoanimations.menus.animation")}</label>
             <div class="aa-video-overlay">
                 <video
@@ -103,7 +113,7 @@
                     autoplay="autoplay"
                     controls
                     controlsList="nodownload"
-                    disablepictureinpicture    
+                    disablepictureinpicture
                     loop
                 >
                     <track kind="captions" />
@@ -111,7 +121,7 @@
             </div>
         </div>
     {/if}
-    <div class="flexcol" style="grid-row:1/2">
+    <div class="flexcol" >
         <label for="">{localize("autoanimations.menus.primary")} {localize("autoanimations.menus.animation")}</label>
         <div class="aa-video-overlay">
             <video
@@ -128,7 +138,7 @@
         </div>
     </div>
     {#if enableSecondary}
-        <div class="flexcol" style="grid-row:1/2">
+        <div class="flexcol">
             <label for="">{localize("autoanimations.variants.secondary")} {localize("autoanimations.menus.animation")}</label>
             <div class="aa-video-overlay">
                 <video
@@ -137,7 +147,7 @@
                     autoplay="autoplay"
                     controls
                     controlsList="nodownload"
-                    disablepictureinpicture    
+                    disablepictureinpicture
                     loop
                 >
                     <track kind="captions" />
@@ -146,7 +156,7 @@
         </div>
     {/if}
     {#if enableTarget}
-        <div class="flexcol" style="grid-row:1/2">
+        <div class="flexcol">
             <label for="">{localize("autoanimations.menus.target")} {localize("autoanimations.menus.animation")}</label>
             <div class="aa-video-overlay">
                 <video
@@ -155,7 +165,7 @@
                     autoplay="autoplay"
                     controls
                     controlsList="nodownload"
-                    disablepictureinpicture    
+                    disablepictureinpicture
                     loop
                 >
                     <track kind="captions" />
@@ -168,10 +178,6 @@
 
 <style lang="scss">
     .aa-full-preview {
-        display: grid;
-        grid-template-columns: fit-content(225px) auto;
-        grid-template-rows: 250px;
-        grid-gap: 5px;
         padding: 5px;
         align-items: center;
         width: 100%;
@@ -184,9 +190,8 @@
         border: 3px ridge #a1a1a1;
         border-radius: 30px;
         padding: 5px;
-        margin-bottom: 5px;
-        width: 225px;
-        height: 225px;
+        width: 210px;   // 210 x 210 fits all 4 video previews vertically in `1080P` monitor.
+        height: 210px;
         display: block;
         margin: 0 auto;
         background: rgb(78, 78, 78);
@@ -205,6 +210,7 @@
     }
     .aa-video-overlay {
         border-radius: 30px;
-        box-shadow: 8px 11px 9px 0px rgb(0, 0, 0, 0.5);
+        box-shadow: 8px 11px 9px 0 rgb(0, 0, 0, 0.5);
+        margin-bottom: 10px;
     }
 </style>

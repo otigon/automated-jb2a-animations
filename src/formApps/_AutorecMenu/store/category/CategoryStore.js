@@ -15,7 +15,7 @@ import OptionsDialog from "../../../Menus/Components/options/optionsInfoDialog";
 import CopyClipBoard from "../../../Menus/Components/copyOnClick.svelte"
 import VideoPreview  from "../../../Menus/Components/videoPreview/videoPreview.js";
 
-import { 
+import {
    newTypeMenu,
    newNameMenu,
    newVariantMenu,
@@ -62,7 +62,7 @@ export class CategoryStore extends WorldSettingArrayStore {
          // This allow setting the current Index of the section for the Video Preview app
          videoIDX: writable(void 0),
       };
-      
+
    }
 
    get filterSearch() { return CategoryStore.#filterSearch; }
@@ -110,13 +110,7 @@ export class CategoryStore extends WorldSettingArrayStore {
 
 
    loadPreviews() {
-      if (
-         Object.values(ui.windows).find(
-            (w) => w.id === `Autorec-Video-Preview`
-         )
-      ) { return; }
-
-      new VideoPreview().render(true);
+      VideoPreview.show();
    }
 
    getMenuDB(section, idx, isOnToken) {
@@ -161,7 +155,7 @@ export class CategoryStore extends WorldSettingArrayStore {
       let animation = this._data[idx]._data[section][section02].animation;
       let variant = this._data[idx]._data[section][section02].variant;
       let color = this._data[idx]._data[section][section02].color;
-      return color === "random" 
+      return color === "random"
       ? `autoanimations.${menuDB}.${menuType}.${animation}.${variant}`
       : `autoanimations.${menuDB}.${menuType}.${animation}.${variant}.${color}`
 

@@ -68,13 +68,7 @@ export class AnimationStore extends ObjectEntryStore {
    }
 
    loadPreviews() {
-      if (
-         Object.values(ui.windows).find(
-            (w) => w.id === `Autorec-Video-Preview`
-         )
-      ) { return; }
-
-      new VideoPreview().render(true);
+      VideoPreview.show();
    }
 
    getMenuDB(section, idx, isOnToken) {
@@ -271,7 +265,7 @@ export class AnimationStore extends ObjectEntryStore {
    }
 
    async copyFromAutorec(data) {
-      if (!data) { 
+      if (!data) {
          ui.notifications.info("Automated Animations | There is no Global match found to copy!")
          return;
       }
@@ -288,7 +282,7 @@ export class AnimationStore extends ObjectEntryStore {
          case "melee":
             this._data.menu = data.menu;
             this._data.levels3d = data.levels3d;
-            this._data.macro = data.macro;   
+            this._data.macro = data.macro;
             this._data.meleeSwitch = data.meleeSwitch;
             this._data.primary = data.primary;
             this._data.secondary = data.secondary;
@@ -302,7 +296,7 @@ export class AnimationStore extends ObjectEntryStore {
          case "aura":
             this._data.menu = data.menu;
             this._data.levels3d = data.levels3d;
-            this._data.macro = data.macro;   
+            this._data.macro = data.macro;
             this._data.primary = data.primary;
             this._data.secondary = data.secondary;
             this._data.source = data.source;
@@ -314,7 +308,7 @@ export class AnimationStore extends ObjectEntryStore {
             this._data.presetType = data.presetType;
             this._data.data = data.data;
             this._data.soundOnly = data.soundOnly;
-            this._data.macro = data.macro;   
+            this._data.macro = data.macro;
             break;
       }
       this._updateSubscribers()
@@ -360,7 +354,7 @@ export class AnimationStore extends ObjectEntryStore {
       delete data.fromAmmo;
       delete data.isCustomized;
       delete data.isEnabled;
-      
+
       let currentMenu = await game.settings.get('autoanimations', `aaAutorec-${menu}`);
       currentMenu.push(data);
       await game.settings.set('autoanimations', `aaAutorec-${menu}`, currentMenu)
