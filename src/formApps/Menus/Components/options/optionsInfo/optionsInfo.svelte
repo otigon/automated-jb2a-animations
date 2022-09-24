@@ -1,9 +1,12 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }       from "svelte";
 
-    import OptionsInformation from "./OptionsInformation.svelte";
+    import { localize }         from "@typhonjs-fvtt/runtime/svelte/helper";
 
-    let currentSelected = "melee";
+    import OptionsInformation   from "./OptionsInformation.svelte";
+
+    export let storageStore;
+    export let tabStore;
 
     let headerList = [
         {
@@ -31,22 +34,41 @@
             icon: 'fab fa-creative-commons-by',
             section: 'aura'
         },
+        {
+            label: 'autoanimations.app.aaAutorec-preset.label',
+            icon: 'fas fa-gift',
+            section: 'preset'
+        },
+        {
+            label: 'autoanimations.menus.3dcanvas',
+            icon: 'fas fa-cube',
+            section: 'canvas3d'
+        },
     ]
 
+    const { application } = getContext("external");
 
+    // Application position store reference. Stores need to be a top level variable to be accessible for reactivity.
+    const position = application.position;
+
+    // A debounced callback that serializes application state after 500-millisecond delay.
+    const storeAppState = foundry.utils.debounce(() => $storageStore = application.state.get(), 500);
+
+    // Reactive statement to invoke debounce callback on Position changes.
+    $: storeAppState($position);
 </script>
 
 <header>
     <ul>
         {#each headerList as section}
-            <li class:active={currentSelected === section.section} on:click={() => currentSelected = section.section}>
+            <li class:active={$tabStore === section.section} on:click={() => $tabStore = section.section}>
                 <i class={section.icon} />{localize(section.label)}
             </li>
             <span />
         {/each}
     </ul>
 </header>
-<OptionsInformation {currentSelected}/>
+<OptionsInformation {tabStore}/>
 
 <style lang="scss">
     header {
@@ -94,13 +116,13 @@
 
                 i { margin-right: 0.25em; }
             }
-            span:not(:last-child) {
-            display: inline-block;
-            width: 1px;
-            height: 75%;
-            background: rgb(100, 100, 100);
-             }
-        }
 
+            span:not(:last-child) {
+                display: inline-block;
+                width: 1px;
+                height: 75%;
+                background: rgb(100, 100, 100);
+            }
+        }
     }
 </style>

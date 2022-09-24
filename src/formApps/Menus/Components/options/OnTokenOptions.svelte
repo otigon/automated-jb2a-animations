@@ -3,13 +3,13 @@
 
     import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
 
-    import NumberInput from "./inputComponents/NumberInput.svelte";
-    import ScaleRadius from "./inputComponents/ScaleRadius.svelte";
-    import Opacity from "./inputComponents/Opacity.svelte";
-    import WaitDelay from "./inputComponents/WaitDelay.svelte";
+    import NumberInput      from "./inputComponents/NumberInput.svelte";
+    import ScaleRadius      from "./inputComponents/ScaleRadius.svelte";
+    import Opacity          from "./inputComponents/Opacity.svelte";
+    import OptionsDialog    from "./optionsInfoDialog.js";
+    import WaitDelay        from "./inputComponents/WaitDelay.svelte";
 
     export let animation;
-    export let category;
 
     const folder = {
         styles: {
@@ -40,7 +40,7 @@
 <div class="aa-options-border">
     <TJSSvgFolder {folder}>
         <div slot="summary-end">
-            <TJSIconButton button={optionsInfo} on:click={() => category.optionsInfo()}/>
+            <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("ontoken")}/>
         </div>
         <table class="d">
             <tr>

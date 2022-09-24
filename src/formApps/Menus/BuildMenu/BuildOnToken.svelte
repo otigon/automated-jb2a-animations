@@ -47,7 +47,7 @@
                     {idx}
                     {category}
                 />
-                <OnTokenOptions {animation} {category} />
+                <OnTokenOptions {animation} />
                 <SoundSettings {animation} {category} {idx} section="primary" />
             </div>
             <Secondary {animation} {idx} {category} />

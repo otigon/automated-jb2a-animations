@@ -4,7 +4,7 @@ import { uuidv4 }             from "@typhonjs-fvtt/runtime/svelte/util";
 import { isObject }           from '@typhonjs-fvtt/runtime/svelte/util';
 
 import { custom_warning } from "../../../constants/constants.js";
-import OptionsDialog from "../../Menus/Components/options/optionsInfoDialog.js"
+
 import VideoPreview  from "../../Menus/Components/videoPreview/videoPreview.js"
 
 //import { CategoryStore } from "../category/CategoryStore.js";
@@ -145,14 +145,6 @@ export class AnimationStore extends ObjectEntryStore {
       this._data[section][section02].color = newColorMenu[menuDB][menuType][animation][variant][0][0];
    }
 
-   optionsInfo() {
-      if (
-         Object.values(ui.windows).find(
-            (w) => w.id === `Options-Information`
-         )
-      ) { return; }
-      new OptionsDialog().render(true)
-   }
    get typeMenu() { return newTypeMenu }
    get animationMenu() { return newNameMenu }
    get variantMenu() { return newVariantMenu }

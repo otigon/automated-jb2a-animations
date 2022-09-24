@@ -47,7 +47,7 @@
                     {idx}
                     {category}
                 />
-                <RangeOptions {animation} {category} />
+                <RangeOptions {animation} />
                 <SoundSettings {animation} {category} {idx} section="primary" />
             </div>
             <Secondary {animation} {idx} {category} />

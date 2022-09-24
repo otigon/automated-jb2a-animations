@@ -11,7 +11,6 @@ import { aaSessionStorage }   from "../../../../sessionStorage.js";
 import { constants }          from "../../../../constants.js";
 import { gameSettings }       from "../../../../gameSettings.js";
 
-import OptionsDialog from "../../../Menus/Components/options/optionsInfoDialog";
 import CopyClipBoard from "../../../Menus/Components/copyOnClick.svelte"
 import VideoPreview  from "../../../Menus/Components/videoPreview/videoPreview.js";
 
@@ -187,14 +186,6 @@ export class CategoryStore extends WorldSettingArrayStore {
       this._data[idx]._data[section][section02].color = newColorMenu[menuDB][menuType][animation][variant][0][0];
    }
 
-   optionsInfo() {
-      if (
-         Object.values(ui.windows).find(
-            (w) => w.id === `Options-Information`
-         )
-      ) { return; }
-      new OptionsDialog().render(true)
-   }
    get typeMenu() { return newTypeMenu }
    get animationMenu() { return newNameMenu }
    get variantMenu() { return newVariantMenu }

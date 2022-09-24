@@ -48,7 +48,7 @@
                     {idx}
                     {category}
                 />
-                <MeleeOptions {animation} {category} />
+                <MeleeOptions {animation} />
                 <SoundSettings {animation} {category} {idx} section="primary" />
                 <MeleeSwitch {animation} {idx} {category} />
             </div>

@@ -3,12 +3,12 @@
 
     import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
 
-    import NumberInput from "./inputComponents/NumberInput.svelte";
-    import Opacity from "./inputComponents/Opacity.svelte";
-    import WaitDelay from "./inputComponents/WaitDelay.svelte";
+    import NumberInput      from "./inputComponents/NumberInput.svelte";
+    import Opacity          from "./inputComponents/Opacity.svelte";
+    import OptionsDialog    from "./optionsInfoDialog.js";
+    import WaitDelay        from "./inputComponents/WaitDelay.svelte";
 
     export let animation;
-    export let category;
 
     const folder = {
         styles: {
@@ -30,20 +30,20 @@
             bottom: "-2px",
             color: "rgba(50, 79, 245, 0.5)"
         }
-    }
+    };
 
     $: persistent = $animation.primary.options.persistent;
 
     $: currentType = $animation.primary.video.menuType;
 
     $: persistType = $animation.primary.options.persistType;
-    
+
 </script>
 
 <div class="aa-options-border">
     <TJSSvgFolder {folder}>
         <div slot="summary-end">
-            <TJSIconButton button={optionsInfo} on:click={() => category.optionsInfo()}/>
+            <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("templatefx")}/>
         </div>
         <table class="d">
             <tr>

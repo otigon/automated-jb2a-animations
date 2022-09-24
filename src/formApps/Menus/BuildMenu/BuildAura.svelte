@@ -41,7 +41,7 @@
                 {idx}
                 {category}
             />
-            <AuraOptions {animation} {category} />
+            <AuraOptions {animation} />
             <SoundSettings {animation} {category} {idx} section="primary" />
         </div>
         <Secondary {animation} {idx} {category} />

@@ -1,10 +1,11 @@
 <script>
-    import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { localize }     from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
 
     import SectionHeader    from "../Components/SectionHeader.svelte";
     import VideoSelect      from "../Components/VideoSelect.svelte";
     import Opacity          from "./inputComponents/Opacity.svelte";
+    import OptionsDialog    from "../Components/options/optionsInfoDialog.js";
     import ScaleRadius      from "./inputComponents/ScaleRadius.svelte";
 
     export let animation;
@@ -20,6 +21,19 @@
         },
         label: game.i18n.localize("autoanimations.menus.options"),
     };
+
+    const optionsInfo = {
+       icon: "fas fa-info-circle",
+       title: "autoanimations.menus.quickReference",
+       styles: {
+          "--tjs-icon-button-diameter": "1.em",
+          position: "relative",
+          left: "10px",
+          bottom: "-2px",
+          color: "rgba(50, 79, 245, 0.5)"
+       }
+    }
+
     const betweenFolder = {
         styles: {
             "--tjs-summary-font-family":
@@ -55,7 +69,7 @@
                         )}</option
                     >
                 </select>
-        
+
                 </div>
             </td>
             <td>
@@ -97,6 +111,9 @@
     />
     <div class="aa-options-border">
     <TJSSvgFolder {folder}>
+        <div slot="summary-end">
+            <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("preset")}/>
+        </div>
         <table class="d">
             <tr>
                 <td>
@@ -199,7 +216,7 @@
                             placeholder=1
                             step=.01
                         />
-                    </div>                
+                    </div>
                 </td>
                 <td>
                     <!--Set Animation Opacity-->

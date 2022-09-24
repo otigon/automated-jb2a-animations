@@ -3,16 +3,16 @@
 
     import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
 
-    import NumberInput from "./inputComponents/NumberInput.svelte";
-    import Opacity from "./inputComponents/Opacity.svelte";
-    import WaitDelay from "./inputComponents/WaitDelay.svelte";
+    import NumberInput      from "./inputComponents/NumberInput.svelte";
+    import Opacity          from "./inputComponents/Opacity.svelte";
+    import OptionsDialog    from "./optionsInfoDialog.js";
+    import WaitDelay        from "./inputComponents/WaitDelay.svelte";
 
     import {aaReturnWeapons} from "../../../../database/jb2a-menu-options.js"
 
     //import { ripple } from "@typhonjs-fvtt/svelte-standard/action";
 
     export let animation;
-    export let category;
 
     const folder = {
         label: game.i18n.localize("autoanimations.menus.options"),
@@ -45,7 +45,7 @@
 <div class="aa-options-border">
     <TJSSvgFolder {folder}>
         <div slot="summary-end">
-            <TJSIconButton button={optionsInfo} on:click={() => category.optionsInfo()}/>
+            <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("range")}/>
         </div>
         <table class="d">
             <tr>
