@@ -65,7 +65,6 @@
                     on:change={() => changeAE()}
                     style="background-color: rgba(21, 154, 169, 0.4);width: 12em;"
                 >
-                    <option value="">Select Type</option>
                     <option value="ontoken"
                         >{localize("autoanimations.animTypes.ontoken")}</option
                     >

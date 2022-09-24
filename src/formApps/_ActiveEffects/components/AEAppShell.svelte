@@ -1,7 +1,7 @@
 <svelte:options accessors={true} />
 
 <script>
-    import * as common from "../../_AutorecMenu/store/default-data/common"
+    import * as newData from "../../_AutorecMenu/store/default-data/newSection"
 
     import { getContext}        from "svelte";
     import { AnimationStore } from "../store/AnimationStore.js"
@@ -20,17 +20,21 @@
     let aaFlags = itemFlags.autoanimations || {};
 
     const { application } = getContext('external');
+    let newFlagData = structuredClone(aaFlags);
 
-    const newFlagData = structuredClone(aaFlags);
+    if (!newFlagData.hasOwnProperty('activeEffectType')) {
+        newFlagData = newData.aefx("ontoken")
+        newFlagData.activeEffectType = "ontoken";
+    }
     if (!newFlagData.hasOwnProperty('isEnabled')) {
         newFlagData.isEnabled = true;
     }
     if (!newFlagData.hasOwnProperty('isCustomized')) {
         newFlagData.isCustomized = false;
     }
-    if (!newFlagData.hasOwnProperty('menu')) {
-        newFlagData.menu = "aefx";
-    }
+    //if (!newFlagData.hasOwnProperty('menu')) {
+        //newFlagData.menu = "aefx";
+    //}
     if (!newFlagData.hasOwnProperty('version')) {
         newFlagData.version = Object.keys(flagMigrations.migrations).map((n) => Number(n)).reverse()[0]
     }

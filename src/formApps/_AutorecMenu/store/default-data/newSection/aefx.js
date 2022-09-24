@@ -6,7 +6,10 @@ import * as options from "../options"
 export function aefx(current = {}, type) {
     if (type === "ontoken") {
         return {
+            id: current.id || uuidv4(),
             label: current.label || "",
+            activeEffectType: current.activeEffectType || "ontoken",
+            menu: 'aefx',
             macro: current.macro || common.macro(),
             data: {
                 video: {
@@ -18,7 +21,7 @@ export function aefx(current = {}, type) {
                     enableCustom: false,
                     customPath: "",
                 },
-                options: options.aefx(type),
+                options: options.aefx("ontoken"),
                 sound: common.sound(),
             },
             secondary: current.secondary || common.secondary(),
@@ -27,7 +30,10 @@ export function aefx(current = {}, type) {
         }
     } else if (type === "aura") {
         return {
+            id: current.id || uuidv4(),
             label: current.label || "",
+            activeEffectType: current.activeEffectType || "ontoken",
+            menu: 'aefx',
             macro: current.macro || common.macro(),    
             data: {
                 video: {
@@ -39,7 +45,7 @@ export function aefx(current = {}, type) {
                     enableCustom: false,
                     customPath: "",
                 },
-                options: options.aefx(type),
+                options: options.aefx("aura"),
                 sound: common.sound(),
             },
             secondary: current.secondary || common.secondary(),
@@ -50,13 +56,25 @@ export function aefx(current = {}, type) {
         return {
             id: current.id || uuidv4(),
             label: current.label || "",
-            activeEffectType: current.activeEffectType || "",
-            macro: current.macro || common.macro(),
+            activeEffectType: current.activeEffectType || "ontoken",
             menu: 'aefx',
+            macro: current.macro || common.macro(),
+            data: {
+                video: {
+                    dbSection: "static",
+                    menuType: "spell",
+                    animation: "curewounds",
+                    variant: "01",
+                    color: "blue",
+                    enableCustom: false,
+                    customPath: "",
+                },
+                options: options.aefx("ontoken"),
+                sound: common.sound(),
+            },
             secondary: current.secondary || common.secondary(),
-            soundOnly: current.soundOnly || { sound: common.sound() },
+            soundOnly: current.soundOnly || {sound: common.sound()},
             source: current.source || common.source(),
-            target: current.target || common.target(),
         }
     }
 }

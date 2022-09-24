@@ -8,7 +8,8 @@
     import SectionButtons       from "../Components/SectionButtons03.svelte";
     import Macro                from "../Components/Macro.svelte";
     import SoundOnly            from "../Components/SoundOnly.svelte";
-    import * as reset           from "../Presets/presetDefaults";
+    import { preset }       from "../../_AutorecMenu/store/default-data/newSection/preset.js"
+    //import * as reset           from "../Presets/presetDefaults";
 
     export let animation;
     export let category;
@@ -35,18 +36,19 @@
     $: presetRoute = presetContent[presetType].component;
 
     function changePreset() {
+        let newData = preset({}, animation._data.presetType)
         switch (animation._data.presetType) {
             case "dualattach":
-                $animation.data = structuredClone(reset.dualAttach);
+                $animation.data = newData.data;
                 break;
             case "teleportation":
-                $animation.data = structuredClone(reset.teleportation);
+                $animation.data = newData.data;
                 break;
             case "thunderwave":
-                $animation.data = structuredClone(reset.thunderwave);
+                $animation.data = newData.data;
                 break;
             case "proToTemp":
-                $animation.data = structuredClone(reset.proToTemp);
+                $animation.data = newData.data;
                 break;
         }
     }
@@ -78,7 +80,6 @@
                     on:change={() => changePreset()}
                     style="background-color: rgba(21, 154, 169, 0.4);width: 95%;"
                 >
-                    <option value="">Select a Preset</option>
                     <option value="dualattach"
                         >{localize(
                             "autoanimations.presetTypes.dualattach"

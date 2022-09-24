@@ -155,10 +155,6 @@
         {localize("autoanimations.menus.type")}</label
       >
       <select bind:value={$animation.activeEffectType} on:change={async () => await switchVideo()}>
-        <option value=""
-          >{localize("autoanimations.menus.select")}
-          {localize("autoanimations.menus.type")}</option
-        >
         <option value="ontoken"
           >{localize("autoanimations.animTypes.ontoken")}</option
         >

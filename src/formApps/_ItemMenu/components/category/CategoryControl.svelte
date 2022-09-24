@@ -33,8 +33,8 @@
       case "preset":
         $animation.macro = newData.macro;
         $animation.soundOnly = newData.soundOnly;
-        $animation.presetType = "";
-        $animation.data = {};
+        $animation.presetType = newData.presetType;
+        $animation.data = newData.data;
         delete $animation.primary;
         delete $animation.levels3d;
         delete $animation.meleeSwitch;
@@ -212,10 +212,6 @@
         {localize("autoanimations.menus.type")}</label
       >
       <select bind:value={$animation.menu} on:change={async () => await switchVideo()}>
-        <option value=""
-          >{localize("autoanimations.menus.select")}
-          {localize("autoanimations.menus.type")}</option
-        >
         <option value="melee"
           >{localize("autoanimations.animTypes.melee")}</option
         >
