@@ -1,12 +1,13 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
+    import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
 
     import SectionHeader    from "../Components/SectionHeader.svelte";
     import VideoSelect      from "../Components/VideoSelect.svelte";
     import SoundSettings    from "../Components/SoundSettingsNested.svelte";
     import Opacity          from "./inputComponents/Opacity.svelte";
-    
+    import OptionsDialog    from "../Components/options/optionsInfoDialog.js";
+
     export let animation;
     export let category;
     export let idx;
@@ -19,6 +20,19 @@
             "--tjs-summary-font-size": "1.1em",
             "--tjs-summary-chevron-size": "0.7em",
         }
+
+    const optionsInfo = {
+       icon: "fas fa-info-circle",
+       title: "autoanimations.menus.quickReference",
+       styles: {
+          "--tjs-icon-button-diameter": "1.em",
+          position: "relative",
+          left: "10px",
+          bottom: "-2px",
+          color: "rgba(50, 79, 245, 0.5)"
+       }
+    };
+
     const folder = {
         styles: styling,
         label: game.i18n.localize("autoanimations.menus.options"),
@@ -45,6 +59,9 @@
     />
     <div class="aa-options-border">
         <TJSSvgFolder {folder}>
+            <div slot="summary-end">
+                <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("preset")}/>
+            </div>
             <table class="d">
                 <tr>
                     <td>
@@ -171,7 +188,7 @@
                                     step="1"
                                 />
                             </div>
-                        </td>    
+                        </td>
                         <td>
                             <div>
                                 <label for=""
@@ -203,7 +220,7 @@
                                     step="1"
                                 />
                             </div>
-                        </td>    
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -388,7 +405,7 @@
                 style="font-size:1.5em;margin-left: 10px"
                 on:click|preventDefault={() => category.openSequencerViewer()}
                 />
-        
+
             </div>
         </div>
         <div class="aa-options-border">
@@ -442,7 +459,7 @@
                 </tr>
             </table>
         </div>
-        
+
     </TJSSvgFolder>
 </div>
 

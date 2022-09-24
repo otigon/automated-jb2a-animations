@@ -41,7 +41,7 @@
                 {idx}
                 {category}
             />
-            <TemplateOptions {animation} {category} />
+            <TemplateOptions {animation} />
             <SoundSettings {animation} {category} {idx} section="primary" />
         </div>
         <Secondary {animation} {idx} {category} />

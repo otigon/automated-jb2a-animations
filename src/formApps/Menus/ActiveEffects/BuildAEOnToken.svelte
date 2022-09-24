@@ -22,7 +22,7 @@
         <ExtraSource {animation} {idx} {category} />
         <div class="aa-primary-border">
             <VideoSelect {animation} section="data" {title} {idx} {category} />
-            <OnTokenOptions {animation} {category} />
+            <OnTokenOptions {animation} />
             <SoundSettings {animation} {category} {idx} section="data" />
         </div>
         <Secondary {animation} {idx} {category} />

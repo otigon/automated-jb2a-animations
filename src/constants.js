@@ -8,4 +8,20 @@ const constants = {
    moduleLabel: "Automated Animations"
 };
 
-export { constants };
+/**
+ * @type {AASessionConstants} Defines all the module session storage static constants.
+ */
+const sessionConstants = {
+   optionsInfoAppState: `${constants.moduleId}.options-info.app-state`,
+   videoPreviewAppState: `${constants.moduleId}.video-preview.app-state`
+};
+
+export { constants, sessionConstants };
+
+/**
+ * @typedef {object} AASessionConstants
+ *
+ * @property {string} optionsInfoAppState - Stores the app state / position of the OptionsInformation dialog.
+ *
+ * @property {string} videoPreviewAppState - Stores the app state / position of the VideoPreview dialog.
+ */

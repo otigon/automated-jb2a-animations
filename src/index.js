@@ -136,7 +136,7 @@ Hooks.on("aa.initialize", async () => {
 
     if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
         if (s3Check && (s3Check.includes('jb2a_patreon') || s3Check.includes('JB2A_DnD5e'))) { } else {
-            ui.notifications.error(game.i18n.format("autoanimation.settings.error"));
+            ui.notifications.error(game.i18n.format("autoanimations.settings.error"));
         }
     }
 
@@ -156,7 +156,7 @@ Hooks.once('ready', async function () {
     // Check if the Autorec menu requires merge scripts to run
     handleAutorec();
 
-    // Register Hooks by system    
+    // Register Hooks by system
     Hooks.on("deleteItem", async (item) => {storeDeletedItems(item)})
 
     if (game.modules.get("midi-qol")?.active) {

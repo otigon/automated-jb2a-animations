@@ -1,10 +1,10 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
-    export let currentSelected;
+    export let tabStore;
 </script>
 <div class="aa-options-info">
-    {#if currentSelected === "melee"}
+    {#if $tabStore === "melee"}
     <table id="options-table" cellpadding="0" cellspacing="0" border="1">
         <tr>
             <th colspan="2"> Melee Options</th>
@@ -60,7 +60,7 @@
         </tr>
     </table>
     {/if}
-    {#if currentSelected === "range"}
+    {#if $tabStore === "range"}
     <table id="options-table" cellpadding="0" cellspacing="0" border="1">
         <tr>
             <th colspan="2"> Range Options</th>
@@ -123,7 +123,7 @@
         </tr>
     </table>
     {/if}
-    {#if currentSelected === "ontoken"}
+    {#if $tabStore === "ontoken"}
     <table id="options-table" cellpadding="0" cellspacing="0" border="1">
         <tr>
             <th colspan="2"> On Token Options</th>
@@ -242,7 +242,7 @@
         </tr>
     </table>
     {/if}
-    {#if currentSelected === "templatefx"}
+    {#if $tabStore === "templatefx"}
     <table id="options-table" cellpadding="0" cellspacing="0" border="1">
         <tr>
             <th colspan="2"> Templates Options</th>
@@ -361,7 +361,7 @@
                         <td>
                             Creates Effect as a Tile below tokens
                         </td>
-                    </tr>                      
+                    </tr>
                     <tr>
                         <td class="aa-table">
                             <strong>{localize("autoanimations.menus.sequencereffect")}</strong>
@@ -369,7 +369,7 @@
                         <td>
                             Creates a Persistent Sequencer effect
                         </td>
-                    </tr>                      
+                    </tr>
                     <tr>
                         <td class="aa-table">
                             <strong>{localize("autoanimations.menus.attachtotemplate")}</strong>
@@ -377,7 +377,7 @@
                         <td>
                             Creates a Persistent Sequencer effect and attaches to the template (draggable)
                         </td>
-                    </tr>                                         
+                    </tr>
                 </table>
             </td>
         </tr>
@@ -399,7 +399,7 @@
         </tr>
     </table>
     {/if}
-    {#if currentSelected === "aura"}
+    {#if $tabStore === "aura"}
     <table id="options-table" cellpadding="0" cellspacing="0" border="1">
         <tr>
             <th colspan="2"> Aura Options</th>
@@ -481,6 +481,12 @@
                 <strong>Wait</strong> causes the following animation section to play AFTER the current is finished. Accepts Negative and Positive Numbers </td>
         </tr>
     </table>
+    {/if}
+    {#if $tabStore === "preset"}
+        COMPLETE PRESET INFO
+    {/if}
+    {#if $tabStore === "canvas3d"}
+        COMPLETE CANVAS 3D INFO
     {/if}
 </div>
 

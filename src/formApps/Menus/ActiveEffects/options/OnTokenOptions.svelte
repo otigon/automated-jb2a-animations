@@ -1,15 +1,15 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
-    import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
+    import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
 
-    import NumberInput  from "../../Components/options/inputComponents/NumberInput.svelte";
-    import ScaleRadius  from "../../Components/options/inputComponents/ScaleRadius.svelte";
-    import Opacity      from "../../Presets/inputComponents/Opacity02.svelte";
-    import WaitDelay    from "../../components/options/inputComponents/WaitDelay.svelte";
+    import NumberInput      from "../../Components/options/inputComponents/NumberInput.svelte";
+    import ScaleRadius      from "../../Components/options/inputComponents/ScaleRadius.svelte";
+    import Opacity          from "../../Presets/inputComponents/Opacity02.svelte";
+    import OptionsDialog    from "../../Components/options/optionsInfoDialog.js";
+    import WaitDelay        from "../../components/options/inputComponents/WaitDelay.svelte";
 
     export let animation;
-    export let category;
 
     const folder = {
         styles: {
@@ -19,6 +19,18 @@
             "--tjs-summary-chevron-size": "0.7em",
         },
         label: game.i18n.localize("autoanimations.menus.options"),
+    };
+
+    const optionsInfo = {
+       icon: "fas fa-info-circle",
+       title: "autoanimations.menus.quickReference",
+       styles: {
+          "--tjs-icon-button-diameter": "1.em",
+          position: "relative",
+          left: "10px",
+          bottom: "-2px",
+          color: "rgba(50, 79, 245, 0.5)"
+       }
     };
 
     $: persistent = $animation.data.options.persistent;
@@ -33,11 +45,7 @@
 <div class="aa-options-border">
     <TJSSvgFolder {folder}>
         <div slot="summary-end">
-            <i
-                class="fas fa-info-circle aa-info-icon aa-zoom aa-adjust-pos"
-                title={localize("autoanimations.menus.quickReference")}
-                on:click={() => category.optionsInfo()}
-            />
+            <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("ontoken")}/>
         </div>
         <table class="d">
             <tr>
@@ -216,10 +224,3 @@
         </table>
     </TJSSvgFolder>
 </div>
-
-<style lang="scss">
-    .aa-adjust-pos {
-        position: relative;
-        left: 10px;
-    }
-</style>

@@ -1,33 +1,24 @@
-import { SvelteApplication }    from "@typhonjs-fvtt/runtime/svelte/application";
+import { TJSDialog }        from "@typhonjs-fvtt/runtime/svelte/application";
 
-import MenuManagerApp           from "./MenuManagerAppShell.svelte"
+import MenuManagerContent   from "./MenuManager.svelte"
 
-export default class MenuManager extends SvelteApplication {
+export default class MenuManager extends TJSDialog {
+    static #app
+
     /** @inheritDoc */
-    constructor(options)
+    constructor()
     {
-        super(options);
-
-    }
-
-    /**
-     *
-     */
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
-            title: `Menu Manager`,
-            id: `Autorec-Menu-Manager`,
-            zIndex: 102,
-            resizable: true,
-            minimizable: true,
-            width: 575,
-            height: 325,
-            minWidth: 475,
-
-            svelte: {
-                class: MenuManagerApp,
-                target: document.body
+        super({
+            title: 'Menu Manager',
+            resizable: false,
+            content: {
+                class: MenuManagerContent,
             }
+        }, {
+            id: `Autorec-Menu-Manager`,
+            minimizable: false,
+            width: 'auto',
+            height: 'auto'
         });
     }
 
@@ -38,6 +29,22 @@ export default class MenuManager extends SvelteApplication {
         Object.values(ui.windows).filter(app => app.id === "Options-Information" ||
          app.id === "Autorec-Video-Preview").forEach(app => app.close());
 
+        MenuManager.#app = void 0;
+
         return super.close(options);
+    }
+
+    /**
+     * Show a single static instance of MenuManager; if it is already open then bring it to top.
+     */
+    static show() {
+        if (this.#app)
+        {
+            this.#app.bringToTop();
+        }
+        else
+        {
+            this.#app = new MenuManager().render(true, { focus: true });
+        }
     }
 }

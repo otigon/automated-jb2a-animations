@@ -11,18 +11,7 @@
 
     const bottomLabel = game.i18n.localize("autoanimations.menus.menuManager")
 
-    function manageMenu() {
-      if (
-         Object.values(ui.windows).find(
-            (w) => w.id === `Autorec-Menu-Manager`
-         )
-      ) { return; }
-      let manage = new MenuManager()
-      manage.render(true, { focus: true });
-    }
-
     const { application } = getContext("external");
-
 </script>
 
 <header>
@@ -39,7 +28,7 @@
 <CategoryControl category={$selected} />
 <CategoryList category={$selected} />
 
-<footer class="aa-AutorecManager" on:click={()=> manageMenu()}>
+<footer class="aa-AutorecManager" on:click={() => MenuManager.show()}>
   <ul >
     {bottomLabel}
     </ul>

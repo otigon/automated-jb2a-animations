@@ -1,10 +1,11 @@
 <script>
-    import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { localize }     from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
 
     import VideoSelect      from "../Components/VideoSelect.svelte";
     import SoundSettings    from "../Components/SoundSettings.svelte";
     import Opacity          from "./inputComponents/Opacity02.svelte";
+    import OptionsDialog    from "../Components/options/optionsInfoDialog.js";
 
     export let animation;
     export let category;
@@ -20,6 +21,18 @@
         label: game.i18n.localize("autoanimations.menus.options"),
     };
 
+    const optionsInfo = {
+       icon: "fas fa-info-circle",
+       title: "autoanimations.menus.quickReference",
+       styles: {
+          "--tjs-icon-button-diameter": "1.em",
+          position: "relative",
+          left: "10px",
+          bottom: "-2px",
+          color: "rgba(50, 79, 245, 0.5)"
+       }
+    };
+
     $: isCustom = $animation.data.video.enableCustom;
 </script>
 
@@ -33,6 +46,9 @@
     />
     <div class="aa-options-border">
         <TJSSvgFolder {folder}>
+            <div slot="summary-end">
+                <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("preset")}/>
+            </div>
             <table class="d">
                 <tr>
                     <td>
