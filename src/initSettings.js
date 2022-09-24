@@ -1,4 +1,4 @@
-import AutorecShim from './formApps/AutorecMenu/appShim.js'
+import AutorecShim from './formApps/_AutorecMenu/appShim.js'
 import { aaAutorec } from './mergeScripts/autorec/aaAutoRecList.js';
 import { AnimationState } from './AnimationState.js';
 

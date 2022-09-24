@@ -12,7 +12,7 @@ import { playAnimation } from "./system-support/external.js";
 
 import { registerActiveEffectHooks } from "./active-effects/handleActiveEffectHooks";
 
-import AAActiveEffectMenu from "./formApps/ActiveEffects/activeEffectMenu.js";
+//import AAActiveEffectMenu from "./formApps/ActiveEffects/activeEffectMenu.js";
 //import AAAutorecMenu from "./formApps/AutorecMenu/aaAutorecMenu.js";
 
 //import AAItemMenu from "./formApps/ItemMenu/itemMenu.js";
@@ -32,7 +32,7 @@ import { gameSettings } from "./gameSettings.js";
 import { autoRecStores }  from "./formApps/_AutorecMenu/store/AutoRecStores.js";
 
 import { showAutorecMenu } from "./formApps/_AutorecMenu/showUI.js";
-import { showMainMenu } from "./formApps/AutorecMenu/showMainUI.js";
+//import { showMainMenu } from "./formApps/AutorecMenu/showMainUI.js";
 
 import "../styles/newMenuCss.scss";
 
@@ -42,7 +42,7 @@ Hooks.once('socketlib.ready', function () {
     setupSocket();
 });
 
-Hooks.on('AutomaticAnimations.Open.Menu',() => showMainMenu());
+//Hooks.on('AutomaticAnimations.Open.Menu',() => showMainMenu());
 Hooks.on('AutomaticAnimations.Open.Menu.New',() => showAutorecMenu());
 
 Hooks.on('AutomaticAnimations.Clear.Data', async () => {
@@ -67,7 +67,8 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
         await flagMigrations.handle(app.document);
         // if this is a PF1 "Buff" effect or PF2e Ruleset Item (Active Effects) spawn the Active Effect menu. Otherwise continue as normal
         if ((game.system.id === 'pf1' && app.item?.type === 'buff') || (game.system.id === 'pf2e' && pf2eRuleTypes.includes(app.item?.type))) {
-            new AAActiveEffectMenu(app.document, {}).render(true);
+            //new AAActiveEffectMenu(app.document, {}).render(true);
+            new AEMenuApp(app.document, {}).render(true, { focus: true });
         } else {
             //new AAItemSettings(app.document, {}).render(true);
             new ItemMenuApp(app.document, {}).render(true, { focus: true });
