@@ -665,6 +665,7 @@ export class AASystemData {
     static async getItem(input) {
         const data = input || {};
         const item =    data.data?.item ??
+                        data.data?.data?.item ??
                         data.item ??
                         data.itemSource ??
                         data.SwadeItem ??
