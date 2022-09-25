@@ -1,13 +1,6 @@
 <script>
-    import VideoSelect      from "../Components/VideoSelect.svelte";
-    import AuraOptions      from "../Components/options/AuraOptions.svelte";
-    import SoundSettings    from "../Components/SoundSettings.svelte";
-    import ExtraSource      from "../Components/ExtraSource.svelte";
-    import ExtraTarget      from "../Components/ExtraTarget.svelte";
-    import SectionButtons   from "../Components/SectionButtons02.svelte";
-    import Secondary        from "../Components/Secondary.svelte";
-    import Macro            from "../Components/Macro.svelte";
-    import SoundOnly        from "../Components/SoundOnly.svelte";
+    import * as settings    from "../Components";
+    import * as options     from "../Components/options"
 
     export let animation;
     export let idx = 0;
@@ -24,28 +17,22 @@
     $: macroPlay = $animation.macro.playWhen;
 </script>
 
-<SectionButtons {animation} {category} {idx} type={fromMenu} />
+<svelte:component this={settings.SectionButtons02} {animation} {category} {idx} type={fromMenu}/>
 <div hidden={!soundOnly || (macroEnabled && macroPlay === "2")}>
-    <SoundOnly {animation} {category}/>
+    <svelte:component this={settings.SoundOnly} {animation} {category} {idx}/>
 </div>
 <div hidden={!macroEnabled || (soundOnly && macroPlay !== "2")}>
-    <Macro {animation} {category} />
+    <svelte:component this={settings.Macro} {animation} {category}/>
 </div>
 <div hidden={soundOnly || (macroEnabled && macroPlay === "2")}>
-        <ExtraSource {animation} {idx} {category} />
-        <div class="aa-primary-border">
-            <VideoSelect
-                {animation}
-                section="primary"
-                {title}
-                {idx}
-                {category}
-            />
-            <AuraOptions {animation} />
-            <SoundSettings {animation} {category} {idx} section="primary" />
-        </div>
-        <Secondary {animation} {idx} {category} />
-        <ExtraTarget {animation} {idx} {category} />
+    <svelte:component this={settings.Source} {animation} {category} {idx}/>
+    <div class="aa-primary-border">
+        <svelte:component this={settings.Video} {animation} {category} {idx} {title} section="primary"/>
+        <svelte:component this={options.Aura} {animation}/>
+        <svelte:component this={settings.Sound} {animation} {category} {idx} section="primary" />
+    </div>
+    <svelte:component this={settings.Secondary} {animation} {category} {idx}/>
+    <svelte:component this={settings.Target} {animation} {category} {idx}/>
 </div>
 
 <style lang="scss">

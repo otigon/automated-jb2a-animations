@@ -2,7 +2,7 @@ import { writable }         from "svelte/store";
 
 import { TJSDialog }        from '@typhonjs-fvtt/runtime/svelte/application';
 
-import OptionsInfo          from './optionsInfo/optionsInfo.svelte'
+import OptionsInfo          from './optionsInfo/optionsInfo.svelte';
 
 import { aaSessionStorage } from "../../../../sessionStorage.js";
 import { sessionConstants } from "../../../../constants.js";
@@ -10,6 +10,7 @@ import { sessionConstants } from "../../../../constants.js";
 export default class OptionsDialog extends TJSDialog {
     static #app;
     static #tabStore = writable("melee");
+    static #presetStore = writable("proToTemp")
 
     constructor(data) {
         super({
@@ -20,7 +21,8 @@ export default class OptionsDialog extends TJSDialog {
                 props: {
                     ...data,
                     storageStore: aaSessionStorage.getStore(sessionConstants.optionsInfoAppState),
-                    tabStore: OptionsDialog.#tabStore
+                    tabStore: OptionsDialog.#tabStore,
+                    presetStore: OptionsDialog.#presetStore,
                 }
             },
         });
@@ -57,8 +59,9 @@ export default class OptionsDialog extends TJSDialog {
     /**
      * Show a single static instance of OptionsInformation; if it is already open then bring it to top.
      */
-    static show(tabId) {
+    static show(tabId, presetId) {
         OptionsDialog.#tabStore.set(tabId);
+        OptionsDialog.#presetStore.set(presetId || "proToTemp");
 
         if (this.#app)
         {

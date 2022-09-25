@@ -1,15 +1,6 @@
 <script>
-    import VideoSelect      from "../Components/VideoSelect.svelte";
-    import MeleeOptions     from "../Components/options/MeleeOptions.svelte";
-    import SoundSettings    from "../Components/SoundSettings.svelte";
-    import SoundOnly        from "../Components/SoundOnly.svelte";
-    import Secondary        from "../Components/Secondary.svelte";
-    import ExtraTarget      from "../Components/ExtraTarget.svelte";
-    import ExtraSource      from "../Components/ExtraSource.svelte";
-    import SectionButtons   from "../Components/SectionButtons.svelte";
-    import Macro            from "../Components/Macro.svelte";
-    import Canvas3D         from "../Components/Canvas3D.svelte";
-    import MeleeSwitch      from "../Components/MeleeSwitch.svelte";
+    import * as settings    from "../Components";
+    import * as options     from "../Components/options"
 
     export let animation;
     export let idx = 0;
@@ -28,32 +19,26 @@
     $: macroPlay = $animation.macro.playWhen;
 </script>
 
-<SectionButtons {animation} bind:show3d {category} {idx} type={fromMenu}/>
+<svelte:component this={settings.SectionButtons01} bind:show3d {animation} {category} {idx} type={fromMenu}/>
 {#if show3d && !soundOnly}
-    <Canvas3D {animation} />
+    <svelte:component this={settings.Canvas3D} {animation}  {category} />
 {:else}
     <div hidden={!soundOnly || (macroEnabled && macroPlay === "2")}>
-        <SoundOnly {animation} {category} {idx}/>
+        <svelte:component this={settings.SoundOnly} {animation} {category} {idx}/>
     </div>
     <div hidden={!macroEnabled || (soundOnly && macroPlay !== "2")}>
-        <Macro {animation} {category} />
+        <svelte:component this={settings.Macro} {animation} {category}/>
     </div>
     <div hidden={soundOnly || (macroEnabled && macroPlay === "2")}>
-            <ExtraSource {animation} {idx} {category} />
+            <svelte:component this={settings.Source} {animation} {category} {idx}/>
             <div class="aa-primary-border">
-                <VideoSelect
-                    {animation}
-                    section="primary"
-                    {title}
-                    {idx}
-                    {category}
-                />
-                <MeleeOptions {animation} />
-                <SoundSettings {animation} {category} {idx} section="primary" />
-                <MeleeSwitch {animation} {idx} {category} />
+                <svelte:component this={settings.Video} {animation} {category} {idx} {title} section="primary"/>
+                <svelte:component this={options.Melee} {animation}/>
+                <svelte:component this={settings.Sound} {animation} {category} {idx} section="primary" />
+                <svelte:component this={settings.MeleeSwitch} {animation} {category} {idx}/>
             </div>
-            <Secondary {animation} {idx} {category} />
-            <ExtraTarget {animation} {idx} {category} />
+            <svelte:component this={settings.Secondary} {animation} {category} {idx}/>
+            <svelte:component this={settings.Target} {animation} {category} {idx}/>
     </div>
 {/if}
 

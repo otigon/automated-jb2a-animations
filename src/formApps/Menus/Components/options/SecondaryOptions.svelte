@@ -1,11 +1,12 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
-    import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
+    import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
 
     import NumberInput from "./inputComponents/NumberInput.svelte";
     import ScaleRadius from "./inputComponents/ScaleRadius.svelte";
     import Opacity from "./inputComponents/Opacity.svelte";
+    import OptionsDialog    from "./optionsInfoDialog.js";
     import WaitDelay from "./inputComponents/WaitDelay.svelte";
 
     export let animation;
@@ -20,11 +21,26 @@
         },
     };
 
+    const optionsInfo = {
+        icon: "fas fa-info-circle",
+        title: "autoanimations.menus.quickReference",
+        styles: {
+            "--tjs-icon-button-diameter": "1.em",
+            position: "relative",
+            left: "10px",
+            bottom: "-2px",
+            color: "rgba(50, 79, 245, 0.5)"
+        }
+    }
+
     $: isRadius = $animation.secondary.options.isRadius;
 </script>
 
 <div class="aa-options-border">
     <TJSSvgFolder {folder}>
+        <div slot="summary-end">
+            <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("ontoken")}/>
+        </div>
         <table class="d">
             <tr>
                 <td>

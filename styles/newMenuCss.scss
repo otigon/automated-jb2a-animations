@@ -189,10 +189,50 @@
     summary {
         width: 98%;
     }
-
 }
 
+#Options-Information {
+    min-height: 250px;
+    min-width: 500px;
+    max-width: 1024px;
 
+    font-family: Arial, Helvetica, sans-serif;
+
+    table {
+        border-collapse: collapse;
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            background-color: #0055369d;
+            color: white;
+            border: 1px solid rgb(0, 0, 0);
+            padding: 8px;
+        }
+        td {
+            border: 1px solid rgb(0, 0, 0);
+            padding: 8px;
+            //text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: rgb(240 238 227);
+        }
+        tr:nth-child(odd) {
+            background-color: rgb(203 201 190);
+        }    
+    }
+
+    .window-content {
+        padding: 0;
+        //overflow: inherit;
+        background: rgba(125, 125, 125, 0.75);
+
+        font-size: 1.15em;
+    }
+    .window-content>* {
+        flex: unset;
+    }
+}
 
 .aa-bgRed {
     background-color: rgba(223, 83, 37, 0.25);

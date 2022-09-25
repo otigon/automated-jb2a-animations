@@ -112,7 +112,7 @@
     <div class="aa-options-border">
     <TJSSvgFolder {folder}>
         <div slot="summary-end">
-            <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("preset")}/>
+            <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("preset", "teleportation")}/>
         </div>
         <table class="d">
             <tr>
