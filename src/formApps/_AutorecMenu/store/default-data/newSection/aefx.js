@@ -11,7 +11,7 @@ export function aefx(current = {}, type) {
             activeEffectType: current.activeEffectType || "ontoken",
             menu: 'aefx',
             macro: current.macro || common.macro(),
-            data: {
+            primary: {
                 video: {
                     dbSection: "static",
                     menuType: "spell",
@@ -35,7 +35,7 @@ export function aefx(current = {}, type) {
             activeEffectType: current.activeEffectType || "ontoken",
             menu: 'aefx',
             macro: current.macro || common.macro(),    
-            data: {
+            primary: {
                 video: {
                     dbSection: "static",
                     menuType: "spell",
@@ -59,7 +59,7 @@ export function aefx(current = {}, type) {
             activeEffectType: current.activeEffectType || "ontoken",
             menu: 'aefx',
             macro: current.macro || common.macro(),
-            data: {
+            primary: {
                 video: {
                     dbSection: "static",
                     menuType: "spell",

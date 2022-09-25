@@ -54,7 +54,7 @@ export async function trafficCop(handler) {
 
     if (animationType === "templatefx" || animationType === "proToTemp") {
         //sections for Template Hooks.once or straight to function
-        debug(`${animationType} Animation Start"`)
+        debug(`${animationType} Animation Start"`, handler, sanitizedData)
         switch (game.system.id) {
             case "a5e":
             case "pf2e":

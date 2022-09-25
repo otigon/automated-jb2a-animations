@@ -21,7 +21,7 @@
 
 <svelte:component this={settings.SectionButtons01} bind:show3d {animation} {category} {idx} type={fromMenu}/>
 {#if show3d && !soundOnly}
-    <svelte:component this={settings.Canvas3D} {animation} {category}/>
+    <svelte:component this={settings.Canvas3D} {animation} {category} {idx} />
 {:else}
     <div hidden={!soundOnly || (macroEnabled && macroPlay === "2")}>
         <svelte:component this={settings.SoundOnly} {animation} {category} {idx}/>

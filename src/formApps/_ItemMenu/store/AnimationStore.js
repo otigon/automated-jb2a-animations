@@ -297,7 +297,7 @@ export class AnimationStore extends ObjectEntryStore {
          case "preset":
             this._data.menu = data.menu
             this._data.presetType = data.presetType;
-            this._data.data = data.data;
+            this._data.primary = data.primary;
             this._data.soundOnly = data.soundOnly;
             this._data.macro = data.macro;
             break;

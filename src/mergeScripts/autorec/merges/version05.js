@@ -152,7 +152,10 @@ async function mergeVersion05(data) {
             enable: type ? true : false,
             type: type || "",
             data: rest || {},
-            explosion: addExplosion || {enable: false},
+            secondary: {
+                enable: addExplosion?.enable ?? false,
+                data: addExplosion || {}
+            },
             sound: setSound({}, "a01", true),
         };
         return data3d;
@@ -731,7 +734,7 @@ async function mergeVersion05(data) {
         newMO.menu = "aefx";
         newMO.secondary = await convertExplosionV6(explosion, audio, oldMO)
 
-        newMO.data = {
+        newMO.primary = {
             options: {
                 addTokenWidth: false,
                 aeDelay: aeDelay || 0,
@@ -805,7 +808,7 @@ async function mergeVersion05(data) {
             }
         }
 
-        newMO.data = {
+        newMO.primary = {
             options: {
                 addTokenWidth: false,
                 aeDelay: aeDelay || 0,
@@ -865,7 +868,7 @@ async function mergeVersion05(data) {
 
         newMO.macro = macro || {};
 
-        newMO.data = {
+        newMO.primary = {
             options: {
                 addTokenWidth: false,
                 aeDelay: 0,
@@ -965,7 +968,7 @@ async function mergeVersion05(data) {
         newMO.label = name;
         newMO.menu = "aefx";
 
-        newMO.data = {
+        newMO.primary = {
             options:{
                 isWait: true,
                 delay: -1000,

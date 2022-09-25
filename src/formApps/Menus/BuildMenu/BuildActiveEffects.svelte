@@ -3,7 +3,7 @@
 
     import BuildAeOnToken   from "../ActiveEffects/BuildAEOnToken.svelte";
     import BuildAeAura      from "../ActiveEffects/BuildAEAura.svelte";
-    import SectionButtons   from "../Components/SectionButtons03.svelte";
+    import SectionButtons   from "../Components/SectionButtons02.svelte";
     import Macro            from "../Components/Macro.svelte";
     import SoundOnly        from "../Components/SoundOnly.svelte";
     import { aefx }       from "../../_AutorecMenu/store/default-data/newSection/aefx.js"
@@ -11,6 +11,7 @@
     export let animation;
     export let category;
     export let idx;
+    export let fromMenu = 'autorec';
 
     $: activeEffectType = $animation.activeEffectType;
 
@@ -30,10 +31,10 @@
         let newData = aefx({}, animation._data.activeEffectType)
         switch (animation._data.activeEffectType) {
             case "ontoken":
-                $animation.data = newData.data;
+                $animation.primary = newData.primary;
                 break;
             case "aura":
-                $animation.data = newData.data;
+                $animation.primary = newData.primary;
                 break;
         }
     }
@@ -42,7 +43,7 @@
     $: macroEnabled = $animation.macro.enable;
 </script>
 
-<SectionButtons {animation} />
+<SectionButtons {animation} {category} {idx} type={fromMenu} />
 <div hidden={!soundOnly}>
     <SoundOnly {animation} {category} />
 </div>

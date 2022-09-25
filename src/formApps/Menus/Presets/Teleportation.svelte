@@ -43,6 +43,8 @@
         },
         label: game.i18n.localize("autoanimations.menus.between") + " " + game.i18n.localize("autoanimations.menus.animation"),
     }
+
+    const isGM = game.user.isGM;
 </script>
 
 <div class="aa-options-border" style="padding-left: 2em; padding-right: 1em">
@@ -72,7 +74,7 @@
 
                 </div>
             </td>
-            <td>
+            <td class={isGM ? "" : "aa-disableOpacity"}>
                 <div>
                     <label for="Hide {animation._data.id}">Hide From Players</label>
                 </div>

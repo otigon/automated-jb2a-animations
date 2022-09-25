@@ -21,9 +21,9 @@
     <div hidden={$animation.macro.enable && $animation.macro.playWhen === "2"}>
         <ExtraSource {animation} {idx} {category} />
         <div class="aa-primary-border">
-            <VideoSelect {animation} section="data" {title} {idx} {category} />
+            <VideoSelect {animation} section="primary" {title} {idx} {category} />
             <OnTokenOptions {animation} />
-            <SoundSettings {animation} {category} {idx} section="data" />
+            <SoundSettings {animation} {category} {idx} section="primary" />
         </div>
         <Secondary {animation} {idx} {category} />
     </div>

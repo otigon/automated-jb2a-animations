@@ -267,7 +267,7 @@ export class AnimationStore extends ObjectEntryStore {
 
       this._data.activeEffectType = data.activeEffectType;
       this._data.macro = data.macro;
-      this._data.data = data.data;
+      this._data.primary = data.primary;
       this._data.secondary = data.secondary;
       this._data.source = data.source;
       this._data.soundOnly = data.soundOnly;

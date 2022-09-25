@@ -2,10 +2,13 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
     import Canvas3dOptions from "./options/Canvas3dOptions.svelte";
+    import Canvas3DSecondary from "./options/Canvas3DSecondary.svelte";
 
     import SoundSettings from "./SoundSettings.svelte";
 
     export let animation;
+    export let category;
+    export let idx
 
     function setSprite(type) {
         let spritePath;
@@ -21,22 +24,6 @@
         $animation.levels3d.data.spritePath = spritePath;
     }
 
-    /*
-    async function selectCustom() {
-        const current = spritePath;
-        const picker = new FilePicker({
-            type: "folder",
-            current,
-            callback: (path) => {
-                spritePath = path;
-            },
-        });
-        setTimeout(() => {
-            picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-        }, 100);
-        await picker.browse(current);
-    }
-    */
     async function selectCustom() {
         const current = animation._data.levels3d.data.spritePath;
         const picker = new FilePicker({
@@ -53,83 +40,78 @@
     }
 
     $: type = $animation.levels3d.type;
+    $: isEnabled = $animation.levels3d.enable
 </script>
 
 <h1>3D Canvas Particle Animations</h1>
 <h3>Requires the 3D Canvas Module by Ripper</h3>
-<div class="aa-3wide">
-    <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
-        <label for="" style="font-size: 1.2em"
-            >{localize("autoanimations.menus.type")}</label
-        >
-        <select
-            bind:value={$animation.levels3d.type}
-            on:change={() => setSprite(animation._data.levels3d.type)}
-        >
-            <option value="" />
-            <option value="projectile"
-                >{localize("autoanimations.menus.projectile")}</option
-            >
-            <option value="sprites">3D Object</option>
-            <option value="ray"
-                >{localize("autoanimations.menuTypes.ray")}</option
-            >
-            <option value="explosion"
-                >{localize("autoanimations.menus.explosion")}</option
-            >
-        </select>
-    </div>
-</div>
-<div class="aa-section-border">
-    <div class="aa-customAnim-container">
-        <div class="grid-row: 1/2; grid-column: 1/2">
-            <label for="" style="font-size: 1.2em">Sprite</label>
+<table class="c">
+    <td style="width: 20%; vertical-align: bottom; border:none">
+        <div class="flexrow" >
+            <label for="Canvas3D {animation._data.id}">Enable</label>
+            <input type="checkbox" style="position:relative; left: -10px"
+            id="Canvas3D {animation._data.id}"
+            bind:checked={$animation.levels3d.enable}
+            >    
         </div>
-        <div class="aa-custom" style="grid-row: 1/2; grid-column: 2/4">
-            <input
+    </td>
+    <td style="width: 60%; border:none" class={isEnabled ? "" : "aa-disableOpacity"}>
+        <div class="flexcol" style="align-items: center;">
+            <label for=""
+                >{localize("autoanimations.menus.type")}</label
+            >
+            <select
+                bind:value={$animation.levels3d.type}
+                on:change={() => setSprite(animation._data.levels3d.type)}
+            >
+                <option value="" />
+                <option value="projectile"
+                    >{localize("autoanimations.menus.projectile")}</option
+                >
+                <option value="sprites">3D Object</option>
+                <option value="ray"
+                    >{localize("autoanimations.menuTypes.ray")}</option
+                >
+                <option value="explosion"
+                    >{localize("autoanimations.menus.explosion")}</option
+                >
+            </select>
+        </div>    
+    </td>
+    <td style="width: 20%; border:none"></td>
+</table>
+<div class="aa-section-border {isEnabled ? "" : "aa-disableOpacity"}">
+    <table class="c">
+        <tr>
+            <td style="width: 6em; border: none;">
+                <div class="flexrow">
+                    <label for="" class="aa-customFont">{localize('autoanimations.menus.sprite')}</label>
+                </div>
+            </td>
+            <td style=" border: none">
+                <input
                 type="text"
                 bind:value={$animation.levels3d.data.spritePath}
-                style="font-weight:normal; font-size:small"
-            />
-        </div>
-        <div class="aa-custom" style="grid-row: 1/2; grid-column: 4/5">
-            <button
-                class="file-picker"
+                style="font-weight:normal; font-size:small; border-radius: 5px;text-align:left"
+                />
+            </td>
+            <td style="width: 4em;border: none">
+                <i class="fas fa-file-import"
+                title="File Picker"
+                style="font-size:1.5em"
                 on:click|preventDefault={() => selectCustom()}
-                ><i class="fas fa-file-import fa-fw" /></button
-            >
-        </div>
-    </div>
+                />
+            </td>
+            </tr>
+    </table>
     <Canvas3dOptions {animation} />
-    <SoundSettings {animation} section="levels3d" />
+    <SoundSettings {animation} {category} {idx} section="levels3d" />
+</div>
+<div class="aa-section-border {isEnabled ? "" : "aa-disableOpacity"}">
+    <Canvas3DSecondary {animation} />
 </div>
 
 <style lang="scss">
-    .aa-3wide {
-        text-align: center;
-        margin-bottom: 5px;
-    }
-    .aa-customAnim-container {
-        display: grid;
-        grid-template-columns: 24.25% 31.375% 31.375% 10%;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        align-items: center;
-        margin-right: 6%;
-        margin-left: 3%;
-        font-size: small;
-        font-weight: bold;
-        margin-top: 10px;
-        text-align: center;
-    }
-    .aa-customAnim-container button {
-        border-radius: 10px;
-        border: 2px outset rgb(142, 142, 142);
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
-        background: #dddddd;
-    }
     h1 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: x-large;
@@ -147,5 +129,13 @@
         margin-right: 5%;
         margin-left: 5%;
         color: black;
+        border: none;
+    }
+
+    table.c label {
+        margin-top: .2em;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-weight: bold;
+        font-size: 1.5em;
     }
 </style>

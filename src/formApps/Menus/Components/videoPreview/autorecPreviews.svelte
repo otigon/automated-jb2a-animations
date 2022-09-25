@@ -100,7 +100,8 @@
 </script>
 
 <div class="flexcol">
-    <label class="aa-section-label" for=""><i>{name}</i> - {previewType} {localize("autoanimations.menus.preview")}</label>
+    <label class="aa-section-label" for="">{name}</label>
+    <label for="" style="align-self: center; font-size: 14px"><i>{previewType} {localize("autoanimations.menus.preview")}</i></label>
 </div>
 <div class="flexcol aa-full-preview">
     {#if enableSource}
@@ -183,7 +184,6 @@
         width: 100%;
         margin-right: 2%;
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
         font-weight: bold;
     }
     .aaVideoPreview {
@@ -198,19 +198,19 @@
     }
     .aa-full-preview label {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: x-large;
+        font-size: 21px;
         font-weight: normal;
         align-self: center;
     }
     .aa-section-label {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: x-large;
+        font-size: 25px;
         font-weight: bold;
         align-self: center;
     }
     .aa-video-overlay {
         border-radius: 30px;
-        box-shadow: 8px 11px 9px 0 rgb(0, 0, 0, 0.5);
-        margin-bottom: 10px;
+        box-shadow: 5px 8px 6px 0 rgb(0, 0, 0, 0.5);
+        margin-bottom: 6px;
     }
 </style>

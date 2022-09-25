@@ -158,7 +158,7 @@
         <td class="aa-table">
             <strong>Hide from Players</strong>
         </td>
-        <td> Causes the Range Marker to be hidden from Players </td>
+        <td> Causes the Range Marker to be hidden from Players. Only a GM can configure this </td>
     </tr>
     <tr>
         <td class="aa-table">
@@ -337,14 +337,5 @@
                 background: rgb(100, 100, 100);
             }
         }
-    }
-    .aa-options-table {
-        position: relative;
-        margin: 10px auto;
-        padding: 0;
-        width: 100%;
-        height: auto;
-        border-collapse: collapse;
-        text-align: center;
     }
 </style>

@@ -5,7 +5,7 @@
 
     import NumberInput      from "../../Components/options/inputComponents/NumberInput.svelte";
     import ScaleRadius      from "../../Components/options/inputComponents/ScaleRadius.svelte";
-    import Opacity          from "../../Presets/inputComponents/Opacity02.svelte";
+    import Opacity          from "../../Components/options/inputComponents/Opacity.svelte";
     import OptionsDialog    from "../../Components/options/optionsInfoDialog.js";
     import WaitDelay        from "../../components/options/inputComponents/WaitDelay.svelte";
 
@@ -33,12 +33,12 @@
        }
     };
 
-    $: persistent = $animation.data.options.persistent;
+    $: persistent = $animation.primary.options.persistent;
     //$: isRadius = $animation.data.options.isRadius;
 
     const addWidth = game.i18n.localize("autoanimations.menus.add") + " " + game.i18n.localize("autoanimations.menus.token") + " " + game.i18n.localize("autoanimations.menus.width");
 
-    $: isRadius = $animation.data.options.isRadius;
+    $: isRadius = $animation.primary.options.isRadius;
 
 </script>
 
@@ -54,7 +54,7 @@
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.elevation")}
-                    section={"data"}
+                    section={"primary"}
                     field={"elevation"}
                 />
                 </td>
@@ -63,7 +63,7 @@
                     <NumberInput
                         {animation}
                         label={localize("autoanimations.menus.repeat")}
-                        section={"data"}
+                        section={"primary"}
                         field={"repeat"}
                         isDisabled={persistent ? "aa-disableOpacity" : ""}
                     />
@@ -75,7 +75,7 @@
                         label={localize("autoanimations.menus.repeat") +
                             " " +
                             localize("autoanimations.menus.delay")}
-                        section={"data"}
+                        section={"primary"}
                         field={"delay"}
                         isDisabled={persistent ? "aa-disableOpacity" : ""}
                     />
@@ -91,7 +91,7 @@
                         <input
                             type="checkbox"
                             id="Persist {animation._data.id}"
-                            bind:checked={$animation.data.options.persistent}
+                            bind:checked={$animation.primary.options.persistent}
                         />
                     </div>
                 </td>
@@ -109,7 +109,7 @@
                         <input
                             type="checkbox"
                             id="Vis {animation._data.id}"
-                            bind:checked={$animation.data.options
+                            bind:checked={$animation.primary.options
                                 .unbindVisibility}
                         />
                     </div>
@@ -128,7 +128,7 @@
                         <input
                             type="checkbox"
                             id="Alpha {animation._data.id}"
-                            bind:checked={$animation.data.options
+                            bind:checked={$animation.primary.options
                                 .unbindAlpha}
                         />
                     </div>
@@ -144,20 +144,20 @@
                         <input
                             type="checkbox"
                             id="Masked {animation._data.id}"
-                            bind:checked={$animation.data.options.isMasked}
+                            bind:checked={$animation.primary.options.isMasked}
                         />
                     </div>
                 </td>
                 <td>
                     <!--Set Animation Opacity-->
-                    <Opacity {animation} />
+                    <Opacity {animation}/>
                 </td>
                 <td>
                     <!--Set Z-Index of Animation-->
                     <NumberInput
                         {animation}
                         label={localize("autoanimations.menus.z-index")}
-                        section={"data"}
+                        section={"primary"}
                         field={"zIndex"}
                     />
                 </td>
@@ -167,7 +167,7 @@
                     <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
                     <ScaleRadius
                         {animation}
-                        section={"data"}
+                        section={"primary"}
                         field={"size"}
                         step="0.01"
                     />
@@ -183,7 +183,7 @@
                         <input
                             type="checkbox"
                             id="Width {animation._data.id}"
-                            bind:checked={$animation.data.options.addTokenWidth}
+                            bind:checked={$animation.primary.options.addTokenWidth}
                         />
                     </div>
                 </td>
@@ -191,7 +191,7 @@
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.fadeIn")}
-                    section="data"
+                    section="primary"
                     field="fadeIn"
                     placeholder=250
                     step="0.01"
@@ -203,14 +203,14 @@
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.fadeOut")}
-                    section="data"
+                    section="primary"
                     field="fadeOut"
                     placeholder=500
                     step="0.01"
                     />
                 </td>
                 <td>
-                    <WaitDelay {animation} section="data"/>
+                    <WaitDelay {animation} section="primary"/>
                 </td>
                 <td>
                     <div>

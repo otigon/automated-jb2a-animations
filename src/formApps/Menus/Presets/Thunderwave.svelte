@@ -164,4 +164,16 @@
 </div>
 
 <style lang="scss">
+    .aa-3wide {
+        display: grid;
+        grid-template-columns: 32.67% 32.67% 32.67%;
+        grid-gap: 1%;
+        align-items: end;
+        margin-right: 3%;
+        margin-left: 3%;
+        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+        font-weight: bold;
+        justify-items: center;
+        color: black;
+    }
 </style>

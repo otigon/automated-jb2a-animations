@@ -18,7 +18,7 @@
             <strong>{localize("autoanimations.menus.speed")}</strong>
         </td>
         <td>
-
+            Sets the speed of the particle effect
         </td>
     </tr>
     <tr>
@@ -85,7 +85,7 @@
             <strong>{localize("autoanimations.menus.emiterSize")}</strong>
         </td>
         <td> 
-            TBD
+            Size of the emitter source
         </td>
     </tr>
     <tr>
@@ -93,7 +93,7 @@
             <strong>{localize("autoanimations.menus.rate")}</strong>
         </td>
         <td> 
-            TBD
+            Rate at which the particles are spawned
         </td>
     </tr>
 </table>

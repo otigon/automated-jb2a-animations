@@ -45,7 +45,7 @@
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.elevation")}
-                    section={"data"}
+                    section={"primary"}
                     field={"elevation"}
                 />
                 </td>
@@ -58,7 +58,7 @@
                         <input
                             type="checkbox"
                             id="Vis {animation._data.id}"
-                            bind:checked={$animation.data.options.unbindVisibility}
+                            bind:checked={$animation.primary.options.unbindVisibility}
                         />
                     </div>
                 </td>
@@ -71,7 +71,7 @@
                         <input
                             type="checkbox"
                             id="Alpha {animation._data.id}"
-                            bind:checked={$animation.data.options.unbindAlpha}
+                            bind:checked={$animation.primary.options.unbindAlpha}
                         />
                     </div>
                 </td>
@@ -86,7 +86,7 @@
                         <input
                             type="checkbox"
                             id="Masked {animation._data.id}"
-                            bind:checked={$animation.data.options.isMasked}
+                            bind:checked={$animation.primary.options.isMasked}
                         />
                     </div>
                 </td>
@@ -98,7 +98,7 @@
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.z-index")}
-                    section={"data"}
+                    section={"primary"}
                     field={"zIndex"}
                     step="1"
                 />
@@ -107,15 +107,15 @@
             <tr>
                 <td>
                     <!--Set Animation Opacity-->
-                    <Opacity {animation} section="data" />
+                    <Opacity {animation} section="primary" />
                 </td>
                 <td>
                     <!--Set Radius of Animation-->
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.radius")}
-                    section={"data"}
-                    field={"radius"}
+                    section={"primary"}
+                    field={"size"}
                     step="0.01"
                 />
                 </td>
@@ -130,7 +130,7 @@
                         <input
                             type="checkbox"
                             id="Width {animation._data.id}"
-                            bind:checked={$animation.data.options.addTokenWidth}
+                            bind:checked={$animation.primary.options.addTokenWidth}
                         />
                     </div>
                 </td>
@@ -138,7 +138,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <WaitDelay {animation} section="data"/>
+                    <WaitDelay {animation} section="primary"/>
                 </td>
                 <td></td>
             </tr>

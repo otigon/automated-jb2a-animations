@@ -11,7 +11,7 @@ export default class TotalPreview extends TJSDialog {
     constructor(data) {
         super({
             title: 'Video Preview',
-            resizable: false,
+            resizable: true,
             zIndex: null,
             content: {
                 class: FullVideoPreview,

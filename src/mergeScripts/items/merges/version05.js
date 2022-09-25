@@ -315,7 +315,10 @@ export async function version05(flags, isActiveEffect) {
             enable: type ? true : false,
             type: type || "",
             data: rest || {},
-            explosion: addExplosion || {enable: false},
+            secondary: {
+                enable: addExplosion?.enable ?? false,
+                data: addExplosion || {}
+            },
             sound: setSound({}, "a01", true),
         };
         return data3d;
@@ -730,7 +733,7 @@ export async function version05(flags, isActiveEffect) {
         newData.isCustomized = true;
         newMO.activeEffectType = "ontoken";
 
-        newMO.data = {
+        newMO.primary = {
             options: {
                 addTokenWidth: false,
                 aeDelay: options?.aeDelay || 0,
@@ -799,7 +802,7 @@ export async function version05(flags, isActiveEffect) {
             }
         }
 
-        newMO.data = {
+        newMO.primary = {
             options: {
                 addTokenWidth: false,
                 aeDelay: options?.aeDelay || 0,
@@ -854,7 +857,7 @@ export async function version05(flags, isActiveEffect) {
 
         newMO.macro = macro || {};
 
-        newMO.data = {
+        newMO.primary = {
             options: {
                 addTokenWidth: false,
                 aeDelay: 0,
@@ -948,7 +951,7 @@ export async function version05(flags, isActiveEffect) {
         newMO.activeEffectType = "ontoken";
         newMO.menu = "aefx";
 
-        newMO.data = {
+        newMO.primary = {
             options:{
                 isWait: true,
                 delay: -1000,

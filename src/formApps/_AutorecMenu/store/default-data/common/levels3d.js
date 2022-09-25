@@ -5,7 +5,7 @@
  */
 export function levels3d() {
    return {
-      type: "",
+      type: "explosion",
       data: {
          alpha: void 0,
          arc: void 0,
@@ -22,7 +22,23 @@ export function levels3d() {
          speed: void 0,
          sprite: void 0
       },
-      sound: {enable: false}
+      sound: {enable: false},
+      secondary: {
+         enable: false,
+         data: {
+            alpha: void 0,
+            color01: "#FFFFFF",
+            color02: "#FFFFFF",
+            emittersize: void 0,
+            gravity: void 0,
+            life: void 0,
+            mass: void 0,
+            rate: void 0,
+            scale: void 0,
+            speed: void 0,
+            sprite: void 0   
+         }
+      }
    }
 }
 

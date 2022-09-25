@@ -27,14 +27,14 @@
     switch (newMenu) {
       case "ontoken":
         $animation.macro = newData.macro;
-        $animation.data = newData.data;
+        $animation.primary = newData.primary;
         $animation.secondary = newData.secondary;
         $animation.soundOnly = newData.soundOnly;
         $animation.source = newData.source;
         break;
       default:
         $animation.macro = newData.macro;
-        $animation.data = newData.data;
+        $animation.primary = newData.primary;
         $animation.secondary = newData.secondary;
         $animation.soundOnly = newData.soundOnly;
         $animation.source = newData.source;

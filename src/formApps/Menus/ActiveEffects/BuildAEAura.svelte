@@ -17,9 +17,9 @@ let title = game.i18n.localize("autoanimations.menus.primary") + " " + game.i18n
 
     <ExtraSource {animation} {idx} {category}/>
     <div class="aa-primary-border">
-    <VideoSelect {animation} section="data" {title} {idx} {category}/>
+    <VideoSelect {animation} section="primary" {title} {idx} {category}/>
     <AuraOptions {animation} />
-    <SoundSettings {animation} {category} {idx} section="data"/>
+    <SoundSettings {animation} {category} {idx} section="primary"/>
     </div>
     <Secondary {animation} {idx} {category} />
 

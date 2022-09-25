@@ -62,7 +62,7 @@ export async function aura(handler, animationData) {
             Hooks.callAll("aa.animationStart", sourceToken)
         })
 
-        let adjustedSize = data.options.addTokenWidth ? data.options.radius * 2 + (sourceToken.w / canvas.grid.size) : data.options.radius * 2;
+        let adjustedSize = data.options.addTokenWidth ? data.options.size * 2 + (sourceToken.w / canvas.grid.size) : data.options.size * 2;
 
         let newEffect = aaSeq.effect();
         //aaSeq.addSequence(sourceFX.sourceSeq)
@@ -146,7 +146,7 @@ export async function aura(handler, animationData) {
             //for (let target of handler.allTargets) {
             let checkAnim = Sequencer.EffectManager.getEffects({ object: currentTarget, origin: handler.itemUuid }).length > 0;
             if (checkAnim) { continue; }
-            let adjustedSize = data.options.addTokenWidth ? (data.options.radius * 2) + (currentTarget.w / canvas.grid.size) : data.options.radius;
+            let adjustedSize = data.options.addTokenWidth ? (data.options.size * 2) + (currentTarget.w / canvas.grid.size) : data.options.size;
 
             let newEffect = aaSeq.effect();
             newEffect.persist()
