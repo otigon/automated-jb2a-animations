@@ -80,30 +80,8 @@
             </tr>
             <tr>
                 <td>
-                    <!--Set Masking-->
-                    <div class="form-group">
-                        <label for="Masked {animation._data.id}"
-                            >{localize("autoanimations.menus.mask")}
-                        </label>
-                        <input
-                            type="checkbox"
-                            id="Masked {animation._data.id}"
-                            bind:checked={$animation.primary.options.isMasked}
-                        />
-                    </div>
-                </td>
-                <td>
-                    <!--Ignore Targets?-->
-                    <div class="form-group">
-                        <label for="Ignore {animation._data.id}"
-                            >{localize("autoanimations.menus.ignoreTargets")}
-                       </label>
-                        <input
-                            type="checkbox"
-                            id="Ignore {animation._data.id}"
-                            bind:checked={$animation.primary.options.ignoreTarget}
-                        />
-                    </div>
+                    <!--Set Animation Opacity-->
+                    <Opacity {animation} />
                 </td>
                 <td>
                     <!--Set Z-Index-->
@@ -115,12 +93,39 @@
                     step="1"
                 />
                 </td>
+                <td>
+                    <!--Choose how to play the animation-->
+                    <div
+                        class="form-group"
+                    >
+                        <div>
+                            <label for="">{localize("autoanimations.menus.playOn")}</label>
+                        </div>
+                        <div>
+                            <select
+                                bind:value={$animation.primary.options.playOn}
+                                style="width:90%; height: 1em"
+                            >
+                                <option value="source"
+                                >{localize("autoanimations.menus.source")}</option
+                                >
+                                <option value="target"
+                                    >{localize("autoanimations.menus.target")}</option
+                                >
+                                <option value="default"
+                                    >{localize(
+                                        "autoanimations.menus.targetDefault"
+                                    )}</option
+                                >
+                                <option value="both"
+                                    >{localize("autoanimations.menus.both")}</option
+                                >
+                            </select>
+                        </div>
+                    </div>
+                </td>
             </tr>
             <tr>
-                <td>
-                    <!--Set Animation Opacity-->
-                    <Opacity {animation} />
-                </td>
                 <td>
                     <!--Set Radius of Animation-->
                     <NumberInput
@@ -146,10 +151,8 @@
                         />
                     </div>
                 </td>
-            </tr>
-            <tr>
                 <td>
-                    <!--Set Z-Index-->
+                    <!--Set Fade In time-->
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.fadeIn")}
@@ -158,11 +161,10 @@
                     step="1"
                 />
                 </td>
+            </tr>
+            <tr>
                 <td>
-                    <WaitDelay {animation}/>
-                </td>
-                <td>
-                    <!--Set Z-Index-->
+                    <!--Set Fade Out time-->
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.fadeOut")}
@@ -171,6 +173,10 @@
                     step="1"
                 />
                 </td>
+                <td>
+                    <WaitDelay {animation}/>
+                </td>
+                <td></td>
             </tr>
         </table>
     </TJSSvgFolder>

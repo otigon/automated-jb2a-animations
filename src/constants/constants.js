@@ -26,3 +26,19 @@ export function custom_error(error, notify = true) {
     }
     return new Error(error.replace("<br>", "\n"));
 }
+
+export function howToDelete(type) {
+    if (game.settings.get("autoanimations", "noTips")) { return; }
+    let disableTips = "You can disabled these tips in the Automated Animations module settings"
+    switch (type) {
+        case 'overheadtile':
+            custom_notify(`This is an OVERHEAD Tile. Use the Tile Foreground Layer to remove the Animation. ${disableTips}`)
+            break;
+        case 'groundtile':
+            custom_notify(`This is an GROUND Tile. Use the Tile Layer to remove the Animation. ${disableTips}`)
+            break;
+        case 'sequencerground':
+            custom_notify(`This is a SEQUENCER Persistent Effect. Use the Sequencer Effect Manager to remove the Animation. ${disableTips}`)
+            break
+    }
+}

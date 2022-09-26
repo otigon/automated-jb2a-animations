@@ -1,9 +1,9 @@
-import { AAAnimationData } from "../aa-classes/AAAnimationData.js";
+import { DataSanitizer } from "../aa-classes/DataSanitizer.js";
 import { debug } from "../constants/constants.js";
 
 import * as animate from "../animation-functions"
 
-
+const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function trafficCop(handler) {
     const autorecDisabled = game.settings.get("autoanimations", "disableAutoRec")
@@ -14,8 +14,11 @@ export async function trafficCop(handler) {
     const data = handler.isCustomized ? structuredClone(handler.flags) : structuredClone(handler.autorecObject);
     Hooks.callAll("aa.preDataSanitize", handler, data);
 
-    const sanitizedData = await AAAnimationData._getAnimationData(handler, data);
+    const sanitizedData = await DataSanitizer._getAnimationData(handler, data);
     Hooks.callAll("aa.preAnimationStart", sanitizedData);
+
+    let globalDelay = game.settings.get("autoanimations", "globaldelay");
+    await wait(globalDelay);
 
     if (sanitizedData.macro && sanitizedData.macro.enable && sanitizedData.macro.playWhen === "2") {
         new Sequence()
@@ -76,7 +79,7 @@ export async function trafficCop(handler) {
             debug(`${animationType} Animation End", "NO TARGETS`)
             return;
         }
-        debug(`${animationType} Animation Start"`)
+        debug(`${animationType} Animation Start"`, sanitizedData)
         //Hooks.callAll("aa.preAnimationStart", sanitizedData, data);
         animate[animationType](handler, sanitizedData);
         return;

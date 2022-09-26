@@ -37,7 +37,9 @@
             <svelte:component this={settings.Sound} {animation} {category} {idx} section="primary" />
         </div>
         <svelte:component this={settings.Secondary} {animation} {category} {idx}/>
-        <svelte:component this={settings.Target} {animation} {category} {idx}/>
+        <div class={$animation.primary.options.playOn === "source" ? "aa-disableOpacity" : ""}>
+            <svelte:component this={settings.Target} {animation} {category} {idx}/>
+        </div>
 </div>
 {/if}
 

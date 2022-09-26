@@ -1,7 +1,3 @@
-import { JB2APATREONDB } from "../../database/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "../../database/jb2a-free-database.js";
-import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
-
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function thunderwave(handler, animationData, config) {
@@ -14,9 +10,6 @@ export async function thunderwave(handler, animationData, config) {
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
 
-    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-
-    //const twData =  handler.flags?.preset?.thunderwave;
     const twData = data.isAuto ? handler.autorecObject?.thunderwave : handler.flags?.preset?.thunderwave;
 
     if (!twData) { return; }
@@ -46,115 +39,52 @@ export async function thunderwave(handler, animationData, config) {
             color = cleanData.color;
     }
 
-    //const templateID = await canvas.templates.placeables[canvas.templates.placeables.length - 1].data._id;
-    //let template = await canvas.templates.get(templateID);
     const template = config ? config : canvas.templates.placeables[canvas.templates.placeables.length - 1];
 
-    let filePath = obj01.static.spell.thunderwave;
+    let filePath = autoanimations.static.spell.thunderwave;
 
     const getPosition = getRelativePosition(sourceToken, template)
     const angle = getPosition.angle;
     const anFile = filePath[getPosition.type][color]
 
-    let globalDelay = game.settings.get("autoanimations", "globaldelay");
-    await wait(globalDelay);
-
     if (cleanData.removeTemplate) {
         canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.id])
     }
-    /*
-    if (data.persist && (data.type === "circle" || data.type === "rect")) {
-        const gridSize = canvas.scene.data.grid;
-        let tileData;
-        if (data.overhead) {
-            tileData = {
-                alpha: data.opacity,
-                width: gridSize * 3,
-                height: gridSize * 3,
-                img: anFile,
-                // false sets it in canvas.background. true sets it to canvas.foreground
-                overhead: true,
-                occlusion: {
-                    alpha: occlusionAlpha,
-                    mode: occlusionMode,
-                },
-                video: {
-                    autoplay: true,
-                    loop: true,
-                    volume: 0,
-                },
-                x: template.data.x,
-                y: template.data.y,
-                z: 100,
-            }
-        } else {
-            tileData = {
-                alpha: data.opacity,
-                width: gridSize * 3,
-                height: gridSize * 3,
-                img: anFile,
-                // false sets it in canvas.background. true sets it to canvas.foreground
-                overhead: false,
-                video: {
-                    autoplay: true,
-                    loop: true,
-                    volume: 0,
-                },
-                x: template.data.x,
-                y: template.data.y,
-                z: 100,
-            }
-        }
-        socketlibSocket.executeAsGM("placeTile", tileData)
-        if (data.playSound) {
-            let aaSeq = await new Sequence("Automated Animations")
-            aaSeq.effect()
-                .sound()
-                .file(data.itemAudio.file, true)
-                .volume(data.itemAudio.volume)
-                .delay(data.itemAudio.delay)
-            aaSeq.play()
-        }
-    } else {
-    */
-        const gridSize = canvas.scene.data.grid;
-        let aaSeq = await new Sequence("Automated Animations")
-        // Play Macro if Awaiting
-        if (data.playMacro && data.macro.playWhen === "1") {
-            let userData = data.macro.args;
-            aaSeq.macro(data.macro.name, handler.workflow, handler, userData)
-        }
-        // Extra Effects => Source Token if active
-        if (sourceFX.enabled) {
-            aaSeq.addSequence(sourceFX.sourceSeq)
-        }
-        if (data.playSound) {
-            aaSeq.addSequence(await AAAnimationData._sounds({ animationData }))
-        }
-        aaSeq.thenDo(function () {
-            Hooks.callAll("aa.animationStart", sourceToken, "no-target")
-        })
-        aaSeq.effect()
-            .file(anFile)
-            .atLocation({ x: template.data.x + (gridSize * 1.5), y: template.data.y + (gridSize * 1.5) })
-            .anchor({ x: 0.5, y: 0.5 })
-            //.atLocation(template, { cacheLocation: true })
-            .rotate(angle)
-            //.scale(scale)
-            .opacity(cleanData.opacity)
-            .size(3, { gridUnits: true })
-            .elevation(cleanData.elevation)
-            .repeats(cleanData.repeat, cleanData.repeatDelay)
-        if (data.playMacro && data.macro.playWhen === "0") {
-            let userData = data.macro.args;
-            new Sequence()
-                .macro(data.macro.name, handler.workflow, handler, userData)
-                .play()
-        }
-        aaSeq.play()
-        await wait(500)
-        Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
-    //}
+    const gridSize = canvas.scene.data.grid;
+    let aaSeq = await new Sequence("Automated Animations")
+    // Play Macro if Awaiting
+    if (data.playMacro && data.macro.playWhen === "1") {
+        let userData = data.macro.args;
+        aaSeq.macro(data.macro.name, handler.workflow, handler, userData)
+    }
+    // Extra Effects => Source Token if active
+    if (sourceFX.enabled) {
+        aaSeq.addSequence(sourceFX.sourceSeq)
+    }
+    if (data.sound) {
+        aaSeq.addSequence(data.sound)
+    }
+    aaSeq.thenDo(function () {
+        Hooks.callAll("aa.animationStart", sourceToken, "no-target")
+    })
+    aaSeq.effect()
+        .file(anFile)
+        .atLocation({ x: template.data.x + (gridSize * 1.5), y: template.data.y + (gridSize * 1.5) })
+        .anchor({ x: 0.5, y: 0.5 })
+        .rotate(angle)
+        .opacity(cleanData.opacity)
+        .size(3, { gridUnits: true })
+        .elevation(cleanData.elevation)
+        .repeats(cleanData.repeat, cleanData.repeatDelay)
+    if (data.playMacro && data.macro.playWhen === "0") {
+        let userData = data.macro.args;
+        new Sequence()
+            .macro(data.macro.name, handler.workflow, handler, userData)
+            .play()
+    }
+    aaSeq.play()
+    await wait(500)
+    Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
 
     function getRelativePosition(token, template) {
         const xPos = token.data.x;

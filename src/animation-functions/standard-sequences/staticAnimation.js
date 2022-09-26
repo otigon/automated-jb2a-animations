@@ -1,12 +1,8 @@
-//import { buildFile } from "../file-builder/build-filepath.js"
-import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
-
-const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+import { buildTargetSeq } from "../buildTargetSeq.js";
+import { howToDelete } from "../../constants/constants.js";
 
 export async function ontoken(handler, animationData) {
 
-    let globalDelay = game.settings.get("autoanimations", "globaldelay");
-    await wait(globalDelay);
     const sourceToken = handler.sourceToken;
 
     const data = animationData.primary;
@@ -14,14 +10,9 @@ export async function ontoken(handler, animationData) {
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
     const macro = animationData.macro;
+    const sourceSize = handler.getSize(data.options.isRadius, data.options.size, sourceToken, data.options.addTokenWidth)
 
-    //const onToken = await buildFile(false, data.video.menuType, data.video.animation, "static", data.video.variant, data.video.color, data.video.customPath);
-
-    if (handler.isActiveEffect) {
-        //TO-DO: add AEDelay option on Active Effects
-        //await wait(data.aeDelay)
-    }
-    let aaSeq = await new Sequence("Automated Animations")
+    const aaSeq = await new Sequence("Automated Animations")
     const bottomAnim = data.path.fileData?.replace('Above', 'Below')
 
     // Play Macro if Awaiting
@@ -41,173 +32,90 @@ export async function ontoken(handler, animationData) {
     aaSeq.thenDo(function () {
         Hooks.callAll("aa.animationStart", sourceToken, handler.allTargets)
     })
-    let sourceTokenGS = data.options.isRadius ? data.options.size * 2 : (sourceToken.w / canvas.grid.size) * 1.5 * data.options.size;
-    //let secondarySound = false;
-    if (data.options.playOn === "source" || data.options.playOn === "both" || (data.options.playOn === "default" && handler.allTargets.length < 1)) {
-        const checkAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
-        const playPersist = (!checkAnim && data.options.persistent) ? true : false;
-        if (data.options.isShieldFX) {
-            let bottomEffect = aaSeq.effect();
-            bottomEffect.file(bottomAnim)
-            if (handler.isActiveEffect) {
-                bottomEffect.name(handler.itemName + `${sourceToken.id}`)
-            } else {
-                bottomEffect.name("spot" + ` ${sourceToken.id}`)
-            }
-            bottomEffect.opacity(data.options.opacity)
-            bottomEffect.size(sourceTokenGS, { gridUnits: true })
-            bottomEffect.elevation(1000)
-            if (data.options.isMasked) {
-                bottomEffect.mask(sourceToken)
-            }
-            bottomEffect.rotate(180)
-            bottomEffect.fadeIn(250)
-            bottomEffect.fadeOut(500)
-            if (!data.options.persistent) { bottomEffect.atLocation(sourceToken); bottomEffect.repeats(data.options.repeat, data.options.repeatDelay) }
-            if (playPersist) { bottomEffect.attachTo(sourceToken, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility }); bottomEffect.persist(true); bottomEffect.origin(handler.itemUuid) }
-            if (checkAnim) { bottomEffect.playIf(false); }
 
-            let topEffect = aaSeq.effect();
-            topEffect.file(data.path.fileData)
-            if (handler.isActiveEffect) {
-                topEffect.name(handler.itemName + `${sourceToken.id}`)
+    if (data.options.playOn === "source" || (data.options.playOn === "default" && handler.allTargets.length < 1)) {
+
+        const sourceCheckAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
+        //const playPersist = (!checkAnim && data.options.persistent) ? true : false;
+        if ((data.options.persistent && !sourceCheckAnim) || !data.options.persistent) {
+            //setPrimary(sourceToken, handler.isActiveEffect)
+            if (data.options.isShieldFX) {
+                let bottomEffect = aaSeq.effect();
+                if (handler.isActiveEffect) {
+                    bottomEffect.name(handler.itemName + `${sourceToken.id}`)
+                } else {
+                    bottomEffect.name("spot" + ` ${sourceToken.id}`)
+                }
+                setBottom(sourceToken, sourceSize, bottomEffect)
+                let topEffect = aaSeq.effect();
+                if (handler.isActiveEffect) {
+                    topEffect.name(handler.itemName + `${sourceToken.id}`)
+                } else {
+                    topEffect.name("spot" + ` ${sourceToken.id}`)
+                }
+                setTop(sourceToken, sourceSize, topEffect)
+                if (data.options.isWait) {
+                    topEffect.waitUntilFinished(data.options.wait)
+                }
             } else {
-                topEffect.name("spot" + ` ${sourceToken.id}`)
-            }
-            topEffect.opacity(data.options.opacity)
-            topEffect.size(sourceTokenGS, { gridUnits: true })
-            topEffect.elevation(0)
-            if (data.options.isMasked) {
-                topEffect.mask(sourceToken)
-            }
-            topEffect.fadeIn(250)
-            topEffect.fadeOut(500)
-            if (!data.options.persistent) { topEffect.atLocation(sourceToken); topEffect.repeats(data.options.repeat, data.options.repeatDelay) }
-            if (playPersist) { topEffect.attachTo(sourceToken, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility }); topEffect.persist(true); topEffect.origin(handler.itemUuid) }
-            if (checkAnim) { topEffect.playIf(false); }
-            if (data.options.isWait) {
-                topEffect.waitUntilFinished(data.options.wait)
-            }
-        } else {
-            let aaEffect = aaSeq.effect();
-            aaEffect.file(data.path.file)
-            if (handler.isActiveEffect) {
-                aaEffect.name(handler.itemName + `${sourceToken.id}`)
-            } else {
-                aaEffect.name("spot" + ` ${sourceToken.id}`)
-            }
-            aaEffect.opacity(data.options.opacity)
-            aaEffect.size(sourceTokenGS, { gridUnits: true })
-            aaEffect.elevation(data.options.elevation)
-            if (data.options.isMasked) {
-                aaEffect.mask(sourceToken)
-            }
-            aaEffect.fadeIn(250)
-            aaEffect.fadeOut(500)
-            aaEffect.zIndex(data.options.zIndex)
-            if (!data.options.persistent) { aaEffect.atLocation(sourceToken); aaEffect.repeats(data.options.repeat, data.options.repeatDelay) }
-            if (playPersist) { aaEffect.attachTo(sourceToken, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility }); aaEffect.persist(true); aaEffect.origin(handler.itemUuid) }
-            if (checkAnim) { aaEffect.playIf(false); }
-            if (data.options.isWait) {
-                aaEffect.waitUntilFinished(data.options.delay)
+                let aaEffect = aaSeq.effect();
+                if (handler.isActiveEffect) {
+                    aaEffect.name(handler.itemName + `${sourceToken.id}`)
+                } else {
+                    aaEffect.name("spot" + ` ${sourceToken.id}`)
+                }
+                setPrimary(sourceToken, sourceSize, aaEffect)
+                if (data.options.isWait) {
+                    aaEffect.waitUntilFinished(data.options.delay)
+                }
             }
         }
         if (secondary) {
-            let secondarySize = secondary.options.isRadius ? secondary.options.size * 2 : (sourceToken.w / canvas.grid.size) * 1.5 * secondary.options.size;
             if (secondary.sound) {
                 aaSeq.addSequence(secondary.sound)
             }
             let secondarySeq = aaSeq.effect()
-            secondarySeq.atLocation(sourceToken)
-            secondarySeq.file(secondary.path?.file, true)
-            secondarySeq.size(secondarySize, { gridUnits: true })
-            secondarySeq.repeats(secondary.options.repeat, secondary.options.repeatDelay)
-            if (secondary.options.isWait && targetFX.enable) {
-                secondarySeq.waitUntilFinished(secondary.options.delay)
-            } else if (!secondary.options.isWait) {
-                secondarySeq.delay(secondary.options.delay)
-            }
-            secondarySeq.elevation(secondary.options.elevation)
-            secondarySeq.zIndex(secondary.options.zIndex)
-            secondarySeq.opacity(secondary.options.opacity)
-            secondarySeq.fadeIn(secondary.options.fadeIn)
-            secondarySeq.fadeOut(secondary.options.fadeOut)
-            if (secondary.options.isMasked) {
-                secondarySeq.mask(sourceToken)
-            }
+            setSecondary(sourceToken, secondarySeq)
+            secondarySeq.delay(secondary.options.delay)
         }
     }
-    //let targetSound = false;
+
     // Target Effect sections
-    if ((data.options.playOn === 'target' || data.options.playOn === 'default' || data.options.playOn === 'both') && handler.allTargets.length > 0) {
-        //for (var i = 0; i < handler.allTargets.length; i++) {
-        //let target = handler.allTargets[i]
+    if ((data.options.playOn === 'target' || data.options.playOn === 'default') && handler.allTargets.length > 0) {
+
         for (let i = 0; i < handler.allTargets.length; i++) {
-            //for (let currentTarget of handler.allTargets) {
             let currentTarget = handler.allTargets[i]
-            //for (let target of handler.allTargets) {
-            let targetTokenGS = data.options.isRadius ? data.options.size : (currentTarget.w / canvas.grid.size) * 1.5 * data.options.size;
+            //let targetTokenGS = data.options.isRadius ? data.options.size : (currentTarget.w / canvas.grid.size) * 1.5 * data.options.size;
+            let targetSize = handler.getSize(data.options.isRadius, data.options.size, currentTarget, data.options.addTokenWidth)
             let checkAnim = Sequencer.EffectManager.getEffects({ object: currentTarget, origin: handler.itemUuid }).length > 0
             let hit;
+
             if (handler.playOnMiss) {
                 hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
             } else {
                 hit = true;
             }
-            //if (hit) { targetSound = true }
+
             if ((data.options.persistent && !checkAnim) || !data.options.persistent) {
                 if (data.options.isShieldFX) {
                     let bottomEffect = aaSeq.effect();
-                    bottomEffect.file(bottomAnim)
                     bottomEffect.name("spot" + ` ${currentTarget.id}`)
-                    bottomEffect.opacity(data.options.opacity)
-                    bottomEffect.size(targetTokenGS, { gridUnits: true })
-                    bottomEffect.elevation(0)
-                    if (data.options.isMasked) {
-                        bottomEffect.mask(currentTarget)
-                    }
-                    bottomEffect.rotate(180)
-                    bottomEffect.fadeIn(250)
-                    bottomEffect.fadeOut(500)
-                    if (!data.options.persistent) { bottomEffect.atLocation(currentTarget); bottomEffect.missed(!hit); bottomEffect.repeats(data.options.repeat, data.options.repeatDelay) }
-                    else { bottomEffect.attachTo(currentTarget, { bindAlpha: data.options.unbindAlpha, bindVisibility: false }); bottomEffect.persist(true); bottomEffect.origin(handler.itemUuid) }
+                    setBottom(currentTarget, targetSize, bottomEffect)
 
                     let topEffect = aaSeq.effect();
-                    topEffect.file(data.path.fileData)
                     topEffect.name("spot" + ` ${currentTarget.id}`)
-                    topEffect.opacity(data.options.opacity)
-                    topEffect.size(targetTokenGS, { gridUnits: true })
-                    topEffect.elevation(1000)
-                    if (data.options.isMasked) {
-                        topEffect.mask(currentTarget)
-                    }
-                    topEffect.fadeIn(250)
-                    topEffect.fadeOut(500)
-                    if (!data.options.persistent) { topEffect.atLocation(currentTarget); topEffect.missed(!hit); topEffect.repeats(data.options.repeat, data.options.repeatDelay) }
-                    else { topEffect.attachTo(currentTarget, { bindAlpha: data.options.unbindAlpha, bindVisibility: false }); topEffect.persist(true); topEffect.origin(handler.itemUuid) }
+                    setTop(currentTarget, targetSize, topEffect)
+
                     if (i === handler.allTargets.length - 1 && data.options.isWait) {
                         topEffect.waitUntilFinished(data.options.delay)
                     } else if (!data.options.isWait) {
                         topEffect.delay(data.options.delay)
                     }
                 } else {
-                    let effectScale = data.video.animation === 'bite' || data.video.animation === 'claw' ? sourceTokenGS : targetTokenGS
-                    //let scale = data.animation === "bite" || data.animation === "claw" ? (sourceToken.w / animWidth) * 1.5 : (target.w / animWidth) * 1.75
                     let aaEffect = aaSeq.effect();
-                    aaEffect.file(data.path.file)
                     aaEffect.name("spot" + ` ${currentTarget.id}`)
-                    aaEffect.opacity(data.options.opacity)
-                    //aaEffect.scale(scale * data.scale)
-                    aaEffect.size(effectScale, { gridUnits: true })
-                    aaEffect.elevation(data.options.elevation)
-                    if (data.options.isMasked) {
-                        aaEffect.mask(currentTarget)
-                    }
-                    aaEffect.fadeIn(250)
-                    aaEffect.fadeOut(500)
-                    aaEffect.zIndex(data.options.zIndex)
-                    if (!data.options.persistent) { aaEffect.atLocation(currentTarget); aaEffect.missed(!hit); aaEffect.repeats(data.options.repeat, data.options.repeatDelay) }
-                    else { aaEffect.attachTo(currentTarget, { bindAlpha: data.options.unbindAlpha, bindVisibility: false }); aaEffect.persist(true); aaEffect.origin(handler.itemUuid) }
+                    setPrimary(currentTarget, targetSize, aaEffect)
+
                     if (i === handler.allTargets.length - 1 && data.options.isWait) {
                         aaEffect.waitUntilFinished(data.options.delay)
                     } else if (!data.options.isWait) {
@@ -216,38 +124,24 @@ export async function ontoken(handler, animationData) {
                 }
             }
         }
+
         if (secondary) {
             if (secondary.sound) {
                 aaSeq.addSequence(secondary.sound)
             }
             for (let i = 0; i < handler.allTargets.length; i++) {
-            //for (let currentTarget of handler.allTargets) {
                 let currentTarget = handler.allTargets[i]
-                let hit;
-                if (handler.playOnMiss) {
-                    hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
-                } else {
-                    hit = true;
-                }
                 let secondarySeq = aaSeq.effect()
-                secondarySeq.atLocation("spot" + ` ${currentTarget.id}`)
-                secondarySeq.file(secondary.path?.file, true)
-                secondarySeq.size(secondary.options.size * 2, { gridUnits: true })
+                setSecondary(currentTarget, secondarySeq)
+
                 if (i === handler.allTargets.length - 1 && secondary.options.isWait && targetFX.enable) {
                     secondarySeq.waitUntilFinished(secondary.options.delay)
                 } else if (!secondary.options.isWait) {
                     secondarySeq.delay(secondary.options.delay)
                 }
-                secondarySeq.elevation(secondary.options.elevation)
-                secondarySeq.zIndex(secondary.options.zIndex)
-                secondarySeq.opacity(secondary.options.opacity)
-                secondarySeq.fadeIn(secondary.options.fadeIn)
-                secondarySeq.fadeOut(secondary.options.fadeOut)
-                if (secondary.options.isMasked) {
-                    secondarySeq.mask(currentTarget)
-                }
             }
         }
+
         if (targetFX.enable) {
             if (targetFX.sound) {
                 aaSeq.addSequence(targetFX.sound)
@@ -260,13 +154,215 @@ export async function ontoken(handler, animationData) {
                     hit = true;
                 }
                 if (hit) {
-                    let targetSequence = AAAnimationData._targetSequence(targetFX, currentTarget, handler);
+                    let targetSequence = buildTargetSeq(targetFX, currentTarget, handler);
                     aaSeq.addSequence(targetSequence.targetSeq)
                 }
             }
         }
     }
-    //aaSeq.addSequence(await AAAnimationData._sounds({ animationData, secondarySound: data.playOn !== "source" && secondarySound, targetSound }))
+
+    if (data.options.playOn === "both") {
+
+        const sourceCheckAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
+        if ((data.options.persistent && !sourceCheckAnim) || !data.options.persistent) {
+            if (data.options.isShieldFX) {
+                let bottomEffect = aaSeq.effect();
+                bottomEffect.name("spot" + ` ${sourceToken.id}`);
+                setBottom(sourceToken, sourceSize, bottomEffect)
+
+                let topEffect = aaSeq.effect();
+                topEffect.name("spot" + ` ${sourceToken.id}`)
+                setTop(sourceToken, sourceSize, topEffect)
+
+                if (handler.allTargets.length < 1 && data.options.isWait) {
+                    topEffect.waitUntilFinished(data.options.delay)
+                } else if (!data.options.isWait) {
+                    topEffect.delay(data.options.delay)
+                }
+            } else {
+                let aaEffect = aaSeq.effect();
+                aaEffect.name("spot" + ` ${sourceToken.id}`)
+                setPrimary(sourceToken, sourceSize, aaEffect)
+
+                if (handler.allTargets.length < 1 && data.options.isWait) {
+                    aaEffect.waitUntilFinished(data.options.delay)
+                } else if (!data.options.isWait) {
+                    aaEffect.delay(data.options.delay)
+                }
+            }
+        }
+
+        for (let i = 0; i < handler.allTargets.length; i++) {
+            let currentTarget = handler.allTargets[i]
+            let targetSize = handler.getSize(data.options.isRadius, data.options.size, currentTarget, data.options.addTokenWidth);
+
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: currentTarget, origin: handler.itemUuid }).length > 0;
+
+            let hit;
+            if (handler.playOnMiss) {
+                hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
+            } else {
+                hit = true;
+            }
+
+            if ((data.options.persistent && !checkAnim) || !data.options.persistent) {
+                if (data.options.isShieldFX) {
+                    let bottomEffect = aaSeq.effect();
+                    bottomEffect.name("spot" + ` ${currentTarget.id}`)
+                    setBottom(currentTarget, targetSize, bottomEffect)
+
+                    let topEffect = aaSeq.effect();
+                    topEffect.name("spot" + ` ${currentTarget.id}`)
+                    setTop(currentTarget, targetSize, topEffect)
+
+                    if (i === handler.allTargets.length - 1 && data.options.isWait) {
+                        topEffect.waitUntilFinished(data.options.delay)
+                    } else if (!data.options.isWait) {
+                        topEffect.delay(data.options.delay)
+                    }
+                } else {
+                    let aaEffect = aaSeq.effect();
+                    aaEffect.name("spot" + ` ${currentTarget.id}`)
+                    setPrimary(currentTarget, targetSize, aaEffect)
+
+                    if (i === handler.allTargets.length - 1 && data.options.isWait) {
+                        aaEffect.waitUntilFinished(data.options.delay)
+                    } else if (!data.options.isWait) {
+                        aaEffect.delay(data.options.delay)
+                    }
+                }
+            }
+        }
+
+        if (secondary && secondary.sound) {
+            aaSeq.addSequence(secondary.sound)
+        }
+
+        if (secondary) {
+            let sourceSecondarySeq = aaSeq.effect()
+            setSecondary(sourceToken, sourceSecondarySeq)
+
+            if (handler.allTargets.length < 1 && secondary.options.isWait && targetFX.enable) {
+                sourceSecondarySeq.waitUntilFinished(secondary.options.delay)
+            } else if (!secondary.options.isWait) {
+                sourceSecondarySeq.delay(secondary.options.delay)
+            }
+        }
+
+        if (secondary && handler.allTargets.length > 0) {
+            //if (secondary.sound) {
+                //aaSeq.addSequence(secondary.sound)
+            //}
+            for (let i = 0; i < handler.allTargets.length; i++) {
+                let currentTarget = handler.allTargets[i];
+                let secondarySeq = aaSeq.effect()
+                setSecondary(currentTarget, secondarySeq)
+
+                if (i === handler.allTargets.length - 1 && secondary.options.isWait && targetFX.enable) {
+                    secondarySeq.waitUntilFinished(secondary.options.delay)
+                } else if (!secondary.options.isWait) {
+                    secondarySeq.delay(secondary.options.delay)
+                }
+            }
+        }
+
+        if (targetFX.enable && handler.allTargets.length > 0) {
+            if (targetFX.sound) {
+                aaSeq.addSequence(targetFX.sound)
+            }
+            for (let currentTarget of handler.allTargets) {
+                let hit;
+                if (handler.playOnMiss) {
+                    hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
+                } else {
+                    hit = true;
+                }
+                if (hit) {
+                    let targetSequence = buildTargetSeq(targetFX, currentTarget, handler);
+                    aaSeq.addSequence(targetSequence.targetSeq)
+                }
+            }
+        }
+    }  
+
+    function setBottom(token, size, seq) {
+        seq.file(bottomAnim)
+        seq.opacity(data.options.opacity)
+        seq.size(size, { gridUnits: true })
+        seq.elevation(1000)
+        if (data.options.isMasked) {
+            bottomEffect.mask(token)
+        }
+        seq.rotate(180)
+        seq.fadeIn(250)
+        seq.fadeOut(500)
+        if (!data.options.persistent) {
+            seq.atLocation(token)
+            seq.repeats(data.options.repeat, data.options.repeatDelay)
+        }
+        if (data.options.persistent) {
+            seq.attachTo(token, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
+            seq.persist(true)
+            seq.origin(handler.itemUuid)
+        }
+    }
+    function setTop(token, size, seq) {
+        seq.file(data.path.fileData)
+        seq.opacity(data.options.opacity)
+        seq.size(size, { gridUnits: true })
+        seq.elevation(0)
+        if (data.options.isMasked) {
+            seq.mask(token)
+        }
+        seq.fadeIn(250)
+        seq.fadeOut(500)
+        if (!data.options.persistent) {
+            seq.atLocation(token)
+            seq.repeats(data.options.repeat, data.options.repeatDelay)
+        }
+        if (data.options.persistent) {
+            seq.attachTo(token, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
+            seq.persist(true)
+            seq.origin(handler.itemUuid)
+        }
+    }
+    function setPrimary(token, size, seq) {
+        seq.file(data.path.file)
+        seq.opacity(data.options.opacity)
+        seq.size(size, { gridUnits: true })
+        seq.elevation(data.options.elevation)
+        if (data.options.isMasked) {
+            seq.mask(token)
+        }
+        seq.fadeIn(250)
+        seq.fadeOut(500)
+        seq.zIndex(data.options.zIndex)
+        if (!data.options.persistent) {
+            seq.atLocation(token)
+            seq.repeats(data.options.repeat, data.options.repeatDelay)
+        }
+        if (data.options.persistent) {
+            seq.attachTo(token, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
+            seq.persist(true)
+            seq.origin(handler.itemUuid)
+        }
+    }
+    function setSecondary(token, seq) {
+        let size = handler.getSize(secondary.options.isRadius, secondary.options.size, token, secondary.options.addTokenWidth)
+
+        seq.atLocation("spot" + ` ${token.id}`)
+        seq.file(secondary.path?.file, true)
+        seq.size(size, { gridUnits: true })
+        seq.elevation(secondary.options.elevation)
+        seq.zIndex(secondary.options.zIndex)
+        seq.opacity(secondary.options.opacity)
+        seq.fadeIn(secondary.options.fadeIn)
+        seq.fadeOut(secondary.options.fadeOut)
+        if (secondary.options.isMasked) {
+            seq.mask(token)
+        }
+    }
+
     // Macro if Concurrent
     if (macro && macro.playWhen === "0") {
         let userData = macro.args;
@@ -276,5 +372,5 @@ export async function ontoken(handler, animationData) {
     }
     aaSeq.play()
     Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
-    if (data.options.persistent) { AAAnimationData.howToDelete("sequencerground") }
+    if (data.options.persistent) { howToDelete("sequencerground") }
 }

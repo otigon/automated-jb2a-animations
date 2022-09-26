@@ -1,5 +1,5 @@
 import { buildFile } from "../file-builder/build-filepath.js"
-import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
+
 export async function teleportation(handler, animationData) {
 
     const sourceToken = handler.sourceToken;
@@ -75,8 +75,8 @@ export async function teleportation(handler, animationData) {
             aaSeq.macro(data.macro.name, handler.workflow, handler, userData)
         }
         aaSeq.addSequence(sourceFX.sourceSeq)
-        if (data.playSound) {
-            aaSeq.addSequence(await AAAnimationData._sounds({ animationData }))
+        if (data.sound) {
+            aaSeq.addSequence(data.sound)
         }
         let startEffect = aaSeq.effect()
             startEffect.file(startFile.file)
@@ -103,7 +103,6 @@ export async function teleportation(handler, animationData) {
         aaSeq.animation()
             .on(sourceToken)
             .opacity(data.start.options.alpha)
-            //.fadeOut(500)
             .teleportTo({ x: gridPos[0], y: gridPos[1] })
         let endEffect = aaSeq.effect()
             endEffect.file(endFile.file)
@@ -120,7 +119,6 @@ export async function teleportation(handler, animationData) {
         aaSeq.animation()
             .on(sourceToken)
             .fadeIn(500)
-            //.opacity(1)
         if (data.playMacro && data.macro.playWhen === "0") {
             let userData = data.macro.args;
             new Sequence()

@@ -1,38 +1,19 @@
-//import { buildFile } from "../file-builder/build-filepath.js"
-import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
+import { buildTargetSeq } from "../buildTargetSeq.js";
 import { aaReturnWeapons } from "../../database/jb2a-menu-options.js";
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function range(handler, animationData) {
-    function moduleIncludes(test) {
-        return !!game.modules.get(test);
-    }
-
-    // Sets JB2A database and Global Delay
-    //let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-    let globalDelay = game.settings.get("autoanimations", "globaldelay");
-    await wait(globalDelay);
 
     const data = animationData.primary;
     const secondary = animationData.secondary;
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
     const macro = animationData.macro;
-
-    //const attack = await buildFile(false, data.video.menuType, data.video.animation, "range", data.video.variant, data.video.color, data.video.customPath)
-
     const sourceToken = handler.sourceToken;
     const onlyX = data.enableCustom ? data.onlyX : false;
-    /*
-    let rangeSwitch;
-    if (moduleIncludes("jb2a_patreon")) {
-        rangeSwitch = ['sword', 'greatsword', 'mace', 'dagger', 'spear', 'greataxe', 'handaxe', 'lasersword', 'hammer', 'chakram']
-    } else {
-        rangeSwitch = ['dagger', 'lasersword']
-    }
-    */
     const switchReturn = aaReturnWeapons.includes(data.video.animation) && !data.video.enableCustom ? data.options.isReturning : false;
+
     let returnDelay;
     switch (true) {
         case data.video.animation.includes('dagger'):
@@ -66,15 +47,15 @@ export async function range(handler, animationData) {
         })
         // Primary Animation
         for (let i = 0; i < handler.allTargets.length; i++) {
-        //for (let currentTarget of handler.allTargets) {
             let currentTarget = handler.allTargets[i]
             let hit;
+
             if (handler.playOnMiss) {
                 hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
             } else {
                 hit = true;
             }
-            //if (hit) { targetSound = true }
+
             let nextSeq = aaSeq.effect()
             nextSeq.file(data.path.file)
             nextSeq.atLocation(sourceToken)
@@ -101,15 +82,7 @@ export async function range(handler, animationData) {
                     returnSeq.delay(returnDelay + data.options.delay)
                 }
             }
-            /*
-            if (!switchReturn) {
-                if (data.options.isWait) {
-                    nextSeq.waitUntilFinished(data.options.delay)
-                } else {
-                    nextSeq.delay(data.options.delay)
-                }    
-            }
-            */
+
             if (i === handler.allTargets.length - 1 && !switchReturn && data.options.isWait) {
                 nextSeq.waitUntilFinished(data.options.delay)
             } else if (!data.options.isWait) {
@@ -122,7 +95,6 @@ export async function range(handler, animationData) {
                 aaSeq.addSequence(secondary.sound)
             }
             for (let i = 0; i < handler.allTargets.length; i++) {
-            //for (let currentTarget of handler.allTargets) {
                 let currentTarget = handler.allTargets[i]
                 let hit;
                 if (handler.playOnMiss) {
@@ -163,7 +135,7 @@ export async function range(handler, animationData) {
                     hit = true;
                 }
                 if (hit) {
-                    let targetSequence = AAAnimationData._targetSequence(targetFX, currentTarget, handler);
+                    let targetSequence = buildTargetSeq(targetFX, currentTarget, handler);
                     aaSeq.addSequence(targetSequence.targetSeq)
                 }
             }

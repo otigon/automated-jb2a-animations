@@ -404,8 +404,9 @@ async function mergeVersion05(data) {
                 data.addTokenWidth = oldMO.addTokenWidth ?? false;
                 data.delay = 0;
                 data.elevation = oldMO.below ? 0 : 1000;
-                data.ignoreTarget = oldMO.ignoretargets ?? false;
-                data.isMasked = oldMO.isMasked ?? false;
+                data.fadeIn = 250;
+                data.fadeOut = 500;
+                data.playOn = oldMO.ignoretargets ? "source" : "default";
                 data.isRadius = true;
                 data.isWait = false;
                 data.opacity = oldMO.opacity ?? 1;

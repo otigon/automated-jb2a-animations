@@ -2,7 +2,7 @@ import { buildFile } from "../animation-functions/file-builder/build-filepath.js
 import { custom_notify } from "../constants/constants.js"
 import { particleDefaultValues } from "../animation-functions/levels-particles/particleDefaults.js";
 
-export class AAAnimationData {
+export class DataSanitizer {
 
     static async _getAnimationData(handler, flagData) {
         if (!flagData) { return; }
@@ -206,10 +206,11 @@ export class AAAnimationData {
                     addTokenWidth: data.addTokenWidth ?? false,
                     delay: data.delay || 1,
                     elevation: data.elevation ?? 1000,
-                    ignoreTarget: data.ignoreTarget ?? false,
-                    isMasked: data.isMasked ?? false,
+                    fadeIn: data.fadeIn ?? 250,
+                    fadeOut: data.fadeOut ?? 500,
                     isWait: data.isWait ?? false,
                     opacity: data.opacity ?? 1,
+                    playOn: data.playOn || "source",
                     size: data.size || 3,
                     unbindAlpha: data.unbindAlpha ?? false,
                     unbindVisibility: data.unbindVisibility ?? false,
@@ -389,22 +390,10 @@ export class AAAnimationData {
             hit = true;
         }
 
-        //const playNow = (targetFX.enabled && hit) ? true : false;
-        //let targetTokenGS = target.w / canvas.grid.size
         const targetTokenGS = targetFX.options.isRadius ? targetFX.options.size * 2 : (target.w / canvas.grid.size) * 1.5 * targetFX.options.size;
 
-        //targetFX.tFXScale = targetFX.enable ? 2 * target.w / targetFX.data.metadata?.width : 1;
         targetFX.targetSeq = new Sequence();
-        /*
-        targetFX.targetSeq.sound()
-            .file(targetFX.itemAudio?.file, true)
-            .volume(targetFX.itemAudio?.volume)
-            .delay(targetFX.itemAudio?.delay + targetFX.startDelay)
-            .repeats(targetFX.repeat, targetFX.delay)
-            .playIf(() => {
-                return targetFX.itemAudio?.enable && targetFX.itemAudio?.file && targetFX.enabled;
-            })
-        */
+
         let targetEffect = targetFX.targetSeq.effect()
         targetEffect.delay(targetFX.options.delay + addDelay)
         targetEffect.file(targetFX.path?.file, true)

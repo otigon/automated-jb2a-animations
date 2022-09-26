@@ -294,8 +294,9 @@ export async function version05(flags, isActiveEffect) {
                 data.addTokenWidth = options.addTokenWidth ?? false;
                 data.delay = 0;
                 data.elevation = options.below ? 0 : 1000;
-                data.ignoreTarget = options.ignoretargets ?? false;
-                data.isMasked = false;
+                data.fadeIn = 250;
+                data.fadeOut = 500;
+                data.playOn = options.ignoretargets ? "source" : "default";
                 data.isRadius = true;
                 data.isWait = false;
                 data.opacity = options.opacity ?? 1;

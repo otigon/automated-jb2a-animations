@@ -10,7 +10,7 @@ export function aura(current = {}) {
             macro: current.macro || common.macro(),
             menu: "aura",
             primary: common.primary({
-                options: options.templatefx(),
+                options: options.aura(),
                 video: { dbSection: "static", menuType: 'spell', animation: 'spiritguardians', variant: '01', color: 'yellowblue' },
             }),
             secondary: current.secondary || common.secondary(),

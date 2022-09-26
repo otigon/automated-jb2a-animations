@@ -204,6 +204,12 @@ export default class systemData {
         return this.flags.macro?.enable && this.flags.macro?.name
     }
 
+    getSize(isRadius = false, size = 1, token, addToken = false) {
+        return isRadius 
+            ? addToken ? (size * 2) + (token.w / canvas.grid.size) : size * 2 
+            : (token.w / canvas.grid.size) * 1.5 * size;
+    }
+
     getDistanceTo(target) {
         if (game.system.id === 'pf1') {
             const scene = game.scenes.active;

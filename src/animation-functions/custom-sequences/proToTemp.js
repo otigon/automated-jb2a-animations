@@ -1,4 +1,5 @@
 import { buildFile } from "../file-builder/build-filepath.js";
+import { howToDelete } from "../../constants/constants.js";
 
 // Credit goes to Wasp-Sequencer Guy for the structure of the Fireball Sequence
 export async function proToTemp(handler, animationData, config) {
@@ -51,28 +52,16 @@ export async function proToTemp(handler, animationData, config) {
     if (sourceFX.enabled) {
         aaSeq.addSequence(sourceFX.sourceSeq)
     }
-    if (data.projectile.sound.file) {
-        aaSeq.sound()
-            .file(data.projectile.sound.file, true)
-            .volume(data.projectile.sound.volume)
-            .delay(data.projectile.sound.delay)
-            .repeats(data.projectile.sound.repeat, data.projectile.options.repeatDelay)
-            .startTime(data.projectile.sound.startTime)
-    }
+    if (data.projectile.sound) {
+        aaSeq.addSequence(data.projectile.sound)    }
     aaSeq.effect()
         .file(projectileAnimation.file)
         .atLocation(sourceToken)
         .stretchTo(position)
         .repeats(data.projectile.options.repeat, data.projectile.options.repeatDelay)
         .waitUntilFinished(data.projectile.options.wait)
-    if (data.preExplosion.sound.file) {
-        aaSeq.sound()
-            .file(data.preExplosion.sound.file, true)
-            .volume(data.preExplosion.sound.volume)
-            .delay(data.preExplosion.sound.delay)
-            .repeats(data.preExplosion.sound.repeat, data.preExplosion.options.repeatDelay)
-            .startTime(data.preExplosion.sound.startTime)
-    }
+    if (data.preExplosion.sound) {
+        aaSeq.addSequence(data.preExplosion.sound)    }
     if (data.preExplosion.enable) {
         aaSeq.effect()
             .file(preExplosion.file, true)
@@ -81,13 +70,8 @@ export async function proToTemp(handler, animationData, config) {
             .repeats(data.preExplosion.options.repeat, data.preExplosion.options.repeatDelay)
             .waitUntilFinished(data.preExplosion.options.wait)
     }
-    if (data.explosion.sound.file) {
-        aaSeq.sound()
-            .file(data.explosion.sound.file, true)
-            .volume(data.explosion.sound.volume)
-            .delay(data.explosion.sound.delay)
-            .repeats(data.explosion.sound.repeat, data.explosion.options.repeatDelay)
-            .startTime(data.explosion.sound.startTime)
+    if (data.explosion.sound) {
+        aaSeq.addSequence(data.explosion.sound)
     }
     aaSeq.effect()
         .file(explosion02.file, true)
@@ -114,6 +98,6 @@ export async function proToTemp(handler, animationData, config) {
             .macro(data.macro.name, handler.workflow, handler, userData)
             .play()
     }
-    if (data.afterImage.enable && data.afterImage.persistent) { AAAnimationData.howToDelete("sequencerground") }
+    if (data.afterImage.enable && data.afterImage.options.persistent) { howToDelete("sequencerground") }
     aaSeq.play()
 }

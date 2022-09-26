@@ -1,27 +1,10 @@
 import { buildFile } from "../file-builder/build-filepath.js"
-import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
+import { buildTargetSeq } from "../buildTargetSeq.js";
 import { aaReturnWeapons, aaRangeWeapons } from "../../database/jb2a-menu-options.js";
 
-//import { AAITEMCHECK } from "./item-arrays.js";
-//import { animationDefault } from "./file-builder/options.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function melee(handler, animationData) {
-    
-    //function moduleIncludes(test) {
-        //return !!game.modules.get(test);
-    //}
-    /*
-    let rangeSwitch;
-    if (moduleIncludes("jb2a_patreon")) {
-        rangeSwitch = ['sword', 'greatsword', 'mace', 'dagger', 'spear', 'greataxe', 'handaxe', 'lasersword', 'hammer', 'chakram']
-    } else {
-        rangeSwitch = ['dagger', 'lasersword']
-    }
-    */
-    // Sets JB2A database and Global Delay
-    let globalDelay = game.settings.get("autoanimations", "globaldelay");
-    await wait(globalDelay);
 
     const data = animationData.primary;
     const secondary = animationData.secondary;
@@ -29,8 +12,6 @@ export async function melee(handler, animationData) {
     const targetFX = animationData.targetFX;
     const macro = animationData.macro;
 
-    //const returnWeapons = ['dagger', 'hammer', 'greatsword', 'chakram']
-    //const switchReturn = aaReturnWeapons.some(el => data.meleeSwitch.video.animation.includes(el)) ? data.meleeSwitch.options.isReturning : false;
     const switchReturn = data.meleeSwitch.options.switchType === "on" && aaReturnWeapons.includes(data.video.animation)
         ? data.meleeSwitch.options.isReturning
         : data.meleeSwitch.options.switchType === "custom" && aaReturnWeapons.includes(data.meleeSwitch.video.animation)
@@ -54,12 +35,7 @@ export async function melee(handler, animationData) {
         range = await buildFile(false, data.meleeSwitch.video.menuType, data.meleeSwitch.video.animation, "range", data.meleeSwitch.video.variant, data.meleeSwitch.video.color, data.meleeSwitch.video.customPath)
     }
 
-    //const attack = await buildFile(false, data.video.menuType, data.video.animation, "melee", data.video.variant, data.video.color, data.video.customPath);
-    //TO-DO set up Range Switch for Melee in new Menus
-    //const range = await buildFile(false, data.switchMenuType, data.switchAnimation, "range", data.switchVariant, data.switchColor);
-
     const sourceToken = handler.sourceToken;
-    //const sourceScale = data.animation === "unarmedstrike" || data.animation === "flurryofblows" ? sourceToken.w / canvas.grid.size * 0.85 : sourceToken.w / canvas.grid.size * 0.5;
     const sourceTokenGS = (sourceToken.w / canvas.grid.size) * 4;
 
     async function cast() {
@@ -86,7 +62,6 @@ export async function melee(handler, animationData) {
         })
         // Primary Animation
         for (let i = 0; i < handler.allTargets.length; i++) {
-            //for (let currentTarget of handler.allTargets) {
             let currentTarget = handler.allTargets[i]
             let distanceTo = handler.getDistanceTo(currentTarget)
             let switchDistance = 5;
@@ -128,7 +103,6 @@ export async function melee(handler, animationData) {
                     rangeSeq.stretchTo(currentTarget)
                     rangeSeq.opacity(data.options.opacity)
                     rangeSeq.zIndex(data.options.zIndex)
-                    //rangeSeq.randomizeMirrorY()
                     rangeSeq.repeats(data.options.repeat, data.options.repeatDelay)
                     rangeSeq.missed(!hit)
                     rangeSeq.name("spot" + ` ${currentTarget.id}`)
@@ -137,7 +111,6 @@ export async function melee(handler, animationData) {
                     let returnSeq = aaSeq.effect()
                         returnSeq.file(range.returnFile, true)
                         returnSeq.opacity(data.options.opacity)
-                        //returnSeq.delay(returnDelay)
                         returnSeq.atLocation(sourceToken)
                         returnSeq.repeats(data.options.repeat, data.options.repeatDelay)
                         returnSeq.stretchTo("spot" + ` ${currentTarget.id}`)
@@ -225,7 +198,7 @@ export async function melee(handler, animationData) {
                     hit = true;
                 }
                 if (hit) {
-                    let targetSequence = AAAnimationData._targetSequence(targetFX, currentTarget, handler);
+                    let targetSequence = buildTargetSeq(targetFX, currentTarget, handler);
                     aaSeq.addSequence(targetSequence.targetSeq)
                 }
             }

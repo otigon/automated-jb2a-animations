@@ -1,13 +1,6 @@
 import { buildFile } from "../file-builder/build-filepath.js";
-import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
-
-const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function dualattach(handler, animationData) {
-
-    // Sets JB2A database and Global Delay
-    let globalDelay = game.settings.get("autoanimations", "globaldelay");
-    await wait(globalDelay);
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
@@ -32,7 +25,7 @@ export async function dualattach(handler, animationData) {
             aaSeq.addSequence(sourceFX.sourceSeq)
         }
         if (data.playSound) {
-            aaSeq.addSequence(await AAAnimationData._sounds({ animationData }))
+            aaSeq.addSequence(data.sound)
         }
         // Animation Start Hook
         aaSeq.thenDo(function () {
@@ -49,7 +42,6 @@ export async function dualattach(handler, animationData) {
                 .playbackRate(data.options.playbackRate)
                 .origin(handler.itemUuid)
                 .elevation(data.options.elevation)
-                //.playIf(!checkTarget)
             }
         }
         if (data.playMacro && data.macro.playWhen === "0") {

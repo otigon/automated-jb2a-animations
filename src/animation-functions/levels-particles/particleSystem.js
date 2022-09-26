@@ -1,4 +1,4 @@
-import { AAAnimationData } from "../../aa-classes/AAAnimationData.js";
+import { DataSanitizer } from "../../aa-classes/DataSanitizer.js";
 
 export async function particleEffects(handler, animationData = {}) {
 
@@ -9,7 +9,7 @@ export async function particleEffects(handler, animationData = {}) {
     //const target = handler.allTargets[0];
     const targets = handler.allTargets;
 
-    const data = await AAAnimationData.compileParticleData(animationData)
+    const data = await DataSanitizer.compileParticleData(animationData)
     
     /**
      * This checks the "Primary Animation" sounds, and if present
