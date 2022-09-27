@@ -242,7 +242,7 @@ export async function ontoken(handler, animationData) {
             let sourceSecondarySeq = aaSeq.effect()
             setSecondary(sourceToken, sourceSecondarySeq)
 
-            if (handler.allTargets.length < 1 && secondary.options.isWait && targetFX.enable) {
+            if (handler.allTargets.length < 1 && secondary.options.isWait) {
                 sourceSecondarySeq.waitUntilFinished(secondary.options.delay)
             } else if (!secondary.options.isWait) {
                 sourceSecondarySeq.delay(secondary.options.delay)

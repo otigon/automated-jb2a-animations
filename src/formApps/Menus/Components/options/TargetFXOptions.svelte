@@ -145,7 +145,7 @@
                 </td>
                 <td>
                     <!--Set Animation Opacity-->
-                    <Opacity {animation} />
+                    <Opacity {animation} section="target"/>
                 </td>
                 <td>
                     <!--Set the Z-Index of the Animation-->

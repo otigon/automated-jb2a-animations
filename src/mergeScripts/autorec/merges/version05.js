@@ -501,9 +501,11 @@ async function mergeVersion05(data) {
         newData.label = name;
         //newData.hidden = true;
         root.options = {
-            hideFromPlayers: hideTemplate,
-            range,
-            measureType,
+            hideFromPlayers: hideTemplate ?? false,
+            range: range ?? 30,
+            measureType: measureType ?? "alternating",
+            teleport: true,
+            speed: 100,
         }
         root.sound =  setSound(audio, "a01");
         root.start = {
@@ -515,8 +517,16 @@ async function mergeVersion05(data) {
             enableCustom: custom || false,
             customPath,
             options: {
+                alpha: 0,
+                delay: 0,
+                isMasked: false,
                 elevation: below ? 0 : 1000,
+                opacity: 1,
                 size: scale || 1,
+                isRadius: false,
+                fadeIn: 250,
+                fadeOut: 500,
+                tokenOut: 250,
             }
         }
         root.between = {
@@ -527,7 +537,11 @@ async function mergeVersion05(data) {
             variant: "regular",
             color: "regular",
             options: {
-
+                delay: 0,
+                enable: false,
+                elevation: 1000,
+                opacity: 1,
+                playbackRate: 1,
             }
         }
         root.end = {
@@ -540,8 +554,15 @@ async function mergeVersion05(data) {
             customPath: customPath02,
             options: {
                 elevation: below ? 0 : 1000,
-                size: scale02,
-                delay,
+                isMasked: false,
+                opacity: 1,
+                isRadius: false,
+                size: scale02 ?? 1,
+                delay: 0,
+                delayAlpha: delay ?? 250,
+                fadeIn: 250,
+                fadeOut: 500,
+                tokenIn: 250,
             }
         }
         if (!root.start.menuType || !root.start.animation || !root.start.variant || !root.start.color) {
@@ -685,6 +706,37 @@ async function mergeVersion05(data) {
                 file: oldData.audio?.a01?.file,
             }
         }
+        newData.secondary = {
+            enable: false,
+            options: {
+                addTokenWidth: false,
+                delay: 250,
+                elevation: 1000,
+                fadeIn: 250,
+                fadeOut: 500,       
+                isMasked: false,
+                isRadius: true,
+                isWait: false,
+                opacity: 1,
+                repeat: 1,
+                repeatDelay: 0,
+                size: 1.5,
+                zIndex: 1,
+            },
+            sound: setSound(audio, "e01"),
+            video: {
+                dbSection: "static",
+                menuType: "spell",
+                animation: "curewounds",
+                variant: "01",
+                color: "blue",
+                enableCustom: false,
+                customPath: "",
+            }
+        };
+
+        newData.target = newExtraFX(true);
+
         return newData;
     }
 
@@ -706,8 +758,6 @@ async function mergeVersion05(data) {
                 elevation: below ? 0 : 1000,
                 repeat,
                 delay,
-                scaleX,
-                scaleY,
                 opacity,
                 removeTemplate,
             }, 

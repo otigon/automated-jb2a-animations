@@ -1,41 +1,18 @@
-import { buildFile } from "../file-builder/build-filepath.js";
+//import { buildFile } from "../file-builder/build-filepath.js";
 import { howToDelete } from "../../constants/constants.js";
+import { buildTargetSeq } from "../buildTargetSeq.js";
 
 // Credit goes to Wasp-Sequencer Guy for the structure of the Fireball Sequence
 export async function proToTemp(handler, animationData, config) {
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
-
-    const projectileAnimation = await buildFile(false, data.projectile.menuType, data.projectile.animation, "range", data.projectile.variant, data.projectile.color);
-    const preExplosion = data.preExplosion.enable ? await buildFile(true, data.preExplosion.menuType, data.preExplosion.animation, "static", data.preExplosion.variant, data.preExplosion.color) : "";
-    const explosion02 = data.explosion.animation !== "a1" ? await buildFile(true, data.explosion.menuType, data.explosion.animation, "static", data.explosion.variant, data.explosion.color) : "";
+    const secondary = animationData.secondary;
+    const targetFX = animationData.targetFX;
 
     const template = config ? config : canvas.templates.placeables[canvas.templates.placeables.length - 1];
     const sourceToken = handler.sourceToken;
-    let size;
-    let position;
-    if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3)) {
-        const scale5e = template.document.distance / Math.sqrt(2);
-        position = {
-            x: template.x + (((scale5e / canvas.dimensions.distance) * canvas.grid.size) / 2),
-            y: template.y + (((scale5e / canvas.dimensions.distance) * canvas.grid.size) / 2),
-        }
-        size = (canvas.grid.size * (template.document.distance / canvas.dimensions.distance));
-    } else if (template.document?.t === 'rect') {
-        const offset = canvas.grid.size * (template.width / canvas.dimensions.distance);
-        position = {
-            x: template.x + (offset / 2),
-            y: template.y + (offset / 2),
-        }
-        size = (canvas.grid.size * (template.document.distance / canvas.dimensions.distance));
-    } else {
-        position = {
-            x: template.x,
-            y: template.y,
-        }
-        size = canvas.grid.size * ((template.document.distance * 2) / canvas.dimensions.distance);
-    }
+
     let aaSeq = await new Sequence("Automated Animations")
     if (data.projectile.options.removeTemplate) {
         aaSeq.thenDo(function () {
@@ -48,25 +25,28 @@ export async function proToTemp(handler, animationData, config) {
         let userData = data.macro.args;
         aaSeq.macro(data.macro.name, handler.workflow, handler, userData)
     }
-    // Extra Effects => Source Token if active
+    // Source Effect if active
     if (sourceFX.enabled) {
         aaSeq.addSequence(sourceFX.sourceSeq)
     }
+    //Projectile Sound and Animation
     if (data.projectile.sound) {
-        aaSeq.addSequence(data.projectile.sound)    }
+        aaSeq.addSequence(data.projectile.sound)
+    }
     aaSeq.effect()
-        .file(projectileAnimation.file)
+        .file(data.projectile.path.file)
         .atLocation(sourceToken)
-        .stretchTo(position)
+        .stretchTo(template, { cacheLocation: true })
         .repeats(data.projectile.options.repeat, data.projectile.options.repeatDelay)
         .waitUntilFinished(data.projectile.options.wait)
     if (data.preExplosion.sound) {
-        aaSeq.addSequence(data.preExplosion.sound)    }
+        aaSeq.addSequence(data.preExplosion.sound)
+    }
     if (data.preExplosion.enable) {
         aaSeq.effect()
-            .file(preExplosion.file, true)
-            .atLocation(position)
-            .size(size * .35 * data.preExplosion.options.scale)
+            .file(data.preExplosion.path.file, true)
+            .atLocation(template, { cacheLocation: true })
+            .scaleToObject(data.preExplosion.options.scale)
             .repeats(data.preExplosion.options.repeat, data.preExplosion.options.repeatDelay)
             .waitUntilFinished(data.preExplosion.options.wait)
     }
@@ -74,23 +54,62 @@ export async function proToTemp(handler, animationData, config) {
         aaSeq.addSequence(data.explosion.sound)
     }
     aaSeq.effect()
-        .file(explosion02.file, true)
-        .atLocation(position)
-        .size(size * data.explosion.options.scale)
+        .file(data.explosion.path.file, true)
+        .atLocation(template, { cacheLocation: true })
+        .scaleToObject(data.explosion.options.scale)
         .repeats(data.explosion.options.repeat, data.explosion.options.repeatDelay)
         .zIndex(5)
         .waitUntilFinished(-750 + data.explosion.options.wait)
     if (data.afterImage.customPath) {
         aaSeq.effect()
             .file(data.afterImage.customPath, true)
-            .size(size)
-            .atLocation(position)
+            .atLocation(template, { cacheLocation: true })
+            .scaleToObject(data.afterImage.options.scale)
             .elevation(0)
             .persist(true)
             .origin(handler.itemUuid)
             .fadeIn(250)
             .fadeOut(500)
     }
+
+    if (secondary) {
+        if (secondary.sound) {
+            aaSeq.addSequence(secondary.sound)
+        }
+        for (let i = 0; i < handler.allTargets.length; i++) {
+            let currentTarget = handler.allTargets[i]
+
+            let secondarySeq = aaSeq.effect()
+            secondarySeq.atLocation(currentTarget)
+            secondarySeq.file(secondary.path?.file, true)
+            secondarySeq.size(secondary.options.size * 2, { gridUnits: true })
+            secondarySeq.repeats(secondary.options.repeat, secondary.options.repeatDelay)
+            if (i === handler.allTargets.length - 1 && secondary.options.isWait && targetFX.enable) {
+                secondarySeq.waitUntilFinished(secondary.options.delay)
+            } else if (!secondary.options.isWait) {
+                secondarySeq.delay(secondary.options.delay)
+            }
+            secondarySeq.elevation(secondary.options.elevation)
+            secondarySeq.zIndex(secondary.options.zIndex)
+            secondarySeq.opacity(secondary.options.opacity)
+            secondarySeq.fadeIn(secondary.options.fadeIn)
+            secondarySeq.fadeOut(secondary.options.fadeOut)
+            if (secondary.options.isMasked) {
+                secondarySeq.mask(currentTarget)
+            }
+        }
+    }
+
+    if (targetFX.enable) {
+        if (targetFX.sound) {
+            aaSeq.addSequence(targetFX.sound)
+        }
+        for (let currentTarget of handler.allTargets) {
+            let targetSequence = buildTargetSeq(targetFX, currentTarget, handler);
+            aaSeq.addSequence(targetSequence.targetSeq)
+        }
+    }
+
     if (data.playMacro && data.macro.playWhen === "0") {
         handler.templateData = config;
         let userData = data.macro.args;

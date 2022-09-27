@@ -551,6 +551,38 @@ export async function version05(flags, isActiveEffect) {
         newData.soundOnly = {
             sound: setSound({}, "a01", true),
         }
+
+        newData.secondary = {
+            enable: false,
+            options: {
+                addTokenWidth: false,
+                delay: 250,
+                elevation: 1000,
+                fadeIn: 250,
+                fadeOut: 500,       
+                isMasked: false,
+                isRadius: true,
+                isWait: false,
+                opacity: 1,
+                repeat: 1,
+                repeatDelay: 0,
+                size: 1.5,
+                zIndex: 1,
+            },
+            sound: setSound(audio, "e01"),
+            video: {
+                dbSection: "static",
+                menuType: "spell",
+                animation: "curewounds",
+                variant: "01",
+                color: "blue",
+                enableCustom: false,
+                customPath: "",
+            }
+        };
+
+        newData.target = newExtraFX(true);
+
         return newData;
     }
 
@@ -572,6 +604,8 @@ export async function version05(flags, isActiveEffect) {
             hideFromPlayers: options?.hideFromPlayers ?? false,
             range: options?.teleDist ?? 30,
             measureType: options?.measureType ?? "alternating",
+            teleport: true,
+            speed: 100,
         }
         root.sound = setSound(audio, "a01");
         root.start = {
@@ -584,11 +618,16 @@ export async function version05(flags, isActiveEffect) {
             customPath: options.customPath ?? "",
             options: {
                 alpha: 0,
-                elevation: animLevel ? 0 : 1000,
+                delay: 0,
                 isMasked: false,
-                isRadius: false,
+                elevation: animLevel ? 0 : 1000,
                 opacity: 1,
                 size: options?.scale || 1,
+                isRadius: false,
+                fadeIn: 250,
+                fadeOut: 500,
+                tokenOut: 250,
+
             }
         }
         root.between = {
@@ -599,7 +638,11 @@ export async function version05(flags, isActiveEffect) {
             variant: "regular",
             color: "regular",
             options: {
-
+                delay: 0,
+                enable: false,
+                elevation: 1000,
+                opacity: 1,
+                playbackRate: 1,
             }
         }
         root.end = {
@@ -612,11 +655,15 @@ export async function version05(flags, isActiveEffect) {
             customPath: options?.customPath02 ?? "",
             options: {
                 elevation: animLevel ? 0 : 1000,
-                size: options?.scale02 ?? 1,
-                delay: options?.delay ?? 500,
                 isMasked: false,
-                isRadius: false,
                 opacity: 1,
+                isRadius: false,
+                size: options?.scale02 ?? 1,
+                delay: 0,
+                delayAlpha: options?.delay ?? 250,
+                fadeIn: 250,
+                fadeOut: 500,
+                tokenIn: 250,
             }
         }
         if (!root.start.menuType || !root.start.animation || !root.start.variant || !root.start.color) {
@@ -651,8 +698,6 @@ export async function version05(flags, isActiveEffect) {
                 elevation: animLevel ? 0 : 1000,
                 repeat: options?.repeat ?? 1,
                 repeatDelay: options?.delay ?? 250,
-                scaleX: options?.scaleX ?? 1,
-                scaleY: options?.scaleY ?? 1,
                 opacity: options?.opacity ?? 1,
                 removeTemplate: options?.removeTemplate ?? false,
             }, 

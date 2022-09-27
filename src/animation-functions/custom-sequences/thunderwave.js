@@ -2,96 +2,76 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function thunderwave(handler, animationData, config) {
 
-    function moduleIncludes(test) {
-        return !!game.modules.get(test);
-    }
-
     const sourceToken = handler.sourceToken;
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
+    const macro = animationData.macro;
 
-    const twData = data.isAuto ? handler.autorecObject?.thunderwave : handler.flags?.preset?.thunderwave;
-
-    if (!twData) { return; }
-    const cleanData = {
-        color: twData.color || "blue",
-        repeat: twData.repeat || 1,
-        delay: twData.delay || 250,
-        elevation: twData.elevation ?? 1000,
-        opacity: twData.opacity || 1,
-        removeTemplate: twData.removeTemplate || false
-    }
-
-
-    let color;
-    const colors = ['green', 'orange', 'purple', 'red', 'blue']
-    function random_item(items) {
-        return items[Math.floor(Math.random() * items.length)];
-    }
-    switch (true) {
-        case cleanData.color === "a1" || ``:
-            color = "blue";
-            break;
-        case cleanData.color === "random":
-            color = random_item(colors);
-            break;
-        default:
-            color = cleanData.color;
-    }
+    let color = data.color;
 
     const template = config ? config : canvas.templates.placeables[canvas.templates.placeables.length - 1];
+    const templateData = config ? config || {} : template.document || {};
+    const trueSize = Math.sqrt(Math.pow(templateData.distance, 2)/2)
 
-    let filePath = autoanimations.static.spell.thunderwave;
-
-    const getPosition = getRelativePosition(sourceToken, template)
+    const getPosition = getRelativePosition(sourceToken, templateData)
     const angle = getPosition.angle;
-    const anFile = filePath[getPosition.type][color]
+    const databasePath = color === "random"
+        ? `autoanimations.templatefx.square.thunderwave.${getPosition.type}`
+        : `autoanimations.templatefx.square.thunderwave.${getPosition.type}.${color}`
 
-    if (cleanData.removeTemplate) {
-        canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.id])
-    }
-    const gridSize = canvas.scene.data.grid;
+    const gridSize = canvas.scene.data.grid.size;
+    console.log({getPosition, databasePath, gridSize})
+
     let aaSeq = await new Sequence("Automated Animations")
+
     // Play Macro if Awaiting
-    if (data.playMacro && data.macro.playWhen === "1") {
-        let userData = data.macro.args;
-        aaSeq.macro(data.macro.name, handler.workflow, handler, userData)
+    if (macro && macro.playWhen === "1") {
+        let userData = macro.args;
+        aaSeq.macro(macro.name, handler.workflow, handler, userData)
     }
     // Extra Effects => Source Token if active
-    if (sourceFX.enabled) {
+    if (sourceFX.enable) {
         aaSeq.addSequence(sourceFX.sourceSeq)
     }
+    // Primary Sound
     if (data.sound) {
         aaSeq.addSequence(data.sound)
     }
+
     aaSeq.thenDo(function () {
         Hooks.callAll("aa.animationStart", sourceToken, "no-target")
     })
     aaSeq.effect()
-        .file(anFile)
-        .atLocation({ x: template.data.x + (gridSize * 1.5), y: template.data.y + (gridSize * 1.5) })
+        .file(databasePath)
+        //.atLocation({ x: templateData.x + (gridSize * 1.5), y: templateData.y + (gridSize * 1.5) })
+        .atLocation(template, { cacheLocation: true })
         .anchor({ x: 0.5, y: 0.5 })
         .rotate(angle)
-        .opacity(cleanData.opacity)
+        .opacity(data.options.opacity)
         .size(3, { gridUnits: true })
-        .elevation(cleanData.elevation)
-        .repeats(cleanData.repeat, cleanData.repeatDelay)
-    if (data.playMacro && data.macro.playWhen === "0") {
-        let userData = data.macro.args;
+        .elevation(data.options.elevation)
+        .repeats(data.options.repeat, data.options.repeatDelay)
+
+    if (macro && macro.playWhen === "0") {
+        let userData = macro.args;
         new Sequence()
-            .macro(data.macro.name, handler.workflow, handler, userData)
+            .macro(macro.name, handler.workflow, handler, userData)
             .play()
+    }
+
+    if (data.options.removeTemplate) {
+        canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.id])
     }
     aaSeq.play()
     await wait(500)
     Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
 
     function getRelativePosition(token, template) {
-        const xPos = token.data.x;
-        const yPos = token.data.y;
-        const tempY = template.data.y;
-        const tempX = template.data.x;
-        const gridSize = canvas.scene.data.grid;
+        const xPos = token.x;
+        const yPos = token.y;
+        const tempY = template.y;
+        const tempX = template.x;
+        const gridSize = canvas.scene.data.grid.size;
         let type;
         let angle;
         switch (true) {

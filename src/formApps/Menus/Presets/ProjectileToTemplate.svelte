@@ -7,7 +7,7 @@
     import SoundSettings    from "../Components/SoundSettingsNested.svelte";
     import Opacity          from "./inputComponents/Opacity.svelte";
     import OptionsDialog    from "../Components/options/optionsInfoDialog.js";
-
+    import * as settings    from "../Components"
     export let animation;
     export let category;
     export let idx;
@@ -462,6 +462,9 @@
 
     </TJSSvgFolder>
 </div>
+
+<svelte:component this={settings.Secondary} {animation} {category} {idx}/>
+<svelte:component this={settings.Target} {animation} {category} {idx}/>
 
 <style lang="scss">
     .aa-customAnim-container {

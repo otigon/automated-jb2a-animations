@@ -135,5 +135,7 @@ export const preset = [
             }
         }    
       },
+      secondary: common.secondary(),
+      target: common.target()
    }
 ];

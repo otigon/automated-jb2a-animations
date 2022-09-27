@@ -10,9 +10,9 @@ export class DataSanitizer {
         menu = menu === "aefx" ? flagData.activeEffectType : menu;
         const data = {
             primary: menu === "preset" ? await this.compilePreset(handler, flagData) : await this.compilePrimary(handler, flagData),
-            secondary: menu !== "preset" ? await this.compileSecondary(flagData) : false,
+            secondary: flagData.secondary ? await this.compileSecondary(flagData) : false,
             sourceFX: await this.compileSource(handler, flagData),
-            targetFX: flagData.menu === "aefx" ? false : await this.compileTarget(flagData),
+            targetFX: flagData.target ? await this.compileTarget(flagData) : false,
             macro: await this.compileMacro(handler, flagData)
         }
         return data;
@@ -475,7 +475,7 @@ export class DataSanitizer {
 
         switch (presetType) {
             case "proToTemp":
-                return proToTemp();
+                return await proToTemp();
             case "teleportation":
                 return teleportation();
             case "dualattach":
@@ -484,7 +484,7 @@ export class DataSanitizer {
                 return thunderwave();
         }
 
-        function proToTemp () {
+        async function proToTemp () {
             const flags = topLevel.data || {};
             const projectile = flags.projectile || {};
             const projectileOptions = projectile.options || {};
@@ -500,6 +500,7 @@ export class DataSanitizer {
 
             const data = {
                 projectile: {
+                    dbSection: "range",
                     menuType: projectile.menuType,
                     animation: projectile.animation,
                     variant: projectile.variant,
@@ -516,6 +517,7 @@ export class DataSanitizer {
                     sound: setSound(projectileSound)
                 },
                 preExplosion: {
+                    dbSection: "static",
                     enable: preExplosion.enable || false,
                     menuType: preExplosion.menuType,
                     animation: preExplosion.animation,
@@ -533,6 +535,7 @@ export class DataSanitizer {
                     sound: setSound(preExplosionSound)
                 },
                 explosion: {
+                    dbSection: "static",
                     enable: explosion.enable || false,
                     menuType: explosion.menuType,
                     animation: explosion.animation,
@@ -563,6 +566,10 @@ export class DataSanitizer {
                     enable: false,
                 }    
             }
+            data.projectile.path = await buildFile(false, data.projectile.menuType, data.projectile.animation, data.projectile.dbSection, data.projectile.variant, data.projectile.color, data.projectile.customPath)
+            data.preExplosion.path = await buildFile(false, data.preExplosion.menuType, data.preExplosion.animation, data.preExplosion.dbSection, data.preExplosion.variant, data.preExplosion.color, data.preExplosion.customPath)
+            data.explosion.path = await buildFile(false, data.explosion.menuType, data.explosion.animation, data.explosion.dbSection, data.explosion.variant, data.explosion.color, data.explosion.customPath)
+
             return data;
         }
         
@@ -587,11 +594,15 @@ export class DataSanitizer {
                     customPath: start.enableCustom && start.customPath ? start.customPath : false,
                     options: {
                         alpha: startOptions.alpha ?? 0,
+                        delay: startOptions.delay ?? 0,
                         isMasked: startOptions.isMasked ?? false,
                         elevation: startOptions.elevation ?? 1000,
                         opacity: startOptions.opacity ?? 1,
                         size: startOptions.size ?? 1,
                         isRadius: startOptions.isRadius ?? false,
+                        fadeIn: startOptions.fadeIn ?? 250,
+                        fadeOut: startOptions.fadeOut ?? 500,
+                        tokenOut: startOptions.tokenOut ?? 250,
                     },
                 },
                 between: {
@@ -601,6 +612,7 @@ export class DataSanitizer {
                     color: between.color,
                     customPath: between.enableCustom && between.customPath ? between.customPath : false,
                     options: {
+                        delay: betweenOptions.delay ?? 0,
                         enable: betweenOptions.enable ?? false,
                         elevation: betweenOptions.elevation ?? 1000,
                         opacity: betweenOptions.opacity ?? 1,
@@ -619,13 +631,19 @@ export class DataSanitizer {
                         opacity: endOptions.opacity ?? 1,
                         isRadius: endOptions.isRadius ?? false,
                         size: endOptions.size ?? 1,
-                        delay: endOptions.delay ?? 250,
+                        delay: endOptions.delay ?? 0,
+                        delayAlpha: endOptions.delayAlpha ?? 250,
+                        fadeIn: startOptions.fadeIn ?? 250,
+                        fadeOut: startOptions.fadeOut ?? 500,
+                        tokenIn: startOptions.tokenOut ?? 250,
                     },
                 },
                 options: {
                     hideFromPlayers: options.hideFromPlayers ?? false,
                     range: options.range ?? 30,
                     measureType: options.measureType || "alternating",
+                    speed: options.speed || 6,
+                    teleport: options.teleport ?? false,
                 },
                 sound: setSound(sound)
             }
@@ -672,9 +690,9 @@ export class DataSanitizer {
                     opacity: options.opacity ?? 1,
                     repeat: options.repeat || 1,
                     repeatDelay: options.repeatDelay ?? 250,
-                    scale: options.scale || 1,
+                    removeTemplate: options.removeTemplate ?? false,
                 },
-                sound: this.setSound(sound)
+                sound: setSound(sound)
             }
             return data;
         }

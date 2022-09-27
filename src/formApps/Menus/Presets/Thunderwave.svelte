@@ -109,39 +109,6 @@
                         <Opacity {animation} />
                     </td>
                     <td>
-                        <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.scale")} X</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.options.scaleX}
-                                placeholder="1"
-                                step=".01"
-                            />
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.scale")} Y</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.options.scaleY}
-                                placeholder="1"
-                                step=".01"
-                            />
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
                         <!--Set Only X Scaling-->
                         <div class="form-group">
                             <label for="Remove {animation._data.id}"
