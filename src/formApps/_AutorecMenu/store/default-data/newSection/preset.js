@@ -204,6 +204,8 @@ export function preset(current = {}, type) {
                 soundOnly: {
                     sound: common.sound()
                 },
+                secondary: common.secondary(),
+                target: common.target(),
             }
     }
 }

@@ -34,14 +34,13 @@
         $animation.macro = newData.macro;
         $animation.soundOnly = newData.soundOnly;
         $animation.presetType = newData.presetType;
+        $animation.secondary = newData.secondary;
+        $animation.target = newData.target;
         $animation.data = newData.data;
         delete $animation.primary;
         delete $animation.levels3d;
         delete $animation.meleeSwitch;
-        delete $animation.secondary;
         delete $animation.primary;
-        delete $animation.source;
-        delete $animation.target;
         break;
       case "melee":
         $animation.levels3d = newData.levels3d;
