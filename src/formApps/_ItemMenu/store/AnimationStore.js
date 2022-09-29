@@ -2,6 +2,7 @@ import { ObjectEntryStore }   from "@typhonjs-fvtt/svelte-standard/store";
 import { writable }           from "svelte/store";
 import { uuidv4 }             from "@typhonjs-fvtt/runtime/svelte/util";
 import { isObject }           from '@typhonjs-fvtt/runtime/svelte/util';
+import * as changeSection from "../../_AutorecMenu/store/default-data/newSection";
 
 import { custom_warning } from "../../../constants/constants.js";
 import VideoPreview  from "../../Menus/Components/videoPreview/videoPreview.js"
@@ -307,7 +308,7 @@ export class AnimationStore extends ObjectEntryStore {
    async copyToAutorec(label) {
       //ui.notifications.info("Work In Progress")
       let menu = this._data.menu;
-      if (menu === "default") {
+      if (!this._data.isCustomized) {
          custom_warning("You are attempting to copy an Item to the Global menu, but you haven't configured the item!", true)
       }
       let data = structuredClone(this._data);
@@ -350,6 +351,71 @@ export class AnimationStore extends ObjectEntryStore {
       currentMenu.push(data);
       await game.settings.set('autoanimations', `aaAutorec-${menu}`, currentMenu)
    }
+
+   async switchVideo() {
+      let newMenu = this._data.menu;
+      if (!newMenu) { return; }
+
+      let newData = changeSection[newMenu](this._data);
+      if (!newMenu) {
+         delete this._data.data;
+         this._data.primary = {};
+         return;
+      }
+      switch (newMenu) {
+         case "preset":
+            this._data.macro = newData.macro;
+            this._data.soundOnly = newData.soundOnly;
+            this._data.presetType = newData.presetType;
+            this._data.secondary = newData.secondary;
+            this._data.target = newData.target;
+            this._data.data = newData.data;
+            delete this._data.primary;
+            delete this._data.levels3d;
+            delete this._data.meleeSwitch;
+            delete this._data.primary;
+            delete this._data.source;
+            break;
+         case "melee":
+            this._data.levels3d = newData.levels3d;
+            this._data.macro = newData.macro;
+            this._data.meleeSwitch = newData.meleeSwitch;
+            this._data.primary = newData.primary;
+            this._data.secondary = newData.secondary;
+            this._data.soundOnly = newData.soundOnly;
+            this._data.source = newData.source;
+            this._data.target = newData.target;
+            delete this._data.presetType;
+            delete this._data.data;
+            break;
+         case "range":
+         case "ontoken":
+            this._data.levels3d = newData.levels3d;
+            this._data.macro = newData.macro;
+            this._data.primary = newData.primary;
+            this._data.secondary = newData.secondary;
+            this._data.soundOnly = newData.soundOnly;
+            this._data.source = newData.source;
+            this._data.target = newData.target;
+            delete this._data.meleeSwitch;
+            delete this._data.presetType;
+            delete this._data.data;
+            break;
+         default:
+            this._data.macro = newData.macro;
+            this._data.primary = newData.primary;
+            this._data.secondary = newData.secondary;
+            this._data.soundOnly = newData.soundOnly;
+            this._data.source = newData.source;
+            this._data.target = newData.target;
+            delete this._data.levels3d;
+            delete this._data.meleeSwitch;
+            delete this._data.presetType;
+            delete this._data.data;
+            break;
+      }
+   }
+  
 }
 
 /**

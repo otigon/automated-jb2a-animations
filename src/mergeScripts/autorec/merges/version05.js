@@ -402,6 +402,14 @@ async function mergeVersion05(data) {
                 break;
             case "aura":
                 data.addTokenWidth = oldMO.addTokenWidth ?? false;
+                data.alpha = false,
+                data.alphaMax = 0.5,
+                data.alphaMin = -0.5,
+                data.alphaDuration = 1000,
+                data.breath = false,
+                data.breathMax = 1.05,
+                data.breathMin = 0.95,
+                data.breathDuration = 1000,        
                 data.delay = 0;
                 data.elevation = oldMO.below ? 0 : 1000;
                 data.fadeIn = 250;
@@ -411,6 +419,9 @@ async function mergeVersion05(data) {
                 data.isWait = false;
                 data.opacity = oldMO.opacity ?? 1;
                 data.size = oldMO.scale ?? 3;
+                data.tint = false,
+                data.tintColor = "#FFFFFF",
+                data.tintSaturate = 0,        
                 data.unbindAlpha = oldMO.unbindAlpha ?? false;
                 data.unbindVisibility = oldMO.unbindVisibility ?? false;
                 data.zIndex = oldMO.zIndex ?? 1;
@@ -501,14 +512,19 @@ async function mergeVersion05(data) {
         newData.label = name;
         //newData.hidden = true;
         root.options = {
+            alpha: 0,
+            delayFade: 750,
+            delayMove: 1000,
+            delayReturn: delay ?? 250,
             hideFromPlayers: hideTemplate ?? false,
-            range: range ?? 30,
             measureType: measureType ?? "alternating",
+            range: range ?? 30,
+            speed: 120,
             teleport: true,
-            speed: 100,
         }
         root.sound =  setSound(audio, "a01");
         root.start = {
+            enable: true,
             dbSection: "static",
             menuType,
             animation: subAnimation,
@@ -517,16 +533,14 @@ async function mergeVersion05(data) {
             enableCustom: custom || false,
             customPath,
             options: {
-                alpha: 0,
                 delay: 0,
-                isMasked: false,
                 elevation: below ? 0 : 1000,
-                opacity: 1,
-                size: scale || 1,
-                isRadius: false,
                 fadeIn: 250,
-                fadeOut: 500,
-                tokenOut: 250,
+                fadeOut: 250,
+                isMasked: false,
+                opacity: 1,
+                isRadius: false,
+                size: scale || 1.5,
             }
         }
         root.between = {
@@ -538,13 +552,13 @@ async function mergeVersion05(data) {
             color: "regular",
             options: {
                 delay: 0,
-                enable: false,
                 elevation: 1000,
                 opacity: 1,
                 playbackRate: 1,
             }
         }
         root.end = {
+            enable: true,
             dbSection: "static",
             menuType: menuType02,
             animation: subAnimation02,
@@ -553,16 +567,14 @@ async function mergeVersion05(data) {
             enableCustom: custom02 || false,
             customPath: customPath02,
             options: {
+                delay: 500,
                 elevation: below ? 0 : 1000,
-                isMasked: false,
-                opacity: 1,
-                isRadius: false,
-                size: scale02 ?? 1,
-                delay: 0,
-                delayAlpha: delay ?? 250,
                 fadeIn: 250,
-                fadeOut: 500,
-                tokenIn: 250,
+                fadeOut: 250,
+                isMasked: false,
+                isRadius: false,
+                opacity: 1,
+                size: scale02 ?? 1,
             }
         }
         if (!root.start.menuType || !root.start.animation || !root.start.variant || !root.start.color) {
@@ -862,15 +874,26 @@ async function mergeVersion05(data) {
         newMO.primary = {
             options: {
                 addTokenWidth: false,
-                aeDelay: aeDelay || 0,
+                alpha: false,
+                alphaMax: 0.5,
+                alphaMin: -0.5,
+                alphaDuration: 1000,
+                breath: false,
+                breathMax: 1.05,
+                breathMin: 0.95,
+                breathDuration: 1000,        
                 delay: 0,
                 elevation: below ? 0 : 1000,
-                ignoreTarget: true,
-                isMasked: false,
+                fadeIn: 250,
+                fadeOut: 500,        
                 isRadius: true,
                 isWait: true,
                 opacity: opacity,
+                playOn: "source",
                 size: scale || 1,
+                tint: false,
+                tintColor: "#FFFFFF",
+                tintSaturate: 0,        
                 unbindAlpha: unbindAlpha || false,
                 unbindVisibility: unbindVisibility || false,
                 zIndex: 1,

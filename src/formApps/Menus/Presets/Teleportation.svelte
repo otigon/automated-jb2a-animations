@@ -37,24 +37,47 @@
         },
     };
 
-    const betweenFolder = {
-        styles: {
-            "--tjs-summary-font-family":
+    const styling = {
+        "--tjs-summary-font-family":
                 '"Modesto Condensed", "Palatino Linotype", serif',
             "--tjs-summary-font-size": "1.1em",
             "--tjs-summary-chevron-size": "0.7em",
-        },
+    }
+    const betweenFolder = {
+        styles: styling,
         label:
             game.i18n.localize("autoanimations.menus.between") +
             " " +
             game.i18n.localize("autoanimations.menus.animation"),
     };
 
+    const startFolder = {
+        styles: styling,
+        label:
+            game.i18n.localize("autoanimations.menus.start") +
+            " " +
+            game.i18n.localize("autoanimations.menus.animation"),
+    };
+
+    const endFolder = {
+        styles: styling,
+        label:
+            game.i18n.localize("autoanimations.menus.end") +
+            " " +
+            game.i18n.localize("autoanimations.menus.animation"),
+    };
+
     const isGM = game.user.isGM;
+
 </script>
 
-<div class="aa-options-border" style="padding-left: 2em; padding-right: 1em">
-    <SectionHeader title="Teleportation Options" />
+<div class="aa-options-border" style="padding-left: 1em; padding-right: 1em">
+    <SectionHeader title={localize('autoanimations.menus.movement') + " " + localize('autoanimations.menus.options')} />
+    <i 
+        class="fas fa-info-circle aa-blue"
+        style="position:relative; bottom: 30px; left: 30px; font-size: 1.2em"
+        on:click={() => OptionsDialog.show("preset", "teleportation")}
+    ></i>
     <table class="d">
         <tr>
             <td>
@@ -64,7 +87,7 @@
                 <div class="flexcol">
                     <select
                         bind:value={$animation.data.options.measureType}
-                        style="width: 95%;"
+                        style="width: 95%; align-self: center"
                     >
                         <option value="alternating"
                             >{localize(
@@ -82,7 +105,7 @@
             <td class={isGM ? "" : "aa-disableOpacity"}>
                 <div>
                     <label for="Hide {animation._data.id}"
-                        >Hide From Players</label
+                        >{localize('autoanimations.menus.hideBorder')}</label
                     >
                 </div>
                 <div>
@@ -95,7 +118,7 @@
             </td>
             <td>
                 <div>
-                    <label for="">Range</label>
+                    <label for="">{localize('autoanimations.menus.ranged')}</label>
                 </div>
                 <div>
                     <input
@@ -108,10 +131,9 @@
             </td>
         </tr>
         <tr>
-            <td />
             <td>
                 <div>
-                    <label for="Hide {animation._data.id}">Teleport</label>
+                    <label for="Hide {animation._data.id}">{localize('autoanimations.menus.teleport')} {localize('autoanimations.menus.token')}</label>
                 </div>
                 <div>
                     <input
@@ -121,13 +143,26 @@
                     />
                 </div>
             </td>
+            <td>
+                <div>
+                    <label for="">Delay Movement</label>
+                </div>
+                <div>
+                    <input
+                        type="number"
+                        bind:value={$animation.data.options.delayMove}
+                        placeholder="30"
+                        step=".01"
+                    />
+                </div>
+            </td>
             <td
                 class={$animation.data.options.teleport
                     ? "aa-disableOpacity"
                     : ""}
             >
                 <div>
-                    <label for="">Speed</label>
+                    <label for="">{localize('autoanimations.menus.speed')}</label>
                 </div>
                 <div>
                     <input
@@ -139,9 +174,75 @@
                 </div>
             </td>
         </tr>
+        <tr>
+            <td>
+                <div class="flexcol">
+                    <label for="">{localize("autoanimations.menus.token") + " " + localize("autoanimations.menus.alpha")}</label
+                    >
+                    <div
+                        class="form-group"
+                        style="display: flex; margin-right: 1.5em; margin-left: 1.5em;"
+                    >
+                        <input
+                            type="number"
+                            bind:value={$animation.data.options.alpha}
+                            placeholder="1"
+                            min="0"
+                            max="1"
+                            step="0.01"
+                        />
+                        <input
+                            style="border:none; background:none;margin-left: 3px;"
+                            type="range"
+                            min="0"
+                            max="1"
+                            step="0.01"
+                            bind:value={$animation.data.options.alpha}
+                        />
+                    </div>
+                </div>                
+            </td>
+            <td>
+                <div>
+                    <label for=""
+                        >{localize('autoanimations.menus.delay')} {localize('autoanimations.menus.fadeOut')}</label
+                    >
+                </div>
+                <div>
+                    <input
+                        type="number"
+                        bind:value={$animation.data.options.delayFade}
+                        placeholder="1"
+                        step="1"
+                    />
+                </div>
+            </td>
+            <td>
+                <div>
+                    <label for="">{localize('autoanimations.menus.delay')} {localize('autoanimations.menus.fadeIn')}</label>
+                </div>
+                <div>
+                    <input
+                        type="number"
+                        bind:value={$animation.data.options.delayReturn}
+                        placeholder="1"
+                        step="1"
+                    />
+                </div>
+            </td>
+        </tr>
     </table>
 </div>
 <div class="aa-section-border">
+    <TJSSvgFolder folder={startFolder}>
+        <div slot="summary-end">
+            <input
+                type="checkbox"
+                style="align-self:center"
+                title="Toggle Source FX On/Off"
+                bind:checked={$animation.data.start.enable}
+            />
+        </div>
     <VideoSelect
         {animation}
         {category}
@@ -152,13 +253,6 @@
     />
     <div class="aa-options-border">
         <TJSSvgFolder {folder}>
-            <div slot="summary-end">
-                <TJSIconButton
-                    button={optionsInfo}
-                    on:click={() =>
-                        OptionsDialog.show("preset", "teleportation")}
-                />
-            </div>
             <table class="d">
                 <tr>
                     <td>
@@ -211,8 +305,7 @@
                     <td>
                         <div>
                             <label for=""
-                                >{localize("autoanimations.menus.effect")}
-                                {localize("autoanimations.menus.fadeIn")}</label
+                                >{localize("autoanimations.menus.fadeIn")}</label
                             >
                         </div>
                         <div>
@@ -226,11 +319,7 @@
                     </td>
                     <td>
                         <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.effect")}
-                                {localize(
-                                    "autoanimations.menus.fadeOut"
-                                )}</label
+                            <label for="">{localize("autoanimations.menus.fadeOut")}</label
                             >
                         </div>
                         <div>
@@ -245,33 +334,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <!--Set Token Alpha for start-->
-                        <Opacity
-                            {animation}
-                            section="start"
-                            field="alpha"
-                            label={localize("autoanimations.menus.token") +
-                                " " +
-                                localize("autoanimations.menus.alpha")}
-                        />
-                    </td>
-                    <td class="aa-disableOpacity">
-                        <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.token")}
-                                {localize(
-                                    "autoanimations.menus.fadeOut"
-                                )}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.start.options.tokenOut}
-                                placeholder="1"
-                                step="1"
-                            />
-                        </div>
+
                     </td>
                     <td>
                         <div>
@@ -288,10 +351,14 @@
                             />
                         </div>
                     </td>
+                    <td>
+
+                    </td>
                 </tr>
             </table>
         </TJSSvgFolder>
     </div>
+    </TJSSvgFolder>
 </div>
 <div class="aa-section-border">
     <TJSSvgFolder folder={betweenFolder}>
@@ -300,13 +367,13 @@
                 type="checkbox"
                 style="align-self:center"
                 title="Toggle Source FX On/Off"
-                bind:checked={$animation.data.between.options.enable}
+                bind:checked={$animation.data.between.enable}
             />
         </div>
         <VideoSelect
             {animation}
             {category}
-            title="Animation"
+            title={localize('autoanimations.menus.between') + " " + localize('autoanimations.menus.animation')}
             {idx}
             section="data"
             section02="between"
@@ -379,6 +446,15 @@
     </TJSSvgFolder>
 </div>
 <div class="aa-section-border">
+    <TJSSvgFolder folder={endFolder}>
+        <div slot="summary-end">
+            <input
+                type="checkbox"
+                style="align-self:center"
+                title="Toggle Source FX On/Off"
+                bind:checked={$animation.data.end.enable}
+            />
+        </div>
     <VideoSelect
         {animation}
         {category}
@@ -441,7 +517,7 @@
                     <td>
                         <div>
                             <label for=""
-                                >{localize("autoanimations.menus.effect")} {localize("autoanimations.menus.fadeIn")}</label
+                                >{localize("autoanimations.menus.fadeIn")}</label
                             >
                         </div>
                         <div>
@@ -456,7 +532,7 @@
                     <td>
                         <div>
                             <label for=""
-                                >{localize("autoanimations.menus.effect")} {localize("autoanimations.menus.fadeOut")}</label
+                                >{localize("autoanimations.menus.fadeOut")}</label
                             >
                         </div>
                         <div>
@@ -471,38 +547,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.delay")}
-                                {localize("autoanimations.menus.alpha")}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.end.options.delayAlpha}
-                                placeholder="250"
-                                step="1"
-                            />
-                        </div>
-                    </td>
-                    <td class="aa-disableOpacity">
-                        <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.token")}
-                                {localize(
-                                    "autoanimations.menus.fadeIn"
-                                )}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.end.options.tokenIn}
-                                placeholder="1"
-                                step="1"
-                            />
-                        </div>
+
                     </td>
                     <td>
                         <div>
@@ -519,10 +564,14 @@
                             />
                         </div>
                     </td>
+                    <td>
+
+                    </td>
                 </tr>
             </table>
         </TJSSvgFolder>
     </div>
+    </TJSSvgFolder>
 </div>
 
 <style lang="scss">

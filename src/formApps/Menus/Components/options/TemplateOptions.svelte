@@ -38,6 +38,8 @@
 
     $: persistType = $animation.primary.options.persistType;
 
+    $: isAttached = persistent && persistType === "attachtemplate";
+
 </script>
 
 <div class="aa-options-border">
@@ -116,7 +118,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class={isAttached ? "aa-disableOpacity" : ""}>
                     <!--Set Masking-->
                     <div class="form-group">
                         <label for="Remove {animation._data.id}"

@@ -1,6 +1,5 @@
 //import { buildFile } from "../file-builder/build-filepath.js";
 import { howToDelete } from "../../constants/constants.js";
-import { buildTargetSeq } from "../buildTargetSeq.js";
 
 // Credit goes to Wasp-Sequencer Guy for the structure of the Fireball Sequence
 export async function proToTemp(handler, animationData, config) {
@@ -105,7 +104,7 @@ export async function proToTemp(handler, animationData, config) {
             aaSeq.addSequence(targetFX.sound)
         }
         for (let currentTarget of handler.allTargets) {
-            let targetSequence = buildTargetSeq(targetFX, currentTarget, handler);
+            let targetSequence = handler.buildTargetSeq(targetFX, currentTarget);
             aaSeq.addSequence(targetSequence.targetSeq)
         }
     }

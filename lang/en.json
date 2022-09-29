@@ -583,7 +583,7 @@
             "3dcanvas": "3d Canvas",
             "only": "Only",
             "all": "All",
-            "bind": "Bind",
+            "unbind": "Unbind",
             "effect": "Effect",
             "fadeIn": "Fade In",
             "fadeOut": "Fade Out",
@@ -596,7 +596,13 @@
             "item": "Item",
             "globalFound": "Global match found",
             "globalNotFound": "Global match not found",
-            "label": "Label"
+            "label": "Label",
+            "tint": "Tint",
+            "activate": "Activate",
+            "saturate": "Saturate",
+            "end": "End",
+            "movement": "Movement",
+            "teleport": "Teleport"
         },
         "optionsInfo": {
 

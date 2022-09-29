@@ -1,6 +1,6 @@
-import { buildFile } from "../animation-functions/file-builder/build-filepath.js";
-import { custom_notify } from "../constants/constants.js"
-import { particleDefaultValues } from "../animation-functions/levels-particles/particleDefaults.js";
+import { buildFile }                from "../animation-functions/file-builder/build-filepath.js";
+import { custom_notify }            from "../constants/constants.js"
+import { particleDefaultValues }    from "../animation-functions/levels-particles/particleDefaults.js";
 
 export class DataSanitizer {
 
@@ -204,6 +204,14 @@ export class DataSanitizer {
             case "aura":
                 return {
                     addTokenWidth: data.addTokenWidth ?? false,
+                    alpha: data.alpha ?? false,
+                    alphaDuration: data.alphaDuration || 1000,
+                    alphaMax: data.alphaMax ?? 0.5,
+                    alphaMin: data.alphaMin ?? -0.5,
+                    breath: data.breath ?? false,
+                    breathDuration: data.breathDuration || 1000,
+                    breathMax: data.breathMax ?? 1.05,
+                    breathMin: data.breathMin ?? 0.95,
                     delay: data.delay || 1,
                     elevation: data.elevation ?? 1000,
                     fadeIn: data.fadeIn ?? 250,
@@ -212,11 +220,38 @@ export class DataSanitizer {
                     opacity: data.opacity ?? 1,
                     playOn: data.playOn || "source",
                     size: data.size || 3,
+                    tint: data.tint ?? false,
+                    tintColor: data.tintColor || "#FFFFFF",
+                    tintSaturate: data.tintSaturate ?? 0,
                     unbindAlpha: data.unbindAlpha ?? false,
                     unbindVisibility: data.unbindVisibility ?? false,
                     zIndex: data.zIndex || 1,
                 };
         }
+        /*
+        function rgbToHsl(color) {
+            let r = parseInt(color.substr(1, 2), 16);
+            let g = parseInt(color.substr(3, 2), 16);
+            let b = parseInt(color.substr(5, 2), 16);
+            r /= 255;
+            g /= 255;
+            b /= 255;
+            const l = Math.max(r, g, b);
+            const s = l - Math.min(r, g, b);
+            const h = s
+                ? l === r
+                    ? (g - b) / s
+                    : l === g
+                        ? 2 + (b - r) / s
+                        : 4 + (r - g) / s
+                : 0;
+            return [
+                60 * h < 0 ? 60 * h + 360 : 60 * h,
+                (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0),
+                ((2 * l - s)) / 2,
+            ];
+        };
+        */
     }
 
     static async compileSecondary(flagData) {
@@ -586,26 +621,25 @@ export class DataSanitizer {
             const sound = flags.sound || {};
 
             const data = {
-                start: {
+                start: !start.enable ? false : {
                     menuType: start.menuType,
                     animation: start.animation,
                     variant: start.variant,
                     color: start.color,
                     customPath: start.enableCustom && start.customPath ? start.customPath : false,
                     options: {
-                        alpha: startOptions.alpha ?? 0,
+                        //alpha: startOptions.alpha ?? 0,
                         delay: startOptions.delay ?? 0,
-                        isMasked: startOptions.isMasked ?? false,
                         elevation: startOptions.elevation ?? 1000,
-                        opacity: startOptions.opacity ?? 1,
-                        size: startOptions.size ?? 1,
-                        isRadius: startOptions.isRadius ?? false,
                         fadeIn: startOptions.fadeIn ?? 250,
                         fadeOut: startOptions.fadeOut ?? 500,
-                        tokenOut: startOptions.tokenOut ?? 250,
+                        isMasked: startOptions.isMasked ?? false,
+                        isRadius: startOptions.isRadius ?? false,
+                        opacity: startOptions.opacity ?? 1,
+                        size: startOptions.size ?? 1,
                     },
                 },
-                between: {
+                between: !between.enable ? false :  {
                     menuType: between.menuType,
                     animation: between.animation,
                     variant: between.variant,
@@ -613,37 +647,38 @@ export class DataSanitizer {
                     customPath: between.enableCustom && between.customPath ? between.customPath : false,
                     options: {
                         delay: betweenOptions.delay ?? 0,
-                        enable: betweenOptions.enable ?? false,
                         elevation: betweenOptions.elevation ?? 1000,
                         opacity: betweenOptions.opacity ?? 1,
                         playbackRate: betweenOptions.playbackRate ?? 1,
                     },
                 },
-                end: {
+                end: !end.enable ? false :  {
                     menuType: end.menuType,
                     animation: end.animation,
                     variant: end.variant,
                     color: end.color,
                     customPath: end.enableCustom && end.customPath ? end.customPath : false,
                     options: {
-                        elevation: endOptions.elevation ?? 1000,
-                        isMasked: endOptions.isMasked ?? false,
-                        opacity: endOptions.opacity ?? 1,
-                        isRadius: endOptions.isRadius ?? false,
-                        size: endOptions.size ?? 1,
                         delay: endOptions.delay ?? 0,
-                        delayAlpha: endOptions.delayAlpha ?? 250,
+                        elevation: endOptions.elevation ?? 1000,
                         fadeIn: startOptions.fadeIn ?? 250,
                         fadeOut: startOptions.fadeOut ?? 500,
-                        tokenIn: startOptions.tokenOut ?? 250,
+                        isMasked: endOptions.isMasked ?? false,
+                        isRadius: endOptions.isRadius ?? false,
+                        opacity: endOptions.opacity ?? 1,
+                        size: endOptions.size ?? 1,
                     },
                 },
                 options: {
+                    measureType: options.measureType || "alternating",
                     hideFromPlayers: options.hideFromPlayers ?? false,
                     range: options.range ?? 30,
-                    measureType: options.measureType || "alternating",
-                    speed: options.speed || 6,
                     teleport: options.teleport ?? false,
+                    delayMove: options.delayMove ?? 0,
+                    speed: options.speed || 6,
+                    alpha: options.alpha ?? 1,
+                    delayFade: options.delayFade ?? 0,
+                    delayReturn: options.delayReturn ?? 0,
                 },
                 sound: setSound(sound)
             }

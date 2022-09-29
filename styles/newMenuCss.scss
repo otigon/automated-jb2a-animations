@@ -376,4 +376,5 @@
 .aa-disableOpacity {
     pointer-events: none;
     opacity: 0.4;
+    transition: opacity .5s;
 }

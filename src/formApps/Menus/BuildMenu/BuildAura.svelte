@@ -29,6 +29,7 @@
     <div class="aa-primary-border">
         <svelte:component this={settings.Video} {animation} {category} {idx} {title} section="primary"/>
         <svelte:component this={options.Aura} {animation}/>
+        <svelte:component this={options.AuraEffects} {animation}/>
         <svelte:component this={settings.Sound} {animation} {category} {idx} section="primary" />
     </div>
     <svelte:component this={settings.Secondary} {animation} {category} {idx}/>

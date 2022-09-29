@@ -1,5 +1,4 @@
 import { howToDelete } from "../../constants/constants.js";
-import { buildTargetSeq } from "../buildTargetSeq.js";
 
 export async function aura(handler, animationData) {
 
@@ -11,7 +10,7 @@ export async function aura(handler, animationData) {
     const easeArray = ['easeInOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutQuad', 'easeInCirc']
     const sourceToken = handler.sourceToken;
     //const aura = await buildFile(false, data.video.menuType, data.video.animation, "static", data.video.variant, data.video.color, data.video.customPath);
-    
+    console.log(data)
     let aaSeq = new Sequence("Automated Animations")
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1") {
@@ -32,18 +31,20 @@ export async function aura(handler, animationData) {
     })
 
     if (data.options.playOn === "source" || (data.options.playOn === "default" && handler.allTargets.length < 1)) {
-        if ((data.options.persistent && !sourceCheckAnim) || !data.options.persistent) {
-            let aaEffect = aaSeq.effect();
-            if (handler.isActiveEffect) {
-                aaEffect.name(handler.itemName + `${sourceToken.id}`)
-            } else {
-                aaEffect.name("spot" + ` ${sourceToken.id}`)
-            }
-            setPrimary(sourceToken, aaEffect)
-            if (data.options.isWait) {
-                aaEffect.waitUntilFinished(data.options.delay)
-            }
+        const sourceCheckAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0;
+        if (sourceCheckAnim) { return; }
+
+        let aaEffect = aaSeq.effect();
+        if (handler.isActiveEffect) {
+            aaEffect.name(handler.itemName + `${sourceToken.id}`)
+        } else {
+            aaEffect.name("spot" + ` ${sourceToken.id}`)
         }
+        setPrimary(sourceToken, aaEffect)
+        if (data.options.isWait) {
+            aaEffect.waitUntilFinished(data.options.delay)
+        }
+
         if (secondary) {
             if (secondary.sound) {
                 aaSeq.addSequence(secondary.sound)
@@ -55,33 +56,37 @@ export async function aura(handler, animationData) {
     }
 
     if ((data.options.playOn === 'target' || data.options.playOn === 'default') && handler.allTargets.length > 0) {
-        for (let i = 0; i < handler.allTargets.length; i++) {
-            let currentTarget = handler.allTargets[i]
-            //let targetTokenGS = data.options.isRadius ? data.options.size : (currentTarget.w / canvas.grid.size) * 1.5 * data.options.size;
-            let checkAnim = Sequencer.EffectManager.getEffects({ object: currentTarget, origin: handler.itemUuid }).length > 0
 
-            if ((data.options.persistent && !checkAnim) || !data.options.persistent) {
-                let aaEffect = aaSeq.effect();
+        let newTargetArray = [];
+        for (let target of handler.allTargets) {
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0;
+            if (!checkAnim) { newTargetArray.push(target) }
+        }
+        if (newTargetArray.length < 1) { return; }
+
+        for (let i = 0; i < newTargetArray.length; i++) {
+            let currentTarget = newTargetArray[i]
+
+            let aaEffect = aaSeq.effect();
                 setPrimary(currentTarget, aaEffect)
 
-                if (i === handler.allTargets.length - 1 && data.options.isWait) {
+                if (i === newTargetArray.length - 1 && data.options.isWait) {
                     aaEffect.waitUntilFinished(data.options.delay)
                 } else if (!data.options.isWait) {
                     aaEffect.delay(data.options.delay)
                 }
-            }
         }
 
         if (secondary) {
             if (secondary.sound) {
                 aaSeq.addSequence(secondary.sound)
             }
-            for (let i = 0; i < handler.allTargets.length; i++) {
-                let currentTarget = handler.allTargets[i]
+            for (let i = 0; i < newTargetArray.length; i++) {
+                let currentTarget = newTargetArray[i]
                 let secondarySeq = aaSeq.effect()
                 setSecondary(currentTarget, secondarySeq)
 
-                if (i === handler.allTargets.length - 1 && secondary.options.isWait && targetFX.enable) {
+                if (i === newTargetArray.length - 1 && secondary.options.isWait && targetFX.enable) {
                     secondarySeq.waitUntilFinished(secondary.options.delay)
                 } else if (!secondary.options.isWait) {
                     secondarySeq.delay(secondary.options.delay)
@@ -93,16 +98,23 @@ export async function aura(handler, animationData) {
             if (targetFX.sound) {
                 aaSeq.addSequence(targetFX.sound)
             }
-            for (let currentTarget of handler.allTargets) {
-                let targetSequence = buildTargetSeq(targetFX, currentTarget, handler);
+            for (let currentTarget of newTargetArray) {
+                let targetSequence = handler.buildTargetSeq(targetFX, currentTarget);
                 aaSeq.addSequence(targetSequence.targetSeq)
             }
         }
     }
 
     if (data.options.playOn === "both") {
-        const sourceCheckAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
-        if ((data.options.persistent && !sourceCheckAnim) || !data.options.persistent) {
+        const sourceCheckAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0;
+        let newTargetArray = [];
+        for (let target of handler.allTargets) {
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0;
+            if (!checkAnim) { newTargetArray.push(target) }
+        }
+        if (sourceCheckAnim && newTargetArray.length < 1) { return; 
+        }
+        if (!sourceCheckAnim) {
             let aaEffect = aaSeq.effect();
             setPrimary(sourceToken, aaEffect)
 
@@ -113,47 +125,58 @@ export async function aura(handler, animationData) {
             }
         }
 
-        for (let i = 0; i < handler.allTargets.length; i++) {
-            let currentTarget = handler.allTargets[i]
+        if (newTargetArray.length > 0) {
+            for (let i = 0; i < newTargetArray.length; i++) {
+                let currentTarget = newTargetArray[i]
 
-            let checkAnim = Sequencer.EffectManager.getEffects({ object: currentTarget, origin: handler.itemUuid }).length > 0;
-
-            if ((data.options.persistent && !checkAnim) || !data.options.persistent) {
                 let aaEffect = aaSeq.effect();
                 setPrimary(currentTarget, aaEffect)
 
-                if (i === handler.allTargets.length - 1 && data.options.isWait) {
+                if (i === newTargetArray.length - 1 && data.options.isWait) {
                     aaEffect.waitUntilFinished(data.options.delay)
                 } else if (!data.options.isWait) {
                     aaEffect.delay(data.options.delay)
                 }
             }
         }
+        if (secondary && secondary.sound) {
+            aaSeq.addSequence(secondary.sound)
+        }
 
-        if (secondary && handler.allTargets.length > 0) {
-            if (secondary.sound) {
-                aaSeq.addSequence(secondary.sound)
-            }
-            for (let i = 0; i < handler.allTargets.length; i++) {
-                let currentTarget = handler.allTargets[i];
-                let secondarySeq = aaSeq.effect()
-                setSecondary(currentTarget, secondarySeq)
+        if (secondary && !sourceCheckAnim) {
+            let sourceSecondarySeq = aaSeq.effect()
+            setSecondary(sourceToken, sourceSecondarySeq)
 
-                if (i === handler.allTargets.length - 1 && secondary.options.isWait && targetFX.enable) {
-                    secondarySeq.waitUntilFinished(secondary.options.delay)
-                } else if (!secondary.options.isWait) {
-                    secondarySeq.delay(secondary.options.delay)
-                }
+            if (newTargetArray.length < 1 && secondary.options.isWait) {
+                sourceSecondarySeq.waitUntilFinished(secondary.options.delay)
+            } else if (!secondary.options.isWait) {
+                sourceSecondarySeq.delay(secondary.options.delay)
             }
         }
 
-        if (targetFX.enable && handler.allTargets.length > 0) {
-            if (targetFX.sound) {
-                aaSeq.addSequence(targetFX.sound)
+        if (newTargetArray.length > 0) {
+            if (secondary && newTargetArray.length > 0) {
+                for (let i = 0; i < newTargetArray.length; i++) {
+                    let currentTarget = newTargetArray[i];
+                    let secondarySeq = aaSeq.effect()
+                    setSecondary(currentTarget, secondarySeq)
+
+                    if (i === newTargetArray.length - 1 && secondary.options.isWait && targetFX.enable) {
+                        secondarySeq.waitUntilFinished(secondary.options.delay)
+                    } else if (!secondary.options.isWait) {
+                        secondarySeq.delay(secondary.options.delay)
+                    }
+                }
             }
-            for (let currentTarget of handler.allTargets) {
-                let targetSequence = buildTargetSeq(targetFX, currentTarget, handler);
-                aaSeq.addSequence(targetSequence.targetSeq)
+
+            if (targetFX.enable && newTargetArray.length > 0) {
+                if (targetFX.sound) {
+                    aaSeq.addSequence(targetFX.sound)
+                }
+                for (let currentTarget of newTargetArray) {
+                    let targetSequence = handler.buildTargetSeq(targetFX, currentTarget);
+                    aaSeq.addSequence(targetSequence.targetSeq)
+                }
             }
         }
     }
@@ -164,19 +187,34 @@ export async function aura(handler, animationData) {
 
     function setPrimary(token, seq) {
         const size = handler.getSize(true, data.options.size, token, data.options.addTokenWidth)
-        let easeIt = randomEase()
         seq.file(data.path.file)
         seq.persist()
         seq.origin(handler.itemUuid)
-        //seq.size(size, { gridUnits: true })
+        if (data.options.tint) {
+            seq.tint(data.options.tintColor)
+            seq.filter("ColorMatrix", {saturate: data.options.tintSaturate})
+            //seq.filter("ColorMatrix", {tint: data.options.tintColor})
+        }
+        seq.size(size, { gridUnits: true })
         seq.elevation(data.options.elevation)
         seq.attachTo(token, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
         seq.opacity(data.options.opacity)
         seq.fadeIn(data.options.fadeIn)
         seq.fadeOut(data.options.fadeOut)
         seq.zIndex(data.options.zIndex)
-        seq.animateProperty("sprite", "width", { from: 0, to: size, duration: 1000, ease: easeIt, gridUnits: true })
-        seq.animateProperty("sprite", "height", { from: 0, to: size, duration: 1000, ease: easeIt, gridUnits: true })
+        /*
+        if (data.options.easeIn) {
+            seq.animateProperty("sprite", "width", { from: 0, to: size, duration: 750, ease: data.options.ease, gridUnits: true })
+            seq.animateProperty("sprite", "height", { from: 0, to: size, duration: 750, ease: data.options.ease, gridUnits: true })    
+        }
+        */
+        if (data.options.breath) {
+            seq.loopProperty("sprite", "scale.x", { from: data.options.breathMin, to: data.options.breathMax, duration: data.options.breathDuration, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
+            seq.loopProperty("sprite", "scale.y", { from: data.options.breathMin, to: data.options.breathMax, duration: data.options.breathDuration, pingPong: true, ease: 'easeInOutSine', gridUnits: true })    
+        }
+        if (data.options.alpha) {
+            seq.loopProperty("alphaFilter", "alpha", { from: data.options.alphaMin, to: data.options.alphaMax, duration: data.options.alphaDuration, pingPong: true })
+        }
     }
 
     function setSecondary(token, seq) {

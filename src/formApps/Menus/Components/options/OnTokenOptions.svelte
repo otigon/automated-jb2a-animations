@@ -99,7 +99,7 @@
                             : 'aa-disableOpacity'}"
                     >
                         <label for="Vis {animation._data.id}"
-                            >{localize("autoanimations.menus.bind")}
+                            >{localize("autoanimations.menus.unbind")}
                             {localize("autoanimations.menus.visibility")}
                         </label>
                         <input
@@ -118,7 +118,7 @@
                             : 'aa-disableOpacity'}"
                     >
                         <label for="Alpha {animation._data.id}"
-                            >{localize("autoanimations.menus.bind")}
+                            >{localize("autoanimations.menus.unbind")}
                             {localize("autoanimations.menus.alpha")}
                         </label>
                         <input

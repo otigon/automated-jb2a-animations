@@ -15,7 +15,7 @@
     </tr>
     <tr>
         <td class="aa-table">
-            <strong>{localize("autoanimations.menus.bind") + " " + localize("autoanimations.menus.alpha")}</strong>
+            <strong>{localize("autoanimations.menus.unbind") + " " + localize("autoanimations.menus.alpha")}</strong>
         </td>
         <td>
             <strong>Persistent Effects Only:</strong> If enabled, the Alpha level of the Effect will match that
@@ -25,7 +25,7 @@
     </tr>
     <tr>
         <td class="aa-table">
-            <strong>{localize("autoanimations.menus.bind") + " " + localize("autoanimations.menus.visibility")}</strong>
+            <strong>{localize("autoanimations.menus.unbind") + " " + localize("autoanimations.menus.visibility")}</strong>
         </td>
         <td>
             <strong>Persistent Effects Only:</strong> If enabled, the Visibility of the Effect will match that of

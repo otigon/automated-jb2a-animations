@@ -45,6 +45,11 @@
         </th>
     </tr>
     <tr>
+        <th colspan="2" style="background: rgba(17, 0, 148, .5)">
+            Projectile Animation
+        </th>
+    </tr>
+    <tr>
         <td class="aa-table">
             <strong>{localize("autoanimations.menus.elevation")}</strong>
         </td>
@@ -86,6 +91,75 @@
             <strong>{localize("autoanimations.menus.effect")} {localize("autoanimations.menus.opacity")}</strong>
         </td>
         <td> Set the Alpha (transparency) level of the Animation </td>
+    </tr>
+    <tr>
+        <th colspan="2" style="background: rgba(17, 0, 148, .5)">
+            Explosion / Pre-Explosion Animation
+        </th>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.elevation")}</strong>
+        </td>
+        <td> Set the Elevation for the Animation. Elevation of "0" is below all tokens </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.repeat")}</strong>
+        </td>
+        <td>
+            Causes the effect to be repeated <strong>N</strong> times, with an optional delay.
+            A Repeat of 1 only plays the effect once.
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.repeat")} {localize("autoanimations.menus.delay")}</strong>
+        </td>
+        <td> Sets the Delay between each Repeat in milliseconds. </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.scale")}</strong>
+        </td>
+        <td>
+            Sets the scale of the effect. Inital scale is based off of the
+            Token Size.
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.wait")}</strong>
+        </td>
+        <td> 
+            Causes the following animation section to play AFTER the current is finished. Accepts Negative and Positive Numbers
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.effect")} {localize("autoanimations.menus.opacity")}</strong>
+        </td>
+        <td> Set the Alpha (transparency) level of the Animation </td>
+    </tr>
+    <tr>
+        <th colspan="2" style="background: rgba(17, 0, 148, .5)">
+            After Image
+        </th>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.elevation")}</strong>
+        </td>
+        <td> Set the Elevation for the Animation. Elevation of "0" is below all tokens </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.persistant")}</strong>
+        </td>
+        <td>
+            This will cause the effect to become permanent on the canvas.
+            You can end the effect with the Sequencer Effect Manager.
+        </td>
     </tr>
     <tr>
         <td class="aa-table">
@@ -149,6 +223,11 @@
         </th>
     </tr>
     <tr>
+        <th colspan="2" style="background: rgba(17, 0, 148, .5)">
+            Movement Options
+        </th>
+    </tr>
+    <tr>
         <td class="aa-table">
             <strong>Range Marker</strong>
         </td>
@@ -167,6 +246,59 @@
         <td>
             Distance limitation for the Teleportation
         </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>Teleport Token</strong>
+        </td>
+        <td>
+            Toggle whether the Token should be teleported or moved
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>Delay Movement</strong>
+        </td>
+        <td>
+            Sets the delay before the Token should move
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>Speed</strong>
+        </td>
+        <td>
+            If not teleporting, set the speed for token movement
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>Token Alpha</strong>
+        </td>
+        <td>
+            Sets the Opacity the token should fade to
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>Delay Fade Out</strong>
+        </td>
+        <td>
+            Sets the delay for when the token should begin changin Opacity
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>Delay Fade In</strong>
+        </td>
+        <td>
+            Sets the delay for when the Token should return to full opacity (minimum 250)
+        </td>
+    </tr>
+    <tr>
+        <th colspan="2" style="background: rgba(17, 0, 148, .5)">
+            Start / End Animation
+        </th>
     </tr>
     <tr>
         <td class="aa-table">
@@ -194,17 +326,40 @@
     </tr>
     <tr>
         <td class="aa-table">
-            <strong>{localize("autoanimations.menus.token")} {localize("autoanimations.menus.alpha")}</strong>
-        </td>
-        <td>
-            Opacity level for which the Token reduces to on Teleport
-        </td>
-    </tr>
-    <tr>
-        <td class="aa-table">
             <strong>{localize("autoanimations.menus.effect")} {localize("autoanimations.menus.opacity")}</strong>
         </td>
         <td> Set the Alpha (transparency) level of the Animation </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.fadeIn")}</strong>
+        </td>
+        <td> Sets the fadeIn time of the effect in milliseconds </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.fadeOut")}</strong>
+        </td>
+        <td> Sets the fadeOut time of the effect in milliseconds </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.delay")}</strong>
+        </td>
+        <td> 
+            Causes the start of the animation section to be delayed (milliseconds)
+        </td>
+    </tr>
+    <tr>
+        <th colspan="2" style="background: rgba(17, 0, 148, .5)">
+            Between Animation
+        </th>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.elevation")}</strong>
+        </td>
+        <td> Set the Elevation for the Animation. Elevation of "0" is below all tokens </td>
     </tr>
     <tr>
         <td class="aa-table">
@@ -216,12 +371,18 @@
     </tr>
     <tr>
         <td class="aa-table">
-            <strong>{localize("autoanimations.menus.delay")} {localize("autoanimations.menus.alpha")}</strong>
+            <strong>{localize("autoanimations.menus.effect")} {localize("autoanimations.menus.opacity")}</strong>
         </td>
-        <td>
-            Time in milliseconds to return the Token to full Opacity
+        <td> Set the Alpha (transparency) level of the Animation </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.delay")}</strong>
         </td>
-    </tr>    
+        <td> 
+            Causes the start of the animation section to be delayed (milliseconds)
+        </td>
+    </tr>
 </table>
 {/if}
 

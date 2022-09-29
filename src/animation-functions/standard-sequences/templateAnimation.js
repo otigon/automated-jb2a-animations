@@ -1,5 +1,4 @@
 import { socketlibSocket } from "../../socketset.js";
-import { buildTargetSeq } from "../buildTargetSeq.js";
 import { howToDelete } from "../../constants/constants.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -181,7 +180,7 @@ export async function templatefx(handler, animationData, config) {
 
     if (handler.allTargets.length && targetFX.enable) {
         for (let target of handler.allTargets) {
-            let targetSequence = buildTargetSeq(targetFX, target, handler);
+            let targetSequence = handler.buildTargetSeq(targetFX, target);
             aaSeq.addSequence(targetSequence.targetSeq)
         }
     }

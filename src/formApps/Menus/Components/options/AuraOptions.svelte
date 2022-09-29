@@ -32,7 +32,7 @@
         }
     }
 
-    </script>
+</script>
 
 <div class="aa-options-border">
     <TJSSvgFolder {folder}>
@@ -55,7 +55,7 @@
                     <!--Set Visibility Binding-->
                     <div class="form-group">
                         <label for="Vis {animation._data.id}"
-                            >{localize("autoanimations.menus.bind")} {localize("autoanimations.menus.visibility")}
+                            >{localize("autoanimations.menus.unbind")} {localize("autoanimations.menus.visibility")}
                         </label>
                         <input
                             type="checkbox"
@@ -68,7 +68,7 @@
                     <!--Set Alpha Binding-->
                     <div class="form-group">
                         <label for="Alpha {animation._data.id}"
-                            >{localize("autoanimations.menus.bind")} {localize("autoanimations.menus.alpha")}
+                            >{localize("autoanimations.menus.unbind")} {localize("autoanimations.menus.alpha")}
                         </label>
                         <input
                             type="checkbox"
@@ -176,7 +176,8 @@
                 <td>
                     <WaitDelay {animation}/>
                 </td>
-                <td></td>
+                <td>
+                </td>    
             </tr>
         </table>
     </TJSSvgFolder>

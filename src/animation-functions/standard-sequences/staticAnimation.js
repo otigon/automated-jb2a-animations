@@ -1,4 +1,3 @@
-import { buildTargetSeq } from "../buildTargetSeq.js";
 import { howToDelete } from "../../constants/constants.js";
 
 export async function ontoken(handler, animationData) {
@@ -36,40 +35,39 @@ export async function ontoken(handler, animationData) {
     if (data.options.playOn === "source" || (data.options.playOn === "default" && handler.allTargets.length < 1)) {
 
         const sourceCheckAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
-        //const playPersist = (!checkAnim && data.options.persistent) ? true : false;
-        if ((data.options.persistent && !sourceCheckAnim) || !data.options.persistent) {
-            //setPrimary(sourceToken, handler.isActiveEffect)
-            if (data.options.isShieldFX) {
-                let bottomEffect = aaSeq.effect();
-                if (handler.isActiveEffect) {
-                    bottomEffect.name(handler.itemName + `${sourceToken.id}`)
-                } else {
-                    bottomEffect.name("spot" + ` ${sourceToken.id}`)
-                }
-                setBottom(sourceToken, sourceSize, bottomEffect)
-                let topEffect = aaSeq.effect();
-                if (handler.isActiveEffect) {
-                    topEffect.name(handler.itemName + `${sourceToken.id}`)
-                } else {
-                    topEffect.name("spot" + ` ${sourceToken.id}`)
-                }
-                setTop(sourceToken, sourceSize, topEffect)
-                if (data.options.isWait) {
-                    topEffect.waitUntilFinished(data.options.wait)
-                }
+        if (sourceCheckAnim) { return; }
+        
+        if (data.options.isShieldFX) {
+            let bottomEffect = aaSeq.effect();
+            if (handler.isActiveEffect) {
+                bottomEffect.name(handler.itemName + `${sourceToken.id}`)
             } else {
-                let aaEffect = aaSeq.effect();
-                if (handler.isActiveEffect) {
-                    aaEffect.name(handler.itemName + `${sourceToken.id}`)
-                } else {
-                    aaEffect.name("spot" + ` ${sourceToken.id}`)
-                }
-                setPrimary(sourceToken, sourceSize, aaEffect)
-                if (data.options.isWait) {
-                    aaEffect.waitUntilFinished(data.options.delay)
-                }
+                bottomEffect.name("spot" + ` ${sourceToken.id}`)
+            }
+            setBottom(sourceToken, sourceSize, bottomEffect)
+            let topEffect = aaSeq.effect();
+            if (handler.isActiveEffect) {
+                topEffect.name(handler.itemName + `${sourceToken.id}`)
+            } else {
+                topEffect.name("spot" + ` ${sourceToken.id}`)
+            }
+            setTop(sourceToken, sourceSize, topEffect)
+            if (data.options.isWait) {
+                topEffect.waitUntilFinished(data.options.wait)
+            }
+        } else {
+            let aaEffect = aaSeq.effect();
+            if (handler.isActiveEffect) {
+                aaEffect.name(handler.itemName + `${sourceToken.id}`)
+            } else {
+                aaEffect.name("spot" + ` ${sourceToken.id}`)
+            }
+            setPrimary(sourceToken, sourceSize, aaEffect)
+            if (data.options.isWait) {
+                aaEffect.waitUntilFinished(data.options.delay)
             }
         }
+
         if (secondary) {
             if (secondary.sound) {
                 aaSeq.addSequence(secondary.sound)
@@ -83,11 +81,17 @@ export async function ontoken(handler, animationData) {
     // Target Effect sections
     if ((data.options.playOn === 'target' || data.options.playOn === 'default') && handler.allTargets.length > 0) {
 
-        for (let i = 0; i < handler.allTargets.length; i++) {
-            let currentTarget = handler.allTargets[i]
+        let newTargetArray = [];
+        for (let target of handler.allTargets) {
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0;
+            if (!checkAnim) { newTargetArray.push(target) }
+        }
+        if (newTargetArray.length < 1) { return; }
+
+        for (let i = 0; i < newTargetArray.length; i++) {
+            let currentTarget = newTargetArray[i]
             //let targetTokenGS = data.options.isRadius ? data.options.size : (currentTarget.w / canvas.grid.size) * 1.5 * data.options.size;
             let targetSize = handler.getSize(data.options.isRadius, data.options.size, currentTarget, data.options.addTokenWidth)
-            let checkAnim = Sequencer.EffectManager.getEffects({ object: currentTarget, origin: handler.itemUuid }).length > 0
             let hit;
 
             if (handler.playOnMiss) {
@@ -96,31 +100,29 @@ export async function ontoken(handler, animationData) {
                 hit = true;
             }
 
-            if ((data.options.persistent && !checkAnim) || !data.options.persistent) {
-                if (data.options.isShieldFX) {
-                    let bottomEffect = aaSeq.effect();
-                    bottomEffect.name("spot" + ` ${currentTarget.id}`)
-                    setBottom(currentTarget, targetSize, bottomEffect)
+            if (data.options.isShieldFX) {
+                let bottomEffect = aaSeq.effect();
+                bottomEffect.name("spot" + ` ${currentTarget.id}`)
+                setBottom(currentTarget, targetSize, bottomEffect)
 
-                    let topEffect = aaSeq.effect();
-                    topEffect.name("spot" + ` ${currentTarget.id}`)
-                    setTop(currentTarget, targetSize, topEffect)
+                let topEffect = aaSeq.effect();
+                topEffect.name("spot" + ` ${currentTarget.id}`)
+                setTop(currentTarget, targetSize, topEffect)
 
-                    if (i === handler.allTargets.length - 1 && data.options.isWait) {
-                        topEffect.waitUntilFinished(data.options.delay)
-                    } else if (!data.options.isWait) {
-                        topEffect.delay(data.options.delay)
-                    }
-                } else {
-                    let aaEffect = aaSeq.effect();
-                    aaEffect.name("spot" + ` ${currentTarget.id}`)
-                    setPrimary(currentTarget, targetSize, aaEffect)
+                if (i === newTargetArray.length - 1 && data.options.isWait) {
+                    topEffect.waitUntilFinished(data.options.delay)
+                } else if (!data.options.isWait) {
+                    topEffect.delay(data.options.delay)
+                }
+            } else {
+                let aaEffect = aaSeq.effect();
+                aaEffect.name("spot" + ` ${currentTarget.id}`)
+                setPrimary(currentTarget, targetSize, aaEffect)
 
-                    if (i === handler.allTargets.length - 1 && data.options.isWait) {
-                        aaEffect.waitUntilFinished(data.options.delay)
-                    } else if (!data.options.isWait) {
-                        aaEffect.delay(data.options.delay)
-                    }
+                if (i === newTargetArray.length - 1 && data.options.isWait) {
+                    aaEffect.waitUntilFinished(data.options.delay)
+                } else if (!data.options.isWait) {
+                    aaEffect.delay(data.options.delay)
                 }
             }
         }
@@ -129,12 +131,12 @@ export async function ontoken(handler, animationData) {
             if (secondary.sound) {
                 aaSeq.addSequence(secondary.sound)
             }
-            for (let i = 0; i < handler.allTargets.length; i++) {
-                let currentTarget = handler.allTargets[i]
+            for (let i = 0; i < newTargetArray.length; i++) {
+                let currentTarget = newTargetArray[i]
                 let secondarySeq = aaSeq.effect()
                 setSecondary(currentTarget, secondarySeq)
 
-                if (i === handler.allTargets.length - 1 && secondary.options.isWait && targetFX.enable) {
+                if (i === newTargetArray.length - 1 && secondary.options.isWait && targetFX.enable) {
                     secondarySeq.waitUntilFinished(secondary.options.delay)
                 } else if (!secondary.options.isWait) {
                     secondarySeq.delay(secondary.options.delay)
@@ -146,7 +148,7 @@ export async function ontoken(handler, animationData) {
             if (targetFX.sound) {
                 aaSeq.addSequence(targetFX.sound)
             }
-            for (let currentTarget of handler.allTargets) {
+            for (let currentTarget of newTargetArray) {
                 let hit;
                 if (handler.playOnMiss) {
                     hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
@@ -154,7 +156,7 @@ export async function ontoken(handler, animationData) {
                     hit = true;
                 }
                 if (hit) {
-                    let targetSequence = buildTargetSeq(targetFX, currentTarget, handler);
+                    let targetSequence = handler.buildTargetSeq(targetFX, currentTarget);
                     aaSeq.addSequence(targetSequence.targetSeq)
                 }
             }
@@ -164,7 +166,14 @@ export async function ontoken(handler, animationData) {
     if (data.options.playOn === "both") {
 
         const sourceCheckAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
-        if ((data.options.persistent && !sourceCheckAnim) || !data.options.persistent) {
+        let newTargetArray = [];
+        for (let target of handler.allTargets) {
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0;
+            if (!checkAnim) { newTargetArray.push(target) }
+        }
+        if (sourceCheckAnim && newTargetArray.length < 1) { return; 
+        }
+        if (!sourceCheckAnim) {
             if (data.options.isShieldFX) {
                 let bottomEffect = aaSeq.effect();
                 bottomEffect.name("spot" + ` ${sourceToken.id}`);
@@ -174,7 +183,7 @@ export async function ontoken(handler, animationData) {
                 topEffect.name("spot" + ` ${sourceToken.id}`)
                 setTop(sourceToken, sourceSize, topEffect)
 
-                if (handler.allTargets.length < 1 && data.options.isWait) {
+                if (newTargetArray.length < 1 && data.options.isWait) {
                     topEffect.waitUntilFinished(data.options.delay)
                 } else if (!data.options.isWait) {
                     topEffect.delay(data.options.delay)
@@ -184,7 +193,7 @@ export async function ontoken(handler, animationData) {
                 aaEffect.name("spot" + ` ${sourceToken.id}`)
                 setPrimary(sourceToken, sourceSize, aaEffect)
 
-                if (handler.allTargets.length < 1 && data.options.isWait) {
+                if (newTargetArray.length < 1 && data.options.isWait) {
                     aaEffect.waitUntilFinished(data.options.delay)
                 } else if (!data.options.isWait) {
                     aaEffect.delay(data.options.delay)
@@ -192,20 +201,18 @@ export async function ontoken(handler, animationData) {
             }
         }
 
-        for (let i = 0; i < handler.allTargets.length; i++) {
-            let currentTarget = handler.allTargets[i]
-            let targetSize = handler.getSize(data.options.isRadius, data.options.size, currentTarget, data.options.addTokenWidth);
+        if (newTargetArray.length > 0) {
+            for (let i = 0; i < newTargetArray.length; i++) {
+                let currentTarget = newTargetArray[i]
+                let targetSize = handler.getSize(data.options.isRadius, data.options.size, currentTarget, data.options.addTokenWidth);
 
-            let checkAnim = Sequencer.EffectManager.getEffects({ object: currentTarget, origin: handler.itemUuid }).length > 0;
+                let hit;
+                if (handler.playOnMiss) {
+                    hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
+                } else {
+                    hit = true;
+                }
 
-            let hit;
-            if (handler.playOnMiss) {
-                hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
-            } else {
-                hit = true;
-            }
-
-            if ((data.options.persistent && !checkAnim) || !data.options.persistent) {
                 if (data.options.isShieldFX) {
                     let bottomEffect = aaSeq.effect();
                     bottomEffect.name("spot" + ` ${currentTarget.id}`)
@@ -215,7 +222,7 @@ export async function ontoken(handler, animationData) {
                     topEffect.name("spot" + ` ${currentTarget.id}`)
                     setTop(currentTarget, targetSize, topEffect)
 
-                    if (i === handler.allTargets.length - 1 && data.options.isWait) {
+                    if (i === newTargetArray.length - 1 && data.options.isWait) {
                         topEffect.waitUntilFinished(data.options.delay)
                     } else if (!data.options.isWait) {
                         topEffect.delay(data.options.delay)
@@ -225,7 +232,7 @@ export async function ontoken(handler, animationData) {
                     aaEffect.name("spot" + ` ${currentTarget.id}`)
                     setPrimary(currentTarget, targetSize, aaEffect)
 
-                    if (i === handler.allTargets.length - 1 && data.options.isWait) {
+                    if (i === newTargetArray.length - 1 && data.options.isWait) {
                         aaEffect.waitUntilFinished(data.options.delay)
                     } else if (!data.options.isWait) {
                         aaEffect.delay(data.options.delay)
@@ -238,48 +245,50 @@ export async function ontoken(handler, animationData) {
             aaSeq.addSequence(secondary.sound)
         }
 
-        if (secondary) {
+        if (secondary && !sourceCheckAnim) {
             let sourceSecondarySeq = aaSeq.effect()
             setSecondary(sourceToken, sourceSecondarySeq)
 
-            if (handler.allTargets.length < 1 && secondary.options.isWait) {
+            if (newTargetArray.length < 1 && secondary.options.isWait) {
                 sourceSecondarySeq.waitUntilFinished(secondary.options.delay)
             } else if (!secondary.options.isWait) {
                 sourceSecondarySeq.delay(secondary.options.delay)
             }
         }
 
-        if (secondary && handler.allTargets.length > 0) {
-            //if (secondary.sound) {
-                //aaSeq.addSequence(secondary.sound)
-            //}
-            for (let i = 0; i < handler.allTargets.length; i++) {
-                let currentTarget = handler.allTargets[i];
-                let secondarySeq = aaSeq.effect()
-                setSecondary(currentTarget, secondarySeq)
+        if (newTargetArray.length > 0) {
+            if (secondary && newTargetArray.length > 0) {
+                //if (secondary.sound) {
+                    //aaSeq.addSequence(secondary.sound)
+                //}
+                for (let i = 0; i < newTargetArray.length; i++) {
+                    let currentTarget = newTargetArray[i];
+                    let secondarySeq = aaSeq.effect()
+                    setSecondary(currentTarget, secondarySeq)
 
-                if (i === handler.allTargets.length - 1 && secondary.options.isWait && targetFX.enable) {
-                    secondarySeq.waitUntilFinished(secondary.options.delay)
-                } else if (!secondary.options.isWait) {
-                    secondarySeq.delay(secondary.options.delay)
+                    if (i === newTargetArray.length - 1 && secondary.options.isWait && targetFX.enable) {
+                        secondarySeq.waitUntilFinished(secondary.options.delay)
+                    } else if (!secondary.options.isWait) {
+                        secondarySeq.delay(secondary.options.delay)
+                    }
                 }
             }
-        }
 
-        if (targetFX.enable && handler.allTargets.length > 0) {
-            if (targetFX.sound) {
-                aaSeq.addSequence(targetFX.sound)
-            }
-            for (let currentTarget of handler.allTargets) {
-                let hit;
-                if (handler.playOnMiss) {
-                    hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
-                } else {
-                    hit = true;
+            if (targetFX.enable && newTargetArray.length > 0) {
+                if (targetFX.sound) {
+                    aaSeq.addSequence(targetFX.sound)
                 }
-                if (hit) {
-                    let targetSequence = buildTargetSeq(targetFX, currentTarget, handler);
-                    aaSeq.addSequence(targetSequence.targetSeq)
+                for (let currentTarget of newTargetArray) {
+                    let hit;
+                    if (handler.playOnMiss) {
+                        hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
+                    } else {
+                        hit = true;
+                    }
+                    if (hit) {
+                        let targetSequence = handler.buildTargetSeq(targetFX, currentTarget);
+                        aaSeq.addSequence(targetSequence.targetSeq)
+                    }
                 }
             }
         }

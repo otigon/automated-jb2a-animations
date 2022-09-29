@@ -40,15 +40,23 @@
         switch (animation._data.presetType) {
             case "dualattach":
                 $animation.data = newData.data;
+                delete $animation.secondary;
+                delete $animation.target;
                 break;
             case "teleportation":
                 $animation.data = newData.data;
+                delete $animation.secondary;
+                delete $animation.target;
                 break;
             case "thunderwave":
                 $animation.data = newData.data;
+                delete $animation.secondary;
+                delete $animation.target;
                 break;
             case "proToTemp":
                 $animation.data = newData.data;
+                $animation.secondary = newData.secondary;
+                $animation.target = newData.target;
                 break;
         }
     }

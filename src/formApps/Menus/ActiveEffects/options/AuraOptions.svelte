@@ -31,6 +31,8 @@
           color: "rgba(50, 79, 245, 0.5)"
        }
     };
+
+    $: filterEnabled = $animation.primary.options.enableFilter;
 </script>
 
 <div class="aa-options-border">
@@ -53,7 +55,7 @@
                     <!--Set Visibility Binding-->
                     <div class="form-group">
                         <label for="Vis {animation._data.id}"
-                            >{localize("autoanimations.menus.bind") + " " + localize("autoanimations.menus.visibility")}
+                            >{localize("autoanimations.menus.unbind") + " " + localize("autoanimations.menus.visibility")}
                         </label>
                         <input
                             type="checkbox"
@@ -66,7 +68,7 @@
                     <!--Set Alpha Binding-->
                     <div class="form-group">
                         <label for="Alpha {animation._data.id}"
-                            >{localize("autoanimations.menus.bind") + " " + localize("autoanimations.menus.alpha")}
+                            >{localize("autoanimations.menus.unbind") + " " + localize("autoanimations.menus.alpha")}
                         </label>
                         <input
                             type="checkbox"
@@ -78,20 +80,8 @@
             </tr>
             <tr>
                 <td>
-                    <!--Set Masking-->
-                    <div class="form-group">
-                        <label for="Masked {animation._data.id}"
-                            >{localize("autoanimations.menus.mask")}
-                        </label>
-                        <input
-                            type="checkbox"
-                            id="Masked {animation._data.id}"
-                            bind:checked={$animation.primary.options.isMasked}
-                        />
-                    </div>
-                </td>
-                <td>
-                    <strong>{localize("autoanimations.menus.ignoreTargets")}</strong>
+                    <!--Set Animation Opacity-->
+                    <Opacity {animation} section="primary" />
                 </td>
                 <td>
                     <!--Set Z-Index-->
@@ -103,12 +93,16 @@
                     step="1"
                 />
                 </td>
+                <td>
+                    <div>
+                        <label for=""><strong>{localize("autoanimations.menus.playOn")}</strong></label>
+                    </div>
+                    <div>
+                        <label for="">{localize("autoanimations.menus.source")}</label>
+                    </div>
+                </td>
             </tr>
             <tr>
-                <td>
-                    <!--Set Animation Opacity-->
-                    <Opacity {animation} section="primary" />
-                </td>
                 <td>
                     <!--Set Radius of Animation-->
                     <NumberInput
@@ -134,9 +128,28 @@
                         />
                     </div>
                 </td>
+                <td>
+                    <!--Set Fade In time-->
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.fadeIn")}
+                    section="primary"
+                    field="fadeIn"
+                    step="1"
+                />
+                </td>
             </tr>
             <tr>
-                <td></td>
+                <td>
+                    <!--Set Fade Out time-->
+                    <NumberInput
+                    {animation}
+                    label={localize("autoanimations.menus.fadeOut")}
+                    section="primary"
+                    field="fadeOut"
+                    step="1"
+                />
+                </td>
                 <td>
                     <WaitDelay {animation} section="primary"/>
                 </td>

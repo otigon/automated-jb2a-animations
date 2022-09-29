@@ -49,7 +49,7 @@ export class AAAutorecFunctions {
         let combinedMenus = [...menus.melee, ...menus.range, ...menus.ontoken,
             ...menus.templatefx, ...menus.aura, ...menus.preset/*, ...menus.aefx*/];
 
-        let sortedMenus = combinedMenus.sort((a, b) => b.label.replace(/\s+/g, '').length - a.label.replace(/\s+/g, '').length);
+        let sortedMenus = combinedMenus.sort((a, b) => b.label?.replace(/\s+/g, '').length - a.label?.replace(/\s+/g, '').length);
 
         return sortedMenus.find(x => x.label && name.includes(this.rinseName(x.label))) || false;
     }

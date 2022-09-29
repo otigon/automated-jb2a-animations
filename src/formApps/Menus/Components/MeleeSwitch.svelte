@@ -4,6 +4,7 @@
 
     //import SoundSettings from "./SoundSettings.svelte";
     import VideoSelect from "./VideoSelect.svelte";
+    import Sound from "./SoundSettings.svelte"
 
     import { aaReturnWeapons } from "../../../database/jb2a-menu-options.js"
 
@@ -136,6 +137,9 @@
                     </tr>
                 </table>
             </div>
+        </div>
+        <div class={switchType === "off" ? "aa-disableOpacity" : ""}>
+            <Sound {animation} {category} {idx} section="meleeSwitch" />
         </div>
     </TJSSvgFolder>
 </div>

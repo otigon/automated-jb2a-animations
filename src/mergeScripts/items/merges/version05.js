@@ -292,6 +292,14 @@ export async function version05(flags, isActiveEffect) {
                 break;
             case "aura":
                 data.addTokenWidth = options.addTokenWidth ?? false;
+                data.alpha = false,
+                data.alphaMax = 0.5,
+                data.alphaMin = -0.5,
+                data.alphaDuration = 1000,
+                data.breath = false,
+                data.breathMax = 1.05,
+                data.breathMin = 0.95,
+                data.breathDuration = 1000,        
                 data.delay = 0;
                 data.elevation = options.below ? 0 : 1000;
                 data.fadeIn = 250;
@@ -301,6 +309,9 @@ export async function version05(flags, isActiveEffect) {
                 data.isWait = false;
                 data.opacity = options.opacity ?? 1;
                 data.size = options.auraRadius ?? 3;
+                data.tint = false,
+                data.tintColor = "#FFFFFF",
+                data.tintSaturate = 0,
                 data.unbindAlpha = options.unbindAlpha ?? false;
                 data.unbindVisibility = options.unbindVisibility ?? false;
                 data.zIndex = options.zIndex ?? 1;
@@ -601,11 +612,15 @@ export async function version05(flags, isActiveEffect) {
         newData.macro = macro || {};
 
         root.options = {
+            alpha: 0,
+            delayFade: 750,
+            delayMove: 1000,
+            delayReturn:  options?.delay ?? 250,
             hideFromPlayers: options?.hideFromPlayers ?? false,
-            range: options?.teleDist ?? 30,
             measureType: options?.measureType ?? "alternating",
+            range: options?.teleDist ?? 30,
+            speed: 120,
             teleport: true,
-            speed: 100,
         }
         root.sound = setSound(audio, "a01");
         root.start = {
@@ -617,17 +632,14 @@ export async function version05(flags, isActiveEffect) {
             enableCustom: options.enableCustom ?? false,
             customPath: options.customPath ?? "",
             options: {
-                alpha: 0,
                 delay: 0,
-                isMasked: false,
                 elevation: animLevel ? 0 : 1000,
-                opacity: 1,
-                size: options?.scale || 1,
-                isRadius: false,
                 fadeIn: 250,
-                fadeOut: 500,
-                tokenOut: 250,
-
+                fadeOut: 250,
+                isMasked: false,
+                opacity: 1,
+                isRadius: false,
+                size: options?.scale || 1.5,
             }
         }
         root.between = {
@@ -654,16 +666,14 @@ export async function version05(flags, isActiveEffect) {
             enableCustom: options?.enableCustom02 ?? false,
             customPath: options?.customPath02 ?? "",
             options: {
+                delay: 500,
                 elevation: animLevel ? 0 : 1000,
-                isMasked: false,
-                opacity: 1,
-                isRadius: false,
-                size: options?.scale02 ?? 1,
-                delay: 0,
-                delayAlpha: options?.delay ?? 250,
                 fadeIn: 250,
-                fadeOut: 500,
-                tokenIn: 250,
+                fadeOut: 250,
+                isMasked: false,
+                isRadius: false,
+                opacity: 1,
+                size: options?.scale02 ?? 1,
             }
         }
         if (!root.start.menuType || !root.start.animation || !root.start.variant || !root.start.color) {
@@ -851,15 +861,26 @@ export async function version05(flags, isActiveEffect) {
         newMO.primary = {
             options: {
                 addTokenWidth: false,
-                aeDelay: options?.aeDelay || 0,
+                alpha: false,
+                alphaMax: 0.5,
+                alphaMin: -0.5,
+                alphaDuration: 1000,
+                breath: false,
+                breathMax: 1.05,
+                breathMin: 0.95,
+                breathDuration: 1000,        
                 delay: 0,
                 elevation: animLevel ? 0 : 1000,
-                ignoreTarget: true,
-                isMasked: false,
+                fadeIn: 250,
+                fadeOut: 500,        
                 isRadius: true,
                 isWait: true,
                 opacity: options?.opacity || 1,
+                playOn: "source",
                 size: options?.auraRadius || 3,
+                tint: false,
+                tintColor: "#FFFFFF",
+                tintSaturate: 0,        
                 unbindAlpha: options?.unbindAlpha ?? false,
                 unbindVisibility: options?.unbindVisibility ?? false,
                 zIndex: 1,

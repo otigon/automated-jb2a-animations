@@ -85,12 +85,20 @@ export function preset(current = {}, type) {
                 data: {
                     start: {
                         dbSection: "static",
+                        enabe: true,
                         menuType: "spell",
                         animation: "mistystep",
                         variant: "01",
                         color: "blue",
                         options: {
-                
+                            delay: 0,
+                            elevation: 1000,
+                            fadeIn: 250,
+                            fadeOut: 250,
+                            isMasked: false,
+                            opacity: 1,
+                            isRadius: false,
+                            size: 1.5,
                         },
                     },
                     between: {
@@ -101,23 +109,40 @@ export function preset(current = {}, type) {
                         variant: "regular",
                         color: "regular",
                         options: {
-                
+                            delay: 0,
+                            elevation: 1000,
+                            opacity: 1,
+                            playbackRate: 1,
                         },
                     },
                     end: {
                         dbSection: "static",
+                        enabe: true,
                         menuType: "spell",
                         animation: "mistystep",
                         variant: "02",
                         color: "blue",
                         options: {
-                
+                            delay: 500,
+                            elevation: 1000,
+                            fadeIn: 250,
+                            fadeOut: 250,
+                            isMasked: false,
+                            isRadius: false,
+                            opacity: 1,
+                            size: 1.5,
                         },
                     },
                     options: {
                         range: 30,
                         hideFromPlayers: false,
                         measureType: "alternating",
+                        teleport: true,
+                        speed: 120,
+                        delayMove: 1000,
+                        alpha: 0,
+                        delayFade: 750,
+                        delayReturn: 250,
                     },
                     sound: {enable: false}                
                 },

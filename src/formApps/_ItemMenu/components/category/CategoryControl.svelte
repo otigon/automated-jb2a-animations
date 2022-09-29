@@ -17,8 +17,8 @@
   import { copyToFrom } from "../../../Menus/Components/copyitem/copyToFrom";
 
   import NoneChosen from "./menus/NoneChosen.svelte";
-  import * as changeSection from "../../../_AutorecMenu/store/default-data/newSection"
-
+  //import * as changeSection from "../../../_AutorecMenu/store/default-data/newSection"
+  /*
   async function switchVideo() {
     let newMenu = $animation.menu;
     if (!newMenu) { return; }
@@ -41,6 +41,7 @@
         delete $animation.levels3d;
         delete $animation.meleeSwitch;
         delete $animation.primary;
+        delete $animation.source;
         break;
       case "melee":
         $animation.levels3d = newData.levels3d;
@@ -51,6 +52,7 @@
         $animation.soundOnly = newData.soundOnly;
         $animation.source = newData.source;
         $animation.target = newData.target;
+        delete $animation.presetType;
         delete $animation.data;
         break;
       case "range":
@@ -80,7 +82,7 @@
         break;
     }
   }
-
+  */
   /**
    * @ItemStore
    */
@@ -210,7 +212,7 @@
         >{localize("autoanimations.menus.animation")}
         {localize("autoanimations.menus.type")}</label
       >
-      <select bind:value={$animation.menu} on:change={async () => await switchVideo()}>
+      <select bind:value={$animation.menu} on:change={async () => await animation.switchVideo()}>
         <option value="melee"
           >{localize("autoanimations.animTypes.melee")}</option
         >
