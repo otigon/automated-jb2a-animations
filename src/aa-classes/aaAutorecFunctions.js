@@ -9,17 +9,40 @@ export class AAAutorecFunctions {
         return newName;
     }
 
-    static combineAndSortMenus(menus) {
+    static allMenuSearch(menus, name) {
+
         let combinedMenus = [...menus.melee, ...menus.range, ...menus.ontoken,
-            ...menus.templatefx, ...menus.aura, ...menus.preset,
-            ...menus.aefx];
+            ...menus.templatefx, ...menus.aura, ...menus.preset/*, ...menus.aefx*/];
 
-        let sortedMenus = combinedMenus.sort((a, b) => b.label.replace(/\s+/g, '').length - a.label.replace(/\s+/g, '').length);
+        let sortedMenus = combinedMenus.sort((a, b) => b.label?.replace(/\s+/g, '').length - a.label?.replace(/\s+/g, '').length);
 
-        return sortedMenus;
+        return sortedMenus.find(x => x.label && name.includes(this.rinseName(x.label))) || false;
+    }
+
+    static singleMenuSearch(menu, name) {
+
+        if (!name) { 
+            custom_warning("No Name was provided for the Global Menu search")
+            return;
+        }
+
+        let sortedMenu = menu.sort((a, b) => b.label.replace(/\s+/g, '').length - a.label.replace(/\s+/g, '').length);
+
+        return sortedMenu.find(x => name.includes(this.rinseName(x.label))) || false;
+    }
+
+    static singleMenuStrictSearch(menu, name) {
+
+        if (!name) { 
+            custom_warning("No Name was provided for the Global Menu search")
+            return;
+        }
+
+        return menu.find(x => name === this.rinseName(x.label)) || false;
     }
 
     static getAllLabelsInMenu(menu) {
+
         const nameArray = []
 
         for (var i = 0; i < menu.length; i++) {
@@ -29,75 +52,11 @@ export class AAAutorecFunctions {
         return nameArray;
     }
 
-    static singleMenuSearch(menu, name) {
-        if (!name) { 
-            custom_warning("No Name was provided for the Global Menu search")
-            return;
-        }
-        return menu.find(x => name.includes(this.rinseName(x.label))) || false;
+    static sortMenu(menu) {
+
+        let sortedMenu = menu.sort((a, b) => b.label.replace(/\s+/g, '').length - a.label.replace(/\s+/g, '').length);
+
+        return sortedMenus;
     }
 
-    static singleMenuStrictSearch(menu, name) {
-        if (!name) { 
-            custom_warning("No Name was provided for the Global Menu search")
-            return;
-        }
-        return menu.find(x => name === this.rinseName(x.label)) || false;
-    }
-
-    static allMenuSearch(menus, name) {
-        let combinedMenus = [...menus.melee, ...menus.range, ...menus.ontoken,
-            ...menus.templatefx, ...menus.aura, ...menus.preset/*, ...menus.aefx*/];
-
-        let sortedMenus = combinedMenus.sort((a, b) => b.label?.replace(/\s+/g, '').length - a.label?.replace(/\s+/g, '').length);
-
-        return sortedMenus.find(x => x.label && name.includes(this.rinseName(x.label))) || false;
-    }
-
-    static exportMenu() {
-        const data = (game.settings.get('autoanimations', 'aaAutorec'))
-        const filename = `fvtt-autoanimations-autorecognition.json`;
-        saveDataToFile(JSON.stringify(data, null, 2), "text/json", filename);
-    }
-
-    static async mergeMenus(updatedImport, selectedMenus) {
-        custom_warning("Merging the requested Menus", false, updatedImport, selectedMenus)
-
-        let currentMenu = {
-            melee:await game.settings.get('autoanimations', 'aaAutorec-melee'),
-            range: await game.settings.get('autoanimations', 'aaAutorec-range'),
-            ontoken: await game.settings.get('autoanimations', 'aaAutorec-ontoken'),
-            templatefx: await game.settings.get('autoanimations', 'aaAutorec-templatefx'),
-            aura: await game.settings.get('autoanimations', 'aaAutorec-aura'),
-            preset: await game.settings.get('autoanimations', 'aaAutorec-preset'),
-            aefx: await game.settings.get('autoanimations', 'aaAutorec-aefx'),
-        }
-
-        let mergeMenu = updatedImport;
-
-        let mergeList = []
-        if (selectedMenus.melee) { mergeList.push("melee")}
-        if (selectedMenus.range) { mergeList.push("range")}
-        if (selectedMenus.ontoken) { mergeList.push("ontoken")}
-        if (selectedMenus.templatefx) { mergeList.push("templatefx")}
-        if (selectedMenus.aura) { mergeList.push("aura")}
-        if (selectedMenus.preset) { mergeList.push("preset")}
-        if (selectedMenus.aefx) { mergeList.push("aefx")}
-
-        custom_warning("Merging these menus", false, mergeList)
-
-        for (var i = 0; i < mergeList.length; i++) {
-            let existingMenu = currentMenu[mergeList[i]];
-            let incomingMenu = mergeMenu[mergeList[i]];
-
-            for (var a = 0; a < incomingMenu.length; a++) {
-                let incomingSectionLabel = incomingMenu[a].label.replace(/\s+/g, '').toLowerCase();
-                let newSection = existingMenu.find(section => {
-                    return section.label.replace(/\s+/g, '').toLowerCase() === incomingSectionLabel;
-                })
-                if (!newSection) { currentMenu[mergeList[i]].push(incomingMenu[a])}
-            }
-            game.settings.set('autoanimations', `aaAutorec-${mergeList[i]}`, currentMenu[mergeList[i]])
-        }
-    }
 }

@@ -129,10 +129,11 @@ export class AnimationStore extends CategoryStore.EntryStore {
 
   async getSource() {
       if (!this._data.metaData) {
-         console.log(`No Defined Source`)
+         console.warn(`No Defined MetaData`)
       } else {
-         let source = this._data.metaData.creator || "No Defined Source"
-         console.log(`Created by: ${source}`)
+         console.log(this._data.metaData);
+         ui.notifications.info("Automated Animations | MetaData logged to Dev Console");
+
       }
   }
 }

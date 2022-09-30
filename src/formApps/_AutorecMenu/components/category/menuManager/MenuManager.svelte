@@ -2,7 +2,6 @@
     import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
     import { getContext } from "svelte";
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    //import { AAAutorecFunctions } from "../../../../../aa-classes/AAAutorecFunctions.js";
     import { AAAutorecManager } from "./AAAutorecManager";
     import ImportMenus from "./ImportMenus.svelte";
 
