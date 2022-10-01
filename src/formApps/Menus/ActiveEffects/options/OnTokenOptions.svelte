@@ -7,7 +7,7 @@
     import ScaleRadius      from "../../Components/options/inputComponents/ScaleRadius.svelte";
     import Opacity          from "../../Components/options/inputComponents/Opacity.svelte";
     import OptionsDialog    from "../../Components/options/optionsInfoDialog.js";
-    import WaitDelay        from "../../components/options/inputComponents/WaitDelay.svelte";
+    import WaitDelay        from "../../Components/options/inputComponents/WaitDelay.svelte";
 
     export let animation;
 
