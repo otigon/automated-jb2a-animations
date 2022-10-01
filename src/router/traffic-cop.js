@@ -64,9 +64,9 @@ export async function trafficCop(handler) {
             case "sw5e":
             case "tormenta20":
             case "swade":
-                aaTemplateHook = Hooks.once("createMeasuredTemplate", (config) => {
+                aaTemplateHook = Hooks.once("createMeasuredTemplate", (template) => {
                     //Hooks.callAll("aa.preAnimationStart", sanitizedData, data);
-                    animate[animationType](handler, sanitizedData, config);
+                    animate[animationType](handler, sanitizedData, template);
                 });
                 setTimeout(killHook, 30000)
             default:

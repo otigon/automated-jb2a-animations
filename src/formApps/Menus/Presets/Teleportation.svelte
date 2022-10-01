@@ -24,7 +24,7 @@
         },
         label: game.i18n.localize("autoanimations.menus.options"),
     };
-
+    /*
     const optionsInfo = {
         icon: "fas fa-info-circle",
         title: "autoanimations.menus.quickReference",
@@ -36,7 +36,7 @@
             color: "rgba(50, 79, 245, 0.5)",
         },
     };
-
+    */
     const styling = {
         "--tjs-summary-font-family":
                 '"Modesto Condensed", "Palatino Linotype", serif',

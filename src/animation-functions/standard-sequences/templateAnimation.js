@@ -2,13 +2,13 @@ import { socketlibSocket } from "../../socketset.js";
 import { howToDelete } from "../../constants/constants.js";
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-export async function templatefx(handler, animationData, config) {
+export async function templatefx(handler, animationData, templateDocument) {
 
     const sourceToken = handler.sourceToken;
 
-    const template = config ? config : canvas.templates.placeables[canvas.templates.placeables.length - 1];
-    const templateData = config ? template || {}: template.document || {};;
-    const templateType = templateData?.t;
+    const template = templateDocument ? templateDocument : canvas.templates.placeables[canvas.templates.placeables.length - 1].document;
+    //const templateData = template ? template || {}: template.document || {};;
+    const templateType = template?.t;
 
     const data = animationData.primary;
     const secondary = animationData.secondary;
@@ -51,12 +51,12 @@ export async function templatefx(handler, animationData, config) {
         let trueSize;
         if (templateType === 'rect') {
             if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3) && templateTypes.includes(handler.item.system?.target?.type)) {
-                trueSize = Math.sqrt(Math.pow(templateData.distance, 2) - Math.pow((handler.item.system?.target?.value * 2), 2));
+                trueSize = Math.sqrt(Math.pow(template.distance, 2) - Math.pow((handler.item.system?.target?.value * 2), 2));
             } else {
-                trueSize = templateData.width;
+                trueSize = template.width;
             }
         } else {
-            trueSize = templateData.distance * 2;
+            trueSize = template.distance * 2;
         }
 
         const templateLength = canvas.grid.size * (trueSize / canvas.dimensions.distance);
@@ -65,8 +65,8 @@ export async function templatefx(handler, animationData, config) {
         const tileWidth = templateLength * data.options.scaleX;
         const tileHeight = templateLength * data.options.scaleY;
 
-        const tileX = templateType === 'circle' ? (templateData.x - (tileWidth / 2)) : (templateData.x + ((templateLength - tileWidth) / 2));
-        const tileY = templateType === 'circle' ? (templateData.y - (tileHeight / 2)) : (templateData.y + ((templateLength - tileHeight) / 2));
+        const tileX = templateType === 'circle' ? (template.x - (tileWidth / 2)) : (template.x + ((templateLength - tileWidth) / 2));
+        const tileY = templateType === 'circle' ? (template.y - (tileHeight / 2)) : (template.y + ((templateLength - tileHeight) / 2));
 
         const templateObject = buildTile(tileX, tileY, isOverhead, tileWidth, tileHeight);
         aaSeq.thenDo(function () {
@@ -75,14 +75,14 @@ export async function templatefx(handler, animationData, config) {
 
     } else {
 
-        const templateType = templateData.t;
+        //const templateType = templateData.t;
 
         const templateSeq = aaSeq.effect();
         if (templateType === 'cone' || templateType === 'ray') {
-            const trueHeight = templateType === 'cone' ? templateData.distance : templateData.width * 2;
+            const trueHeight = templateType === 'cone' ? template.distance : template.width * 2;
             setPrimary(templateSeq)
             templateSeq.size({
-                width: (canvas.grid.size * (templateData.distance / canvas.dimensions.distance)) * data.options.scaleX,
+                width: (canvas.grid.size * (template.distance / canvas.dimensions.distance)) * data.options.scaleX,
                 height: (canvas.grid.size * (trueHeight / canvas.dimensions.distance)) * data.options.scaleY,
             })
             if (data.options.isMasked) {
@@ -111,12 +111,12 @@ export async function templatefx(handler, animationData, config) {
             let trueSize;
             if (templateType === 'rect') {
                 if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3) && templateTypes.includes(handler.item.system?.target?.type)) {
-                    trueSize = Math.sqrt(Math.pow(templateData.distance, 2) - Math.pow((handler.item.system?.target?.value * 2), 2));
+                    trueSize = Math.sqrt(Math.pow(template.distance, 2) - Math.pow((handler.item.system?.target?.value * 2), 2));
                 } else {
-                    trueSize = Math.sqrt(Math.pow(templateData.distance, 2)/2)
+                    trueSize = Math.sqrt(Math.pow(template.distance, 2)/2)
                 }
             } else {
-                trueSize = templateData.distance * 2;
+                trueSize = template.distance * 2;
             }
             setPrimary(templateSeq)
             templateSeq.size({
