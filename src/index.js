@@ -41,7 +41,7 @@ import * as systemSupport               from "./system-support/index.js"
 import "../styles/newMenuCss.scss";
 
 // MAP for caching Deleted items. Specifically for items that delete themselves on final usage so Animations can still play
-import { aaDeletedItems }               from "./DeletedItems.js";
+import { aaDeletedItems }               from "./deletedItems.js";
 
 Hooks.once('socketlib.ready', function () {
     setupSocket();

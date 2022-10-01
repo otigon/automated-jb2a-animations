@@ -1,4 +1,4 @@
-import { aaDeletedItems } from "../DeletedItems";
+import { aaDeletedItems } from "../deletedItems.js";
 
 export class AASystemData {
 
