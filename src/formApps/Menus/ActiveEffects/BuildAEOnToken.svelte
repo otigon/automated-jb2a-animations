@@ -1,11 +1,9 @@
 <script>
-    import VideoSelect from "../components/VideoSelect.svelte";
+    import VideoSelect from "../Components/VideoSelect.svelte";
     import OnTokenOptions from "./options/OnTokenOptions.svelte";
-    import SoundSettings from "../components/SoundSettings.svelte";
-    import SoundOnly from "../components/SoundOnly.svelte";
-    import ExtraSource from "../components/ExtraSource.svelte";
-    import Secondary from "../components/Secondary.svelte";
-    import Macro from "../components/Macro.svelte";
+    import SoundSettings from "../Components/SoundSettings.svelte";
+    import ExtraSource from "../Components/ExtraSource.svelte";
+    import Secondary from "../Components/Secondary.svelte";
 
     export let animation;
     export let idx = 0;
