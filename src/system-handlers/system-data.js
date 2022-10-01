@@ -3,7 +3,7 @@ import { debug } from "../constants/constants.js";
 import { endTiming } from "../constants/timings.js";
 import { AASystemData } from "./getdata-by-system.js";
 import { flagMigrations } from "../mergeScripts/items/itemFlagMerge.js";
-import { AAAutorecFunctions } from "../aa-classes/AAAutorecFunctions.js";
+import { AAAutorecFunctions } from "../aa-classes/aaAutorecFunctions.js";
 
 export default class systemData {
 
