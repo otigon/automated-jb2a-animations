@@ -90,18 +90,22 @@ async function mergeVersion05(data) {
                     break;
                 case "teleportation":
                     current = await updateTele(oldMO, newMO);
+                    current.menu = "preset";
                     newMenu.preset.push(current);
                     break;
                 case "dualattach":
                     current = await updateDAttach(oldMO, newMO);
+                    current.menu = "preset";
                     newMenu.preset.push(current);
                     break;
                 case "fireball":
                     current = await updateFireball(oldMO, newMO);
+                    current.menu = "preset";
                     newMenu.preset.push(current);
                     break;
                 case "thunderwave":
                     current = await updateThunderwave(oldMO, newMO);
+                    current.menu = "preset";
                     newMenu.preset.push(current);
                     break;
             }
@@ -119,7 +123,6 @@ async function mergeVersion05(data) {
                 case "static":
                     current = await convertAEOnToken(oldMO, newMO)
                     current.activeEffectType = "ontoken";
-                    current.data.options.type = "source";
                     newMenu.aefx.push(current);
                     break;
                 case "auras":
@@ -161,7 +164,7 @@ async function mergeVersion05(data) {
         return data3d;
     }
 
-    async function setSound(audio = {}, section = "a01", rebase = false) {
+    function setSound(audio = {}, section = "a01", rebase = false) {
         if (rebase) {
             return {
                 delay: 0,
@@ -773,7 +776,7 @@ async function mergeVersion05(data) {
             options: {
                 elevation: below ? 0 : 1000,
                 repeat,
-                repeatDelay,
+                repeatDelay: delay ?? 250,
                 opacity,
                 removeTemplate,
             }, 
@@ -831,7 +834,7 @@ async function mergeVersion05(data) {
             }
         }
 
-        const newVideo = newMO.data.video;
+        const newVideo = newMO.primary.video;
         if (!newVideo.menuType || !newVideo.animation || !newVideo.variant || !newVideo.color) {
             resetVideo(newMO.data.video)
         }
@@ -914,7 +917,7 @@ async function mergeVersion05(data) {
             }
         }
 
-        const newVideo = newMO.data.video;
+        const newVideo = newMO.primary.video;
         if (!newVideo.menuType || !newVideo.animation || !newVideo.variant || !newVideo.color) {
             resetVideo(newMO.data.video)
         }

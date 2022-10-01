@@ -129,12 +129,12 @@ export async function version05(flags, isActiveEffect) {
         newMO.soundOnly = {
             sound: setSound({}, "a01", true)
         }
-        newMO.source = convertExtraFX(sourceToken, audio, "source");
-        newMO.target = convertExtraFX(targetToken, audio, "target");
+        newMO.source = convertSourceFX(sourceToken, audio, "source");
+        newMO.target = convertTargetFX(targetToken, audio, "target");
         return newMO;
     }
 
-    async function setSound(audio = {}, section = "a01", rebase = false) {
+    function setSound(audio = {}, section = "a01", rebase = false) {
         if (rebase) {
             return {
                 delay: 0,
@@ -162,14 +162,13 @@ export async function version05(flags, isActiveEffect) {
         return type === "aura" || type === "ontoken" ? "static" : type;  
     }
 
-    function convertExtraFX(extraFX, audio, section) {
+    function convertSourceFX(extraFX, audio, section) {
         const oldData = extraFX || {};
-        const type = section === "source" ? "s01" : "t01";
         const data = {
             enable: oldData.enable ?? false,
             options: {
                 addTokenWidth:false,
-                delay: section === "source" ? oldData.delayAfter ?? 0 : oldData.delayStart ?? 0,
+                delay: oldData.delayAfter ?? 0,
                 elevation: oldData.animLevel ? 0 : 1000,
                 fadeIn: 250,
                 fadeOut: 500,
@@ -182,7 +181,46 @@ export async function version05(flags, isActiveEffect) {
                 size: oldData.scale ?? 1,
                 zIndex: 1,
             },
-            sound: setSound(audio, type),
+            sound: setSound(audio, "s01"),
+            video: {
+                dbSection: "static",
+                menuType: oldData.menuType,
+                animation: oldData.name,
+                variant: oldData.variant,
+                color: oldData.color,
+                enableCustom: oldData.enableCustom ?? false,
+                customPath: oldData.customPath ?? "",
+            }
+        }
+        let video = data.video;
+        if (!video.menuType || !video.animation || !video.variant || !video.color) {
+            resetVideo(data.video, "static")
+        }
+        return data;
+    }
+
+    function convertTargetFX(extraFX, audio, section) {
+        const oldData = extraFX || {};
+        const data = {
+            enable: oldData.enable ?? false,
+            options: {
+                addTokenWidth:false,
+                delay: oldData.delayStart ?? 0,
+                elevation: oldData.animLevel ? 0 : 1000,
+                fadeIn: 250,
+                fadeOut: 500,
+                isMasked: false,
+                isRadius: false,
+                opacity: oldData.opacity ?? 1,
+                persistent: oldData.persistent ?? false,
+                repeat: oldData.loops ?? 1,
+                repeatDelay: oldData.loopDelay ?? 250,
+                size: oldData.scale ?? 1,
+                unbindAlpha: false,
+                unbindVisibility: false,
+                zIndex: 1,
+            },
+            sound: setSound(audio, "t01"),
             video: {
                 dbSection: "static",
                 menuType: oldData.menuType,
@@ -304,7 +342,7 @@ export async function version05(flags, isActiveEffect) {
                 data.elevation = options.below ? 0 : 1000;
                 data.fadeIn = 250;
                 data.fadeOut = 500;
-                data.playOn = options.ignoretargets ? "source" : "default";
+                data.playOn = options.ignoreTarget ? "source" : "default";
                 data.isRadius = true;
                 data.isWait = false;
                 data.opacity = options.opacity ?? 1;
@@ -625,6 +663,7 @@ export async function version05(flags, isActiveEffect) {
         root.sound = setSound(audio, "a01");
         root.start = {
             dbSection: "static",
+            enable: true,
             menuType: options?.menuType,
             animation: options?.name,
             variant: options?.variant,
@@ -659,6 +698,7 @@ export async function version05(flags, isActiveEffect) {
         }
         root.end = {
             dbSection: "static",
+            enable: true,
             menuType: options?.menuType02,
             animation: options?.name02,
             variant: options?.variant02,
@@ -823,7 +863,7 @@ export async function version05(flags, isActiveEffect) {
             }
         }
 
-        const newVideo = newMO.data.video;
+        const newVideo = newMO.primary.video;
         if (!newVideo.menuType || !newVideo.animation || !newVideo.variant || !newVideo.color) {
             resetVideo(newMO.data.video)
         }
@@ -900,7 +940,7 @@ export async function version05(flags, isActiveEffect) {
             }
         }
 
-        const newVideo = newMO.data.video;
+        const newVideo = newMO.primary.video;
         if (!newVideo.menuType || !newVideo.animation || !newVideo.variant || !newVideo.color) {
             resetVideo(newMO.data.video)
         }

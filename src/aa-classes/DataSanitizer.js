@@ -571,7 +571,6 @@ export class DataSanitizer {
                 },
                 explosion: {
                     dbSection: "static",
-                    enable: explosion.enable || false,
                     menuType: explosion.menuType,
                     animation: explosion.animation,
                     variant: explosion.variant,

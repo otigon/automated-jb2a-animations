@@ -65,7 +65,7 @@
     }
 
     function selectMenus(json, option) {
-            const data = JSON.parse(json);
+            //const data = JSON.parse(json);
             new TJSDialog({
                 modal: true,
                 title: "IMPORT SETTINGS",
@@ -73,7 +73,7 @@
                     class: ImportMenus,
                     props: {
                         type: option,
-                        menu: data,
+                        menu: json,
                     },
                 },
                 defaultYes: false,

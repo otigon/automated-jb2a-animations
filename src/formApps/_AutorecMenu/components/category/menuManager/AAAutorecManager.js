@@ -103,13 +103,14 @@ export class AAAutorecManager
      * @param {*} options // Limit the Menus in which to perform the Merge. Ex: {melee: true} will ONLY merge the Melee Menus
      */
     static async mergeMenus(menu, options = {}) {
-        let isValid = validateJson(menu);
+        let isValid = this._validateJson(menu);
         if (!isValid) {
             custom_error("You did not provide a valid JSON!");
             return;
         }
-        custom_warning("Merging the requested Menus", false, menu, options)
-        const updatedImport = await autoRecMigration.handle(menu, {...options})
+        const menuData = JSON.parse(menu)
+        custom_warning("Merging the requested Menus", false, menuData, options)
+        const updatedImport = await autoRecMigration.handle(menuData, {...options})
 
         let currentMenu = {
             melee:await game.settings.get('autoanimations', 'aaAutorec-melee'),
@@ -153,15 +154,16 @@ export class AAAutorecManager
      * @param {*} options // Limit the Menus in which to perform the Overwrite. Ex: {melee: true} will ONLY overwrite the Melee Menus
      */
     static async overwriteMenus(menu, options = {}) {
-        let isValid = validateJson(menu);
+        let isValid = this._validateJson(menu);
         if (!isValid) {
             custom_error("You did not provide a valid JSON!");
             return;
         }
-        await autoRecMigration.handle(menu, {isOverwrite: true, shouldSubmit: true, ...options})
+        const menuData = JSON.parse(menu)
+        await autoRecMigration.handle(menuData, {isOverwrite: true, shouldSubmit: true, ...options})
     }
 
-    validateJson(json) {
+    static _validateJson(json) {
         try {
             JSON.parse(json);
             return true;
