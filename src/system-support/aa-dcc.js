@@ -1,7 +1,11 @@
 import { trafficCop } from "../router/traffic-cop.js"
 import systemData from "../system-handlers/system-data.js"
 
-export async function runDcc(input) {
+export function systemHooks() {
+    Hooks.on("createChatMessage", async (msg) => {  runDcc(msg) });
+}
+
+async function runDcc(input) {
     if (input.user.id !== game.user.id) { return };
 
     if (!game.settings.get('dcc', 'useStandardDiceRoller')) {

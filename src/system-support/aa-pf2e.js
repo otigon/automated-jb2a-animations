@@ -1,7 +1,11 @@
 import { trafficCop } from "../router/traffic-cop.js"
 import systemData from "../system-handlers/system-data.js"
 
-export async function runPf2e(msg) {
+export function systemHooks() {
+    Hooks.on("createChatMessage", async (msg) => { runPf2e(msg) });
+}
+
+async function runPf2e(msg) {
     if (game.user.id !== msg.user.id) { return; }
     const handler = await systemData.make(msg);
     if (!handler.item || !handler.sourceToken) {

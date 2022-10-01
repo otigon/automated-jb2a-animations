@@ -1,50 +1,56 @@
-import { JB2APATREONDB } from "./database/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "./database/jb2a-free-database.js";
-//import { trafficCop } from "./router/traffic-cop.js";
+// Initilize the A-A Database
+import { initializeJB2APatreonDB }      from "./database/jb2a-patreon-database.js";
+import { initializeJB2AFreeDB }         from "./database/jb2a-free-database.js";
+import { JB2APATREONDB }                from "./database/jb2a-patreon-database.js";
+import { JB2AFREEDB }                   from "./database/jb2a-free-database.js";
 
-import { jb2aAAPatreonDatabase } from "./database/jb2a-patreon-database.js";
-import { jb2aAAFreeDatabase } from "./database/jb2a-free-database.js";
+// Accessible to users
+import { AutoAnimations}                from "./system-support/external.js"
+import { AAAutorecManager }             from "./formApps/_AutorecMenu/components/category/menuManager/AAAutorecManager.js";
+import { playAnimation }                from "./system-support/external.js";
 
-//import systemData from "./system-handlers/system-data.js";
-import {AutoAnimations} from "./system-support/external.js"
-import { AAAutorecManager } from "./formApps/_AutorecMenu/components/category/menuManager/AAAutorecManager.js";
-import { playAnimation } from "./system-support/external.js";
+// Register all active effect Hooks
+import { registerActiveEffectHooks }    from "./active-effects/handleActiveEffectHooks";
 
-import { registerActiveEffectHooks } from "./active-effects/handleActiveEffectHooks";
+// Animation Menus for Items and Active Effects
+import AEMenuApp                        from "./formApps/_ActiveEffects/AEMenuApp.js";
+import ItemMenuApp                      from "./formApps/_ItemMenu/ItemMenuApp.js";
+// Show Autorec menu via macro with Hooks.call('AutomaticAnimations.Open.Menu.New')
+import { showAutorecMenu }              from "./formApps/_AutorecMenu/showUI.js";
 
-//import AAActiveEffectMenu from "./formApps/ActiveEffects/activeEffectMenu.js";
-//import AAAutorecMenu from "./formApps/AutorecMenu/aaAutorecMenu.js";
+// Register Socketlib settings for creating and removing Tiles as GM
+import { setupSocket }                  from "./socketset.js";
 
-//import AAItemMenu from "./formApps/ItemMenu/itemMenu.js";
-import AEMenuApp from "./formApps/_ActiveEffects/AEMenuApp.js";
-import ItemMenuApp from "./formApps/_ItemMenu/ItemMenuApp.js";
+// Migration scripts for Item/Active Effect and Autorec
+import { flagMigrations }               from "./mergeScripts/items/itemFlagMerge.js";
+import { autoRecMigration }             from "./mergeScripts/autorec/autoRecMerge.js";
 
+// Animation State setting for if Animations are disabled from within A-A
+import { AnimationState }               from "./AnimationState.js";
 
-import { setupSocket } from "./socketset.js";
-import { flagMigrations } from "./mergeScripts/items/itemFlagMerge.js";
-import { autoRecMigration } from "./mergeScripts/autorec/autoRecMerge.js";
+// Initialize all game settings
+import { initSettings }                 from "./initSettings.js";
+import { gameSettings }                 from "./gameSettings.js";
 
-import * as systemSupport from "./system-support/index.js"
+// Initializes Autorec stores 
+import { autoRecStores }                from "./formApps/_AutorecMenu/store/AutoRecStores.js";
 
-import { AnimationState } from "./AnimationState.js";
-import { initSettings } from "./initSettings.js";
-import { gameSettings } from "./gameSettings.js";
-import { autoRecStores }  from "./formApps/_AutorecMenu/store/AutoRecStores.js";
-
-import { showAutorecMenu } from "./formApps/_AutorecMenu/showUI.js";
-//import { showMainMenu } from "./formApps/AutorecMenu/showMainUI.js";
+// Routing for registering Hooks to run animations
+import * as systemSupport               from "./system-support/index.js"
 
 import "../styles/newMenuCss.scss";
 
-import { aaDeletedItems } from "./DeletedItems.js";
+// MAP for caching Deleted items. Specifically for items that delete themselves on final usage so Animations can still play
+import { aaDeletedItems }               from "./DeletedItems.js";
 
 Hooks.once('socketlib.ready', function () {
     setupSocket();
 });
 
-//Hooks.on('AutomaticAnimations.Open.Menu',() => showMainMenu());
+// Hook for macro to open Autorec Menu
 Hooks.on('AutomaticAnimations.Open.Menu.New',() => showAutorecMenu());
 
+// Resets all Autorec menus
 Hooks.on('AutomaticAnimations.Clear.Data', async () => {
     await game.settings.set("autoanimations", "aaAutorec", void 0);
     await game.settings.set("autoanimations", "aaAutorec-aefx", void 0);
@@ -67,13 +73,9 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
         await flagMigrations.handle(app.document);
         // if this is a PF1 "Buff" effect or PF2e Ruleset Item (Active Effects) spawn the Active Effect menu. Otherwise continue as normal
         if ((game.system.id === 'pf1' && app.item?.type === 'buff') || (game.system.id === 'pf2e' && pf2eRuleTypes.includes(app.item?.type))) {
-            //new AAActiveEffectMenu(app.document, {}).render(true);
             new AEMenuApp(app.document, {}).render(true, { focus: true });
         } else {
-            //new AAItemSettings(app.document, {}).render(true);
             new ItemMenuApp(app.document, {}).render(true, { focus: true });
-            //new AAItemMenu(app.document, {}).render(true);
-            //new ItemMenuApp(app.document, {}).render(true, { focus: true });
         }
     });
 
@@ -92,7 +94,6 @@ Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
     aaBtn.click(async ev => {
         await flagMigrations.handle(app.document, {isActiveEffect: true});
         new AEMenuApp(app.document, {}).render(true, { focus: true });
-        //new AAActiveEffectMenu(app.document, {}).render(true);
     });
     html.closest('.app').find('.aa-item-settings').remove();
     let titleElement = html.closest('.app').find('.window-title');
@@ -121,17 +122,17 @@ Hooks.on("aa.initialize", async () => {
     }
     /*
     if (moduleIncludes("jb2a_patreon")) {
-        await jb2aAAPatreonDatabase(jb2aPath)
+        await initializeJB2APatreonDB(jb2aPath)
     } else {
-        await jb2aAAFreeDatabase(jb2aPath)
+        await initializeJB2AFreeDB(jb2aPath)
     }
     */
     let obj01;
     if (jb2aPatreonFound || s3Patreon) {
-        await jb2aAAPatreonDatabase(jb2aPath)
+        await initializeJB2APatreonDB(jb2aPath)
         obj01 = JB2APATREONDB;
     } else {
-        await jb2aAAFreeDatabase(jb2aPath)
+        await initializeJB2AFreeDB(jb2aPath)
         obj01 = JB2AFREEDB;
     }
 
@@ -157,190 +158,51 @@ Hooks.once('ready', async function () {
     // Check if the Autorec menu requires merge scripts to run
     handleAutorec();
 
-    // Register Hooks by system
+    // Cache deleted items
     Hooks.on("deleteItem", async (item) => {storeDeletedItems(item)})
 
+    // Register Hooks by system
     if (game.modules.get("midi-qol")?.active) {
-        switch (game.settings.get("autoanimations", "playonDamage")) {
-            case (true):
-                Hooks.on("midi-qol.DamageRollComplete", (workflow) => { systemSupport.aaMidiqol.setUpMidi(workflow) });
-                //Hooks.on('midi-qol.preambleComplete', (workflow) => { midiAOE(workflow) });
-                //Hooks.on("createChatMessage", (msg) => { systemSupport.aaMidiqol.midiTemplateAnimations(msg) });
-                Hooks.on("midi-qol.RollComplete", (workflow) => { systemSupport.aaMidiqol.setUpMidiNoAttackDamage(workflow) });
-                Hooks.on("dnd5e.displayCard", async (item, chat, options) => {systemSupport.aaMidiqol.useItem({item, chat, options})});
-                Hooks.on("createMeasuredTemplate", async (template, data, userId) => {systemSupport.aaMidiqol.templateItem({template, data, userId})})
-                break;
-            case (false):
-                Hooks.on("midi-qol.AttackRollComplete", (workflow) => { systemSupport.aaMidiqol.setUpMidi(workflow) });
-                Hooks.on("midi-qol.RollComplete", (workflow) => { systemSupport.aaMidiqol.setUpMidiNoAttack(workflow) });
-                //Hooks.on('midi-qol.preambleComplete', (workflow) => { midiAOE(workflow) });
-                //Hooks.on("createChatMessage", (msg) => { systemSupport.aaMidiqol.midiTemplateAnimations(msg) });
-                Hooks.on("dnd5e.displayCard", async (item, chat, options) => {systemSupport.aaMidiqol.useItem({item, chat, options})});
-                Hooks.on("createMeasuredTemplate", async (template, data, userId) => {systemSupport.aaMidiqol.templateItem({template, data, userId})})
-                break;
-        }
-        if (game.settings.get("autoanimations", "EnableCritical") || game.settings.get("autoanimations", "EnableCriticalMiss")) {
-            Hooks.on("midi-qol.AttackRollComplete", (workflow) => { systemSupport.aaMidiqol.criticalCheck(workflow) })
-        }
+        systemSupport.midiqol.systemHooks();
     } else {
+        systemSupport[game.system.id] ? systemSupport[game.system.id].systemHooks() : systemSupport.standard.systemHooks();
+        /*
         switch (game.system.id) {
             case "dnd5e":
-                Hooks.on("dnd5e.displayCard", async (item, chat, card) => {systemSupport.aaDnd5e.useItem({item, chat, card})});
-                Hooks.on("dnd5e.rollAttack", async (item, roll) => {systemSupport.aaDnd5e.rollAttack({item, roll})})
-                Hooks.on("dnd5e.rollDamage", async (item, roll) => {systemSupport.aaDnd5e.rollDamage({item, roll})})
-                Hooks.on("createMeasuredTemplate", async (template, data, userId) => {systemSupport.aaDnd5e.templateItem({template, data, userId})})
+                systemSupport.dnd5e.dnd5eHooks();
                 break;
             case "sw5e":
-                Hooks.on("createChatMessage", async (msg) => { systemSupport.aaDnd5e.runDnd5e(msg); });
+                systemSupport.sw5e.sw5eHooks();
                 break;
             case "demonlord":
-                Hooks.on("DL.Action", async (data) => { systemSupport.aaDemonlord.runDemonlord(data) });
+                systemSupport.demonlord.demonlordHooks();
                 break;
             case "pf2e":
-                Hooks.on("createChatMessage", async (msg) => { systemSupport.aaPf2e.runPf2e(msg) });
+                systemSupport.pf2e.pf2eHooks();
                 break;
             case "sfrpg":
-                Hooks.on("createChatMessage", async (msg) => {
-                    function extractItemId(content) {
-                        try {
-                            return $(content).attr("data-item-id");
-                        } catch (exception) {
-                            return null;
-                        }
-                    }
-                    const itemId = extractItemId(msg.content);
-                    if (!itemId) { return; }
-                    const tokenId = msg.speaker.token;
-                    const sourceToken = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId));
-
-                    if (!sourceToken) { return; }
-
-                    const item = sourceToken.actor?.items?.get(itemId)
-                    if (item.type === 'feat') { return; }
-
-                    if (!item.hasAttack && !item.hasDamage) {
-                        let data = {}
-                        systemSupport.aaSfrpg.runStarfinder(data, msg)
-                    }
-                });
-                if (game.settings.get("autoanimations", "playonDamage")) {
-                    Hooks.on("damageRolled", async (data) => {
-                        Hooks.once("createChatMessage", async (msg) => {
-                            if (msg.user.id !== game.user.id) { return };
-                            systemSupport.aaSfrpg.runStarfinder(data, msg)
-                        });
-                    });
-                } else {
-                    Hooks.on("attackRolled", async (data) => {
-                        Hooks.once("createChatMessage", async (msg) => {
-                            if (msg.user.id !== game.user.id) { return };
-                            systemSupport.aaSfrpg.runStarfinder(data, msg)
-                        });
-                    })
-                    Hooks.on("damageRolled", async (data) => {
-                        Hooks.once("createChatMessage", async (msg) => {
-                            if (msg.user.id !== game.user.id) { return };
-                            if (data.item.hasAttack) {
-                                return;
-                            } else {
-                                systemSupport.aaSfrpg.runStarfinder(data, msg)
-                            }
-                        });
-                    })
-                }
+                systemSupport.sfrpg.sfrpgHooks();
                 break;
             case "swade":
-                Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem) => {
-                    const controlledTokens = canvas.tokens.controlled;
-                    let token;
-                    if (controlledTokens.length > 0) {
-                        token = controlledTokens.find(token => token.actorId === SwadeTokenOrActor.id);
-                    }
-                    if (token) { SwadeTokenOrActor = token; }
-                    systemSupport.aaSwade.runSwade(SwadeTokenOrActor, SwadeItem)
-                });
-                async function get_brsw_data (data) {
-                    var tokenId = data.getFlag("betterrolls-swade2", "token");
-                    if (tokenId) {
-                        var token = canvas.tokens.get(tokenId);
-                        var itemId = data.getFlag("betterrolls-swade2", "item_id");
-                        var item = token.actor.items.get(itemId);
-                        const actorOrToken = token
-                        return {actorOrToken, item}
-                    } else {
-                        var actorId = data.getFlag("betterrolls-swade2", "actor");
-                        var actor = game.actors.get(actorId);
-                        var itemId = data.getFlag("betterrolls-swade2", "item_id");
-                        var item = actor.items.get(itemId);
-                        const actorOrToken = actor
-                        return {actorOrToken, item}
-                    }
-                }
-                Hooks.on("BRSW-RollItem", async (data, html) => {
-                    const {actorOrToken, item} = await get_brsw_data (data)
-                    if (item.flags?.autoanimations?.animType === "template" || (item.flags?.autoanimations?.animType === "preset" && item.flags?.autoanimations?.animation === "fireball")) {
-                        return //Return to prevent duplicate effects on placing a template.
-                    } else { systemSupport.aaSwade.runSwade(actorOrToken, item) }
-                });
-                Hooks.on("BRSW-BeforePreviewingTemplate", async (template, data, ev) => {
-                    const {actorOrToken, item} = await get_brsw_data (data)
-                    systemSupport.aaSwade.runSwade(actorOrToken, item)
-                })
-                Hooks.on("BRSW-CreateItemCardNoRoll", async (data) => {
-                    const {actorOrToken, item} = await get_brsw_data (data)
-                    if (item.flags?.autoanimations?.animType === "template" || (item.flags?.autoanimations?.animType === "preset" && item.flags?.autoanimations?.animation === "fireball")) {
-                        return //Return to prevent duplicate effects on placing a template.
-                    } else { systemSupport.aaSwade.runSwade(actorOrToken, item) }
-                })
+                systemSupport.swade.swadeHooks();
                 break;
             case "wfrp4e":
-                Hooks.on("wfrp4e:rollWeaponTest", async (data, info) => {
-                    //let targets = game.user.targets;
-                    systemSupport.aaWfrpg.wfrpWeapon(data, info)
-                });
-                Hooks.on("wfrp4e:rollPrayerTest", async (data, info) => {
-                    //let targets = game.user.targets;
-                    systemSupport.aaWfrpg.wfrpPrayer(data, info)
-                });
-                Hooks.on("wfrp4e:rollCastTest", async (data, info) => {
-                    //let targets = game.user.targets;
-                    systemSupport.aaWfrpg.wfrpCast(data, info)
-                });
-                Hooks.on("wfrp4e:rollTraitTest", async (data, info) => {
-                    //let targets = game.user.targets;
-                    systemSupport.aaWfrpg.wfrpTrait(data, info)
-                });
-                Hooks.on("wfrp4e:rollTest", async (data, info) => {
-                    //let targets = game.user.targets;
-                    systemSupport.aaWfrpg.wfrpSkill(data, info)
-                });
-
+                systemSupport.wfrpg.wfrp4eHooks();
                 break;
             case 'dcc':
-                Hooks.on("createChatMessage", async (msg) => {  systemSupport.aaDcc.runDcc(msg) });
+                systemSupport.dcc.dccHooks();
                 break;
-            /*
-            Systems Working at Default level
-            case "a5e":
-            case "cyphersystem":
-            case "alienrpg":
-            case "pf1":
-            case "D35E":
-            case "forbidden-lands":
-            case "starwarsffg":
-            case 'ose':
-            */
             default:
-                Hooks.on("createChatMessage", async (msg) => {systemSupport.aaStandard.runStandard(msg) });
+                systemSupport.standard.standardHook();
         }
+        */
     }
+
     registerActiveEffectHooks();
 
     Hooks.callAll("aa.initialize")
 });
 
-//export const aaDeletedItems = new Map();
-//Hooks.on("deleteItem", async (item) => {getDeletedItems(item)})
 function storeDeletedItems(item) {
     aaDeletedItems.set(item.id, item)
 }
@@ -364,8 +226,6 @@ window.AutomatedAnimations = {
     AutorecManager: AAAutorecManager,
     PlayAnimation: (data) => playAnimation(data),
 }
-
-
 
 function moduleIncludes(test) {
     return !!game.modules.get(test);

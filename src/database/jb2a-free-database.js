@@ -1,5 +1,5 @@
 const JB2AFREEDB = {};
-export async function jb2aAAFreeDatabase(path) {
+export async function initializeJB2AFreeDB(path) {
 
     JB2AFREEDB._templates = {
         ranged: [200, 200, 200]
@@ -1157,7 +1157,7 @@ export async function jb2aAAFreeDatabase(path) {
                     red: [lg`Marker/MarkerChainStandard01_02_Regular_Red_Loop_400x400.webm`],
                 },
             }
-        },    
+        },
         conditions: {
             drop: {
                 '02': {
@@ -1435,7 +1435,7 @@ export async function jb2aAAFreeDatabase(path) {
                 '03': {
                     grey: [lg`Smoke/SmokePuff01_03_Regular_Grey_400x400.webm`],
                 },
-                'ring02':{
+                'ring02': {
                     white: [
                         lg`Smoke/SmokePuffRing01_01_Regular_White_400x400.webm`,
                         lg`Smoke/SmokePuffRing01_02_Regular_White_400x400.webm`,
@@ -1549,7 +1549,7 @@ export async function jb2aAAFreeDatabase(path) {
                 '01': {
                     blue: [lg`Liquid/LiquidBlob01_01_Regular_Blue_400x400.webm`],
                 }
-            },    
+            },
         },
         magicsign: {
             abjuration: {
@@ -1683,7 +1683,7 @@ export async function jb2aAAFreeDatabase(path) {
                 '05': {
                     greenyellow: [lg`Particles/ParticlesInward01_05_Regular_GreenYellow_400x400.webm`],
                 },
-            },    
+            },
             stars: {
                 '01': {
                     green: [lg`Particles/ParticlesOutward02_01_Regular_GreenYellow_400x400.webm`],
@@ -1717,7 +1717,7 @@ export async function jb2aAAFreeDatabase(path) {
                 '05': {
                     greenyellow: [lg`Particles/ParticlesInward02_05_Regular_GreenYellow_400x400.webm`],
                 },
-            },    
+            },
             swirl: {
                 '01': {
                     greenyellow: [lg`Particles/ParticlesSwirl01_01_Regular_GreenYellow_400x400.webm`],

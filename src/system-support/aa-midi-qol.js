@@ -1,11 +1,35 @@
 import { trafficCop } from "../router/traffic-cop.js"
 import systemData from "../system-handlers/system-data.js"
 import { debug } from "../constants/constants.js";
+
+export function systemHooks() {
+    switch (game.settings.get("autoanimations", "playonDamage")) {
+        case (true):
+            Hooks.on("midi-qol.DamageRollComplete", (workflow) => { setUpMidi(workflow) });
+            //Hooks.on('midi-qol.preambleComplete', (workflow) => { midiAOE(workflow) });
+            //Hooks.on("createChatMessage", (msg) => { systemSupport.aaMidiqol.midiTemplateAnimations(msg) });
+            Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAttackDamage(workflow) });
+            Hooks.on("dnd5e.displayCard", async (item, chat, options) => { useItem({ item, chat, options }) });
+            Hooks.on("createMeasuredTemplate", async (template, data, userId) => { templateItem({ template, data, userId }) })
+            break;
+        case (false):
+            Hooks.on("midi-qol.AttackRollComplete", (workflow) => { setUpMidi(workflow) });
+            Hooks.on("midi-qol.RollComplete", (workflow) => { setUpMidiNoAttack(workflow) });
+            //Hooks.on('midi-qol.preambleComplete', (workflow) => { midiAOE(workflow) });
+            //Hooks.on("createChatMessage", (msg) => { systemSupport.aaMidiqol.midiTemplateAnimations(msg) });
+            Hooks.on("dnd5e.displayCard", async (item, chat, options) => { useItem({ item, chat, options }) });
+            Hooks.on("createMeasuredTemplate", async (template, data, userId) => { templateItem({ template, data, userId }) })
+            break;
+    }
+    if (game.settings.get("autoanimations", "EnableCritical") || game.settings.get("autoanimations", "EnableCriticalMiss")) {
+        Hooks.on("midi-qol.AttackRollComplete", (workflow) => { criticalCheck(workflow) })
+    }
+}
 /*
 / Midi-QOL Functions for DnD 5e and Star Wars 5e
 */
 // setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
-export async function setUpMidi(workflow) {
+async function setUpMidi(workflow) {
     if (workflow.item?.hasAreaTarget) { return; }
     let handler = await systemData.make(workflow);
     if (!handler.item || !handler.sourceToken) {
@@ -16,7 +40,7 @@ export async function setUpMidi(workflow) {
     trafficCop(handler);
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
-export async function setUpMidiNoAttackDamage(workflow) {
+async function setUpMidiNoAttackDamage(workflow) {
     if (workflow.item?.hasAttack || workflow.item?.hasDamage) { return; }
     let handler = await systemData.make(workflow);
     if (!handler.item || !handler.sourceToken) {
@@ -27,7 +51,7 @@ export async function setUpMidiNoAttackDamage(workflow) {
     trafficCop(handler)
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
-export async function setUpMidiNoAttack(workflow) {
+async function setUpMidiNoAttack(workflow) {
     if (workflow.item?.hasAttack || workflow.item?.hasAreaTarget) { return; }
     let handler = await systemData.make(workflow);
     if (!handler.item || !handler.sourceToken) {
@@ -38,7 +62,7 @@ export async function setUpMidiNoAttack(workflow) {
     trafficCop(handler)
 }
 // For Auras and Teleportation
-export async function useItem(input) {
+async function useItem(input) {
     if (input.item?.hasAreaTarget || input.item?.hasAttack || input.item?.hasDamage) { return; }
 
     let handler = await systemData.make(input);
@@ -47,7 +71,7 @@ export async function useItem(input) {
     trafficCop(handler)
 }
 // For Template Animations
-export async function templateItem(input) {
+async function templateItem(input) {
     if (input.userId !== game.user.id) { return };
 
     const itemUuid = input.template?.flags?.dnd5e?.origin;
@@ -74,7 +98,7 @@ export async function midiTemplateAnimations(msg) {
     } else { return; }
 }
 */
-export async function criticalCheck(workflow) {
+async function criticalCheck(workflow) {
     if (!workflow.isCritical && !workflow.isFumble) { return; }
     debug("Checking for Crit or Fumble")
     let critical = workflow.isCritical;

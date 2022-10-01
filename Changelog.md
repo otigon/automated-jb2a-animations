@@ -1,3 +1,38 @@
+4.0.0  
+**Breaking Changes**  
+* **Items:** 
+  * All Items that were previously using the Override Autorec setting will need to be reset. This option has been drastically changed to copy over the entire data structure from the relevant Autorec Menu section to the item for customization.  
+  * All Items previously disabled and set with either a Sound or Macro will have their A-A menu reset. You will need to reconfigure those with the new menu options.
+* **MELEE MENU:** 
+  * Animations that are using a Return animation in the Melee Switch section should be revisited and tweaked to use the new WAIT option in the Primary Animation to set the timing for the effect. Rule of Thumb for this is -500 to start.  
+* **PRESET MENU:**
+  * The following Preset Animations have been removed. These can all be configured in the On Token menu are are irrelevant for use now.
+    * Bardic Inspiration
+    * Bless
+    * Shield
+    * Sneak Attack
+    * Hunters Mark
+* **ACTIVE EFFECT MENU:**
+  * As above, the Shield and Bless animations have been removed. Only Aura and On Token are available. HOWEVER, Animations set in this menu should be automatically converted to their On Token menu equivalent.  
+
+**UPDATE NOTES**  
+* This update brings a 100% overhaul to the entire module, with specific focus on brand new Menus using Svelte. Check out the Automated Animations Wiki at https://github.com/otigon/automated-jb2a-animations/wiki for more information about changes. The overall menu structure remains the same, but provides a much better interface and visual appeal.  
+* All Sequences in Automated Animations have been reworked to provide much more flexibility for users to customize as they wish. Notable changes include:
+  * Range menu now has the option to enable a Return animation if the Animation set thru the Select Menus matches one available  
+  * All sections now have many more options to customize effects. This includes Opacity, Masking (most menus), Fades, Delays, etc. Click on the Blue INFO icon in the Options sections of the menus for full details on what each option does
+  * Video Previews! This has been developed as it's own application and can be used to view video files selected (or custom) from any menu, including the **Global Automatic Recognition Menu**. The Module setting concerning Video Previews has been removed
+  * Most notably in the changes is the ability to customize how you chain animations. The **MELEE**, **RANGE**, **ON TOKEN**, **TEMPLATES**, and **AURA** menus now ALL have the Source, Secondary (Previously Explosions), and Target options available. Source, Primary and Secondary now have dual options to set either **WAIT** or **DELAY**. These two options have vastly different effects. Check out here for more information: https://github.com/otigon/automated-jb2a-animations/wiki/Configure-Effects#chaining-effects-with-delaywait  
+  * DnD 5e System now uses the newly provided System hooks to run animations (only if NOT using Midi-QOL). These should be compatible with the new Ready Set Roll module (previously Better Rolls)
+  * **Global Automatic Recognition Menu**
+    * The new Autorec menu has a button at the bottom labeld **Menu Manager**. This allows you to do multiple things:
+      * **Restore Default Menu**: As labeled, use this to restore your Autorec menu to it's Default state as provided on installation
+      * **Merge Menus**: This provides the ability to Merge someone else menu into your own. Contains a new option to limit which menus you merge. Such as only merging the Melee and On Token menu.
+      * **Overwrite Menus**: As labelled, this will OVERWRITE your current menu with a new one. This also contains the ability to choose which specific menus to overwrite
+      * **Export Menus**: Nothing has changed here. This will still export your Global Automatic Recognition menu to a JSON file.
+  * **MACROS**: 2 changes
+    * ARGS input box is now a Text Field, and accepts Javascript Object format, or standard string format. If a valid Object (wrapped in {}) is input, it will send that as an Object in `args[2]` position to the Macro.
+    * Item Macros can now be used in A-A. To use an Item Macro, simply put the word `ItemMacro` into the Macro Name field. This is case sensitive!
+
 3.1.0  
 * Adds support for PF1 Buffs (Active Effects)  
 * Adds support for PF2e Ruleset Items (Active Effect types)  
