@@ -13,7 +13,7 @@
   import CategoryList from "./CategoryList.svelte";
   import Slider from "../../../Menus/Components/options/inputComponents/Slider.svelte";
 
-  import { AAAutorecFunctions } from "../../../../aa-classes/AAAutorecFunctions";
+  import { AAAutorecFunctions } from "../../../../aa-classes/aaAutorecFunctions";
   import { copyToFrom } from "../../../Menus/Components/copyitem/copyToFrom";
 
   import NoneChosen from "./menus/NoneChosen.svelte";
