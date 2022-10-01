@@ -18,7 +18,7 @@ export async function teleportation(handler, animationData) {
 
     const hideBorder = data.options.hideFromPlayers ? gmIDs : userIDs;
     const userColor = game.user?.color ? "0x" + game.user.color.replace(/^#/, '') : 0x0D26FF;
-    const filePath = data.options.measureType === 'equidistant' ? "modules/autoanimations/styles/teleportSquare.png" : "modules/autoanimations/styles/teleportCircle.png"
+    const filePath = data.options.measureType === 'equidistant' ? "modules/autoanimations/animationPNG/teleportSquare.png" : "modules/autoanimations/animationPNG/teleportCircle.png"
 
     const delayFade = data.options.delayFade || 0;
     const delayReturn = data.options.delayReturn || 0;
