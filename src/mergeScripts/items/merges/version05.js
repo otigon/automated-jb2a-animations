@@ -700,10 +700,13 @@ export async function version05(flags, isActiveEffect) {
 
         newData.macro = macro || {};
         newData.data = {
-            menuType: "spell",
-            animation: "thunderwave",
-            variant: "mid",
-            color: color || "blue",
+            video: {
+                dbSection: "templatefx",
+                menuType: "square",
+                animation: "thunderwave",
+                variant: "mid",
+                color: color || "blue",    
+            },
             options: {
                 elevation: animLevel ? 0 : 1000,
                 repeat: options?.repeat ?? 1,

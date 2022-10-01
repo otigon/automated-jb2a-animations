@@ -1,5 +1,6 @@
 import { trafficCop } from "../router/traffic-cop.js"
 import systemData from "../system-handlers/system-data.js"
+import { AnimationState }   from "../AnimationState.js";
 
 /*
 Known Systems Working at Default level
@@ -18,7 +19,7 @@ export function systemHooks() {
 }
 
 async function runStandard(msg) {
-    if (msg.user.id !== game.user.id) { return };
+    if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
     let handler = await systemData.make(msg);
     if (!handler.item || !handler.sourceToken) {
         return;

@@ -1,5 +1,6 @@
 import { trafficCop } from "../router/traffic-cop.js"
 import systemData from "../system-handlers/system-data.js"
+import { AnimationState }   from "../AnimationState.js";
 
 export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => {
@@ -53,6 +54,7 @@ export function systemHooks() {
 }
 
 async function runStarfinder(data, msg) {
+    if (!AnimationState.enabled) { return; }
     const sfrpgData = { data, msg }
     const handler = await systemData.make(sfrpgData)
     //let tokenId = msg.data.speaker.token;

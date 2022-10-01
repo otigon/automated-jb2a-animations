@@ -1,12 +1,13 @@
 import { trafficCop } from "../router/traffic-cop.js"
 import systemData from "../system-handlers/system-data.js"
+import { AnimationState }   from "../AnimationState.js";
 
 export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => { runPf2e(msg) });
 }
 
 async function runPf2e(msg) {
-    if (game.user.id !== msg.user.id) { return; }
+    if (game.user.id !== msg.user.id || !AnimationState.enabled) { return; }
     const handler = await systemData.make(msg);
     if (!handler.item || !handler.sourceToken) {
         return;

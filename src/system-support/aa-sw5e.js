@@ -1,12 +1,13 @@
 import { trafficCop } from "../router/traffic-cop.js";
 import systemData from "../system-handlers/system-data.js";
+import { AnimationState }   from "../AnimationState.js";
 
 export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => { runSW5e(msg); });
 }
 
 async function runSW5e(msg) {
-    if (msg.user.id !== game.user.id) { return };
+    if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
 
     const animationNow = game.settings.get("autoanimations", "playonDamageCore");
     let handler;

@@ -9,9 +9,5 @@ export class AnimationState {
    static set enabled(newEnabled)
    {
       enabled = newEnabled;
-
-      if (!enabled) {
-         socket.off('module.sequencer');
-      }
    }
 }

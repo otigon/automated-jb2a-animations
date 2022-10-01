@@ -5,7 +5,7 @@
     import ProjectileToTemplate from "../Presets/ProjectileToTemplate.svelte";
     import Teleportation        from "../Presets/Teleportation.svelte";
     import Thunderwave          from "../Presets/Thunderwave.svelte";
-    import SectionButtons       from "../Components/SectionButtons03.svelte";
+    import SectionButtons       from "../Components/SectionButtons02.svelte";
     import Macro                from "../Components/Macro.svelte";
     import SoundOnly            from "../Components/SoundOnly.svelte";
     import { preset }       from "../../_AutorecMenu/store/default-data/newSection/preset.js"
@@ -14,6 +14,7 @@
     export let animation;
     export let category;
     export let idx = 0;
+    export let fromMenu = 'autorec';
 
     $: presetType = $animation.presetType;
 
@@ -66,7 +67,7 @@
     $: macroPlay = $animation.macro.playWhen;
 </script>
 
-<SectionButtons {animation} />
+<SectionButtons  {animation} {category} {idx} type={fromMenu}  />
 <div hidden={!soundOnly || (macroEnabled && macroPlay === "2")}>
     <SoundOnly {animation} {category} />
 </div>

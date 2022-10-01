@@ -1,40 +1,53 @@
-import { debug } from "../constants/constants.js";
-import { trafficCop } from "../router/traffic-cop.js";
-import systemData from "../system-handlers/system-data.js";
+import { debug }            from "../constants/constants.js";
+import { trafficCop }       from "../router/traffic-cop.js";
+import systemData           from "../system-handlers/system-data.js";
+import { AnimationState }   from "../AnimationState.js";
 
+// DnD5e System hooks provided to run animations
 export function systemHooks() {
-    Hooks.on("dnd5e.displayCard", async (item, chat, card) => {useItem({item, chat, card})});
+    //Hooks.on("dnd5e.displayCard", async (item, chat, options) => {useItem({item, chat, options})});
+    Hooks.on('dnd5e.useItem', async (item, config, options) => {useItem({item, config, options})})
     Hooks.on("dnd5e.rollAttack", async (item, roll) => {rollAttack({item, roll})})
     Hooks.on("dnd5e.rollDamage", async (item, roll) => {rollDamage({item, roll})})
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {templateItem({template, data, userId})})    
 }
 
-async function useItem(input, chat, card) {
-    const animationNow = game.settings.get("autoanimations", "playonDamageCore");
-    if (input.item?.hasAreaTarget || input.item?.hasAttack || input.item?.hasDamage) { return; }
+/**
+ * 
+ * @param {Boolean} hasAreaTarget // Checks to see if the item has an AOE template
+ * @param {Boolean} hasAttack // Checks if the item has Attack
+ * @param {Boolean} hasDamage // Checks if the item has Damage
+ * @param {Boolean} AnimationState // Checks if Animations are disabled
+ *  
+ */
+
+async function useItem(input) {
+    //if (chat instanceof ChatMessage) {console.log("THIS IS A CHAT MESSAGE")} else {console.log("THIS IS NOT A CHAT MESSAGE")}
+    if (input.item?.hasAreaTarget || input.item?.hasAttack || input.item?.hasDamage || !AnimationState.enabled) { return; }
     debug("Playing Animation on Item Use")
     let handler = await systemData.make(input);
     if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
     trafficCop(handler)
 }
+
 async function rollAttack(input) {
-    const animationNow = game.settings.get("autoanimations", "playonDamageCore");
-    if (input.item?.hasAreaTarget || (input.item?.hasDamage && animationNow)) { return; }
+    if (input.item?.hasAreaTarget || (input.item?.hasDamage && !AnimationState.enabled)) { return; }
     debug("Playing Animation on Attack Roll")
     let handler = await systemData.make(input);
     if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
     trafficCop(handler)
 }
+
 async function rollDamage(input) {
-    const animationNow = game.settings.get("autoanimations", "playonDamageCore");
-    if (input.item?.hasAreaTarget || (input.item?.hasAttack && !animationNow)) { return; }
+    if (input.item?.hasAreaTarget || (input.item?.hasAttack && !AnimationState.enabled)) { return; }
     debug("Playing Animation on Damage Roll")
     let handler = await systemData.make(input);
     if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
     trafficCop(handler)
 }
+
 async function templateItem(input) {
-    if (input.userId !== game.user.id) { return };
+    if (input.userId !== game.user.id || !AnimationState.enabled) { return };
     debug("Playing Animation on Template Placement")
     const itemUuid = input.template?.flags?.dnd5e?.origin;
     const item = itemUuid ? await fromUuid(itemUuid) : "";
@@ -44,7 +57,7 @@ async function templateItem(input) {
     trafficCop(handler)
 }
 
-/*
+/* This is the previous method for 5e to gather all the relevant data from createChatMessage hook, before System hooks were implemented
 export async function runDnd5e(msg) {
     if (msg.user.id !== game.user.id) { return };
 

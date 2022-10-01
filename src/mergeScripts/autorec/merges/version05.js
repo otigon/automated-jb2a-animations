@@ -614,6 +614,7 @@ async function mergeVersion05(data) {
             options: {
                 playbackRate,
                 onlyX,
+                opacity: 1,
                 elevation: below ? 0 : 1000,
             },
             sound: setSound(audio, "a01"),
@@ -762,14 +763,17 @@ async function mergeVersion05(data) {
         newData.presetType = "thunderwave";
         //newData.hidden = true;
         newData.data = {
-            menuType: "spell",
-            animation: "thunderwave",
-            variant: "mid",
-            color: color || "blue",
+            video: {
+                dbSection: "templatefx",
+                menuType: "square",
+                animation: "thunderwave",
+                variant: "mid",
+                color: color || "blue",    
+            },
             options: {
                 elevation: below ? 0 : 1000,
                 repeat,
-                delay,
+                repeatDelay,
                 opacity,
                 removeTemplate,
             }, 

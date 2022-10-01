@@ -1,6 +1,7 @@
 import { trafficCop } from "../router/traffic-cop.js"
 import systemData from "../system-handlers/system-data.js"
 import { debug } from "../constants/constants.js";
+import { AnimationState }   from "../AnimationState.js";
 
 export function systemHooks() {
     switch (game.settings.get("autoanimations", "playonDamage")) {
@@ -30,7 +31,7 @@ export function systemHooks() {
 */
 // setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
 async function setUpMidi(workflow) {
-    if (workflow.item?.hasAreaTarget) { return; }
+    if (workflow.item?.hasAreaTarget || !AnimationState.enabled) { return; }
     let handler = await systemData.make(workflow);
     if (!handler.item || !handler.sourceToken) {
         return;
@@ -41,7 +42,7 @@ async function setUpMidi(workflow) {
 }
 // setUpMidiNoAD for Animations on items that have NO Attack or Damage rolls. Active if Animate on Damage true
 async function setUpMidiNoAttackDamage(workflow) {
-    if (workflow.item?.hasAttack || workflow.item?.hasDamage) { return; }
+    if (workflow.item?.hasAttack || workflow.item?.hasDamage || !AnimationState.enabled) { return; }
     let handler = await systemData.make(workflow);
     if (!handler.item || !handler.sourceToken) {
         return;
@@ -52,7 +53,7 @@ async function setUpMidiNoAttackDamage(workflow) {
 }
 // setUpMidiNoD for Animations on items that have NO Attack Roll. Active only if Animating on Attack Rolls
 async function setUpMidiNoAttack(workflow) {
-    if (workflow.item?.hasAttack || workflow.item?.hasAreaTarget) { return; }
+    if (workflow.item?.hasAttack || workflow.item?.hasAreaTarget || !AnimationState.enabled) { return; }
     let handler = await systemData.make(workflow);
     if (!handler.item || !handler.sourceToken) {
         return;
@@ -63,7 +64,7 @@ async function setUpMidiNoAttack(workflow) {
 }
 // For Auras and Teleportation
 async function useItem(input) {
-    if (input.item?.hasAreaTarget || input.item?.hasAttack || input.item?.hasDamage) { return; }
+    if (input.item?.hasAreaTarget || input.item?.hasAttack || input.item?.hasDamage || !AnimationState.enabled) { return; }
 
     let handler = await systemData.make(input);
     if (!handler.item || !handler.sourceToken) { debug("No Item or Source Token", handler.item, handler.sourceToken); return;}
@@ -72,7 +73,7 @@ async function useItem(input) {
 }
 // For Template Animations
 async function templateItem(input) {
-    if (input.userId !== game.user.id) { return };
+    if (input.userId !== game.user.id || !AnimationState.enabled) { return };
 
     const itemUuid = input.template?.flags?.dnd5e?.origin;
     const item = itemUuid ? await fromUuid(itemUuid) : "";
@@ -99,7 +100,7 @@ export async function midiTemplateAnimations(msg) {
 }
 */
 async function criticalCheck(workflow) {
-    if (!workflow.isCritical && !workflow.isFumble) { return; }
+    if (!workflow.isCritical && !workflow.isFumble || !AnimationState.enabled) { return; }
     debug("Checking for Crit or Fumble")
     let critical = workflow.isCritical;
     let fumble = workflow.isFumble;

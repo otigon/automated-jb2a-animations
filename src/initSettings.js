@@ -63,7 +63,6 @@ export function initSettings(gameSettings) {
             }
             if (value === 'on') {
                AnimationState.enabled = true;
-               window.location.reload()
             }
          }
       }

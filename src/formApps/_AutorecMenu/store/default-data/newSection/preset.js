@@ -16,7 +16,9 @@ export function preset(current = {}, type) {
                         color: "regular",
                     },
                     options: {
-                        below: false,
+                        elevation: 1000,
+                        onlyX: false,
+                        opacity: 1,
                         playbackRate: 1,
                     },
                     sound: common.sound()                
@@ -35,38 +37,63 @@ export function preset(current = {}, type) {
                 data: {
                     projectile: {
                         dbSection: "range",
-                        menuType: "weapon",
-                        animation: "arrow",
-                        variant: "regular",
-                        color: "regular",
+                        menuType: "spell",
+                        animation: "fireballbeam",
+                        variant: "01",
+                        color: "orange",
                         enableCustom: false,
                         customPath: "",
-                        options: {},
+                        options: {
+                            elevation: 1000,
+                            opacity: 1,
+                            repeat: 1,
+                            repeatDelay: 250,
+                            removeTemplate: false,
+                            wait: -1800,
+                        },
                         sound: common.sound()
                     },
                     preExplosion: {
+                        enable: false,
                         dbSection: "static",
                         menuType: "spell",
                         animation: "curewounds",
                         variant: "01",
                         color: "blue",
-                        options: {},
-                        enable: false,
+                        options: {
+                            elevation: 1000,
+                            opacity: 1,
+                            repeat: 1,
+                            repeatDelay: 250,
+                            scale: 1,
+                            wait: 0,
+                        },
                         sound: common.sound()
                     },
                     explosion: {
                         dbSection: "static",
                         menuType: "spell",
-                        animation: "curewounds",
-                        variant: "01",
-                        color: "blue",
-                        options: {},
+                        animation: "fireball",
+                        variant: "explode",
+                        color: "orange",
+                        options: {
+                            elevation: 1000,
+                            opacity: 1,
+                            repeat: 1,
+                            repeatDelay: 250,
+                            scale: 1.25,
+                            wait: -1000,
+                        },
                         sound: common.sound()
                     },
                     afterImage: {
                         enable: false,
                         customPath: "",
-                        options: {}
+                        options: {
+                            elevation: 0,
+                            persistent: false,
+                            scale: 1,
+                        }
                     }                
                 },
                 label: current.label || "",
@@ -158,21 +185,21 @@ export function preset(current = {}, type) {
             return {
                 id: current.id || uuidv4(),
                 data: {
-                    dbSection: "static",
-                    menuType: "spell",
-                    animation: "curewounds",
-                    variant: "01",
-                    color: "blue",
-                    sound: {enable: false},
+                    video: {
+                        dbSection: "static",
+                        menuType: "spell",
+                        animation: "thunderwave",
+                        variant: "mid",
+                        color: "blue",    
+                    },
                     options: {
-                        below: false,
+                        elevation: 1000,
                         removeTemplate: false,
-                        scaleX: 1,
-                        scaleY: 1,
                         repeat: 1,
-                        delay: 250,
+                        repeatDelay: 250,
                         opacity: 1,
-                    }                
+                    }      ,
+                    sound: {enable: false},          
                 },
                 label: current.label || "",
                 macro: current.macro || common.macro(),
@@ -194,7 +221,14 @@ export function preset(current = {}, type) {
                         color: "regular",
                         enableCustom: false,
                         customPath: "",
-                        options: {},
+                        options: {
+                            elevation: 1000,
+                            opacity: 1,
+                            repeat: 1,
+                            repeatDelay: 250,
+                            removeTemplate: false,
+                            wait: -1800,
+                        },
                         sound: common.sound()
                     },
                     preExplosion: {
@@ -203,7 +237,14 @@ export function preset(current = {}, type) {
                         animation: "curewounds",
                         variant: "01",
                         color: "blue",
-                        options: {},
+                        options: {
+                            elevation: 1000,
+                            opacity: 1,
+                            repeat: 1,
+                            repeatDelay: 250,
+                            scale: 1,
+                            wait: 0,
+                        },
                         enable: false,
                         sound: common.sound()
                     },
@@ -213,13 +254,24 @@ export function preset(current = {}, type) {
                         animation: "curewounds",
                         variant: "01",
                         color: "blue",
-                        options: {},
+                        options: {
+                            elevation: 1000,
+                            opacity: 1,
+                            repeat: 1,
+                            repeatDelay: 250,
+                            scale: 1.25,
+                            wait: -1000,
+                        },
                         sound: common.sound()
                     },
                     afterImage: {
                         enable: false,
                         customPath: "",
-                        options: {}
+                        options: {
+                            elevation: 0,
+                            persistent: false,
+                            scale: 1,
+                        }
                     }                
                 },
                 label: current.label || "",

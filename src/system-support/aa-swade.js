@@ -1,5 +1,6 @@
 import { trafficCop } from "../router/traffic-cop.js"
 import systemData from "../system-handlers/system-data.js"
+import { AnimationState }   from "../AnimationState.js";
 
 export function systemHooks() {
     Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem) => {
@@ -47,6 +48,7 @@ export function systemHooks() {
 }
 
 async function runSwade(SwadeTokenOrActor, SwadeItem) {
+    if (!AnimationState.enabled) { return; }
     let data = { SwadeTokenOrActor, SwadeItem }
     let handler = await systemData.make(data);
     if (!handler.item || !handler.sourceToken) {

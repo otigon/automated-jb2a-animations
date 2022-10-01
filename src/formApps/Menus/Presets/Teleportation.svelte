@@ -2,10 +2,8 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import {
         TJSSvgFolder,
-        TJSIconButton,
     } from "@typhonjs-fvtt/svelte-standard/component";
 
-    import SectionHeader from "../Components/SectionHeader.svelte";
     import VideoSelect from "../Components/VideoSelect.svelte";
     import Opacity from "./inputComponents/Opacity.svelte";
     import OptionsDialog from "../Components/options/optionsInfoDialog.js";
@@ -24,19 +22,7 @@
         },
         label: game.i18n.localize("autoanimations.menus.options"),
     };
-    /*
-    const optionsInfo = {
-        icon: "fas fa-info-circle",
-        title: "autoanimations.menus.quickReference",
-        styles: {
-            "--tjs-icon-button-diameter": "1.em",
-            position: "relative",
-            left: "10px",
-            bottom: "-2px",
-            color: "rgba(50, 79, 245, 0.5)",
-        },
-    };
-    */
+
     const styling = {
         "--tjs-summary-font-family":
                 '"Modesto Condensed", "Palatino Linotype", serif',
@@ -72,12 +58,17 @@
 </script>
 
 <div class="aa-options-border" style="padding-left: 1em; padding-right: 1em">
-    <SectionHeader title={localize('autoanimations.menus.movement') + " " + localize('autoanimations.menus.options')} />
-    <i 
-        class="fas fa-info-circle aa-blue"
-        style="position:relative; bottom: 30px; left: 30px; font-size: 1.2em"
-        on:click={() => OptionsDialog.show("preset", "teleportation")}
-    ></i>
+    <div class="aa-SectionHeader" style="text-align:center">
+        <div>
+            <label for="">{localize('autoanimations.menus.movement') + " " + localize('autoanimations.menus.options')}</label>
+            <i 
+            class="fas fa-info-circle aa-blue"
+            style="font-size: 1.2em"
+            title="Quick Reference"
+            on:click={() => OptionsDialog.show("preset", "teleportation")}
+            ></i>        
+        </div>
+    </div>
     <table class="d">
         <tr>
             <td>
@@ -575,4 +566,21 @@
 </div>
 
 <style lang="scss">
+    .aa-SectionHeader {
+        border-bottom: 2px solid rgba(181, 69, 52, 0.5);
+        margin-right: 5%;
+        margin-left: 5%;
+        margin-bottom: 5px;
+        label {
+            align-self: center;
+            font-family: "Modesto Condensed", "Palatino Linotype", serif;
+            font-size: x-large;
+            font-weight: bold;
+            text-align: center;
+            margin-right: 6%;
+            margin-left: 6%;
+            color: black;
+            padding: 2px;
+        }
+    }
 </style>

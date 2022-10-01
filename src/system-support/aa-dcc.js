@@ -1,12 +1,13 @@
 import { trafficCop } from "../router/traffic-cop.js"
 import systemData from "../system-handlers/system-data.js"
+import { AnimationState }   from "../AnimationState.js";
 
 export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => {  runDcc(msg) });
 }
 
 async function runDcc(input) {
-    if (input.user.id !== game.user.id) { return };
+    if (input.user.id !== game.user.id || !AnimationState.enabled) { return };
 
     if (!game.settings.get('dcc', 'useStandardDiceRoller')) {
         let handler = await systemData.make(input)

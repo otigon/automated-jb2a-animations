@@ -42,7 +42,7 @@
     <div class="aa-3wide aa-select-label">
         <div class="flexcol" style="grid-row: 1/2; grid-column: 2/3; margin-bottom: 1em">
             <label for="" style="align-self:center; font-size:1.2em">{localize("autoanimations.menus.color")}</label>
-            <select bind:value={$animation.data.color}>
+            <select bind:value={$animation.data.video.color}>
                 {#each category.colorMenu.templatefx.square.thunderwave.mid as [key, name]}
                     <option value={key}>{name}</option>
                 {/each}

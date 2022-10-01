@@ -99,7 +99,7 @@
                     <td>
                         <div>
                             <label for=""
-                                >{localize("autoanimations.menus.delay")}</label
+                                >{localize('autoanimations.menus.repeat')} {localize("autoanimations.menus.delay")}</label
                             >
                         </div>
                         <div>
@@ -209,7 +209,7 @@
                         <td>
                             <div>
                                 <label for=""
-                                    >{localize("autoanimations.menus.delay")}</label
+                                    >{localize('autoanimations.menus.repeat')} {localize("autoanimations.menus.delay")}</label
                                 >
                             </div>
                             <div>
@@ -317,7 +317,7 @@
                     <td>
                         <div>
                             <label for=""
-                                >{localize("autoanimations.menus.delay")}</label
+                                >{localize('autoanimations.menus.repeat')} {localize("autoanimations.menus.delay")}</label
                             >
                         </div>
                         <div>
