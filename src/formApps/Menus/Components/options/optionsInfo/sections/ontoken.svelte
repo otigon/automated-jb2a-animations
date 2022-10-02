@@ -119,4 +119,12 @@
         </td>
         <td> Tells A-A how to play this animation </td>
     </tr>
+    <tr>
+        <td>
+            <strong>{localize("autoanimations.menus.source")} {localize("autoanimations.menus.rotation")}</strong>
+        </td>
+        <td>
+            Where available, causes the effect to be rotated back towards the Source Token. Primarily useful for the JB2A "side fracture" type effects
+        </td>
+    </tr>
 </table>

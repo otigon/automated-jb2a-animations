@@ -12,8 +12,7 @@ export default class systemData {
         const data = external ? external : AASystemData[systemID] ? await AASystemData[systemID](msg, isChat) : await AASystemData.standardChat(msg)
         if (!data.item) { debug("Item Retrieval Failed", data); return {}; }
 
-        // TO-DO - Update the Item Merge script
-        const flags = data.item?.flags?.autoanimations//await flagMigrations.handle(data.item);
+        const flags = await flagMigrations.handle(data.item);
 
         return new systemData(data, flags, msg);
     }
@@ -275,6 +274,10 @@ export default class systemData {
         targetEffect.elevation(targetFX.options.elevation)
         if (targetFX.options.isMasked) {
             targetEffect.mask(target)
+        }
+        if (targetFX.options.rotateSource) {
+            targetEffect.rotateTowards(this.sourceToken)
+            targetEffect.rotate(180)    
         }
         targetEffect.persist(targetFX.options.persistent)
         targetEffect.fadeOut(500)

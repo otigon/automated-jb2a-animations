@@ -602,7 +602,8 @@
             "saturate": "Saturate",
             "end": "End",
             "movement": "Movement",
-            "teleport": "Teleport"
+            "teleport": "Teleport",
+            "rotation": "Rotation"
         },
         "optionsInfo": {
 

@@ -211,7 +211,19 @@
                         field="delay"
                     />
                 </td>
-                <td></td>
+                <td>
+                    <!--Set Masking-->
+                    <div class="form-group">
+                        <label for="TarRotate {animation._data.id}"
+                            >{localize('autoanimations.menus.source')} {localize('autoanimations.menus.rotation')}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="TarRotate {animation._data.id}"
+                            bind:checked={$animation.target.options.rotateSource}
+                        />
+                    </div>
+                </td>
             </tr>
         </table>
     </TJSSvgFolder>

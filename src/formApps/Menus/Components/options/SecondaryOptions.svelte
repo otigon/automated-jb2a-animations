@@ -155,7 +155,19 @@
                         section="secondary"
                     />
                 </td>
-                <td></td>
+                <td>
+                    <!--Set Masking-->
+                    <div class="form-group">
+                        <label for="SecRotate {animation._data.id}"
+                            >{localize('autoanimations.menus.source')} {localize('autoanimations.menus.rotation')}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="SecRotate {animation._data.id}"
+                            bind:checked={$animation.secondary.options.rotateSource}
+                        />
+                    </div>
+                </td>
             </tr>
         </table>
     </TJSSvgFolder>

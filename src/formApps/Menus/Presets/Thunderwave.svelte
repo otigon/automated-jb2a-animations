@@ -112,7 +112,7 @@
                         <!--Set Only X Scaling-->
                         <div class="form-group">
                             <label for="Remove {animation._data.id}"
-                                >{localize("autoanimations.menus.remove")} X
+                                >{localize("autoanimations.menus.remove")}
                             </label>
                             <input
                                 type="checkbox"
