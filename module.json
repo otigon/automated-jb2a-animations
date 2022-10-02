@@ -9,7 +9,7 @@
         }
     ],
     "url": "https://github.com/otigon/automated-jb2a-animations",
-    "version": "3.3.!194",
+    "version": "3.3.!195",
     "compatibility": {
         "minimum": "10",
         "verified": "10",
@@ -81,5 +81,5 @@
     },
     "socket": true,
     "manifest": "https://raw.githubusercontent.com/otigon/automated-jb2a-animations/next/module.json",
-    "download": "https://github.com/otigon/automated-jb2a-animations/releases/download/3.3.!194/module.zip"
+    "download": "https://github.com/otigon/automated-jb2a-animations/releases/download/3.3.!195/module.zip"
 }
