@@ -127,6 +127,10 @@ export async function melee(handler, animationData) {
                 secondarySeq.opacity(secondary.options.opacity)
                 secondarySeq.fadeIn(secondary.options.fadeIn)
                 secondarySeq.fadeOut(secondary.options.fadeOut)
+                if (secondary.options.rotateSource) {
+                    secondarySeq.rotateTowards(sourceToken)
+                    secondarySeq.rotate(180)    
+                }    
                 if (secondary.options.isMasked) {
                     secondarySeq.mask(currentTarget)
                 }
@@ -215,6 +219,10 @@ export async function melee(handler, animationData) {
                 secondarySeq.opacity(secondary.options.opacity)
                 secondarySeq.fadeIn(secondary.options.fadeIn)
                 secondarySeq.fadeOut(secondary.options.fadeOut)
+                if (secondary.options.rotateSource) {
+                    secondarySeq.rotateTowards(sourceToken)
+                    secondarySeq.rotate(180)    
+                }    
                 if (secondary.options.isMasked) {
                     secondarySeq.mask(currentTarget)
                 }

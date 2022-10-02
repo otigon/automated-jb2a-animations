@@ -121,7 +121,7 @@
     </tr>
     <tr>
         <td>
-            <strong>{localize("autoanimations.menus.source")} {localize("autoanimations.menus.rotation")}</strong>
+            <strong>{localize("autoanimations.menus.sideImpact")}</strong>
         </td>
         <td>
             Where available, causes the effect to be rotated back towards the Source Token. Primarily useful for the JB2A "side fracture" type effects

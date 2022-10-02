@@ -3,6 +3,7 @@ import systemData from "../system-handlers/system-data.js"
 import { debug } from "../constants/constants.js";
 import { AnimationState }   from "../AnimationState.js";
 
+/*
 export function systemHooks() {
     switch (game.settings.get("autoanimations", "playonDamage")) {
         case (true):
@@ -26,9 +27,11 @@ export function systemHooks() {
         Hooks.on("midi-qol.AttackRollComplete", (workflow) => { criticalCheck(workflow) })
     }
 }
+*/
 /*
 / Midi-QOL Functions for DnD 5e and Star Wars 5e
 */
+/*
 // setUpMidi for 5e/SW5e Animations on "Attack Rolls" (not specifically on damage)
 async function setUpMidi(workflow) {
     if (workflow.item?.hasAreaTarget || !AnimationState.enabled) { return; }
@@ -83,22 +86,82 @@ async function templateItem(input) {
     debug("Playing Animation for Template")
     trafficCop(handler)
 }
-/*
-// Special cases required when using Midi-QOL. Houses only the Template Animations right now
-export async function midiTemplateAnimations(msg) {
-    if (game.user.id !== msg.user?.id) {
-        return;
-    }
-    const handler = await systemData.make(msg, true);
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-    //let breakOut = checkMessege(msg);
-    if ((handler.shouldPlayImmediately)) {
-        trafficCop(handler);
-    } else { return; }
-}
 */
+
+export function systemHooks() {
+    Hooks.on("midi-qol.DamageRollComplete", (workflow) => { attack(workflow) });
+    Hooks.on("midi-qol.AttackRollComplete", (workflow) => { damage(workflow) });
+    Hooks.on("midi-qol.RollComplete", (workflow) => { useItem(workflow) }); // For items with no attack or damage
+    Hooks.on("dnd5e.useItem", async (item, config, options) => { onUse({ item, config, options }) }); // For Teleportation and Auras
+    Hooks.on("createMeasuredTemplate", async (template, data, userId) => { templateAnimation({ template, data, userId }) }) // For Template Animations
+
+    if (game.settings.get("autoanimations", "EnableCritical") || game.settings.get("autoanimations", "EnableCriticalMiss")) {
+        Hooks.on("midi-qol.AttackRollComplete", (workflow) => { criticalCheck(workflow) })
+    }
+}
+
+async function attack(input) {
+    if (!AnimationState.enabled || input.item?.hasAreaTarget) { return };
+    let playOnDamage = game.settings.get('autoanimations', 'playonDamage');
+    if (playOnDamage) { return };
+
+    let handler = await systemData.make(input);
+    if (!handler.item || !handler.sourceToken || handler.playOnUse) { debug("No Item or Source Token", handler.item, handler.sourceToken); return;}
+    
+    debug("Playing Animation on Attack Roll")
+    trafficCop(handler);
+}
+
+async function damage(input) {
+    if (!AnimationState.enabled || input.item?.hasAreaTarget) { return };
+    let playOnDamage = game.settings.get('autoanimations', 'playonDamage');
+    if (!playOnDamage && input.item?.hasAttack) { return};
+    debugger
+    let handler = await systemData.make(input);
+    if (!handler.item || !handler.sourceToken || handler.playOnUse) { debug("No Item or Source Token", handler.item, handler.sourceToken); return;}
+    
+    debug("Playing Animation on Damage Roll")
+    trafficCop(handler);
+}
+
+async function useItem(input) {
+    if (!AnimationState.enabled) { return };
+    if (input.item?.hasDamage || input.item?.hasAttack || input.item?.hasAreaTarget) { return };
+
+    let handler = await systemData.make(input);
+    if (!handler.item || !handler.sourceToken) { debug("No Item or Source Token", handler.item, handler.sourceToken); return;}
+    if (handler.playOnUse) { return };
+    
+    debug("Playing Animation, Item has no Attack or Damage")
+    trafficCop(handler);
+}
+
+async function onUse(input) {
+    if (!AnimationState.enabled) { return };
+    if (input.item?.hasAttack) { return };
+
+    let handler = await systemData.make(input);
+    if (!handler.item || !handler.sourceToken) { debug("No Item or Source Token", handler.item, handler.sourceToken); return;}
+    if (!handler.playOnUse) { return; }
+    
+    debug("Playing Aura or Teleportation Animation")
+    trafficCop(handler);
+}
+
+
+async function templateAnimation(input) {
+    if (!AnimationState.enabled) { return };
+    debug("Playing Animation on Template Placement")
+    const itemUuid = input.template?.flags?.dnd5e?.origin;
+    const item = itemUuid ? await fromUuid(itemUuid) : "";
+    if (!item) { return; }
+
+    let handler = await systemData.make({item: item});
+    if (!handler.item) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
+    if (handler.menu === "aura") { return; }
+    trafficCop(handler)
+}
+
 async function criticalCheck(workflow) {
     if (!workflow.isCritical && !workflow.isFumble || !AnimationState.enabled) { return; }
     debug("Checking for Crit or Fumble")

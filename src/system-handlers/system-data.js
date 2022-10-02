@@ -76,8 +76,6 @@ export default class systemData {
 
 
 
-        //changed from flags.animType to match Autorec menu
-        this.menu = this.flags.menu || "";
 
         /*
         this.animNameFinal;
@@ -138,6 +136,16 @@ export default class systemData {
         //this.isCustomized = this.flags.override || false;
         this.isCustomized = this.isActiveEffect ? this.flags.isCustomized && this.flags.activeEffectType ? true : false : this.flags.isCustomized && this.flags.menu ? true : false;
         this.templateData = data.templateData ? data.templateData : undefined;
+
+        //changed from flags.animType to match Autorec menu
+        if (this.isCustomized) {
+            this.menu = this.flags.menu
+        } else if (this.autorecObject ) {
+            this.menu = this.autorecObject.menu
+        }
+        console.log(this.menu)
+        //this.menu = this.isCustomized ? this.flags.menu : "";
+
         /*
         this.isAutorecTemplateItem = false;
         this.isAutorecAura = false;
@@ -193,6 +201,27 @@ export default class systemData {
         const presetType = this.isCustomized ? this.flags?.preset?.presetType : this.autorecObject.presetType;
 
         return menuType === 'templatefx' ||  (menuType === 'preset' && presetType === "fireball")
+    }
+
+    get isAura () {
+        return this.menu === "aura" 
+    }
+
+    get isTeleport() {
+        if (this.menu !== 'preset') {
+            return false;
+        }
+        if (this.isCustomized) {
+            return this.flags.presetType === "teleportation";
+        } else if (this.autorecObject) {
+            return this.autorecObject.presetType === "teleportation";
+        }
+        //return this.menu === "preset" && 
+    }
+
+    get playOnUse() {
+        const flags = this.isCustomized ? this.flags : this.autorecObject ? this.autorecObject : {};
+        return this.menu === "preset" &&  flags.presetType === "teleportation" || this.menu === "aura";
     }
 
     get soundNoAnimation () {

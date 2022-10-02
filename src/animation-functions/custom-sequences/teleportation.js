@@ -78,7 +78,7 @@ export async function teleportation(handler, animationData) {
             let userData = data.macro.args;
             aaSeq.macro(data.macro.name, handler.workflow, handler, userData)
         }
-        console.log(data)
+
         let startX = sourceToken.center?.x;
         let startY = sourceToken.center?.y;
         // Start Animation

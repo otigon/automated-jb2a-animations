@@ -603,7 +603,8 @@
             "end": "End",
             "movement": "Movement",
             "teleport": "Teleport",
-            "rotation": "Rotation"
+            "rotation": "Rotation",
+            "sideImpact": "Side Impact"
         },
         "optionsInfo": {
 

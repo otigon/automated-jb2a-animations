@@ -172,6 +172,10 @@ export async function templatefx(handler, animationData, templateDocument) {
             secondarySeq.opacity(secondary.options.opacity)
             secondarySeq.fadeIn(secondary.options.fadeIn)
             secondarySeq.fadeOut(secondary.options.fadeOut)
+            if (secondary.options.rotateSource && sourceToken) {
+                secondarySeq.rotateTowards(sourceToken)
+                secondarySeq.rotate(180)    
+            }    
             if (secondary.options.isMasked) {
                 secondarySeq.mask(currentTarget)
             }

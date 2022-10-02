@@ -15,7 +15,8 @@ export class AASystemData {
     * 
     */
 
-     static async dnd5e(input, isChat) {
+     static async dnd5e(input) {
+        /*
         let midiWorkflowAvailable = false;
         if (game.modules.get('midi-qol')?.active && isChat) {
             const workflowId = getProperty(input, "flags.midi-qol.workflowId");
@@ -28,34 +29,33 @@ export class AASystemData {
         if (game.modules.get('midi-qol')?.active && !isChat) {
           midiWorkflowAvailable = true;
         }
-        if (midiWorkflowAvailable) {
+        */
+        if (game.modules.get('midi-qol')?.active) {
             //const token = canvas.tokens.get(input.tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(input.item?._id) != null);
             let {item, token, targets} = await this.getRequiredData(input)
-            if (!item || !token) return {};
+            if (!item) return {};
 
             //const token = this.getToken(input)
             const ammo = input.item?.flags?.autoanimations?.options?.ammo;
             const ammoType = input.item?.system?.consume?.type;
-            item = ammo && ammoType === "ammo" ? token.actor.items?.get(input.item.system.consume.target) : item;
-            if (!item || !token) { return {}; }
+            item = ammo && ammoType === "ammo" ? token?.actor?.items?.get(input.item.system.consume.target) : item;
+            if (!item) { return {}; }
 
             const hitTargets = Array.from(input.hitTargets || {});
             targets = input.item?.system.target?.type === 'self' ? [token] : targets;
-            if (game.modules.get('midi-qol')?.active) {
-                switch (true) {
-                    case (game.settings.get("autoanimations", "playonmiss")):
-                        targets = targets;
-                        break;
-                    case (game.settings.get("autoanimations", "playonhit")):
-                        targets = hitTargets;
-                        break;
-                    default:
-                        targets = targets;
-                }
+            switch (true) {
+                case (game.settings.get("autoanimations", "playonmiss")):
+                    targets = targets;
+                    break;
+                case (game.settings.get("autoanimations", "playonhit")):
+                    targets = hitTargets;
+                    break;
+                default:
+                    targets = targets;
             }
 
             let reach = 0;
-            if (token.actor?.system?.details?.race?.toLowerCase() === 'bugbear') {
+            if (token?.actor?.system?.details?.race?.toLowerCase() === 'bugbear') {
                 reach += 5;
             }
             if (item.system?.properties?.rch) {
@@ -75,17 +75,17 @@ export class AASystemData {
             let item = token.actor?.items?.get(itemId) || await fromUuid(`Item.${itemId}`);
             */
             let {item, itemId, token, targets} = await this.getRequiredData(input)
-            if (!item || !token) return {};
+            if (!item) return {};
 
             if (item.flags?.autoanimations?.options?.ammo && item.system?.consume?.type === "ammo") {
                 itemId = item.system.consume.target;
-                item = token.actor.items?.get(itemId) ?? "";
+                item = token?.actor?.items?.get(itemId) ?? "";
             }
 
             //const targets = Array.from(input.user.targets);
 
             let reach = 0;
-            if (token.actor?.system?.details?.race?.toLowerCase() === 'bugbear') {
+            if (token?.actor?.system?.details?.race?.toLowerCase() === 'bugbear') {
                 reach += 5;
             }
             if (item.system?.properties?.rch) {

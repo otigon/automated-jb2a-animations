@@ -228,6 +228,10 @@ export async function aura(handler, animationData) {
         seq.opacity(secondary.options.opacity)
         seq.fadeIn(secondary.options.fadeIn)
         seq.fadeOut(secondary.options.fadeOut)
+        if (secondary.options.rotateSource) {
+            seq.rotateTowards(sourceToken)
+            seq.rotate(180)    
+        }    
         if (secondary.options.isMasked) {
             seq.mask(token)
         }

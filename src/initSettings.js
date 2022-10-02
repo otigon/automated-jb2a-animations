@@ -418,7 +418,7 @@ export function initSettings(gameSettings) {
                   type: Boolean,
                   default: false,
                   config: true,
-                  onChange: () => { window.location.reload() }
+                  //onChange: () => { window.location.reload() }
                }
             });
 

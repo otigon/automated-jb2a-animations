@@ -159,7 +159,7 @@
                     <!--Set Masking-->
                     <div class="form-group">
                         <label for="SecRotate {animation._data.id}"
-                            >{localize('autoanimations.menus.source')} {localize('autoanimations.menus.rotation')}
+                            >{localize('autoanimations.menus.sideImpact')}
                         </label>
                         <input
                             type="checkbox"
