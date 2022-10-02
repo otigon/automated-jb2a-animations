@@ -39,7 +39,7 @@
 
         async function getFiles() {
             const content = await renderTemplate(
-                "modules/autoanimations/src/formApps/_AutorecMenu/components/category/menuManager/import-data.html",
+                "modules/autoanimations/htmlTemplate/import-data.html",
                 { entity: "autoanimations", name: "aaAutorec" }
             );
             let d = TJSDialog.prompt({
@@ -93,7 +93,7 @@
 
         async function getFiles() {
             const content = await renderTemplate(
-                "modules/autoanimations/src/formApps/_AutorecMenu/components/category/menuManager/import-data.html",
+                "modules/autoanimations/htmlTemplate/import-data.html",
                 { entity: "autoanimations", name: "aaAutorec" }
             );
             let d = TJSDialog.prompt({

@@ -3,7 +3,6 @@
     import { localize }     from "@typhonjs-fvtt/runtime/svelte/helper";
     import { getContext }   from "svelte";
     import { autoRecMigration } from "../../../../../mergeScripts/autorec/autoRecMerge.js";
-    import { AAAutorecFunctions } from "../../../../../aa-classes/aaAutorecFunctions.js";
     import { AAAutorecManager } from "./AAAutorecManager.js"
 
     const { application } = getContext("external");
