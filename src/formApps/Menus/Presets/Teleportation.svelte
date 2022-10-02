@@ -1,8 +1,6 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import {
-        TJSSvgFolder,
-    } from "@typhonjs-fvtt/svelte-standard/component";
+    import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
     import VideoSelect from "../Components/VideoSelect.svelte";
     import Opacity from "./inputComponents/Opacity.svelte";
@@ -25,10 +23,10 @@
 
     const styling = {
         "--tjs-summary-font-family":
-                '"Modesto Condensed", "Palatino Linotype", serif',
-            "--tjs-summary-font-size": "1.1em",
-            "--tjs-summary-chevron-size": "0.7em",
-    }
+            '"Modesto Condensed", "Palatino Linotype", serif',
+        "--tjs-summary-font-size": "1.1em",
+        "--tjs-summary-chevron-size": "0.7em",
+    };
     const betweenFolder = {
         styles: styling,
         label:
@@ -54,19 +52,22 @@
     };
 
     const isGM = game.user.isGM;
-
 </script>
 
 <div class="aa-options-border" style="padding-left: 1em; padding-right: 1em">
     <div class="aa-SectionHeader" style="text-align:center">
         <div>
-            <label for="">{localize('autoanimations.menus.movement') + " " + localize('autoanimations.menus.options')}</label>
-            <i 
-            class="fas fa-info-circle aa-blue"
-            style="font-size: 1.2em"
-            title="Quick Reference"
-            on:click={() => OptionsDialog.show("preset", "teleportation")}
-            ></i>        
+            <label for=""
+                >{localize("autoanimations.menus.movement") +
+                    " " +
+                    localize("autoanimations.menus.options")}</label
+            >
+            <i
+                class="fas fa-info-circle aa-blue"
+                style="font-size: 1.2em"
+                title="Quick Reference"
+                on:click={() => OptionsDialog.show("preset", "teleportation")}
+            />
         </div>
     </div>
     <table class="d">
@@ -96,7 +97,7 @@
             <td class={isGM ? "" : "aa-disableOpacity"}>
                 <div>
                     <label for="Hide {animation._data.id}"
-                        >{localize('autoanimations.menus.hideBorder')}</label
+                        >{localize("autoanimations.menus.hideBorder")}</label
                     >
                 </div>
                 <div>
@@ -109,7 +110,9 @@
             </td>
             <td>
                 <div>
-                    <label for="">{localize('autoanimations.menus.ranged')}</label>
+                    <label for=""
+                        >{localize("autoanimations.menus.ranged")}</label
+                    >
                 </div>
                 <div>
                     <input
@@ -124,7 +127,10 @@
         <tr>
             <td>
                 <div>
-                    <label for="Hide {animation._data.id}">{localize('autoanimations.menus.teleport')} {localize('autoanimations.menus.token')}</label>
+                    <label for="Hide {animation._data.id}"
+                        >{localize("autoanimations.menus.teleport")}
+                        {localize("autoanimations.menus.token")}</label
+                    >
                 </div>
                 <div>
                     <input
@@ -153,7 +159,9 @@
                     : ""}
             >
                 <div>
-                    <label for="">{localize('autoanimations.menus.speed')}</label>
+                    <label for=""
+                        >{localize("autoanimations.menus.speed")}</label
+                    >
                 </div>
                 <div>
                     <input
@@ -168,7 +176,10 @@
         <tr>
             <td>
                 <div class="flexcol">
-                    <label for="">{localize("autoanimations.menus.token") + " " + localize("autoanimations.menus.alpha")}</label
+                    <label for=""
+                        >{localize("autoanimations.menus.token") +
+                            " " +
+                            localize("autoanimations.menus.alpha")}</label
                     >
                     <div
                         class="form-group"
@@ -191,12 +202,13 @@
                             bind:value={$animation.data.options.alpha}
                         />
                     </div>
-                </div>                
+                </div>
             </td>
             <td>
                 <div>
                     <label for=""
-                        >{localize('autoanimations.menus.delay')} {localize('autoanimations.menus.fadeOut')}</label
+                        >{localize("autoanimations.menus.delay")}
+                        {localize("autoanimations.menus.fadeOut")}</label
                     >
                 </div>
                 <div>
@@ -210,7 +222,10 @@
             </td>
             <td>
                 <div>
-                    <label for="">{localize('autoanimations.menus.delay')} {localize('autoanimations.menus.fadeIn')}</label>
+                    <label for=""
+                        >{localize("autoanimations.menus.delay")}
+                        {localize("autoanimations.menus.fadeIn")}</label
+                    >
                 </div>
                 <div>
                     <input
@@ -234,121 +249,129 @@
                 bind:checked={$animation.data.start.enable}
             />
         </div>
-    <VideoSelect
-        {animation}
-        {category}
-        title="Start Animation"
-        {idx}
-        section="data"
-        section02="start"
-    />
-    <div class="aa-options-border">
-        <TJSSvgFolder {folder}>
-            <table class="d">
-                <tr>
-                    <td>
-                        <!--Set Masking-->
-                        <div class="form-group">
-                            <label for="Masked {animation._data.id}"
-                                >{localize("autoanimations.menus.mask")}
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="Masked {animation._data.id}"
-                                bind:checked={$animation.data.start.options
-                                    .isMasked}
-                            />
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <label for=""
-                                >{localize(
-                                    "autoanimations.menus.elevation"
-                                )}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.start.options
-                                    .elevation}
-                                placeholder="1"
-                                step="1"
-                            />
-                        </div>
-                    </td>
-                    <td>
-                        <!--Set Size of Animation-->
-                        <ScaleRadius
-                            {animation}
-                            section={"start"}
-                            field={"size"}
-                            step="0.01"
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <!--Set Animation Opacity-->
-                        <Opacity {animation} section="start" />
-                    </td>
-                    <td>
-                        <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.fadeIn")}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.start.options.fadeIn}
-                                placeholder="1"
-                                step="1"
-                            />
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <label for="">{localize("autoanimations.menus.fadeOut")}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.start.options.fadeOut}
-                                placeholder="1"
-                                step="1"
-                            />
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-
-                    </td>
-                    <td>
-                        <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.delay")}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.start.options.delay}
-                                placeholder="250"
-                                step="1"
-                            />
-                        </div>
-                    </td>
-                    <td>
-
-                    </td>
-                </tr>
-            </table>
-        </TJSSvgFolder>
-    </div>
+        <div class={$animation.data.start.enable ? "" : "aa-disableOpacity"}>
+            <VideoSelect
+                {animation}
+                {category}
+                title="Start Animation"
+                {idx}
+                section="data"
+                section02="start"
+            />
+            <div class="aa-options-border">
+                <TJSSvgFolder {folder}>
+                    <table class="d">
+                        <tr>
+                            <td>
+                                <!--Set Masking-->
+                                <div class="form-group">
+                                    <label for="Masked {animation._data.id}"
+                                        >{localize("autoanimations.menus.mask")}
+                                    </label>
+                                    <input
+                                        type="checkbox"
+                                        id="Masked {animation._data.id}"
+                                        bind:checked={$animation.data.start
+                                            .options.isMasked}
+                                    />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <label for=""
+                                        >{localize(
+                                            "autoanimations.menus.elevation"
+                                        )}</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.start
+                                            .options.elevation}
+                                        placeholder="1"
+                                        step="1"
+                                    />
+                                </div>
+                            </td>
+                            <td>
+                                <!--Set Size of Animation-->
+                                <ScaleRadius
+                                    {animation}
+                                    section={"start"}
+                                    field={"size"}
+                                    step="0.01"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <!--Set Animation Opacity-->
+                                <Opacity {animation} section="start" />
+                            </td>
+                            <td>
+                                <div>
+                                    <label for=""
+                                        >{localize(
+                                            "autoanimations.menus.fadeIn"
+                                        )}</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.start
+                                            .options.fadeIn}
+                                        placeholder="1"
+                                        step="1"
+                                    />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <label for=""
+                                        >{localize(
+                                            "autoanimations.menus.fadeOut"
+                                        )}</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.start
+                                            .options.fadeOut}
+                                        placeholder="1"
+                                        step="1"
+                                    />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td />
+                            <td>
+                                <div>
+                                    <label for=""
+                                        >{localize(
+                                            "autoanimations.menus.delay"
+                                        )}</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.start
+                                            .options.delay}
+                                        placeholder="250"
+                                        step="1"
+                                    />
+                                </div>
+                            </td>
+                            <td />
+                        </tr>
+                    </table>
+                </TJSSvgFolder>
+            </div>
+        </div>
     </TJSSvgFolder>
 </div>
 <div class="aa-section-border">
@@ -361,78 +384,87 @@
                 bind:checked={$animation.data.between.enable}
             />
         </div>
-        <VideoSelect
-            {animation}
-            {category}
-            title={localize('autoanimations.menus.between') + " " + localize('autoanimations.menus.animation')}
-            {idx}
-            section="data"
-            section02="between"
-        />
-        <div class="aa-options-border">
-            <TJSSvgFolder {folder}>
-                <table class="d">
-                    <tr>
-                        <td>
-                            <div>
-                                <label for=""
-                                    >{localize(
-                                        "autoanimations.menus.elevation"
-                                    )}</label
-                                >
-                            </div>
-                            <div>
-                                <input
-                                    type="number"
-                                    bind:value={$animation.data.between.options.elevation}
-                                    placeholder="1"
-                                    step="1"
-                                />
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <label for=""
-                                    >{localize(
-                                        "autoanimations.menus.playbackRate"
-                                    )}</label
-                                >
-                            </div>
-                            <div>
-                                <input
-                                    type="number"
-                                    bind:value={$animation.data.between.options.playbackRate}
-                                    placeholder="1"
-                                    step=".01"
-                                />
-                            </div>
-                        </td>
-                        <td>
-                            <!--Set Animation Opacity-->
-                            <Opacity {animation} section="between" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <div>
-                                <label for=""
-                                    >{localize("autoanimations.menus.delay")}</label
-                                >
-                            </div>
-                            <div>
-                                <input
-                                    type="number"
-                                    bind:value={$animation.data.between.options.delay}
-                                    placeholder="250"
-                                    step="1"
-                                />
-                            </div>
-                        </td>    
-                        <td></td>
-                    </tr>
-                </table>
-            </TJSSvgFolder>
+        <div class={$animation.data.between.enable ? "" : "aa-disableOpacity"}>
+            <VideoSelect
+                {animation}
+                {category}
+                title={localize("autoanimations.menus.between") +
+                    " " +
+                    localize("autoanimations.menus.animation")}
+                {idx}
+                section="data"
+                section02="between"
+            />
+            <div class="aa-options-border">
+                <TJSSvgFolder {folder}>
+                    <table class="d">
+                        <tr>
+                            <td>
+                                <div>
+                                    <label for=""
+                                        >{localize(
+                                            "autoanimations.menus.elevation"
+                                        )}</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.between
+                                            .options.elevation}
+                                        placeholder="1"
+                                        step="1"
+                                    />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <label for=""
+                                        >{localize(
+                                            "autoanimations.menus.playbackRate"
+                                        )}</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.between
+                                            .options.playbackRate}
+                                        placeholder="1"
+                                        step=".01"
+                                    />
+                                </div>
+                            </td>
+                            <td>
+                                <!--Set Animation Opacity-->
+                                <Opacity {animation} section="between" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td />
+                            <td>
+                                <div>
+                                    <label for=""
+                                        >{localize(
+                                            "autoanimations.menus.delay"
+                                        )}</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.between
+                                            .options.delay}
+                                        placeholder="250"
+                                        step="1"
+                                    />
+                                </div>
+                            </td>
+                            <td />
+                        </tr>
+                    </table>
+                </TJSSvgFolder>
+            </div>
         </div>
     </TJSSvgFolder>
 </div>
@@ -446,122 +478,129 @@
                 bind:checked={$animation.data.end.enable}
             />
         </div>
-    <VideoSelect
-        {animation}
-        {category}
-        title="End Animation"
-        {idx}
-        section="data"
-        section02="end"
-    />
-    <div class="aa-options-border">
-        <TJSSvgFolder {folder}>
-            <table class="d">
-                <tr>
-                    <td>
-                        <!--Set Masking-->
-                        <div class="form-group">
-                            <label for="Masked {animation._data.id}"
-                                >{localize("autoanimations.menus.mask")}
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="Masked {animation._data.id}"
-                                bind:checked={$animation.data.end.options
-                                    .isMasked}
-                            />
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <label for=""
-                                >{localize(
-                                    "autoanimations.menus.elevation"
-                                )}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.end.options
-                                    .elevation}
-                                placeholder="1"
-                                step="1"
-                            />
-                        </div>
-                    </td>
-                    <td>
-                        <!--Set Size of Animation-->
-                        <ScaleRadius
-                            {animation}
-                            section={"end"}
-                            field={"size"}
-                            step="0.01"
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <!--Set Animation Opacity-->
-                        <Opacity {animation} section="end" />
-                    </td>
-                    <td>
-                        <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.fadeIn")}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.end.options.fadeIn}
-                                placeholder="1"
-                                step="1"
-                            />
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.fadeOut")}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.end.options.fadeOut}
-                                placeholder="1"
-                                step="1"
-                            />
-                        </div>
-                    </td>    
-                </tr>
-                <tr>
-                    <td>
-
-                    </td>
-                    <td>
-                        <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.delay")}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.end.options.delay}
-                                placeholder="250"
-                                step="1"
-                            />
-                        </div>
-                    </td>
-                    <td>
-
-                    </td>
-                </tr>
-            </table>
-        </TJSSvgFolder>
-    </div>
+        <div class={$animation.data.end.enable ? "" : "aa-disableOpacity"}>
+            <VideoSelect
+                {animation}
+                {category}
+                title="End Animation"
+                {idx}
+                section="data"
+                section02="end"
+            />
+            <div class="aa-options-border">
+                <TJSSvgFolder {folder}>
+                    <table class="d">
+                        <tr>
+                            <td>
+                                <!--Set Masking-->
+                                <div class="form-group">
+                                    <label for="Masked {animation._data.id}"
+                                        >{localize("autoanimations.menus.mask")}
+                                    </label>
+                                    <input
+                                        type="checkbox"
+                                        id="Masked {animation._data.id}"
+                                        bind:checked={$animation.data.end
+                                            .options.isMasked}
+                                    />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <label for=""
+                                        >{localize(
+                                            "autoanimations.menus.elevation"
+                                        )}</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.end.options
+                                            .elevation}
+                                        placeholder="1"
+                                        step="1"
+                                    />
+                                </div>
+                            </td>
+                            <td>
+                                <!--Set Size of Animation-->
+                                <ScaleRadius
+                                    {animation}
+                                    section={"end"}
+                                    field={"size"}
+                                    step="0.01"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <!--Set Animation Opacity-->
+                                <Opacity {animation} section="end" />
+                            </td>
+                            <td>
+                                <div>
+                                    <label for=""
+                                        >{localize(
+                                            "autoanimations.menus.fadeIn"
+                                        )}</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.end.options
+                                            .fadeIn}
+                                        placeholder="1"
+                                        step="1"
+                                    />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <label for=""
+                                        >{localize(
+                                            "autoanimations.menus.fadeOut"
+                                        )}</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.end.options
+                                            .fadeOut}
+                                        placeholder="1"
+                                        step="1"
+                                    />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td />
+                            <td>
+                                <div>
+                                    <label for=""
+                                        >{localize(
+                                            "autoanimations.menus.delay"
+                                        )}</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.end.options
+                                            .delay}
+                                        placeholder="250"
+                                        step="1"
+                                    />
+                                </div>
+                            </td>
+                            <td />
+                        </tr>
+                    </table>
+                </TJSSvgFolder>
+            </div>
+        </div>
     </TJSSvgFolder>
 </div>
 

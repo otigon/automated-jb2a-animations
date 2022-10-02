@@ -44,8 +44,24 @@
     }
 
     async function mergeMenus(selectedMenus) {
-        const updatedImport = await autoRecMigration.handle(menu)
-        AAAutorecManager.mergeMenus(menu, {...selectedMenus})
+        let isValid = validateJson(menu);
+        if (!isValid) {
+            custom_error("You did not provide a valid JSON!");
+            return;
+        }
+        const menuData = JSON.parse(menu)
+
+        function validateJson(json) {
+        try {
+            JSON.parse(json);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+        const updatedImport = await autoRecMigration.handle(menuData)
+        AAAutorecManager.mergeMenus(menuData, {...selectedMenus})
     }
 
     async function overwriteMenus(selectedMenus) {

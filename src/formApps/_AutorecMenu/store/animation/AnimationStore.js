@@ -129,7 +129,7 @@ export class AnimationStore extends CategoryStore.EntryStore {
 
   async getSource() {
       if (!this._data.metaData) {
-         console.warn(`No Defined MetaData`)
+         ui.notifications.info(`Automated Animations | No Defined MetaData on this Entry`)
       } else {
          console.log(this._data.metaData);
          ui.notifications.info("Automated Animations | MetaData logged to Dev Console");

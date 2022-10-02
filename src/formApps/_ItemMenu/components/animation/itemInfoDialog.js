@@ -5,7 +5,7 @@ import ItemInfo from './itemInfo/ItemInfo.svelte'
 export default class ItemInfoDialog extends TJSDialog {
     constructor(data) {
         super({
-            title: 'Options Info',
+            title: 'Menu Information',
             draggable: true,
             resizable:true,
             modal: false,
@@ -25,7 +25,7 @@ export default class ItemInfoDialog extends TJSDialog {
             width: 600,
             height: "auto",
             closeOnSubmit: true,
-            id: `Item-Information`,
+            id: `ItemInformation`,
         })
     }
 

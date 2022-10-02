@@ -41,7 +41,7 @@ export default class OptionsDialog extends TJSDialog {
             width: 600,
             height: 600,
             closeOnSubmit: true,
-            id: `Options-Information`,
+            id: `OptionsInformation`,
         })
     }
 

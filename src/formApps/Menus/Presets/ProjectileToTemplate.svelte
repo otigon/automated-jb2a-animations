@@ -162,110 +162,112 @@
                 bind:checked={$animation.data.preExplosion.enable}
             />
         </div>
-        <VideoSelect
-        {animation}
-        section="data"
-        section02="preExplosion"
-        title="Pre Explosion"
-        {idx}
-        {category}
-        />
-        <div class="aa-options-border">
-            <TJSSvgFolder {folder}>
-                <table class="d">
-                    <tr>
-                        <td>
-                            <div>
-                                <label for=""
-                                    >{localize("autoanimations.menus.elevation")}</label
-                                >
-                            </div>
-                            <div>
-                                <input
-                                    type="number"
-                                    bind:value={$animation.data.preExplosion.options.elevation}
-                                    placeholder="1"
-                                    step="1"
-                                />
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <label for=""
-                                    >{localize(
-                                        "autoanimations.menus.repeat"
-                                    )}</label
-                                >
-                            </div>
-                            <div>
-                                <input
-                                    type="number"
-                                    bind:value={$animation.data.preExplosion.options.repeat}
-                                    placeholder="1"
-                                    step="1"
-                                />
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <label for=""
-                                    >{localize('autoanimations.menus.repeat')} {localize("autoanimations.menus.delay")}</label
-                                >
-                            </div>
-                            <div>
-                                <input
-                                    type="number"
-                                    bind:value={$animation.data.preExplosion.options.repeatDelay}
-                                    placeholder="1"
-                                    step="1"
-                                />
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div>
-                                <label for=""
-                                    >{localize(
-                                        "autoanimations.menus.scale"
-                                    )}</label
-                                >
-                            </div>
-                            <div>
-                                <input
-                                    type="number"
-                                    bind:value={$animation.data.preExplosion.options.scale}
-                                    placeholder="1"
-                                    step=".01"
-                                />
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <label for=""
-                                    >{localize(
-                                        "autoanimations.menus.wait"
-                                    )}</label
-                                >
-                            </div>
-                            <div>
-                                <input
-                                    type="number"
-                                    bind:value={$animation.data.preExplosion.options.wait}
-                                    placeholder="1"
-                                    step="1"
-                                />
-                            </div>
-                        </td>
-                        <td>
-                            <!--Set Animation Opacity-->
-                            <Opacity {animation} section="preExplosion"/>
-                        </td>
+        <div class={$animation.data.preExplosion.enable ? "" : "aa-disableOpacity"}>
+            <VideoSelect
+            {animation}
+            section="data"
+            section02="preExplosion"
+            title="Pre Explosion"
+            {idx}
+            {category}
+            />
+            <div class="aa-options-border">
+                <TJSSvgFolder {folder}>
+                    <table class="d">
+                        <tr>
+                            <td>
+                                <div>
+                                    <label for=""
+                                        >{localize("autoanimations.menus.elevation")}</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.preExplosion.options.elevation}
+                                        placeholder="1"
+                                        step="1"
+                                    />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <label for=""
+                                        >{localize(
+                                            "autoanimations.menus.repeat"
+                                        )}</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.preExplosion.options.repeat}
+                                        placeholder="1"
+                                        step="1"
+                                    />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <label for=""
+                                        >{localize('autoanimations.menus.repeat')} {localize("autoanimations.menus.delay")}</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.preExplosion.options.repeatDelay}
+                                        placeholder="1"
+                                        step="1"
+                                    />
+                                </div>
+                            </td>
                         </tr>
-                </table>
-            </TJSSvgFolder>
+                        <tr>
+                            <td>
+                                <div>
+                                    <label for=""
+                                        >{localize(
+                                            "autoanimations.menus.scale"
+                                        )}</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.preExplosion.options.scale}
+                                        placeholder="1"
+                                        step=".01"
+                                    />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <label for=""
+                                        >{localize(
+                                            "autoanimations.menus.wait"
+                                        )}</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.preExplosion.options.wait}
+                                        placeholder="1"
+                                        step="1"
+                                    />
+                                </div>
+                            </td>
+                            <td>
+                                <!--Set Animation Opacity-->
+                                <Opacity {animation} section="preExplosion"/>
+                            </td>
+                            </tr>
+                    </table>
+                </TJSSvgFolder>
+            </div>
+            <SoundSettings {animation} {category} {idx} section="data" section02="preExplosion" />
         </div>
-        <SoundSettings {animation} {category} {idx} section="data" section02="preExplosion" />
     </TJSSvgFolder>
 </div>
 

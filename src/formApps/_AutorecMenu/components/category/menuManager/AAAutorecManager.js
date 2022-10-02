@@ -103,14 +103,8 @@ export class AAAutorecManager
      * @param {*} options // Limit the Menus in which to perform the Merge. Ex: {melee: true} will ONLY merge the Melee Menus
      */
     static async mergeMenus(menu, options = {}) {
-        let isValid = this._validateJson(menu);
-        if (!isValid) {
-            custom_error("You did not provide a valid JSON!");
-            return;
-        }
-        const menuData = JSON.parse(menu)
-        custom_warning("Merging the requested Menus", false, menuData, options)
-        const updatedImport = await autoRecMigration.handle(menuData, {...options})
+        custom_warning("Merging the requested Menus", false, menu, options)
+        const updatedImport = await autoRecMigration.handle(menu, {...options})
 
         let currentMenu = {
             melee:await game.settings.get('autoanimations', 'aaAutorec-melee'),

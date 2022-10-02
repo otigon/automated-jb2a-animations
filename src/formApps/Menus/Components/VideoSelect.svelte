@@ -16,13 +16,7 @@
     $: anim = $animation[section][section02].animation;
     $: variant = $animation[section][section02].variant;
 
-</script>
-
-<SectionHeader {title} />
-<div class="aaSelect">
-    <table class="aaMenu {$animation[section][section02].enableCustom ? 'aa-disableOpacity' : ""}">
-        <tr>
-            <td>
+/*
                 <label
                 for=""
                 on:click={() => category.databaseToClipboard(section, idx, section02, dbSection)}
@@ -36,6 +30,15 @@
                 /></label
                 >
                 <div id="clipboard" />
+
+*/
+</script>
+
+<SectionHeader {title} />
+<div class="aaSelect">
+    <table class="aaMenu {$animation[section][section02].enableCustom ? 'aa-disableOpacity' : ""}">
+        <tr>
+            <td>
             </td>
             <td>
                 <!--Type Menu-->

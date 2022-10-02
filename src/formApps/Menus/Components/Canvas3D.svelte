@@ -64,7 +64,6 @@
                 bind:value={$animation.levels3d.type}
                 on:change={() => setSprite(animation._data.levels3d.type)}
             >
-                <option value="" />
                 <option value="projectile"
                     >{localize("autoanimations.menus.projectile")}</option
                 >
