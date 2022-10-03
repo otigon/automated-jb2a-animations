@@ -10,7 +10,6 @@ export async function aura(handler, animationData) {
     const easeArray = ['easeInOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutQuad', 'easeInCirc']
     const sourceToken = handler.sourceToken;
     //const aura = await buildFile(false, data.video.menuType, data.video.animation, "static", data.video.variant, data.video.color, data.video.customPath);
-    console.log(data)
     let aaSeq = new Sequence("Automated Animations")
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1") {

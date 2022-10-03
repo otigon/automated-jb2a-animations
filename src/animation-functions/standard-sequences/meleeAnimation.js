@@ -40,7 +40,6 @@ export async function melee(handler, animationData) {
         let rangeDistance = data.meleeSwitch.detect === "manual"
             ? data.meleeSwitch.range
             : (switchDistance / canvas.dimensions.distance) + handler.reachCheck;
-        console.log({ distanceTo, rangeDistance, switchDistance, gridDist: canvas.dimensions.distance, rangeFile: range.file, switchDisabled, switchReturn })
         let hit = !handler.playOnMiss ? true : handler.hitTargetsId.includes(target.id) ? true : false;
 
         if ((distanceTo > rangeDistance) && range.file && !switchDisabled) {
@@ -56,7 +55,6 @@ export async function melee(handler, animationData) {
             })
         }
     }
-    console.log({ rangeArray, meleeArray })
     let aaSeq = await new Sequence("Automated Animations");
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1") {

@@ -1,11 +1,9 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-
     export let isEnabled;
     export let isCustomized;
     export let isInAutorec;
 
-    let autorecLabel = isInAutorec
+    $: autorecLabel = isInAutorec
         ? game.i18n.localize(`autoanimations.animTypes.${isInAutorec.menu}`)
         : "";
 </script>

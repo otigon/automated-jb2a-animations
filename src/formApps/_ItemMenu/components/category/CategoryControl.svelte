@@ -3,7 +3,7 @@
   import { ripple } from "@typhonjs-fvtt/svelte-standard/action";
   import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
   import { getContext } from "svelte";
-
+  
   import {
     TJSMenu,
     TJSToggleIconButton,
@@ -17,72 +17,7 @@
   import { copyToFrom } from "../../../Menus/Components/copyitem/copyToFrom";
 
   import NoneChosen from "./menus/NoneChosen.svelte";
-  //import * as changeSection from "../../../_AutorecMenu/store/default-data/newSection"
-  /*
-  async function switchVideo() {
-    let newMenu = $animation.menu;
-    if (!newMenu) { return; }
 
-    let newData = changeSection[newMenu]($animation);
-    if (!newMenu) { 
-        delete $animation.data;
-        $animation.primary = {};
-        return;
-      }
-    switch (newMenu) {
-      case "preset":
-        $animation.macro = newData.macro;
-        $animation.soundOnly = newData.soundOnly;
-        $animation.presetType = newData.presetType;
-        $animation.secondary = newData.secondary;
-        $animation.target = newData.target;
-        $animation.data = newData.data;
-        delete $animation.primary;
-        delete $animation.levels3d;
-        delete $animation.meleeSwitch;
-        delete $animation.primary;
-        delete $animation.source;
-        break;
-      case "melee":
-        $animation.levels3d = newData.levels3d;
-        $animation.macro = newData.macro;
-        $animation.meleeSwitch = newData.meleeSwitch;
-        $animation.primary = newData.primary;
-        $animation.secondary = newData.secondary;
-        $animation.soundOnly = newData.soundOnly;
-        $animation.source = newData.source;
-        $animation.target = newData.target;
-        delete $animation.presetType;
-        delete $animation.data;
-        break;
-      case "range":
-      case "ontoken":
-        $animation.levels3d = newData.levels3d;
-        $animation.macro = newData.macro;
-        $animation.primary = newData.primary;
-        $animation.secondary = newData.secondary;
-        $animation.soundOnly = newData.soundOnly;
-        $animation.source = newData.source;
-        $animation.target = newData.target;
-        delete $animation.meleeSwitch;
-        delete $animation.presetType;
-        delete $animation.data;
-        break;
-      default:
-        $animation.macro = newData.macro;
-        $animation.primary = newData.primary;
-        $animation.secondary = newData.secondary;
-        $animation.soundOnly = newData.soundOnly;
-        $animation.source = newData.source;
-        $animation.target = newData.target;
-        delete $animation.levels3d;
-        delete $animation.meleeSwitch;
-        delete $animation.presetType;
-        delete $animation.data;
-        break;
-    }
-  }
-  */
   /**
    * @ItemStore
    */
@@ -114,20 +49,12 @@
     application.close();
   }
 
-  let itemName = item.name;
   //Check the Autorec Menu for a matching Section
-  let isInAutorec = AAAutorecFunctions.allMenuSearch(
-    autorecSettings,
-    AAAutorecFunctions.rinseName(itemName)
-  );
+  $: isInAutorec = AAAutorecFunctions.allMenuSearch(autorecSettings, AAAutorecFunctions.rinseName($animation.label));
 
   let menu = isInAutorec
     ? game.i18n.localize(`autoanimations.animTypes.${isInAutorec.menu}`)
     : "";
-
-  let newLabel = isInAutorec
-    ? `Menu: ${menu} - Label: ${isInAutorec.label}`
-    : `No Autorec match found`;
 
   $: disabledLabel = $animation.isEnabled
     ? game.i18n.localize("autoanimations.menus.animation") +
@@ -148,9 +75,9 @@
     styles: { "margin-left": "0.5em" },
     onClickPropagate: false, // Necessary to capture click for Firefox.
   };
-
+  
   const subMenu = {
-    items: copyToFrom(animation, isInAutorec),
+    items: copyToFrom(animation, item, autorecSettings),
   };
 
 </script>
@@ -200,9 +127,9 @@
       style="grid-row: 1/2; grid-column: 3/4"
       class={!isEnabled ? "aa-disableOpacity" : ""}
     >
-      <TJSToggleIconButton button={buttonOverflow} slot="summary-end">
-        <TJSMenu menu={subMenu} />
-      </TJSToggleIconButton>
+    <TJSToggleIconButton button={buttonOverflow} slot="summary-end">
+      <TJSMenu menu={subMenu} />
+    </TJSToggleIconButton>
     </div>
     <div
       style="grid-row: 2/4; grid-column: 2/4; padding-bottom: 10px;margin-left: 1.5em"

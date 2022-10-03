@@ -66,12 +66,9 @@
     application.close();
   }
 
-  let itemName = item.label;
+  //let itemName = item.label;
   //Check the Autorec Menu for a matching Section
-  let isInAutorec = AAAutorecFunctions.singleMenuSearch(
-    aefxMenu,
-    AAAutorecFunctions.rinseName(itemName)
-  );
+  $: isInAutorec = AAAutorecFunctions.singleMenuSearch(aefxMenu, AAAutorecFunctions.rinseName($animation.label));
 
   let menu = isInAutorec
     ? game.i18n.localize(`autoanimations.animTypes.${isInAutorec.menu}`)
@@ -102,7 +99,7 @@
   };
 
   const subMenu = {
-    items: copyToFrom(animation, isInAutorec),
+    items: copyToFrom(animation, item, aefxMenu, true),
   };
 
 </script>

@@ -20,7 +20,6 @@ export async function thunderwave(handler, animationData, config) {
         : `autoanimations.templatefx.square.thunderwave.${getPosition.type}.${color}`
 
     const gridSize = canvas.scene.data.grid.size;
-    console.log({getPosition, databasePath, gridSize})
 
     let aaSeq = await new Sequence("Automated Animations")
 

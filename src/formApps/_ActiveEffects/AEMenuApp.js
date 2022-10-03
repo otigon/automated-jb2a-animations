@@ -18,7 +18,7 @@ export default class AEMenuApp extends SvelteApplication {
                 class: AEAppShell,
                 target: document.body,
                 props: {
-                    item: item,
+                    item,
                     itemFlags: item.flags,
                 }
             },

@@ -5,10 +5,11 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
     export let animation;
+    export let item;
 
     const { application } = getContext('external');
 
-    const currentLabel = animation._data.label;
+    const currentLabel = item.name;
     const menu = animation._data.menu;
     const currentMenu = game.settings.get(
         "autoanimations",

@@ -143,7 +143,6 @@ export default class systemData {
         } else if (this.autorecObject ) {
             this.menu = this.autorecObject.menu
         }
-        console.log(this.menu)
         //this.menu = this.isCustomized ? this.flags.menu : "";
 
         /*

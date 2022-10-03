@@ -2,6 +2,10 @@ import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
 
 import ItemToAutorec from "./itemToAutorec.js";
 
+import { AAAutorecFunctions } from "../../../../aa-classes/aaAutorecFunctions.js";
+
+import { custom_notify } from "../../../../constants/constants.js";
+
 /**
  * Creates the items for the overflow menu.
  *
@@ -11,18 +15,30 @@ import ItemToAutorec from "./itemToAutorec.js";
  *
  * @returns {object[]} Overflow menu items.
  */
-export function copyToFrom(animation, isInAutorec) {
-   let menu = game.i18n.localize(`autoanimations.animTypes.${isInAutorec.menu}`)
+export function copyToFrom(animation, item, autorecSettings, isAE) {
+   //let menu = game.i18n.localize(`autoanimations.animTypes.${isInAutorec.menu}`)
    let contents = [];
+
    let copyFrom = {
       label: "Copy From Autorec",
       icon: "far fa-clone",
       onclick: async () => {
          if (!animation._data.isEnabled) { return; }
          if (!game.user.isGM) {
-            console.error("Automated Animations | NON-GM users cannot copy items to the Global Automatic Recognition Menu");
+            custom_notify("NON-GM users cannot copy items to the Global Automatic Recognition Menu");
             return;
          }
+
+         let name = isAE ? item.label : item.name;
+
+         const isInAutorec = isAE
+            ? AAAutorecFunctions.singleMenuSearch(autorecSettings, AAAutorecFunctions.rinseName(name))
+            : AAAutorecFunctions.allMenuSearch(autorecSettings, AAAutorecFunctions.rinseName(name));
+         if (!isInAutorec) {
+            custom_notify("There is no matching Global entry to copy from");
+            return;
+         }
+         let menu = game.i18n.localize(`autoanimations.animTypes.${isInAutorec.menu}`)
          const label = isInAutorec.label;
 
          const result = await TJSDialog.confirm({
@@ -46,13 +62,13 @@ export function copyToFrom(animation, isInAutorec) {
             console.error("Automated Animations | NON-GM users cannot copy items to the Global Automatic Recognition Menu");
             return;
          }
-         if (!animation._data.isEnabled || !animation._data.menu) {
+         if (!animation._data.isEnabled || !animation._data.isCustomized) {
             ui.notifications.info("Automated Animations | There is no data present on this item to copy to the Global Automatic Recognition Menu");
             return;
          }
          //const label = animation.label !== "" ? `'${animation._data.label}'` : "'No Item Name'";
 
-         new ItemToAutorec({ animation }).render(true)
+         new ItemToAutorec({ animation, item }).render(true)
       }
    }
 

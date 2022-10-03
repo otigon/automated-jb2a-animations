@@ -18,7 +18,7 @@ export default class ItemMenuApp extends SvelteApplication {
                 class: ItemAppShell,
                 target: document.body,
                 props: {
-                    item: item,
+                    item,
                     itemFlags: item.flags,
                 }
             },

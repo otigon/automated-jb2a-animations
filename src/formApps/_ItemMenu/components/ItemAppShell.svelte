@@ -8,6 +8,7 @@
     import { AnimationStore } from "../store/AnimationStore.js"
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     import CategoryControl       from "./category/CategoryControl.svelte";
+    import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store';
 
     import { flagMigrations } from "../../../mergeScripts/items/itemFlagMerge.js"
     //import { constants}         from "../../../constants.js";
@@ -15,8 +16,16 @@
     export let elementRoot;
 
     export let item;
-    
+
     export let itemFlags;
+
+    const doc = new TJSDocument(item);
+    $:
+    {
+    $doc;
+    $animation.label = $doc.name
+    }
+
     let aaFlags = itemFlags.autoanimations || {};
 
     const { application } = getContext('external');
