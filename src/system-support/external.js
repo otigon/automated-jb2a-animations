@@ -60,12 +60,14 @@ export async function playAnimation(sourceToken, item, options = {}) {
 
     let targets;
     if (options.targets) {
-        targets = !Array.isArray(targets) ? Array.from(options.targets) : options.targets;
+        targets = !Array.isArray(options.targets) ? Array.from(options.targets) : options.targets;
+    } else {
+        targets = [];
     }
 
     const data = {
         token: sourceToken,
-        targets: options.targets,
+        targets: targets,
         item: item,
         ...options
     }
