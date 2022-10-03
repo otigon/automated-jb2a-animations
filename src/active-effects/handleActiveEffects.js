@@ -51,6 +51,7 @@ export async function createActiveEffects(effect) {
         token: aeToken,
         targets: [],
         item: effect,
+        activeEffect: true,
     }
 
     let handler = await systemData.make(null, null, data);

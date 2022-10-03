@@ -834,8 +834,8 @@ export async function version05(flags, isActiveEffect) {
             //opacity, persistent, repeat, scale, soundOnly, type, unbindAlpha, unbindVisibility, variant } = oldMO;
 
         newMO.id = uuidv4();
-        newData.isEnabled = true;
-        newData.isCustomized = true;
+        newMO.isEnabled = true;
+        newMO.isCustomized = true;
         newMO.activeEffectType = "ontoken";
 
         newMO.primary = {
@@ -890,9 +890,10 @@ export async function version05(flags, isActiveEffect) {
         let { animLevel, animType, animation, audio, color, macro, options } = oldMO;
 
         newMO.id = uuidv4();
-        newData.isEnabled = true;
-        newData.isCustomized = true;
+        newMO.isEnabled = true;
+        newMO.isCustomized = true;
         newMO.activeEffectType = "ontoken";
+        newMO.menu = "aefx";
 
         newMO.secondary = {
             enable: false,
@@ -966,8 +967,8 @@ export async function version05(flags, isActiveEffect) {
         let { animLevel, animType, animation, audio, color, macro, options } = oldMO;
 
         newMO.id = uuidv4();
-        newData.isEnabled = true;
-        newData.isCustomized = true;
+        newMO.isEnabled = true;
+        newMO.isCustomized = true;
         newMO.activeEffectType = "ontoken";
         newMO.menu = "aefx";
 
@@ -1062,8 +1063,8 @@ export async function version05(flags, isActiveEffect) {
         let { animLevel, animType, animation, audio, color, macro, options } = oldMO;
 
         newMO.id = uuidv4();
-        newData.isEnabled = true;
-        newData.isCustomized = true;
+        newMO.isEnabled = true;
+        newMO.isCustomized = true;
         newMO.activeEffectType = "ontoken";
         newMO.menu = "aefx";
 
@@ -1080,7 +1081,7 @@ export async function version05(flags, isActiveEffect) {
                 persistent: options?.persistent || false,
                 repeat: 1,
                 repeatDelay: 250,
-                size: scale ?? 1,
+                size: options?.scale ?? 1,
                 playOn: "source",
                 unbindAlpha: options?.unbindAlpha ?? false,
                 unbindVisibility: options?.unbindVisibility ?? false,
@@ -1091,7 +1092,7 @@ export async function version05(flags, isActiveEffect) {
                 dbSection: "static",
                 menuType: "shieldspell",
                 animation: "loop",
-                variant: variant || "01",
+                variant: options?.variant || "01",
                 color: color || "blue",
                 enableCustom: false,
                 customPath: "",
@@ -1116,7 +1117,7 @@ export async function version05(flags, isActiveEffect) {
                 dbSection: "static",
                 menuType: "shieldspell",
                 animation: "intro",
-                variant: variant || "01",
+                variant: options?.variant || "01",
                 color: color || "blue",
                 enableCustom: false,
                 customPath: "",
@@ -1124,6 +1125,7 @@ export async function version05(flags, isActiveEffect) {
         }
 
         newMO.secondary = {
+            enable: true,
             options: {
                 delay: 0,
                 elevation: animLevel ? 0 : 1000,
@@ -1140,8 +1142,8 @@ export async function version05(flags, isActiveEffect) {
             video:{
                 dbSection: "static",
                 menuType: "shieldspell",
-                animation: endEffect || "outro_explode",
-                variant: variant || "01",
+                animation: options?.shieldVar || "outro_explode",
+                variant: options?.variant || "01",
                 color: color || "blue",
                 enableCustom: false,
                 customPath: "",

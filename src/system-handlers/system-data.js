@@ -12,7 +12,8 @@ export default class systemData {
         const data = external ? external : AASystemData[systemID] ? await AASystemData[systemID](msg, isChat) : await AASystemData.standardChat(msg)
         if (!data.item) { debug("Item Retrieval Failed", data); return {}; }
 
-        const flags = await flagMigrations.handle(data.item);
+        let isActiveEffect = external ? data.activeEffect : false;
+        const flags = await flagMigrations.handle(data.item, {isActiveEffect});
 
         return new systemData(data, flags, msg);
     }

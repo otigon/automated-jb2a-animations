@@ -360,7 +360,7 @@ export async function ontoken(handler, animationData) {
     function setSecondary(token, seq) {
         let size = handler.getSize(secondary.options.isRadius, secondary.options.size, token, secondary.options.addTokenWidth)
 
-        seq.atLocation("spot" + ` ${token.id}`)
+        seq.atLocation(token)
         seq.file(secondary.path?.file, true)
         seq.size(size, { gridUnits: true })
         seq.elevation(secondary.options.elevation)

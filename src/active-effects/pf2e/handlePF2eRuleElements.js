@@ -61,6 +61,7 @@ export async function createRuleElementPF2e(item) {
         token: aeToken,
         targets: [],
         item: item,
+        activeEffect: true,
     }
     let handler = await systemData.make(null, null, data);
 

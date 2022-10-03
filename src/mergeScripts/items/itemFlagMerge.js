@@ -49,8 +49,8 @@ export const flagMigrations = {
         "4": async (item) => {
             return await itemMerge.version04(item)
         },
-        "5": async (item) => {
-            return await itemMerge.version05(item)
+        "5": async (item, isActiveEffect) => {
+            return await itemMerge.version05(item, isActiveEffect)
         }
     }
 }
