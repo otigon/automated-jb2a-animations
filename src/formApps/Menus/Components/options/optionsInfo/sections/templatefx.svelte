@@ -38,18 +38,10 @@
     </tr>
     <tr>
         <td class="aa-table">
-            <strong>{localize("autoanimations.menus.scale")} X</strong>
+            <strong>{localize("autoanimations.menus.scale")}</strong>
         </td>
         <td>
-            Sets the X Scale of the effect
-        </td>
-    </tr>
-    <tr>
-        <td class="aa-table">
-            <strong>{localize("autoanimations.menus.scale")} Y</strong>
-        </td>
-        <td>
-            Sets the Y Scale of the effect
+            Sets the Scale of the Effect. Default: 1. Accepts two numbers separated by a comma. Ex: 1, 2 to set the X and Y scaling x: 1, y:2, or a Single number to set both as the same scale.
         </td>
     </tr>
     <tr>
