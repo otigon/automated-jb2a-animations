@@ -224,7 +224,7 @@ function handleAutorec() {
 window.AutoAnimations = AutoAnimations;
 window.AutomatedAnimations = {
     AutorecManager: AAAutorecManager,
-    playAnimation: (data) => playAnimation(data),
+    playAnimation: (sourceToken, item, options = {}) => playAnimation(sourceToken, item, options),
 }
 
 function moduleIncludes(test) {

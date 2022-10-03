@@ -6,7 +6,7 @@ export async function templatefx(handler, animationData, templateDocument) {
 
     const sourceToken = handler.sourceToken;
 
-    const template = templateDocument ? templateDocument : canvas.templates.placeables[canvas.templates.placeables.length - 1].document;
+    const template = handler.templateData ? handler.templateData : templateDocument ? templateDocument : canvas.templates.placeables[canvas.templates.placeables.length - 1].document;
     //const templateData = template ? template || {}: template.document || {};;
     const templateType = template?.t;
 

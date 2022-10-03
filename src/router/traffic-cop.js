@@ -56,8 +56,16 @@ export async function trafficCop(handler) {
     const targets = handler.allTargets?.length;
 
     if (animationType === "templatefx" || animationType === "proToTemp") {
-        //sections for Template Hooks.once or straight to function
+        if (animationType === "proToTemp" && !handler.sourceToken) { 
+            debug("Failed to initialize a Source Token")
+            return;
+        }
         debug(`${animationType} Animation Start"`, handler, sanitizedData)
+        if (handler.templateData && animationType === "templatefx") {
+            animate[animationType](handler, sanitizedData);
+            return;
+        }
+        //sections for Template Hooks.once or straight to function
         switch (game.system.id) {
             case "a5e":
             case "pf2e":
@@ -74,7 +82,7 @@ export async function trafficCop(handler) {
         }
         return;
     } else {
-        if (targets < 1 && (animationType === "melee" || animationType === "range")) {
+        if (!handler.sourceToken || targets < 1 && (animationType === "melee" || animationType === "range")) {
             Hooks.callAll("aa.animationEnd", handler.sourceToken, "no-target");
             debug(`${animationType} Animation End", "NO TARGETS`)
             return;
