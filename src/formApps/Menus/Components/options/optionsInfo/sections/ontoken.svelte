@@ -127,4 +127,12 @@
             Where available, causes the effect to be rotated back towards the Source Token. Primarily useful for the JB2A "side fracture" type effects
         </td>
     </tr>
+    <tr>
+        <td>
+            <strong>{localize("autoanimations.menus.anchor")}</strong>
+        </td>
+        <td>
+            Adjust the anchor position of the Effect. Default: 0.5 is center. Accepts two numbers separated by a comma. Ex: 0.5, 1 returns x: 0.5, y:1, and using one number such as 0.5 returns x: 0.5, y: 0.5
+        </td>
+    </tr>
 </table>

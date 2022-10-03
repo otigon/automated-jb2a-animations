@@ -13,6 +13,7 @@ export function secondary() {
       sound: sound(),
       options: {
          addTokenWidth: false,
+         anchor: "0.5",
          delay: 0,
          elevation: 1000,
          fadeIn: 250,

@@ -25,6 +25,7 @@
 
   export let item;
 
+  const is5e = game.system.id === "dnd5e";
   const { application } = getContext("external");
 
   let autorecSettings = {
@@ -98,7 +99,7 @@
       />
     </div>
     <div
-      class="ammoButton {!isEnabled ? 'aa-disableOpacity' : ''}"
+      class="ammoButton {!isEnabled || !is5e ? 'aa-disableOpacity' : ''}"
       style="grid-row:3/4; grid-column: 1/2"
     >
       <Slider

@@ -206,7 +206,12 @@
                     />
                 </td>
                 <td>
-                    <WaitDelay {animation}/>
+                    <div>
+                        <label for="">{localize("autoanimations.menus.anchor")}</label>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="0.5" bind:value={$animation.primary.options.anchor}>
+                    </div>
                 </td>
                 <td>
                     <!--Choose how to play the animation-->
@@ -239,6 +244,13 @@
                         </div>
                     </div>
                 </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <WaitDelay {animation}/>
+                </td>
+                <td></td>
             </tr>
         </table>
     </TJSSvgFolder>

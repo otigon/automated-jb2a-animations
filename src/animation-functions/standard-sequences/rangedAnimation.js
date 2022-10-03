@@ -123,6 +123,7 @@ export async function range(handler, animationData) {
             if (secondary.options.isMasked) {
                 secondarySeq.mask(currentTarget)
             }
+            secondarySeq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
         }
     }
     // Target animation and sound

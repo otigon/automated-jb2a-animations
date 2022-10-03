@@ -8,6 +8,7 @@ export const ontoken = [
          video: { dbSection: "static", menuType: "spell", animation: 'curewounds', variant: '01', color: 'blue' },
          options: {
             addTokenWidth:false,
+            anchor: {x: 0.5, y: 0.5},
             delay: 0,
             elevation: 0,
             fadeIn: 250,
@@ -40,6 +41,7 @@ export const ontoken = [
          video: { dbSection: "static", menuType: "spell", animation: 'generichealing', variant: '01', color: 'blue' },
          options: {
             addTokenWidth:false,
+            anchor: {x: 0.5, y: 0.5},
             delay: 0,
             elevation: 0,
             fadeIn: 250,
@@ -72,6 +74,7 @@ export const ontoken = [
          video: { dbSection: "static", menuType: "spell", animation: 'tollthedead', variant: 'complete', color: 'green' },
          options: {
             addTokenWidth:false,
+            anchor: {x: 0.5, y: 0.5},
             delay: 0,
             elevation: 1000,
             fadeIn: 250,
@@ -104,6 +107,7 @@ export const ontoken = [
          video: { dbSection: "static", menuType: "creature", animation: "bite", variant: "01", color: "red" },
          options: {
             addTokenWidth:false,
+            anchor: {x: 0.5, y: 0.5},
             delay: 0,
             elevation: 1000,
             fadeIn: 250,
@@ -136,6 +140,7 @@ export const ontoken = [
          video: { dbSection: "static", menuType: "creature", animation: "claw", variant: "01", color: "red" },
          options: {
             addTokenWidth:false,
+            anchor: {x: 0.5, y: 0.5},
             delay: 0,
             elevation: 1000,
             fadeIn: 250,

@@ -20,8 +20,7 @@ export const templatefx = [
             repeat: 1,
             repeatDelay: 500,
             rotate: 0,
-            scaleX: 1,
-            scaleY: 1,
+            scale: "1",
             zIndex: 1
          }
       }),
@@ -50,8 +49,7 @@ export const templatefx = [
             repeat: 1,
             repeatDelay: 500,
             rotate: 0,
-            scaleX: 1,
-            scaleY: 1,
+            scale: "1",
             zIndex: 1
          }
       }),

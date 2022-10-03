@@ -165,6 +165,7 @@ export class DataSanitizer {
             case "ontoken":
                 return {
                     addTokenWidth: data.addTokenWidth ?? false,
+                    anchor: this.convertToXY(data.anchor, true),
                     delay: data.delay ?? 1,
                     elevation: data.elevation ?? 1000,
                     fadeIn: data.fadeIn ?? 250,
@@ -197,6 +198,7 @@ export class DataSanitizer {
                     repeat: data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
                     rotate: data.rotate ?? 0,
+                    scale: this.convertToXY(data.scale),
                     scaleX: data.scaleX || 1,
                     scaleY: data.scaleY || 1,
                     zIndex: data.zIndex || 1,
@@ -228,30 +230,21 @@ export class DataSanitizer {
                     zIndex: data.zIndex || 1,
                 };
         }
-        /*
-        function rgbToHsl(color) {
-            let r = parseInt(color.substr(1, 2), 16);
-            let g = parseInt(color.substr(3, 2), 16);
-            let b = parseInt(color.substr(5, 2), 16);
-            r /= 255;
-            g /= 255;
-            b /= 255;
-            const l = Math.max(r, g, b);
-            const s = l - Math.min(r, g, b);
-            const h = s
-                ? l === r
-                    ? (g - b) / s
-                    : l === g
-                        ? 2 + (b - r) / s
-                        : 4 + (r - g) / s
-                : 0;
-            return [
-                60 * h < 0 ? 60 * h + 360 : 60 * h,
-                (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0),
-                ((2 * l - s)) / 2,
-            ];
-        };
-        */
+    }
+
+    static convertToXY(input, isAnchor) {
+        let dNum = isAnchor ? 0.5 : 1;
+        if (!input) { return {x: dNum, y: dNum}}
+        let parsedInput = input.split(',').map(s => s.trim());
+        let posX = Number(parsedInput[0]);
+        let posY = Number(parsedInput[1]);
+        if (parsedInput.length === 2) {
+            return {x: isNaN(posX) ? dNum : posX, y: isNaN(posY) ? dNum : posY}
+        } else if( parsedInput.length === 1) {
+            return {x: isNaN(posX) ? dNum : posX, y: isNaN(posX) ? dNum : posX}
+        } else {
+            return {x: dNum, y: dNum}
+        }
     }
 
     static async compileSecondary(flagData) {
@@ -275,6 +268,7 @@ export class DataSanitizer {
             },
             options: {
                 addTokenWidth: options.addTokenWidth ?? false,
+                anchor: this.convertToXY(options.anchor, true),
                 delay: options.delay ?? 0,
                 elevation: options.elevation ?? 1000,
                 fadeIn: options.fadeIn ?? 250,
@@ -323,6 +317,7 @@ export class DataSanitizer {
             },
             options: {
                 addTokenWidth: options.addTokenWidth ?? false,
+                anchor: this.convertToXY(options.anchor, true),
                 delay: options.delay ?? 0,
                 elevation: options.elevation ?? 1000,
                 fadeIn: options.fadeIn ?? 250,
@@ -372,6 +367,7 @@ export class DataSanitizer {
             } else {
                 sourceEffect.delay(data.options.delay)
             }
+            sourceEffect.anchor({x: data.options.anchor.x, y: data.options.anchor.y})
         }
         return data;
     }
@@ -398,6 +394,7 @@ export class DataSanitizer {
             },
             options: {
                 addTokenWidth: options.addTokenWidth ?? false,
+                anchor: this.convertToXY(options.anchor, true),
                 delay: options.delay ?? 0,
                 elevation: options.elevation ?? 1000,
                 isMasked: options.isMasked ?? false,

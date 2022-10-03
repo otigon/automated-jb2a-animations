@@ -149,11 +149,12 @@
                 />
                 </td>
                 <td>
-                    <!--Set Delay for proceeding animation-->
-                    <WaitDelay
-                        {animation}
-                        section="secondary"
-                    />
+                    <div>
+                        <label for="">{localize("autoanimations.menus.anchor")}</label>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="0.5" bind:value={$animation.secondary.options.anchor}>
+                    </div>
                 </td>
                 <td>
                     <!--Set Masking-->
@@ -168,6 +169,17 @@
                         />
                     </div>
                 </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <!--Set Delay for proceeding animation-->
+                    <WaitDelay
+                        {animation}
+                        section="secondary"
+                    />
+                </td>
+                <td></td>
             </tr>
         </table>
     </TJSSvgFolder>

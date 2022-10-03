@@ -311,7 +311,8 @@ export default class systemData {
         targetEffect.fadeOut(500)
         targetEffect.opacity(targetFX.options.opacity)
         targetEffect.zIndex(targetFX.options.zIndex)
-    
+        targetEffect.anchor({x: targetFX.options.anchor.x, y: targetFX.options.anchor.y})
+
         return targetFX;
     }
     

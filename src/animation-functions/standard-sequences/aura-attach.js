@@ -234,6 +234,7 @@ export async function aura(handler, animationData) {
         if (secondary.options.isMasked) {
             seq.mask(token)
         }
+        seq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
     }
 
     // Macro if Concurrent

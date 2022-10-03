@@ -203,13 +203,12 @@
                     />
                 </td>
                 <td>
-                    <!--Set Delay for proceeding animation-->
-                    <NumberInput
-                        {animation}
-                        label={localize("autoanimations.menus.delay")}
-                        section="target"
-                        field="delay"
-                    />
+                    <div>
+                        <label for="">{localize("autoanimations.menus.anchor")}</label>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="0.5" bind:value={$animation.target.options.anchor}>
+                    </div>
                 </td>
                 <td>
                     <!--Set Masking-->
@@ -224,6 +223,19 @@
                         />
                     </div>
                 </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <!--Set Delay for proceeding animation-->
+                    <NumberInput
+                        {animation}
+                        label={localize("autoanimations.menus.delay")}
+                        section="target"
+                        field="delay"
+                    />
+                </td>
+                <td></td>
             </tr>
         </table>
     </TJSSvgFolder>

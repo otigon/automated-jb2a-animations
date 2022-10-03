@@ -97,27 +97,13 @@
                     </div>
                 </td>
                 <td>
-                    <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
-                    <NumberInput
-                        {animation}
-                        label={localize("autoanimations.menus.scale") + " " + "X"}
-                        section="primary"
-                        field="scaleX"
-                        step=0.01
-                    />
+                    <div>
+                        <label for="">{localize("autoanimations.menus.scale")}</label>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="1" bind:value={$animation.primary.options.scale}>
+                    </div>
                 </td>
-                <td>
-                    <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
-                    <NumberInput
-                    {animation}
-                    label={localize("autoanimations.menus.scale") + " " + "Y"}
-                    section="primary"
-                    field="scaleY"
-                    step=0.01
-                />
-                </td>
-            </tr>
-            <tr>
                 <td class={isAttached ? "aa-disableOpacity" : ""}>
                     <!--Set Masking-->
                     <div class="form-group">
@@ -132,6 +118,8 @@
                         />
                     </div>
                 </td>
+            </tr>
+            <tr>
                 <td>
                     <!--Set Animation Opacity-->
                     <Opacity {animation} />
@@ -145,8 +133,6 @@
                         field="zIndex"
                     />
                 </td>
-            </tr>
-            <tr>
                 <td>
                     <!--Adjust Rotation of Effect-->
                     <NumberInput
@@ -156,6 +142,10 @@
                         field="rotate"
                         placeholder=0
                     />
+                </td>
+            </tr>
+            <tr>
+                <td>
                 </td>
                 <td>
                     <WaitDelay {animation}/>

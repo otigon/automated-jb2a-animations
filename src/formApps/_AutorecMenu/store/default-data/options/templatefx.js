@@ -13,8 +13,7 @@ export function templatefx() {
         repeat: 1,
         repeatDelay: 250,
         rotate: 0,
-        scaleX: 1,
-        scaleY: 1,
+        scale: "1",
         zIndex: 1,
     }
 }

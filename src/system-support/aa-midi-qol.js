@@ -114,7 +114,7 @@ async function damage(input) {
     if (!AnimationState.enabled || input.item?.hasAreaTarget) { return };
     let playOnDamage = game.settings.get('autoanimations', 'playonDamage');
     if (!playOnDamage && input.item?.hasAttack) { return};
-    debugger
+
     let handler = await systemData.make(input);
     if (!handler.item || !handler.sourceToken || handler.playOnUse) { debug("No Item or Source Token", handler.item, handler.sourceToken); return;}
     

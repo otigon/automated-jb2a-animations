@@ -355,6 +355,7 @@ export async function ontoken(handler, animationData) {
             seq.persist(true)
             seq.origin(handler.itemUuid)
         }
+        seq.anchor({x: data.options.anchor.x, y: data.options.anchor.y})
     }
     function setSecondary(token, seq) {
         let size = handler.getSize(secondary.options.isRadius, secondary.options.size, token, secondary.options.addTokenWidth)
@@ -374,6 +375,7 @@ export async function ontoken(handler, animationData) {
         if (secondary.options.isMasked) {
             seq.mask(token)
         }
+        seq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
     }
 
     // Macro if Concurrent

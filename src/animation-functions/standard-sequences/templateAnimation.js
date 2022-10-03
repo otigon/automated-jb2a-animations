@@ -62,8 +62,8 @@ export async function templatefx(handler, animationData, templateDocument) {
         const templateLength = canvas.grid.size * (trueSize / canvas.dimensions.distance);
         const isOverhead = data.options.persistType === 'overheadtile' ? true : false;
 
-        const tileWidth = templateLength * data.options.scaleX;
-        const tileHeight = templateLength * data.options.scaleY;
+        const tileWidth = templateLength * data.options.scale.x;
+        const tileHeight = templateLength * data.options.scale.y;
 
         const tileX = templateType === 'circle' ? (template.x - (tileWidth / 2)) : (template.x + ((templateLength - tileWidth) / 2));
         const tileY = templateType === 'circle' ? (template.y - (tileHeight / 2)) : (template.y + ((templateLength - tileHeight) / 2));
@@ -82,8 +82,8 @@ export async function templatefx(handler, animationData, templateDocument) {
             const trueHeight = templateType === 'cone' ? template.distance : template.width * 2;
             setPrimary(templateSeq)
             templateSeq.size({
-                width: (canvas.grid.size * (template.distance / canvas.dimensions.distance)) * data.options.scaleX,
-                height: (canvas.grid.size * (trueHeight / canvas.dimensions.distance)) * data.options.scaleY,
+                width: (canvas.grid.size * (template.distance / canvas.dimensions.distance)) * data.options.scale.x,
+                height: (canvas.grid.size * (trueHeight / canvas.dimensions.distance)) * data.options.scale.y,
             })
             if (data.options.isMasked) {
                 coneRaySeq.mask(template)
@@ -120,8 +120,8 @@ export async function templatefx(handler, animationData, templateDocument) {
             }
             setPrimary(templateSeq)
             templateSeq.size({
-                width: canvas.grid.size * (trueSize / canvas.dimensions.distance) * data.options.scaleX,
-                height: canvas.grid.size * (trueSize / canvas.dimensions.distance) * data.options.scaleY,
+                width: canvas.grid.size * (trueSize / canvas.dimensions.distance) * data.options.scale.x,
+                height: canvas.grid.size * (trueSize / canvas.dimensions.distance) * data.options.scale.y,
             })
             if (data.options.persistent) {
                 templateSeq.persist(true)
@@ -179,6 +179,7 @@ export async function templatefx(handler, animationData, templateDocument) {
             if (secondary.options.isMasked) {
                 secondarySeq.mask(currentTarget)
             }
+            secondarySeq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
         }
     }
 

@@ -194,6 +194,7 @@ async function mergeVersion05(data) {
             enable: exp?.enable ?? false,
             options: {
                 addTokenWidth: false,
+                anchor: "0.5",
                 delay: exp?.delay ?? 250,
                 elevation: exp?.below ? 0 : 1000,
                 fadeIn: 250,
@@ -368,6 +369,7 @@ async function mergeVersion05(data) {
                 break;
             case "ontoken":
                 data.addTokenWidth = false;
+                data.anchor = "0.5";
                 data.delay = 0;
                 data.elevation = oldMO.below ? 0 : 1000;
                 data.fadeIn = 250;
@@ -399,8 +401,9 @@ async function mergeVersion05(data) {
                 data.repeat = oldMO.repeat ?? 1;
                 data.repeatDelay = oldMO.delay ?? 0;
                 data.rotate = 0;
-                data.scaleX = oldMO.scaleX ?? 1;
-                data.scaleY = oldMO.scaleY ?? 1;
+                data.scale = `${oldMO.scaleX ?? 1}, ${oldMO.scaleY ?? 1}`
+                //data.scaleX = oldMO.scaleX ?? 1;
+                //data.scaleY = oldMO.scaleY ?? 1;
                 data.zIndex = oldMO.zIndex ?? 1;
                 break;
             case "aura":
@@ -439,6 +442,7 @@ async function mergeVersion05(data) {
                 enable: false,
                 options: {
                     addTokenWidth: false,
+                    anchor: "0.5",
                     delay: 0,
                     elevation: 1000,
                     fadeIn: 250,
@@ -471,6 +475,7 @@ async function mergeVersion05(data) {
                 enable: false,
                 options: {
                     addTokenWidth: false,
+                    anchor: "0.5",
                     delay: 0,
                     elevation: 1000,
                     fadeIn: 250,

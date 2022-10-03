@@ -130,6 +130,16 @@
                     </div>
                 </td>
                 <td>
+                    <div>
+                        <label for="">{localize("autoanimations.menus.anchor")}</label>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="0.5" bind:value={$animation.source.options.anchor}>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.fadeIn")}
@@ -138,8 +148,13 @@
                     placeholder=250
                 />
                 </td>
-            </tr>
-            <tr>
+                <td>
+                    <!--Set Delay for proceeding animation-->
+                    <WaitDelay
+                        {animation}
+                        section="source"
+                    />
+                </td>
                 <td>
                     <NumberInput
                     {animation}
@@ -149,14 +164,6 @@
                     placeholder=500
                     />
                 </td>
-                <td>
-                    <!--Set Delay for proceeding animation-->
-                    <WaitDelay
-                        {animation}
-                        section="source"
-                    />
-                </td>
-                <td></td>
             </tr>
         </table>
     </TJSSvgFolder>

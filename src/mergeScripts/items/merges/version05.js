@@ -168,6 +168,7 @@ export async function version05(flags, isActiveEffect) {
             enable: oldData.enable ?? false,
             options: {
                 addTokenWidth:false,
+                anchor: "0.5",
                 delay: oldData.delayAfter ?? 0,
                 elevation: oldData.animLevel ? 0 : 1000,
                 fadeIn: 250,
@@ -205,6 +206,7 @@ export async function version05(flags, isActiveEffect) {
             enable: oldData.enable ?? false,
             options: {
                 addTokenWidth:false,
+                anchor: "0.5",
                 delay: oldData.delayStart ?? 0,
                 elevation: oldData.animLevel ? 0 : 1000,
                 fadeIn: 250,
@@ -293,6 +295,8 @@ export async function version05(flags, isActiveEffect) {
                 break;
             case "ontoken":
                 data.addTokenWidth = false;
+                data.anchor = "0.5";
+                data.anchor = {x: 0.5, y: 0.5};
                 data.delay = 0;
                 data.elevation = oldMO.below ? 0 : 1000;
                 data.fadeIn = 250;
@@ -324,8 +328,9 @@ export async function version05(flags, isActiveEffect) {
                 data.repeat = options.repeat ?? 1;
                 data.repeatDelay = options.delay ?? 0;
                 data.rotate = 0;
-                data.scaleX = options.scaleX ?? 1;
-                data.scaleY = options.scaleY ?? 1;
+                data.scale = `${options.scaleX ?? 1}, ${options.scaleY ?? 1}`
+                //data.scaleX = options.scaleX ?? 1;
+                //data.scaleY = options.scaleY ?? 1;
                 data.zIndex = options.zIndex ?? 1;
                 break;
             case "aura":
@@ -408,6 +413,7 @@ export async function version05(flags, isActiveEffect) {
             enable: exp?.enable ?? false,
             options: {
                 addTokenWidth: false,
+                anchor: "0.5",
                 delay: exp?.delay ?? 250,
                 elevation: exp?.below ? 0 : 1000,
                 fadeIn: 250,
