@@ -89,15 +89,13 @@ async function templateItem(input) {
 */
 
 export function systemHooks() {
-    Hooks.on("midi-qol.DamageRollComplete", (workflow) => { attack(workflow) });
-    Hooks.on("midi-qol.AttackRollComplete", (workflow) => { damage(workflow) });
+    Hooks.on("midi-qol.DamageRollComplete", (workflow) => { damage(workflow) });
+    Hooks.on("midi-qol.AttackRollComplete", (workflow) => { attack(workflow); criticalCheck(workflow) });
     Hooks.on("midi-qol.RollComplete", (workflow) => { useItem(workflow) }); // For items with no attack or damage
     Hooks.on("dnd5e.useItem", async (item, config, options) => { onUse({ item, config, options }) }); // For Teleportation and Auras
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => { templateAnimation({ template, data, userId }) }) // For Template Animations
 
-    if (game.settings.get("autoanimations", "EnableCritical") || game.settings.get("autoanimations", "EnableCriticalMiss")) {
-        Hooks.on("midi-qol.AttackRollComplete", (workflow) => { criticalCheck(workflow) })
-    }
+    //Hooks.on("midi-qol.AttackRollComplete", (workflow) => { criticalCheck(workflow) })
 }
 
 async function attack(input) {
