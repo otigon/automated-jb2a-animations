@@ -51,7 +51,7 @@
                         on:change={async () =>
                             await category.menuTypeChange(section, idx, section02, dbSection)}
                     >
-                        {#each category.typeMenu[$animation[section][section02].dbSection] as [key, name]}
+                        {#each category.typeMenu[$animation[section][section02].dbSection] ?? [] as [key, name]}
                             <option value={key}>{name}</option>
                         {/each}
                     </select>
@@ -72,7 +72,7 @@
                         on:change={async () =>
                             await category.animationChange(section, idx, section02, dbSection)}
                     >
-                        {#each category.animationMenu[dbSection][menuType] as [key, name]}
+                        {#each category.animationMenu[dbSection]?.[menuType] ?? [] as [key, name]}
                             <option value={key}>{name}</option>
                         {/each}
                     </select>
@@ -89,7 +89,7 @@
                         on:change={async () =>
                             await category.variantChange(section, idx, section02, dbSection)}
                     >
-                        {#each category.variantMenu[dbSection][menuType][anim] as [key, name]}
+                        {#each category.variantMenu[dbSection]?.[menuType]?.[anim] ?? [] as [key, name]}
                             <option value={key}>{name}</option>
                         {/each}
                     </select>
@@ -102,7 +102,7 @@
                 </div>
                 <div class="flexcol">
                     <select bind:value={$animation[section][section02].color}>
-                        {#each category.colorMenu[dbSection][menuType][anim][variant] as [key, name]}
+                        {#each category.colorMenu[dbSection]?.[menuType]?.[anim]?.[variant] ?? [] as [key, name]}
                             <option value={key}>{name}</option>
                         {/each}
                     </select>

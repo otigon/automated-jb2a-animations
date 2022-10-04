@@ -325,7 +325,15 @@
             "blob": "Blob",
             "intro": "Intro",
             "outro_explode": "Outro Explode",
-            "outro_fade": "Outro Fade"
+            "outro_fade": "Outro Fade",
+            "missile": "Missile",
+            "single": "Single",
+            "few": "Few",
+            "many": "Many",
+            "water": "Water",
+            "reverse": "Reverse",
+            "circle": "Circle",
+            "ring": "Ring"
         },
         "variants": {
             "1":"01",
@@ -413,7 +421,10 @@
             "acid": "Acid",
             "slow": "Slow",
             "fast": "Fast",
-            "stick": "Stick"
+            "stick": "Stick",
+            "elemental": "Elemental",
+            "nature": "Nature",
+            "void": "Void"
         },
         "menuTypes": {
             "creature": "Creature Attack",
@@ -440,7 +451,10 @@
             "leaves": "Leaves",
             "chains": "Chains",
             "shrapnel": "Shrapnel",
-            "shieldspell":"Shield"
+            "shieldspell":"Shield",
+            "eyes": "Eyes",
+            "sideImpact": "Side Impact",
+            "plants": "Plants"
         },
         "animTypes": {
             "melee": "Melee",

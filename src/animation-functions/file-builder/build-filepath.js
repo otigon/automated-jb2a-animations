@@ -1,7 +1,9 @@
-import { JB2APATREONDB } from "../../database/jb2a-patreon-database.js";
-import { JB2AFREEDB } from "../../database/jb2a-free-database.js";
+//import { JB2APATREONDB } from "../../database/jb2a-patreon-database.js";
+//import { JB2AFREEDB } from "../../database/jb2a-free-database.js";
+import {aaDatabase} from "../../index.js"
 
 export async function buildFile(getMeta, dbType, name, animationType, animationVariant, animationColor, customPath) {
+    console.log(aaDatabase)
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
@@ -22,7 +24,8 @@ export async function buildFile(getMeta, dbType, name, animationType, animationV
             //metadata = await getVideoDimensionsOf(fileData);
         //}    
     } else {
-        const jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+        //const jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+        const jb2a = aaDatabase;
         const path = name.replace(/melee|range|double/gi, function (x) {
             return "";
         });

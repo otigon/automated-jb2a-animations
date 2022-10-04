@@ -1,8 +1,8 @@
 Hooks.once('aa.ready', async (jb2a) => { await menuOptions(jb2a) });
-const aaTypeMenu = {};
-const aaNameMenu = {};
-const aaColorMenu = {};
-const aaVariantMenu = {};
+//const aaTypeMenu = {};
+//const aaNameMenu = {};
+//const aaColorMenu = {};
+//const aaVariantMenu = {};
 let aaReturnWeapons;
 let aaRangeWeapons;
 
@@ -97,17 +97,20 @@ async function menuOptions(database) {
     delete newVariantMenu.range._template
     delete newVariantMenu.return._template
 
+    /*
     for (let section of menuSets) {
         aaTypeMenu[section] = Object.keys(jb2a[section]).reduce((o, type) => ({ ...o, [type]: game.i18n.localize(`autoanimations.menuTypes.${type}`) }), {});
         aaNameMenu[section] = Object.keys(jb2a[section]).reduce((o, type) => ({ ...o, [type]: Object.keys(jb2a[section][type]).reduce((o, name) => ({ ...o, [name]: game.i18n.localize(`autoanimations.animations.${name}`) }), {}) }), {});
         aaVariantMenu[section] = Object.keys(jb2a[section]).reduce((o, type) => ({ ...o, [type]: Object.keys(jb2a[section][type]).reduce((o, name) => ({ ...o, [name]: Object.keys(jb2a[section][type][name]).reduce((o, variant) => ({ ...o, [variant]: game.i18n.localize(`autoanimations.variants.${variant}`) }), {}) }), {}) }), {});
         aaColorMenu[section] = Object.keys(jb2a[section]).reduce((o, type) => ({ ...o, [type]: Object.keys(jb2a[section][type]).reduce((o, name) => ({ ...o, [name]: Object.keys(jb2a[section][type][name]).reduce((o, variant) => ({ ...o, [variant]: Object.keys(jb2a[section][type][name][variant]).reduce((o, color) => ({ ...o, [color]: game.i18n.localize(`autoanimations.colors.${color}`) }), {}) }), {}) }), {}) }), {});
     }
-    await addRandom(aaColorMenu)
-    await remove_Template(aaTypeMenu)
+    */
+    //await addRandom(aaColorMenu)
+    //await remove_Template(aaTypeMenu)
+    console.log( {newTypeMenu, newNameMenu, newVariantMenu, newColorMenu} )
 }
 
-export { aaTypeMenu, aaNameMenu, aaVariantMenu, aaColorMenu, aaReturnWeapons, newTypeMenu, newNameMenu, newVariantMenu, newColorMenu, aaRangeWeapons }
+export { aaReturnWeapons, newTypeMenu, newNameMenu, newVariantMenu, newColorMenu, aaRangeWeapons }
 
 
 async function addRandom(menu) {

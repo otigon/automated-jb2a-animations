@@ -5169,6 +5169,13 @@ export async function initializeJB2APatreonDB(path) {
                     ],
                 }
             },
+            fire: {
+                ring: {
+                    blue: [lg`Fire/FireRing_01_Circle_Blue_900.webm`],
+                    green: [lg`Fire/FireRing_01_Circle_Green_900.webm`],
+                    red: [lg`Fire/FireRing_01_Circle_Red_900.webm`],
+                }
+            },
             impact: {
                 '01': {
                     blue: [
