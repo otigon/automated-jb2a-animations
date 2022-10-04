@@ -14,9 +14,9 @@
     //import { constants}         from "../../../constants.js";
 
     export let elementRoot;
+    export let storageStore = void 0;
 
     export let item;
-
     export let itemFlags;
 
     const doc = new TJSDocument(item);
@@ -51,6 +51,14 @@
 
     let animation = new AnimationStore(newFlagData)
 
+    // Application position store reference. Stores need to be a top level variable to be accessible for reactivity.
+    const position = application.position;
+
+    // A debounced callback that serializes application state after 500-millisecond delay.
+    const storeAppState = foundry.utils.debounce(() => $storageStore = application.state.get(), 500);
+
+    // Reactive statement to invoke debounce callback on Position changes.
+    $: storeAppState($position);
 </script>
 
 <ApplicationShell bind:elementRoot stylesContent={{ color: "black" }}>

@@ -323,6 +323,9 @@
 
 
 
+
+
+
         },
         "variants": {
             "1":"01",
@@ -436,16 +439,18 @@
 			"ray": "Rayon",
 			"leaves": "Feuilles"
 
+
 		
         },
         "animTypes": {
 			"melee": "Mêlée",
-			"ranged": "Portée",
-			"onToken": "Sur le Token",
-			"presets": "Préréglages",
-			"templates": "Modèles",
-			"typeAuras": "Aura"
-        },
+			"range": "Portée",
+			"ontoken": "Sur le Token",
+			"preset": "Préréglages",
+			"templatefx": "Modèles",
+			"aura": "Aura"
+
+		},
         "presetTypes": {
 			"bardicinspiration": "Inspiration bardique",
 			"bless": "Bénédiction",
@@ -573,6 +578,31 @@
 			
 
 			"musicnote": "Notes de musique"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         },
         "optionsInfo": {
 

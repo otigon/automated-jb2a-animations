@@ -323,6 +323,9 @@
 
 
 
+
+
+
         },
         "variants": {
             "1":"01",
@@ -436,15 +439,17 @@
             "ray": "直線"
         
 
+
             
         },
         "animTypes": {
             "melee": "近接攻撃",
-            "ranged": "遠隔攻撃",
-            "onToken": "コマ効果",
-            "presets": "プリセット",
-            "templates": "テンプレート",
-            "typeAuras": "オーラ"
+            "range": "遠隔攻撃",
+            "ontoken": "コマ効果",
+            "preset": "プリセット",
+            "templatefx": "テンプレート",
+            "aura": "オーラ"
+
         },
         "presetTypes": {
             "bardicinspiration": "バードの声援",
@@ -455,8 +460,7 @@
             "shieldspell":"シールド",
             "sneakattack": "急所攻撃",
             "animTeleportation": "テレポーテーション",
-            "thunderwave":"サンダーウェイブ",
-            "preset": "プリセット"
+            "thunderwave":"サンダーウェイブ"
 
         },
         "menus": {
@@ -572,6 +576,33 @@
 
             
             "musicnote": "音符"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         },
         "optionsInfo": {
 

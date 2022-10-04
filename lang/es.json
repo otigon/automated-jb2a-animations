@@ -323,6 +323,8 @@
 
 
 
+
+
         },
         "variants": {
             "1":"01",
@@ -411,6 +413,7 @@
             "slow": "Lento",
             "fast": "Rápido"
 
+
         },
         "menuTypes": {
             "creature": "Ataque de Criatura",
@@ -436,15 +439,17 @@
             "ray": "Rayo"
         
 
+
             
         },
         "animTypes": {
             "melee": "Melé",
-            "ranged": "A Distancia",
-            "onToken": "En Ficha",
-            "presets": "Preajustes",
-            "templates": "Plantillas",
-            "typeAuras": "Aura"
+            "range": "A Distancia",
+            "ontoken": "En Ficha",
+            "preset": "Preajustes",
+            "templatefx": "Plantillas",
+            "aura": "Aura"
+
         },
         "presetTypes": {
             "bardicinspiration": "Inspiración Bárdica",
@@ -573,6 +578,31 @@
             
 
             "musicnote": "Notas Musicales"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         },
         "optionsInfo": {
 

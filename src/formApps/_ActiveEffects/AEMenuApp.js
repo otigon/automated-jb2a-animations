@@ -4,7 +4,9 @@ import { AEAppShell } from "./components";
 import { showAutorecMenu } from "../_AutorecMenu/showUI";
 
 import ItemInfoDialog from "./components/animation/itemInfoDialog.js"
-//import { constants }            from "../../constants.js";
+
+import { aaSessionStorage } from "../../sessionStorage";
+import { sessionConstants } from "../../constants.js";
 
 export default class AEMenuApp extends SvelteApplication {
     /** @inheritDoc */
@@ -20,15 +22,17 @@ export default class AEMenuApp extends SvelteApplication {
                 props: {
                     item,
                     itemFlags: item.flags,
+                    storageStore: aaSessionStorage.getStore(sessionConstants.activeEffectAppState)
                 }
             },
         });
 
-        //try {
-            // Attempt to parse session storage item and set application state.
-            //this.state.set(JSON.parse(sessionStorage.getItem(`${constants.moduleId}-autorec-appstate`)));
-        //}
-       // catch (err) { /**/ }
+        try 
+        {
+            //Attempt to parse session storage item and set application state.
+            this.state.set(aaSessionStorage.getItem(sessionConstants.activeEffectAppState));
+        }
+        catch (err) { /**/ }
     }
 
     /**

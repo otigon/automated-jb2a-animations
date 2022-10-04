@@ -13,7 +13,9 @@ const constants = {
  */
 const sessionConstants = {
    optionsInfoAppState: `${constants.moduleId}.options-info.app-state`,
-   videoPreviewAppState: `${constants.moduleId}.video-preview.app-state`
+   videoPreviewAppState: `${constants.moduleId}.video-preview.app-state`,
+   itemAppState: `${constants.moduleId}.item.app-state`,
+   activeEffectAppState: `${constants.moduleId}.active-effect.app-state`,
 };
 
 export { constants, sessionConstants };

@@ -323,6 +323,9 @@
 
 
 
+
+
+
         },
         "variants": {
             "1": "01",
@@ -441,11 +444,12 @@
         },
         "animTypes": {
             "melee": "Nahkampfwaffe",
-            "ranged": "Fernwaffe",
-            "onToken": "Auf Figur",
-            "presets": "Voreinstellungen",
-            "templates": "Schablone",
-            "typeAuras": "Aura"
+            "range": "Fernwaffe",
+            "ontoken": "Auf Figur",
+            "preset": "Voreinstellungen",
+            "templatefx": "Schablone",
+            "aura": "Aura",
+            "aefx": "Active Effects"
         },
         "presetTypes": {
             "bardicinspiration": "Bardische Inspiration",
@@ -574,6 +578,31 @@
 
 
             "musicnote": "Musiknoten"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         },
         "optionsInfo": {
 

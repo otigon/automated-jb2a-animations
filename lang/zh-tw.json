@@ -323,6 +323,9 @@
             "spike": "尖刺",
             "square": "方形",
             "blob": "氣泡"
+
+
+
         },
         "variants": {
             "1": "01",
@@ -437,14 +440,16 @@
             "leaves": "葉子",
             "chains": "鎖鏈",
             "shrapnel": "破片"
+
         },
         "animTypes": {
             "melee": "近戰",
-            "ranged": "遠端",
-            "onToken": "指示物上",
-            "presets": "預設",
-            "templates": "測量板",
-            "typeAuras": "光環"
+            "range": "遠端",
+            "ontoken": "指示物上",
+            "preset": "預設",
+            "templatefx": "測量板",
+            "aura": "光環"
+
         },
         "presetTypes": {
             "bardicInspiration": "吟遊激勵",
@@ -577,39 +582,30 @@
             "duplicate": "複製",
 
             "only": "僅"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
         },
         "optionsInfo": {
 
-        },
-        "app": {
-            "aaAutorec-melee": {
-                "label": "Melee",
-                "icon": "fas fa-shield-alt"
-            },
-            "aaAutorec-range": {
-                "label": "Range",
-                "icon": "fas fa-people-arrows"
-            },
-            "aaAutorec-ontoken": {
-                "label": "On Token",
-                "icon": "fas fa-child"
-            },
-            "aaAutorec-templatefx": {
-                "label": "Templates",
-                "icon": "fas fa-shapes"
-            },
-            "aaAutorec-aura": {
-                "label": "Aura",
-                "icon": "fab fa-creative-commons-by"
-            },
-            "aaAutorec-preset": {
-                "label": "Preset",
-                "icon": "fas fa-gift"
-            },
-            "aaAutorec-aefx": {
-                "label": "Active Effects",
-                "icon": "fas fa-atom"
-            }
         }
     }
 }

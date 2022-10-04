@@ -323,6 +323,9 @@
 
 
 
+
+
+
         },
         "variants": {
             "1":"01",
@@ -436,15 +439,17 @@
             "ray": "직선"
         
 
+
             
         },
         "animTypes": {
             "melee": "근접",
-            "ranged": "원거리",
-            "onToken": "토큰 적용",
-            "presets": "프리셋",
-            "templates": "템플릿",
-            "typeAuras": "오러"
+            "range": "원거리",
+            "ontoken": "토큰 적용",
+            "preset": "프리셋",
+            "templatefx": "템플릿",
+            "aura": "오러"
+
         },
         "presetTypes": {
             "bardicinspiration": "바드의 고양감",
@@ -573,6 +578,31 @@
 
             
             "musicnote": "음표"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         },
         "optionsInfo": {
 

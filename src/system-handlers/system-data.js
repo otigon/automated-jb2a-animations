@@ -182,7 +182,7 @@ export default class systemData {
             const menuType = this.isCustomized ? this.menu : this.autorecObject.menu;
             const presetType = this.isCustomized ? this.flags?.preset?.presetType : this.autorecObject.presetType;
 
-            return menuType === 'templatefx' || menuType === "aura" || (menuType === "preset" && (presetType === "fireball" || presetType === 'teleportation' || presetType === 'thunderwave'))
+            return menuType === 'templatefx' || menuType === "aura" || (menuType === "preset" && (presetType === "proToTemp" || presetType === 'teleportation' || presetType === 'thunderwave'))
         } else {
             return false;
         }
@@ -200,7 +200,7 @@ export default class systemData {
         const menuType = this.isCustomized ? this.menu : this.autorecObject.menu;
         const presetType = this.isCustomized ? this.flags?.preset?.presetType : this.autorecObject.presetType;
 
-        return menuType === 'templatefx' ||  (menuType === 'preset' && presetType === "fireball")
+        return menuType === 'templatefx' ||  (menuType === 'preset' && presetType === "proToTemp") || (menuType === 'preset' && presetType === "thunderwave")
     }
 
     get isAura () {
