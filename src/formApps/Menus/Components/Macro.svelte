@@ -1,5 +1,6 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import AutoCompleteMacro from "./AutoCompleteMacro.svelte";
 
     export let animation;
     export let category;
@@ -33,7 +34,7 @@
                 >{localize("autoanimations.menus.macro")}
                 {localize("autoanimations.menus.name")}</label
             >
-            <input type="text" bind:value={$animation.macro.name} />
+            <AutoCompleteMacro {animation}/>
         </div>
         <div class="flexcol" style="grid-row: 1 / 2;grid-column: 3 / 4;">
             <i
@@ -70,14 +71,6 @@
         min-height: 2em;
         border-radius: 10px;
         align-self: center;
-    }
-    .aa-macro input {
-        align-self: center;
-        border-radius: 5px;
-        font-family: "Signika", sans-serif;
-        font-size: small;
-        height: unset;
-        line-height: 23px;
     }
     .aa-macro label {
         align-self: center;
