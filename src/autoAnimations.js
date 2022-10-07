@@ -122,7 +122,14 @@ Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
 
 // Registers Database with Sequencer
 Hooks.on("aa.ready", () => {
-    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    const s3Check = game.settings.get('autoanimations', 'jb2aLocation');
+    let obj01;
+    if (s3Check) {
+        obj01 = s3Check.includes('jb2a_patreon') === true ? JB2APATREONDB : JB2AFREEDB;
+    } else {
+        obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    }
+    
     Sequencer.Database.registerEntries("autoanimations", obj01, true);
     if (game.settings.get("autoanimations", "killAllAnim") === "off") {
         console.log("ANIMATIONS ARE OFF")

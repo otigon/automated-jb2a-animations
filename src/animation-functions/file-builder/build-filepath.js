@@ -22,7 +22,13 @@ export async function buildFile(getMeta, dbType, name, animationType, animationV
             metadata = await getVideoDimensionsOf(fileData);
         }    
     } else {
-        const jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+        const s3Check = game.settings.get('autoanimations', 'jb2aLocation');
+        let jb2a;
+        if (s3Check) {
+            jb2a = s3Check.includes('jb2a_patreon') === true ? JB2APATREONDB : JB2AFREEDB;
+        } else {
+            jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+        }
         const path = name.replace(/melee|range|double/gi, function (x) {
             return "";
         });
