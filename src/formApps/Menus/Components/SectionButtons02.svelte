@@ -19,6 +19,17 @@
         currentStore.set(category);
         category.loadPreviews(category);
     }
+
+    //$: macroEnabled = $animation.macro.enable;
+    //$: macroSetting = $animation.macro.playWhen;
+
+    /*
+    $: {
+        if (macroEnabled && macroSetting === "2") {
+            animation._data.soundOnly.sound.enable = false;
+        }
+    }
+    */
 </script>
 
 <div class="aa-autorec-headerButton02">
@@ -29,11 +40,7 @@
         >
     </div>
     <div style="grid-row:1/2; grid-column:2/3" class="sectionButton">
-        <label
-            for=""
-            on:click={() =>
-                ($animation.soundOnly.sound.enable =
-                    !animation._data.soundOnly.sound.enable)}
+        <label for="SoundOnly {animation._data.id}"
             >{localize("autoanimations.menus.sound")}
             {localize("autoanimations.menus.only")}
             <i
@@ -41,22 +48,31 @@
                     .enable
                     ? 'aa-green'
                     : ''}"
-            /></label
-        >
+            />
+        </label>
+        <input
+            type="checkbox"
+            hidden
+            id="SoundOnly {animation._data.id}"
+            bind:checked={$animation.soundOnly.sound.enable}
+        />
     </div>
     <div style="grid-row:1/2; grid-column:3/4" class="sectionButton">
-        <label
-            for=""
-            on:click={() =>
-                ($animation.macro.enable = !animation._data.macro.enable)}
+        <label for="Macro {animation._data.id}"
             >{localize("autoanimations.menus.add")}
             {localize("autoanimations.menus.macro")}
             <i
                 class="far fa-keyboard fa-lg aa-zoom {$animation.macro.enable
                     ? 'aa-green'
                     : ''}"
-            /></label
-        >
+            />
+        </label>
+        <input
+            type="checkbox"
+            hidden
+            id="Macro {animation._data.id}"
+            bind:checked={$animation.macro.enable}
+        />
     </div>
 </div>
 
@@ -78,7 +94,7 @@
     }
     .sectionButton {
         background: rgba(0, 0, 0, 0.17);
-        padding: .2em;
+        padding: 0.2em;
         border-radius: 1em;
     }
 </style>

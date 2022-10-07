@@ -4,7 +4,6 @@ export { default as Source } from "./ExtraSource.svelte";
 export { default as Target } from "./ExtraTarget.svelte";
 export { default as SectionButtons01 } from "./SectionButtons.svelte";
 export { default as SectionButtons02 } from "./SectionButtons02.svelte";
-export { default as SectionButtons03 } from "./SectionButtons03.svelte";
 export { default as Macro } from "./Macro.svelte";
 export { default as MeleeSwitch } from "./MeleeSwitch.svelte";
 export { default as Sound } from "./SoundSettings.svelte";

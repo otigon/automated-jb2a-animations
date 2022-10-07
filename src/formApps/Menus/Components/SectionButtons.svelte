@@ -41,11 +41,7 @@
         >
     </div>
     <div style="grid-row:1/2; grid-column:3/4" class="sectionButton">
-        <label
-            for=""
-            on:click={() =>
-                ($animation.soundOnly.sound.enable =
-                    !animation._data.soundOnly.sound.enable)}
+        <label for="SoundOnly {animation._data.id}"
             >{localize("autoanimations.menus.sound")}
             {localize("autoanimations.menus.only")}
             <i
@@ -53,22 +49,31 @@
                     .enable
                     ? 'aa-green'
                     : ''}"
-            /></label
-        >
+            />
+        </label>
+        <input
+            type="checkbox"
+            hidden
+            id="SoundOnly {animation._data.id}"
+            bind:checked={$animation.soundOnly.sound.enable}
+        />
     </div>
     <div style="grid-row:1/2; grid-column:4/5" class="sectionButton">
-        <label
-            for=""
-            on:click={() =>
-                ($animation.macro.enable = !animation._data.macro.enable)}
+        <label for="Macro {animation._data.id}"
             >{localize("autoanimations.menus.add")}
             {localize("autoanimations.menus.macro")}
             <i
                 class="far fa-keyboard fa-lg aa-zoom {$animation.macro.enable
                     ? 'aa-green'
                     : ''}"
-            /></label
-        >
+            />
+        </label>
+        <input
+            type="checkbox"
+            hidden
+            id="Macro {animation._data.id}"
+            bind:checked={$animation.macro.enable}
+        />
     </div>
 </div>
 

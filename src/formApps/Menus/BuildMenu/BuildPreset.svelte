@@ -68,10 +68,10 @@
 </script>
 
 <SectionButtons  {animation} {category} {idx} type={fromMenu}  />
-<div hidden={!soundOnly || (macroEnabled && macroPlay === "2")}>
+<div hidden={!soundOnly}>
     <SoundOnly {animation} {category} />
 </div>
-<div hidden={!macroEnabled || (soundOnly && macroPlay !== "2")}>
+<div hidden={!macroEnabled}>
     <Macro {animation} {category} />
 </div>
 <div hidden={soundOnly || (macroEnabled && macroPlay === "2")}>

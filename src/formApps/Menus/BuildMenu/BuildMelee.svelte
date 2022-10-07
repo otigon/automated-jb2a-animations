@@ -23,10 +23,10 @@
 {#if show3d && !soundOnly}
     <svelte:component this={settings.Canvas3D} {animation} {category} {idx} />
 {:else}
-    <div hidden={!soundOnly || (macroEnabled && macroPlay === "2")}>
+    <div hidden={!soundOnly}>
         <svelte:component this={settings.SoundOnly} {animation} {category} {idx}/>
     </div>
-    <div hidden={!macroEnabled || (soundOnly && macroPlay !== "2")}>
+    <div hidden={!macroEnabled}>
         <svelte:component this={settings.Macro} {animation} {category}/>
     </div>
     <div hidden={soundOnly || (macroEnabled && macroPlay === "2")}>

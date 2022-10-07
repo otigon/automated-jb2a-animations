@@ -18,10 +18,10 @@
 </script>
 
 <svelte:component this={settings.SectionButtons02} {animation} {category} {idx} type={fromMenu}/>
-<div hidden={!soundOnly || (macroEnabled && macroPlay === "2")}>
+<div hidden={!soundOnly}>
     <svelte:component this={settings.SoundOnly} {animation} {category} {idx}/>
 </div>
-<div hidden={!macroEnabled || (soundOnly && macroPlay !== "2")}>
+<div hidden={!macroEnabled}>
     <svelte:component this={settings.Macro} {animation} {category}/>
 </div>
 <div hidden={soundOnly || (macroEnabled && macroPlay === "2")}>

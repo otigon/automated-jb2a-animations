@@ -45,21 +45,16 @@ export async function version05(flags, isActiveEffect) {
         //return;        
     }  else if (v4Flags.killAnim && (v4Flags.macro?.enable || v4Flags.audio?.a01?.enable)) {
         // Item is Disabled and either a Macro or Sound is set to play.
-        //v5Flags.killAnim = false;
-        //v5Flags.macro = v4Flags.macro || {};
-        //v5Flags.audio = v4Flags.audio || {};
-        //v5Flags.version = 5;
-        const v5Flags = {
-            isEnabled: false,
-            isCustomized: false,
-            fromAmmo: false,
-            version: 5,
+        const v5Flags = {};
+        await convertV6(v4Flags, v5Flags, "melee");
+        if (v4Flags.macro?.enable) {
+            v5Flags.macro.playWhen = "2"
+        } 
+        if (v4Flags.audio?.a01?.enable) {
+            v5Flags.soundOnly.sound = v5Flags.primary.sound;
         }
-        custom_warning("Item is Disabled and either a Macro or Sound is set to play.")
+        custom_warning("Item was Disabled and either a Macro or Sound is set to play, reorganizing flags")
         return v5Flags;
-        //await item.update({ 'flags.-=autoanimations': null })
-        //await item.update({ 'flags.autoanimations': v5Flags })
-        return;
     } else {
         const type = v4Flags.animType === "static" ? "ontoken" : v4Flags.animType === "template" ? "templatefx" : v4Flags.animType;
         const v5Flags = {};
@@ -78,8 +73,6 @@ export async function version05(flags, isActiveEffect) {
         v5Flags.version = 5;
         custom_warning(`Automated Animations | Version 5 Flag Migration Complete`, false, v5Flags)
         return v5Flags;
-        //await item.update({ 'flags.-=autoanimations': null })
-        //await item.update({ 'flags.autoanimations': v5Flags })
     }
     
     async function convertV6(oldMO, newMO, type) {
