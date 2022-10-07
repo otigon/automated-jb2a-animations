@@ -10,7 +10,14 @@ export async function shieldSpell(handler, animationData) {
     function moduleIncludes(test) {
         return !!game.modules.get(test);
     }
-    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    const s3Check = game.settings.get('autoanimations', 'jb2aLocation');
+    let obj01;
+    if (s3Check) {
+        obj01 = s3Check.includes('jb2a_patreon') === true ? JB2APATREONDB : JB2AFREEDB;
+    } else {
+        obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    }
+
 
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);

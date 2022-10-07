@@ -17,7 +17,14 @@ export async function thunderwaveAuto(handler, animationData, config) {
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
 
-    let obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+
+    const s3Check = game.settings.get('autoanimations', 'jb2aLocation');
+    let obj01;
+    if (s3Check) {
+        obj01 = s3Check.includes('jb2a_patreon') === true ? JB2APATREONDB : JB2AFREEDB;
+    } else {
+        obj01 = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    }
     let color;
     const colors = ['green', 'orange', 'purple', 'red', 'blue']
     function random_item(items) {

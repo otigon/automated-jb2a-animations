@@ -6,8 +6,14 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function rangedAnimations(handler, animationData) {
 
-    // Sets JB2A database and Global Delay
-    //let jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    /* Sets JB2A database and Global Delay
+    const s3Check = game.settings.get('autoanimations', 'jb2aLocation');
+    let jb2a;
+    if (s3Check) {
+        jb2a = s3Check.includes('jb2a_patreon') === true ? JB2APATREONDB : JB2AFREEDB;
+    } else {
+        jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
+    } */
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
