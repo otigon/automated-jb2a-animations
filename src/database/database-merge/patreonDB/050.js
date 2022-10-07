@@ -55,9 +55,50 @@ export async function db050(path) {
                 entangle: {
                     '02': {
                         darkorange: [l1`Entangle/EntangleLoop02_03_Dark_Orange_500x500.webm`]
+                    },
+                    complete: {
+                        darkorange: [l1`Entangle/Entangle02_03_Dark_Orange_500x500.webm`]
                     }
                 }
             },
+            vines: {
+                complete: {
+                    elemental: {
+                        darkorange: [
+                            lg`Nature/GroupVineElemental01_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/GroupVineElemental02_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/GroupVineElemental03_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental01_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental01_02_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental01_03_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental02_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental02_02_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental02_03_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental03_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental03_02_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental03_03_Dark_Orange_300x300.webm`,
+                        ]
+                    },
+                },
+                loop: {
+                    elemental: {
+                        darkorange: [
+                            lg`Nature/GroupVineElementalLoop01_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/GroupVineElementalLoop02_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/GroupVineElementalLoop03_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop01_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop01_02_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop01_03_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop02_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop02_02_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop02_03_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop03_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop03_02_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop03_03_Dark_Orange_300x300.webm`,
+                        ]
+                    },
+                },
+            }
         },
         static: {
             generic: {
@@ -70,6 +111,9 @@ export async function db050(path) {
             plants: {
                 circle: {
                     complete: {
+                        _markers: {
+                            loop: { start: 2000, end: 6000 }
+                        },
                         purpleblue: [lg`Nature/PlantGrowthRound01_01_Regular_BluePurple_500x500.webm`],
                         greenred: [lg`Nature/PlantGrowthRound02_01_Regular_GreenRed_500x500.webm`],
                         greenyellow: [lg`Nature/PlantGrowthRound03_01_Regular_GreenYellow_500x500.webm`]
@@ -82,6 +126,9 @@ export async function db050(path) {
                 },
                 ring: {
                     complete: {
+                        _markers: {
+                            loop: { start: 2000, end: 6000 }
+                        },
                         purpleblue: [lg`Nature/PlantGrowthRing01_01_Regular_BluePurple_500x500.webm`],
                         greenred: [lg`Nature/PlantGrowthRing02_01_Regular_GreenRed_500x500.webm`],
                         greenyellow: [lg`Nature/PlantGrowthRing03_01_Regular_GreenYellow_500x500.webm`]
@@ -99,6 +146,9 @@ export async function db050(path) {
                 },
                 square: {
                     complete: {
+                        _markers: {
+                            loop: { start: 2000, end: 6000 }
+                        },
                         purpleblue: [lg`Nature/PlantGrowthSquare01_01_Regular_BluePurple_500x500.webm`],
                         greenred: [lg`Nature/PlantGrowthSquare02_01_Regular_GreenRed_500x500.webm`],
                         greenyellow: [lg`Nature/PlantGrowthSquare03_01_Regular_GreenYellow_500x500.webm`]
@@ -117,6 +167,44 @@ export async function db050(path) {
                     }
                 },    
             },
+            vines: {
+                complete: {
+                    elemental: {
+                        darkorange: [
+                            lg`Nature/GroupVineElemental01_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/GroupVineElemental02_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/GroupVineElemental03_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental01_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental01_02_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental01_03_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental02_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental02_02_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental02_03_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental03_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental03_02_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElemental03_03_Dark_Orange_300x300.webm`,
+                        ]
+                    },
+                },
+                loop: {
+                    elemental: {
+                        darkorange: [
+                            lg`Nature/GroupVineElementalLoop01_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/GroupVineElementalLoop02_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/GroupVineElementalLoop03_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop01_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop01_02_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop01_03_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop02_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop02_02_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop02_03_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop03_01_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop03_02_Dark_Orange_300x300.webm`,
+                            lg`Nature/VineElementalLoop03_03_Dark_Orange_300x300.webm`,
+                        ]
+                    },
+                },
+            }
         },
     }
     return patreonDB050;

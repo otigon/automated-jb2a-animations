@@ -4626,6 +4626,10 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Marker/MarkerChainDiamond01_01_Regular_Yellow_Loop_400x400.webm`],
                 },
                 complete: {
+                    _markers: {
+                        loop: { start: 2033, end: 7000 },
+                        forcedEnd: 7933
+                    },
                     blue: [lg`Marker/MarkerChainDiamond01_02_Regular_Blue_Complete_400x400.webm`],
                     purple: [lg`Marker/MarkerChainDiamond01_02_Regular_Purple_Complete_400x400.webm`],
                     red: [lg`Marker/MarkerChainDiamond01_02_Regular_Red_Complete_400x400.webm`],
@@ -4646,6 +4650,10 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Marker/MarkerChainSpike01_01_Regular_Yellow_Loop_400x400.webm`],
                 },
                 complete: {
+                    _markers: {
+                        loop: { start: 2033, end: 7000 },
+                        forcedEnd: 7933
+                    },
                     blue: [lg`Marker/MarkerChainSpike01_02_Regular_Blue_Complete_400x400.webm`],
                     purple: [lg`Marker/MarkerChainSpike01_02_Regular_Purple_Complete_400x400.webm`],
                     red: [lg`Marker/MarkerChainSpike01_02_Regular_Red_Complete_400x400.webm`],
@@ -4666,6 +4674,10 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Marker/MarkerChainSquare01_01_Regular_Yellow_Loop_400x400.webm`],
                 },
                 complete: {
+                    _markers: {
+                        loop: { start: 2033, end: 7000 },
+                        forcedEnd: 7933
+                    },
                     blue: [lg`Marker/MarkerChainSquare01_02_Regular_Blue_Complete_400x400.webm`],
                     purple: [lg`Marker/MarkerChainSquare01_02_Regular_Purple_Complete_400x400.webm`],
                     red: [lg`Marker/MarkerChainSquare01_02_Regular_Red_Complete_400x400.webm`],
@@ -4686,6 +4698,10 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Marker/MarkerChainStandard01_01_Regular_Yellow_Loop_400x400.webm`],
                 },
                 complete: {
+                    _markers: {
+                        loop: { start: 2033, end: 7000 },
+                        forcedEnd: 7933
+                    },
                     blue: [lg`Marker/MarkerChainStandard01_02_Regular_Blue_Complete_400x400.webm`],
                     purple: [lg`Marker/MarkerChainStandard01_02_Regular_Purple_Complete_400x400.webm`],
                     red: [lg`Marker/MarkerChainStandard01_02_Regular_Red_Complete_400x400.webm`],
@@ -6187,6 +6203,41 @@ export async function initializeJB2APatreonDB(path) {
                     red: [l1`Shield/Shield_03_Regular_Red_OutroFade_400x400.webm`],
                     yellow: [l1`Shield/Shield_03_Regular_Yellow_OutroFade_400x400.webm`],
                 },
+            },
+            complete: {
+                '01': {
+                    _markers: {
+                        loop: { start: 1533, end: 5533 },
+                        forcedEnd: 5533
+                    },
+                    blue: [l1`Shield/Shield_01_Regular_Blue_Complete_400x400.webm`],
+                    green: [l1`Shield/Shield_01_Regular_Green_Complete_400x400.webm`],
+                    purple: [l1`Shield/Shield_01_Regular_Purple_Complete_400x400.webm`],
+                    red: [l1`Shield/Shield_01_Regular_Red_Complete_400x400.webm`],
+                    yellow: [l1`Shield/Shield_01_Regular_Yellow_Complete_400x400.webm`],
+                },
+                '02': {
+                    _markers: {
+                        loop: { start: 1533, end: 5533 },
+                        forcedEnd: 5533
+                    },
+                    blue: [l1`Shield/Shield_02_Regular_Blue_Complete_400x400.webm`],
+                    green: [l1`Shield/Shield_02_Regular_Green_Complete_400x400.webm`],
+                    purple: [l1`Shield/Shield_02_Regular_Purple_Complete_400x400.webm`],
+                    red: [l1`Shield/Shield_02_Regular_Red_Complete_400x400.webm`],
+                    yellow: [l1`Shield/Shield_02_Regular_Yellow_Complete_400x400.webm`],
+                },
+                '03': {
+                    _markers: {
+                        loop: { start: 1533, end: 5533 },
+                        forcedEnd: 5533
+                    },
+                    blue: [l1`Shield/Shield_03_Regular_Blue_Complete_400x400.webm`],
+                    green: [l1`Shield/Shield_03_Regular_Green_Complete_400x400.webm`],
+                    purple: [l1`Shield/Shield_03_Regular_Purple_Complete_400x400.webm`],
+                    red: [l1`Shield/Shield_03_Regular_Red_Complete_400x400.webm`],
+                    yellow: [l1`Shield/Shield_03_Regular_Yellow_Complete_400x400.webm`],
+                }
             },
         },
         shrapnel: {

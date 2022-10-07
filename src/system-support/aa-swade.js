@@ -7,7 +7,7 @@ export function systemHooks() {
         const controlledTokens = canvas.tokens.controlled;
         let token;
         if (controlledTokens.length > 0) {
-            token = controlledTokens.find(token => token.actorId === SwadeTokenOrActor.id);
+            token = controlledTokens.find(token => token.document.actorId === SwadeTokenOrActor.id);
         }
         if (token) { SwadeTokenOrActor = token; }
         runSwade(SwadeTokenOrActor, SwadeItem)

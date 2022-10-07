@@ -454,7 +454,8 @@
             "shieldspell":"Shield",
             "eyes": "Eyes",
             "sideImpact": "Side Impact",
-            "plants": "Plants"
+            "plants": "Plants",
+            "vines": "Vines"
         },
         "animTypes": {
             "melee": "Melee",

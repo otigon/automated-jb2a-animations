@@ -670,7 +670,7 @@ export class AASystemData {
                         input.item ??
                         input.itemSource ??
                         input.SwadeItem ??
-                        input.token?.actor?.items?.get(data.itemId) ??
+                        input.token?.actor?.items?.get(input.itemId) ??
                         await fromUuid(`Item.${input.itemId}`) ??
                         void 0;
         return item;

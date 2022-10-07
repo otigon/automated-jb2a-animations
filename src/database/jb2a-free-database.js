@@ -1151,6 +1151,10 @@ export async function initializeJB2AFreeDB(path) {
                     red: [lg`Marker/MarkerChainStandard01_01_Regular_Red_Loop_400x400.webm`],
                 },
                 complete: {
+                    _markers: {
+                        loop: { start: 2033, end: 7000 },
+                        forcedEnd: 7933
+                    },
                     red: [lg`Marker/MarkerChainStandard01_02_Regular_Red_Complete_400x400.webm`],
                 },
                 loop: {
@@ -1790,6 +1794,37 @@ export async function initializeJB2AFreeDB(path) {
             */
 
         },
+        shieldspell: {
+            intro: {
+                '01': {
+                    blue: [l1`Shield/Shield_01_Regular_Blue_Intro_400x400.webm`],
+                },
+            },
+            loop: {
+                '01': {
+                    blue: [l1`Shield/Shield_01_Regular_Blue_Loop_400x400.webm`],
+                },
+            },
+            outro_explode: {
+                '01': {
+                    blue: [l1`Shield/Shield_01_Regular_Blue_OutroExplode_400x400.webm`],
+                },
+            },
+            outro_fade: {
+                '01': {
+                    blue: [l1`Shield/Shield_01_Regular_Blue_OutroFade_400x400.webm`],
+                },
+            },
+            complete: {
+                '01': {
+                    _markers: {
+                        loop: { start: 1533, end: 5533 },
+                        forcedEnd: 5533
+                    },
+                    blue: [l1`Shield/Shield_01_Regular_Blue_Complete_400x400.webm`],
+                }
+            },
+        },
         shrapnel: {
             bomb: {
                 '01': {
@@ -1954,16 +1989,6 @@ export async function initializeJB2AFreeDB(path) {
             shatter: {
                 '01': {
                     blue: [l2`Shatter/Shatter_01_Blue_400x400.webm`]
-                }
-            },
-            shieldspell: {
-                '01': {
-                    blue: {
-                        'intro': [l1`Shield/Shield_01_Regular_Blue_Intro_400x400.webm`],
-                        'loop': [l1`Shield/Shield_01_Regular_Blue_Loop_400x400.webm`],
-                        'outro_explode': [l1`Shield/Shield_01_Regular_Blue_OutroExplode_400x400.webm`],
-                        'outro_fade': [l1`Shield/Shield_01_Regular_Blue_OutroFade_400x400.webm`],
-                    }
                 }
             },
             sleep: {

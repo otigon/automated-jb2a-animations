@@ -68,6 +68,7 @@ async function menuOptions(database) {
                         if (!newColorMenu[section][a][b]) { newColorMenu[section][a][b] = {} };
                         Object.keys(jb2a[section][a][b][c]).forEach(function (d) {
                             if (!newColorMenu[section][a][b][c]) { newColorMenu[section][a][b][c] = [] };
+                            if (d === "_markers") { return; }
                             newColorMenu[section][a][b][c].push([ d, game.i18n.localize(`autoanimations.colors.${d}`) ])
                         })
                     })
