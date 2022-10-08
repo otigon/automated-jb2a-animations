@@ -308,7 +308,9 @@ export default class systemData {
             targetEffect.rotateTowards(this.sourceToken)
             targetEffect.rotate(180)    
         }
-        targetEffect.persist(targetFX.options.persistent)
+        if (targetFX.options.persistent) {
+            targetEffect.persist(true, {persistTokenPrototype: true})
+        }
         targetEffect.fadeOut(500)
         targetEffect.opacity(targetFX.options.opacity)
         targetEffect.zIndex(targetFX.options.zIndex)

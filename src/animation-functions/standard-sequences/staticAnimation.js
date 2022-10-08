@@ -311,7 +311,7 @@ export async function ontoken(handler, animationData) {
         }
         if (data.options.persistent) {
             seq.attachTo(token, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
-            seq.persist(true)
+            seq.persist(true, {persistTokenPrototype: true})
             seq.origin(handler.itemUuid)
         }
     }
@@ -331,7 +331,7 @@ export async function ontoken(handler, animationData) {
         }
         if (data.options.persistent) {
             seq.attachTo(token, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
-            seq.persist(true)
+            seq.persist(true, {persistTokenPrototype: true})
             seq.origin(handler.itemUuid)
         }
     }
@@ -352,7 +352,7 @@ export async function ontoken(handler, animationData) {
         }
         if (data.options.persistent) {
             seq.attachTo(token, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
-            seq.persist(true)
+            seq.persist(true, {persistTokenPrototype: true})
             seq.origin(handler.itemUuid)
         }
         seq.anchor({x: data.options.anchor.x, y: data.options.anchor.y})

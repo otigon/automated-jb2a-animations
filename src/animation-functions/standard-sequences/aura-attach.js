@@ -187,7 +187,7 @@ export async function aura(handler, animationData) {
     function setPrimary(token, seq) {
         const size = handler.getSize(true, data.options.size, token, data.options.addTokenWidth)
         seq.file(data.path.file)
-        seq.persist()
+        seq.persist(true, {persistTokenPrototype: true})
         seq.origin(handler.itemUuid)
         if (data.options.tint) {
             seq.tint(data.options.tintColor)
