@@ -34,7 +34,7 @@
       allResults = allResults.concat(compendiums);
   
       allResults = allResults.filter(m => {
-        return m.name.toLowerCase().includes(macro.toLowerCase()) || !macro
+        return m.name?.toLowerCase().includes(macro?.toLowerCase()) || !macro
       })
   
       if (macro.startsWith("Compendium.") && allResults.length === 1) {

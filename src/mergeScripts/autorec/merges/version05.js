@@ -627,8 +627,8 @@ async function mergeVersion05(data) {
             },
             sound: setSound(audio, "a01"),
         };
-        if (!newData.data.menuType || !newData.data.animation || !newData.data.variant || !newData.data.color) {
-            resetVideo(newData.data, "range")
+        if (!newData.data.video.menuType || !newData.data.video.animation || !newData.data.video.variant || !newData.data.video.color) {
+            resetVideo(newData.data.video, "range")
         }
         newData.soundOnly = {
             sound: {
@@ -689,7 +689,7 @@ async function mergeVersion05(data) {
         }
         if (!root.preExplosion.menuType || !root.preExplosion.animation || !root.preExplosion.variant || !root.preExplosion.color) {
             root.preExplosion.enable = false;
-            resetVideo(root.explosion01, "static")
+            resetVideo(root.preExplosion, "static")
         } else { root.preExplosion.enable = true }
         root.explosion = {
             dbSection: "static",
@@ -841,7 +841,7 @@ async function mergeVersion05(data) {
 
         const newVideo = newMO.primary.video;
         if (!newVideo.menuType || !newVideo.animation || !newVideo.variant || !newVideo.color) {
-            resetVideo(newMO.data.video)
+            resetVideo(newMO.primary.video)
         }
 
         newMO.macro = macro || {};
@@ -924,7 +924,7 @@ async function mergeVersion05(data) {
 
         const newVideo = newMO.primary.video;
         if (!newVideo.menuType || !newVideo.animation || !newVideo.variant || !newVideo.color) {
-            resetVideo(newMO.data.video)
+            resetVideo(newMO.primary.video)
         }
 
         newMO.macro = macro || {};

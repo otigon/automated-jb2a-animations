@@ -87,7 +87,7 @@
         margin-left: 3%;
         grid-gap: 2%;
         grid-template-rows: 30px;
-        padding: 5px;
+        padding-bottom: 5px;
         text-align: center;
         align-items: center;
         color: black;

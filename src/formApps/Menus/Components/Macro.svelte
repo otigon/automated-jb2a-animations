@@ -8,7 +8,7 @@
 </script>
 
 <div class="aa-macro-border">
-    <div style="padding-top: 10px">
+    <div style="padding-top: 3px">
         <h1>{localize("autoanimations.menus.macro")}</h1>
     </div>
     <div class="aa-macro">
@@ -45,7 +45,6 @@
         display: grid;
         grid-template-columns: 20% 60% 20%;
         grid-gap: 5px;
-        padding: 5px;
         align-items: center;
         margin-right: 2%;
         margin-bottom: 1em;

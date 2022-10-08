@@ -200,7 +200,6 @@ export class CategoryStore extends WorldSettingArrayStore {
       // Credit to Wasp, Zhell, Gazkhan and MrVauxs for the code in this section
       if (data.startsWith("Compendium")) {
           let packArray = data.split(".");
-          console.log(packArray)
           let pack = game.packs.get(`${packArray[1]}.${packArray[2]}`);
           if (!pack) {
               ui.notifications.info(

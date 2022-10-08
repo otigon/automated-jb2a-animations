@@ -864,7 +864,7 @@ export async function version05(flags, isActiveEffect) {
 
         const newVideo = newMO.primary.video;
         if (!newVideo.menuType || !newVideo.animation || !newVideo.variant || !newVideo.color) {
-            resetVideo(newMO.data.video)
+            resetVideo(newMO.primary.video)
         }
 
         newMO.macro = macro || {};
@@ -942,7 +942,7 @@ export async function version05(flags, isActiveEffect) {
 
         const newVideo = newMO.primary.video;
         if (!newVideo.menuType || !newVideo.animation || !newVideo.variant || !newVideo.color) {
-            resetVideo(newMO.data.video)
+            resetVideo(newMO.primary.video)
         }
 
         newMO.macro = macro || {};

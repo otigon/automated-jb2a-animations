@@ -3,10 +3,6 @@
 import {aaDatabase} from "../../index.js"
 
 export async function buildFile(getMeta, dbType, name, animationType, animationVariant, animationColor, customPath) {
-    console.log(aaDatabase)
-    function moduleIncludes(test) {
-        return !!game.modules.get(test);
-    }
     if (!dbType && !customPath) {return false}
     let file;
     //let msFile;
