@@ -617,7 +617,8 @@
             "teleport": "Teleport",
             "rotation": "Rotation",
             "sideImpact": "Side Impact",
-            "anchor": "Anchor"
+            "anchor": "Anchor",
+            "insertMacro": "Insert Macro Name"
         },
         "optionsInfo": {
 

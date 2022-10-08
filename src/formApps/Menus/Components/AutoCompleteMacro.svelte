@@ -1,157 +1,89 @@
 <script>
     /**
-     * This component is based on SixStringsCoder's and located @
-     * https://svelte.dev/repl/5734f123973d4682978427024ca90850?version=3.29.0
-    */
-
-    export let animation;
-
-    let filteredMacros = [];
-
-    let macroList;
-    let isFocused = false;
+     * Credit to Wasp for the Compendium macro filtering!
+     */
+    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { writable } from "svelte/store";
     
-    function onFocus() {
-        macroList = Array.from(game.macros).map((x) => x.name).sort(function (a, b) {
-            return a.toLowerCase().localeCompare(b.toLowerCase())
+    export let animation;
+    export let category;
+    
+    $: macro = $animation.macro.name;
+
+    export let macro;
+  
+    let macros = writable([]);
+  
+    const id = randomID() + "-list";
+  
+    function filterMacros() {
+  
+      let allResults = Array.from(game.macros)
+        .map(m => ({
+          id: m.id,
+          name: m.name
+        }));
+  
+      const compendiums = Array.from(game.packs)
+        .filter(pack => pack.documentName === "Macro")
+        .map(pack => ({
+          id: pack.metadata.id,
+          name: "Compendium." + pack.metadata.id
+        }))
+  
+      allResults = allResults.concat(compendiums);
+  
+      allResults = allResults.filter(m => {
+        return m.name.toLowerCase().includes(macro.toLowerCase()) || !macro
+      })
+  
+      if (macro.startsWith("Compendium.") && allResults.length === 1) {
+        allResults = Array.from(game.packs.get(allResults[0].id).index).map(m => {
+          return {
+            id: allResults[0].id + "." + m._id,
+            name: allResults[0].name + "." + m.name
+          }
         });
-        isFocused = true
+      }
+      macros.set(allResults);
     }
-    async function unFocus() {
-        isFocused = false;
-        filteredMacros = [];
-        hiLiteIndex = null;
-    }
-
-    const filterMacros = () => {
-        let storageArr = [];
-        if (inputValue) {
-            macroList.forEach((name) => {
-                if (
-                    name.toLowerCase().startsWith(inputValue.toLowerCase())
-                ) {
-                    storageArr = [...storageArr, name];
-                }
-            });
-        }
-        filteredMacros = storageArr;
-    };
-
-    $: inputValue = $animation.macro.name;
-
-    $: if (!inputValue) {
-        filteredMacros = [];
-        hiLiteIndex = null;
-    }
-
-    const setValue = (macroName) => {
-        inputValue = macroName;
-        filteredMacros = [];
-        hiLiteIndex = null;
-        $animation.macro.name = inputValue;
-    };
-
-    let hiLiteIndex = null;
-
-    const navigateList = (e) => {
-        if (e.key === "Enter") {
-            setValue(filteredMacros[hiLiteIndex] || inputValue);
-        } else {
-            return;
-        }
-    };
 </script>
 
-<svelte:window on:keydown={navigateList} />
-
-<form autocomplete="off" on:submit|preventDefault>
-    <div class="autocomplete">
-        <input
-            type="text"
-            placeholder="Input Macro Name"
-            bind:value={$animation.macro.name}
-            on:input={filterMacros}
-            on:blur={() => setTimeout(unFocus, 500)}
-            on:focus={onFocus}
-        />
-    </div>
-
-    {#if filteredMacros.length > 0 && isFocused}
-        <ul class="autocomplete-items-list">
-            {#each filteredMacros as macro, i}
-                <li 
-                    class="autocomplete-items" 
-                    class:autocomplete-active={i === hiLiteIndex} 
-                    on:click={() => setValue(macro)}
-                >
-                    {macro}
-                </li>                
-            {/each}
-        </ul>
-    {:else if isFocused && !$animation.macro.name}
-        <ul class="autocomplete-items-list">
-            {#each macroList as macro, i}
-                <li 
-                    class="autocomplete-items" 
-                    class:autocomplete-active={i === hiLiteIndex} 
-                    on:click={() => setValue(macro)}
-                >
-                    {macro}
-                </li>                
-            {/each}
-        </ul>
-    {/if}
-</form>
+<div class="aa-flexrow">
+    <input type="text"
+        class="aa-MacroInput"
+           list={id}
+           bind:value={$animation.macro.name}
+           style="flex:1; margin-right:5px;"
+           placeholder={localize('autoanimations.menus.insertMacro')}
+           on:keyup={() => { filterMacros() }}
+           on:change={() => { filterMacros() }}
+           on:focus={() => filterMacros()}
+    />
+    <datalist id={id}>
+      {#each $macros as m (m.id)}
+        <option value={m.name}>{m.text ?? ""}</option>
+      {/each}
+    </datalist>
+    <i
+    title="Open Macro"
+    style="font-size: 20px; flex:0;"
+    class="fas fa-edit aa-zoom"
+    on:click={() => category.openMacro(animation._data.macro.name)}
+    ></i>
+</div>
 
 <style>
-    input {
-        border: 1px solid transparent;
-        background-color: #b71d1d;
-        padding: 10px;
-        font-size: 14px;
-        margin: 0;
-    }
-    input[type="text"] {
+    .aa-MacroInput {
         height: 1em;
-        width: 100%;
-    }
-    .autocomplete-items-list {
-        position: absolute;
-        margin: 0;
-        padding: 0;
-        min-width: 13em;
-        border: 1px solid rgba(0, 0, 0, 0.313);
-        font-size: 14px;
-        z-index: 1000;
-        max-height: 15em;
-        overflow: auto;
-        text-align: center;
-        border-bottom-left-radius: 15px;
-        border-bottom-right-radius: 15px;
-    }
-    li.autocomplete-items {
-        list-style: none;
-        border-bottom: 1px solid #d4d4d4;
-        z-index: 99;
-        /*position the autocomplete items to be the same width as the container:*/
-        top: 100%;
-        left: 0;
-        right: 0;
         padding: 10px;
-        cursor: pointer;
-        font-weight: normal;
-        background-color: rgb(241, 241, 253, 0.95);
+        font-size: 14px;
     }
-
-    li.autocomplete-items:hover {
-        /*when hovering an item:*/
-        background-color: rgba(112, 112, 112, 0.95);
-        color: white;
-    }
-
-    .autocomplete-active {
-        /*when navigating through the items using the arrow keys:*/
-        background-color: rgba(112, 112, 112, 0.95)  !important;
-        color: white;
+    .aa-flexrow {
+        display:flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        margin-bottom: .25em;
     }
 </style>

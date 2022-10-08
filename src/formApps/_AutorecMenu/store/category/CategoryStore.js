@@ -200,6 +200,7 @@ export class CategoryStore extends WorldSettingArrayStore {
       // Credit to Wasp, Zhell, Gazkhan and MrVauxs for the code in this section
       if (data.startsWith("Compendium")) {
           let packArray = data.split(".");
+          console.log(packArray)
           let pack = game.packs.get(`${packArray[1]}.${packArray[2]}`);
           if (!pack) {
               ui.notifications.info(
@@ -207,7 +208,7 @@ export class CategoryStore extends WorldSettingArrayStore {
               );
               return;
           }
-          let macroFilter = pack.index.filter((m) => m.data === packArray[3]);
+          let macroFilter = pack.index.filter((m) => m.name === packArray[3]);
           if (!macroFilter.length) {
               ui.notifications.info(
                   `Autoanimations | A macro named ${packArray[3]} was not found in Compendium ${packArray[1]}.${packArray[2]}`

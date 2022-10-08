@@ -12,7 +12,7 @@
         <h1>{localize("autoanimations.menus.macro")}</h1>
     </div>
     <div class="aa-macro">
-        <div class="flexcol" style="grid-row: 1 / 2;grid-column: 1 / 2;">
+        <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
             <label for="">{localize("autoanimations.menus.playwhen")}</label>
             <select
                 bind:value={$animation.macro.playWhen}
@@ -29,24 +29,10 @@
                 >
             </select>
         </div>
-        <div class="flexcol" style="grid-row: 1 / 2;grid-column: 2 / 3;">
-            <label for=""
-                >{localize("autoanimations.menus.macro")}
-                {localize("autoanimations.menus.name")}</label
-            >
-            <AutoCompleteMacro {animation}/>
-        </div>
-        <div class="flexcol" style="grid-row: 1 / 2;grid-column: 3 / 4;">
-            <i
-                title="Open Macro"
-                style="margin-top: 15px;font-size: 18px"
-                class="fas fa-edit aa-zoom"
-                on:click={() => category.openMacro(animation._data.macro.name)}
-            />
-        </div>
-        <div class="flexcol" style="grid-row: 2 / 3;grid-column: 1 / 4;">
-            <label for="">{localize("autoanimations.menus.args")}</label>
-        </div>
+    </div>
+    <AutoCompleteMacro {animation} {category}/>
+    <div style='text-align:center'>
+        <label for="">{localize("autoanimations.menus.args")}</label>
     </div>
     <div class="flexrow">
         <textarea bind:value={$animation.macro.args} style="margin-bottom: 1em"></textarea>
@@ -57,26 +43,19 @@
 <style lang="scss">
     .aa-macro {
         display: grid;
-        grid-template-columns: 50% 45% 5%;
+        grid-template-columns: 20% 60% 20%;
         grid-gap: 5px;
         padding: 5px;
         align-items: center;
         margin-right: 2%;
+        margin-bottom: 1em;
         font-size: medium;
-        font-weight: bold;
     }
     .aa-macro select {
         text-align: center;
-        font-weight: bold;
         min-height: 2em;
         border-radius: 10px;
         align-self: center;
-    }
-    .aa-macro label {
-        align-self: center;
-        font-family: "Modesto Condensed", "Palatino Linotype", serif;
-        font-size: large;
-        font-weight: bold;
     }
     h1 {
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
@@ -95,5 +74,10 @@
         border-radius: 5px;
         background: rgb(200 200 200);
         margin-bottom: 5px;
+        label {
+            align-self: center;
+            font-family: "Modesto Condensed", "Palatino Linotype", serif;
+            font-size: 20px;
+        }
     }
 </style>
