@@ -25,8 +25,6 @@
         }
     }
 
-    /**TO-DO: Rework the Merge functions to go menu by menu.*/
-    // TO-DO: Allow for Single Menu Merges. Dialog to choose which sub-menus to merge
     async function mergeMenu() {
         let d = TJSDialog.confirm({
             title: "WARNING!!",
@@ -61,11 +59,9 @@
             });
             return await d;
         }
-        ui.notifications.info("Automated Animations: Merge Menu function is not working at the moment");
     }
 
     function selectMenus(json, option) {
-            //const data = JSON.parse(json);
             new TJSDialog({
                 modal: true,
                 title: "IMPORT SETTINGS",
@@ -80,7 +76,6 @@
             }).render(true);
         }
 
-    // TO-DO: Allow for Single Menu Overwrites. Dialog to choose which sub-menus to overwrite
     async function overwriteMenu() {
         let c = TJSDialog.confirm({
             title: "WARNING!!",
@@ -109,7 +104,6 @@
                     readTextFromFile(form.data.files[0]).then(async (json) => {
                         await application.close();
                         selectMenus(json, "overwrite");
-                        //await AAAutorecFunctions.overwriteMenu(json);
                     });
                 },
             });
@@ -120,41 +114,6 @@
     async function exportMenu() {
         AAAutorecManager.exportMenu()
         application.close();
-        /*
-        const exportData = {
-            melee: await game.settings.get("autoanimations", "aaAutorec-melee"),
-            range: await game.settings.get("autoanimations", "aaAutorec-range"),
-            ontoken: await game.settings.get("autoanimations", "aaAutorec-ontoken"),
-            templatefx: await game.settings.get("autoanimations", "aaAutorec-templatefx"),
-            aura: await game.settings.get("autoanimations", "aaAutorec-aura"),
-            preset: await game.settings.get("autoanimations", "aaAutorec-preset"),
-            aefx: await game.settings.get("autoanimations", "aaAutorec-aefx"),
-            version: await game.settings.get('autoanimations', 'aaAutorec').version,
-        };
-
-        console.warn('Automated Animations | Global Automatic Recognition Menu Export', exportData);
-        exportToJSON();
-
-        function exportToJSON() {
-            const filename = `FVTT-Autoanimation-Autorec-Export.json`;
-            saveDataToFile(
-                JSON.stringify(exportData, null, 2),
-                "text/json",
-                filename
-            );
-            application.close();
-        }
-        */
-        /*
-        new TJSDialog({
-            modal: true,
-            title: "WARNING!!",
-            content: {
-                class: ExportMenus,
-            },
-            defaultYes: false,
-        }).render(true)
-        */
     }
 </script>
 

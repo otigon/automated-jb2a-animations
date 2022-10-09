@@ -1,5 +1,6 @@
-import { autoRecMigration } from "../../../../../mergeScripts/autorec/autoRecMerge";
-import { custom_warning, custom_error } from "../../../../../constants/constants";
+import { autoRecMigration }                 from "../../../../../mergeScripts/autorec/autoRecMerge";
+import { currentAutorecVersion }            from "../../../../../mergeScripts/autorec/autoRecMerge.js";
+import { custom_warning, custom_error }     from "../../../../../constants/constants";
 
 export class AAAutorecManager
 {
@@ -103,6 +104,11 @@ export class AAAutorecManager
      * @param {*} options // Limit the Menus in which to perform the Merge. Ex: {melee: true} will ONLY merge the Melee Menus
      */
     static async mergeMenus(menu, options = {}) {
+        const currentVersion = currentAutorecVersion();
+        if (menu.version > currentVersion) {
+            custom_error("You are attempting to import a menu that is from a newer version of Automated Animations. Please update your module and try again", true);
+            return;
+        }
         custom_warning("Merging the requested Menus", false, menu, options)
         const updatedImport = await autoRecMigration.handle(menu, {...options})
 
@@ -154,6 +160,13 @@ export class AAAutorecManager
             return;
         }
         const menuData = JSON.parse(menu)
+
+        const currentVersion = currentAutorecVersion();
+        if (menuData.version > currentVersion) {
+            custom_error("You are attempting to import a menu that is from a newer version of Automated Animations. Please update your module and try again", true);
+            return;
+        }
+
         await autoRecMigration.handle(menuData, {isOverwrite: true, shouldSubmit: true, ...options})
     }
 

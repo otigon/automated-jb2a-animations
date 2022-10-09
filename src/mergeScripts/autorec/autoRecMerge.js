@@ -1,5 +1,9 @@
 import * as autorecMerge from "./merges/versionIndex.js";
 
+export function currentAutorecVersion() {
+    return Object.keys(autoRecMigration.migrations).map(n => Number(n)).reverse()[0];
+}
+
 export const autoRecMigration = {
 
     /**
@@ -34,7 +38,7 @@ export const autoRecMigration = {
         if (!autoObject) { return; }
 
         if (this.upToDate(autoObject) && !options.isOverwrite) {
-            return;
+            return autoObject;
         }
 
         ui.notifications.info("Automated Animations: Updating the Automatic Recognition Menu")
