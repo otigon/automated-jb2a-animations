@@ -94,7 +94,7 @@
                     <td />
                     <td>
                         <!--Set Only X Scaling-->
-                        <div class="form-group {!isCustom ? "aa-disableOpacity" : ""}">
+                        <div class="{!isCustom ? "aa-disableOpacity" : ""}">
                             <label for="Remove {animation._data.id}"
                                 >{localize("autoanimations.menus.only")} X
                             </label>

@@ -53,7 +53,7 @@
                 </td>
                 <td>
                     <!--Set Visibility Binding-->
-                    <div class="form-group">
+                    <div>
                         <label for="Vis {animation._data.id}"
                             >{localize("autoanimations.menus.unbind") + " " + localize("autoanimations.menus.visibility")}
                         </label>
@@ -66,7 +66,7 @@
                 </td>
                 <td>
                     <!--Set Alpha Binding-->
-                    <div class="form-group">
+                    <div>
                         <label for="Alpha {animation._data.id}"
                             >{localize("autoanimations.menus.unbind") + " " + localize("autoanimations.menus.alpha")}
                         </label>
@@ -115,7 +115,7 @@
                 </td>
                 <td>
                     <!--Add Token Width-->
-                    <div class="form-group">
+                    <div>
                         <label for="Width {animation._data.id}"
                             >{localize("autoanimations.menus.add")}
                             {localize("autoanimations.menus.token")}

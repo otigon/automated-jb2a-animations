@@ -115,7 +115,7 @@
                 <tr>
                     <td>
                         <!--Set Masking-->
-                        <div class="form-group">
+                        <div>
                             <label for="Remove {animation._data.id}"
                                 >{localize("autoanimations.menus.remove")}
                             </label>
@@ -388,8 +388,9 @@
                 bind:checked={$animation.data.afterImage.enable}
             />
         </div>
+        <div class={$animation.data.afterImage.enable ? "" : "aa-disableOpacity"}>
         <div class="aa-customAnim-container">
-            <div class="aa-custom" style="grid-row: 1/2; grid-column: 1/4">
+            <div class="aa-custom" style="grid-row: 1/2; grid-column: 1/4; padding-top: 5px">
                 <input
                     type="text"
                     bind:value={$animation.data.afterImage.customPath}
@@ -430,7 +431,7 @@
                     </td>
                     <td>
                         <!--Set Persistence-->
-                        <div class="form-group">
+                        <div>
                             <label for="Persist {animation._data.id}"
                                 >{localize("autoanimations.menus.persistant")}
                             </label>
@@ -461,7 +462,7 @@
                 </tr>
             </table>
         </div>
-
+    </div>
     </TJSSvgFolder>
 </div>
 

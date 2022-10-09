@@ -10,7 +10,6 @@
     <label for="">{label}</label
     >
     <div
-        class="form-group"
         style="display: flex; margin-right: 1.5em; margin-left: 1.5em;"
     >
         <input

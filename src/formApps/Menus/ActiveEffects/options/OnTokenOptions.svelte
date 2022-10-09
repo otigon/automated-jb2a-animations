@@ -84,7 +84,7 @@
             <tr>
                 <td>
                     <!--Set Persistence-->
-                    <div class="form-group">
+                    <div>
                         <label for="Persist {animation._data.id}"
                             >{localize("autoanimations.menus.persistant")}
                         </label>
@@ -98,7 +98,7 @@
                 <td>
                     <!--Set Visibility Binding-->
                     <div
-                        class="form-group {persistent
+                        class="{persistent
                             ? ''
                             : 'aa-disableOpacity'}"
                     >
@@ -117,7 +117,7 @@
                 <td>
                     <!--Set Alpha Binding-->
                     <div
-                        class="form-group {persistent
+                        class="{persistent
                             ? ''
                             : 'aa-disableOpacity'}"
                     >
@@ -137,7 +137,7 @@
             <tr>
                 <td>
                     <!--Set Masking-->
-                    <div class="form-group">
+                    <div>
                         <label for="Masked {animation._data.id}"
                             >{localize("autoanimations.menus.mask")}
                         </label>
@@ -174,7 +174,7 @@
                 </td>
                 <td>
                     <!--Add Token Width-->
-                    <div class="form-group {isRadius ? "" : "aa-disableOpacity"}">
+                    <div class="{isRadius ? "" : "aa-disableOpacity"}">
                         <label for="Width {animation._data.id}"
                             >{localize("autoanimations.menus.add")}
                             {localize("autoanimations.menus.token")}
@@ -210,7 +210,12 @@
                     />
                 </td>
                 <td>
-                    <WaitDelay {animation} section="primary"/>
+                    <div>
+                        <label for="">{localize("autoanimations.menus.anchor")}</label>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="0.5" bind:value={$animation.primary.options.anchor}>
+                    </div>
                 </td>
                 <td>
                     <div>
@@ -220,6 +225,13 @@
                         <label for="">{localize("autoanimations.menus.source")}</label>
                     </div>
                 </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <WaitDelay {animation} section="primary"/>
+                </td>
+                <td></td>
             </tr>
         </table>
     </TJSSvgFolder>

@@ -84,7 +84,7 @@
             <tr>
                 <td>
                     <!--Set OnlyX-->
-                    <div class="form-group {isCustom ? "" : "aa-disableOpacity"}">
+                    <div class="{isCustom ? "" : "aa-disableOpacity"}">
                         <label for="OnlyX {animation._data.id}"
                             >{localize("autoanimations.menus.only")} X
                         </label>
@@ -112,7 +112,7 @@
             <tr>
                 <td>
                     <!--Set Return animation-->
-                    <div class="form-group {shouldShow ? "" : "aa-disableOpacity"}">
+                    <div class="{shouldShow ? "" : "aa-disableOpacity"}">
                         <label for="OnlyX {animation._data.id}"
                             >{localize("autoanimations.menus.return")} {localize("autoanimations.menus.animation")}
                         </label>

@@ -78,7 +78,7 @@
             <tr>
                 <td>
                     <!--Set OnlyX-->
-                    <div class="form-group">
+                    <div>
                         <label for="SMasked {animation._data.id}"
                             >{localize("autoanimations.menus.mask")}
                             <input
@@ -116,7 +116,7 @@
                 </td>
                 <td>
                     <!--Add Token Width-->
-                    <div class="form-group {isRadius ? "" : "aa-disableOpacity"}">
+                    <div class="{isRadius ? "" : "aa-disableOpacity"}">
                         <label for="SWidth {animation._data.id}"
                             >{localize("autoanimations.menus.add")}
                             {localize("autoanimations.menus.token")}

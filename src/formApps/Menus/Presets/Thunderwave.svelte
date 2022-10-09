@@ -110,7 +110,7 @@
                     </td>
                     <td>
                         <!--Set Only X Scaling-->
-                        <div class="form-group">
+                        <div>
                             <label for="Remove {animation._data.id}"
                                 >{localize("autoanimations.menus.remove")}
                             </label>

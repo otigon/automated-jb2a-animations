@@ -80,7 +80,7 @@
             <tr>
                 <td>
                     <!--Set OnlyX-->
-                    <div class="form-group">
+                    <div>
                         <label for="TPersist {animation._data.id}"
                             >{localize("autoanimations.menus.persistant")}
                         </label>
@@ -94,7 +94,7 @@
                 <td>
                     <!--Set Visibility Binding-->
                     <div
-                        class="form-group {persistent
+                        class="{persistent
                             ? ''
                             : 'aa-disableOpacity'}"
                     >
@@ -113,7 +113,7 @@
                 <td>
                     <!--Set Alpha Binding-->
                     <div
-                        class="form-group {persistent
+                        class="{persistent
                             ? ''
                             : 'aa-disableOpacity'}"
                     >
@@ -132,7 +132,7 @@
             <tr>
                 <td>
                     <!--Set Masking-->
-                    <div class="form-group">
+                    <div>
                         <label for="SMasked {animation._data.id}"
                             >{localize("autoanimations.menus.mask")}
                         </label>
@@ -169,7 +169,7 @@
                 </td>
                 <td>
                     <!--Add Token Width-->
-                    <div class="form-group {isRadius ? "" : "aa-disableOpacity"}">
+                    <div class="{isRadius ? "" : "aa-disableOpacity"}">
                         <label for="TWidth {animation._data.id}"
                             >{localize("autoanimations.menus.add")}
                             {localize("autoanimations.menus.token")}
@@ -212,7 +212,7 @@
                 </td>
                 <td>
                     <!--Set Masking-->
-                    <div class="form-group">
+                    <div>
                         <label for="TarRotate {animation._data.id}"
                             >{localize('autoanimations.menus.sideImpact')}
                         </label>

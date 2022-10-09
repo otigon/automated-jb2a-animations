@@ -77,7 +77,7 @@
             <tr>
                 <td>
                     <!--Set Masking-->
-                    <div class="form-group">
+                    <div>
                         <label for="EMasked {animation._data.id}"
                             >{localize("autoanimations.menus.mask")}
                         </label>
@@ -115,7 +115,7 @@
                 </td>
                 <td>
                     <!--Add Token Width-->
-                    <div class="form-group {isRadius ? "" : "aa-disableOpacity"}">
+                    <div class="{isRadius ? "" : "aa-disableOpacity"}">
                         <label for="Width2 {animation._data.id}"
                             >{localize("autoanimations.menus.add")}
                             {localize("autoanimations.menus.token")}
@@ -158,7 +158,7 @@
                 </td>
                 <td>
                     <!--Set Masking-->
-                    <div class="form-group">
+                    <div>
                         <label for="SecRotate {animation._data.id}"
                             >{localize('autoanimations.menus.sideImpact')}
                         </label>

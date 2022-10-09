@@ -85,7 +85,7 @@
             <tr>
                 <td>
                     <!--Set Masking-->
-                    <div class="form-group">
+                    <div>
                         <label for="Masked {animation._data.id}"
                             >{localize("autoanimations.menus.mask")}
                         </label>
@@ -106,7 +106,7 @@
                 </td>
                 <td class={isAttached ? "aa-disableOpacity" : ""}>
                     <!--Set Masking-->
-                    <div class="form-group">
+                    <div>
                         <label for="Remove {animation._data.id}"
                             >{localize("autoanimations.menus.remove")}
                         </label>
@@ -157,7 +157,7 @@
             <tr>
                 <td>
                     <!--Set Persistence-->
-                    <div class="form-group">
+                    <div>
                         <label for="Persist {animation._data.id}"
                             >{localize("autoanimations.menus.persistant")}
                         </label>
@@ -171,7 +171,7 @@
                 <td>
                     <!--Choose Persistent Type-->
                     <div
-                        class="form-group {!persistent
+                        class="{!persistent
                             ? 'aa-disableOpacity'
                             : ''}"
                     >
@@ -260,7 +260,6 @@
                                 )}</label
                             >
                             <div
-                                class="form-group"
                                 style="display: flex; margin-right: 2em; margin-left: 2em;"
                             >
                                 <input

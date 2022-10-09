@@ -80,7 +80,6 @@
             <tr>
                 <td>
                     <!--Set Persistence-->
-                    <div class="form-group">
                         <label for="Persist {animation._data.id}"
                             >{localize("autoanimations.menus.persistant")}
                         </label>
@@ -89,12 +88,11 @@
                             id="Persist {animation._data.id}"
                             bind:checked={$animation.primary.options.persistent}
                         />
-                    </div>
                 </td>
                 <td>
                     <!--Set Visibility Binding-->
                     <div
-                        class="form-group {persistent
+                        class="{persistent
                             ? ''
                             : 'aa-disableOpacity'}"
                     >
@@ -113,7 +111,7 @@
                 <td>
                     <!--Set Alpha Binding-->
                     <div
-                        class="form-group {persistent
+                        class="{persistent
                             ? ''
                             : 'aa-disableOpacity'}"
                     >
@@ -133,7 +131,7 @@
             <tr>
                 <td>
                     <!--Set Masking-->
-                    <div class="form-group">
+                    <div>
                         <label for="Masked {animation._data.id}"
                             >{localize("autoanimations.menus.mask")}
                         </label>
@@ -170,7 +168,7 @@
                 </td>
                 <td>
                     <!--Add Token Width-->
-                    <div class="form-group {isRadius ? "" : "aa-disableOpacity"}">
+                    <div class="{isRadius ? "" : "aa-disableOpacity"}">
                         <label for="Width {animation._data.id}"
                             >{localize("autoanimations.menus.add")}
                             {localize("autoanimations.menus.token")}
@@ -215,9 +213,7 @@
                 </td>
                 <td>
                     <!--Choose how to play the animation-->
-                    <div
-                        class="form-group"
-                    >
+                    <div>
                         <div>
                             <label for="">{localize("autoanimations.menus.playOn")}</label>
                         </div>

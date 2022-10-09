@@ -182,7 +182,6 @@
                             localize("autoanimations.menus.alpha")}</label
                     >
                     <div
-                        class="form-group"
                         style="display: flex; margin-right: 1.5em; margin-left: 1.5em;"
                     >
                         <input
@@ -264,7 +263,7 @@
                         <tr>
                             <td>
                                 <!--Set Masking-->
-                                <div class="form-group">
+                                <div>
                                     <label for="Masked {animation._data.id}"
                                         >{localize("autoanimations.menus.mask")}
                                     </label>
@@ -493,7 +492,7 @@
                         <tr>
                             <td>
                                 <!--Set Masking-->
-                                <div class="form-group">
+                                <div>
                                     <label for="Masked {animation._data.id}"
                                         >{localize("autoanimations.menus.mask")}
                                     </label>

@@ -2,6 +2,7 @@ export function aefx(aeType) {
     if (aeType === "ontoken") {
         return {
             addTokenWidth: false,
+            anchor: "0.5",
             delay: 0,
             elevation: 1000,
             fadeIn: 250,
