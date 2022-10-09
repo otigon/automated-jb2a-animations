@@ -28,7 +28,7 @@
             disabled={!isCustom}
             type="text"
             bind:value={$animation[section][section02].customPath}
-            style="font-weight:normal; font-size:small; border-radius: 5px;text-align:left; width: 100%"
+            style="font-weight:normal; font-size:small; border-radius: 5px;text-align:left; width: 100%; height: 1.75em"
             />
         </td>
         <td style="width: 4em;border: none" class={isCustom ? "" : "aa-disableOpacity"}>

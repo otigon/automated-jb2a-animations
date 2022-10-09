@@ -9,6 +9,12 @@
     </tr>
     <tr>
         <td class="aa-table">
+            <strong>{localize("autoanimations.menus.effect")} {localize("autoanimations.menus.opacity")}</strong>
+        </td>
+        <td> Set the Alpha (transparency) level of the Animation </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
             <strong>{localize("autoanimations.menus.elevation")}</strong>
         </td>
         <td> Set the Elevation for the Animation. Elevation of "0" is below all tokens </td>
@@ -30,18 +36,6 @@
     </tr>
     <tr>
         <td class="aa-table">
-            <strong>{localize("autoanimations.menus.effect")} {localize("autoanimations.menus.opacity")}</strong>
-        </td>
-        <td> Set the Alpha (transparency) level of the Animation </td>
-    </tr>
-    <tr>
-        <td class="aa-table">
-            <strong>{localize("autoanimations.menus.z-index")}</strong>
-        </td>
-        <td> Index of the animation when they are played at the same elevation </td>
-    </tr>
-    <tr>
-        <td class="aa-table">
             <strong>{localize("autoanimations.menus.scale")}</strong>
         </td>
         <td>
@@ -55,5 +49,11 @@
         </td>
         <td> <strong>Delay</strong> causes the start of the animation section to be delayed (milliseconds) <br> <br>
             <strong>Wait</strong> causes the following animation section to play AFTER the current is finished. Accepts Negative and Positive Numbers </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.z-index")}</strong>
+        </td>
+        <td> Index of the animation when they are played at the same elevation </td>
     </tr>
 </table>

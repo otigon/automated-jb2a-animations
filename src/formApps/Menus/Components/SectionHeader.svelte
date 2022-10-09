@@ -11,6 +11,7 @@
 <style lang="scss">
     .aa-SectionHeader {
         border-bottom: 2px solid rgba(181, 69, 52, 0.35);
+        margin-bottom: -5px;
         margin-right: 5%;
         margin-left: 5%;
         label {

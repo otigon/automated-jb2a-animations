@@ -9,9 +9,37 @@
     </tr>
     <tr>
         <td class="aa-table">
+            <strong>Adjust Rotation</strong>
+        </td>
+        <td> Adjusts the rotation of the animation </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.effect")} {localize("autoanimations.menus.opacity")}</strong>
+        </td>
+        <td> Set the Alpha (transparency) level of the Animation </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
             <strong>{localize("autoanimations.menus.elevation")}</strong>
         </td>
         <td> Set the Elevation for the Animation. Elevation of "0" is below all tokens </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.mask")}</strong>
+        </td>
+        <td>
+            If enabled, the effect will be masked to the Template
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.remove")}</strong>
+        </td>
+        <td>
+            Removes the Template immediately after placement on the game canvas.
+        </td>
     </tr>
     <tr>
         <td class="aa-table">
@@ -30,52 +58,11 @@
     </tr>
     <tr>
         <td class="aa-table">
-            <strong>{localize("autoanimations.menus.mask")}</strong>
-        </td>
-        <td>
-            If enabled, the effect will be masked to the given Object
-        </td>
-    </tr>
-    <tr>
-        <td class="aa-table">
             <strong>{localize("autoanimations.menus.scale")}</strong>
         </td>
         <td>
             Sets the Scale of the Effect. Default: 1. Accepts two numbers separated by a comma. Ex: 1, 2 to set the X and Y scaling x: 1, y:2, or a Single number to set both as the same scale.
         </td>
-    </tr>
-    <tr>
-        <td class="aa-table">
-            <strong>{localize("autoanimations.menus.remove")}</strong>
-        </td>
-        <td>
-            Removes the Template immediately after placement on the game canvas.
-        </td>
-    </tr>
-    <tr>
-        <td class="aa-table">
-            <strong>{localize("autoanimations.menus.effect")} {localize("autoanimations.menus.opacity")}</strong>
-        </td>
-        <td> Set the Alpha (transparency) level of the Animation </td>
-    </tr>
-    <tr>
-        <td class="aa-table">
-            <strong>{localize("autoanimations.menus.z-index")}</strong>
-        </td>
-        <td> Index of the animation when they are played at the same elevation </td>
-    </tr>
-    <tr>
-        <td class="aa-table">
-            <strong>Adjust Rotation</strong>
-        </td>
-        <td> Adjusts the rotation of the animation </td>
-    </tr>
-    <tr>
-        <td class="aa-table">
-            <strong>{localize("autoanimations.menus.delay")} / {localize("autoanimations.menus.wait")}</strong>
-        </td>
-        <td> <strong>Delay</strong> causes the start of the animation section to be delayed (milliseconds) <br> <br>
-            <strong>Wait</strong> causes the following animation section to play AFTER the current is finished. Accepts Negative and Positive Numbers </td>
     </tr>
     <tr>
         <td class="aa-table">
@@ -87,7 +74,20 @@
         </td>
     </tr>
     <tr>
-        <th colspan="2" style="background: grey"> Persistent Options </th>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.delay")} / {localize("autoanimations.menus.wait")}</strong>
+        </td>
+        <td> <strong>Delay</strong> causes the start of the animation section to be delayed (milliseconds) <br> <br>
+            <strong>Wait</strong> causes the following animation section to play AFTER the current is finished. Accepts Negative and Positive Numbers </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.z-index")}</strong>
+        </td>
+        <td> Index of the animation when they are played at the same elevation </td>
+    </tr>
+    <tr>
+        <th colspan="2" style="background: rgba(17, 0, 148, .5)"> Persistent Options </th>
     </tr>
     <tr>
         <td class="aa-table">
