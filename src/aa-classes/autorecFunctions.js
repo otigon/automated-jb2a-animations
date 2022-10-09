@@ -2,6 +2,7 @@ import { JB2AFREEDB } from "../animation-functions/databases/jb2a-free-database.
 import { JB2APATREONDB } from "../animation-functions/databases/jb2a-patreon-database.js"
 import { aaColorMenu, aaVariantMenu } from "../animation-functions/databases/jb2a-menu-options.js"
 import { autoRecMigration } from "../custom-recognition/autoRecMerge.js"
+import { currentAutorecVersion } from "../custom-recognition/autoRecMerge.js"
 
 export class AutorecFunctions {
 
@@ -282,6 +283,11 @@ export class AutorecFunctions {
      */
     static async _importAutorecFromJSON(json) {
         const data = JSON.parse(json);
+        const currentVersion = currentAutorecVersion();
+        if (data.version > currentVersion) {
+            custom_error("You are attempting to import a menu that is from a newer version of Automated Animations. Please update your module and try again", true);
+            return;
+        }
         console.warn("autoanimations | Import settings ", data);
         await game.settings.set("autoanimations", "aaAutorec", data);
         await autoRecMigration.handle(game.settings.get('autoanimations', 'aaAutorec'))
@@ -290,6 +296,11 @@ export class AutorecFunctions {
     static async _mergeAutorecFile(json) {
         // Imported Autorec Menu
         const newData = JSON.parse(json);
+        const currentVersion = currentAutorecVersion();
+        if (newData.version > currentVersion) {
+            custom_error("You are attempting to import a menu that is from a newer version of Automated Animations. Please update your module and try again", true);
+            return;
+        }
         // Existing Autorec Menu
         const oldData = game.settings.get('autoanimations', 'aaAutorec');
         // New Autorec Menu

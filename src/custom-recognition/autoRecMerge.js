@@ -1,3 +1,7 @@
+export function currentAutorecVersion() {
+    return Object.keys(autoRecMigration.migrations).map(n => Number(n)).reverse()[0];
+}
+
 export const autoRecMigration = {
 
     async handle(autoObject) {
