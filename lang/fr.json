@@ -326,6 +326,14 @@
 
 
 
+
+
+
+
+
+
+
+
         },
         "variants": {
             "1":"01",
@@ -414,6 +422,9 @@
 			"slow": "Lent",
 			"fast": "Rapide"	
 
+
+
+
         },
         "menuTypes": {
 			"creature": "Attaque de créature",
@@ -438,6 +449,10 @@
 			"circle": "Cercle",
 			"ray": "Rayon",
 			"leaves": "Feuilles"
+
+
+
+
 
 
 		
@@ -601,6 +616,7 @@
 
 
 
+			
 
 
         },

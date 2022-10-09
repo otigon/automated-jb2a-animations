@@ -326,6 +326,14 @@
 
 
 
+
+
+
+
+
+
+
+
         },
         "variants": {
             "1": "01",
@@ -414,6 +422,9 @@
             "slow": "慢",
             "fast": "快",
             "stick": "棒"
+
+
+
         },
         "menuTypes": {
             "creature": "生物攻擊",
@@ -440,6 +451,10 @@
             "leaves": "葉子",
             "chains": "鎖鏈",
             "shrapnel": "破片"
+
+
+
+
 
         },
         "animTypes": {
@@ -582,6 +597,7 @@
             "duplicate": "複製",
 
             "only": "僅"
+
 
 
 

@@ -326,6 +326,14 @@
 
 
 
+
+
+
+
+
+
+
+
         },
         "variants": {
             "1": "01",
@@ -414,6 +422,9 @@
 
 
 
+
+
+
         },
         "menuTypes": {
             "creature": "Kreaturenangriff",
@@ -437,6 +448,10 @@
             "circle": "Kreis",
             "ray": "Strahl"
         
+
+
+
+
 
 
 
@@ -594,6 +609,7 @@
 
 
 
+            
 
 
 

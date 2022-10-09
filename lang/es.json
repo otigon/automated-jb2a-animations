@@ -325,6 +325,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
         },
         "variants": {
             "1":"01",
@@ -414,6 +423,8 @@
             "fast": "Rápido"
 
 
+
+
         },
         "menuTypes": {
             "creature": "Ataque de Criatura",
@@ -438,6 +449,10 @@
             "circle": "Círculo",
             "ray": "Rayo"
         
+
+
+
+
 
 
             
@@ -594,6 +609,7 @@
 
 
 
+            
 
 
 
