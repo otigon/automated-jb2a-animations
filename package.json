@@ -1,0 +1,33 @@
+{
+  "name": "autoanimations",
+  "description": "This will automatically run most JB2A Animations such as Melee/Ranged Attacks, Spell Attacks, and Instant Spells.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "author": "Otigon (https://github.com/otigon)",
+  "contributors": [
+    "Otigon (https://github.com/otigon)",
+    "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)"
+  ],
+  "dependencies": {
+    "@typhonjs-fvtt/runtime": "^0.0.19",
+    "@typhonjs-fvtt/svelte-standard": "^0.0.10",
+    "svelte": "^3.49.0"
+  },
+  "devDependencies": {
+    "@typhonjs-config/eslint-config": "^0.3.0",
+    "@typhonjs-fvtt/eslint-config-foundry.js": "^0.8.0",
+    "eslint": "^8",
+    "svelte-preprocess": "^4.10.0",
+    "vite": "^3"
+  },
+  "browserslist": [
+    ">5%",
+    "not IE 11"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "eslint": "eslint ."
+  }
+}

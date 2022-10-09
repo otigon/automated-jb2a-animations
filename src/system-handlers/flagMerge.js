@@ -1,4 +1,4 @@
-
+import { custom_warning } from "../constants/constants";
 export const flagMigrations = {
 
     async handle(item) {
@@ -451,7 +451,7 @@ export const flagMigrations = {
 
             await item.update({ 'flags.-=autoanimations': null })
             await item.update({ 'flags.autoanimations': v2Flags })
-            console.warn(`DEBUG | Automated Animations | Version 2 Flag Migration Complete`, v2Flags)
+            custom_warning(`Version 2 Flag Migration Complete`, false, v2Flags)
         },
         "3": async (item) => {
             const v3Flags = item.flags?.autoanimations || {};
@@ -924,7 +924,472 @@ export const flagMigrations = {
             await item.update({ 'flags.-=autoanimations': null })
             await item.update({ 'flags.autoanimations': v4Flags })
             console.warn(`DEBUG | Automated Animations | Version 3 Flag Migration Complete`, v4Flags)
+        },
+        "5": async (item) => {
 
+            if (!item.data?.flags?.autoanimations) { return; }
+            const v4Flags = item.data?.flags?.autoanimations || {};
+            const v5Flags = {}
+            let primarySet = ['melee', 'range', 'static', 'template', 'aura']
+
+            if (v4Flags.killAnim && !v4Flags.macro?.enable && !v4Flags.audio?.a01?.enable) {
+                v5Flags.killAnim = true;
+                v5Flags.version = 5;
+                await item.update({ 'flags.-=autoanimations': null })
+                await item.update({ 'flags.autoanimations': v5Flags })
+                return;
+            } else if (v4Flags.killAnim && (v4Flags.macro?.enable || v4Flags.audio?.a01?.enable)) {
+                v5Flags.killAnim = false;
+                v5Flags.macro = v4Flags.macro || {};
+                v5Flags.audio = v4Flags.audio || {};
+                await item.update({ 'flags.-=autoanimations': null })
+                await item.update({ 'flags.autoanimations': v5Flags })
+                return;
+            } else if (!v4Flags.killAnim && !v4Flags.override) {
+                await item.update({ 'flags.-=autoanimations': null })
+                await item.update({ 'flags.autoanimations': v5Flags })
+                return;
+            }
+            
+            if (v4Flags.override) {
+                if (primarySet.includes(v4Flags.animType)) {
+                    await mergePrimary();
+                    if (v5Flags.animType === "template") {v5Flags.animType = "templatefx"}
+                    await item.update({ 'flags.-=autoanimations': null })
+                    await item.update({ 'flags.autoanimations': v5Flags })
+                    return;    
+                }
+                if (v4Flags.animType === "preset") {
+                    v5Flags.version = 5;
+                    v5Flags.preset = {};
+                    v5Flags.animType = 'preset';
+                    v5Flags.override = true;
+                    v5Flags.killAnim = false;    
+                    await mergePreset();
+                    await item.update({ 'flags.-=autoanimations': null })
+                    await item.update({ 'flags.autoanimations': v5Flags })
+                    return;    
+                }
+            }
+
+            async function new3d(data) {
+                let spriteType = data?.type || "";
+                switch (spriteType) {
+                    case "sprite": 
+                        return {type: data.type || "" , sprites: data || {}}
+                    case "explosion":
+                        return {type: data.type || "" , explosion: data || {}}
+                    case "ray":
+                        return {type: data.type || "" , ray: data || {}}
+                    case "projectile":
+                        return {type: data.type || "" , projectile: data || {}}
+                    default:
+                        return {type: ""}
+                }
+            }
+            async function mergePrimary() {
+                let { options, explosions, audio, macro, levels3d, sourceToken, targetToken,
+                    meleeSwitch, killAnim, override, animType, animation, color, animLevel } = v4Flags;
+                v5Flags.options ? v5Flags.options : v5Flags.options = {};
+                const newOptions = v5Flags.options;
+                v5Flags.killAnim = killAnim;
+                v5Flags.override = override;
+                v5Flags.animType = animType;
+                v5Flags.primary = {
+                    menuType: options?.menuType || "",
+                    animation,
+                    variant: options?.variant || "",
+                    color,
+                    enableCustom: options?.enableCustom || false,
+                    customPath: options?.customPath || "",
+                };
+                v5Flags.version = 5;
+                v5Flags.options = options;
+                v5Flags.explosions = explosions || {};
+                v5Flags.audio = audio || {};
+                v5Flags.macro = macro || {};
+                v5Flags.levels3d = await new3d(levels3d);
+                v5Flags.meleeSwitch = meleeSwitch || {};
+                v5Flags.preset = {};
+                newOptions.below = animLevel;
+                if (sourceToken?.enable) {
+                    await convertSource(sourceToken)
+                }
+                if (targetToken?.enable) {
+                    convertTarget(targetToken)
+                }
+            }
+            async function convertSource(data) {
+                let {menuType, name: animation, variant, color, enable, enableCustom, customPath, loops, loopDelay,
+                    delayAfter, animLevel, ...rest} = data;
+                v5Flags.options ? v5Flags.options : v5Flags.options = {};
+                const newOptions = v5Flags.options;    
+                v5Flags.sourceToken = {
+                    enable,
+                    delayAfter,
+                    primary: {
+                        menuType,
+                        animation,
+                        variant,
+                        color,
+                        enableCustom,
+                        customPath
+                    },
+                    options: rest,
+                }
+                
+                v5Flags.sourceToken.options.repeat = loops || 1;
+                v5Flags.sourceToken.options.delay = loopDelay || 250;
+                v5Flags.sourceToken.options.below = animLevel || false;
+            }
+            async function convertTarget(data) {
+                let {menuType, name: animation, variant, color, enable, enableCustom, customPath, loops, loopDelay,
+                    delayStart, animLevel, ...rest} = data;
+                v5Flags.options ? v5Flags.options : v5Flags.options = {};
+                const newOptions = v5Flags.options;    
+    
+                v5Flags.targetToken = {
+                    enable,
+                    delayStart,
+                    primary: {
+                        menuType,
+                        animation,
+                        variant,
+                        color,
+                        enableCustom,
+                        customPath
+                    },
+                    options: rest,
+                }
+                v5Flags.targetToken.options.repeat = loops || 1;
+                v5Flags.targetToken.options.delay = loopDelay || 250;
+                v5Flags.targetToken.options.below = animLevel || false;
+            }
+
+            async function mergePreset() {
+                const preset = v5Flags.preset
+                switch (v4Flags.animation) {
+                    case "bardicinspiration":
+                        preset.bardicinspiration = {};
+                        await updateBI()
+                        break;
+                    case "bless":
+                        preset.bless = {};
+                        await updateBless()
+                        break;
+                    case "shieldspell":
+                        preset.shield = {};
+                        await updateShield()
+                        break;
+                    case "teleportation":
+                        preset.teleportation = {};
+                        await updateTele()
+                        break;
+                    case "dualattach":
+                        preset.dualattach = {};
+                        await updateDAttach()
+                        break;
+                    case "fireball":
+                        preset.fireball = {};
+                        await updateFireball()
+                        break;
+                    case "huntersmark":
+                        preset.huntersmark = {};
+                        await updateHM()
+                        break;
+                    case "sneakattack":
+                        preset.sneakattack = {};
+                        await updateSneak()
+                        break;
+                    case "thunderwave":
+                        preset.thunderwave = {};
+                        await updateThunderwave()
+                        break;
+                }
+            }
+
+            async function updateBI() {
+                const preset = v5Flags.preset;
+                const root = preset.bardicinspiration;
+                const bards = v4Flags.bards;
+                preset.presetType = "bardicinspiration";
+                let { bardSelf, bardAnim, bardVariant, bardSelfColor, bardTarget, bardTargetAnim, bardTargetVariant,
+                    bardTargetColor, marker, markerColor, markerColorTarget} = bards;
+                let {audio, macro, sourceToken, targetToken, animLevel} = v4Flags;
+                v5Flags.audio = audio || {};
+                v5Flags.macro = macro || {};
+                root.below = animLevel;
+                if (sourceToken?.enable) { convertSource(sourceToken) };
+                if (targetToken?.enable) { convertTarget(targetToken) }
+                preset.presetType = "bardicinspiration";
+                root.scale = v5Flags.options?.scale || 1;
+                root.self = {
+                    enable: bardSelf || false,
+                    animation: bardAnim === "music" ? "notes" : bardAnim,
+                    variant: bardVariant,
+                    color: bardSelfColor,
+                }
+                if (!root.self.animation || !root.self.color || !root.self.variant) {
+                    root.self.enable = false;
+                    root.self.animation = "";
+                    root.self.variant = "";
+                    root.self.color = "";
+                }
+                root.target = {
+                    enable: bardTarget || false,
+                    animation: bardTargetAnim === "music" ? "notes" : bardTargetAnim,
+                    variant: bardTargetVariant,
+                    color: bardTargetColor,
+                }
+                // TO-DO, assign VARIANTS somehow
+                if (!root.target.animation || !root.target.color || !root.target.variant) {
+                    root.target.enable = false;
+                    root.target.animation = "";
+                    root.target.variant = "";
+                    root.target.color = "";
+                }
+                root.marker = {
+                    enable: marker || false,
+                    selfColor: markerColor || "",
+                    targetColor: markerColorTarget || "",
+                }
+            }
+
+            async function updateBless() {
+                const preset = v5Flags.preset;
+                const root = preset.bless;
+                preset.presetType = "bless";
+
+                let { color, options, audio, macro, sourceToken, targetToken, animLevel, scale } = v4Flags;
+                if (sourceToken?.enable) { convertSource(sourceToken) };
+                if (targetToken?.enable) { convertTarget(targetToken) };
+
+                v5Flags.audio = audio || {};
+                v5Flags.macro = macro || {};
+                root.below = animLevel;
+                root.scale = scale || 1;
+                root.menuType = "spell";
+                root.animation = "bless";
+                root.variant = "01";
+                root.color = color;
+                root.unbindAlpha = options?.unbindAlpha || false;
+                root.unbindVisibility = options?.unbindVisibility || false;
+                root.persistent = options?.persistent || false;
+            }
+
+            async function updateShield() {
+                const preset = v5Flags.preset;
+                const root = preset.shield;
+
+                let { audio, macro, sourceToken, options, color } = v4Flags;
+                root.audio = audio || {};
+                root.macro = macro || {};
+                preset.presetType = "shieldspell";
+                if (sourceToken?.enable) { convertSource(sourceToken) };
+
+                root.menuType = "spell";
+                root.animation = "shieldspell";
+                root.variant = options.variant;
+                root.color = color;
+
+                root.endEffect = options.shieldVar;
+                root.unbindAlpha = options.unbindAlpha;
+                root.unbindVisibility = options.unbindVisibility;
+                root.persistent = options.persistent;
+                root.below = v5Flags.animLevel;
+                root.scale = options.scale;
+            }
+
+            async function updateTele() {
+                const preset = v5Flags.preset;
+                preset.teleportation = {};
+                const root = preset.teleportation;
+
+                let { audio, macro, sourceToken, options, color, color02, animLevel} = v4Flags;
+                let { measureType, teleDist, hideFromPlayers, menuType, name, variant, enableCustom, customPath, scale,
+                    menuType02, name02, variant02, enableCustom02, customPath02, scale02, delay }= options;
+                root.audio = audio || {};
+                root.macro = macro || {};
+                preset.presetType = "teleportation";
+                if (sourceToken?.enable) { convertSource(sourceToken) };
+
+                root.hideFromPlayers = hideFromPlayers;
+                root.range = teleDist;
+                root.measureType = measureType;
+                root.start = {
+                    menuType,
+                    animation: name,
+                    variant,
+                    color,
+                    below: animLevel,
+                    enableCustom: enableCustom || false,
+                    customPath,
+                    scale,
+                }
+                root.between = {
+                    enable: false,
+                }
+                root.end = {
+                    menuType: menuType02,
+                    animation: name02,
+                    variant: variant02,
+                    color: color02,
+                    below: animLevel,
+                    enableCustom: enableCustom02 || false,
+                    customPath: customPath02,
+                    scale: scale02,
+                    delay
+                }
+            }
+
+            async function updateDAttach() {
+                const preset = v5Flags.preset;
+                const root = preset.dualattach;
+
+                let { audio, macro, sourceToken, options, color, animLevel } = v4Flags;
+                let { menuType, name, variant, enableCustom, customPath, playbackRate, onlyX } = options;
+                root.audio = audio || {};
+                root.macro = macro || {};
+                preset.presetType = "dualattach";
+                if (sourceToken?.enable) { convertSource(sourceToken) };
+
+                root.menuType = menuType;
+                root.animation = name;
+                root.variant = variant;
+                root.color = color;
+                root.enableCustom = enableCustom || false;
+                root.customPath = customPath || "";
+                root.playbackRate = playbackRate || 1;
+                root.onlyX = onlyX || false;
+                root.below = animLevel || false;
+            }
+
+            async function updateFireball() {
+                const preset = v5Flags.preset;
+                const root = preset.fireball;
+
+                let { audio, macro, options, sourceToken, animLevel } = v4Flags;
+                let { rangeType, projectile, projectileVariant, projectileColor, projectileRepeat, projectileDelay, wait01,
+                    ex01Type, explosion01, explosion01Variant, explosion01Color, explosion01Repeat, explosion01Delay, explosion01Scale, wait02,
+                    ex02Type, explosion02, explosion02Variant, explosion02Color, explosion02Repeat, explosion02Delay, explosion02Scale,
+                    afterEffect, afterEffectPath, wait03 } = v4Flags.fireball;
+                root.audio = audio || {};
+                root.macro = macro || {};
+                preset.presetType = "fireball";
+                if (sourceToken?.enable) { convertSource(sourceToken) };
+
+                root.removeTemplate = options.removeTemplate || false;
+                root.projectile = {
+                    menuType: rangeType,
+                    animation: projectile,
+                    variant: projectileVariant,
+                    color: projectileColor,
+                    repeat: projectileRepeat,
+                    delay: projectileDelay,
+                    wait: wait01,
+                    below: animLevel,
+                }
+                root.explosion01 = {
+                    menuType: ex01Type,
+                    animation: explosion01,
+                    variant: explosion01Variant,
+                    color: explosion01Color,
+                    repeat: explosion01Repeat,
+                    delay: explosion01Delay,
+                    scale: explosion01Scale,
+                    wait: wait02,
+                    below: animLevel,
+                }
+                if (!root.explosion01.menuType || !root.explosion01.animation || !root.explosion01.variant || !root.explosion01.color) {
+                    root.explosion01.enable = false;
+                } else { root.explosion01.enable = true }
+                root.explosion02 = {
+                    menuType: ex02Type,
+                    animation: explosion02,
+                    variant: explosion02Variant,
+                    color: explosion02Color,
+                    repeat: explosion02Repeat,
+                    delay: explosion02Delay,
+                    scale: explosion02Scale,
+                }
+                if (!root.explosion02.menuType || !root.explosion02.animation || !root.explosion02.variant || !root.explosion02.color) {
+                    root.explosion01.enable = false;
+                } else { root.explosion02.enable = true }
+                root.afterImage = {
+                    enable: afterEffect,
+                    customPath: afterEffectPath,
+                    below: true,
+                    scale: 1,
+                    wait: wait03,
+                }
+            }
+
+            async function updateHM() {
+                const preset = v5Flags.preset;
+                const root = preset.huntersmark;
+
+                let { audio, macro, sourceToken, targetToken, options, animLevel } = v4Flags;
+                let { variant, scale, persistent, anchorX, anchorY, color } = options;
+                root.audio = audio || {};
+                root.macro = macro || {};
+                preset.presetType = "huntersmark";
+                if (sourceToken?.enable) { convertSource(sourceToken) };
+                if (targetToken?.enable) { convertTarget(targetToken) }
+
+                root.variant = variant;
+                root.color = color;
+                root.scale = scale;
+                root.below = animLevel;
+                root.persistent = persistent;
+                root.anchorX = anchorX;
+                root.anchorY = anchorY;
+            }
+
+            async function updateSneak() {
+                const preset = v5Flags.preset;
+                const root = preset.sneakattack;
+
+                let { audio, macro, sourceToken, options, color, animLevel } = v4Flags;
+                let { variant, scale, anchorX, anchorY } = options;
+                root.audio = audio || {};
+                root.macro = macro || {};
+                preset.presetType = "sneakattack";
+                if (sourceToken?.enable) { convertSource(sourceToken) };
+
+                root.variant = variant;
+                root.color = color;
+                root.scale = scale;
+                root.anchorX = anchorX;
+                root.anchorY = anchorY;
+                root.below = animLevel;
+            }
+
+            async function updateThunderwave() {
+                const preset = v5Flags.preset;
+                const root = preset.thunderwave;
+
+                let { audio, macro, sourceToken, options, color, animLevel } = v4Flags;
+                let { repeat, delay, scaleX, scaleY, opacity, removeTemplate, persistent, persistType, occlusionMode, occlusionAlpha } = options;
+                root.audio = audio || {};
+                root.macro = macro || {};
+                preset.presetType = "thunderwave";
+                if (sourceToken?.enable) { convertSource(sourceToken) };
+
+                root.color = color;
+                root.below = animLevel;
+                root.repeat = repeat;
+                root.delay = delay;
+                root.scaleX = scaleX;
+                root.scaleY = scaleY;
+                root.opacity = opacity;
+                root.removeTemplate = removeTemplate;
+                root.persistent = persistent;
+                root.persistType = persistType;
+                root.occlusionMode = occlusionMode;
+                root.occlusionAlpha = occlusionAlpha;
+            }
+
+            console.warn(`DEBUG | Automated Animations | Version 5 Flag Migration Complete`, v5Flags)
         }
     }
 }

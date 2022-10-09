@@ -1,0 +1,10 @@
+.github/
+dist/
+docs/
+external/
+lang/
+scripts/
+styles/
+templates/
+scripts/**/*.svelte
+dist/

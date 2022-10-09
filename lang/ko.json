@@ -1,455 +1,627 @@
 {
-    "AUTOANIM.initpopup_name":"시작 창 팝업 비활성화",
-    "AUTOANIM.initpopup_hint":"이 상자를 체크하면 팝업 창이 표시되지 않는다",
-    "AUTOANIM.animtab_name": "플레이어에게서 애니메이션 탭 숨김",
-    "AUTOANIM.animtab_hint": "이 상자를 체크하면 애니메이션 탭이 플레이어에게 표시되지 않는다",
-    "AUTOANIM.tarassist_name": "대상 지정 보조",
-    "AUTOANIM.tarassist_hint": "대상 지정 보조 기능을 활성화하려면 이 설정을 활성화 한다",
-    "AUTOANIM.tfmxenable_name":"Token Magic FX 활성화",
-    "AUTOANIM.tfmxenable_hint":"Token Magic 효과들로 애니메이션 활성화",
-    "AUTOANIM.midionhit_name":"명중시 애니메이션 재생",
-    "AUTOANIM.midionhit_hint":"공격이 명중했는지 확인하기 위해서 Midi-QOL 모듈의 워크플로우 설정이 필요하다",
-    "AUTOANIM.midionmiss_name": "명중/빗나감 시 애니메이션 재생",
-    "AUTOANIM.midionmiss_hint": "빗나갔을 때 애니메이션이 대상을 비껴나가게 된다. Midi-QOL 모듈의 워크플로우 설정이 필요하다",
-    "AUTOANIM.midiondmg_name":"피해 굴림 시에만 애니메이션 재생",
-    "AUTOANIM.midiondmg_hint":"새로고침 필요. 활성화 시 피해 굴림시에만 애니메이션이 재생된다.",
-    "AUTOANIM.demonlordtrigger_name":"애니메이션 재생 트리거",
-    "AUTOANIM.demonlordtrigger_hint":"애니메이션을 재생할 상태를 선택한다",
-    "AUTOANIM.demonlordtrigger_rollattack":"공격 굴림 시 애니메이션 재생",
-    "AUTOANIM.demonlordtrigger_hits":"명중 시 애니메이션 재생",
-    "AUTOANIM.demonlordtrigger_misses": "명중/빗나감 시 애니메이션 재생",
-    "AUTOANIM.demonlordtrigger_rolldamage":"피해 굴림 시 애니메이션 재생",
-    "AUTOANIM.demonlordtrigger_applydamage":"피해 적용 시 애니메이션 재생",
-    "AUTOANIM.coreondmg_name":"피해 굴림 시에만 공격 애니메이션 재생",
-    "AUTOANIM.coreondmg_hint":"기본적으로 애니메이션은 공격 굴림시 재생된다.",
-    "AUTOANIM.enableshield_name":"방패 주문 애니메이션 사용",
-    "AUTOANIM.enableshield_hint":"방패 주문은 테스트 애니메이션으로 설정되어 있지만, 멋지긴 멋지다. 사용하려면 활성화 할 것.",
-
-    "AUTOANIM.error":"JB2A 모듈(무료 OR 후원자)이 애니메이션을 활성화하기 위해 필요합니다",
-
-    "AUTOANIM.palegreen": "옅은 녹색",
-    "AUTOANIM.blue":"청색",
-    "AUTOANIM.green":"녹색",
-    "AUTOANIM.orange":"오렌지",
-    "AUTOANIM.pink":"핑크",
-    "AUTOANIM.purple":"보라색",
-    "AUTOANIM.red":"적색",
-    "AUTOANIM.regular":"기본",
-    "AUTOANIM.yellow":"황색",
-    "AUTOANIM.darkred":"암적색",
-    "AUTOANIM.darkgreen":"암녹색",
-    "AUTOANIM.darkpurple":"어두운 보라색",
-    "AUTOANIM.orangepink":"오렌지 핑크",
-    "AUTOANIM.purpleblue":"퍼플 블루",
-    "AUTOANIM.purpleteal":"퍼플 틸",
-    "AUTOANIM.yellowblue":"옐로우 블루",
-    "AUTOANIM.random":"무작위",
-    "AUTOANIM.grey": "회색",
-    "AUTOANIM.bluegrey": "청회색",
-    "AUTOANIM.darkblue":"암청색",
-    "AUTOANIM.tealyellow": "틸 옐로우",
-    "AUTOANIM.purplepink": "핑크 퍼플",
-    "AUTOANIM.pinkyellow": "핑크 옐로우",
-    "AUTOANIM.blueorange": "블루 오렌지",
-    "AUTOANIM.greenorange": "그린 오렌지",
-    "AUTOANIM.black": "검정색",
-    "AUTOANIM.darkwhiteblue": "어둠 백색 청색",
-    "AUTOANIM.whiteblue": "백청색",
-    "AUTOANIM.rainbow01": "무지개01",
-    "AUTOANIM.rainbow02": "무지개02",
-    "AUTOANIM.lightgreen": "라이트 그린",
-    "AUTOANIM.greenyellow": "그린 옐로우",
-    "AUTOANIM.brown": "갈색",
-    "AUTOANIM.lightblue": "라이트 블루",
-    "AUTOANIM.rainbow": "레인보우",
-    "AUTOANIM.white": "흰색",
-    "AUTOANIM.yellowwhite": "흰색",
-
-    "AUTOANIM.poison":  "독성",
-    "AUTOANIM.acid": "산성",
-    "AUTOANIM.fire": "화염",
-    "AUTOANIM.lightning": "번개",
-    "AUTOANIM.cold": "냉기",
-    "AUTOANIM.magical": "마법적",
-    "AUTOANIM.physical": "물리적",
-    "AUTOANIM.1": "01",
-    "AUTOANIM.2": "02",
-    "AUTOANIM.3": "03",
-    "AUTOANIM.01":"01",
-    "AUTOANIM.02":"02",
-    "AUTOANIM.03":"03",
-    "AUTOANIM.05":"05",
-    "AUTOANIM.06":"06",
-    "AUTOANIM.07":"07",
-    "AUTOANIM.08":"08",
-    "AUTOANIM.09":"09",
-    "AUTOANIM.10":"10",
-    "AUTOANIM.11":"11",
-    "AUTOANIM.12":"12",
-    "AUTOANIM.13":"13",
-
-    "AUTOANIM.kunai":"수리검",
+    "autoanimations": {
+        "settings": {
+            "initpopup_name":"시작 창 팝업 비활성화",
+            "initpopup_hint":"이 상자를 체크하면 팝업 창이 표시되지 않는다",
+            "animtab_name": "플레이어에게서 애니메이션 탭 숨김",
+            "animtab_hint": "이 상자를 체크하면 애니메이션 탭이 플레이어에게 표시되지 않는다",
+            "midionhit_name":"명중시 애니메이션 재생",
+            "midionhit_hint":"공격이 명중했는지 확인하기 위해서 Midi-QOL 모듈의 워크플로우 설정이 필요하다",
+            "midionmiss_name": "명중/빗나감 시 애니메이션 재생",
+            "midionmiss_hint": "빗나갔을 때 애니메이션이 대상을 비껴나가게 된다. Midi-QOL 모듈의 워크플로우 설정이 필요하다",
+            "midiondmg_name":"피해 굴림 시에만 애니메이션 재생",
+            "midiondmg_hint":"새로고침 필요. 활성화 시 피해 굴림시에만 애니메이션이 재생된다.",
+            "demonlordtrigger_name":"애니메이션 재생 트리거",
+            "demonlordtrigger_hint":"애니메이션을 재생할 상태를 선택한다",
+            "demonlordtrigger_rollattack":"공격 굴림 시 애니메이션 재생",
+            "demonlordtrigger_hits":"명중 시 애니메이션 재생",
+            "demonlordtrigger_misses": "명중/빗나감 시 애니메이션 재생",
+            "demonlordtrigger_rolldamage":"피해 굴림 시 애니메이션 재생",
+            "demonlordtrigger_applydamage":"피해 적용 시 애니메이션 재생",
+            "coreondmg_name":"피해 굴림 시에만 공격 애니메이션 재생",
+            "coreondmg_hint":"기본적으로 애니메이션은 공격 굴림시 재생된다.",
+            "error":"JB2A 모듈(무료 OR 후원자)이 애니메이션을 활성화하기 위해 필요합니다",
+            "animPreview": "애니메이션 미리보기",
+            "animPreviewHint": "A-A 탭내 비디오 미리보기",
+            "autoRecSetting": "자동 인식 설정",
+            "toggleAnimations": "애니메이션 전환",
+            "toggleAnimations_hint": "애니메이션을 사용하면 새로고침이 필요하다.",
+            "ON": "사용",
+            "OFF": "비사용",
+            "settingDisableAutoRec": "자동 인식 비활성화",
+            "settingDisableAutoRecHint": "사용자 지정 아이템에만 애니메이션을 재생한다.",
+            "globaldelay_name": "글로벌 딜레이",
+            "globaldelay_hint": "모든 애니메이션 시작 지연 시간(밀리초)",
 
 
-    "AUTOANIM.spell":"주문",
-    "AUTOANIM.weapon":"무기",
-    "AUTOANIM.itemFeat":"피트",
-    "AUTOANIM.itemConsumable":"소모품",
-
-    "AUTOANIM.itemCure":"치료",
-    "AUTOANIM.itemWound":"상처",
-    "AUTOANIM.curewounds": "상처 치료",
-    "AUTOANIM.itemGeneric": "일반적",
-    "AUTOANIM.itemHeal":"회복l",
-    "AUTOANIM.generichealing": "일반적 회복",
-    "AUTOANIM.itemWord":"단어",
-    "AUTOANIM.itemHealingWord": "치료의 단어",
-    "AUTOANIM.disintegrate":"분해",
-    "AUTOANIM.eldritchblast":"섬뜩한 방출",
-    "AUTOANIM.firebolt":"파이어 볼트",
-    "AUTOANIM.magicmissile":"매직 미사일",
-    "AUTOANIM.rayoffrost":"서리 광선",
-    "AUTOANIM.scorchingray":"타오르는 광선",
-    "AUTOANIM.witchbolt":"윗치 볼트",
-    "AUTOANIM.thunderwave":"천둥파도",
-    "AUTOANIM.shatter":"분쇄",
-    "AUTOANIM.shieldspell":"방패",
-    "AUTOANIM.itemCatapult":"캐터펄트",
-
-    "AUTOANIM.itemBattleaxe": "배틀 액스",
-    "AUTOANIM.dagger":"대거",
-    "AUTOANIM.greataxe":"그레이트 액스",
-    "AUTOANIM.greatclub":"그레이트 클럽",
-    "AUTOANIM.greatsword":"그레이트 소드",
-    "AUTOANIM.handaxe":"핸드액스",
-    "AUTOANIM.lasersword":"레이저 소드",
-    "AUTOANIM.mace":"메이스",
-    "AUTOANIM.maul":"마울",
-    "AUTOANIM.rapier":"레이피어",
-    "AUTOANIM.spear":"스피어",
-    "AUTOANIM.sword":"소드",
-    "AUTOANIM.itemLongsword": "롱소드",
-    "AUTOANIM.itemShortsword": "숏소드",
-    "AUTOANIM.itemScimitar": "시미터",
-
-    "AUTOANIM.arrow":"화살",
-    "AUTOANIM.itemLongbow":"롱보우",
-    "AUTOANIM.itemShortbow":"숏보우",
-    "AUTOANIM.boulder":"바위",
-    "AUTOANIM.javelin":"재블린",
-    "AUTOANIM.lasershot":"레이저 블라스트",
-    "AUTOANIM.siegeboulder":"공성 바위",
-    "AUTOANIM.itemThrowingHammer":"망치 투척",
-    "AUTOANIM.sling":"슬링",
-
-    "AUTOANIM.unarmedstrike":"비무장 공격",
-    "AUTOANIM.1hb":"한 손 타격",
-    "AUTOANIM.1hp":"한 손 관통",
-    "AUTOANIM.1hs":"한 손 참격",
-    "AUTOANIM.2hb":"양 손 타격",
-    "AUTOANIM.2hp":"양 손 관통",
-    "AUTOANIM.2hs":"양 손 참격",
-
-    "AUTOANIM.claw":"할퀴기",
-    "AUTOANIM.bite":"물기",
 
 
-    "AUTOANIM.itemGrenade":"그레네이드",
-    "AUTOANIM.itemBomb":"폭탄",
-
-    "AUTOANIM.variant01":"01",
-    "AUTOANIM.variant02":"02",
+            "settingRangeSwitch": "근접에서 원거리 전환 비활성화",
+            "settingRangeSwitchhint": "근접 애니메이션을 원거리 애니메이션으로 전환하는 것을 비활성화 한다.",
 
 
-    "AUTOANIM.itemAlchemist":"연금술사",
-    "AUTOANIM.itemPotion":"포션",
-    "AUTOANIM.itemSecond":"재기의",
-    "AUTOANIM.itemWind":"바람",
-
-    "AUTOANIM.raceBugbear":"버그베어",
-
-    "AUTOANIM.radius02": "02",
-    "AUTOANIM.radius05": "05",
-    "AUTOANIM.radius10": "10",
-    "AUTOANIM.radius15": "15",
-    "AUTOANIM.radius20": "20",
-    "AUTOANIM.radius25": "25",
-    "AUTOANIM.radius30": "30",
-    "AUTOANIM.radius35": "35",
-    "AUTOANIM.radius40": "40",
-    "AUTOANIM.radius45": "45",
-    "AUTOANIM.radius50": "50",
-    "AUTOANIM.radiusNuke": "핵",
-
-    "AUTOANIM.explodeLoop01":"1",
-    "AUTOANIM.explodeLoop02":"2",
-    "AUTOANIM.explodeLoop03":"3",
-    "AUTOANIM.explodeLoop04":"4",
-    "AUTOANIM.explodeLoop05":"5",
 
 
-    "AUTOANIM.typeMelee": "근접 무기",
-    "AUTOANIM.typeGenMelee": "근접 피해",
-    "AUTOANIM.typeRanged": "장거리 무기",
-    "AUTOANIM.creature": "크리쳐 공격",
-    "AUTOANIM.typeAttackSpell": "공격 주문",
-    "AUTOANIM.typeHealingSpell": "회복 주문",
-    "AUTOANIM.typeExplosiveCT": "폭발 (원형 템플릿)",
-    "AUTOANIM.typeExplosiveOT": "폭발 (대상)",
+            "crithit_name": "치명타",
+            "crithit_hint": "소스 토큰에 치명타 애니메이션 활성화",
+            "crithitAnim_name": "치명타 애니메이션",
+            "critmiss_name": "치명적 빗나감",
+            "critmiss_hint": "소스 토큰에 펌블 애니메이션 활성화",
+            "critmissAnim_name": "펌블 애니메이션",
+        
 
-    "AUTOANIM.blank": "",
-
-    "AUTOANIM.menuKillAnim": "애니메이션을 사용하지 않으려면 이 상자를 체크한다",
-    "AUTOANIM.menuOverride": "애니메이션을 덮어씌웁니까?",
-    "AUTOANIM.menuAnimType": "애니메이션 유형 선택",
-    "AUTOANIM.menuAnimName": "애니메이션 선택",
-    "AUTOANIM.menuAnimColor": "색상 선택",
-    "AUTOANIM.menuNoRangeColor": "색상은 근접 공격에만 적용된다.",
-    "AUTOANIM.menuThrownVariant": "투척 유형 선택",
-    "AUTOANIM.menuEnableExplode": "폭발을 사용합니까?",
-    "AUTOANIM.menuExplodeVariant": "폭발 유형 선택",
-    "AUTOANIM.menuExplodeColor": "폭발 색상 선택",
-    "AUTOANIM.menuExplodeRadius": "폭발 반경 선택",
-    "AUTOANIM.menuExplodeLoops": "폭발 반복 횟수",
-
-    "AUTOANIM.typeSelfEffects": "발산",
-    "AUTOANIM.typeAuras": "오러",
-
-    "AUTOANIM.calllightning":"낙뢰 소환",
-    "AUTOANIM.darkness":"암흑",
-    "AUTOANIM.fogcloud":"안개구름",
-    "AUTOANIM.sleetstorm":"진눈깨비 폭풍",
-    "AUTOANIM.spiritguardians":"영혼 수호자",
-    "AUTOANIM.wallofforce":"역장의 벽",
-    "AUTOANIM.whirlwind":"훨윈드",
-    "AUTOANIM.antilifeshell":"반생명 보호막",
-
-    "AUTOANIM.menuChooseRadius":"반경 선택",
-    "AUTOANIM.removeAura": "CTA 효과 제거",
-    "AUTOANIM.auraTint": "오러 색조:",
-    "AUTOANIM.auraOpacity": "오러 불투명도 (0-1):",
-    "AUTOANIM.huntersmark": "사냥꾼의 징표",
-    "AUTOANIM.hmAnim": "사냥꾼의 징표 애니메이션",
-    "AUTOANIM.tabName": "에니메이트",
-    "AUTOANIM.crithit_name": "치명타",
-    "AUTOANIM.crithit_hint": "소스 토큰에 치명타 애니메이션 활성화",
-    "AUTOANIM.crithitAnim_name": "치명타 애니메이션",
-    "AUTOANIM.critmiss_name": "치명적 빗나감",
-    "AUTOANIM.critmiss_hint": "소스 토큰에 펌블 애니메이션 활성화",
-    "AUTOANIM.critmissAnim_name": "펌블 애니메이션",
-
-    "AUTOANIM.globaldelay_name": "글로벌 딜레이",
-    "AUTOANIM.globaldelay_hint": "모든 애니메이션 시작 지연 시간(밀리초)",
-
-    "AUTOANIM.uaType": "비무장 유형",
-    "AUTOANIM.flurryofblows": "연타",
-    "AUTOANIM.guidingbolt": "가이딩 볼트",
-    "AUTOANIM.animTeleportation": "순간이동",
-    "AUTOANIM.range": "범위 입력",
-    "AUTOANIM.mistystep": "안개 걸음",
-
-    "AUTOANIM.variantChoice": "유형 선택",
-    "AUTOANIM.variant03":"03",
-    "AUTOANIM.variant04":"04",
-    "AUTOANIM.variant05":"05",
-    "AUTOANIM.variant06":"06",
-    "AUTOANIM.variant07":"07",
-    "AUTOANIM.classFeatures": "클래스 요소",
-    "AUTOANIM.bardicinspiration": "바드의 고양감",
-    "AUTOANIM.musicnote": "음표",
-    "AUTOANIM.bardAnimation": "바드 애니메이션",
-    "AUTOANIM.bardTarget": "대상에게 애니메이션을 재생합니까?",
-    "AUTOANIM.bardSelf": "자신에게 애니메이션을 재생합니까?",
-
-    "AUTOANIM.typeExplosiveSelf": "폭발 (자신)",
-    "AUTOANIM.spellLoops": "애니메이션 반복 (1-10)",
-
-    "AUTOANIM.itemAudio": "아이템 오디오 활성화",
-    "AUTOANIM.explosionAudio": "폭발 오디오 활성화",
-    "AUTOANIM.chooseAudio": "오디오 파일 선택",
-    "AUTOANIM.audioDelay": "오디오 딜레이 (milliseconds)",
-    "AUTOANIM.markerColor": "마커 색상",
-    
-    "AUTOANIM.breathweapon": "숨결 무기",
-    "AUTOANIM.bwWarning": "30 피트 선 템플릿",
-    "AUTOANIM.selfColor": "자신 애니메이션 색상",
-    "AUTOANIM.targetColor": "대상 애니메이션 색상",
-    "AUTOANIM.ctaStatic": "CTA 이미지를 정적 상태로 만듬",
-    
-    "AUTOANIM.templates": "템플릿",
-    "AUTOANIM.cone": "원뿔형",
-    "AUTOANIM.square": "입방체형",
-    "AUTOANIM.circle": "구체형",
-    "AUTOANIM.ray": "직선",
-    "AUTOANIM.coneofcold": "냉기 분사",
-    "AUTOANIM.fire01": "화염 v01",
-    "AUTOANIM.fire02": "화염 v02",
-    "AUTOANIM.burninghands01": "타오르는 손길 01",
-    "AUTOANIM.burninghands02": "타오르는 손길 02",
-    "AUTOANIM.templateType": "템플릿 유형",
-    "AUTOANIM.explosion01": "폭발 01",
-    "AUTOANIM.explosion02": "폭발 02",
-    "AUTOANIM.explosion03": "폭발 03",
-    "AUTOANIM.explosion04": "폭발 04",
-    "AUTOANIM.snowflake": "눈송이 파열",
-    "AUTOANIM.entangle": "얽혀듬",
-
-    "AUTOANIM.customAnim": "커스텀 애니메이션?",
-
-    "AUTOANIM.impact": "임팩트",
-    "AUTOANIM.impactVariant": "임팩트 유형",
-    "AUTOANIM.underToken": "애니메이션을 토큰 아래에서 재생합니까?",
-
-    "AUTOANIM.markerEnable": "마커 활성화",
+            "debugging": "디버깅 활성화",
 
 
-    "AUTOANIM.sneakattack": "암습 공격",
-    "AUTOANIM.bullet": "총알",
-    "AUTOANIM.bolt": "쇠뇌살",
-    "AUTOANIM.snipe": "저격",
-    "AUTOANIM.damageType": "피해 유형",
 
-    "AUTOANIM.tabTitle": "아이템 애니메이션 설정",
-    "AUTOANIM.targetAnim": "대상 애니메이션",
-    "AUTOANIM.markerColorTarget": "마커 색상 대상",
 
-    "AUTOANIM.musicMarker": "음악",
-    "AUTOANIM.crossbow": "쇠뇌",
-    "AUTOANIM.loops": "반복",
-    "AUTOANIM.loopDelay": "반복 지연",
-    "AUTOANIM.scale": "스케일",
-    "AUTOANIM.radius": "반경 (사각 격자)",
-    "AUTOANIM.delayMS": "지연 (ms)",
-    "AUTOANIM.placeTile": "타일로 배치",
-    "AUTOANIM.socketLibAA": "모듈 필요함",
-    "AUTOANIM.opacity": "불투명도",
-    "AUTOANIM.overhead": "오버헤드로 만들기",
-    "AUTOANIM.sourceToken": "원본 토큰 애니메이션 활성화",
-    "AUTOANIM.targetToken": "대상 토큰 애니메이션 활성화",
-    "AUTOANIM.after": "이후",
-    "AUTOANIM.animation": "애니메이션",
-    "AUTOANIM.source": "원본",
-    "AUTOANIM.target": "대상",
-    "AUTOANIM.primary": "최초",
-    "AUTOANIM.start": "시작",
-    "AUTOANIM.thrown": "투척",
-    "AUTOANIM.customSequences": "커스텀 시퀀스",
-    "AUTOANIM.explode": "폭발",
-    "AUTOANIM.fade": "페이드",
-    "AUTOANIM.itemLaserSwordDB": "이중 레이저 소드",
-    "AUTOANIM.eye": "눈",
-    "AUTOANIM.paw": "앞발",
-    "AUTOANIM.explosion": "폭발",
-    "AUTOANIM.selfEffect": "자신 효과",
-    "AUTOANIM.targetEffect": "효과 대상",
-    "AUTOANIM.animPreview": "애니메이션 미리보기",
-    "AUTOANIM.animPreviewHint": "A-A 탭내 비디오 미리보기",
-    "AUTOANIM.icespikes": "아이스 스파이크",
-    "AUTOANIM.divinesmite": "신성한 강타",
-    "AUTOANIM.stars": "별",
-    "AUTOANIM.marker": "마커",
-    "AUTOANIM.magicsign": "마법 사인",
-    "AUTOANIM.customize": "커스터마이즈",
-    "AUTOANIM.ctaScale": "스케일",
-    "AUTOANIM.volume": "볼륨 (0-1)",
-    "AUTOANIM.teleport": "범위 밖 지점을 선택했습니다. 재선택하십시오.",
 
-    "AUTOANIM.cloudofdaggers": "단검의 구름",
-    "AUTOANIM.auraScale": "토큰 크기와 비교",
-    "AUTOANIM.removeTemplate": "배치 후 템플릿을 제거합니까?",
-    "AUTOANIM.occlusionMode": "오클루전 모드",
-    "AUTOANIM.occlusion01": "페이드 (모든 타일)",
-    "AUTOANIM.occlusion02": "지붕 (시야와 조명 차단)",
-    "AUTOANIM.occlusion03": "반경 (토큰을 감쌈)",
-    "AUTOANIM.occlusion00": "없음 (항상 보임)",
-    "AUTOANIM.occlusionAlpha": "오클루전 알파",
 
-    "AUTOANIM.lightningbolt": "라이트닝 볼트",
-    "AUTOANIM.chakram": "차크람",
-    "AUTOANIM.bless": "축복",
 
-    "AUTOANIM.single": "단일",
-    "AUTOANIM.double": "더블",
-    "AUTOANIM.settingRangeSwitch": "근접에서 원거리 전환 비활성화",
-    "AUTOANIM.settingRangeSwitchhint": "근접 애니메이션을 원거리 애니메이션으로 전환하는 것을 비활성화 한다.",
-    "AUTOANIM.settingDisableAutoRec": "자동 인식 비활성화",
-    "AUTOANIM.settingDisableAutoRecHint": "사용자 지정 아이템에만 애니메이션을 재생한다.",
 
-    "AUTOANIM.returning": "귀환 무기",
-    "AUTOANIM.rangeDetect": "사거리 탐지",
-    "AUTOANIM.gridSquares": "원거리 전환에 사각 격자 사용",
 
-    "AUTOANIM.toggleAnimations": "애니메이션 전환",
-    "AUTOANIM.toggleAnimations_hint": "애니메이션을 사용하면 새로고침이 필요하다.",
-    "AUTOANIM.ON": "사용",
-    "AUTOANIM.OFF": "비사용",
-    "AUTOANIM.ignoreTargets": "대상 무시",
-    "AUTOANIM.scaleToToken": "토큰 사이즈에 따라 크기 조절",
-    "AUTOANIM.noTemplate": "템플릿 배치 안 함",
-    "AUTOANIM.anchorX": "앵커 X",
-    "AUTOANIM.anchorY": "앵커 Y",
 
-    "AUTOANIM.lightningbolt02": "라이트닝 볼트 02",
-    "AUTOANIM.cloudofkunais": "쿠나이의 구름",
 
-    "AUTOANIM.web": "거미줄",
 
-    "AUTOANIM.ammoAnimate": "탄약의 애니메이션 사용",
 
-    "AUTOANIM.tollthedead": "톨 더 데드",
-    "AUTOANIM.bell": "벨",
-    "AUTOANIM.shockwave": "쇼크웨이브",
-    "AUTOANIM.skull": "해골",
-    "AUTOANIM.complete": "완료됨",
 
-    "AUTOANIM.itemName": "아이템 이름",
-    "AUTOANIM.search": "검색",
-    "AUTOANIM.variant": "변종",
-    "AUTOANIM.color": "색상",
-    "AUTOANIM.repeat": "반복",
-    "AUTOANIM.delay": "지연",
-    "AUTOANIM.below": "토큰 아래",
-    "AUTOANIM.custom": "사용자 지정",
-    "AUTOANIM.switch": "전환",
-    "AUTOANIM.return": "귀환",
-    "AUTOANIM.addItem": "아이템 추가",
-    "AUTOANIM.type": "유형",
-    "AUTOANIM.remove": "템플릿 제거",
-    "AUTOANIM.static": "고정",
-    "AUTOANIM.playOn": "재생",
-    "AUTOANIM.tint": "색조",
-    "AUTOANIM.melee": "근접",
-    "AUTOANIM.ranged": "원거리",
-    "AUTOANIM.onToken": "토큰 적용",
-    "AUTOANIM.presets": "프리셋",
-    "AUTOANIM.submit": "확인",
-    "AUTOANIM.import": "가져오기 설정",
-    "AUTOANIM.export": "내보내기 설정",
-    "AUTOANIM.preset": "프리셋",
-    "AUTOANIM.autoRecSetting": "자동 인식 설정",
-    "AUTOANIM.debugging": "디버깅 활성화",
 
-    "AUTOANIM.darkorangepurple": "다크 오렌지 퍼플",
-    "AUTOANIM.halberd": "할버드",
-    "AUTOANIM.quarterstaff": "쿼터스태프",
-    "AUTOANIM.04": "04",
-    "AUTOANIM.sleep01": "수면 01",
-    "AUTOANIM.sleep02": "수면 02",
-    "AUTOANIM.persistant": "끈질김",
-    "AUTOANIM.fireball": "파이어볼",
-    "AUTOANIM.projectile": "발사체",
-    "AUTOANIM.addAfterImage": "애프터 이미지 추가",
 
-    "AUTOANIM.wait": "대기",
-    "AUTOANIM.falchion": "펄션",
-    "AUTOANIM.glaive": "글레이브",
-    "AUTOANIM.vortex": "소용돌이",
-    "AUTOANIM.whirl": "돌개바람",
-    "AUTOANIM.energystrands": "에너지 가닥",
-    "AUTOANIM.loop": "반복",
-    "AUTOANIM.intro": "인트로",
-    "AUTOANIM.outro": "아우트로",
-    "AUTOANIM.scimitar": "시미터",
-    "AUTOANIM.shortsword": "숏소드"
 
+
+
+
+            "teleport": "범위 밖 지점을 선택했습니다. 재선택하십시오."
+
+
+
+
+
+
+            
+        },
+        "colors": {
+
+
+            "palegreen": "옅은 녹색",
+            "blue":"청색",
+            "green":"녹색",
+            "orange":"오렌지",
+            "pink":"핑크",
+            "purple":"보라색",
+            "red":"적색",
+            "regular":"기본",
+            "yellow":"황색",
+            "darkred":"암적색",
+            "darkgreen":"암녹색",
+            "darkpurple":"어두운 보라색",
+            "orangepink":"오렌지 핑크",
+            "purpleblue":"퍼플 블루",
+            "purpleteal":"퍼플 틸",
+            "yellowblue":"옐로우 블루",
+            "random":"무작위",
+            "grey": "회색",
+            "bluegrey": "청회색",
+            "darkblue":"암청색",
+            "tealyellow": "틸 옐로우",
+            "purplepink": "핑크 퍼플",
+            "pinkyellow": "핑크 옐로우",
+            "blueorange": "블루 오렌지",
+            "greenorange": "그린 오렌지",
+            "black": "검정색",
+            "darkwhiteblue": "어둠 백색 청색",
+            "whiteblue": "백청색",
+            "rainbow01": "무지개01",
+            "rainbow02": "무지개02",
+            "lightgreen": "라이트 그린",
+            "greenyellow": "그린 옐로우",
+            "brown": "갈색",
+            "lightblue": "라이트 블루",
+            "rainbow": "레인보우",
+            "white": "흰색",
+            "yellowwhite": "흰색",
+            "darkorangepurple": "다크 오렌지 퍼플"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        },
+        "animations": {
+            "coneofcold": "냉기 분사",
+
+
+
+            "loop": "반복",
+            "complete": "완료됨",
+
+
+
+
+
+            "curewounds": "상처 치료",
+            "generichealing": "일반적 회복",
+            "itemHealingWord": "치료의 단어",
+            "disintegrate":"분해",
+            "eldritchblast":"섬뜩한 방출",
+            "firebolt":"파이어 볼트",
+            "magicmissile":"매직 미사일",
+            "rayoffrost":"서리 광선",
+            "scorchingray":"타오르는 광선",
+            "witchbolt":"윗치 볼트",
+            "thunderwave":"천둥파도",
+            "shatter":"분쇄",
+            "shieldspell":"방패",
+            "calllightning":"낙뢰 소환",
+            "darkness":"암흑",
+            "fogcloud":"안개구름",
+            "sleetstorm":"진눈깨비 폭풍",
+            "spiritguardians":"영혼 수호자",
+            "wallofforce":"역장의 벽",
+            "whirlwind":"훨윈드",
+            "antilifeshell":"반생명 보호막",
+            "guidingbolt": "가이딩 볼트",
+            "mistystep": "안개 걸음",
+            "bardicinspiration": "바드의 고양감",
+            "musicnote": "음표",
+            "breathweapon": "숨결 무기",
+            "snowflake": "눈송이 파열",
+            "entangle": "얽혀듬",
+            "impact": "임팩트",
+            "icespikes": "아이스 스파이크",
+            "divinesmite": "신성한 강타",
+            "stars": "별",
+            "marker": "마커",
+            "magicsign": "마법 사인",
+            "cloudofdaggers": "단검의 구름",
+            "lightningbolt": "라이트닝 볼트",
+            "bless": "축복",
+            "lightningbolt02": "라이트닝 볼트 02",
+            "cloudofkunais": "쿠나이의 구름",
+            "web": "거미줄",
+            "tollthedead": "톨 더 데드",
+            "fireball": "파이어볼",
+            "vortex": "소용돌이",
+            "whirl": "돌개바람",
+            "energystrands": "에너지 가닥",
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            "huntersmark": "사냥꾼의 징표",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            "poison":  "독성",
+            "explosion": "폭발",
+
+
+
+
+
+
+
+            "fire": "화염",
+
+
+            "static": "고정",
+
+
+
+
+
+
+            "skull": "해골",
+            "dagger":"대거",
+            "greataxe":"그레이트 액스",
+            "greatclub":"그레이트 클럽",
+            "greatsword":"그레이트 소드",
+            "handaxe":"핸드액스",
+            "lasersword":"레이저 소드",
+            "mace":"메이스",
+            "maul":"마울",
+            "rapier":"레이피어",
+            "spear":"스피어",
+            "sword":"소드",
+            "itemLongsword": "롱소드",
+            "scimitar": "시미터",
+            "shortsword": "숏소드",
+            "arrow":"화살",
+            "boulder":"바위",
+            "javelin":"재블린",
+            "lasershot":"레이저 블라스트",
+            "siegeboulder":"공성 바위",
+            "sling":"슬링",
+            "unarmedstrike":"비무장 공격",
+            "1hb":"한 손 타격",
+            "1hp":"한 손 관통",
+            "1hs":"한 손 참격",
+            "2hb":"양 손 타격",
+            "2hp":"양 손 관통",
+            "2hs":"양 손 참격",
+            "claw":"할퀴기",
+            "bite":"물기",
+            "flurryofblows": "연타",
+            "sneakattack": "암습 공격",
+            "bullet": "총알",
+            "bolt": "쇠뇌살",
+            "snipe": "저격",
+            "chakram": "차크람",
+            "falchion": "펄션",
+            "glaive": "글레이브",
+        
+
+
+
+
+            "halberd": "할버드",
+            "quarterstaff": "쿼터스태프",
+            "crossbow": "쇠뇌"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        },
+        "variants": {
+            "1":"01",
+            "2":"02",
+            "3":"03",
+            "01":"01",
+            "02":"02",
+            "03":"03",
+            "04":"04",
+            "05":"05",
+            "06":"06",
+            "07":"07",
+            "08":"08",
+            "09":"09",
+            "10":"10",
+            "11":"11",
+            "12":"12",
+            "13":"13",
+            "magical": "마법적",
+            "physical": "물리적",
+        
+            "fire": "화염",
+            "regular":"기본",
+            "poison":  "독성",
+            "cold": "냉기",
+            "lightning": "번개",
+            "kunai":"수리검",
+            "primary": "최초",
+            "square": "입방체형",
+            "circle": "구체형",
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            "loop": "반복",
+            "intro": "인트로",
+            "outro": "아우트로",
+        
+            "marker": "마커",
+            "source": "원본",
+            "target": "대상",
+            "explode": "폭발",
+            "fade": "페이드",
+
+            "eye": "눈",
+
+            "paw": "앞발",
+        
+
+
+
+
+
+
+            "bell": "벨",
+            "shockwave": "쇼크웨이브",
+            "complete": "완료됨",
+            "single": "단일",
+            "double": "더블",
+        
+
+            "fire01": "화염 v01",
+            "fire02": "화염 v02",
+        
+            "acid": "산성"
+
+
+
+
+
+
+        },
+        "menuTypes": {
+            "creature": "크리쳐 공격",
+
+            "weapon":"무기",
+            "spell":"주문",
+
+
+            "fire": "화염",
+
+            "lightning": "번개",
+
+            "magicsign": "마법 사인",
+            "marker": "마커",
+
+
+
+
+
+            "cone": "원뿔형",
+            "square": "입방체형",
+            "circle": "구체형",
+            "ray": "직선"
+        
+
+
+
+
+
+
+            
+        },
+        "animTypes": {
+            "melee": "근접",
+            "range": "원거리",
+            "ontoken": "토큰 적용",
+            "preset": "프리셋",
+            "templatefx": "템플릿",
+            "aura": "오러"
+
+        },
+        "presetTypes": {
+            "bardicinspiration": "바드의 고양감",
+            "bless": "축복",
+
+            "fireball": "파이어볼",
+            "huntersmark": "사냥꾼의 징표",
+            "shieldspell":"방패",
+            "sneakattack": "암습 공격",
+            "animTeleportation": "순간이동",
+            "thunderwave":"천둥파도"
+
+        },
+        "menus": {
+
+            "primary": "최초",
+            "animation": "애니메이션",
+
+
+            "preset": "프리셋",
+            "type": "유형",
+            "source": "원본",
+            "target": "대상",
+            "submit": "확인",
+
+
+
+
+
+
+            "customize": "커스터마이즈",
+
+
+
+
+
+
+
+
+            "melee": "근접",
+            "ranged": "원거리",
+            "switch": "전환",
+            "custom": "사용자 지정",
+            "return": "귀환",
+            "variant": "변종",
+            "color": "색상",
+            "rangeDetect": "사거리 탐지",
+            "gridSquares": "원거리 전환에 사각 격자 사용",
+            "below": "토큰 아래",
+
+            "explosion": "폭발",
+            "radius": "반경",
+
+            "start": "시작",
+
+            "volume": "볼륨 (0-1)",
+            "delay": "지연",
+            "persistant": "끈질김",
+
+
+
+
+
+
+
+            "repeat": "반복",
+            "scale": "스케일",
+            "opacity": "불투명도",
+            "playOn": "재생",
+
+
+
+            "remove": "템플릿 제거",
+
+
+
+
+            "occlusionMode": "오클루전 모드",
+            "occlusion01": "페이드 (모든 타일)",
+            "occlusion02": "지붕 (시야와 조명 차단)",
+            "occlusion03": "반경 (토큰을 감쌈)",
+            "occlusion00": "없음 (항상 보임)",
+            "occlusionAlpha": "오클루전 알파",
+        
+
+
+
+
+
+
+
+            "projectile": "발사체",
+            "ignoreTargets": "대상 무시",
+
+            "markerColor": "마커 색상",
+            "markerColorTarget": "마커 색상 대상",
+
+            "anchorX": "앵커 X",
+            "anchorY": "앵커 Y",
+        
+
+            "itemName": "아이템 이름",
+
+            "search": "검색",
+
+
+
+            "wait": "대기",
+
+            "addAfterImage": "애프터 이미지 추가",
+
+
+
+
+
+
+
+
+
+
+
+
+            "export": "내보내기 설정",
+
+
+
+            
+            "musicnote": "음표"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+        },
+        "optionsInfo": {
+
+        }
+    }
 }

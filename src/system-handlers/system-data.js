@@ -1,25 +1,25 @@
+import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+import { debug } from "../constants/constants.js";
 import { endTiming } from "../constants/timings.js";
 import { AASystemData } from "./getdata-by-system.js";
-import { flagMigrations } from "./flagMerge.js";
-import { AutorecFunctions } from "../aa-classes/autorecFunctions.js";
+import { flagMigrations } from "../mergeScripts/items/itemFlagMerge.js";
+import { AAAutorecFunctions } from "../aa-classes/aaAutorecFunctions.js";
 
 export default class systemData {
 
     static async make(msg, isChat, external) {
         const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
         const data = external ? external : AASystemData[systemID] ? await AASystemData[systemID](msg, isChat) : await AASystemData.standardChat(msg)
-        if (!data.item) { /*this._log("Retrieval Failed")*/; return {}; }
-        //this._log("Data Retrieved", data)
+        if (!data.item) { debug("Item Retrieval Failed", data); return {}; }
 
-        const flags = await flagMigrations.handle(data.item);
+        let isActiveEffect = external ? data.activeEffect : false;
+        const flags = await flagMigrations.handle(data.item, {isActiveEffect});
 
         return new systemData(data, flags, msg);
     }
 
     constructor(systemData, flagData, msg) {
-        this.debug = game.settings.get("autoanimations", "debug");
-        this._log("Getting System Data")
-
+        debug("Compiling Automated Animations data")
         const data = systemData;
         this.gameSystem = game.system.id;
 
@@ -27,17 +27,17 @@ export default class systemData {
         this.systemId = game.system.id;
         this.workflow = msg || "";
         this.flags = flagData ?? {};
-        this.animation = this.flags.animation || "";
+        //this.animation = this.flags.animation || "";
 
         this.reachCheck = data.reach || 0;
         this.item = data.item;
-        this.itemUuid = this.item?.uuid;
+        this.itemUuid = this.item?.uuid || uuidv4();
 
         this.hasAttack = this.item?.hasAttack ?? false;
         this.hasDamage = this.item?.hasDamage ?? false;
         this.itemName = this.item.name?.toLowerCase() || this.item.sourceName?.toLowerCase();
 
-        if (this.systemId === 'pf2e') {
+        if (this.systemId === 'pf2e') {endTiming
             const pf2eRuleTypes = ['condition', 'effect', 'feat'];
             this.isPF2eRuleset = pf2eRuleTypes?.includes(this.item.type);
         }
@@ -70,51 +70,38 @@ export default class systemData {
 
         //midi-qol specific settings
         this.playOnMiss = data.playOnMiss || (midiActive || game.system.id === 'pf2e' ? game.settings.get("autoanimations", "playonmiss") : false) || false;
-        //this.playOnMiss = true;
-        const midiSettings = midiActive ? game.settings.get("midi-qol", "ConfigSettings") : false
-        this._gmAD = midiActive ? midiSettings?.gmAutoDamage : "";
-        this._userAD = midiActive ? midiSettings?.autoRollDamage : "";
-
-
-        this.isDisabled = this.flags.killAnim || false;
-        this.isCustomized = this.flags.override || false;
-        this.animType = this.flags.animType || "";
-
-        this.bards = this.flags.bards ?? {};
-
-        this.autorecOverrides = this.flags.autoOverride ?? {};
-
-        this.animNameFinal;
-        switch (true) {
-            case ((!this.flags.override) || ((this.flags.override) && (this.animation === ``))):
-                this.animNameFinal = this.itemName;
-                break;
-            default:
-                this.animNameFinal = this.animation;
-                break;
-        }
 
         this.animEnd = endTiming(this.animNameFinal);
-        this.autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
 
-        this.rinsedName = this.itemName ? AutorecFunctions._rinseName(this.itemName) : "noitem";
-        this.isAutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNamesInSection(this.autorecSettings, 'templates'), this.rinsedName);
+        //this.autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
+        this.autorecSettings = {
+            melee: game.settings.get("autoanimations", "aaAutorec-melee"),
+            range: game.settings.get("autoanimations", "aaAutorec-range"),
+            ontoken: game.settings.get("autoanimations", "aaAutorec-ontoken"),
+            templatefx: game.settings.get("autoanimations", "aaAutorec-templatefx"),
+            aura: game.settings.get("autoanimations", "aaAutorec-aura"),
+            preset: game.settings.get("autoanimations", "aaAutorec-preset"),
+            aefx: game.settings.get("autoanimations", "aaAutorec-aefx"),
+        }
+
+        this.rinsedName = this.itemName ? AAAutorecFunctions.rinseName(this.itemName) : "noitem";
 
         if (this.isActiveEffect || this.pf2eRuleset) {
-            this.autorecObject = AutorecFunctions._findObjectIn5eAE(this.autorecSettings, this.rinsedName);
+            this.autorecObject = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.aefx, this.rinsedName);
         } else {
-            this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
-        }
-        if (!this.autorecObject && game.system.id === 'pf2e') {
-            /* fallback assignment for PF2e to capture Rule Element Strikes */
-            this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, this.rinsedName);
+            this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, this.rinsedName);
         }
 
+        if (!this.autorecObject && game.system.id === "pf2e") {
+            /* fallback assignment for active effects, default assignment otherwise. */
+            this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, this.rinsedName);
+        } 
+    
         // If there is no match and there are alternative names, then attempt to use those names instead
         if (!this.autorecObject && data.extraNames?.length && !this.isActiveEffect && !this.pf2eRuleset) {
             for (const name of data.extraNames) {
-                const rinsedName = AutorecFunctions._rinseName(name);
-                this.autorecObject = AutorecFunctions._findObjectFromArray(this.autorecSettings, rinsedName);
+                const rinsedName = AAAutorecFunctions.rinseName(name);
+                this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, rinsedName);
                 if (this.autorecObject) {
                     this.rinsedName = rinsedName;
                     break;
@@ -122,36 +109,77 @@ export default class systemData {
             }
         }
 
-        this.isAutorecFireball = false;
-        this.isAutorecAura = false;
-        this.isAutorecTeleport = false;
-        this.isAutoThunderwave5e = false;
-        if (this.autorecObject && !this.isCustomized) {
-            this.isAutorecFireball = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === "fireball" ? true : false;
-            this.isAutorecAura = this.autorecObject.menuSection === "auras" ? true : false;
-            this.isAutorecTeleport = this.autorecObject?.menuSection === "preset" && this.autorecObject?.animation === 'teleportation' ? true : false;
-            this.isAutoThunderwave5e = this.autorecObject?.menuSection === 'preset' && this.autorecObject?.animation === 'thunderwave' ? true : false;
+        this.isEnabled = this.flags.isEnabled ?? true;
+        this.isCustomized = this.isActiveEffect ? this.flags.isCustomized && this.flags.activeEffectType ? true : false : this.flags.isCustomized && this.flags.menu ? true : false;
+        this.templateData = data.templateData ? data.templateData : undefined;
+
+        if (this.isCustomized) {
+            this.menu = this.flags.menu
+        } else if (this.autorecObject ) {
+            this.menu = this.autorecObject.menu
         }
-        this.isAutorecTemplate = (this.isAutorecTemplateItem || this.isAutorecFireball) && !this.isCustomized ? true : false;
-
-        this.isOverrideTemplate = (this.animType === "template" && this.isCustomized) || (this.animType === "preset" && this.flags.animation === "fireball" && this.isCustomized) ? true : false;
-        this.isOverrideAura = this.animType === "aura" && this.isCustomized ? true : false;
-        this.isOverrideTeleport = (this.animType === "preset" && this.flags.animation === "teleportation") || this.isAutorecTeleport ? true : false;
-        //this.isAutorecTeleport = this.autorecObject.menuSection === "preset" && this.autorecObject.animation === 'teleportation' ? true: false;
-        this.decoupleSound = game.settings.get("autoanimations", "decoupleSound");
-        this.isThunderwave5e = (this.animType === 'preset' && this.isCustomized && this.flags.animation === 'thunderwave');
     }
 
-    get shouldPlayImmediately() {
-        return this.isOverrideAura || this.isAutorecAura || this.isOverrideTemplate || this.isAutorecTemplate || this.isOverrideTeleport || this.isAutorecTeleport || this.isThunderwave5e || this.isAutoThunderwave5e;
+    get shouldPlayImmediately () {
+
+        if (this.autorecObject || this.isCustomized) {
+            const menuType = this.isCustomized ? this.menu : this.autorecObject.menu;
+            const presetType = this.isCustomized ? this.flags?.preset?.presetType : this.autorecObject.presetType;
+
+            return menuType === 'templatefx' || menuType === "aura" || (menuType === "preset" && (presetType === "proToTemp" || presetType === 'teleportation' || presetType === 'thunderwave'))
+        } else {
+            return false;
+        }
+        //return this.isOverrideAura || this.isAutorecAura || this.isOverrideTemplate || this.isAutorecTemplate || this.isOverrideTeleport || this.isAutorecTeleport || this.isThunderwave5e || this.isAutoThunderwave5e;
     }
 
-    get soundNoAnimation() {
+    get onUse5e () {
+        const menuType = this.isCustomized ? this.menu : this.autorecObject.menu;
+        const presetType = this.isCustomized ? this.flags?.preset?.presetType : this.autorecObject.presetType;
+        return menuType === "aura" || (menuType === "preset" && presetType === 'teleportation')
+
+    }
+
+    get isTemplateItem () {
+        const menuType = this.isCustomized ? this.menu : this.autorecObject.menu;
+        const presetType = this.isCustomized ? this.flags?.preset?.presetType : this.autorecObject.presetType;
+
+        return menuType === 'templatefx' ||  (menuType === 'preset' && presetType === "proToTemp") || (menuType === 'preset' && presetType === "thunderwave")
+    }
+
+    get isAura () {
+        return this.menu === "aura" 
+    }
+
+    get isTeleport() {
+        if (this.menu !== 'preset') {
+            return false;
+        }
+        if (this.isCustomized) {
+            return this.flags.presetType === "teleportation";
+        } else if (this.autorecObject) {
+            return this.autorecObject.presetType === "teleportation";
+        }
+        //return this.menu === "preset" && 
+    }
+
+    get playOnUse() {
+        const flags = this.isCustomized ? this.flags : this.autorecObject ? this.autorecObject : {};
+        return this.menu === "preset" &&  flags.presetType === "teleportation" || this.menu === "aura";
+    }
+
+    get soundNoAnimation () {
         return this.flags.audio?.a01?.enable && this.flags.audio?.a01?.file
     }
 
     get macroOnly() {
         return this.flags.macro?.enable && this.flags.macro?.name
+    }
+
+    getSize(isRadius = false, size = 1, token, addToken = false) {
+        return isRadius 
+            ? addToken ? (size * 2) + (token.w / canvas.grid.size) : size * 2 
+            : (token.w / canvas.grid.size) * 1.5 * size;
     }
 
     getDistanceTo(target) {
@@ -196,9 +224,45 @@ export default class systemData {
         }
     }
 
-    _log(...args) {
-        if (this.debug) console.log(`DEBUG | Automated Animations |`, ...args);
+    buildTargetSeq(targetFX, target, addDelay = 0) {
+        let hit;
+        if (this.playOnMiss) {
+            hit = this.hitTargetsId.includes(target.id) ? true : false;
+        } else {
+            hit = true;
+        }
+    
+        //const targetTokenGS = targetFX.options.isRadius ? targetFX.options.size * 2 : (target.w / canvas.grid.size) * 1.5 * targetFX.options.size;
+        const setSize = this.getSize(targetFX.options.isRadius, targetFX.options.size, target)
+    
+        targetFX.targetSeq = new Sequence();
+    
+        let targetEffect = targetFX.targetSeq.effect()
+        targetEffect.delay(targetFX.options.delay + addDelay)
+        targetEffect.file(targetFX.path?.file, true)
+        targetEffect.atLocation(target)
+        targetEffect.size(setSize, { gridUnits: true })
+        targetEffect.origin(this.itemUuid)
+        targetEffect.repeats(targetFX.options.repeat, targetFX.options.repeatDelay)
+        targetEffect.elevation(targetFX.options.elevation)
+        if (targetFX.options.isMasked) {
+            targetEffect.mask(target)
+        }
+        if (targetFX.options.rotateSource) {
+            targetEffect.rotateTowards(this.sourceToken)
+            targetEffect.rotate(180)    
+        }
+        if (targetFX.options.persistent) {
+            targetEffect.persist(true, {persistTokenPrototype: true})
+        }
+        targetEffect.fadeOut(500)
+        targetEffect.opacity(targetFX.options.opacity)
+        targetEffect.zIndex(targetFX.options.zIndex)
+        targetEffect.anchor({x: targetFX.options.anchor.x, y: targetFX.options.anchor.y})
+
+        return targetFX;
     }
+    
 }
 
 

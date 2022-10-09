@@ -2,7 +2,12 @@
   "id": "autoanimations",
   "title": "Automated Animations",
   "description": "This will automatically run most JB2A Animations such as Melee/Ranged Attacks, Spell Attacks, and Instant Spells",
-  "author": "Otigon (Otigon#2010)",
+  "authors": [
+    {
+      "name": "Otigon (Otigon#2010)",
+      "discord": "Otigon#2010"
+    }
+  ],
   "url": "https://github.com/otigon/automated-jb2a-animations",
   "version": "3.3.0",
   "compatibility": {
@@ -14,10 +19,10 @@
   "compatibleCoreVersion": "10",
   "scripts": [],
   "esmodules": [
-    "src/autoAnimations.js"
+    "index.js"
   ],
   "styles": [
-    "src/css/tabstyles.css"
+    "style.css"
   ],
   "languages": [
     {
@@ -61,8 +66,6 @@
       "path": "lang/zh-tw.json"
     }
   ],
-  "packs": [],
-  "system": [],
   "relationships": {
     "requires": [{
       "id": "sequencer",
@@ -76,8 +79,5 @@
   },
   "socket": true,
   "manifest": "https://github.com/otigon/automated-jb2a-animations/releases/latest/download/module.json",
-  "download": "https://github.com/otigon/automated-jb2a-animations/releases/download/3.2.1/module.zip",
-  "protected": false,
-  "coreTranslation": false,
-  "library": false
+  "download": "https://github.com/otigon/automated-jb2a-animations/releases/download/0.6.71/module.zip"
 }
