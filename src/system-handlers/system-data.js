@@ -37,7 +37,7 @@ export default class systemData {
         this.hasDamage = this.item?.hasDamage ?? false;
         this.itemName = this.item.name?.toLowerCase() || this.item.sourceName?.toLowerCase();
 
-        if (this.systemId === 'pf2e') {
+        if (this.systemId === 'pf2e') {endTiming
             const pf2eRuleTypes = ['condition', 'effect', 'feat'];
             this.isPF2eRuleset = pf2eRuleTypes?.includes(this.item.type);
         }
@@ -70,25 +70,7 @@ export default class systemData {
 
         //midi-qol specific settings
         this.playOnMiss = data.playOnMiss || (midiActive || game.system.id === 'pf2e' ? game.settings.get("autoanimations", "playonmiss") : false) || false;
-        //this.playOnMiss = true;
-        //const midiSettings = midiActive ? game.settings.get("midi-qol", "ConfigSettings") : false
-        //this._gmAD = midiActive ? midiSettings?.gmAutoDamage : "";
-        //this._userAD = midiActive ? midiSettings?.autoRollDamage : "";
 
-
-
-
-        /*
-        this.animNameFinal;
-        switch (true) {
-            case ((!this.flags.override) || ((this.flags.override) && (this.animation === ``))):
-                this.animNameFinal = this.itemName;
-                break;
-            default:
-                this.animNameFinal = this.animation;
-                break;
-        }
-        */
         this.animEnd = endTiming(this.animNameFinal);
 
         //this.autorecSettings = game.settings.get('autoanimations', 'aaAutorec');
@@ -104,16 +86,11 @@ export default class systemData {
 
         this.rinsedName = this.itemName ? AAAutorecFunctions.rinseName(this.itemName) : "noitem";
 
-        //this.isAutorecTemplateItem = AutorecFunctions._autorecNameCheck(AutorecFunctions._getAllNamesInSection(this.autorecSettings, 'templates'), this.rinsedName);
-        //this.isAutorecTemplateItem = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.templatefx, this.rinsedName);
-
-        //this.autorecObject = this.isActiveEffect || this.pf2eRuleset ? AutorecFunctions._findObjectIn5eAE(this.autorecSettings, this.rinsedName) : null;
         if (this.isActiveEffect || this.pf2eRuleset) {
             this.autorecObject = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.aefx, this.rinsedName);
         } else {
             this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, this.rinsedName);
         }
-        //this.autorecObject = this.isActiveEffect || this.pf2eRuleset ? AAAutorecFunctions.singleMenuSearch(this.autorecSettings.aefx, this.rinsedName) : null;
 
         if (!this.autorecObject && game.system.id === "pf2e") {
             /* fallback assignment for active effects, default assignment otherwise. */
@@ -132,48 +109,15 @@ export default class systemData {
             }
         }
 
-        //this.isDisabled = this.flags.killAnim || false;
         this.isEnabled = this.flags.isEnabled ?? true;
-        //this.isCustomized = this.flags.override || false;
         this.isCustomized = this.isActiveEffect ? this.flags.isCustomized && this.flags.activeEffectType ? true : false : this.flags.isCustomized && this.flags.menu ? true : false;
         this.templateData = data.templateData ? data.templateData : undefined;
 
-        //changed from flags.animType to match Autorec menu
         if (this.isCustomized) {
             this.menu = this.flags.menu
         } else if (this.autorecObject ) {
             this.menu = this.autorecObject.menu
         }
-        //this.menu = this.isCustomized ? this.flags.menu : "";
-
-        /*
-        this.isAutorecTemplateItem = false;
-        this.isAutorecAura = false;
-        this.isAutorecFireball = false;
-        this.isAutorecTeleport = false;
-        this.isAutoThunderwave5e = false;
-        if (this.autorecObject && !this.isCustomized) {
-            const menuType = this.autorecObject.aaMenu;
-            const presetType = this.autorecObject.presetType;
-            this.isAutorecTemplateItem = menuType === 'templatefx' ? true : false;
-            this.isAutorecFireball = menuType === "preset" && presetType === "fireball" ? true : false;
-            this.isAutorecAura = menuType === "aura" ? true : false;
-            this.isAutorecTeleport = menuType === "preset" && presetType === 'teleportation' ? true : false;
-            this.isAutoThunderwave5e = menuType === 'preset' && presetType === 'thunderwave' ? true : false;
-        }
-        this.isAutorecTemplate = (this.isAutorecTemplateItem || this.isAutorecFireball) && !this.isCustomized ? true : false;
-
-        this.isOverrideTemplate = false;
-        this.isOverrideTeleport = false;
-        this.isOverrideThunderwave5e = false;
-        if (this.isCustomized) {
-            this.isOverrideTemplate = (this.animType === "templatefx" && this.isCustomized) || (this.animType === "preset" && this.flags.preset?.presetType === "fireball" && this.isCustomized) ? true : false;
-            this.isOverrideAura = this.animType === "aura" && this.isCustomized ? true: false;
-            this.isOverrideTeleport = (this.animType === "preset" && this.flags.preset?.presetType === "teleportation") || this.isAutorecTeleport ? true : false;
-            this.isThunderwave5e = (this.animType === 'preset' && this.isCustomized && this.flags.preset?.presetType === 'thunderwave'); 
-        }
-        */
-        //this.decoupleSound = game.settings.get("autoanimations", "decoupleSound");
     }
 
     get shouldPlayImmediately () {

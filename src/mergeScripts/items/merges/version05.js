@@ -834,7 +834,6 @@ export async function version05(flags, isActiveEffect) {
         newMO.primary = {
             options: {
                 addTokenWidth: false,
-                aeDelay: options?.aeDelay || 0,
                 elevation: animLevel ? 0 : 1000,
                 delay: 0,
                 isMasked: false,
@@ -970,7 +969,6 @@ export async function version05(flags, isActiveEffect) {
         newMO.primary = {
             options: {
                 addTokenWidth: false,
-                aeDelay: 0,
                 delay: 0,
                 elevation: animLevel ? 0 : 1000,
                 fadeIn: 0,

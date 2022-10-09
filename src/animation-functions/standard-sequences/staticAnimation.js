@@ -298,7 +298,7 @@ export async function ontoken(handler, animationData) {
         seq.file(bottomAnim)
         seq.opacity(data.options.opacity)
         seq.size(size, { gridUnits: true })
-        seq.elevation(1000)
+        seq.elevation(0)
         if (data.options.isMasked) {
             bottomEffect.mask(token)
         }
@@ -319,7 +319,7 @@ export async function ontoken(handler, animationData) {
         seq.file(data.path.fileData)
         seq.opacity(data.options.opacity)
         seq.size(size, { gridUnits: true })
-        seq.elevation(0)
+        seq.elevation(1000)
         if (data.options.isMasked) {
             seq.mask(token)
         }

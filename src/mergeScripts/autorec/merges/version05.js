@@ -812,13 +812,12 @@ async function mergeVersion05(data) {
         newMO.primary = {
             options: {
                 addTokenWidth: false,
-                aeDelay: aeDelay || 0,
                 elevation: below ? 0 : 1000,
                 delay: delay || 250,
                 isMasked: false,
                 isRadius: false,
                 isWait: false,
-                opacity: opacity,
+                opacity: opacity || 1,
                 persistent: persistent || false,
                 playOn: "source",
                 repeat: repeat || 1,
@@ -900,7 +899,7 @@ async function mergeVersion05(data) {
                 fadeOut: 500,        
                 isRadius: true,
                 isWait: true,
-                opacity: opacity,
+                opacity: opacity || 1,
                 playOn: "source",
                 size: scale || 1,
                 tint: false,
@@ -957,7 +956,6 @@ async function mergeVersion05(data) {
         newMO.primary = {
             options: {
                 addTokenWidth: false,
-                aeDelay: 0,
                 delay: 0,
                 elevation: below ? 0 : 1000,
                 fadeIn: 0,

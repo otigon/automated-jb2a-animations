@@ -61,11 +61,6 @@ export async function createActiveEffects(effect) {
         debug("Failed to find the Item or Source Token", handler)
         return;
     }
-    if (handler.isCustomized || (!handler.isCustomized && handler.autorecObject)) {
-        const aeDelay = handler.isCustomized ? handler.flags?.options?.aeDelay || "noDelay" : handler.autorecObject.aeDelay || "noDelay";
-        const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
-        if (aeDelay === "noDelay") { } else { await wait(aeDelay) }
-    }
     // Sends the data to begin the animation Sequence
     trafficCop(handler);
 }
