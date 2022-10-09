@@ -34,7 +34,7 @@
     * The Macro name input box now provides an Autocomplete format for both Game and Compendium macros  
   * **SOUNDS**:
     * Sounds in A-A now have their own Repeat and Repeat Delay options. The "Decouple Sounds" option has been removed from the module settings.
-
+  * Version 4.0.0 introduces a new versioned internal A-A database for JB2A animations. The primary database will remain complete at JB2A version 0.4.6. However, the internal database will now match your currently installed version henceforth. This means that if you don't have the latest JB2A, you wont have A-A select menus populated with options you don't have access to. Additionally, if you have a newer version of the FREE module installed versus the Patreon, the menus will merge and add those on top of the patreon version
 3.1.0  
 * Adds support for PF1 Buffs (Active Effects)  
 * Adds support for PF2e Ruleset Items (Active Effect types)  
