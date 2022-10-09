@@ -63,7 +63,7 @@ export async function range(handler, animationData) {
         nextSeq.opacity(data.options.opacity)
         nextSeq.missed(!hit)
         nextSeq.name("spot" + ` ${currentTarget.id}`)
-        nextSeq.elevation(data.options.elevation)
+        nextSeq.elevation(data.options.isAbsolute ? data.options.elevation : sourceToken.document.elevation + data.options.elevation)
         nextSeq.zIndex(data.options.zIndex)
 
         if (i === handler.allTargets.length - 1 && data.options.isWait) {
@@ -111,7 +111,7 @@ export async function range(handler, animationData) {
             } else if (!secondary.options.isWait) {
                 secondarySeq.delay(secondary.options.delay)
             }
-            secondarySeq.elevation(secondary.options.elevation)
+            secondarySeq.elevation(secondary.options.isAbsolute ? secondary.options.elevation : currentTarget.document.elevation + secondary.options.elevation)
             secondarySeq.zIndex(secondary.options.zIndex)
             secondarySeq.opacity(secondary.options.opacity)
             secondarySeq.fadeIn(secondary.options.fadeIn)

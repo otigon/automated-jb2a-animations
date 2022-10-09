@@ -11,7 +11,7 @@ export async function trafficCop(handler) {
     if (!handler.isEnabled) { return; }
     if (!handler.isCustomized && !handler.autorecObject || (handler.autorecObject && autorecDisabled)) { return; }
 
-    const data = handler.isCustomized ? structuredClone(handler.flags) : structuredClone(handler.autorecObject);
+    const data = handler.isCustomized ? foundry.utils.deepClone(handler.flags) : foundry.utils.deepClone(handler.autorecObject);
     Hooks.callAll("aa.preDataSanitize", handler, data);
 
     const sanitizedData = await DataSanitizer._getAnimationData(handler, data);

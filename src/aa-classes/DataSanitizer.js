@@ -143,6 +143,7 @@ export class DataSanitizer {
                 return {
                     delay: data.delay || 0,
                     elevation: data.elevation ?? 1000,
+                    isAbsolute: data.isAbsolute ?? false,
                     isWait: data.isWait ?? false,
                     opacity: data.opacity ?? 1,
                     repeat: data.repeat || 1,
@@ -154,6 +155,7 @@ export class DataSanitizer {
                 return {
                     delay: data.delay || 0,
                     elevation: data.elevation ?? 1000,
+                    isAbsolute: data.isAbsolute ?? false,
                     isReturning: data.isReturning ?? false,
                     isWait: data.isWait ?? false,
                     onlyX: data.onlyX ?? false,
@@ -168,6 +170,7 @@ export class DataSanitizer {
                     anchor: this.convertToXY(data.anchor, true),
                     delay: data.delay ?? 1,
                     elevation: data.elevation ?? 1000,
+                    isAbsolute: data.isAbsolute ?? false,
                     fadeIn: data.fadeIn ?? 250,
                     fadeOut: data.fadeOut ?? 500,
                     isMasked: data.isMasked ?? false,
@@ -187,6 +190,7 @@ export class DataSanitizer {
                 return {
                     delay: data.delay ?? 1,
                     elevation: data.elevation ?? 1000,
+                    isAbsolute: data.isAbsolute ?? false,
                     isMasked: data.isMasked ?? false,
                     isWait: data.isWait ?? false,
                     occlusionMode: data.occlusionMode || "3",
@@ -216,6 +220,7 @@ export class DataSanitizer {
                     breathMin: data.breathMin ?? 0.95,
                     delay: data.delay || 1,
                     elevation: data.elevation ?? 1000,
+                    isAbsolute: data.isAbsolute ?? false,
                     fadeIn: data.fadeIn ?? 250,
                     fadeOut: data.fadeOut ?? 500,
                     isWait: data.isWait ?? false,
@@ -271,6 +276,7 @@ export class DataSanitizer {
                 anchor: this.convertToXY(options.anchor, true),
                 delay: options.delay ?? 0,
                 elevation: options.elevation ?? 1000,
+                isAbsolute: options.isAbsolute ?? false,
                 fadeIn: options.fadeIn ?? 250,
                 fadeOut: options.fadeOut ?? 250,
                 isMasked: options.isMasked ?? false,
@@ -320,6 +326,7 @@ export class DataSanitizer {
                 anchor: this.convertToXY(options.anchor, true),
                 delay: options.delay ?? 0,
                 elevation: options.elevation ?? 1000,
+                isAbsolute: options.isAbsolute ?? false,
                 fadeIn: options.fadeIn ?? 250,
                 fadeOut: options.fadeOut ?? 500,
                 isMasked: options.isMasked ?? false,
@@ -354,7 +361,7 @@ export class DataSanitizer {
             // TO-DO switch Scale/Radius
             sourceEffect.size(sourceTokenGS, { gridUnits: true })
             sourceEffect.repeats(data.options.repeat, data.options.repeatDelay)
-            sourceEffect.elevation(data.options.elevation)
+            sourceEffect.elevation(data.options.isAbsolute ? data.options.elevation : handler.sourceToken.document.elevation + data.options.elevation)
             sourceEffect.zIndex(data.options.zIndex)
             if (data.options.isMasked) {
                 sourceEffect.mask(handler.sourceToken)
@@ -397,6 +404,7 @@ export class DataSanitizer {
                 anchor: this.convertToXY(options.anchor, true),
                 delay: options.delay ?? 0,
                 elevation: options.elevation ?? 1000,
+                isAbsolute: options.isAbsolute ?? false,
                 isMasked: options.isMasked ?? false,
                 //isWait: options.isWait ?? false,
                 isRadius: options.isRadius ?? false,
@@ -542,6 +550,7 @@ export class DataSanitizer {
                     customPath: projectile.enableCustom && projectile.customPath ? projectile.customPath : false,
                     options: {
                         elevation: projectileOptions.elevation || 1000,
+                        isAbsolute: projectileOptions.isAbsolute ?? false,
                         repeat: projectileOptions.repeat || 1,
                         repeatDelay: projectileOptions.repeatDelay || 250,
                         removeTemplate: projectileOptions.removeTemplate ?? false,
@@ -560,6 +569,7 @@ export class DataSanitizer {
                     customPath: preExplosion.enableCustom && preExplosion.customPath ? preExplosion.customPath : false,
                     options: {
                         elevation: preExplosionOptions.elevation ?? 1000,
+                        isAbsolute: preExplosionOptions.isAbsolute ?? false,
                         repeat: preExplosionOptions.repeat || 1,
                         repeatDelay: preExplosionOptions.repeatDelay || 250,
                         scale: preExplosionOptions.scale || 1,
@@ -577,6 +587,7 @@ export class DataSanitizer {
                     customPath: explosion.enableCustom && explosion.customPath ? explosion.customPath : false,
                     options: {
                         elevation: explosionOptions.elevation ?? 1000,
+                        isAbsolute: explosionOptions.isAbsolute ?? false,
                         repeat: explosionOptions.repeat || 1,
                         repeatDelay: explosionOptions.repeatDelay || 250,
                         scale: explosionOptions.scale || 1,
@@ -591,6 +602,7 @@ export class DataSanitizer {
                     enable: afterImage.enable ?? false,
                     options: {
                         elevation: afterImageOptions.elevation ?? 1000,
+                        isAbsolute: afterImageOptions.isAbsolute ?? false,
                         persistent: afterImageOptions.persistent ?? false,
                         scale: afterImageOptions.scale || 1,
                     }
@@ -629,6 +641,7 @@ export class DataSanitizer {
                         //alpha: startOptions.alpha ?? 0,
                         delay: startOptions.delay ?? 0,
                         elevation: startOptions.elevation ?? 1000,
+                        isAbsolute: startOptions.isAbsolute ?? false,
                         fadeIn: startOptions.fadeIn ?? 250,
                         fadeOut: startOptions.fadeOut ?? 500,
                         isMasked: startOptions.isMasked ?? false,
@@ -646,6 +659,7 @@ export class DataSanitizer {
                     options: {
                         delay: betweenOptions.delay ?? 0,
                         elevation: betweenOptions.elevation ?? 1000,
+                        isAbsolute: betweenOptions.isAbsolute ?? false,
                         opacity: betweenOptions.opacity ?? 1,
                         playbackRate: betweenOptions.playbackRate ?? 1,
                     },
@@ -659,6 +673,7 @@ export class DataSanitizer {
                     options: {
                         delay: endOptions.delay ?? 0,
                         elevation: endOptions.elevation ?? 1000,
+                        isAbsolute: endOptions.isAbsolute ?? false,
                         fadeIn: startOptions.fadeIn ?? 250,
                         fadeOut: startOptions.fadeOut ?? 500,
                         isMasked: endOptions.isMasked ?? false,
@@ -700,6 +715,7 @@ export class DataSanitizer {
                 },
                 options: {
                     elevation: options.elevation ?? 1000,
+                    isAbsolute: options.isAbsolute ?? false,
                     onlyX: options.onlyX ?? false,
                     opacity: options.opacity ?? 1,
                     playbackRate: options.playbackRate,
@@ -720,6 +736,7 @@ export class DataSanitizer {
                 color: flags.color || "blue",
                 options: {
                     elevation: options.elevation ?? 1000,
+                    isAbsolute: options.isAbsolute ?? false,
                     opacity: options.opacity ?? 1,
                     repeat: options.repeat || 1,
                     repeatDelay: options.repeatDelay ?? 250,

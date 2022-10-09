@@ -29,7 +29,7 @@
     let aaFlags = itemFlags.autoanimations || {};
 
     const { application } = getContext('external');
-    let newFlagData = structuredClone(aaFlags);
+    let newFlagData = foundry.utils.deepClone(aaFlags);
 
     if (!newFlagData.hasOwnProperty('menu')) {
         newFlagData = newData.melee()
