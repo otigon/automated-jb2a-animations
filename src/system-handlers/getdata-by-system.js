@@ -669,7 +669,7 @@ export class AASystemData {
                         input.data?.data?.item ??
                         input.item ??
                         input.itemSource ??
-                        input.SwadeItem ??
+                        input.data.SwadeItem ??
                         input.token?.actor?.items?.get(input.itemId) ??
                         await fromUuid(`Item.${input.itemId}`) ??
                         void 0;
@@ -703,6 +703,7 @@ export class AASystemData {
     static async getToken(input) {
         const data = input || {};
         const token =   data.token ??
+                        data.data?.SwadeTokenOrActor
                         canvas.tokens.get(data.tokenId) ??
                         canvas.scene.tokens.get(data.tokenId) ??
                         canvas.tokens.placeables.find(token => token.actor?.items?.get(data.itemId) != null) ??

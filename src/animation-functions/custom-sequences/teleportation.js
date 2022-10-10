@@ -95,6 +95,7 @@ export async function teleportation(handler, animationData) {
             startEffect.fadeIn(data.start.options.fadeIn)
             startEffect.fadeOut(data.start.options.fadeOut)
             startEffect.delay(data.start.options.delay)
+            startEffect.playbackRate(data.start.options.playbackRate)
             //startEffect.randomRotation()
             if (data.start.options.isMasked) {
                 startEffect.mask(sourceToken)
@@ -124,6 +125,7 @@ export async function teleportation(handler, animationData) {
             endEffect.size(sourceTokenGS * 1.5 * data.end.options.size, { gridUnits: true })
             endEffect.fadeIn(data.end.options.fadeIn)
             endEffect.fadeOut(data.end.options.fadeOut)
+            endEffect.playbackRate(data.end.options.playbackRate)
             //endEffect.randomRotation()
             if (data.end.options.isMasked) {
                 endEffect.mask(sourceToken)

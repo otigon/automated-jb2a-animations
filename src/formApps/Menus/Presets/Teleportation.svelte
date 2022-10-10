@@ -332,7 +332,19 @@
                             </td>
                         </tr>
                         <tr>
-                            <td />
+                            <td>
+                                <div>
+                                    <label for="">{localize("autoanimations.menus.playbackRate")}</label>
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.start.options.playbackRate}
+                                        placeholder="1"
+                                        step=".1"
+                                    />
+                                </div>
+                            </td>
                             <td>
                                 <div>
                                     <label for=""
@@ -531,7 +543,19 @@
                             </td>
                         </tr>
                         <tr>
-                            <td />
+                            <td>
+                                <div>
+                                    <label for="">{localize("autoanimations.menus.playbackRate")}</label>
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.end.options.playbackRate}
+                                        placeholder="1"
+                                        step=".1"
+                                    />
+                                </div>
+                            </td>
                             <td>
                                 <div>
                                     <label for=""

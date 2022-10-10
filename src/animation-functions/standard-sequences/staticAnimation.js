@@ -314,6 +314,7 @@ export async function ontoken(handler, animationData) {
             seq.persist(true, {persistTokenPrototype: true})
             seq.origin(handler.itemUuid)
         }
+        seq.playbackRate(data.options.playbackRate)
     }
     function setTop(token, size, seq) {
         seq.file(data.path.fileData)
@@ -334,6 +335,7 @@ export async function ontoken(handler, animationData) {
             seq.persist(true, {persistTokenPrototype: true})
             seq.origin(handler.itemUuid)
         }
+        seq.playbackRate(data.options.playbackRate)
     }
     function setPrimary(token, size, seq) {
         seq.file(data.path.file)
@@ -356,6 +358,7 @@ export async function ontoken(handler, animationData) {
             seq.origin(handler.itemUuid)
         }
         seq.anchor({x: data.options.anchor.x, y: data.options.anchor.y})
+        seq.playbackRate(data.options.playbackRate)
     }
     function setSecondary(token, seq) {
         let size = handler.getSize(secondary.options.isRadius, secondary.options.size, token, secondary.options.addTokenWidth)
@@ -376,6 +379,7 @@ export async function ontoken(handler, animationData) {
             seq.mask(token)
         }
         seq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
+        seq.playbackRate(secondary.options.playbackRate)
     }
 
     // Macro if Concurrent

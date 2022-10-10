@@ -59,6 +59,14 @@
     </tr>
     <tr>
         <td class="aa-table">
+            <strong>{localize("autoanimations.menus.playbackRate")}</strong>
+        </td>
+        <td> 
+            Default 1: Set the playback speed of the animation
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
             <strong>{localize("autoanimations.menus.repeat")}</strong>
         </td>
         <td>
@@ -105,6 +113,14 @@
         </td>
         <td> Set the Elevation for the Animation relative to the Source Token. Elevation of "0" is below the token <br>
             <strong>ABS</strong>: <i>If Enabled, switches Elevation to be Absolute and disregard the Token elevation</i>
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.playbackRate")}</strong>
+        </td>
+        <td> 
+            Default 1: Set the playback speed of the animation
         </td>
     </tr>
     <tr>
@@ -351,6 +367,14 @@
             <strong>{localize("autoanimations.menus.fadeOut")}</strong>
         </td>
         <td> Sets the fadeOut time of the effect in milliseconds </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.playbackRate")}</strong>
+        </td>
+        <td> 
+            Default 1: Set the playback speed of the animation
+        </td>
     </tr>
     <tr>
         <td class="aa-table">

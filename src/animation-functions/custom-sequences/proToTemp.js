@@ -38,6 +38,7 @@ export async function proToTemp(handler, animationData, config) {
         .stretchTo(template, { cacheLocation: true })
         .elevation(handler.elevation(sourceToken, data.projectile.options.isAbsolute, data.projectile.options.elevation))
         .repeats(data.projectile.options.repeat, data.projectile.options.repeatDelay)
+        .playbackRate(data.projectile.options.playbackRate)
         .waitUntilFinished(data.projectile.options.wait)
     if (data.preExplosion.sound) {
         aaSeq.addSequence(data.preExplosion.sound)
@@ -49,6 +50,7 @@ export async function proToTemp(handler, animationData, config) {
             .elevation(handler.elevation(sourceToken, data.preExplosion.options.isAbsolute, data.preExplosion.options.elevation))
             .scaleToObject(data.preExplosion.options.scale)
             .repeats(data.preExplosion.options.repeat, data.preExplosion.options.repeatDelay)
+            .playbackRate(data.preExplosion.options.playbackRate)
             .waitUntilFinished(data.preExplosion.options.wait)
     }
     if (data.explosion.sound) {
@@ -61,6 +63,7 @@ export async function proToTemp(handler, animationData, config) {
         .scaleToObject(data.explosion.options.scale)
         .repeats(data.explosion.options.repeat, data.explosion.options.repeatDelay)
         .zIndex(5)
+        .playbackRate(data.explosion.options.playbackRate)
         .waitUntilFinished(-750 + data.explosion.options.wait)
     if (data.afterImage.customPath) {
         aaSeq.effect()
@@ -104,6 +107,7 @@ export async function proToTemp(handler, animationData, config) {
                 secondarySeq.mask(currentTarget)
             }
             secondarySeq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
+            secondarySeq.playbackRate(secondary.options.playbackRate)
         }
     }
 

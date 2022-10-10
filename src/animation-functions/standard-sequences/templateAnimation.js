@@ -180,6 +180,7 @@ export async function templatefx(handler, animationData, templateDocument) {
                 secondarySeq.mask(currentTarget)
             }
             secondarySeq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
+            secondarySeq.playbackRate(secondary.options.playbackRate)
         }
     }
 
@@ -227,6 +228,7 @@ export async function templatefx(handler, animationData, templateDocument) {
         if (data.options.isMasked) {
             seq.mask(template)
         }
+        seq.playbackRate(data.options.playbackRate)
     }
 
     function buildTile(tileX, tileY, isOverhead, tileWidth, tileHeight) {

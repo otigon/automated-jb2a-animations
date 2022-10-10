@@ -121,7 +121,14 @@
                 <td>
                     <WaitDelay {animation}/>
                 </td>
-                <td></td>
+                <td>
+                    <NumberInput 
+                    {animation}
+                    label={localize("autoanimations.menus.playbackRate")}
+                    section="primary"
+                    field="playbackRate"
+                    />
+                </td>
             </tr>
         </table>
     </TJSSvgFolder>

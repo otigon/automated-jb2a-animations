@@ -11,6 +11,7 @@ export function ontoken() {
         isWait: false,
         opacity: 1,
         persistent: false,
+        playbackRate: 1,
         playOn: "default",
         repeat: 1,
         repeatDelay: 250,

@@ -16,6 +16,7 @@ export function aura() {
         isRadius: true,
         isWait: false,
         opacity: 1,
+        playbackRate: 1,
         playOn: "source",
         size: 3,
         tint: false,

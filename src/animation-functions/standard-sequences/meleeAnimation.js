@@ -100,6 +100,7 @@ export async function melee(handler, animationData) {
             } else if (!data.options.isWait) {
                 meleeSeq.delay(data.options.delay)
             }
+            meleeSeq.playbackRate(data.options.playbackRate)
         }
 
         // Secondary animation and sound
@@ -133,6 +134,7 @@ export async function melee(handler, animationData) {
                     secondarySeq.mask(currentTarget)
                 }
                 secondarySeq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
+                secondarySeq.playbackRate(secondary.options.playbackRate)
             }
         }
 
@@ -172,6 +174,7 @@ export async function melee(handler, animationData) {
             rangeSeq.missed(!currentTarget.hit)
             rangeSeq.name("rangeSpot" + ` ${currentTarget.token.id}`)
             rangeSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation))
+            rangeSeq.playbackRate(data.options.playbackRate)
 
             if (i === rangeArray.length - 1 && data.options.isWait) {
                 rangeSeq.waitUntilFinished(data.options.delay)
@@ -192,6 +195,7 @@ export async function melee(handler, animationData) {
                 returnSeq.repeats(data.options.repeat, data.options.repeatDelay)
                 returnSeq.stretchTo("rangeSpot" + ` ${currentTarget.id}`)
                 returnSeq.zIndex(data.options.zIndex)
+                returnSeq.playbackRate(data.options.playbackRate)
             }
         }
 
@@ -226,6 +230,7 @@ export async function melee(handler, animationData) {
                     secondarySeq.mask(currentTarget)
                 }
                 secondarySeq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
+                secondarySeq.playbackRate(secondary.options.playbackRate)
             }
         }
 

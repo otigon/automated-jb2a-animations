@@ -214,6 +214,7 @@ export async function aura(handler, animationData) {
         if (data.options.alpha) {
             seq.loopProperty("alphaFilter", "alpha", { from: data.options.alphaMin, to: data.options.alphaMax, duration: data.options.alphaDuration, pingPong: true })
         }
+        seq.playbackRate(data.options.playbackRate)
     }
 
     function setSecondary(token, seq) {
@@ -235,6 +236,7 @@ export async function aura(handler, animationData) {
             seq.mask(token)
         }
         seq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
+        seq.playbackRate(secondary.options.playbackRate)
     }
 
     // Macro if Concurrent

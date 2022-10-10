@@ -71,6 +71,7 @@ export async function range(handler, animationData) {
         } else if (!data.options.isWait) {
             nextSeq.delay(data.options.delay)
         }
+        nextSeq.playbackRate(data.options.playbackRate)
     }
 
     // Return Animation if Enabled
@@ -85,6 +86,7 @@ export async function range(handler, animationData) {
             returnSeq.repeats(data.options.repeat, data.options.repeatDelay)
             returnSeq.stretchTo("spot" + ` ${currentTarget.id}`)
             returnSeq.zIndex(data.options.zIndex)
+            returnSeq.playbackRate(data.options.playbackRate)
         }
     }
 
@@ -124,6 +126,7 @@ export async function range(handler, animationData) {
                 secondarySeq.mask(currentTarget)
             }
             secondarySeq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
+            secondarySeq.playbackRate(secondary.options.playbackRate)
         }
     }
     // Target animation and sound

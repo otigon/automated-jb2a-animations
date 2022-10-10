@@ -146,6 +146,7 @@ export class DataSanitizer {
                     isAbsolute: data.isAbsolute ?? false,
                     isWait: data.isWait ?? false,
                     opacity: data.opacity ?? 1,
+                    playbackRate: data.playbackRate || 1,
                     repeat: data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
                     size: data.size || 1,
@@ -160,6 +161,7 @@ export class DataSanitizer {
                     isWait: data.isWait ?? false,
                     onlyX: data.onlyX ?? false,
                     opacity: data.opacity ?? 1,
+                    playbackRate: data.playbackRate || 1,
                     repeat: data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
                     zIndex: data.zIndex || 1,
@@ -178,6 +180,7 @@ export class DataSanitizer {
                     isWait: data.isWait ?? false,
                     opacity: data.opacity ?? 1,
                     persistent: data.persistent ?? false,
+                    playbackRate: data.playbackRate || 1,
                     playOn: data.playOn || "default",
                     repeat: data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
@@ -198,6 +201,7 @@ export class DataSanitizer {
                     opacity: data.opacity ?? 1,
                     persistent: data.persistent ?? false,
                     persistType: data.persistType || "sequencerground",
+                    playbackRate: data.playbackRate || 1,
                     removeTemplate:  data.removeTemplate ?? false,
                     repeat: data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
@@ -225,6 +229,7 @@ export class DataSanitizer {
                     fadeOut: data.fadeOut ?? 500,
                     isWait: data.isWait ?? false,
                     opacity: data.opacity ?? 1,
+                    playbackRate: data.playbackRate || 1,
                     playOn: data.playOn || "source",
                     size: data.size || 3,
                     tint: data.tint ?? false,
@@ -283,6 +288,7 @@ export class DataSanitizer {
                 isRadius: options.isRadius ?? false,
                 isWait: options.isWait ?? false,
                 opacity: options.opacity || 1,
+                playbackRate: options.playbackRate || 1,
                 repeat: options.repeat || 1,
                 repeatDelay: options.repeatDelay ?? 250,
                 rotateSource: options.rotateSource ?? false,
@@ -333,6 +339,7 @@ export class DataSanitizer {
                 isRadius: options.isRadius ?? false,
                 isWait: options.isWait ?? false,
                 opacity: options.opacity || 1,
+                playbackRate: options.playbackRate || 1,
                 repeat: options.repeat || 1,
                 repeatDelay: options.repeatDelay || 1,
                 size: options.size || 1,
@@ -375,6 +382,7 @@ export class DataSanitizer {
                 sourceEffect.delay(data.options.delay)
             }
             sourceEffect.anchor({x: data.options.anchor.x, y: data.options.anchor.y})
+            sourceEffect.playbackRate(data.options.playbackRate)
         }
         return data;
     }
@@ -409,6 +417,7 @@ export class DataSanitizer {
                 //isWait: options.isWait ?? false,
                 isRadius: options.isRadius ?? false,
                 opacity: options.opacity || 1,
+                playbackRate: options.playbackRate || 1,
                 persistent: options.persistent ?? false,
                 repeat: options.repeat || 1,
                 repeatDelay: options.repeatDelay ?? 250,
@@ -551,6 +560,7 @@ export class DataSanitizer {
                     options: {
                         elevation: projectileOptions.elevation || 1000,
                         isAbsolute: projectileOptions.isAbsolute ?? false,
+                        playbackRate: projectileOptions.playbackRate || 1,
                         repeat: projectileOptions.repeat || 1,
                         repeatDelay: projectileOptions.repeatDelay || 250,
                         removeTemplate: projectileOptions.removeTemplate ?? false,
@@ -570,6 +580,7 @@ export class DataSanitizer {
                     options: {
                         elevation: preExplosionOptions.elevation ?? 1000,
                         isAbsolute: preExplosionOptions.isAbsolute ?? false,
+                        playbackRate: preExplosionOptions.playbackRate || 1,
                         repeat: preExplosionOptions.repeat || 1,
                         repeatDelay: preExplosionOptions.repeatDelay || 250,
                         scale: preExplosionOptions.scale || 1,
@@ -588,6 +599,7 @@ export class DataSanitizer {
                     options: {
                         elevation: explosionOptions.elevation ?? 1000,
                         isAbsolute: explosionOptions.isAbsolute ?? false,
+                        playbackRate: explosionOptions.playbackRate || 1,
                         repeat: explosionOptions.repeat || 1,
                         repeatDelay: explosionOptions.repeatDelay || 250,
                         scale: explosionOptions.scale || 1,
@@ -647,6 +659,7 @@ export class DataSanitizer {
                         isMasked: startOptions.isMasked ?? false,
                         isRadius: startOptions.isRadius ?? false,
                         opacity: startOptions.opacity ?? 1,
+                        playbackRate: startOptions.playbackRate || 1,
                         size: startOptions.size ?? 1,
                     },
                 },
@@ -679,6 +692,7 @@ export class DataSanitizer {
                         isMasked: endOptions.isMasked ?? false,
                         isRadius: endOptions.isRadius ?? false,
                         opacity: endOptions.opacity ?? 1,
+                        playbackRate: endOptions.playbackRate || 1,
                         size: endOptions.size ?? 1,
                     },
                 },
