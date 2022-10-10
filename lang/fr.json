@@ -1,6 +1,6 @@
 {
 	"autoanimations": {
-        "settings": {
+		"settings": {
 			"initpopup_name": "Désactiver le popup de démarrage",
 			"initpopup_hint": "Cochez cette case empêchera le popup de démarrage de s'afficher",
 			"animtab_name": "Masquer l'onglet Animation aux joueurs",
@@ -72,15 +72,15 @@
 			"wfrp4eCastOnlyOnSuccess": "Animation sur un jet réussi",
 			"wfrp4eCastOnlyOnSuccessHint": "En sélectionnant cette option, l'animation du sort/miracle/compétences sera jouée uniquement lorsque le sort/miracle/compétences a été lancé avec succès (test réussi et nombre CN atteint).",
 			"teleport": "Vous avez choisi un point hors de portée. Choisissez à nouveau",
-			"extraexplain": "Nécessite une animation primaire, soit une reconnaissance personnalisée, soit une reconnaissance automatique."
-
-
-
-
-
-			
-        },
-        "colors": {
+			"extraexplain": "Nécessite une animation primaire, soit une reconnaissance personnalisée, soit une reconnaissance automatique.",
+			"restoreHint": "Effacer le menu actuel et restaurer la configuration par défaut",
+			"mergeHint": "Fusionner un nouveau menu dans votre menu existant",
+			"exportHint": "Exporter votre menu vers un fichier JSON",
+			"overwriteWarn": "Écraser effacera votre menu existant",
+			"restoreDefault": "Restaurer le menu par défaut",
+			"overwriteHint": "Effacer le menu actuel et importer un nouveau menu"
+		},
+		"colors": {
 			"lightorange": "Orange clair",
 			"bluegreen": "Bleu Vert",
 			"palegreen": "Vert pâle",
@@ -120,7 +120,7 @@
 			"rainbow": "Arc-en-ciel",
 			"white": "Blanc",
 			"yellowwhite": "Blanc",
-			"darkorangepurple": "Orange foncée Pourpre",
+			"darkorangepurple": "Orange foncé Pourpre",
 			"darkgreenpurple": "Vert foncé Violet",
 			"darkteal": "Sarcelle foncé",
 			"darkorange": "Orange foncé",
@@ -133,20 +133,19 @@
 			"brightblue": "Bleu vif",
 			"purplegreen": "Vert pourpre",
 			"greenred": "Vert Rouge",
-			"orangeyellow": "Jaune orangé"
-
-
-        },
-        "animations": {
+			"orangeyellow": "Jaune orangé",
+			"blackyellow": "Noir Jaune",
+			"blackblue": "Noir Bleu"
+		},
+		"animations": {
 			"coneofcold": "Cône de froid",
-			"breathweaponspray01": "Arme à souffle Spray 01",
-			"breathweaponspray02": "Arme à souffle Spray 02",
+			"breathweaponspray01": "Arme de souffle aspersion 01",
+			"breathweaponspray02": "Arme de souffle Aspersion 02",
 			"sacredflame": "Flamme sacrée",
 			"loop": "Boucle",
 			"complete": "Complète",
 			"strands": "Strands",
-
-			"dart": "Dart",
+			"dart": "Fléchette",
 			"inwarddots": "Pointes vers l'intérieur",
 			"inwardstars": "Étoiles intérieures",
 			"curewounds": "Soin des blessures",
@@ -202,7 +201,7 @@
 			"moonbeam": "Rayon de lune",
 			"staticelectricity": "Électricité statique",
 			"dodecahedron": "Dodécaèdre",
-			"drop": "Drop",
+			"drop": "Goutte",
 			"fear": "Peur",
 			"heart": "Cœur",
 			"horror": "Horreur",
@@ -287,22 +286,22 @@
 			"siegeboulder": "Boulet de siège",
 			"sling": "Fronde",
 			"unarmedstrike": "Attaques à mains nues",
-			"1hb": "1 Mains Contendante",
-			"1hp": "1 Mains Perçante",
-			"1hs": "1 Mains Tranchate",
-			"2hb": "2 Mains Contendante",
-			"2hp": "2 Mains Perçante",
-			"2hs": "2 Mains Tranchante",
+			"1hb": "1 Mains Contondant",
+			"1hp": "1 Mains Perforant",
+			"1hs": "1 Mains Tranchant",
+			"2hb": "2 Mains Contondant",
+			"2hp": "2 Mains Perforant",
+			"2hs": "2 Mains Tranchant",
 			"claw": "Griffe",
 			"bite": "Morsure",
-			"flurryofblows": "Rafale de coups",
+			"flurryofblows": "Déluge de coups",
 			"sneakattack": "Attaque sournoise",
 			"bullet": "Balle",
 			"bolt": "Carreau",
 			"snipe": "Snipe",
 			"chakram": "Chakram",
 			"falchion": "Fauchon",
-			"glaive": "Glaive",
+			"glaive": "Coutille",
 			"club": "Gourdin",
 			"hammer": "Marteau",
 			"warhammer": "Marteau de guerre",
@@ -312,46 +311,45 @@
 			"quarterstaff": "Bâton de chasse",
 			"crossbow": "Arbalète",
 			"bow": "Arc",
-
-
-
-
-
-
-			"leaves": "Feuilles"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        },
-        "variants": {
-            "1":"01",
-            "2":"02",
-            "3":"03",
-            "01":"01",
-            "02":"02",
-            "03":"03",
-            "04":"04",
-            "05":"05",
-            "06":"06",
-            "07":"07",
-            "08":"08",
-            "09":"09",
-            "10":"10",
-            "11":"11",
-            "12":"12",
-            "13":"13",
+			"leaves": "Feuilles",
+			"bone": "Os",
+			"frightened": "Effrayé",
+			"bomb": "Bombe",
+			"cannonball": "Boulet de canon",
+			"flask": "Flasque",
+			"grenade": "Grenade",
+			"grenadelaunch": "Lance grenade",
+			"missile": "Projectile",
+			"single": "Unique",
+			"few": "Peu",
+			"water": "Eau",
+			"circle": "Cercle",
+			"ring": "Anneau",
+			"square": "Carré",
+			"blob": "Blob",
+			"intro": "Intro",
+			"reverse": "Inversé",
+			"explosion": "Explosion",
+			"diamond": "Diamant",
+			"many": "Beaucoup"
+		},
+		"variants": {
+			"1": "01",
+			"2": "02",
+			"3": "03",
+			"01": "01",
+			"02": "02",
+			"03": "03",
+			"04": "04",
+			"05": "05",
+			"06": "06",
+			"07": "07",
+			"08": "08",
+			"09": "09",
+			"10": "10",
+			"11": "11",
+			"12": "12",
+			"13": "13",
 			"magical": "Magique",
 			"physical": "Physique",
 			"nohit": "Pas de coup",
@@ -365,7 +363,7 @@
 			"secondary": "Secondaire",
 			"square": "Carré",
 			"circle": "Cercle",
-			"reverse": "Inverser",
+			"reverse": "Inversé",
 			"simple": "Simple",
 			"rolled": "Jet",
 			"runeabove": "Rune au dessus",
@@ -375,7 +373,7 @@
 			"starabove": "Étoile au-dessus",
 			"starbelow": "Étoile en dessous",
 			"chevron": "Chevron",
-			"drop": "Drop",
+			"drop": "Goutte",
 			"fear": "Peur",
 			"heart": "Cœur",
 			"horror": "Horreur",
@@ -406,7 +404,6 @@
 			"left": "Gauche",
 			"mid": "Milieu",
 			"center": "Centre",
-
 			"noring": "Aucun anneau",
 			"bell": "Cloche",
 			"shockwave": "Onde de choc",
@@ -420,13 +417,14 @@
 			"burst": "Éclat",
 			"acid": "Acide",
 			"slow": "Lent",
-			"fast": "Rapide"	
-
-
-
-
-        },
-        "menuTypes": {
+			"fast": "Rapide",
+			"symbol": "Symbole",
+			"elemental": "Élémentaire",
+			"nature": "Nature",
+			"void": "Vide",
+			"stick": "Bâton"
+		},
+		"menuTypes": {
 			"creature": "Attaque de créature",
 			"generic": "Générique",
 			"weapon": "Arme",
@@ -442,31 +440,31 @@
 			"music": "Musique",
 			"particles": "Particules",
 			"shieldfx": "Effets de bouclier",
-			"tokenborder": "Bordure du token",
+			"tokenborder": "Bordure du jeton",
 			"trap": "Piège",
 			"cone": "Cône",
 			"square": "Carré",
 			"circle": "Cercle",
 			"ray": "Rayon",
-			"leaves": "Feuilles"
-
-
-
-
-
-
-		
-        },
-        "animTypes": {
-			"melee": "Mêlée",
+			"leaves": "Feuilles",
+			"chains": "Chaines",
+			"shrapnel": "Shrapnels",
+			"shieldspell": "Bouclier",
+			"eyes": "Yeux",
+			"plants": "Plante",
+			"vines": "Lianes",
+			"sideImpact": "Impact de côté"
+		},
+		"animTypes": {
+			"melee": "Corps-à-corps",
 			"range": "Portée",
 			"ontoken": "Sur le Token",
 			"preset": "Préréglages",
 			"templatefx": "Modèles",
-			"aura": "Aura"
-
+			"aura": "Aura",
+			"aefx": "Effets actifs"
 		},
-        "presetTypes": {
+		"presetTypes": {
 			"bardicinspiration": "Inspiration bardique",
 			"bless": "Bénédiction",
 			"dualattach": "Double attache",
@@ -476,10 +474,10 @@
 			"sneakattack": "Attaque sournoise",
 			"animTeleportation": "Téléportation",
 			"thunderwave": "Onde de choc",
-			"prototemp": "Projectile vers gabarit"
-        },
-        "menus": {
-
+			"prototemp": "Projectile vers gabarit",
+			"proToTemp": "Projectile vers le modèle"
+		},
+		"menus": {
 			"primary": "Primaire",
 			"animation": "Animation",
 			"extra": "Extra",
@@ -496,7 +494,7 @@
 			"macro": "Macro",
 			"add": "Ajouter",
 			"customize": "Personnaliser",
-            "override": "Passer outre",
+			"override": "Passer outre",
 			"autorecognized": "est configuré dans les Paramètres globaux",
 			"playwhen": "Quand jouer",
 			"macroconcurrent": "En même temps que l'animation",
@@ -506,15 +504,14 @@
 			"args": "Envoyer les arguments",
 			"melee": "Mêlée",
 			"ranged": "Portée",
-			"switch": "Switch",
+			"switch": "Échange",
 			"custom": "Personnalisé",
 			"return": "Retour",
 			"variant": "Variante",
 			"color": "Couleur",
 			"rangeDetect": "Détection de la portée",
 			"gridSquares": "Carrés de la grille pour l'interrupteur  de portée",
-			"below": "En dessous de Token",
-
+			"below": "En dessous du jeton",
 			"explosion": "Explosion",
 			"radius": "Rayon (carrés de la grille)",
 			"sound": "Sons",
@@ -523,12 +520,6 @@
 			"volume": "Volume (0-1)",
 			"delay": "Délai",
 			"persistant": "Persistant",
-
-
-
-
-
-
 			"alpha": "Alpha",
 			"repeat": "Répéter",
 			"scale": "Échelle",
@@ -543,7 +534,7 @@
 			"sequencereffect": "Effet de Sequencer",
 			"attachtotemplate": "Attacher au modèle",
 			"occlusionMode": "Mode Occlusion",
-			"occlusion01": "Fondu (Carreau entier)",
+			"occlusion01": "Fondu (Tuile entière)",
 			"occlusion02": "Toit (bloque la vision et l'éclairage)",
 			"occlusion03": "Radial (entourant le token)",
 			"occlusion00": "Aucun (toujours visible)",
@@ -573,56 +564,34 @@
 			"merge": "Fusionner",
 			"menuImport": "Menu de reconnaissance automatique Écraser / Fusionner",
 			"wait": "Attendre",
-
 			"addAfterImage": "Ajouter après l'image",
-
-
-
-
-
-
-			"token": "Token",
-
-
-
-
-
-			"export": "Exporter les options",
-
-
-			
-
+			"token": "Jeton",
+			"export": "Exporter",
 			"musicnote": "Notes de musique",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			
-
-
-			"damage": "dégâts"
-        },
-        "optionsInfo": {
-
-        }
-    }
+			"mask": "Masque",
+			"above": "Au dessus du jeton",
+			"not": "Pas",
+			"z-index": "Index-Z",
+			"visibility": "Visibilité",
+			"bound": "Lié",
+			"unbound": "Non lié",
+			"video": "Vidéo",
+			"between": "Entre",
+			"yes": "Oui",
+			"no": "Non",
+			"automatic": "Automatique",
+			"manual": "Manuel",
+			"preview": "Aperçu",
+			"menuManager": "Gestionnaire de menu",
+			"section": "Section",
+			"menu": "Menu",
+			"copy": "Copier",
+			"path": "Chemin",
+			"ammunition": "Munition",
+			"persistence": "Persistance",
+			"pre": "Pré",
+			"width": "Largeur",
+			"quickReference": "Référence rapide"
+		}
+	}
 }
