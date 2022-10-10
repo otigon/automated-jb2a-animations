@@ -4,6 +4,7 @@
     import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
 
     import NumberInput      from "../../Components/options/inputComponents/NumberInput.svelte";
+    import Elevation        from "../../Components/options/inputComponents/Elevation.svelte";
     import ScaleRadius      from "../../Components/options/inputComponents/ScaleRadius.svelte";
     import Opacity          from "../../Components/options/inputComponents/Opacity.svelte";
     import OptionsDialog    from "../../Components/options/optionsInfoDialog.js";
@@ -51,12 +52,7 @@
             <tr>
                 <td>
                     <!--Set Elevation of Animation-->
-                    <NumberInput
-                    {animation}
-                    label={localize("autoanimations.menus.elevation")}
-                    section={"primary"}
-                    field={"elevation"}
-                />
+                    <Elevation {animation} section="primary" />
                 </td>
                 <td>
                     <!--Set Number of times the animation plays-->

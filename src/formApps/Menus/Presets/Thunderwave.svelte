@@ -5,6 +5,7 @@
 
     import SectionHeader    from "../Components/SectionHeader.svelte";
     import SoundSettings    from "../Components/SoundSettings.svelte";
+    import Elevation        from "../Components/options/inputComponents/Elevation.svelte";
     import Opacity          from "./inputComponents/Opacity02.svelte";
     import OptionsDialog    from "../Components/options/optionsInfoDialog.js";
 
@@ -57,19 +58,7 @@
             <table class="d">
                 <tr>
                     <td>
-                        <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.elevation")}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.options.elevation}
-                                placeholder="1"
-                                step="1"
-                            />
-                        </div>
+                        <Elevation {animation} section="data" />
                     </td>
                     <td>
                         <div>

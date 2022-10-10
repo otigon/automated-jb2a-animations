@@ -2,10 +2,11 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
 
-    import VideoSelect from "../Components/VideoSelect.svelte";
-    import Opacity from "./inputComponents/Opacity.svelte";
-    import OptionsDialog from "../Components/options/optionsInfoDialog.js";
-    import ScaleRadius from "./inputComponents/ScaleRadius.svelte";
+    import VideoSelect      from "../Components/VideoSelect.svelte";
+    import Opacity          from "./inputComponents/Opacity.svelte";
+    import Elevation        from "./inputComponents/Elevation.svelte";
+    import OptionsDialog    from "../Components/options/optionsInfoDialog.js";
+    import ScaleRadius      from "./inputComponents/ScaleRadius.svelte";
 
     export let animation;
     export let category;
@@ -276,22 +277,7 @@
                                 </div>
                             </td>
                             <td>
-                                <div>
-                                    <label for=""
-                                        >{localize(
-                                            "autoanimations.menus.elevation"
-                                        )}</label
-                                    >
-                                </div>
-                                <div>
-                                    <input
-                                        type="number"
-                                        bind:value={$animation.data.start
-                                            .options.elevation}
-                                        placeholder="1"
-                                        step="1"
-                                    />
-                                </div>
+                                <Elevation {animation} section="start" />
                             </td>
                             <td>
                                 <!--Set Size of Animation-->
@@ -399,22 +385,7 @@
                     <table class="d">
                         <tr>
                             <td>
-                                <div>
-                                    <label for=""
-                                        >{localize(
-                                            "autoanimations.menus.elevation"
-                                        )}</label
-                                    >
-                                </div>
-                                <div>
-                                    <input
-                                        type="number"
-                                        bind:value={$animation.data.between
-                                            .options.elevation}
-                                        placeholder="1"
-                                        step="1"
-                                    />
-                                </div>
+                                <Elevation {animation} section="between" />
                             </td>
                             <td>
                                 <div>
@@ -505,22 +476,7 @@
                                 </div>
                             </td>
                             <td>
-                                <div>
-                                    <label for=""
-                                        >{localize(
-                                            "autoanimations.menus.elevation"
-                                        )}</label
-                                    >
-                                </div>
-                                <div>
-                                    <input
-                                        type="number"
-                                        bind:value={$animation.data.end.options
-                                            .elevation}
-                                        placeholder="1"
-                                        step="1"
-                                    />
-                                </div>
+                                <Elevation {animation} section="end" />
                             </td>
                             <td>
                                 <!--Set Size of Animation-->

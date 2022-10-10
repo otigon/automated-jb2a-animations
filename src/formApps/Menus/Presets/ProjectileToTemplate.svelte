@@ -6,6 +6,7 @@
     import VideoSelect      from "../Components/VideoSelect.svelte";
     import SoundSettings    from "../Components/SoundSettingsNested.svelte";
     import Opacity          from "./inputComponents/Opacity.svelte";
+    import Elevation        from "./inputComponents/Elevation.svelte";
     import OptionsDialog    from "../Components/options/optionsInfoDialog.js";
     import * as settings    from "../Components"
     export let animation;
@@ -65,19 +66,7 @@
             <table class="d">
                 <tr>
                     <td>
-                        <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.elevation")}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.projectile.options.elevation}
-                                placeholder="1"
-                                step="1"
-                            />
-                        </div>
+                        <Elevation {animation} section="projectile" />
                     </td>
                     <td>
                         <div>
@@ -176,19 +165,7 @@
                     <table class="d">
                         <tr>
                             <td>
-                                <div>
-                                    <label for=""
-                                        >{localize("autoanimations.menus.elevation")}</label
-                                    >
-                                </div>
-                                <div>
-                                    <input
-                                        type="number"
-                                        bind:value={$animation.data.preExplosion.options.elevation}
-                                        placeholder="1"
-                                        step="1"
-                                    />
-                                </div>
+                                <Elevation {animation} section="preExplosion" />
                             </td>
                             <td>
                                 <div>
@@ -285,19 +262,7 @@
             <table class="d">
                 <tr>
                     <td>
-                        <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.elevation")}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.explosion.options.elevation}
-                                placeholder="1"
-                                step="1"
-                            />
-                        </div>
+                        <Elevation {animation} section="explosion" />
                     </td>
                     <td>
                         <div>
@@ -415,19 +380,7 @@
             <table class="d">
                 <tr>
                     <td>
-                        <div>
-                            <label for=""
-                                >{localize("autoanimations.menus.elevation")}</label
-                            >
-                        </div>
-                        <div>
-                            <input
-                                type="number"
-                                bind:value={$animation.data.afterImage.options.elevation}
-                                placeholder="1"
-                                step="1"
-                            />
-                        </div>
+                        <Elevation {animation} section="afterImage" />
                     </td>
                     <td>
                         <!--Set Persistence-->

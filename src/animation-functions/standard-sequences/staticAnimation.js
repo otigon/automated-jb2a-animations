@@ -298,7 +298,7 @@ export async function ontoken(handler, animationData) {
         seq.file(bottomAnim)
         seq.opacity(data.options.opacity)
         seq.size(size, { gridUnits: true })
-        seq.elevation(0)
+        seq.elevation(token.document.elevation)
         if (data.options.isMasked) {
             bottomEffect.mask(token)
         }
@@ -319,7 +319,7 @@ export async function ontoken(handler, animationData) {
         seq.file(data.path.fileData)
         seq.opacity(data.options.opacity)
         seq.size(size, { gridUnits: true })
-        seq.elevation(1000)
+        seq.elevation(token.document.elevation + 1)
         if (data.options.isMasked) {
             seq.mask(token)
         }
@@ -339,7 +339,7 @@ export async function ontoken(handler, animationData) {
         seq.file(data.path.file)
         seq.opacity(data.options.opacity)
         seq.size(size, { gridUnits: true })
-        seq.elevation(data.options.elevation)
+        seq.elevation(data.options.isAbsolute ? data.options.elevation : token.document.elevation + data.options.elevation)
         if (data.options.isMasked) {
             seq.mask(token)
         }
@@ -363,7 +363,7 @@ export async function ontoken(handler, animationData) {
         seq.atLocation(token)
         seq.file(secondary.path?.file, true)
         seq.size(size, { gridUnits: true })
-        seq.elevation(secondary.options.elevation)
+        seq.elevation(data.options.isAbsolute ? data.options.elevation : token.document.elevation + secondary.options.elevation)
         seq.zIndex(secondary.options.zIndex)
         seq.opacity(secondary.options.opacity)
         seq.fadeIn(secondary.options.fadeIn)

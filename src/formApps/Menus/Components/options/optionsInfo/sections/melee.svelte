@@ -17,7 +17,9 @@
         <td class="aa-table">
             <strong>{localize("autoanimations.menus.elevation")}</strong>
         </td>
-        <td> Set the Elevation for the Animation. Elevation of "0" is below all tokens </td>
+        <td> Set the Elevation for the Animation relative to the Source Token. Elevation of "0" is below the token <br>
+            <strong>ABS</strong>: <i>If Enabled, switches Elevation to be Absolute and disregard the Token elevation</i>
+        </td>
     </tr>
     <tr>
         <td class="aa-table">

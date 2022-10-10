@@ -289,7 +289,6 @@ export async function version05(flags, isActiveEffect) {
             case "ontoken":
                 data.addTokenWidth = false;
                 data.anchor = "0.5";
-                data.anchor = {x: 0.5, y: 0.5};
                 data.delay = 0;
                 data.elevation = oldMO.below ? 0 : 1000;
                 data.fadeIn = 250;

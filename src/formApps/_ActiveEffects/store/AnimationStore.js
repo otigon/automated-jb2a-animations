@@ -280,7 +280,7 @@ export class AnimationStore extends ObjectEntryStore {
       if (menu === "default") {
          custom_warning("You are attempting to copy an Item to the Global menu, but you haven't configured the item!")
       }
-      let data = structuredClone(this._data);
+      let data = foundry.utils.deepClone(this._data);
       data.id = uuidv4();
       data.label = label;
 

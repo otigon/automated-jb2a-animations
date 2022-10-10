@@ -244,7 +244,7 @@ export default class systemData {
         targetEffect.size(setSize, { gridUnits: true })
         targetEffect.origin(this.itemUuid)
         targetEffect.repeats(targetFX.options.repeat, targetFX.options.repeatDelay)
-        targetEffect.elevation(targetFX.options.elevation)
+        targetEffect.elevation(targetFX.options.isAbsolute ? targetFX.options.elevation : target.document.elevation + targetFX.options.elevation)
         if (targetFX.options.isMasked) {
             targetEffect.mask(target)
         }
