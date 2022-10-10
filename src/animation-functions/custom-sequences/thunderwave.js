@@ -48,7 +48,7 @@ export async function thunderwave(handler, animationData, config) {
         .rotate(angle)
         .opacity(data.options.opacity)
         .size(3, { gridUnits: true })
-        .elevation(data.options.isAbsolute ? data.options.elevation : sourceToken.document.elevation + data.options.elevation)
+        .elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation))
         .repeats(data.options.repeat, data.options.repeatDelay)
 
     if (macro && macro.playWhen === "0") {

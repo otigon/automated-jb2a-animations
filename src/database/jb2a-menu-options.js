@@ -108,7 +108,7 @@ async function menuOptions(database) {
     */
     //await addRandom(aaColorMenu)
     //await remove_Template(aaTypeMenu)
-    console.log( {newTypeMenu, newNameMenu, newVariantMenu, newColorMenu} )
+    //console.log( {newTypeMenu, newNameMenu, newVariantMenu, newColorMenu} )
 }
 
 export { aaReturnWeapons, newTypeMenu, newNameMenu, newVariantMenu, newColorMenu, aaRangeWeapons }

@@ -12,12 +12,12 @@ async function runPf2e(msg) {
     if (!handler.item || !handler.sourceToken) {
         return;
     }
-
+    const damageTranslated = game.i18n.localize('autoanimations.menus.damage')
     const itemType = handler.itemType;
     let damage; //= /*handler.item.damageValue ||*/ //handler.item?.data.data.damage?.length || handler.item?.data?.data?.damage?.value["0"]?.value;
     const spellType = handler.item?.system?.spellType?.value ?? "utility";
     const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
-    if (handler.shouldPlayImmediately && !msg.flavor?.toLowerCase().includes("damage")) {
+    if (handler.shouldPlayImmediately && !msg.flavor?.toLowerCase().includes(damageTranslated)) {
         trafficCop(handler);
         return;
     }
@@ -29,14 +29,14 @@ async function runPf2e(msg) {
                 case "utility":
                     if (!damage) {
                         trafficCop(handler);
-                    } else if (msg.flavor?.toLowerCase().includes("damage")) {
+                    } else if (msg.flavor?.toLowerCase().includes(damageTranslated)) {
                         trafficCop(handler);
                     }
                     break;
                 case "save":
                     if (!damage) {
                         trafficCop(handler);
-                    } else if (msg.flavor?.toLowerCase().includes("damage")) {
+                    } else if (msg.flavor?.toLowerCase().includes(damageTranslated)) {
                         trafficCop(handler);
                     }
                     break;
@@ -51,7 +51,7 @@ async function runPf2e(msg) {
                 case "attack":
                     switch (playOnDmg) {
                         case true:
-                            if (msg.flavor?.toLowerCase().includes("damage")) {
+                            if (msg.flavor?.toLowerCase().includes(damageTranslated)) {
                                 trafficCop(handler);
                             }
                             break;

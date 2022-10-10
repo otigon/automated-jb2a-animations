@@ -618,7 +618,8 @@
             "rotation": "Rotation",
             "sideImpact": "Side Impact",
             "anchor": "Anchor",
-            "insertMacro": "Insert Macro Name"
+            "insertMacro": "Insert Macro Name",
+            "damage": "damage"
         },
         "optionsInfo": {
 

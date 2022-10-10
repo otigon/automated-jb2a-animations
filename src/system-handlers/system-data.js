@@ -176,6 +176,11 @@ export default class systemData {
         return this.flags.macro?.enable && this.flags.macro?.name
     }
 
+    elevation(token = {}, abs = false, level = 0) {
+        let canvasObjectElevation = token.document?.elevation ?? 0;
+        return abs ? level : canvasObjectElevation + level; 
+    }
+
     getSize(isRadius = false, size = 1, token, addToken = false) {
         return isRadius 
             ? addToken ? (size * 2) + (token.w / canvas.grid.size) : size * 2 

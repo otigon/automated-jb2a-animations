@@ -93,7 +93,7 @@ export async function melee(handler, animationData) {
             meleeSeq.randomizeMirrorY()
             meleeSeq.missed(!currentTarget.hit)
             meleeSeq.name("spot" + ` ${currentTarget.token.id}`)
-            meleeSeq.elevation(data.options.isAbsolute ? data.options.elevation : sourceToken.document.elevation + data.options.elevation)
+            meleeSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation))
             meleeSeq.zIndex(data.options.zIndex)
             if (i === meleeArray.length - 1 && data.options.isWait) {
                 meleeSeq.waitUntilFinished(data.options.delay)
@@ -120,7 +120,7 @@ export async function melee(handler, animationData) {
                 } else if (!secondary.options.isWait) {
                     secondarySeq.delay(secondary.options.delay)
                 }
-                secondarySeq.elevation(secondary.options.isAbsolute ? secondary.options.elevation : currentTarget.document.elevation + secondary.options.elevation)
+                secondarySeq.elevation(handler.elevation(currentTarget, secondary.options.isAbsolute, secondary.options.elevation))
                 secondarySeq.zIndex(secondary.options.zIndex)
                 secondarySeq.opacity(secondary.options.opacity)
                 secondarySeq.fadeIn(secondary.options.fadeIn)
@@ -171,7 +171,7 @@ export async function melee(handler, animationData) {
             rangeSeq.repeats(data.options.repeat, data.options.repeatDelay)
             rangeSeq.missed(!currentTarget.hit)
             rangeSeq.name("rangeSpot" + ` ${currentTarget.token.id}`)
-            rangeSeq.elevation(data.options.isAbsolute ? data.options.elevation : sourceToken.document.elevation + data.options.elevation)
+            rangeSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation))
 
             if (i === rangeArray.length - 1 && data.options.isWait) {
                 rangeSeq.waitUntilFinished(data.options.delay)
@@ -213,7 +213,7 @@ export async function melee(handler, animationData) {
                 } else if (!secondary.options.isWait) {
                     secondarySeq.delay(secondary.options.delay)
                 }
-                secondarySeq.elevation(secondary.options.isAbsolute ? secondary.options.elevation : currentTarget.document.elevation + secondary.options.elevation)
+                secondarySeq.elevation(handler.elevation(currentTarget, secondary.options.isAbsolute, secondary.options.elevation))
                 secondarySeq.zIndex(secondary.options.zIndex)
                 secondarySeq.opacity(secondary.options.opacity)
                 secondarySeq.fadeIn(secondary.options.fadeIn)

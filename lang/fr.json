@@ -592,7 +592,7 @@
 
 			
 
-			"musicnote": "Notes de musique"
+			"musicnote": "Notes de musique",
 
 
 
@@ -619,6 +619,7 @@
 			
 
 
+			"damage": "dégâts"
         },
         "optionsInfo": {
 

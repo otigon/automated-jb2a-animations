@@ -6,6 +6,10 @@ export function registerActiveEffectHooks() {
     switch (game.system.id) {
         case 'pf2e':
             Hooks.on("createItem", (item, data, userId) => {
+                if (game.settings.get("autoanimations", "disableAEAnimations")) {
+                    debug(`Active Effect Animations are Disabled`);
+                    return;
+                }    
                 if (game.user.id !== userId) { return; }
                 createRuleElementPF2e(item);
             })

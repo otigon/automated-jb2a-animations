@@ -170,6 +170,19 @@ export function initSettings(gameSettings) {
       }
    });
 
+   settings.push({
+      namespace,
+      key: 'disableAEAnimations',
+      options: {
+         name: 'autoanimations.settings.disableAEAnimations',
+         hint: 'autoanimations.settings.disableAEAnimationsHint',
+         scope: scope.world,
+         type: Boolean,
+         default: false,
+         config: true,
+      }
+   });
+
    switch (game.system.id) {
       case "cyphersystem":
          settings.push({
@@ -368,18 +381,6 @@ export function initSettings(gameSettings) {
 
       case 'dnd5e':
       case 'sw5e':
-         settings.push({
-            namespace,
-            key: 'disableAEAnimations',
-            options: {
-               name: 'autoanimations.settings.disableAEAnimations',
-               hint: 'autoanimations.settings.disableAEAnimationsHint',
-               scope: scope.world,
-               type: Boolean,
-               default: false,
-               config: true,
-            }
-         });
 
          if (game.modules.get('midi-qol')?.active) {
             settings.push({
@@ -534,18 +535,6 @@ export function initSettings(gameSettings) {
          break;
 
       case 'pf1':
-         settings.push({
-            namespace,
-            key: 'disableAEAnimations',
-            options: {
-               name: 'autoanimations.settings.disableAEAnimations',
-               hint: 'autoanimations.settings.disableAEAnimationsHint',
-               scope: scope.world,
-               type: Boolean,
-               default: false,
-               config: true,
-            }
-         });
          break;
       case "wfrp4e":
          settings.push({
