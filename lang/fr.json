@@ -553,7 +553,7 @@
 			"projectile": "Projectile",
 			"ignoreTargets": "Ignorer les cibles",
 			"options": "Options",
-			"markerColor": "Couleur de son propre marqueur",
+			"markerColor": "Couleur de son marqueur",
 			"markerColorTarget": "Couleur du marqueur Cible",
 			"playbackRate": "Taux de lecture",
 			"anchorX": "Ancre X",
@@ -620,8 +620,8 @@
 			"globalFound": "Correspondance globale trouvée",
 			"globalNotFound": "Correspondance globale non trouvée",
 			"movement": "Déplacement",
-			"tint": "teinte",
-			"fadeOut": "Fondu Inversé"
+			"tint": "Teinte",
+			"fadeOut": "Fondu"
 		},
 		"app": {
 			"aaAutorec-range": {
