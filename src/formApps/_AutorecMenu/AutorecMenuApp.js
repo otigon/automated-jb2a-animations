@@ -1,10 +1,20 @@
-import { SvelteApplication }    from "@typhonjs-fvtt/runtime/svelte/application";
+import {
+    SvelteApplication,
+    TJSDialog }         from "@typhonjs-fvtt/runtime/svelte/application";
 
-import { AutorecAppShell }      from "./components";
+import {
+    AAGameSettings,
+    AutorecAppShell }   from "./components";
 
-import { constants }            from "../../constants.js";
+import { constants }    from "../../constants.js";
 
 export default class AutorecMenuApp extends SvelteApplication {
+    /**
+     * Keeps a reference to any open game settings dialog.
+     * @type {TJSDialog}
+     */
+    #settingsDialog;
+
     /** @inheritDoc */
     constructor(options)
     {
@@ -45,6 +55,46 @@ export default class AutorecMenuApp extends SvelteApplication {
         Object.values(ui.windows).filter(app => app.id === "Options-Information" ||
          app.id === "AA-Video-Preview" || app.id === "Autorec-Menu-Manager").forEach(app => app.close());
 
+        // Close any associated settings dialog.
+        if (this.#settingsDialog)
+        {
+            this.#settingsDialog.close();
+            this.#settingsDialog = void 0;
+        }
+
         return super.close(options);
+    }
+
+    /**
+     * Specify the set of config buttons which should appear in the Application header. Buttons should be returned as an
+     * Array of objects.
+     *
+     * Provides an explicit override of Application._getHeaderButtons to add
+     *
+     * @returns {ApplicationHeaderButton[]} The app header buttons.
+     * @override
+     */
+    _getHeaderButtons()
+    {
+        const buttons = super._getHeaderButtons();
+
+        buttons.unshift({
+            class: 'settings',
+            label: 'Settings',
+            icon: 'fa-regular fa-gear',
+
+            onclick: () =>
+            {
+                this.#settingsDialog = this.#settingsDialog ? this.#settingsDialog : new TJSDialog(
+                {
+                   title: 'AutoAnimations Settings',
+                   content: AAGameSettings
+                }, { id: 'aa-autorec-settings-dialog' });
+
+                this.#settingsDialog.render(true, { focus: true });
+            }
+        });
+
+        return buttons;
     }
 }
