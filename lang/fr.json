@@ -332,7 +332,9 @@
 			"explosion": "Explosion",
 			"diamond": "Diamant",
 			"many": "Beaucoup",
-			"spike": "Pique"
+			"spike": "Pique",
+			"outro_explode": "Explosion en Outro",
+			"outro_fade": "Fondu en Outro"
 		},
 		"variants": {
 			"1": "01",
@@ -617,7 +619,8 @@
 			"3dcanvas": "3d Canvas",
 			"globalFound": "Correspondance globale trouvée",
 			"globalNotFound": "Correspondance globale non trouvée",
-			"movement": "Déplacement"
+			"movement": "Déplacement",
+			"tint": "Teinte"
 		},
 		"app": {
 			"aaAutorec-range": {
