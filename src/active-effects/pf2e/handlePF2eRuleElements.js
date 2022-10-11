@@ -32,7 +32,7 @@ export async function createRuleElementPF2e(item) {
         activeEffect: true,
     }
     let handler = await systemData.make(null, null, data);
-    if (!handler.autorecObject && !handler.isCustomized) {
+    if (!handler.isEnabled || (!handler.autorecObject && !handler.isCustomized)) {
         debug("Active Effect has no animation defined, exiting early", handler)
         return;
     }
@@ -60,7 +60,7 @@ export async function deleteRuleElementPF2e(item) {
     };
 
     const handler = await systemData.make(null, null, data);
-    if (!handler.autorecObject && !handler.isCustomized) {
+    if (!handler.isEnabled || (!handler.autorecObject && !handler.isCustomized)) {
         debug("Active Effect has no animation defined, exiting early", handler)
         return;
     }

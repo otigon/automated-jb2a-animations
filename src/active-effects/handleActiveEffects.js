@@ -39,7 +39,7 @@ export async function createActiveEffects(effect) {
     }
 
     let handler = await systemData.make(null, null, data);
-    if (!handler.autorecObject && !handler.isCustomized) {
+    if (!handler.isEnabled || (!handler.autorecObject && !handler.isCustomized)) {
         debug("Active Effect has no animation defined, exiting early", handler)
         return;
     }
@@ -65,7 +65,7 @@ export async function deleteActiveEffects(effect) {
 
     // Compile data for the system handler
     const handler = await systemData.make(null, null, data);
-    if (!handler.autorecObject && !handler.isCustomized) {
+    if (!handler.isEnabled || (!handler.autorecObject && !handler.isCustomized)) {
         debug("Active Effect has no animation defined, exiting early", handler)
         return;
     }
