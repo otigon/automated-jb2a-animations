@@ -355,7 +355,7 @@
 			"13": "13",
 			"magical": "Magique",
 			"physical": "Physique",
-			"nohit": "Pas de coup",
+			"nohit": "Raté",
 			"fire": "Feu",
 			"regular": "Défaut",
 			"poison": "Poison",
@@ -620,7 +620,8 @@
 			"globalFound": "Correspondance globale trouvée",
 			"globalNotFound": "Correspondance globale non trouvée",
 			"movement": "Déplacement",
-			"tint": "Teinte"
+			"tint": "Teinte",
+			"fadeOut": "Fondu Inversé"
 		},
 		"app": {
 			"aaAutorec-range": {
