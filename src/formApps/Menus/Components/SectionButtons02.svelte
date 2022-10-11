@@ -5,16 +5,17 @@
 
     export let animation;
     export let category;
-    export let idx;
+    //export let idx;
     export let type = "autorec";
 
     $: currentIDX = category.stores.videoIDX;
 
     async function seePreview() {
+        const index = category._data.findIndex(x => x.id === $animation.id)
         if (type === "item") {
             currentIDX.set("item");
         } else {
-            currentIDX.set(idx);
+            currentIDX.set(index);
         }
         currentStore.set(category);
         category.loadPreviews(category);

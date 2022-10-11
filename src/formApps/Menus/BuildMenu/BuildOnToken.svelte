@@ -19,7 +19,7 @@
     $: macroPlay = $animation.macro.playWhen;
 </script>
 
-<svelte:component this={settings.SectionButtons01} bind:show3d {animation} {category} {idx} type={fromMenu}/>
+<svelte:component this={settings.SectionButtons01} bind:show3d {animation} {category} type={fromMenu}/>
 {#if show3d && !soundOnly}
     <svelte:component this={settings.Canvas3D} {animation}  {category} {idx} />
 {:else}

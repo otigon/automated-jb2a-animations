@@ -198,13 +198,13 @@ export class AASystemData {
     }
 
     static async pf1(input) {
-        /*
-        const item = input?.itemSource;
-        const tokenId = input.data?.speaker?.token;
-        if (!item || !tokenId) { return {}; }
-        const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(item?.id) != null);
-        */
-        let {item, token, targets} = await this.getRequiredData(input)
+        
+        const pf1Item = input?.itemSource;
+        const tokenId = input.speaker?.token;
+        if (!pf1Item || !tokenId) { return {}; }
+        //const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(item?.id) != null);
+        
+        let {item, token, targets} = await this.getRequiredData({item: pf1Item, tokenId})
         if (!item || !token) return {};
 
         //const targets = Array.from(input.user.targets);
@@ -247,16 +247,16 @@ export class AASystemData {
     }
 
     static async forbiddenlands(input) {
-        /*
-        const itemId = input._roll.options?.itemId;
-        const tokenId = input._roll.options?.tokenId;
-        if (!itemId) { return {}; }
-        const token = canvas.tokens.get(tokenId) || canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
+        
+        const itemId = input.rolls[0].options?.itemId;
+        //const tokenId = input.roll.options?.tokenId;
+        //if (!itemId) { return {}; }
+        const token = canvas.tokens.placeables.find(token => token.actor?.items?.get(itemId) != null);
         if (!token) { return {}; }
         const item = token.actor?.items?.get(itemId);
         const targets = Array.from(input.user.targets);
-        */
-        let {item, token, targets} = await this.getRequiredData(input)
+        
+        //let {item, token, targets} = await this.getRequiredData({itemId})
         if (!item || !token) return {};
 
         return { item, token, targets };

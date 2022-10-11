@@ -188,6 +188,7 @@ export default class systemData {
     }
 
     getDistanceTo(target) {
+        /*
         if (game.system.id === 'pf1') {
             const scene = game.scenes.active;
             const gridSize = scene.grid.size;
@@ -208,25 +209,26 @@ export default class systemData {
             let y2 = top(target);
 
             if (isLeftOf) {
-                x1 += (this.sourceToken.width - 1) * gridSize;
+                x1 += (this.sourceToken.document.width - 1) * gridSize;
             }
             else if (isRightOf) {
-                x2 += (target.width - 1) * gridSize;
+                x2 += (target.document.width - 1) * gridSize;
             }
 
             if (isAbove) {
-                y1 += (this.sourceToken.height - 1) * gridSize;
+                y1 += (this.sourceToken.document.height - 1) * gridSize;
             }
             else if (isBelow) {
-                y2 += (target.height - 1) * gridSize;
+                y2 += (target.document.height - 1) * gridSize;
             }
 
             const ray = new Ray({ x: x1, y: y1 }, { x: x2, y: y2 });
             const distance = canvas.grid.grid.measureDistances([{ ray }], { gridSpaces: true })[0];
             return distance;
-        } else {   
+        } else {  
+        */ 
             return canvas.grid.measureDistance(this.sourceToken, target, {gridSpaces: true});
-        }
+        //}
     }
 
     buildTargetSeq(targetFX, target, addDelay = 0) {

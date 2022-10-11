@@ -11,10 +11,22 @@ export function registerActiveEffectHooks() {
                     return;
                 }    
                 if (game.user.id !== userId) { return; }
+                const aePF2eTypes = ['condition', 'effect', 'feat']
+                if (!aePF2eTypes.includes(item.type)) {
+                    debug("This is not a PF2e Ruleset, exiting early")
+                    return;
+                }
+                if (item.system?.references?.parent && game.settings.get("autoanimations", "disableNestedEffects")) {
+                    debug("This is a nested Ruleset, exiting early")
+                    return;
+                }            
                 createRuleElementPF2e(item);
             })
             Hooks.on("preDeleteItem", (item, data, userId) => {
                 if (game.user.id !== userId) { return; }
+                const aePF2eTypes = ['condition', 'effect', 'feat']
+                if (!aePF2eTypes.includes(item.type)) { return; }
+            
                 deleteRuleElementPF2e(item)
             })
             break;

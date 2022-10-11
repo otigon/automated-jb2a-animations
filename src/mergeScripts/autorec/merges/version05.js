@@ -85,6 +85,8 @@ async function mergeVersion05(data) {
             let current;
             switch (oldMO.animation) {
                 case "bardicinspiration":
+                case "bless":
+                case "shieldspell":
                 case "huntersmark":
                 case "sneakattack":
                     break;
@@ -103,11 +105,10 @@ async function mergeVersion05(data) {
                     current.menu = "preset";
                     newMenu.preset.push(current);
                     break;
-                case "thunderwave":
+                default:
                     current = await updateThunderwave(oldMO, newMO);
                     current.menu = "preset";
                     newMenu.preset.push(current);
-                    break;
             }
         }
     }
@@ -120,11 +121,6 @@ async function mergeVersion05(data) {
             let newMO = {};
             let current;
             switch (oldMO.aeType) {
-                case "static":
-                    current = await convertAEOnToken(oldMO, newMO)
-                    current.activeEffectType = "ontoken";
-                    newMenu.aefx.push(current);
-                    break;
                 case "auras":
                     current = await convertAEAura(oldMO, newMO)
                     current.activeEffectType = "aura";
@@ -144,6 +140,10 @@ async function mergeVersion05(data) {
                             break;
                     }
                     break;
+                default:
+                    current = await convertAEOnToken(oldMO, newMO)
+                    current.activeEffectType = "ontoken";
+                    newMenu.aefx.push(current);
             }
         }
     }
@@ -780,10 +780,10 @@ async function mergeVersion05(data) {
             },
             options: {
                 elevation: below ? 0 : 1000,
-                repeat,
+                repeat: repeat || 1,
                 repeatDelay: delay ?? 250,
-                opacity,
-                removeTemplate,
+                opacity: opacity ?? 1,
+                removeTemplate: removeTemplate ?? false,
             }, 
             sound: setSound(audio, "a01"),
         };

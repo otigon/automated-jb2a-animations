@@ -17,7 +17,7 @@
     $: macroPlay = $animation.macro.playWhen;
 </script>
 
-<svelte:component this={settings.SectionButtons02} {animation} {category} {idx} type={fromMenu}/>
+<svelte:component this={settings.SectionButtons02} {animation} {category} type={fromMenu}/>
 <div hidden={!soundOnly}>
     <svelte:component this={settings.SoundOnly} {animation} {category} {idx}/>
 </div>

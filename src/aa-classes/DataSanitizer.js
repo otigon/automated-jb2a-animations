@@ -9,7 +9,7 @@ export class DataSanitizer {
         let menu = flagData.menu;
         menu = menu === "aefx" ? flagData.activeEffectType : menu;
         const data = {
-            primary: menu === "preset" ? await this.compilePreset(handler, flagData) : await this.compilePrimary(handler, flagData),
+            primary: menu === "preset" ? await this.compilePreset(flagData) : await this.compilePrimary(flagData, menu),
             secondary: flagData.secondary ? await this.compileSecondary(flagData) : false,
             sourceFX: await this.compileSource(handler, flagData),
             targetFX: flagData.target ? await this.compileTarget(flagData) : false,
@@ -76,9 +76,8 @@ export class DataSanitizer {
         return soundSeq;
     }
 
-    static async compilePrimary(handler, flagData) {
+    static async compilePrimary(flagData, menu) {
         const topLevel = flagData || {};
-        const menu = handler.isActiveEffect ? topLevel.activeEffectType : topLevel.menu;
 
         const primary = topLevel.primary || topLevel.data || {};
         const options = primary.options || {};
@@ -353,7 +352,8 @@ export class DataSanitizer {
         }
         data.sound = this.setSound(sound, addSoundDelay)
 
-        const sourceTokenGS = data.options.isRadius ? data.options.size * 2 : (handler.sourceToken.w / canvas.grid.size) * 1.5 * data.options.size;
+        //const sourceTokenGS = data.options.isRadius ? data.options.size * 2 : (handler.sourceToken.w / canvas.grid.size) * 1.5 * data.options.size;
+        const sourceSize = handler.getSize(data.options.isRadius, data.options.size, handler.sourceToken, data.options.addTokenWidth)
 
         const sourceFile = data.enable ? await buildFile(false, data.video.menuType, data.video.animation, data.video.dbSection, data.video.variant, data.video.color, data.video.customPath) : "";
 
@@ -366,7 +366,7 @@ export class DataSanitizer {
             sourceEffect.file(sourceFile.file, true)
             sourceEffect.atLocation(handler.sourceToken)
             // TO-DO switch Scale/Radius
-            sourceEffect.size(sourceTokenGS, { gridUnits: true })
+            sourceEffect.size(sourceSize, { gridUnits: true })
             sourceEffect.repeats(data.options.repeat, data.options.repeatDelay)
             sourceEffect.elevation(data.options.isAbsolute ? data.options.elevation : handler.sourceToken.document.elevation + data.options.elevation)
             sourceEffect.zIndex(data.options.zIndex)
@@ -520,7 +520,7 @@ export class DataSanitizer {
         return data;
     }
 
-    static async compilePreset(handler, flagData) {
+    static async compilePreset(flagData) {
         const topLevel = flagData || {};
         const presetType = topLevel.presetType;
 
