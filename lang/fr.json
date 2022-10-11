@@ -10,7 +10,7 @@
 			"midionmiss_name": "Jouer des animations sur les succès et les échecs",
 			"midionmiss_hint": "En cas d'échec, l'animation déviera de sa cible. Requière MIDI Workflow pour vérifier les résultats",
 			"midiondmg_name": "Ne jouer les animations que sur les jets de dégâts",
-			"midiondmg_hint": "NÉCESSITE UN RAFRAÎCHISSEMENT. Lorsque cette option est activée, les animations ne sont jouées QUE sur le jet de dégâts.",
+			"midiondmg_hint": "NÉCESSITE UN RAFRAÎCHISSEMENT. Lorsque cette option est activée, les animations ne sont jouées QUE sur le jet de dégâts",
 			"demonlordtrigger_name": "Déclencheur pour jouer les animations",
 			"demonlordtrigger_hint": "Choisissez la condition pour jouer les animations",
 			"demonlordtrigger_rollattack": "Jouer les animations lors d'un jet d'attaque",
