@@ -331,7 +331,8 @@
 			"reverse": "Inversé",
 			"explosion": "Explosion",
 			"diamond": "Diamant",
-			"many": "Beaucoup"
+			"many": "Beaucoup",
+			"spike": "Pique"
 		},
 		"variants": {
 			"1": "01",
