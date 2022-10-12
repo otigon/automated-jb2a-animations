@@ -11,10 +11,10 @@
     $: currentIDX = category.stores.videoIDX;
 
     async function seePreview() {
-        const index = category._data.findIndex(x => x.id === $animation.id)
         if (type === "item") {
             currentIDX.set("item");
         } else {
+            const index = category._data.findIndex(x => x.id === $animation.id)
             currentIDX.set(index);
         }
         currentStore.set(category);
