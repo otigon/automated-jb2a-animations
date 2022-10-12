@@ -2,6 +2,7 @@ import { debug }            from "../constants/constants.js";
 import { trafficCop }       from "../router/traffic-cop.js";
 import systemData           from "../system-handlers/system-data.js";
 import { AnimationState }   from "../AnimationState.js";
+import { getRequiredData }  from "./getRequiredData.js";
 
 // DnD5e System hooks provided to run animations
 export function systemHooks() {
@@ -30,6 +31,8 @@ async function useItem(input) {
 }
 
 async function attack(input) {
+    let requiredData = await getRequiredData(input);
+    console.log(requiredData);
     let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
     if (!AnimationState.enabled || input.item?.hasAreaTarget || (input.item?.hasDamage && playOnDamage)) { return; }
     debug("Playing Animation on Attack Roll")
