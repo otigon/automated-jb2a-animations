@@ -20,10 +20,36 @@ export async function trafficCop(handler) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
+    let aaTemplateHook;
+
     if (sanitizedData.macro && sanitizedData.macro.enable && sanitizedData.macro.playWhen === "2") {
-        new Sequence()
+
+        if (handler.isTemplateItem) {
+            switch (game.system.id) {
+                case "a5e":
+                case "pf2e":
+                case "sw5e":
+                case "tormenta20":
+                case "swade":
+                    aaTemplateHook = Hooks.once("createMeasuredTemplate", (template) => {
+                        //Hooks.callAll("aa.preAnimationStart", sanitizedData, data);
+                        handler.templateData = template;
+                        playMacro()
+                    });
+                    setTimeout(killHook, 30000)
+                    break;
+                default:
+                    handler.templateData = canvas.templates.placeables[canvas.templates.placeables.length - 1].document;
+                    playMacro()
+                }    
+        } else {
+            playMacro()
+        }
+        function playMacro() {
+            new Sequence()
             .macro(sanitizedData.macro.name, handler.workflow, handler, sanitizedData.macro.args)
             .play()
+        }
         return;
     }
 
@@ -77,6 +103,7 @@ export async function trafficCop(handler) {
                     animate[animationType](handler, sanitizedData, template);
                 });
                 setTimeout(killHook, 30000)
+                break;
             default:
                 animate[animationType](handler, sanitizedData);
         }
