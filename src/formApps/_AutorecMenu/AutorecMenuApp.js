@@ -1,9 +1,10 @@
+import { get, writable } from 'svelte/store';
+
 import {
     SvelteApplication,
     TJSDialog }         from "@typhonjs-fvtt/runtime/svelte/application";
 
 import {
-    AAGameSettings,
     AutorecAppShell }   from "./components";
 
 import { constants }    from "../../constants.js";
@@ -14,6 +15,8 @@ export default class AutorecMenuApp extends SvelteApplication {
      * @type {TJSDialog}
      */
     #settingsDialog;
+
+    #showSettings = writable(this.#showSettingsValue);
 
     /** @inheritDoc */
     constructor(options)
@@ -43,7 +46,10 @@ export default class AutorecMenuApp extends SvelteApplication {
 
             svelte: {
                 class: AutorecAppShell,
-                target: document.body
+                target: document.body,
+                props: function() {
+                    return { showSettings: this.#showSettings };
+                }
             }
         });
     }
@@ -78,20 +84,27 @@ export default class AutorecMenuApp extends SvelteApplication {
     {
         const buttons = super._getHeaderButtons();
 
+        const getShowSettings = () => get(this.#showSettings);
+        const swapShowSettings = () =>
+        {
+            const newValue = !get(this.#showSettings);
+            this.#showSettings.set(newValue);
+            return newValue;
+        }
+
+        const showSettings = getShowSettings();
+
         buttons.unshift({
             class: 'settings',
-            label: 'Settings',
-            icon: 'fa-regular fa-gear',
+            icon: showSettings ? 'fa-regular fa-square-list' : 'fa-regular fa-gear',
+            label: showSettings ? 'Main Menu' : 'Settings',
 
-            onclick: () =>
+            onclick: function()
             {
-                this.#settingsDialog = this.#settingsDialog ? this.#settingsDialog : new TJSDialog(
-                {
-                   title: 'AutoAnimations Settings',
-                   content: AAGameSettings
-                }, { id: 'aa-autorec-settings-dialog' });
+                const newShowSettings = swapShowSettings();
 
-                this.#settingsDialog.render(true, { focus: true });
+                this.icon = newShowSettings ? 'fa-regular fa-square-list' : 'fa-regular fa-gear';
+                this.label = newShowSettings ? 'Main Menu' : 'Settings';
             }
         });
 

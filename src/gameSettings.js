@@ -1,13 +1,15 @@
-import { TJSGameSettings } from '@typhonjs-fvtt/runtime/svelte/store';
 import AutorecShim from "./formApps/_AutorecMenu/appShim.js";
 import { aaAutorec } from "./mergeScripts/autorec/aaAutoRecList.js";
 import { AnimationState } from "./AnimationState.js";
 
+// TODO: temporary use of local TJSGameSettings until updated in TRL 0.0.20
+import { TJSGameSettings } from '@typhonjs-fvtt/runtime/svelte/store';
+
 class AAGameSettings extends TJSGameSettings
 {
-   #settings = [];
-
-   get settings() { return this.#settings; }
+   // constructor() {
+   //    super(true);
+   // }
 
    initialize() {
       const namespace = 'autoanimations';
@@ -22,12 +24,7 @@ class AAGameSettings extends TJSGameSettings
          world: 'world'
       };
 
-      /**
-       * A development debug case to show settings in core Foundry configuration menu.
-       *
-       * @type {boolean}
-       */
-      const showInCoreConfig = true;
+      const settings = [];
 
       // Add a convenience hook to open Autorec settings from macro.
       Hooks.on('AA.Open.AutorecSetting', () => new AutorecShim());
@@ -48,14 +45,14 @@ class AAGameSettings extends TJSGameSettings
          type: Object,
       });
 
-      this.#settings.push({
+      settings.push({
          namespace,
          key: 'killAllAnim',
          options: {
             name: 'autoanimations.settings.toggleAnimations',
             hint: 'autoanimations.settings.toggleAnimations_hint',
             scope: scope.client,
-            config: showInCoreConfig,
+            config: true,
             type: String,
             choices: {
                on: 'autoanimations.settings.ON',
@@ -73,7 +70,7 @@ class AAGameSettings extends TJSGameSettings
          }
       });
       /*
-      this.#settings.push({
+      settings.push({
          namespace,
          key: 'aaAutorec-version',
          options: {
@@ -83,93 +80,93 @@ class AAGameSettings extends TJSGameSettings
          }
       });
       */
-      this.#settings.push({
+      settings.push({
          namespace,
          key: 'disableAutoRec',
          options: {
             name: 'autoanimations.settings.settingDisableAutoRec',
             hint: 'autoanimations.settings.settingDisableAutoRecHint',
             scope: scope.client,
-            config: showInCoreConfig,
+            config: true,
             type: Boolean,
             default: false,
          }
       });
 
-      this.#settings.push({
+      settings.push({
          namespace,
          key: 'globaldelay',
          options: {
             name: 'autoanimations.settings.globaldelay_name',
             hint: 'autoanimations.settings.globaldelay_hint',
             scope: scope.world,
-            config: showInCoreConfig,
+            config: true,
             default: 100,
             type: Number
          }
       });
 
-      this.#settings.push({
+      settings.push({
          namespace,
          key: 'jb2aLocation',
          options: {
             name: 'autoanimations.settings.s3Name',
             hint: 'autoanimations.settings.s3Hint',
             scope: scope.world,
-            config: showInCoreConfig,
+            config: true,
             type: String,
             default: '',
             onChange: () => { window.location.reload() }
          }
       });
 
-      this.#settings.push({
+      settings.push({
          namespace,
          key: 'hideFromPlayers',
          options: {
             name: 'autoanimations.settings.animtab_name',
             hint: 'autoanimations.settings.animtab_hint',
             scope: scope.world,
-            config: showInCoreConfig,
+            config: true,
             type: Boolean,
             default: false,
          }
       });
       /*
-      this.#settings.push({
+      settings.push({
          namespace,
          key: 'decoupleSound',
          options: {
             name: 'autoanimations.settings.decoupleSounds',
             hint: 'autoanimations.settings.decoupleSounds_hint',
             scope: scope.world,
-            config: showInCoreConfig,
+            config: true,
             type: Boolean,
             default: false,
          }
       });
       */
-      this.#settings.push({
+      settings.push({
          namespace,
          key: 'rangeSwitch',
          options: {
             name: 'autoanimations.settings.settingRangeSwitch',
             hint: 'autoanimations.settings.settingRangeSwitchhint',
             scope: scope.client,
-            config: showInCoreConfig,
+            config: true,
             type: Boolean,
             default: false,
          }
       });
 
-      this.#settings.push({
+      settings.push({
          namespace,
          key: 'noTips',
          options: {
             name: 'autoanimations.settings.noTips',
             hint: 'autoanimations.settings.noTipsHint',
             scope: scope.client,
-            config: showInCoreConfig,
+            config: true,
             type: Boolean,
             default: false,
          }
@@ -177,166 +174,179 @@ class AAGameSettings extends TJSGameSettings
 
       switch (game.system.id) {
          case "cyphersystem":
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'EnableCritical',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.cypherCrit_name',
                   hint: 'autoanimations.settings.cypherCrit_hint',
                   scope: scope.world,
                   type: Boolean,
                   default: false,
-                  config: showInCoreConfig,
+                  config: true,
                }
             });
 
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'CriticalAnimation',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.CriticalAnimation',
                   scope: scope.world,
                   type: String,
-                  config: showInCoreConfig,
+                  config: true,
                   default: "",
                   filePicker: "imagevideo"
                }
             });
 
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'EnableFumble',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.cypherFumble_name',
                   hint: 'autoanimations.settings.cypherFumble_hint',
                   scope: scope.world,
                   type: Boolean,
                   default: false,
-                  config: showInCoreConfig,
+                  config: true,
                }
             });
 
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'FumbleAnimation',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.cypherFumbleAnim_name',
                   scope: scope.world,
                   type: String,
-                  config: showInCoreConfig,
+                  config: true,
                   default: "",
                   filePicker: "imagevideo"
                }
             });
 
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'EnableOnRecoveryRoll',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.recovery_name',
                   hint: 'autoanimations.settings.recovery_hint',
                   scope: scope.world,
                   type: Boolean,
                   default: false,
-                  config: showInCoreConfig,
+                  config: true,
                }
             });
 
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'RecoveryRollAnimation',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.recoveryAnim_name',
                   scope: scope.world,
                   type: String,
-                  config: showInCoreConfig,
+                  config: true,
                   default: "",
                   filePicker: "imagevideo"
                }
             });
 
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'EnableOnMightRoll',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.mightroll_name',
                   hint: 'autoanimations.settings.mightroll_hint',
                   scope: scope.world,
                   type: Boolean,
                   default: false,
-                  config: showInCoreConfig,
+                  config: true,
                }
             });
 
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'MightRollAnimation',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.mightRollAnim_name',
                   scope: scope.world,
                   type: String,
-                  config: showInCoreConfig,
+                  config: true,
                   default: "",
                   filePicker: "imagevideo"
                }
             });
 
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'EnableOnSpeedRoll',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.speedroll_name',
                   hint: 'autoanimations.settings.speedroll_hint',
                   scope: scope.world,
                   type: Boolean,
                   default: false,
-                  config: showInCoreConfig,
+                  config: true,
                }
             });
 
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'SpeedRollAnimation',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.speedRollAnim_name',
                   scope: scope.world,
                   type: String,
-                  config: showInCoreConfig,
+                  config: true,
                   default: "",
                   filePicker: "imagevideo"
                }
             });
 
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'EnableOnIntellecRoll',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.intellectroll_name',
                   hint: 'autoanimations.settings.intellectroll_hint',
                   scope: scope.world,
                   type: Boolean,
                   default: false,
-                  config: showInCoreConfig,
+                  config: true,
                }
             });
 
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'IntellectRollAnimation',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.intellectRollAnim_name',
                   scope: scope.world,
                   type: String,
-                  config: showInCoreConfig,
+                  config: true,
                   default: "",
                   filePicker: "imagevideo"
                }
             });
             break;
          case 'demonlord':
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'playtrigger',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.demonlordtrigger_name',
                   hint: 'autoanimations.settings.demonlordtrigger_hint',
@@ -350,22 +360,23 @@ class AAGameSettings extends TJSGameSettings
                      applydamage: 'autoanimations.settings.demonlordtrigger_applydamage',
                   },
                   default: 'rollattack',
-                  config: showInCoreConfig
+                  config: true
                }
             });
             break
 
          case 'sfrpg':
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'playonDamage',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.midiondmg_name',
                   hint: 'autoanimations.settings.midiondmg_hint',
                   scope: scope.world,
                   type: Boolean,
                   default: false,
-                  config: showInCoreConfig,
+                  config: true,
                   onChange: () => { window.location.reload() }
                }
             });
@@ -373,214 +384,228 @@ class AAGameSettings extends TJSGameSettings
 
          case 'dnd5e':
          case 'sw5e':
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'disableAEAnimations',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.disableAEAnimations',
                   hint: 'autoanimations.settings.disableAEAnimationsHint',
                   scope: scope.world,
                   type: Boolean,
                   default: false,
-                  config: showInCoreConfig,
+                  config: true,
                }
             });
 
             if (game.modules.get('midi-qol')?.active) {
-               this.#settings.push({
+               settings.push({
                   namespace,
                   key: 'playonhit',
+                  folder: 'Midi-QOL', // TODO: lang key
                   options: {
                      name: 'autoanimations.settings.midionhit_name',
                      hint: 'autoanimations.settings.midionhit_hint',
                      scope: scope.world,
                      type: Boolean,
                      default: false,
-                     config: showInCoreConfig,
+                     config: true,
                   }
                });
 
-               this.#settings.push({
+               settings.push({
                   namespace,
                   key: 'playonmiss',
+                  folder: 'Midi-QOL', // TODO: lang key
                   options: {
                      name: 'autoanimations.settings.midionmiss_name',
                      hint: 'autoanimations.settings.midionmiss_hint',
                      scope: scope.world,
                      type: Boolean,
                      default: false,
-                     config: showInCoreConfig,
+                     config: true,
                   }
                });
 
-               this.#settings.push({
+               settings.push({
                   namespace,
                   key: 'playonDamage',
+                  folder: 'Midi-QOL', // TODO: lang key
                   options: {
                      name: 'autoanimations.settings.midiondmg_name',
                      hint: 'autoanimations.settings.midiondmg_hint',
                      scope: scope.world,
                      type: Boolean,
                      default: false,
-                     config: showInCoreConfig,
+                     config: true,
                      //onChange: () => { window.location.reload() }
                   }
                });
 
-               this.#settings.push({
+               settings.push({
                   namespace,
                   key: 'EnableCritical',
+                  folder: 'Midi-QOL', // TODO: lang key
                   options: {
                      name: 'autoanimations.settings.crithit_name',
                      hint: 'autoanimations.settings.crithit_hint',
                      scope: scope.world,
                      type: Boolean,
                      default: false,
-                     config: showInCoreConfig,
+                     config: true,
                      onchange: () => { window.location.reload() }
                   }
                });
 
-               this.#settings.push({
+               settings.push({
                   namespace,
                   key: 'CriticalAnimation',
+                  folder: 'Midi-QOL', // TODO: lang key
                   options: {
                      name: 'autoanimations.settings.crithitAnim_name',
                      //name: 'Choose A File',
                      scope: scope.world,
-                     config: showInCoreConfig,
+                     config: true,
                      type: String,
                      default: "",
                      filePicker: 'imagevideo'
                   }
                });
 
-               this.#settings.push({
+               settings.push({
                   namespace,
                   key: 'EnableCriticalMiss',
+                  folder: 'Midi-QOL', // TODO: lang key
                   options: {
                      name: 'autoanimations.settings.critmiss_name',
                      hint: 'autoanimations.settings.critmiss_hint',
                      scope: scope.world,
                      type: Boolean,
                      default: false,
-                     config: showInCoreConfig,
+                     config: true,
                      onchange: () => { window.location.reload() }
                   }
                });
 
-               this.#settings.push({
+               settings.push({
                   namespace,
                   key: 'CriticalMissAnimation',
+                  folder: 'Midi-QOL', // TODO: lang key
                   options: {
                      name: 'autoanimations.settings.critmissAnim_name',
                      scope: scope.world,
-                     config: showInCoreConfig,
+                     config: true,
                      type: String,
                      default: "",
                      filePicker: 'imagevideo'
                   }
                });
             } else {
-               this.#settings.push({
+               settings.push({
                   namespace,
                   key: 'playonDamageCore',
+                  folder: 'Game System', // TODO: lang key
                   options: {
                      name: 'autoanimations.settings.coreondmg_name',
                      hint: 'autoanimations.settings.coreondmg_hint',
                      scope: scope.world,
                      type: Boolean,
                      default: false,
-                     config: showInCoreConfig,
+                     config: true,
                   }
                });
             }
             break;
 
          case 'pf2e':
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'playonDamageCore',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.coreondmg_name',
                   hint: 'autoanimations.settings.coreondmg_hint',
                   scope: scope.world,
                   type: Boolean,
                   default: false,
-                  config: showInCoreConfig,
+                  config: true,
                }
             });
 
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'playonmiss',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.midionmiss_name',
                   hint: 'Requires Animations to be played on Attack rolls',
                   scope: scope.world,
                   type: Boolean,
                   default: false,
-                  config: showInCoreConfig,
+                  config: true,
                }
             });
 
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'disableNestedEffects',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.disableNested',
                   hint: 'autoanimations.settings.disableNestedHint',
                   scope: scope.world,
                   type: Boolean,
                   default: false,
-                  config: showInCoreConfig,
+                  config: true,
                }
             });
             break;
 
          case 'pf1':
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'disableAEAnimations',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.disableAEAnimations',
                   hint: 'autoanimations.settings.disableAEAnimationsHint',
                   scope: scope.world,
                   type: Boolean,
                   default: false,
-                  config: showInCoreConfig,
+                  config: true,
                }
             });
             break;
          case "wfrp4e":
-            this.#settings.push({
+            settings.push({
                namespace,
                key: 'castOnlyOnSuccess',
+               folder: 'Game System', // TODO: lang key
                options: {
                   name: 'autoanimations.settings.wfrp4eCastOnlyOnSuccess',
                   hint: 'autoanimations.settings.wfrp4eCastOnlyOnSuccessHint',
                   scope: scope.world,
                   type: Boolean,
                   default: false,
-                  config: showInCoreConfig,
+                  config: true,
                }
             });
             break;
       }
 
-      this.#settings.push({
+      settings.push({
          namespace,
          key: 'debug',
          options: {
             name: 'autoanimations.settings.debugging',
             scope: scope.world,
-            config: showInCoreConfig,
+            config: true,
             default: false,
             type: Boolean
          }
       });
 
-      this.registerAll(this.#settings);
+      this.registerAll(settings);
    }
 }
 
