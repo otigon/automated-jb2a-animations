@@ -45,10 +45,23 @@
 
    const menu = {
       items: createOverflowItems(animation, category),
-   }
+   };
 
-   $: status = animation.stores.folderOpen
-   $: currentState = $status;
+   const folderOpen = animation.stores.folderOpen;
+
+   // For performance reasons when the folder is closed the main content Svelte component is not rendered.
+   // When the folder is closed `visible` is set to false with a slight delay to allow the closing animation to
+   // complete.
+   let visible = $folderOpen;
+
+   $: if (!$folderOpen)
+   {
+      setTimeout(() => visible = false, 500);
+   }
+   else
+   {
+      visible = true;
+   }
 </script>
 
 <div>
@@ -57,8 +70,8 @@
         <TJSToggleIconButton button={buttonOverflow} slot=summary-end>
             <TJSMenu {menu} />
         </TJSToggleIconButton>
-        {#if currentState}
-        <svelte:component this={menuRoute} {animation} {idx} {category}/>
+        {#if visible}
+            <svelte:component this={menuRoute} {animation} {idx} {category}/>
         {/if}
    </TJSSvgFolder>
 </div>
