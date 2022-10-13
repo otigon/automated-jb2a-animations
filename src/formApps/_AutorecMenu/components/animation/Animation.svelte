@@ -53,13 +53,15 @@
    // When the folder is closed `visible` is set to false with a slight delay to allow the closing animation to
    // complete.
    let visible = $folderOpen;
+   let timeoutId;
 
    $: if (!$folderOpen)
    {
-      setTimeout(() => visible = false, 500);
+      timeoutId = setTimeout(() => visible = false, 500);
    }
    else
    {
+      clearTimeout(timeoutId);
       visible = true;
    }
 </script>
