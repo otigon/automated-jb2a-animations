@@ -30,14 +30,14 @@
     <div style="grid-row:1/2; grid-column:1/2" class="sectionButton" >
         <label for="" on:click={() => seePreview()}
             >{localize("autoanimations.menus.preview")}
-            <i class="fas fa-film fa-lg aa-zoom" /></label
+            <i class="fas fa-film fa-lg" /></label
         >
     </div>
     <div style="grid-row:1/2; grid-column:2/3" class="sectionButton">
         <label for="" on:click={() => (show3d = !show3d)}
             >{localize("autoanimations.menus.3dcanvas")}
             <i
-                class="fas fa-cube fa-lg aa-zoom {show3d ? 'aa-green' : ''}"
+                class="fas fa-cube fa-lg {show3d ? 'aa-green' : ''}"
             /></label
         >
     </div>
@@ -46,7 +46,7 @@
             >{localize("autoanimations.menus.sound")}
             {localize("autoanimations.menus.only")}
             <i
-                class="fas fa-music fa-lg aa-zoom {$animation.soundOnly.sound
+                class="fas fa-music fa-lg {$animation.soundOnly.sound
                     .enable
                     ? 'aa-green'
                     : ''}"
@@ -64,7 +64,7 @@
             >{localize("autoanimations.menus.add")}
             {localize("autoanimations.menus.macro")}
             <i
-                class="far fa-keyboard fa-lg aa-zoom {$animation.macro.enable
+                class="far fa-keyboard fa-lg {$animation.macro.enable
                     ? 'aa-green'
                     : ''}"
             />
@@ -86,5 +86,10 @@
         background: rgba(0, 0, 0, 0.17);
         padding: .2em;
         border-radius: 1em;
+    }
+    .sectionButton:hover {
+        background: rgba(0, 0, 0, 0.25);
+        text-shadow: 0 0 1px rgba(255, 0, 0, 0.427);
+        zoom: 1.05;
     }
 </style>

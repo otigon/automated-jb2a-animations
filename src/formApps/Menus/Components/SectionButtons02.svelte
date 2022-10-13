@@ -98,4 +98,9 @@
         padding: 0.2em;
         border-radius: 1em;
     }
+    .sectionButton:hover {
+        background: rgba(0, 0, 0, 0.25);
+        text-shadow: 0 0 1px rgba(255, 0, 0, 0.427);
+        zoom: 1.05;
+    }
 </style>
