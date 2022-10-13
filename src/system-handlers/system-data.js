@@ -177,7 +177,7 @@ export default class systemData {
     }
 
     elevation(token = {}, abs = false, level = 0) {
-        let canvasObjectElevation = token.document?.elevation ?? 0;
+        let canvasObjectElevation = token?.document?.elevation ?? 0;
         return abs ? level : canvasObjectElevation + level; 
     }
 

@@ -7,10 +7,24 @@ import { getRequiredData }  from "./getRequiredData.js";
 // DnD5e System hooks provided to run animations
 export function systemHooks() {
     //Hooks.on("dnd5e.displayCard", async (item, chat, options) => {useItem({item, chat, options})});
-    Hooks.on('dnd5e.useItem', async (item, config, options) => {useItem({item, config, options})})
-    Hooks.on("dnd5e.rollAttack", async (item, roll) => {attack({item, roll})})
-    Hooks.on("dnd5e.rollDamage", async (item, roll) => {damage({item, roll})})
-    Hooks.on("createMeasuredTemplate", async (template, data, userId) => {templateAnimation({template, data, userId})})    
+    Hooks.on('dnd5e.useItem', async (item, config, options) => {
+        if (item?.hasAreaTarget || item.hasAttack || item.hasDamage || !AnimationState.enabled) { return; }
+        useItem({item, actor: item.actor})
+    })
+    Hooks.on("dnd5e.rollAttack", async (item, roll) => {
+        let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
+        if (!AnimationState.enabled || item.hasAreaTarget || (item.hasDamage && playOnDamage)) { return; }    
+        attack({item, actor: item.actor})
+    })
+    Hooks.on("dnd5e.rollDamage", async (item, roll) => {
+        let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
+        if (!AnimationState.enabled || item.hasAreaTarget || (item.hasAttack && !playOnDamage)) { return; }    
+        damage({item, actor: item.actor})
+    })
+    Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
+        if (userId !== game.user.id || !AnimationState.enabled) { return };
+        templateAnimation({itemUuid: template.flags?.dnd5e?.origin, template})
+    })    
 }
 
 /**
@@ -23,97 +37,55 @@ export function systemHooks() {
  */
 
 async function useItem(input) {
-    if (input.item?.hasAreaTarget || input.item?.hasAttack || input.item?.hasDamage || !AnimationState.enabled) { return; }
-    debug("Playing Animation on Item Use")
-    let handler = await systemData.make(input);
+    debug("Item used, checking for animations")
+    let requiredData = await getRequiredData(input);   
+    const handler = await systemData.make(input.item, null, requiredData)
+    //let handler = await systemData.make(input);
     if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
     trafficCop(handler)
 }
 
 async function attack(input) {
     let requiredData = await getRequiredData(input);
-    console.log(requiredData);
-    let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
-    if (!AnimationState.enabled || input.item?.hasAreaTarget || (input.item?.hasDamage && playOnDamage)) { return; }
-    debug("Playing Animation on Attack Roll")
-    let handler = await systemData.make(input);
+    checkAmmo(requiredData)
+    checkReach(requiredData)
+    debug("Attack rolled, checking for animations");
+    const handler = await systemData.make(input.item, null, requiredData)
+    //let handler = await systemData.make(input);
     if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
     trafficCop(handler)
 }
 
 async function damage(input) {
-    let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
-    if (!AnimationState.enabled || input.item?.hasAreaTarget || (input.item?.hasAttack && !playOnDamage)) { return; }
-    debug("Playing Animation on Damage Roll")
-    let handler = await systemData.make(input);
+    let requiredData = await getRequiredData(input);   
+    checkAmmo(requiredData)
+    checkReach(requiredData)
+    debug("Damage rolled, checking for animations")
+    const handler = await systemData.make(input.item, null, requiredData)
+    //let handler = await systemData.make(input);
     if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
     trafficCop(handler)
 }
 
 async function templateAnimation(input) {
-    if (input.userId !== game.user.id || !AnimationState.enabled) { return };
-    debug("Playing Animation on Template Placement")
-    const itemUuid = input.template?.flags?.dnd5e?.origin;
-    const item = itemUuid ? await fromUuid(itemUuid) : "";
-    if (!item) { return; }
-    let handler = await systemData.make({item: item});
-    if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
+    debug("Template placed, checking for animations")
+    let requiredData = await getRequiredData(input);
+    requiredData.templateData = input.template;
+    let handler = await systemData.make(input.item, null, requiredData);
+    if (!handler.item) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
     trafficCop(handler)
 }
 
-/* This is the previous method for 5e to gather all the relevant data from createChatMessage hook, before System hooks were implemented
-export async function runDnd5e(msg) {
-    if (msg.user.id !== game.user.id) { return };
-
-    const animationNow = game.settings.get("autoanimations", "playonDamageCore");
-    let handler;
-    let rollType;
-    switch (game.system.id) {
-        case "dnd5e":
-            handler = await systemData.make(msg);
-            rollType = (msg.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.flavor?.toLowerCase() ?? "pass");
-            break;
-        case "sw5e":
-            handler = await systemData.make(msg);
-            rollType = msg.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
-            break;
-    }
-
-    if (!handler.item || !handler.sourceToken) {
-        return;
-    }
-
-    switch (true) {
-        case !handler.hasAttack && !handler.hasDamage:
-            trafficCop(handler);
-            break;
-        case (handler.shouldPlayImmediately) && !rollType.includes("damage") && !rollType.includes("attack"):
-            trafficCop(handler);
-            break;
-        case animationNow:
-            if (rollType.includes("damage")) {
-                if (handler.shouldPlayImmediately) { return; }
-                trafficCop(handler);
-            }
-            break;
-        case !animationNow:
-            switch (true) {
-                case game.modules.get("mre-dnd5e")?.active && game.settings.get("mre-dnd5e", "autoCheck") && !handler.hasAttack && handler.hasDamage && !rollType.includes("damage"):
-                    trafficCop(handler);
-                    break;
-                case game.modules.get("mre-dnd5e")?.active && game.settings.get("mre-dnd5e", "autoCheck") && rollType.includes("damage"):
-                    break;
-                case rollType.includes("damage") && !handler.hasAttack:
-                case rollType.includes('attack'):
-                    if (handler.shouldPlayImmediately) { return; }
-                    trafficCop(handler);
-                    break;
-                case game.modules.get("betterrolls5e")?.active && !handler.hasAttack && handler.hasDamage:
-                    if (handler.shouldPlayImmediately) { return; }
-                    trafficCop(handler);
-                    break;
-            }
-            break;
-    }
+function checkAmmo(data) {
+    const ammo = data.item?.flags?.autoanimations?.fromAmmo;
+    const ammoType = data.item?.system?.consume?.type;
+    data.item = ammo && ammoType === "ammo" ? data.token?.actor?.items?.get(data.item?.system?.consume?.target) : data.item;
 }
-*/
+
+function checkReach(data) {
+    let reach = 0;
+    if (data.item.system?.properties?.rch) {
+        reach += 1;
+    }
+    data.reach = reach;
+}

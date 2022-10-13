@@ -1,12 +1,16 @@
 
 export async function getRequiredData(data) {
-    //let {item, itemId, itemUuid, itemName, tokenId, token, targets, actorId, actor} = data;
+    //let {item, itemId, itemUuid, itemName, token, tokenId, tokenUuid, targets, actorId, actor} = data;
 
     if (!data.token) {
         data.token = getToken(data);
     }
     if (!data.item) {
         data.item = await getItem(data)
+    }
+    if (!data.token && data.item) {
+        // Last ditch effort to find a token
+        data.token = data.item.parent?.token ?? getTokenFromItemID(data.item.id)
     }
     if (!data.targets) {
         data.targets = Array.from(game.user.targets)
@@ -16,45 +20,42 @@ export async function getRequiredData(data) {
 }
 
 async function getItem(data) {
-    let {item, itemId, itemUuid, itemName, tokenId, token, targets, actorId, actor} = data;
-
-    if (item) { return item }
-    /*
-    if (itemUuid) {
-        return await getItemFromItemUuid(itemUuid)
-    } else if (itemId && (actorId || actor)) {
-        let idActor = actor ? actor.id : actorId
-        return await getItemFromUUID(idActor, itemId)
-    } else if (token && itemId) {
-        return getItemFromToken(token, itemId)
-    } else if (token && itemName) {
-        return getItemFromName(token, itemName)
-    } else if (itemId) {
-        return getItemFromIdBlind(itemId)
-    } else {
-        return null;
-    }
-    */
+    let {item, itemId, itemUuid, itemName, token, tokenId, tokenUuid, targets, actorId, actor} = data;
     return itemUuid 
-            ? await getItemFromItemUuid(itemUuid)
+            ? await getItemFromUuid(itemUuid)
             : itemId && (actorId || actor)
-            ? await getItemFromUUID(idActor, itemId)
+            ? await getItemFromCompiledUuid(itemId, actor, actorId)
             : token && itemId
             ? getItemFromToken(token, itemId)
+            : tokenId && itemId
+            ? getItemFromTokenId(tokenId, itemId)
+            : tokenUuid && itemId
+            ? getItemFromTokenUuid(tokenUuid, itemId)
             : token && itemName
             ? getItemFromName(token, itemName)
             : itemId
             ? getItemFromIdBlind(itemId)
             : null
 }
-async function getItemFromItemUuid(uuid) {
+async function getItemFromUuid(uuid) {
     return fromUuid(uuid);
 }
-async function getItemFromUUID(actorId, itemId) {
-    return fromUuid(`Actor.${actorId}.Item.${itemId}`);
+async function getItemFromCompiledUuid(itemId, actor, actorId) {
+    const idActor = actor ? actor.id : actorId;
+    return fromUuid(`Actor.${idActor}.Item.${itemId}`);
 }
 function getItemFromToken(token, itemId) {
     return token.actor?.items?.get(itemId)
+}
+function getItemFromTokenId(tokenId, itemId) {
+    let token = getTokenFromScene(tokenId) || getTokenFromCompiledUuid(tokenId);
+    if (!token) { return; }
+    return getItemFromToken(token, itemId);
+}
+function getItemFromTokenUuid(tokenUuid, itemId) {
+    let token = getTokenFromUuid(tokenUuid);
+    if (!token) { return; }
+    return getItemFromToken(token, itemId);
 }
 function getItemFromName(token, name) {
     let items = Array.from(token.actor.items);
@@ -68,35 +69,37 @@ function getItemFromIdBlind(id) {
     }
 }
 
-function getToken(data) {
-    let {item, itemId, itemUuid, itemName, tokenId, token, targets, actorId, actor} = data;
 
-    if (token) { return token }
-    /*
-    if (tokenId) {
-        return getTokenFromScene(tokenId) || getTokenFromUUID(tokenId);
-    } else if (item) {
-        return item.parent?.token ?? getTokenFromItemID(item.id)
-    } else if (itemId) {
-        return getTokenFromItemID(itemId)
-    } else {
-        return null;
-    }
-    */
+function getToken(data) {
+    let {item, itemId, itemUuid, itemName, token, tokenId, tokenUuid, targets, actorId, actor} = data;
+
     return tokenId
-            ? getTokenFromScene(tokenId) || getTokenFromUUID(tokenId)
+            ? getTokenFromScene(tokenId) || getTokenFromCompiledUuid(tokenId)
+            : tokenUuid
+            ? getTokenFromUuid(tokenUuid)
             : item
             ? item.parent?.token ?? getTokenFromItemID(item.id)
             : itemId
             ? getTokenFromItemID(itemId)
+            : actor || actorId
+            ? getTokenFromActor(actor, actorId)
             : null
 }
 function getTokenFromItemID(id) {
-    return canvas.tokens.placeables.find(token => token.actor?.items?.get(id) != null)
+    return canvas.tokens.placeables.find(token => token.actor?.items?.get(id) != null);
 }
 function getTokenFromScene(id) {
     return canvas.scene.tokens.get(id);
 }
-function getTokenFromUUID(id) {
+function getTokenFromUuid(uuid) {
+    return fromUuidSync(uuid).object;
+}
+function getTokenFromCompiledUuid(id) {
     return fromUuidSync(`${canvas.scene.uuid}.Token.${id}`).object;
+}
+function getTokenFromActor(actor, actorId) {
+    let idActor = actor ? actor.id : actorId;
+    let foundActor = fromUuidSync(idActor);
+    let token = foundActor.getActiveTokens();
+    return Array.isArray(token) ? token[0] : token;
 }

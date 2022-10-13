@@ -4,19 +4,19 @@ import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
 export function systemHooks() {
-    Hooks.on("createChatMessage", async (msg) => {runPF1(msg) });
+    Hooks.on("createChatMessage", async (msg) => {
+        if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
+        const item = msg.itemSource;
+        const tokenId = msg.speaker?.token;
+        const actorId = msg.speaker?.actor;
+        runPF1({item, tokenId, actorId, workflow: msg})
+    });
 }
 
-async function runPF1(msg) {
-    if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
-    debugger
-    const item = msg.itemSource;
-    const tokenId = msg.speaker?.token;
-
-    const requiredData = await getRequiredData({item, tokenId})
-    
-    const handler = await systemData.make(null, null, requiredData);
-    if (!handler.item || !handler.sourceToken) {
+async function runPF1(input) {
+    const requiredData = await getRequiredData(input)
+    const handler = await systemData.make(input.workflow, null, requiredData);
+    if (!handler.item) {
         return;
     }
     trafficCop(handler);
