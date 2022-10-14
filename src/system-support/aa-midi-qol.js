@@ -6,9 +6,15 @@ import { getRequiredData }  from "./getRequiredData.js";
 
 export function systemHooks() {
     Hooks.on("midi-qol.DamageRollComplete", (workflow) => { 
+        if (!AnimationState.enabled || input.item?.hasAreaTarget) { return };
+        let playOnDamage = game.settings.get('autoanimations', 'playonDamage');
+        if (!playOnDamage && input.item?.hasAttack) { return};    
         damage(getWorkflowData(workflow)) 
     });
     Hooks.on("midi-qol.AttackRollComplete", (workflow) => {
+        if (!AnimationState.enabled || input.item?.hasAreaTarget) { return };
+        let playOnDamage = game.settings.get('autoanimations', 'playonDamage');
+        if (playOnDamage) { return };    
         attack(getWorkflowData(workflow)); criticalCheck(workflow)
     });
     Hooks.on("midi-qol.RollComplete", (workflow) => {
@@ -28,9 +34,6 @@ export function systemHooks() {
 }
 
 async function attack(input) {
-    if (!AnimationState.enabled || input.item?.hasAreaTarget) { return };
-    let playOnDamage = game.settings.get('autoanimations', 'playonDamage');
-    if (playOnDamage) { return };
     checkAmmo(input)
     checkReach(input)
     let handler = await systemData.make(input.workflow, null, input);
@@ -41,9 +44,6 @@ async function attack(input) {
 }
 
 async function damage(input) {
-    if (!AnimationState.enabled || input.item?.hasAreaTarget) { return };
-    let playOnDamage = game.settings.get('autoanimations', 'playonDamage');
-    if (!playOnDamage && input.item?.hasAttack) { return};
     checkAmmo(input)
     checkReach(input)
     let handler = await systemData.make(input.workflow, null, input);

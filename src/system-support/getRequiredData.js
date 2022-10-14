@@ -1,4 +1,8 @@
 
+export function parseChatMessage(msg) {
+
+}
+
 export async function getRequiredData(data) {
     //let {item, itemId, itemUuid, itemName, token, tokenId, tokenUuid, targets, actorId, actor} = data;
 
@@ -10,7 +14,7 @@ export async function getRequiredData(data) {
     }
     if (!data.token && data.item) {
         // Last ditch effort to find a token
-        data.token = data.item.parent?.token ?? getTokenFromItemID(data.item.id)
+        data.token = data.item.parent?.token ?? getTokenFromItemID(data.item.id) ?? _token
     }
     if (!data.targets) {
         data.targets = Array.from(game.user.targets)
@@ -73,12 +77,12 @@ function getItemFromIdBlind(id) {
 function getToken(data) {
     let {item, itemId, itemUuid, itemName, token, tokenId, tokenUuid, targets, actorId, actor} = data;
 
-    return tokenId
-            ? getTokenFromScene(tokenId) || getTokenFromCompiledUuid(tokenId)
+    return item
+            ? item.parent?.token ?? getTokenFromItemID(item.id) 
             : tokenUuid
             ? getTokenFromUuid(tokenUuid)
-            : item
-            ? item.parent?.token ?? getTokenFromItemID(item.id)
+            : tokenId
+            ? getTokenFromScene(tokenId) || getTokenFromCompiledUuid(tokenId)
             : itemId
             ? getTokenFromItemID(itemId)
             : actor || actorId
@@ -86,7 +90,9 @@ function getToken(data) {
             : null
 }
 function getTokenFromItemID(id) {
-    return canvas.tokens.placeables.find(token => token.actor?.items?.get(id) != null);
+    let tokens = canvas.tokens.placeables.filter(token => token.actor?.items?.get(id));
+    let trueToken = tokens.length > 1 ? tokens.find(x => x.id === _token.id) || tokens[0] : tokens[0];
+    return trueToken;
 }
 function getTokenFromScene(id) {
     return canvas.scene.tokens.get(id);

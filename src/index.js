@@ -230,9 +230,9 @@ Hooks.once('ready', async function () {
     Hooks.on("deleteItem", async (item) => {storeDeletedItems(item)})
 
     // Register Hooks by system
-    if (game.modules.get("midi-qol")?.active) {
-        systemSupport.midiqol.systemHooks();
-    } else {
+    //if (game.modules.get("midi-qol")?.active) {
+        //systemSupport.midiqol.systemHooks();
+    //} else {
         systemSupport[game.system.id] ? systemSupport[game.system.id].systemHooks() : systemSupport.standard.systemHooks();
         /*
         switch (game.system.id) {
@@ -264,7 +264,7 @@ Hooks.once('ready', async function () {
                 systemSupport.standard.standardHook();
         }
         */
-    }
+    //}
 
     registerActiveEffectHooks();
 
