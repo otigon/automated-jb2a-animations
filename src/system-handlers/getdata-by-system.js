@@ -589,7 +589,6 @@ export class AASystemData {
 
         const itemId = this.getItemId(data, game.system.id);
         const tokenId = this.getTokenId(data)
-        console.log(canvas.tokens.get(tokenId))
         let token = await this.getToken({tokenId, itemId, data})
         let item = await this.getItem({itemId, token, data})
         const targets = this.getTargets(data)
@@ -704,6 +703,7 @@ export class AASystemData {
     static async getToken(input) {
         const data = input || {};
         const token =   data.token ??
+                        data.data?.item?.parent?.token ??
                         data.data.token ??
                         data.data?.SwadeTokenOrActor ??
                         canvas.tokens.get(data.tokenId) ??
