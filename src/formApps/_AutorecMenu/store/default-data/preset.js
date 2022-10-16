@@ -4,6 +4,7 @@ export const preset = [
    {
       ...common.main({ label: "mistystep" }),
       menu: "preset",
+      metaData: {default: true},
       presetType: "teleportation",
       macro: common.macro(),
       data: {
@@ -80,6 +81,7 @@ export const preset = [
    {
       ...common.main({ label: "fireball" }),
       menu: "preset",
+      metaData: {default: true},
       presetType: "proToTemp",
       macro: common.macro(),
       data: {

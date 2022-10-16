@@ -4,6 +4,7 @@ export const ontoken = [
    {
       ...common.main({ label: "curewounds" }),
       menu: "ontoken",
+      metaData: {default: true},
       primary: common.primary({
          video: { dbSection: "static", menuType: "spell", animation: 'curewounds', variant: '01', color: 'blue' },
          options: {
@@ -37,6 +38,7 @@ export const ontoken = [
    {
       ...common.main({ label: "itemHealingWord" }),
       menu: "ontoken",
+      metaData: {default: true},
       primary: common.primary({
          video: { dbSection: "static", menuType: "spell", animation: 'generichealing', variant: '01', color: 'blue' },
          options: {
@@ -70,6 +72,7 @@ export const ontoken = [
    {
       ...common.main({ label: "tollthedead" }),
       menu: "ontoken",
+      metaData: {default: true},
       primary: common.primary({
          video: { dbSection: "static", menuType: "spell", animation: 'tollthedead', variant: 'complete', color: 'green' },
          options: {
@@ -103,6 +106,7 @@ export const ontoken = [
    {
       ...common.main({ label: "bite" }),
       menu: "ontoken",
+      metaData: {default: true},
       primary: common.primary({
          video: { dbSection: "static", menuType: "creature", animation: "bite", variant: "01", color: "red" },
          options: {
@@ -136,6 +140,7 @@ export const ontoken = [
    {
       ...common.main({ label: "claw" }),
       menu: "ontoken",
+      metaData: {default: true},
       primary: common.primary({
          video: { dbSection: "static", menuType: "creature", animation: "claw", variant: "01", color: "red" },
          options: {
