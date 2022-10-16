@@ -229,6 +229,7 @@ export async function templatefx(handler, animationData, templateDocument) {
             seq.mask(template)
         }
         seq.playbackRate(data.options.playbackRate)
+        seq.name(handler.rinsedName)
     }
 
     function buildTile(tileX, tileY, isOverhead, tileWidth, tileHeight) {

@@ -81,7 +81,6 @@ async function damage(input) {
 
 async function templateAnimation(input) {
     debug("Template placed, checking for animations")
-    input.templateData = input.template;
     let handler = await systemData.make(input.workflow, null, input);
     if (!handler.item) { console.log("Automated Animations: No Item", handler.item, handler.sourceToken); return;}
     trafficCop(handler)

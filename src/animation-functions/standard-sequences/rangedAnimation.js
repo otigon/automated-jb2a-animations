@@ -53,10 +53,11 @@ export async function range(handler, animationData) {
         } else {
             hit = true;
         }
-
+        //let templateSource = handler.fakeSource()
         let nextSeq = aaSeq.effect()
         nextSeq.file(data.path.file)
         nextSeq.atLocation(sourceToken)
+        //nextSeq.atLocation({x: templateSource.x, y: templateSource.y})
         nextSeq.stretchTo(currentTarget, { onlyX: onlyX })
         nextSeq.randomizeMirrorY()
         nextSeq.repeats(data.options.repeat, data.options.repeatDelay)

@@ -20,15 +20,14 @@ export async function getRequiredData(data) {
         data.targets = Array.from(game.user.targets)
     }
 
-    return {item: data.item, token: data.token, targets: data.targets}
+    return {...data}
+    //return {item: data.item, token: data.token, targets: data.targets}
 }
 
 async function getItem(data) {
     let {item, itemId, itemUuid, itemName, token, tokenId, tokenUuid, targets, actorId, actor} = data;
     return itemUuid 
             ? await getItemFromUuid(itemUuid)
-            : itemId && (actorId || actor)
-            ? await getItemFromCompiledUuid(itemId, actor, actorId)
             : token && itemId
             ? getItemFromToken(token, itemId)
             : tokenId && itemId
@@ -37,6 +36,8 @@ async function getItem(data) {
             ? getItemFromTokenUuid(tokenUuid, itemId)
             : token && itemName
             ? getItemFromName(token, itemName)
+            : itemId && (actorId || actor)
+            ? await getItemFromCompiledUuid(itemId, actor, actorId)
             : itemId
             ? getItemFromIdBlind(itemId)
             : null
@@ -44,6 +45,7 @@ async function getItem(data) {
 async function getItemFromUuid(uuid) {
     return fromUuid(uuid);
 }
+// TO-DO: This can return null in some instances, follow up 
 async function getItemFromCompiledUuid(itemId, actor, actorId) {
     const idActor = actor ? actor.id : actorId;
     return fromUuid(`Actor.${idActor}.Item.${itemId}`);

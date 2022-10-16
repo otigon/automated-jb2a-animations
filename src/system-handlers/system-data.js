@@ -37,12 +37,12 @@ export default class systemData {
         this.hasDamage = this.item?.hasDamage ?? false;
         this.itemName = this.item.name?.toLowerCase() || this.item.sourceName?.toLowerCase();
 
-        if (this.systemId === 'pf2e') {endTiming
-            const pf2eRuleTypes = ['condition', 'effect', 'feat'];
-            this.isPF2eRuleset = pf2eRuleTypes?.includes(this.item.type);
+        if (this.systemId === 'pf2e') {
+            const pf2eActiveEffects = ['condition', 'effect'];
+            this.isPF2eActiveEffect = this.item?.rules?.[0]?.key === "BattleForm" ? false : pf2eActiveEffects?.includes(this.item.type);
         }
 
-        this.isActiveEffect = this.item?.uuid?.includes("ActiveEffect") || this.isPF2eRuleset ? true : false;
+        this.isActiveEffect = this.item?.uuid?.includes("ActiveEffect") || this.isPF2eActiveEffect ? true : false;
 
         if (this.isActiveEffect) {
             if (this.systemId === 'dnd5e' || this.systemId === 'pf1' || this.systemId === 'wfrp4e' || this.systemId === "sfrpg") {
@@ -86,19 +86,22 @@ export default class systemData {
 
         this.rinsedName = this.itemName ? AAAutorecFunctions.rinseName(this.itemName) : "noitem";
 
-        if (this.isActiveEffect || this.pf2eRuleset) {
+        if (this.isActiveEffect || this.isPF2eActiveEffect) {
             this.autorecObject = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.aefx, this.rinsedName);
+        } else if (this.workflow instanceof MeasuredTemplateDocument) {
+            this.autorecObject = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.templatefx, this.rinsedName);
         } else {
             this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, this.rinsedName);
         }
 
-        if (!this.autorecObject && game.system.id === "pf2e") {
+        //Disabling the PF2e fallback to treat these as normal Active Effect type animations
+        //if (!this.autorecObject && game.system.id === "pf2e") {
             /* fallback assignment for active effects, default assignment otherwise. */
-            this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, this.rinsedName);
-        } 
+            //this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, this.rinsedName);
+        //} 
     
         // If there is no match and there are alternative names, then attempt to use those names instead
-        if (!this.autorecObject && data.extraNames?.length && !this.isActiveEffect && !this.pf2eRuleset) {
+        if (!this.autorecObject && data.extraNames?.length && !this.isActiveEffect && !this.isPF2eActiveEffect) {
             for (const name of data.extraNames) {
                 const rinsedName = AAAutorecFunctions.rinseName(name);
                 this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, rinsedName);
@@ -271,6 +274,17 @@ export default class systemData {
         return targetFX;
     }
     
+    fakeSource() {
+        let templateSource = Sequencer.EffectManager.getEffects({sceneId: canvas.scene.id, name: this.rinsedName})[0]
+        let gridSize = canvas.grid.size / 2;
+        let tsXmin = templateSource.source.x - (templateSource.source.width / 2) - gridSize;
+        let tsXmax = templateSource.source.x + (templateSource.source.width / 2) - gridSize;
+        let tsYmin = templateSource.source.y - (templateSource.source.height / 2) - gridSize;
+        let txYmax = templateSource.source.y + (templateSource.source.height / 2) - gridSize;
+        let newX = Sequencer.Helpers.random_int_between(tsXmin, tsXmax);
+        let newY = Sequencer.Helpers.random_int_between(tsYmin, txYmax);
+        return {x: newX, y: newY}
+    }
 }
 
 

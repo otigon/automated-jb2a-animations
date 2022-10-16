@@ -233,7 +233,8 @@ Hooks.once('ready', async function () {
     //if (game.modules.get("midi-qol")?.active) {
         //systemSupport.midiqol.systemHooks();
     //} else {
-        systemSupport[game.system.id] ? systemSupport[game.system.id].systemHooks() : systemSupport.standard.systemHooks();
+        const systemIdClean = game.system.id.replace(/\-/g, '');
+        systemSupport[systemIdClean] ? systemSupport[systemIdClean].systemHooks() : systemSupport.standard.systemHooks();
         /*
         switch (game.system.id) {
             case "dnd5e":

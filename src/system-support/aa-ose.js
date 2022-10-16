@@ -8,28 +8,19 @@ export function systemHooks() {
         if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
 
         let compiledData = await getRequiredData({
-            itemId: msg.flags?.dcc?.ItemId,
+            itemId: msg.flags?.ose?.itemId,
             actorId: msg.speaker?.actor,
             tokenId: msg.speaker?.token,
             workflow: msg,
         })
-        runDcc(compiledData)
+        runOse(compiledData)
     });
 }
 
-async function runDcc(input) {
-
-    if (!game.settings.get('dcc', 'useStandardDiceRoller')) {
-        let handler = await systemData.make(input.workflow, null, input)
-        if (!handler.item) {
-            return;
-        }
-        trafficCop(handler);
-    } else if (input.flags?.dcc?.RollType === "Damage" || input.flags?.dcc?.RollType === "SpellCheck") {
-        let handler = await systemData.make(input.workflow, null, input)
-        if (!handler.item) {
-            return;
-        }
-        trafficCop(handler);
+async function runOse(input) {
+    let handler = await systemData.make(input.workflow, null, input)
+    if (!handler.item) {
+        return;
     }
+    trafficCop(handler);
 }
