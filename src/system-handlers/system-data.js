@@ -274,12 +274,14 @@ export default class systemData {
         return targetFX;
     }
     
-    fakeSource() {
-        let templateSource = Sequencer.EffectManager.getEffects({sceneId: canvas.scene.id, name: this.rinsedName})[0]
+    fakeSource(token) {
+        let templateSource = Sequencer.EffectManager.getEffects({sceneId: canvas.scene.id, name: this.rinsedName})[0];
+        if (!templateSource) { return token; }
+
         let gridSize = canvas.grid.size / 2;
-        let tsXmin = templateSource.source.x - (templateSource.source.width / 2) - gridSize;
+        let tsXmin = templateSource.source.x - (templateSource.source.width / 2) + gridSize;
         let tsXmax = templateSource.source.x + (templateSource.source.width / 2) - gridSize;
-        let tsYmin = templateSource.source.y - (templateSource.source.height / 2) - gridSize;
+        let tsYmin = templateSource.source.y - (templateSource.source.height / 2) + gridSize;
         let txYmax = templateSource.source.y + (templateSource.source.height / 2) - gridSize;
         let newX = Sequencer.Helpers.random_int_between(tsXmin, tsXmax);
         let newY = Sequencer.Helpers.random_int_between(tsYmin, txYmax);

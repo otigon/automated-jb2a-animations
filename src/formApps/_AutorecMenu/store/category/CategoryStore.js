@@ -60,6 +60,8 @@ export class CategoryStore extends WorldSettingArrayStore {
          scrollTop: aaSessionStorage.getStore(`${constants.moduleId}-category-scrolltop-${key}`, 0),
          // This allow setting the current Index of the section for the Video Preview app
          videoIDX: writable(void 0),
+
+         animationSourceOption: game.system.id === "dnd5e" || game.system.id === "pf2e",
       };
 
    }

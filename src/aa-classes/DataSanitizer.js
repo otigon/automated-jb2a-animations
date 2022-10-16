@@ -153,6 +153,7 @@ export class DataSanitizer {
                 };
             case "range":
                 return {
+                    animationSource: data.animationSource ?? false,
                     delay: data.delay || 0,
                     elevation: data.elevation ?? 1000,
                     isAbsolute: data.isAbsolute ?? false,

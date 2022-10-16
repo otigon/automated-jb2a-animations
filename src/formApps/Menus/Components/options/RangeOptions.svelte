@@ -10,10 +10,12 @@
     import WaitDelay        from "./inputComponents/WaitDelay.svelte";
 
     import {aaReturnWeapons} from "../../../../database/jb2a-menu-options.js"
+    import systemData from "../../../../system-handlers/system-data";
 
     //import { ripple } from "@typhonjs-fvtt/svelte-standard/action";
 
     export let animation;
+    export let category;
 
     const folder = {
         label: game.i18n.localize("autoanimations.menus.options"),
@@ -130,6 +132,25 @@
                     />
                 </td>
             </tr>
+            {#if category.stores.animationSourceOption}
+            <tr>
+                <td></td>
+                <td>
+                    <!--Set Source as Template Animation: EXPERITMENTAL-->
+                    <div>
+                        <label for="TempSource {animation._data.id}"
+                            >{localize("autoanimations.menus.animation")} {localize("autoanimations.menus.source")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="TempSource {animation._data.id}"
+                            bind:checked={$animation.primary.options.animationSource}
+                        />
+                    </div>
+                </td>
+                <td></td>
+            </tr>
+            {/if}
         </table>
     </TJSSvgFolder>
 </div>
