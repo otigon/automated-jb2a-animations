@@ -176,8 +176,7 @@ export default class systemData {
     }
 
     elevation(token = {}, abs = false, level = 0) {
-        let canvasObjectElevation = token.document?.elevation ?? 0;
-        return abs ? level : canvasObjectElevation + level; 
+        return abs ? level : level - 1; 
     }
 
     getSize(isRadius = false, size = 1, token, addToken = false) {
@@ -250,7 +249,7 @@ export default class systemData {
         targetEffect.size(setSize, { gridUnits: true })
         targetEffect.origin(this.itemUuid)
         targetEffect.repeats(targetFX.options.repeat, targetFX.options.repeatDelay)
-        targetEffect.elevation(targetFX.options.isAbsolute ? targetFX.options.elevation : target.document.elevation + targetFX.options.elevation)
+        targetEffect.elevation(targetFX.options.isAbsolute ? targetFX.options.elevation : targetFX.options.elevation - 1, {absolute: targetFX.options.isAbsolute})
         if (targetFX.options.isMasked) {
             targetEffect.mask(target)
         }

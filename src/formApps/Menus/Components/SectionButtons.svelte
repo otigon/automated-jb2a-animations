@@ -24,6 +24,10 @@
         currentStore.set(category);
         category.loadPreviews(category);
     }
+
+    function removeMetaData() {
+       delete $animation.metaData
+   }
 </script>
 
 <div class="aa-autorec-headerButton">
@@ -57,6 +61,7 @@
             hidden
             id="SoundOnly {animation._data.id}"
             bind:checked={$animation.soundOnly.sound.enable}
+            on:change={() => removeMetaData()}
         />
     </div>
     <div style="grid-row:1/2; grid-column:4/5" class="sectionButton">
@@ -74,6 +79,7 @@
             hidden
             id="Macro {animation._data.id}"
             bind:checked={$animation.macro.enable}
+            on:change={() => removeMetaData()}
         />
     </div>
 </div>

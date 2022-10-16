@@ -160,6 +160,7 @@ export class CategoryStore extends WorldSettingArrayStore {
 
    }
    menuTypeChange(section, idx, section02 = "video", menuDB = "static") {
+      delete this._data[idx]._data.metaData;
       let menuType = this._data[idx]._data[section][section02].menuType;
       this._data[idx]._data[section][section02].animation = newNameMenu[menuDB][menuType][0][0];
 
@@ -171,6 +172,7 @@ export class CategoryStore extends WorldSettingArrayStore {
    }
 
    animationChange(section, idx, section02 = "video", menuDB = "static") {
+      delete this._data[idx]._data.metaData;
       let menuType = this._data[idx]._data[section][section02].menuType;
       let animation = this._data[idx]._data[section][section02].animation;
       this._data[idx]._data[section][section02].variant = newVariantMenu[menuDB][menuType][animation][0][0];
@@ -180,6 +182,7 @@ export class CategoryStore extends WorldSettingArrayStore {
    }
 
    variantChange(section, idx, section02 = "video", menuDB = "static") {
+      delete this._data[idx]._data.metaData;
       let menuType = this._data[idx]._data[section][section02].menuType;
       let animation = this._data[idx]._data[section][section02].animation;
       let variant = this._data[idx]._data[section][section02].variant;

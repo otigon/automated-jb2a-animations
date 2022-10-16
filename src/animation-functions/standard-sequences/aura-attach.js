@@ -195,7 +195,7 @@ export async function aura(handler, animationData) {
             //seq.filter("ColorMatrix", {tint: data.options.tintColor})
         }
         seq.size(size, { gridUnits: true })
-        seq.elevation(handler.elevation(token, data.options.isAbsolute, data.options.elevation))
+        seq.elevation(handler.elevation(token, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
         seq.attachTo(token, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
         seq.opacity(data.options.opacity)
         seq.fadeIn(data.options.fadeIn)
@@ -223,7 +223,7 @@ export async function aura(handler, animationData) {
         seq.atLocation(token)
         seq.file(secondary.path?.file, true)
         seq.size(size, { gridUnits: true })
-        seq.elevation(handler.elevation(token, secondary.options.isAbsolute, secondary.options.elevation))
+        seq.elevation(handler.elevation(token, secondary.options.isAbsolute, secondary.options.elevation), {absolute: secondary.options.isAbsolute})
         seq.zIndex(secondary.options.zIndex)
         seq.opacity(secondary.options.opacity)
         seq.fadeIn(secondary.options.fadeIn)

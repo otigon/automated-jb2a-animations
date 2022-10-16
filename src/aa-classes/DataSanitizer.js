@@ -368,7 +368,7 @@ export class DataSanitizer {
             // TO-DO switch Scale/Radius
             sourceEffect.size(sourceSize, { gridUnits: true })
             sourceEffect.repeats(data.options.repeat, data.options.repeatDelay)
-            sourceEffect.elevation(data.options.isAbsolute ? data.options.elevation : handler.sourceToken.document.elevation + data.options.elevation)
+            sourceEffect.elevation(data.options.isAbsolute ? data.options.elevation : data.options.elevation - 1, {absolute: data.options.isAbsolute})
             sourceEffect.zIndex(data.options.zIndex)
             if (data.options.isMasked) {
                 sourceEffect.mask(handler.sourceToken)

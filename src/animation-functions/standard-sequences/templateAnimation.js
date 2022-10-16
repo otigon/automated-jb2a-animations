@@ -167,7 +167,7 @@ export async function templatefx(handler, animationData, templateDocument) {
             } else if (!secondary.options.isWait) {
                 secondarySeq.delay(secondary.options.delay)
             }
-            secondarySeq.elevation(handler.elevation(currentTarget, secondary.options.isAbsolute, secondary.options.elevation))
+            secondarySeq.elevation(handler.elevation(currentTarget, secondary.options.isAbsolute, secondary.options.elevation), {absolute: secondary.options.isAbsolute})
             secondarySeq.zIndex(secondary.options.zIndex)
             secondarySeq.opacity(secondary.options.opacity)
             secondarySeq.fadeIn(secondary.options.fadeIn)
@@ -222,7 +222,7 @@ export async function templatefx(handler, animationData, templateDocument) {
         seq.file(data.path.file)
         seq.opacity(data.options.opacity)
         seq.origin(handler.itemUuid)
-        seq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation))
+        seq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
         seq.zIndex(data.options.zIndex)
         seq.rotate(data.options.rotate)
         if (data.options.isMasked) {
