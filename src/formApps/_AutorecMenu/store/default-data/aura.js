@@ -4,6 +4,7 @@ export const aura = [
    {
       ...common.main({ label: "spiritguardians" }),
       menu: "aura",
+      metaData: {default: true},
       macro: common.macro(),
       primary: common.primary({
          video: { dbSection: "static", menuType: "spell", animation: "spiritguardians", variant: '01', color: 'yellowblue' },

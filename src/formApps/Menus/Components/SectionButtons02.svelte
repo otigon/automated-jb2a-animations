@@ -11,10 +11,10 @@
     $: currentIDX = category.stores.videoIDX;
 
     async function seePreview() {
-        const index = category._data.findIndex(x => x.id === $animation.id)
         if (type === "item") {
             currentIDX.set("item");
         } else {
+            const index = category._data.findIndex(x => x.id === $animation.id)
             currentIDX.set(index);
         }
         currentStore.set(category);
@@ -31,6 +31,9 @@
         }
     }
     */
+   function removeMetaData() {
+       delete $animation.metaData
+   }
 </script>
 
 <div class="aa-autorec-headerButton02">
@@ -56,6 +59,7 @@
             hidden
             id="SoundOnly {animation._data.id}"
             bind:checked={$animation.soundOnly.sound.enable}
+            on:change={() => removeMetaData()}
         />
     </div>
     <div style="grid-row:1/2; grid-column:3/4" class="sectionButton">
@@ -73,6 +77,7 @@
             hidden
             id="Macro {animation._data.id}"
             bind:checked={$animation.macro.enable}
+            on:change={() => removeMetaData()}
         />
     </div>
 </div>
@@ -97,5 +102,10 @@
         background: rgba(0, 0, 0, 0.17);
         padding: 0.2em;
         border-radius: 1em;
+    }
+    .sectionButton:hover {
+        background: rgba(0, 0, 0, 0.25);
+        text-shadow: 0 0 1px rgba(255, 0, 0, 0.427);
+        zoom: 1.05;
     }
 </style>

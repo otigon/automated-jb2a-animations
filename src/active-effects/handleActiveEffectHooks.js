@@ -89,5 +89,31 @@ export function registerActiveEffectHooks() {
             */
             //}
             break;
+        default:
+            Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
+                if (game.settings.get("autoanimations", "disableAEAnimations")) {
+                    debug(`Active Effect Animations are Disabled`);
+                    return;
+                }
+                if (game.user.id !== userId) { return; }
+                toggleActiveEffects(data, toggle)
+            });
+            Hooks.on("createActiveEffect", (effect, data, userId) => {
+                if (game.settings.get("autoanimations", "disableAEAnimations")) {
+                    debug(`Active Effect Animations are Disabled`);
+                    return;
+                }
+                if (game.user.id !== userId) { return; }
+                createActiveEffects(effect)
+            });
+            Hooks.on("preDeleteActiveEffect", (effect, data, userId) => {
+                if (game.user.id !== userId) { return; }
+
+                deleteActiveEffects(effect)
+                if (game.modules.get('midi-qol')?.active) {
+                    checkConcentration(effect)
+                }
+            });
+
     }
 }

@@ -45,11 +45,10 @@ export default class systemData {
         this.isActiveEffect = this.item?.uuid?.includes("ActiveEffect") || this.isPF2eActiveEffect ? true : false;
 
         if (this.isActiveEffect) {
-            if (this.systemId === 'dnd5e' || this.systemId === 'pf1' || this.systemId === 'wfrp4e' || this.systemId === "sfrpg") {
-                this.itemName = this.item.label || "placeholder";
-            }
             if (this.systemId === 'pf2e') {
                 this.itemName = this.item.name.replace(/[^A-Za-z0-9 .*_-]/g, "");
+            } else {
+                this.itemName = this.item.label || "placeholder";
             }
             this.workflow = "on";
         }
@@ -184,8 +183,7 @@ export default class systemData {
     }
 
     elevation(token = {}, abs = false, level = 0) {
-        let canvasObjectElevation = token?.document?.elevation ?? 0;
-        return abs ? level : canvasObjectElevation + level; 
+        return abs ? level : level - 1; 
     }
 
     getSize(isRadius = false, size = 1, token, addToken = false) {
@@ -258,7 +256,7 @@ export default class systemData {
         targetEffect.size(setSize, { gridUnits: true })
         targetEffect.origin(this.itemUuid)
         targetEffect.repeats(targetFX.options.repeat, targetFX.options.repeatDelay)
-        targetEffect.elevation(targetFX.options.isAbsolute ? targetFX.options.elevation : target.document.elevation + targetFX.options.elevation)
+        targetEffect.elevation(targetFX.options.isAbsolute ? targetFX.options.elevation : targetFX.options.elevation - 1, {absolute: targetFX.options.isAbsolute})
         if (targetFX.options.isMasked) {
             targetEffect.mask(target)
         }

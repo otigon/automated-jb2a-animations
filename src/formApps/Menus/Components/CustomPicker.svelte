@@ -9,6 +9,9 @@
     $: isCustom = $animation[section][section02].enableCustom;
 
     const label = game.i18n.localize('autoanimations.menus.custom')
+    function removeMetaData() {
+       delete $animation.metaData
+   }
 </script>
 
 <table class="c">
@@ -20,6 +23,7 @@
                 type="checkbox"
                 id="{section} {section02} {animation._data.id}"
                 bind:checked={$animation[section][section02].enableCustom}
+                on:change={() => removeMetaData()}
                 />
             </div>
         </td>
@@ -28,6 +32,7 @@
             disabled={!isCustom}
             type="text"
             bind:value={$animation[section][section02].customPath}
+            on:change={() => removeMetaData()}
             style="font-weight:normal; font-size:small; border-radius: 5px;text-align:left; width: 100%; height: 1.75em"
             />
         </td>
