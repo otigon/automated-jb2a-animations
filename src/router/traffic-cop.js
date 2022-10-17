@@ -27,7 +27,6 @@ export async function trafficCop(handler) {
         if (handler.isTemplateItem) {
             switch (game.system.id) {
                 case "a5e":
-                case "pf2e":
                 case "sw5e":
                 case "tormenta20":
                 case "swade":
@@ -87,14 +86,13 @@ export async function trafficCop(handler) {
             return;
         }
         debug(`${animationType} Animation Start"`, handler, sanitizedData)
-        if (handler.templateData && animationType === "templatefx") {
+        if (handler.templateData) {
             animate[animationType](handler, sanitizedData);
             return;
         }
         //sections for Template Hooks.once or straight to function
         switch (game.system.id) {
             case "a5e":
-            case "pf2e":
             case "sw5e":
             case "tormenta20":
             case "swade":

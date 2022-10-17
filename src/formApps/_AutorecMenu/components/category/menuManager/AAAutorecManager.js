@@ -1,6 +1,7 @@
 import { autoRecMigration }                 from "../../../../../mergeScripts/autorec/autoRecMerge";
 import { currentAutorecVersion }            from "../../../../../mergeScripts/autorec/autoRecMerge.js";
 import { custom_warning, custom_error }     from "../../../../../constants/constants";
+import { uuidv4 }                           from "@typhonjs-fvtt/runtime/svelte/util";
 
 export class AAAutorecManager
 {
@@ -142,7 +143,10 @@ export class AAAutorecManager
                 let newSection = existingMenu.find(section => {
                     return section.label?.replace(/\s+/g, '')?.toLowerCase() === incomingSectionLabel;
                 })
-                if (!newSection) { currentMenu[mergeList[i]].push(incomingMenu[a])}
+                if (!newSection) { 
+                    incomingMenu[a].id = uuidv4();
+                    currentMenu[mergeList[i]].push(incomingMenu[a])
+                }
             }
             game.settings.set('autoanimations', `aaAutorec-${mergeList[i]}`, currentMenu[mergeList[i]])
         }

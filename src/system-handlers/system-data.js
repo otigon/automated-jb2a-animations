@@ -90,6 +90,10 @@ export default class systemData {
             this.autorecObject = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.aefx, this.rinsedName);
         } else if (this.workflow instanceof MeasuredTemplateDocument) {
             this.autorecObject = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.templatefx, this.rinsedName);
+            if (!this.autorecObject) {
+                this.autorecObject = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.preset, this.rinsedName);
+                this.autorecObject?.presetType === "proToTemp" ? "" : this.autorecObject = false;
+            }
         } else {
             this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, this.rinsedName);
         }
