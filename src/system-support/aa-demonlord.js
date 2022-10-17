@@ -41,7 +41,7 @@ export function systemHooks() {
 }
 
 async function runDemonlord(data) {
-    let handler = await systemData.make(data.workflow, null, data);
+    let handler = await systemData.make(data);
     if (!handler.item) { return; }
     trafficCop(handler);
 }

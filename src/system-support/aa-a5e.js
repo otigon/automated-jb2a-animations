@@ -18,7 +18,7 @@ export function systemHooks() {
 }
 
 async function runA5e(input) {
-    let handler = await systemData.make(input.workflow, null, input)
+    let handler = await systemData.make(input)
     if (!handler.item) {
         return;
     }

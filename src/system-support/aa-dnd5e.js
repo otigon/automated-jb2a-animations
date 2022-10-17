@@ -41,8 +41,8 @@ export function systemHooks() {
     }
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
         if (userId !== game.user.id || !AnimationState.enabled) { return };
-        templateAnimation(await getRequiredData({itemUuid: template.flags?.dnd5e?.origin, templateData: template, workflow: template}))
-    })    
+        templateAnimation(await getRequiredData({itemUuid: template.flags?.dnd5e?.origin, templateData: template, workflow: template, isTemplate: true}))
+    })
 }
 
 /**
@@ -56,16 +56,25 @@ export function systemHooks() {
 
 async function useItem(input) {
     debug("Item used, checking for animations")
-    const handler = await systemData.make(input.workflow, null, input)
+    const handler = await systemData.make(input)
     if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
     trafficCop(handler)
+    /*
+        if (handler.isAura) {
+        trafficCop(handler);
+    } else {
+        if (item?.hasAreaTarget || item.hasAttack || item.hasDamage) { return; }
+        if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
+        trafficCop(handler)    
+    }
+    */
 }
 
 async function attack(input) {
     checkAmmo(input)
     checkReach(input)
     debug("Attack rolled, checking for animations");
-    const handler = await systemData.make(input.workflow, null, input)
+    const handler = await systemData.make(input)
     if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
     trafficCop(handler)
 }
@@ -74,14 +83,14 @@ async function damage(input) {
     checkAmmo(input)
     checkReach(input)
     debug("Damage rolled, checking for animations")
-    const handler = await systemData.make(input.workflow, null, input)
+    const handler = await systemData.make(input)
     if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
     trafficCop(handler)
 }
 
 async function templateAnimation(input) {
     debug("Template placed, checking for animations")
-    let handler = await systemData.make(input.workflow, null, input);
+    let handler = await systemData.make(input);
     if (!handler.item) { console.log("Automated Animations: No Item", handler.item, handler.sourceToken); return;}
     trafficCop(handler)
 }

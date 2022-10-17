@@ -5,7 +5,7 @@ import { AnimationState }   from "../AnimationState.js";
 export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => { runSW5e(msg); });
 }
-
+// Does Not work yet, need to revisit after SW5e releases a V10 compatible version
 async function runSW5e(msg) {
     if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
 

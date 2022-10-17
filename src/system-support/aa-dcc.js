@@ -20,13 +20,13 @@ export function systemHooks() {
 async function runDcc(input) {
 
     if (!game.settings.get('dcc', 'useStandardDiceRoller')) {
-        let handler = await systemData.make(input.workflow, null, input)
+        let handler = await systemData.make(input)
         if (!handler.item) {
             return;
         }
         trafficCop(handler);
     } else if (input.flags?.dcc?.RollType === "Damage" || input.flags?.dcc?.RollType === "SpellCheck") {
-        let handler = await systemData.make(input.workflow, null, input)
+        let handler = await systemData.make(input)
         if (!handler.item) {
             return;
         }

@@ -53,7 +53,7 @@ async function runSwade(SwadeTokenOrActor, SwadeItem) {
     if (!AnimationState.enabled) { return; }
     let data = { SwadeTokenOrActor, SwadeItem }
 
-    let handler = await systemData.make(data, null, await getRequiredData({item: SwadeItem, token: SwadeTokenOrActor}));
+    let handler = await systemData.make(await getRequiredData({item: SwadeItem, token: SwadeTokenOrActor}));
     if (!handler.item) {
         return;
     }

@@ -48,6 +48,6 @@ export function systemHooks() {
 }
 
 async function runStarfinder(data) {
-    const handler = await systemData.make(data.workflow, null, data)
+    const handler = await systemData.make(data)
     trafficCop(handler);
 }

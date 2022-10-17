@@ -32,7 +32,7 @@ export class AutoAnimations
             ...options
         }
 
-        let handler = await systemData.make(null, null, data)
+        let handler = await systemData.make(data)
         trafficCop(handler);
     }
 }
@@ -72,6 +72,6 @@ export async function playAnimation(sourceToken, item, options = {}) {
         ...options
     }
 
-    let handler = await systemData.make(null, null, data)
+    let handler = await systemData.make(data)
     trafficCop(handler);
 }

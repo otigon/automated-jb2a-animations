@@ -27,7 +27,7 @@ export function systemHooks() {
 }
 
 async function runAlienRPG(input) {
-    let handler = await systemData.make(input.workflow, null, input)
+    let handler = await systemData.make(input)
     if (!handler.item) {
         return;
     }

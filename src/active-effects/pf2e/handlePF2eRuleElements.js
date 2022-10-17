@@ -7,7 +7,9 @@ import { DataSanitizer } from "../../aa-classes/DataSanitizer.js";
 
 
 export async function createRuleElementPF2e(item) {
-
+    const aePF2eTypes = ['condition', 'effect']
+    if (!aePF2eTypes.includes(item.type)) { return; }
+    
     if (!AnimationState.enabled) { return; }
 
     // Get the Item ID and Token it is on
@@ -31,7 +33,7 @@ export async function createRuleElementPF2e(item) {
         item: item,
         activeEffect: true,
     }
-    let handler = await systemData.make(null, null, data);
+    let handler = await systemData.make(data);
     if (!handler.isEnabled || (!handler.autorecObject && !handler.isCustomized)) {
         debug("Active Effect has no animation defined, exiting early", handler)
         return;
@@ -49,6 +51,9 @@ export async function createRuleElementPF2e(item) {
 }
 
 export async function deleteRuleElementPF2e(item) {
+    const aePF2eTypes = ['condition', 'effect']
+    if (!aePF2eTypes.includes(item.type)) { return; }
+
     let aaEffects = Sequencer.EffectManager.getEffects({ origin: item.uuid })
 
     const token = item.parent?.token || canvas.tokens.placeables.find(token => token.actor?.items?.get(item.id) != null)
@@ -59,7 +64,7 @@ export async function deleteRuleElementPF2e(item) {
         item: item,
     };
 
-    const handler = await systemData.make(null, null, data);
+    const handler = await systemData.make(data);
     if (!handler.isEnabled || (!handler.autorecObject && !handler.isCustomized)) {
         debug("Active Effect has no animation defined, exiting early", handler)
         return;
@@ -102,7 +107,7 @@ export async function deleteRuleElementPF2e(item) {
 
 
 export async function oldDeletePF2e(item) {
-    const aePF2eTypes = ['condition', 'effect', 'feat']
+    const aePF2eTypes = ['condition', 'effect']
     if (!aePF2eTypes.includes(item.type)) { return; }
 
     // Finds all active Animations on the scene that match .origin(effect.uuid)
@@ -117,7 +122,7 @@ export async function oldDeletePF2e(item) {
             item: item,
         };
         // Compile data for the system handler
-        const handler = await systemData.make(null, null, data);
+        const handler = await systemData.make(data);
 
         // If a Macro is enabled on the Item, compile that data
         const macroData = {};
@@ -167,7 +172,7 @@ export async function oldDeletePF2e(item) {
             item: item,
         };
         // Compile data for the system handler
-        const handler = await systemData.make(null, null, data);
+        const handler = await systemData.make(data);
         const macroData = {};
         if ((handler.isCustomized && handler.macroOnly) || (handler.isDisabled && handler.macroOnly)) {
             //Sets macro data if it is defined on the Item and is active

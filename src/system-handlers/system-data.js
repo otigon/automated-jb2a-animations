@@ -1,31 +1,32 @@
 import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 import { debug } from "../constants/constants.js";
 import { endTiming } from "../constants/timings.js";
-import { AASystemData } from "./getdata-by-system.js";
+//import { AASystemData } from "./getdata-by-system.js";
 import { flagMigrations } from "../mergeScripts/items/itemFlagMerge.js";
 import { AAAutorecFunctions } from "../aa-classes/aaAutorecFunctions.js";
 
 export default class systemData {
 
-    static async make(msg, isChat, external) {
-        const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
-        const data = external ? external : AASystemData[systemID] ? await AASystemData[systemID](msg, isChat) : await AASystemData.standardChat(msg)
+    static async make(data) {
+        //const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
+        //const data = external ? external : AASystemData[systemID] ? await AASystemData[systemID](msg, isChat) : await AASystemData.standardChat(msg)
         if (!data.item) { debug("Item Retrieval Failed", data); return {}; }
 
-        let isActiveEffect = external ? data.activeEffect : false;
+        //let isActiveEffect = external ? data.activeEffect : false;
+        let isActiveEffect = data.activeEffect;
+
         const flags = await flagMigrations.handle(data.item, {isActiveEffect});
 
-        return new systemData(data, flags, msg);
+        return new systemData(data, flags);
     }
 
-    constructor(systemData, flagData, msg) {
+    constructor(data, flagData) {
         debug("Compiling Automated Animations data")
-        const data = systemData;
         this.gameSystem = game.system.id;
 
         const midiActive = game.modules.get('midi-qol')?.active;
         this.systemId = game.system.id;
-        this.workflow = msg || "";
+        this.workflow = data.workflow;
         this.flags = flagData ?? {};
         //this.animation = this.flags.animation || "";
 
@@ -42,7 +43,7 @@ export default class systemData {
             this.isPF2eActiveEffect = this.item?.rules?.[0]?.key === "BattleForm" ? false : pf2eActiveEffects?.includes(this.item.type);
         }
 
-        this.isActiveEffect = this.item?.uuid?.includes("ActiveEffect") || this.isPF2eActiveEffect ? true : false;
+        this.isActiveEffect = data.activeEffect;
 
         if (this.isActiveEffect) {
             if (this.systemId === 'pf2e') {
@@ -54,7 +55,7 @@ export default class systemData {
         }
 
         if (this.workflow === "on") {
-            this.workflowBackup = msg || {};
+            this.workflowBackup = data.workflow || {};
         }
 
         this.itemMacro = this.item.flags?.itemacro?.macro?.name ?? "";
@@ -87,11 +88,14 @@ export default class systemData {
 
         if (this.isActiveEffect || this.isPF2eActiveEffect) {
             this.autorecObject = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.aefx, this.rinsedName);
-        } else if (this.workflow instanceof MeasuredTemplateDocument) {
+        } else if (data.isTemplate) {
             this.autorecObject = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.templatefx, this.rinsedName);
             if (!this.autorecObject) {
                 this.autorecObject = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.preset, this.rinsedName);
                 this.autorecObject?.presetType === "proToTemp" ? "" : this.autorecObject = false;
+            }
+            if (!this.autorecObject) {
+                this.autorecObject = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.aura, this.rinsedName);
             }
         } else {
             this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, this.rinsedName);

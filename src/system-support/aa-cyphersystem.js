@@ -109,7 +109,7 @@ async function runCypherSystem(input) {
                 //const item = token.actor.items?.get(itemId) ?? "";
     
                 //const targets = Array.from(input.user.targets);
-                let handler = await systemData.make(input.workflow, null, input)
+                let handler = await systemData.make(input)
                 if (!handler.item) {
                     return;
                 }

@@ -38,7 +38,7 @@ export async function createActiveEffects(effect) {
         activeEffect: true,
     }
 
-    let handler = await systemData.make(null, null, data);
+    let handler = await systemData.make(data);
     if (!handler.isEnabled || (!handler.autorecObject && !handler.isCustomized)) {
         debug("Active Effect has no animation defined, exiting early", handler)
         return;
@@ -64,7 +64,7 @@ export async function deleteActiveEffects(effect) {
     };
 
     // Compile data for the system handler
-    const handler = await systemData.make(null, null, data);
+    const handler = await systemData.make(data);
     if (!handler.isEnabled || (!handler.autorecObject && !handler.isCustomized)) {
         debug("Active Effect has no animation defined, exiting early", handler)
         return;
@@ -128,7 +128,7 @@ export async function OlddeleteActiveEffects(effect) {
             item: effect,
         };
         // Compile data for the system handler
-        const handler = await systemData.make(null, null, data);
+        const handler = await systemData.make(data);
 
         // If a Macro is enabled on the Item, compile that data
         const macroData = {};
@@ -191,7 +191,7 @@ export async function OlddeleteActiveEffects(effect) {
             item: effect,
         };
         // Compile data for the system handler
-        const handler = await systemData.make(null, null, data);
+        const handler = await systemData.make(data);
         const macroData = {};
         if ((handler.isCustomized && handler.macroOnly) || (handler.isDisabled && handler.macroOnly)) {
             //Sets macro data if it is defined on the Item and is active

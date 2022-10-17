@@ -12,9 +12,20 @@ export async function getRequiredData(data) {
     if (!data.item) {
         data.item = await getItem(data)
     }
+    // Super hacky way of trying to get an AOE item cast by the Magic Items module
+    if (!data.item && data.itemUuid) {
+        if (game.modules.get("magicitems")?.active) {
+            const splitUuid = data.itemUuid.split('.');
+            const id = splitUuid[splitUuid.length - 1];    
+            data.item = game.packs.get("dnd5e.spells")?.index?.get(id)
+        }  
+    }
     if (!data.token && data.item) {
         // Last ditch effort to find a token
         data.token = data.item.parent?.token ?? getTokenFromItemID(data.item.id) ?? _token
+    }
+    if (!data.token) {
+        data.token = _token;
     }
     if (!data.targets) {
         data.targets = Array.from(game.user.targets)

@@ -15,7 +15,7 @@ export function systemHooks() {
 
 async function runPF1(input) {
     const requiredData = await getRequiredData(input)
-    const handler = await systemData.make(input.workflow, null, requiredData);
+    const handler = await systemData.make(requiredData);
     if (!handler.item) {
         return;
     }
