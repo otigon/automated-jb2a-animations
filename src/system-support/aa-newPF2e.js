@@ -1,6 +1,7 @@
 import { trafficCop }       from "../router/traffic-cop.js"
 import systemData           from "../system-handlers/system-data.js"
 import { AnimationState }   from "../AnimationState.js";
+import { debug }            from "../constants/constants.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
 export function systemHooks() {
@@ -17,11 +18,18 @@ export function systemHooks() {
             workflow: msg,
             playOnDamage: playOnDmg,
         })
+        if (compiledData.item?.type === "effect" || compiledData.item?.type === "condition") {
+            debug ("This is a Condition or Effect, exiting main workflow")
+            return;
+        }
+        if (!compiledData.item) {
+            debug("No Item Found, exiting main Workflow")
+            return;
+        }
         runPF2e(compiledData)
     });
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
         if (userId !== game.user.id || !AnimationState.enabled) { return };
-        console.log(template instanceof MeasuredTemplateDocument)
         templateAnimation(await getRequiredData({itemUuid: template.flags?.pf2e?.origin?.uuid, templateData: template, workflow: template}))
     })    
 }
@@ -29,7 +37,7 @@ export function systemHooks() {
 async function templateAnimation(input) {
     debug("Template placed, checking for animations")
     let handler = await systemData.make(input.workflow, null, input);
-    if (!handler.item) { console.log("Automated Animations: No Item", handler.item, handler.sourceToken); return;}
+    if (!handler.item) { console.log("Automated Animations: No Item", handler); return;}
     trafficCop(handler)
 }
 
@@ -38,6 +46,10 @@ async function runPF2e(data) {
     const itemType = data.item.type;
 
     switch (itemType) {
+        case "effect":
+        case "condition":
+            debug("This is an Effect or Condition, exiting main workflow in deference to Active Effects")
+            break;
         case "spell":
             runPF2eSpells(data)
             break;
@@ -45,8 +57,29 @@ async function runPF2e(data) {
             if (!data.workflow.isRoll) { return; }
             runPF2eWeapons(data)
             break;
+        case "consumable": 
+            playPF2e(data)
+            break;
+        default:
+            // Workaround for Feats and Actions not posting the Item UUID to the Template flags.
+            // Recheck later if that data is added to the Template
+            if (data.item?.type === "feat" || data.item.type === "action") {
+                let hasAOE = await checkFeatForAOE(data);
+                if (hasAOE) {
+                    playPF2e(data)
+                    return;
+                }
+            }
+            if (itemHasDamage(data.item) && data.playOnDamage && data.workflow.isDamageRoll) {
+                playPF2e(data)
+            } else if (!itemHasDamage(data.item) && !data.workflow.isDamageRoll) {
+                playPF2e(data)
+            }
     }
+}
 
+async function checkFeatForAOE(data) {
+    return data.item?.system?.description?.value?.includes("@Template")
 }
 
 function runPF2eWeapons (data) {
@@ -58,28 +91,6 @@ function runPF2eWeapons (data) {
         playPF2e(data);
     } else if (!playOnDamage && isAttackRoll) {
         playPF2e(data);
-    }
-}
-
-function findAttackOnItem(item) {
-    const type = item.type;
-    switch(type) {
-        case "weapon":
-            return true;
-        case "spell":
-        case "focus":
-        case "ritual":
-            return spellHasAttack(item)
-
-             
-    }
-}
-
-function findDamageOnItem(item) {
-    const type = item.type;
-    switch (type) {
-        case "weapon":
-            return item.dealsDamage
     }
 }
 
@@ -163,6 +174,27 @@ async function healing(data) {
     trafficCop(handler);
 }
 
+function findAttackOnItem(item) {
+    const type = item.type;
+    switch(type) {
+        case "weapon":
+            return true;
+        case "spell":
+        case "focus":
+        case "ritual":
+            return spellHasAttack(item)
+
+             
+    }
+}
+
+function findDamageOnItem(item) {
+    const type = item.type;
+    switch (type) {
+        case "weapon":
+            return item.dealsDamage
+    }
+}
 
 function itemHasDamage(item) {
     let damage = item.system?.damage?.value || {};
@@ -177,4 +209,3 @@ function itemHasDamage(item) {
 function getWeaponBaseType(item) {
     return item.baseType;
 }
-

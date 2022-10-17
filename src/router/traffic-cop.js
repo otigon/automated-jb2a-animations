@@ -8,8 +8,14 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 export async function trafficCop(handler) {
     const autorecDisabled = game.settings.get("autoanimations", "disableAutoRec")
 
-    if (!handler.isEnabled) { return; }
-    if (!handler.isCustomized && !handler.autorecObject || (handler.autorecObject && autorecDisabled)) { return; }
+    if (!handler.isEnabled) { 
+        debug("Item is disabled, exiting workflow", handler.item)
+        return; 
+    }
+    if (!handler.isCustomized && !handler.autorecObject || (handler.autorecObject && autorecDisabled)) { 
+        debug("No animation found for Item", handler.item)
+        return; 
+    }
 
     const data = handler.isCustomized ? foundry.utils.deepClone(handler.flags) : foundry.utils.deepClone(handler.autorecObject);
     Hooks.callAll("aa.preDataSanitize", handler, data);
@@ -93,6 +99,7 @@ export async function trafficCop(handler) {
         //sections for Template Hooks.once or straight to function
         switch (game.system.id) {
             case "a5e":
+            case "pf2e":
             case "sw5e":
             case "tormenta20":
             case "swade":
