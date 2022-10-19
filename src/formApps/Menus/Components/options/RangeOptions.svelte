@@ -121,7 +121,17 @@
                     </div>
                 </td>
                 <td>
-                    <WaitDelay {animation}/>
+                    <!--Set Random Offset-->
+                    <div>
+                        <label for="RandomOffset {animation._data.id}"
+                            >{localize("autoanimations.menus.randomOffset")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="RandomOffset {animation._data.id}"
+                            bind:checked={$animation.primary.options.randomOffset}
+                        />
+                    </div>
                 </td>
                 <td>
                     <NumberInput 
@@ -132,9 +142,14 @@
                     />
                 </td>
             </tr>
-            {#if category.stores.animationSourceOption}
             <tr>
-                <td></td>
+                <td>
+
+                </td>
+                <td>
+                    <WaitDelay {animation}/>
+                </td>
+                {#if category.stores.animationSourceOption}
                 <td>
                     <!--Set Source as Template Animation: EXPERITMENTAL-->
                     <div>
@@ -148,9 +163,10 @@
                         />
                     </div>
                 </td>
+                {:else}
                 <td></td>
+                {/if}
             </tr>
-            {/if}
         </table>
     </TJSSvgFolder>
 </div>

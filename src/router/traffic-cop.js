@@ -7,7 +7,7 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function trafficCop(handler) {
     const autorecDisabled = game.settings.get("autoanimations", "disableAutoRec")
-
+    /* Removing this. Workflow should no longer reach this point if no Animation is matched
     if (!handler.isEnabled) { 
         debug("Item is disabled, exiting workflow", handler.item)
         return; 
@@ -16,8 +16,9 @@ export async function trafficCop(handler) {
         debug("No animation found for Item", handler.item)
         return; 
     }
-
-    const data = handler.isCustomized ? foundry.utils.deepClone(handler.flags) : foundry.utils.deepClone(handler.autorecObject);
+    */
+    //const data = handler.isCustomized ? foundry.utils.deepClone(handler.flags) : foundry.utils.deepClone(handler.autorecObject);
+    const data = foundry.utils.deepClone(handler.animationData);
     Hooks.callAll("aa.preDataSanitize", handler, data);
 
     const sanitizedData = await DataSanitizer._getAnimationData(handler, data);

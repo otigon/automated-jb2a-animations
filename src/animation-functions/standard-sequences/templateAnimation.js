@@ -86,7 +86,7 @@ export async function templatefx(handler, animationData, templateDocument) {
                 height: (canvas.grid.size * (trueHeight / canvas.dimensions.distance)) * data.options.scale.y,
             })
             if (data.options.isMasked) {
-                coneRaySeq.mask(template)
+                templateSeq.mask(template)
             }
             if (data.options.persistent) {
                 templateSeq.persist(true)
@@ -219,6 +219,7 @@ export async function templatefx(handler, animationData, templateDocument) {
 
 
     function setPrimary(seq) {
+        seq.anchor(convertToXY(data.options.anchor))
         seq.file(data.path.file)
         seq.opacity(data.options.opacity)
         seq.origin(handler.itemUuid)
@@ -230,6 +231,25 @@ export async function templatefx(handler, animationData, templateDocument) {
         }
         seq.playbackRate(data.options.playbackRate)
         seq.name(handler.rinsedName)
+
+        function convertToXY(input) {
+            let menuType = data.video.menuType;
+            let templateType = template.t;
+            let defaultAnchor = templateType === "circle" || templateType === "rect" ? {x: 0.5, y: 0.5} : {x: 0, y: 0.5};
+            if (!input) { return defaultAnchor}
+            let dNum = menuType === "cone" || menuType === "ray"
+                        ? input || "0, 0.5"
+                        : input || "0.5, 0.5"
+            //if (!input) { return {x: dNum, y: dNum}}
+            let parsedInput = dNum.split(',').map(s => s.trim());
+            let posX = Number(parsedInput[0]);
+            let posY = Number(parsedInput[1]);
+            if (parsedInput.length === 2) {
+                return {x: posX, y: posY}
+            } else if( parsedInput.length === 1) {
+                return {x: posX, y: posX}
+            }
+        }    
     }
 
     function buildTile(tileX, tileY, isOverhead, tileWidth, tileHeight) {

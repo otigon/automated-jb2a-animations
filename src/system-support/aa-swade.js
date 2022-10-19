@@ -1,5 +1,5 @@
 import { trafficCop }       from "../router/traffic-cop.js"
-import systemData           from "../system-handlers/system-data.js"
+import AAHandler            from "../system-handlers/workflow-data.js";
 import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
@@ -51,11 +51,9 @@ export function systemHooks() {
 // TO-DO, CHECK SWADE
 async function runSwade(SwadeTokenOrActor, SwadeItem) {
     if (!AnimationState.enabled) { return; }
-    let data = { SwadeTokenOrActor, SwadeItem }
-
-    let handler = await systemData.make(await getRequiredData({item: SwadeItem, token: SwadeTokenOrActor}));
-    if (!handler.item) {
-        return;
-    }
+    let data = await getRequiredData({token: SwadeTokenOrActor, item: SwadeItem })
+    if (!data.item) { return; }
+    const handler = await AAHandler.make(data)
+    if (!handler) { return; }
     trafficCop(handler);
 }

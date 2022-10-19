@@ -1,5 +1,5 @@
 import { trafficCop }       from "../router/traffic-cop.js"
-import systemData           from "../system-handlers/system-data.js"
+import AAHandler            from "../system-handlers/workflow-data.js";
 import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
@@ -65,8 +65,9 @@ export function systemHooks() {
 }
 
 async function runWarhammer(data) {
-    const handler = await systemData.make(data);
-    if (!handler.item) { return; }
+    if (!data.item) { return; }
+    const handler = await AAHandler.make(data)
+    if (!handler) { return; }
     trafficCop(handler);
 }
 

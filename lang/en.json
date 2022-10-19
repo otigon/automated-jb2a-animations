@@ -619,7 +619,8 @@
             "sideImpact": "Side Impact",
             "anchor": "Anchor",
             "insertMacro": "Insert Macro Name",
-            "damage": "damage"
+            "damage": "damage",
+            "randomOffset": "Random Offset"
         },
         "optionsInfo": {
 

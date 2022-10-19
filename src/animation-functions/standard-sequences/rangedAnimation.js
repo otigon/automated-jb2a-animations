@@ -61,7 +61,7 @@ export async function range(handler, animationData) {
         } else {
             nextSeq.atLocation(sourceToken)
         }
-        nextSeq.stretchTo(currentTarget, { onlyX: onlyX })
+        nextSeq.stretchTo(currentTarget, { onlyX: onlyX, randomOffset: data.options.randomOffset })
         nextSeq.randomizeMirrorY()
         nextSeq.repeats(data.options.repeat, data.options.repeatDelay)
         nextSeq.opacity(data.options.opacity)

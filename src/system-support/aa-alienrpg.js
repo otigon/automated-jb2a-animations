@@ -1,5 +1,5 @@
 import { trafficCop }       from "../router/traffic-cop.js"
-import systemData           from "../system-handlers/system-data.js"
+import AAHandler            from "../system-handlers/workflow-data.js";
 import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
 // WILL NEED REWORK AFTER THE V10 VERSION IS RELEASED
@@ -17,19 +17,18 @@ export function systemHooks() {
         }
 
         let compiledData = await getRequiredData({
-            itemId: extractItemId(),
+            itemId: extractItemId(msg.content),
             actorId: msg.speaker?.actor,
             tokenId: msg.speaker?.token,
             workflow: msg,
         })
+        if (!compiledData.item) { return; }
         runAlienRPG(compiledData)
     });
 }
 
 async function runAlienRPG(input) {
-    let handler = await systemData.make(input)
-    if (!handler.item) {
-        return;
-    }
+    const handler = await AAHandler.make(input)
+    if (!handler) { return; }
     trafficCop(handler);
 }

@@ -1,6 +1,6 @@
 import { debug }            from "../constants/constants.js";
 import { trafficCop }       from "../router/traffic-cop.js";
-import systemData           from "../system-handlers/system-data.js";
+import AAHandler            from "../system-handlers/workflow-data.js";
 import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
@@ -56,7 +56,8 @@ export function systemHooks() {
 
 async function useItem(input) {
     debug("Item used, checking for animations")
-    const handler = await systemData.make(input)
+    const handler = await AAHandler.make(input)
+    if (!handler) { return; }
     if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
     trafficCop(handler)
     /*
@@ -74,7 +75,8 @@ async function attack(input) {
     checkAmmo(input)
     checkReach(input)
     debug("Attack rolled, checking for animations");
-    const handler = await systemData.make(input)
+    const handler = await AAHandler.make(input)
+    if (!handler) { return; }
     if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
     trafficCop(handler)
 }
@@ -83,22 +85,27 @@ async function damage(input) {
     checkAmmo(input)
     checkReach(input)
     debug("Damage rolled, checking for animations")
-    const handler = await systemData.make(input)
+    const handler = await AAHandler.make(input)
+    if (!handler) { return; }
     if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
     trafficCop(handler)
 }
 
 async function templateAnimation(input) {
     debug("Template placed, checking for animations")
-    let handler = await systemData.make(input);
-    if (!handler.item) { console.log("Automated Animations: No Item", handler.item, handler.sourceToken); return;}
+    if (!input.item) { 
+        debug("No Item could be found")
+        return;
+    }
+    const handler = await AAHandler.make(input)
+    if (!handler) { return; }
     trafficCop(handler)
 }
 
 function checkAmmo(data) {
-    const ammo = data.item?.flags?.autoanimations?.fromAmmo;
+    //const ammo = data.item?.flags?.autoanimations?.fromAmmo;
     const ammoType = data.item?.system?.consume?.type;
-    data.item = ammo && ammoType === "ammo" ? data.token?.actor?.items?.get(data.item?.system?.consume?.target) : data.item;
+    data.ammoItem = ammoType === "ammo" ? data.token?.actor?.items?.get(data.item?.system?.consume?.target) : null;
 }
 
 function checkReach(data) {

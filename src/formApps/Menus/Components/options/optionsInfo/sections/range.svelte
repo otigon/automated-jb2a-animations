@@ -49,6 +49,14 @@
     </tr>
     <tr>
         <td class="aa-table">
+            <strong>{localize("autoanimations.menus.randomOffset")}</strong>
+        </td>
+        <td> 
+            Randomly offsets the impact point within the bounds of the Target
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
             <strong>{localize("autoanimations.menus.repeat")}</strong>
         </td>
         <td>

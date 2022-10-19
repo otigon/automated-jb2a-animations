@@ -1,5 +1,5 @@
 import { trafficCop }       from "../router/traffic-cop.js"
-import systemData           from "../system-handlers/system-data.js"
+import AAHandler            from "../system-handlers/workflow-data.js";
 import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
@@ -13,14 +13,13 @@ export function systemHooks() {
             tokenId: msg.speaker?.token,
             workflow: msg,
         })
+        if (!compiledData.item) { return; }
         runA5e(compiledData)
     });
 }
 
 async function runA5e(input) {
-    let handler = await systemData.make(input)
-    if (!handler.item) {
-        return;
-    }
+    const handler = await AAHandler.make(input)
+    if (!handler) { return; }
     trafficCop(handler);
 }

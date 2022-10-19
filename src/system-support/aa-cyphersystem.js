@@ -1,5 +1,5 @@
 import { trafficCop }       from "../router/traffic-cop.js"
-import systemData           from "../system-handlers/system-data.js"
+import AAHandler            from "../system-handlers/workflow-data.js";
 import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
@@ -109,10 +109,9 @@ async function runCypherSystem(input) {
                 //const item = token.actor.items?.get(itemId) ?? "";
     
                 //const targets = Array.from(input.user.targets);
-                let handler = await systemData.make(input)
-                if (!handler.item) {
-                    return;
-                }
+                if (!input.item) { return; }
+                const handler = await AAHandler.make(input)
+                if (!handler) { return; }
                 trafficCop(handler);
             }
         }

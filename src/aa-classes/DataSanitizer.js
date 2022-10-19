@@ -162,6 +162,7 @@ export class DataSanitizer {
                     onlyX: data.onlyX ?? false,
                     opacity: data.opacity ?? 1,
                     playbackRate: data.playbackRate || 1,
+                    randomOffset: data.randomOffset ?? false,
                     repeat: data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
                     zIndex: data.zIndex || 1,
@@ -191,6 +192,7 @@ export class DataSanitizer {
                 };
             case "templatefx":
                 return {
+                    anchor: data.anchor,
                     delay: data.delay ?? 1,
                     elevation: data.elevation ?? 1000,
                     isAbsolute: data.isAbsolute ?? false,

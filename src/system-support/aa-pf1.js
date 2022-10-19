@@ -1,5 +1,5 @@
 import { trafficCop }       from "../router/traffic-cop.js"
-import systemData           from "../system-handlers/system-data.js"
+import AAHandler            from "../system-handlers/workflow-data.js";
 import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
@@ -15,9 +15,8 @@ export function systemHooks() {
 
 async function runPF1(input) {
     const requiredData = await getRequiredData(input)
-    const handler = await systemData.make(requiredData);
-    if (!handler.item) {
-        return;
-    }
+    if (!requiredData.item) { return; }
+    const handler = await AAHandler.make(requiredData)
+    if (!handler) { return; }
     trafficCop(handler);
 }

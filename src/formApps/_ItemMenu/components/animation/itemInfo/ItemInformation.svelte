@@ -31,16 +31,6 @@
                     will be disabled for this Item.
                 </td>
             </tr>
-            <tr>
-                <td class="aa-table">
-                    <strong>Use Ammo</strong>
-                </td>
-                <td>
-                    <strong>DnD5e System ONLY.</strong> If enabled, this Item will
-                    use animations for active ammunition from the Global Automatic
-                    Recognition menu if one is found.
-                </td>
-            </tr>
         </table>
     {/if}
 </div>

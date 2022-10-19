@@ -1,9 +1,8 @@
-import { debug } from "../../constants/constants.js";
-//import { flagMigrations } from "../../system-handlers/flagMerge.js";
-import { trafficCop } from "../../router/traffic-cop.js";
-import systemData from "../../system-handlers/system-data.js";
-import { AnimationState } from "../../AnimationState.js";
-import { DataSanitizer } from "../../aa-classes/DataSanitizer.js";
+import { debug }            from "../../constants/constants.js";
+import { trafficCop }       from "../../router/traffic-cop.js";
+import AAHandler            from "../../system-handlers/workflow-data.js";
+import { AnimationState }   from "../../AnimationState.js";
+import { DataSanitizer }    from "../../aa-classes/DataSanitizer.js";
 
 
 export async function createRuleElementPF2e(item) {
@@ -33,12 +32,14 @@ export async function createRuleElementPF2e(item) {
         item: item,
         activeEffect: true,
     }
-    let handler = await systemData.make(data);
+    let handler = await AAHandler.make(data);
+    if (!handler) { return; }
+    /*
     if (!handler.isEnabled || (!handler.autorecObject && !handler.isCustomized)) {
         debug("Active Effect has no animation defined, exiting early", handler)
         return;
     }
-
+    */
     // Exits early if Item or Source Token returns null. Total Failure
     if (!handler.item || !handler.sourceToken) {
         debug("Failed to find the Item or Source Token", handler)
@@ -62,17 +63,20 @@ export async function deleteRuleElementPF2e(item) {
         token: token,
         targets: [],
         item: item,
+        activeEffect: true,
     };
 
-    const handler = await systemData.make(data);
+    const handler = await AAHandler.make(data);
+    if (!handler) { return; }
+    /*
     if (!handler.isEnabled || (!handler.autorecObject && !handler.isCustomized)) {
         debug("Active Effect has no animation defined, exiting early", handler)
         return;
     }
-
-    const flagData = handler.isCustomized
-        ? foundry.utils.deepClone(handler.flags)
-        : foundry.utils.deepClone(handler.autorecObject);
+    */
+    const flagData = handler.animationData
+        //? foundry.utils.deepClone(handler.flags)
+        //: foundry.utils.deepClone(handler.autorecObject);
 
     const macro = await DataSanitizer.compileMacro(handler, flagData);
 
@@ -122,7 +126,7 @@ export async function oldDeletePF2e(item) {
             item: item,
         };
         // Compile data for the system handler
-        const handler = await systemData.make(data);
+        const handler = await AAHandler.make(data);
 
         // If a Macro is enabled on the Item, compile that data
         const macroData = {};
@@ -172,7 +176,7 @@ export async function oldDeletePF2e(item) {
             item: item,
         };
         // Compile data for the system handler
-        const handler = await systemData.make(data);
+        const handler = await AAHandler.make(data);
         const macroData = {};
         if ((handler.isCustomized && handler.macroOnly) || (handler.isDisabled && handler.macroOnly)) {
             //Sets macro data if it is defined on the Item and is active

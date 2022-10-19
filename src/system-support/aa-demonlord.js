@@ -1,5 +1,5 @@
 import { trafficCop }       from "../router/traffic-cop.js"
-import systemData           from "../system-handlers/system-data.js"
+import AAHandler            from "../system-handlers/workflow-data.js";
 import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
@@ -15,6 +15,7 @@ export function systemHooks() {
             targets: Array.isArray(data.targets) ? data.targets : Array.from(data.targets),
             workflow: data
         })
+        if (!compiledData.item) { return; }
         if (game.settings.get("autoanimations", "playtrigger") === "hits") {
             targets = hitTargets;
         }
@@ -41,7 +42,7 @@ export function systemHooks() {
 }
 
 async function runDemonlord(data) {
-    let handler = await systemData.make(data);
-    if (!handler.item) { return; }
+    const handler = await AAHandler.make(data)
+    if (!handler) { return; }
     trafficCop(handler);
 }

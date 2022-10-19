@@ -1,5 +1,5 @@
 import { trafficCop }       from "../router/traffic-cop.js"
-import systemData           from "../system-handlers/system-data.js"
+import AAHandler            from "../system-handlers/workflow-data.js";
 import { AnimationState }   from "../AnimationState.js";
 import { debug }            from "../constants/constants.js";
 import { getRequiredData }  from "./getRequiredData.js";
@@ -36,13 +36,16 @@ export function systemHooks() {
 
 async function templateAnimation(input) {
     debug("Template placed, checking for animations")
-    let handler = await systemData.make(input);
-    if (!handler.item || !handler.isTemplateItem) { console.log("Automated Animations: No Item", handler); return;}
+    if (!input.item) { 
+        debug("No Item could be found")
+        return;
+    }
+    const handler = await AAHandler.make(input)
+    if (!handler || !handler.isTemplateItem) { return;}
     trafficCop(handler)
 }
 
 async function runPF2e(data) {
-    console.log(data)
     const itemType = data.item.type;
 
     switch (itemType) {
@@ -131,8 +134,13 @@ async function runPF2eSpells(data) {
             break;
     }
 }
-async function playPF2e(data) {
-    let handler = await systemData.make(data)
+async function playPF2e(input) {
+    if (!input.item) { 
+        debug("No Item could be found")
+        return;
+    }
+    const handler = await AAHandler.make(input)
+    if (!handler) { return; }
     trafficCop(handler);
 }
 /**
