@@ -66,7 +66,7 @@
    }
 </script>
 
-<div>
+<div class=animation>
    <TJSSvgFolder {folder}>
         <TJSInput {input} slot=label />
         <TJSToggleIconButton button={buttonOverflow} slot=summary-end>
