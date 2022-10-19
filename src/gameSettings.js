@@ -2,15 +2,10 @@ import AutorecShim from "./formApps/_AutorecMenu/appShim.js";
 import { aaAutorec } from "./mergeScripts/autorec/aaAutoRecList.js";
 import { AnimationState } from "./AnimationState.js";
 
-// TODO: temporary use of local TJSGameSettings until updated in TRL 0.0.20
-import { TJSGameSettings } from '@typhonjs-fvtt/runtime/svelte/store';
+import { TJSGameSettings } from '@typhonjs-fvtt/svelte-standard/store';
 
 class AAGameSettings extends TJSGameSettings
 {
-   // constructor() {
-   //    super(true);
-   // }
-
    initialize() {
       const namespace = 'autoanimations';
 
@@ -27,7 +22,9 @@ class AAGameSettings extends TJSGameSettings
       const settings = [];
 
       // Add a convenience hook to open Autorec settings from macro.
-      Hooks.on('AA.Open.AutorecSetting', () => new AutorecShim());
+      Hooks.on('AA.Open.AutorecSetting', () => {
+         if (game.user.isGM) { new AutorecShim(); }
+      });
 
       game.settings.registerMenu(namespace, 'custom-autorec', {
          label: 'autoanimations.settings.autoRecSetting',
@@ -89,7 +86,7 @@ class AAGameSettings extends TJSGameSettings
             scope: scope.client,
             config: true,
             type: Boolean,
-            default: false,
+            default: false
          }
       });
 
@@ -116,7 +113,7 @@ class AAGameSettings extends TJSGameSettings
             config: true,
             type: String,
             default: '',
-            onChange: () => { window.location.reload() }
+            requiresReload: true
          }
       });
 
@@ -376,8 +373,7 @@ class AAGameSettings extends TJSGameSettings
                   scope: scope.world,
                   type: Boolean,
                   default: false,
-                  config: true,
-                  onChange: () => { window.location.reload() }
+                  config: true
                }
             });
             break;
@@ -437,8 +433,7 @@ class AAGameSettings extends TJSGameSettings
                      scope: scope.world,
                      type: Boolean,
                      default: false,
-                     config: true,
-                     //onChange: () => { window.location.reload() }
+                     config: true
                   }
                });
 
@@ -452,8 +447,7 @@ class AAGameSettings extends TJSGameSettings
                      scope: scope.world,
                      type: Boolean,
                      default: false,
-                     config: true,
-                     onchange: () => { window.location.reload() }
+                     config: true
                   }
                });
 
@@ -482,8 +476,7 @@ class AAGameSettings extends TJSGameSettings
                      scope: scope.world,
                      type: Boolean,
                      default: false,
-                     config: true,
-                     onchange: () => { window.location.reload() }
+                     config: true
                   }
                });
 
@@ -605,7 +598,8 @@ class AAGameSettings extends TJSGameSettings
          }
       });
 
-      this.registerAll(settings);
+      // Selectively register settings w/ core Foundry based on whether the user is GM.
+      this.registerAll(settings, !game.user.isGM);
    }
 }
 
