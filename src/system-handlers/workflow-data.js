@@ -40,12 +40,14 @@ export default class AAHandler {
 
         this.menu = this.animationData.menu;
 
-        //this.isEnabled = true;
-        //this.isCustomized = data.isCustomized;
-        //this.itemFlags = data.itemFlags || this.item.flags?.autoanimations;
-        //this.autorecObject = data.autorecObject;
-
         this.templateData = data.templateData;
+
+        this.systemData = data;
+        /**
+         * Optional parameters passed from System Specific Settings thru this.systemData:
+         * @param {Number} overrideRepeat // override the Repeat parameter for Primary and Secondary animations
+         * @param {Boolean} forceMiss // force a Ranged animation to use the .missed() method
+         */
     }
 
     get isTemplateItem () {

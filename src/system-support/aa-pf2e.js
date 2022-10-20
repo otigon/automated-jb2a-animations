@@ -41,7 +41,7 @@ async function templateAnimation(input) {
         return;
     }
     const handler = await AAHandler.make(input)
-    if (!handler || !handler.isTemplateItem) { return;}
+    if (!handler) { return;}
     trafficCop(handler)
 }
 

@@ -23,7 +23,6 @@ export async function range(handler, animationData) {
             returnDelay = 1500;
     }
 
-
     let aaSeq = await new Sequence("Automated Animations")
 
     // Play Macro if Awaiting
@@ -59,13 +58,21 @@ export async function range(handler, animationData) {
             let animationSource = handler.fakeSource(sourceToken);
             nextSeq.atLocation({x: animationSource.x, y: animationSource.y})
         } else {
-            nextSeq.atLocation(sourceToken)
+            if (data.options.reverse) {
+                nextSeq.atLocation(currentTarget)
+            } else {
+                nextSeq.atLocation(sourceToken)
+            }
         }
-        nextSeq.stretchTo(currentTarget, { onlyX: onlyX, randomOffset: data.options.randomOffset })
+        if (data.options.reverse) {
+            nextSeq.stretchTo(sourceToken, { onlyX: onlyX, randomOffset: data.options.randomOffset })
+        } else {
+            nextSeq.stretchTo(currentTarget, { onlyX: onlyX, randomOffset: data.options.randomOffset })
+        }
         nextSeq.randomizeMirrorY()
         nextSeq.repeats(data.options.repeat, data.options.repeatDelay)
         nextSeq.opacity(data.options.opacity)
-        nextSeq.missed(!hit)
+        nextSeq.missed(!hit || handler.systemData.forceMiss || false)
         nextSeq.name("spot" + ` ${currentTarget.id}`)
         nextSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
         nextSeq.zIndex(data.options.zIndex)

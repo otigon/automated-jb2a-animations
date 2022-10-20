@@ -144,7 +144,17 @@
             </tr>
             <tr>
                 <td>
-
+                    <!--Reverse Animation (Switch Source/Target)-->
+                    <div>
+                        <label for="TempSource {animation._data.id}"
+                            >{localize("autoanimations.animations.reverse")} {localize("autoanimations.menus.animation")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="TempSource {animation._data.id}"
+                            bind:checked={$animation.primary.options.reverse}
+                        />
+                    </div>
                 </td>
                 <td>
                     <WaitDelay {animation}/>

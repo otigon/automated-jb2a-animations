@@ -12,7 +12,10 @@ async function checkChatMessage(msg) {
     if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
 
     let findData = funkyTest(msg)
-    if (!findData.itemId) { return; }
+    if (!findData.itemId) { 
+        debug("Could not extract Item ID from Chat Message HTML")
+        return; 
+    }
 
     let compiledData = await getRequiredData({
         itemId: findData.itemId,
@@ -21,12 +24,32 @@ async function checkChatMessage(msg) {
         workflow: msg,
     })
 
+    compiledData.fireMode = getFireModeOptions(compiledData);
+
     let isAmmo = checkAmmo(compiledData);
     if (isAmmo) { compiledData.ammoItem = isAmmo }
     const handler = await AAHandler.make(compiledData)
     if (!handler) { return; }
     if (!handler.item || !handler.sourceToken) { debug("No Item or Source Token", handler.item, handler.sourceToken); return;}
     trafficCop(handler);
+}
+
+function getFireModeOptions(data) {
+    let item = data.item;
+    let id = item.id;
+    let parent = item.parent;
+    const fireMode = parent.flags?.["cyberpunk-red-core"]?.[`firetype-${id}`]
+    /**
+     * Fire Mode types
+     * aimed
+     * autofire
+     * suppressive
+     */
+    let autofireEnabled = game.settings.get('autoanimations', 'autofire');
+    if (!fireMode || !autofireEnabled) { return null; } else {
+        data.forceMiss = fireMode === "suppressive";
+        data.overrideRepeat = fireMode === "suppressive" || fireMode === "autofire" ? 10 : false;
+    }
 }
 
 function checkAmmo(data) {

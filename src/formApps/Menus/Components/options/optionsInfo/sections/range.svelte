@@ -80,6 +80,14 @@
     </tr>
     <tr>
         <td class="aa-table">
+            <strong>{localize("autoanimations.animations.reverse")} {localize("autoanimations.menus.animation")}</strong>
+        </td>
+        <td>
+            Reverse the Animation to start from the Target and go to the Source Token
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
             <strong>{localize("autoanimations.menus.delay")} / {localize("autoanimations.menus.wait")}</strong>
         </td>
         <td> <strong>Delay</strong> causes the start of the animation section to be delayed (milliseconds) <br> <br>

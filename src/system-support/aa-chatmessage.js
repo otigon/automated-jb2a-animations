@@ -1,5 +1,5 @@
 import { debug }            from "../constants/constants.js";
-import { trafficCop }       from "../router/traffic-cop.js"
+import { trafficCop }       from "../router/traffic-cop.js";
 import AAHandler            from "../system-handlers/workflow-data.js";
 import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
@@ -12,7 +12,10 @@ async function checkChatMessage(msg) {
     if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
 
     let findData = funkyTest(msg);
-    if (!findData.itemId) { return; }
+    if (!findData.itemId) { 
+        debug("Unable to locate Item ID from Chat Message HTML")
+        return;
+    }
     let item = msg.item ?? msg.itemSource;
     let compiledData = await getRequiredData({
         itemId: findData.itemId,
@@ -55,6 +58,15 @@ function extractItemId(msg) {
 function funkyTest(msg) {
     let findItemId = $(msg.content).find(`[data-item-id]`);
     let itemId = findItemId?.[0]?.attributes?.['data-item-id']?.value;
+    if (!itemId) {
+        const systemId = game.system.id;
+        let flags = msg.flags;
+        itemId = flags.itemId ??
+                flags.ItemId ??
+                flags[systemId]?.itemId ??
+                flags[systemId]?.ItemId ??
+                msg.rolls?.[0]?.options?.itemId
+    }
 
     let findTokenId = $(msg.content).find(`[data-item-id]`);
     let tokenId = findTokenId?.[0]?.attributes?.['data-token-id']?.value;
