@@ -6,8 +6,12 @@ import { TJSGameSettings } from '@typhonjs-fvtt/svelte-standard/store';
 
 class AAGameSettings extends TJSGameSettings
 {
+   constructor() {
+      super('autoanimations');
+   }
+
    initialize() {
-      const namespace = 'autoanimations';
+      const namespace = this.namespace;
 
       /**
        * Constants for setting scope type.

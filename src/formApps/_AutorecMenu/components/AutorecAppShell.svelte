@@ -34,7 +34,7 @@
 </script>
 
 <ApplicationShell bind:elementRoot>
-    <TJSSettingsSwap settings={gameSettings} options={{ test: true }}>
+    <TJSSettingsSwap settings={gameSettings} options={{ storage: aaSessionStorage }}>
         <CategorySelect />
         <SettingsFooter slot=settings-footer />
     </TJSSettingsSwap>
