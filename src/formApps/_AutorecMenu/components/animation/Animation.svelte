@@ -12,14 +12,14 @@
    import { createOverflowItems }   from "./createOverflowItems.js";
 
    /** @type {AnimationStore} */
-   export let animation;
+   export let animation = void 0;
 
    /** @type {CategoryStore} */
-   export let category;
+   export let category = void 0;
 
    //** Menu builder set in the Category List. Determines which menu set will be rendered*/
-   export let menuRoute;
-   export let idx;
+   export let menuRoute = void 0;
+   export let idx = void 0;
 
    /**
     * @type {object} Defines folder data for TJSIconFolder.
@@ -46,24 +46,6 @@
    const menu = {
       items: createOverflowItems(animation, category),
    };
-
-   const folderOpen = animation.stores.folderOpen;
-
-   // For performance reasons when the folder is closed the main content Svelte component is not rendered.
-   // When the folder is closed `visible` is set to false with a slight delay to allow the closing animation to
-   // complete.
-   let visible = $folderOpen;
-   let timeoutId;
-
-   $: if (!$folderOpen)
-   {
-      timeoutId = setTimeout(() => visible = false, 500);
-   }
-   else
-   {
-      clearTimeout(timeoutId);
-      visible = true;
-   }
 </script>
 
 <div class=animation>
@@ -72,9 +54,7 @@
         <TJSToggleIconButton button={buttonOverflow} slot=summary-end>
             <TJSMenu {menu} />
         </TJSToggleIconButton>
-        {#if visible}
-            <svelte:component this={menuRoute} {animation} {idx} {category}/>
-        {/if}
+        <svelte:component this={menuRoute} {animation} {idx} {category}/>
    </TJSSvgFolder>
 </div>
 
