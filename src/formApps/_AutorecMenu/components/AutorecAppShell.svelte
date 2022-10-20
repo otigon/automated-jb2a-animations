@@ -6,18 +6,17 @@
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     import { debounce }         from "@typhonjs-fvtt/runtime/svelte/util";
 
-    import { TJSSettingsEdit }  from "@typhonjs-fvtt/svelte-standard/component";
+    import { TJSSettingsSwap }  from "@typhonjs-fvtt/svelte-standard/component";
 
     import CategorySelect       from "./category/CategorySelect.svelte";
 
+    import SettingsFooter       from "./SettingsFooter.svelte";
+
+    import { constants }        from "../../../constants.js";
+    import { gameSettings }     from "../../../gameSettings.js";
     import { aaSessionStorage } from "../../../sessionStorage.js";
-    import { constants}         from "../../../constants.js";
 
     export let elementRoot;
-
-    import { gameSettings }     from "../../../gameSettings.js";
-
-    export let showSettings = void 0;
 
     const { application } = getContext('external');
 
@@ -35,9 +34,8 @@
 </script>
 
 <ApplicationShell bind:elementRoot stylesContent={{ color: "black" }}>
-    {#if $showSettings}
-        <TJSSettingsEdit settings={gameSettings.getData()} styles={{ padding: '12px' }}/>
-    {:else}
+    <TJSSettingsSwap settings={gameSettings} options={{ test: true }}>
         <CategorySelect />
-    {/if}
+        <SettingsFooter slot=settings-footer />
+    </TJSSettingsSwap>
 </ApplicationShell>

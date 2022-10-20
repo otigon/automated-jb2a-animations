@@ -1,23 +1,10 @@
-import { get, writable } from 'svelte/store';
+import { SvelteApplication }    from "@typhonjs-fvtt/runtime/svelte/application";
 
-import {
-    SvelteApplication,
-    TJSDialog }         from "@typhonjs-fvtt/runtime/svelte/application";
-
-import {
-    AutorecAppShell }   from "./components";
-
-import { constants }    from "../../constants.js";
+import { AutorecAppShell }      from "./components";
+import { gameSettings }         from "../../gameSettings.js";
+import { constants }            from "../../constants.js";
 
 export default class AutorecMenuApp extends SvelteApplication {
-    /**
-     * Keeps a reference to any open game settings dialog.
-     * @type {TJSDialog}
-     */
-    #settingsDialog;
-
-    #showSettings = writable(this.#showSettingsValue);
-
     /** @inheritDoc */
     constructor(options)
     {
@@ -46,10 +33,7 @@ export default class AutorecMenuApp extends SvelteApplication {
 
             svelte: {
                 class: AutorecAppShell,
-                target: document.body,
-                props: function() {
-                    return { showSettings: this.#showSettings };
-                }
+                target: document.body
             }
         });
     }
@@ -60,13 +44,6 @@ export default class AutorecMenuApp extends SvelteApplication {
     async close(options) {
         Object.values(ui.windows).filter(app => app.id === "Options-Information" ||
          app.id === "AA-Video-Preview" || app.id === "Autorec-Menu-Manager").forEach(app => app.close());
-
-        // Close any associated settings dialog.
-        if (this.#settingsDialog)
-        {
-            this.#settingsDialog.close();
-            this.#settingsDialog = void 0;
-        }
 
         return super.close(options);
     }
@@ -84,27 +61,19 @@ export default class AutorecMenuApp extends SvelteApplication {
     {
         const buttons = super._getHeaderButtons();
 
-        const getShowSettings = () => get(this.#showSettings);
-        const swapShowSettings = () =>
-        {
-            const newValue = !get(this.#showSettings);
-            this.#showSettings.set(newValue);
-            return newValue;
-        }
-
-        const showSettings = getShowSettings();
+        const showSettings = gameSettings.uiControl.showSettings;
 
         buttons.unshift({
-            class: 'settings',
-            icon: showSettings ? 'fa-regular fa-square-list' : 'fa-regular fa-gear',
-            label: showSettings ? 'Main Menu' : 'Settings',
+            class: "settings",
+            icon: showSettings ? "fa-regular fa-square-list" : "fa-regular fa-gear",
+            label: showSettings ? "Main Menu" : "Settings",
 
             onclick: function()
             {
-                const newShowSettings = swapShowSettings();
+                const newShowSettings = gameSettings.uiControl.swapShowSettings();
 
-                this.icon = newShowSettings ? 'fa-regular fa-square-list' : 'fa-regular fa-gear';
-                this.label = newShowSettings ? 'Main Menu' : 'Settings';
+                this.icon = newShowSettings ? "fa-regular fa-square-list" : "fa-regular fa-gear";
+                this.label = newShowSettings ? "Main Menu" : "Settings";
             }
         });
 
