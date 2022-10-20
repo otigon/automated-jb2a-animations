@@ -550,6 +550,20 @@ export function initSettings(gameSettings) {
             }
          });
          break;
+      case "cyberpunk-red-core":
+         settings.push({
+            namespace,
+            key: 'autofire',
+            options: {
+               name: 'Enable Automatic Repeats',
+               hint: 'Override repeats for the Primary animation when Automatic or Suppressive fire is enabled for weapon',
+               scope: scope.client,
+               type: Boolean,
+               default: true,
+               config: true,
+            }
+         });
+         break;
    }
 
    settings.push({

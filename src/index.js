@@ -170,53 +170,7 @@ Hooks.on('aa.initialize', async () => {
     console.log('%cAutomated Animations Database has been compiled and registered', 'color: green', {aaDatabase})
     Hooks.callAll('aa.ready', aaDatabase)
 })
-/*
-// Registers Database with Sequencer
-Hooks.on("aa.initialize", async () => {
 
-    const s3Check = game.settings.get('autoanimations', 'jb2aLocation');
-    const jb2aPatreonFound = moduleIncludes("jb2a_patreon");
-    //const jb2aFreeFound = moduleIncludes("JB2A_DnD5e");
-    let jb2aPath = game.settings.get('autoanimations', 'jb2aLocation');
-    let s3Patreon;
-
-    if (!jb2aPath || jb2aPath === "null") {
-        if (jb2aPatreonFound) {
-            jb2aPath = 'modules/jb2a_patreon'
-        } else {
-            jb2aPath = 'modules/JB2A_DnD5e'
-        }
-    } else {
-        if (jb2aPath.includes('patreon')) {
-            s3Patreon = true;
-        }
-    }
-
-    let obj01;
-    if (jb2aPatreonFound || s3Patreon) {
-        await initializeJB2APatreonDB(jb2aPath)
-        obj01 = JB2APATREONDB;
-    } else {
-        await initializeJB2AFreeDB(jb2aPath)
-        obj01 = JB2AFREEDB;
-    }
-
-    if (game.user.isGM && (!game.modules.get("JB2A_DnD5e") && !game.modules.get("jb2a_patreon"))) {
-        if (s3Check && (s3Check.includes('jb2a_patreon') || s3Check.includes('JB2A_DnD5e'))) { } else {
-            ui.notifications.error(game.i18n.format("autoanimations.settings.error"));
-        }
-    }
-
-    await patreonMerge.handle(jb2aPath);
-    console.log(JB2APATREONDB);
-
-    Sequencer.Database.registerEntries("autoanimations", obj01, true);
-    if (game.settings.get("autoanimations", "killAllAnim") === "off") {
-        AnimationState.enabled = false;
-    }
-    Hooks.callAll('aa.ready', obj01)
-});
-*/
 Hooks.once('ready', async function () {
     initSettings(gameSettings);
 
@@ -229,42 +183,30 @@ Hooks.once('ready', async function () {
     // Cache deleted items
     Hooks.on("deleteItem", async (item) => {storeDeletedItems(item)})
 
+    /**
+     * Officially Supported Systems:
+     * DnD 5e
+     * Pathfinder 2e
+     * Pathfinder 1
+     * Advanced 5e
+     * Alien RPG
+     * CypherSystem
+     * DnD 3.5
+     * Dungeon Crawl Clasics
+     * Shadow of the Demonlord
+     * Forbidden Lands
+     * Starfinder RPG
+     * Star Wars FFG
+     * Star Wars 5e
+     * SWADE
+     * Warhammer Fantasy RPG
+     * Old School Essentials
+     * Cyberpunk Red (Only for Attacks)
+    */
+
     // Register Hooks by system
-    if (game.modules.get("midi-qol")?.active) {
-        systemSupport.midiqol.systemHooks();
-    } else {
-        systemSupport[game.system.id] ? systemSupport[game.system.id].systemHooks() : systemSupport.standard.systemHooks();
-        /*
-        switch (game.system.id) {
-            case "dnd5e":
-                systemSupport.dnd5e.dnd5eHooks();
-                break;
-            case "sw5e":
-                systemSupport.sw5e.sw5eHooks();
-                break;
-            case "demonlord":
-                systemSupport.demonlord.demonlordHooks();
-                break;
-            case "pf2e":
-                systemSupport.pf2e.pf2eHooks();
-                break;
-            case "sfrpg":
-                systemSupport.sfrpg.sfrpgHooks();
-                break;
-            case "swade":
-                systemSupport.swade.swadeHooks();
-                break;
-            case "wfrp4e":
-                systemSupport.wfrpg.wfrp4eHooks();
-                break;
-            case 'dcc':
-                systemSupport.dcc.dccHooks();
-                break;
-            default:
-                systemSupport.standard.standardHook();
-        }
-        */
-    }
+    const systemIdClean = game.system.id.replace(/\-/g, '');
+    systemSupport[systemIdClean] ? systemSupport[systemIdClean].systemHooks() : systemSupport.standard.systemHooks();
 
     registerActiveEffectHooks();
 

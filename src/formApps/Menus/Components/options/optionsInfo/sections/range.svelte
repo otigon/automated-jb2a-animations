@@ -8,6 +8,16 @@
         <th colspan="2"> Range Options</th>
     </tr>
     <tr>
+        <td>
+            <strong>{localize("autoanimations.menus.animation")} {localize("autoanimations.menus.source")}</strong>
+        </td>
+        <td>
+            <strong>Experimental</strong> <br> <strong>Available only in the Global Automatic Recognition Menu for DnD5e and PF2e!</strong> <br>
+            Use this for Spells like Black Tentacles and Storm Sphere to use a placed persistent Animation as the Source of a ranged attack <br>
+            Requires an entry in both the Templates and Ranged menu that match for the Item.
+        </td>
+    </tr>
+    <tr>
         <td class="aa-table">
             <strong>{localize("autoanimations.menus.effect")} {localize("autoanimations.menus.opacity")}</strong>
         </td>
@@ -39,6 +49,14 @@
     </tr>
     <tr>
         <td class="aa-table">
+            <strong>{localize("autoanimations.menus.randomOffset")}</strong>
+        </td>
+        <td> 
+            Randomly offsets the impact point within the bounds of the Target
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
             <strong>{localize("autoanimations.menus.repeat")}</strong>
         </td>
         <td>
@@ -58,6 +76,14 @@
         </td>
         <td>
             For built-in Select menus ONLY. If a "return" animation is availble for the given Weapon, enabling this will play it.
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.animations.reverse")} {localize("autoanimations.menus.animation")}</strong>
+        </td>
+        <td>
+            Reverse the Animation to start from the Target and go to the Source Token
         </td>
     </tr>
     <tr>

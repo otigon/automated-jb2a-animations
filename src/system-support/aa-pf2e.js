@@ -1,107 +1,203 @@
-import { trafficCop } from "../router/traffic-cop.js"
-import systemData from "../system-handlers/system-data.js"
+import { trafficCop }       from "../router/traffic-cop.js"
+import AAHandler            from "../system-handlers/workflow-data.js";
 import { AnimationState }   from "../AnimationState.js";
+import { debug }            from "../constants/constants.js";
+import { getRequiredData }  from "./getRequiredData.js";
 
 export function systemHooks() {
-    Hooks.on("createChatMessage", async (msg) => { runPf2e(msg) });
+    Hooks.on("createChatMessage", async (msg) => {
+        if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
+        const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
+
+        let compiledData = await getRequiredData({
+            item: msg.item,
+            itemId: msg.flags.pf2e?.origin?.uuid,
+            token: msg.token?.object,
+            tokenId: msg.speaker?.token,
+            actorId: msg.speaker?.actor,
+            workflow: msg,
+            playOnDamage: playOnDmg,
+        })
+        if (compiledData.item?.type === "effect" || compiledData.item?.type === "condition") {
+            debug ("This is a Condition or Effect, exiting main workflow")
+            return;
+        }
+        if (!compiledData.item) {
+            debug("No Item Found, exiting main Workflow")
+            return;
+        }
+        runPF2e(compiledData)
+    });
+    Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
+        if (userId !== game.user.id || !AnimationState.enabled) { return };
+        templateAnimation(await getRequiredData({itemUuid: template.flags?.pf2e?.origin?.uuid, templateData: template, workflow: template, isTemplate: true}))
+    })    
 }
 
-async function runPf2e(msg) {
-    if (game.user.id !== msg.user.id || !AnimationState.enabled) { return; }
-    const handler = await systemData.make(msg);
-    if (!handler.item || !handler.sourceToken) {
+async function templateAnimation(input) {
+    debug("Template placed, checking for animations")
+    if (!input.item) { 
+        debug("No Item could be found")
         return;
     }
-    const damageTranslated = game.i18n.localize('autoanimations.menus.damage')
-    const itemType = handler.itemType;
-    let damage; //= /*handler.item.damageValue ||*/ //handler.item?.data.data.damage?.length || handler.item?.data?.data?.damage?.value["0"]?.value;
-    const spellType = handler.item?.system?.spellType?.value ?? "utility";
-    const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
-    if (handler.shouldPlayImmediately && !msg.flavor?.toLowerCase().includes(damageTranslated)) {
-        trafficCop(handler);
-        return;
-    }
-    if (handler.shouldPlayImmediately) { return };
-    switch (itemType) {
-        case "spell":
-            damage = handler.item?.system?.damage?.value["0"]?.value;
-            switch (spellType) {
-                case "utility":
-                    if (!damage) {
-                        trafficCop(handler);
-                    } else if (msg.flavor?.toLowerCase().includes(damageTranslated)) {
-                        trafficCop(handler);
-                    }
-                    break;
-                case "save":
-                    if (!damage) {
-                        trafficCop(handler);
-                    } else if (msg.flavor?.toLowerCase().includes(damageTranslated)) {
-                        trafficCop(handler);
-                    }
-                    break;
-                case "heal":
-                    if (msg.flavor?.toLowerCase().includes('healing')) {
-                        trafficCop(handler);
-                    }
-                    if (handler.item.system?.category?.value === "focus") {
-                        trafficCop(handler);
-                    }
-                    break;
-                case "attack":
-                    switch (playOnDmg) {
-                        case true:
-                            if (msg.flavor?.toLowerCase().includes(damageTranslated)) {
-                                trafficCop(handler);
-                            }
-                            break;
-                        default:
-                            if (msg.flags.pf2e?.context?.type.includes("attack")) {
-                                trafficCop(handler);
-                            }
-                    }
-                    break;
-            }
-            break;
-        case "melee":
-        case "weapon":
-            handlePf2eStrike(msg, handler, playOnDmg)
-            break;
-        case "consumable":
-        case "armor":
-        case "feat":
-        case "action":
-        case "effect":
-            if (handler.item.rules.findIndex(x => x.key === "Strike") >= 0) {
-                const wasHandled = handlePf2eStrike(msg, handler, playOnDmg);
-                if (!wasHandled) {
-                    trafficCop(handler);
-                }
-            }
-            else {
-                trafficCop(handler);
-            }
-            break;
-    }
+    const handler = await AAHandler.make(input)
+    if (!handler) { return;}
+    trafficCop(handler)
+}
 
-    function handlePf2eStrike(msg, handler, playOnDmg) {
-        const isDamageRoll = !!msg.flags.pf2e?.damageRoll; /*msg.data.flavor?.toLowerCase().includes("damage")*/
-        const isAttackRoll = msg.flags.pf2e?.context?.type.includes("attack");
-        if (!isAttackRoll && !isDamageRoll) {
-            return false;
-        }
-        switch (true) {
-            case playOnDmg:
-                if (isDamageRoll) {
-                    trafficCop(handler);
+async function runPF2e(data) {
+    const itemType = data.item.type;
+
+    switch (itemType) {
+        case "effect":
+        case "condition":
+            debug("This is an Effect or Condition, exiting main workflow in deference to Active Effects")
+            break;
+        case "spell":
+            runPF2eSpells(data)
+            break;
+        case "weapon":
+            if (!data.workflow.isRoll) { return; }
+            runPF2eWeapons(data)
+            break;
+        case "consumable": 
+            playPF2e(data)
+            break;
+        default:
+            // Workaround for Feats and Actions not posting the Item UUID to the Template flags.
+            // Recheck later if that data is added to the Template
+            if (data.item?.type === "feat" || data.item.type === "action") {
+                let hasAOE = await checkFeatForAOE(data);
+                if (hasAOE) {
+                    playPF2e(data)
+                    return;
                 }
-                break;
-            default:
-                if (isAttackRoll) {
-                    trafficCop(handler);
-                }
-        }
-        return true;
+            }
+            if (itemHasDamage(data.item) && data.playOnDamage && data.workflow.isDamageRoll) {
+                playPF2e(data)
+            } else if (!itemHasDamage(data.item) && !data.workflow.isDamageRoll) {
+                playPF2e(data)
+            }
     }
-    
+}
+
+async function checkFeatForAOE(data) {
+    return data.item?.system?.description?.value?.includes("@Template")
+}
+
+function runPF2eWeapons (data) {
+    const playOnDamage = data.playOnDamage;
+    const msg = data.workflow;
+    const isAttackRoll = msg.flags.pf2e?.context?.type?.includes("attack");
+    //debugger
+    if (playOnDamage && msg.isDamageRoll) {
+        playPF2e(data);
+    } else if (!playOnDamage && isAttackRoll) {
+        playPF2e(data);
+    }
+}
+
+async function runPF2eSpells(data) {
+    const msg = data.workflow;
+    const item = data.item;
+    const playOnDamage = data.playOnDamage;
+    const isDamageRoll = msg.isDamageRoll;
+    const hasAttack = spellHasAttack(item);
+    const spellType = getSpellType(item);
+
+    switch (spellType) {
+        case "utility":
+        case "save":
+            if (spellHasAOE(item)) { return; }
+            if (itemHasDamage(item) && playOnDamage && msg.isDamageRoll) {
+                playPF2e(data)
+            } else if (!playOnDamage && !msg.isRoll) {
+                playPF2e(data)
+            } else if (!itemHasDamage(item)) {
+                playPF2e(data)
+            }
+            break;
+        case "attack":
+            if (!msg.isRoll) { return; }
+            if (playOnDamage && msg.isDamageRoll) {
+                playPF2e(data);
+            } else if (!playOnDamage && !msg.isDamageRoll) {
+                playPF2e(data);
+            } else if (!itemHasDamage(item) && !msg.isDamageRoll) {
+                playPF2e(data);
+            }
+            break;
+        case "heal":
+            if (msg.isDamageRoll) {
+                playPF2e(data);
+            }
+            break;
+    }
+}
+async function playPF2e(input) {
+    if (!input.item) { 
+        debug("No Item could be found")
+        return;
+    }
+    const handler = await AAHandler.make(input)
+    if (!handler) { return; }
+    trafficCop(handler);
+}
+/**
+ * 
+ * @param {Object} item 
+ * @returns {String} spell || focus || ritual
+ */
+ function getSpellCategory(item) {
+    return item.system.category.value;
+}
+/**
+ * 
+ * @param {Object} item 
+ * @returns {String} utility || save || heal || attack
+ */
+function getSpellType(item) {
+    return item.system.spellType?.value;
+}
+function spellHasAttack(item) {
+    return getSpellType(item) === "attack"
+}
+function spellHasAOE(item) {
+    return item.system.area?.value && item.system.area?.areaType;
+}
+
+function findAttackOnItem(item) {
+    const type = item.type;
+    switch(type) {
+        case "weapon":
+            return true;
+        case "spell":
+        case "focus":
+        case "ritual":
+            return spellHasAttack(item)
+
+             
+    }
+}
+
+function findDamageOnItem(item) {
+    const type = item.type;
+    switch (type) {
+        case "weapon":
+            return item.dealsDamage
+    }
+}
+
+function itemHasDamage(item) {
+    let damage = item.system?.damage?.value || {};
+    return Object.keys(damage).length
+}
+
+/**
+ * 
+ * @param {Object} item 
+ * @returns {String} Weapon's base type
+ */
+function getWeaponBaseType(item) {
+    return item.baseType;
 }

@@ -41,6 +41,11 @@
 
     $: isAttached = persistent && persistType === "attachtemplate";
 
+    $: menuType = $animation.primary.video.menuType;
+
+    $: defaultAnchor = menuType === "cone" || menuType ==="ray"
+                                ? "0, 0.5"
+                                : "0.5, 0.5"
 </script>
 
 <div class="aa-options-border">
@@ -151,7 +156,14 @@
                 <td>
                     <WaitDelay {animation}/>
                 </td>
-                <td></td>
+                <td>
+                    <div>
+                        <label for="">{localize("autoanimations.menus.anchor")}</label>
+                    </div>
+                    <div>
+                        <input type="text" placeholder={defaultAnchor} bind:value={$animation.primary.options.anchor}>
+                    </div>
+                </td>
             </tr>
         </table>
         <table class="d">

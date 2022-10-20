@@ -9,8 +9,8 @@ export class DataSanitizer {
         let menu = flagData.menu;
         menu = menu === "aefx" ? flagData.activeEffectType : menu;
         const data = {
-            primary: menu === "preset" ? await this.compilePreset(flagData) : await this.compilePrimary(flagData, menu),
-            secondary: flagData.secondary ? await this.compileSecondary(flagData) : false,
+            primary: menu === "preset" ? await this.compilePreset(flagData) : await this.compilePrimary(flagData, menu, handler),
+            secondary: flagData.secondary ? await this.compileSecondary(flagData, handler) : false,
             sourceFX: await this.compileSource(handler, flagData),
             targetFX: flagData.target ? await this.compileTarget(flagData) : false,
             macro: await this.compileMacro(handler, flagData)
@@ -76,7 +76,7 @@ export class DataSanitizer {
         return soundSeq;
     }
 
-    static async compilePrimary(flagData, menu) {
+    static async compilePrimary(flagData, menu, handler) {
         const topLevel = flagData || {};
 
         const primary = topLevel.primary || topLevel.data || {};
@@ -93,7 +93,7 @@ export class DataSanitizer {
                 color: video.color,
                 customPath: video.enableCustom && video.customPath ? video.customPath : false,
             },
-            options: this.setPrimaryOptions(options, menu),
+            options: this.setPrimaryOptions(options, menu, handler),
             //sound: this.setSound(sound),
         }
         let addSoundDelay = 0; 
@@ -136,7 +136,7 @@ export class DataSanitizer {
         return data;
     }
 
-    static setPrimaryOptions(data, type) {
+    static setPrimaryOptions(data, type, handler) {
         switch (type) {
             case "melee":
                 return {
@@ -153,6 +153,7 @@ export class DataSanitizer {
                 };
             case "range":
                 return {
+                    animationSource: data.animationSource ?? false,
                     delay: data.delay || 0,
                     elevation: data.elevation ?? 1000,
                     isAbsolute: data.isAbsolute ?? false,
@@ -161,8 +162,10 @@ export class DataSanitizer {
                     onlyX: data.onlyX ?? false,
                     opacity: data.opacity ?? 1,
                     playbackRate: data.playbackRate || 1,
-                    repeat: data.repeat || 1,
+                    randomOffset: data.randomOffset ?? false,
+                    repeat: handler.systemData.overrideRepeat || data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
+                    reverse: data.reverse ?? false,
                     zIndex: data.zIndex || 1,
                 };
             case "ontoken":
@@ -190,6 +193,7 @@ export class DataSanitizer {
                 };
             case "templatefx":
                 return {
+                    anchor: data.anchor,
                     delay: data.delay ?? 1,
                     elevation: data.elevation ?? 1000,
                     isAbsolute: data.isAbsolute ?? false,
@@ -256,7 +260,7 @@ export class DataSanitizer {
         }
     }
 
-    static async compileSecondary(flagData) {
+    static async compileSecondary(flagData, handler) {
         const topLevel = flagData || {};
 
         const secondary = topLevel.secondary || {};
@@ -288,7 +292,7 @@ export class DataSanitizer {
                 isWait: options.isWait ?? false,
                 opacity: options.opacity || 1,
                 playbackRate: options.playbackRate || 1,
-                repeat: options.repeat || 1,
+                repeat: handler.systemData.overrideRepeat || options.repeat || 1,
                 repeatDelay: options.repeatDelay ?? 250,
                 rotateSource: options.rotateSource ?? false,
                 size: options.size || 1,

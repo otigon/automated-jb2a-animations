@@ -4,14 +4,14 @@ import { AnimationState }   from "../AnimationState.js";
 
 /*
 Known Systems Working at Default level
-case "a5e":
-case "cyphersystem":
-case "alienrpg":
-case "pf1":
-case "D35E":
-case "forbidden-lands":
-case "starwarsffg":
-case 'ose':
+case "a5e":                                     Moved to it's own file
+case "cyphersystem": // not updated to V10      Moved to it's own file, needs testing when it has V10 release
+case "alienrpg": // not updated to V10          Moved to it's own file, needs testing when it has V10 release
+case "pf1": -                                   Moved to it's own file
+case "D35E": // not updated to V10              Moved to it's own file
+case "forbidden-lands": -                       Moved to it's own file
+case "starwarsffg":                             Moved to it's own file, new Hook
+case 'ose':                                     Moved to it's own file
 */
 
 export function systemHooks() {

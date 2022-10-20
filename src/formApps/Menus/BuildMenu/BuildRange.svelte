@@ -33,7 +33,7 @@
         <svelte:component this={settings.Source} {animation} {category} {idx}/>
             <div class="aa-primary-border">
                 <svelte:component this={settings.Video} {animation} {category} {idx} {title} section="primary"/>
-                <svelte:component this={options.Range} {animation}/>
+                <svelte:component this={options.Range} {animation} {category} />
                 <svelte:component this={settings.Sound} {animation} {category} {idx} section="primary" />
             </div>
             <svelte:component this={settings.Secondary} {animation} {category} {idx}/>

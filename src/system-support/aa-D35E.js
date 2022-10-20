@@ -2,30 +2,33 @@ import { trafficCop }       from "../router/traffic-cop.js"
 import AAHandler            from "../system-handlers/workflow-data.js";
 import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
-
+// WILL NEED REWORK AFTER THE V10 VERSION IS RELEASED
 export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => {
         if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
 
+        function extractItemId(content) {
+            try {
+                return $(content).attr("data-item-id");
+            } catch (exception) {
+                console.log("COULD NOT GET ITEM ID")
+                return null;
+            }
+        }
+
         let compiledData = await getRequiredData({
-            itemId: msg.flags?.dcc?.ItemId,
+            itemId: extractItemId(msg.content),
             actorId: msg.speaker?.actor,
             tokenId: msg.speaker?.token,
             workflow: msg,
         })
-        runDcc(compiledData)
+        if (!compiledData.item) { return; }
+        runD35E(compiledData)
     });
 }
 
-async function runDcc(input) {
-
-    if (!game.settings.get('dcc', 'useStandardDiceRoller')) {
-        const handler = await AAHandler.make(input)
-        if (!handler) { return; }
-        trafficCop(handler);
-    } else if (input.flags?.dcc?.RollType === "Damage" || input.flags?.dcc?.RollType === "SpellCheck") {
-        const handler = await AAHandler.make(input)
-        if (!handler) { return; }
-        trafficCop(handler);
-    }
+async function runD35E(input) {
+    const handler = await AAHandler.make(input)
+    if (!handler) { return; }
+    trafficCop(handler);
 }
