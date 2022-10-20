@@ -621,7 +621,8 @@
 			"globalNotFound": "Correspondance globale non trouvée",
 			"movement": "Déplacement",
 			"tint": "Teinte",
-			"fadeOut": "Fondu au noir"
+			"fadeOut": "Fondu au noir",
+			"randomOffset": "Décalage aléatoire"
 		},
 		"app": {
 			"aaAutorec-range": {
