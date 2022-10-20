@@ -33,7 +33,7 @@
     $: storePosition($position);
 </script>
 
-<ApplicationShell bind:elementRoot stylesContent={{ color: "black" }}>
+<ApplicationShell bind:elementRoot>
     <TJSSettingsSwap settings={gameSettings} options={{ test: true }}>
         <CategorySelect />
         <SettingsFooter slot=settings-footer />

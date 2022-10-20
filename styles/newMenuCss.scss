@@ -4,6 +4,7 @@
     max-width: 1024px;
 
     .window-content {
+        color: black;
         padding: 0;
         overflow: inherit;
         background: rgba(125, 125, 125, 0.75);
@@ -34,7 +35,6 @@
         --tjs-settings-section-border: 2px solid rgba(0, 0, 0, 0.75);
         --tjs-settings-section-border-radius: 0.75em;
 
-        //--tjs-input-border: 1.5px outset rgba(0, 0, 0, 0.5);
         --tjs-input-border-radius: 1em;
         --tjs-input-padding: 0 0.5em;
     }
