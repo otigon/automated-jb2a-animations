@@ -11,6 +11,8 @@
 
    import { createOverflowItems }   from "./createOverflowItems.js";
 
+   import { selectBuildMenu }       from "../../../Menus/BuildMenu/selectBuildMenu.js";
+
    /** @type {AnimationStore} */
    export let animation = void 0;
 
@@ -18,7 +20,6 @@
    export let category = void 0;
 
    //** Menu builder set in the Category List. Determines which menu set will be rendered*/
-   export let menuRoute = void 0;
    export let idx = void 0;
 
    /**
@@ -54,7 +55,7 @@
         <TJSToggleIconButton button={buttonOverflow} slot=summary-end>
             <TJSMenu {menu} />
         </TJSToggleIconButton>
-        <svelte:component this={menuRoute} {animation} {idx} {category}/>
+        <svelte:component this={selectBuildMenu(category.key)} {animation} {idx} {category}/>
    </TJSSvgFolder>
 </div>
 
