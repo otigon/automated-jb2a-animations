@@ -29,6 +29,7 @@
             <li
                 class:active={$presetStore === section.section}
                 on:click={() => ($presetStore = section.section)}
+                role=presentation
             >
                 {section.label}
             </li>
@@ -84,7 +85,7 @@
         <td class="aa-table">
             <strong>{localize("autoanimations.menus.wait")}</strong>
         </td>
-        <td> 
+        <td>
             Causes the following animation section to play AFTER the current is finished. Accepts Negative and Positive Numbers
         </td>
     </tr>
@@ -135,7 +136,7 @@
         <td class="aa-table">
             <strong>{localize("autoanimations.menus.wait")}</strong>
         </td>
-        <td> 
+        <td>
             Causes the following animation section to play AFTER the current is finished. Accepts Negative and Positive Numbers
         </td>
     </tr>
@@ -356,7 +357,7 @@
         <td class="aa-table">
             <strong>{localize("autoanimations.menus.delay")}</strong>
         </td>
-        <td> 
+        <td>
             Causes the start of the animation section to be delayed (milliseconds)
         </td>
     </tr>
@@ -391,7 +392,7 @@
         <td class="aa-table">
             <strong>{localize("autoanimations.menus.delay")}</strong>
         </td>
-        <td> 
+        <td>
             Causes the start of the animation section to be delayed (milliseconds)
         </td>
     </tr>

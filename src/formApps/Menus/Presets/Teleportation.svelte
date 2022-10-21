@@ -68,6 +68,7 @@
                 style="font-size: 1.2em"
                 title="Quick Reference"
                 on:click={() => OptionsDialog.show("preset", "teleportation")}
+                role=presentation
             />
         </div>
     </div>

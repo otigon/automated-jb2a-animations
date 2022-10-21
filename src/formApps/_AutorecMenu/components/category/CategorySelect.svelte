@@ -17,7 +17,7 @@
 <header>
     <ul>
     {#each autoRecStores.categories as category}
-        <li class:active={$selected === category} on:click={() => $selected = category}>
+        <li class:active={$selected === category} on:click={() => $selected = category} role=presentation>
             <i class={category.icon} />{category.label}
         </li>
         <span />
@@ -28,7 +28,7 @@
 <CategoryControl category={$selected} />
 <CategoryList category={$selected} />
 
-<footer class="aa-AutorecManager" on:click={() => MenuManager.show()}>
+<footer class="aa-AutorecManager" on:click={() => MenuManager.show()} role=presentation>
   <ul >
     {bottomLabel}
     </ul>

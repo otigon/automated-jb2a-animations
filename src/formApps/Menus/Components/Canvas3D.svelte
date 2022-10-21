@@ -52,7 +52,7 @@
             <input type="checkbox" style="position:relative; left: -10px"
             id="Canvas3D {animation._data.id}"
             bind:checked={$animation.levels3d.enable}
-            >    
+            >
         </div>
     </td>
     <td style="width: 60%; border:none" class={isEnabled ? "" : "aa-disableOpacity"}>
@@ -75,7 +75,7 @@
                     >{localize("autoanimations.menus.explosion")}</option
                 >
             </select>
-        </div>    
+        </div>
     </td>
     <td style="width: 20%; border:none"></td>
 </table>
@@ -96,9 +96,10 @@
             </td>
             <td style="width: 4em;border: none">
                 <i class="fas fa-file-import"
-                title="File Picker"
-                style="font-size:1.5em"
-                on:click|preventDefault={() => selectCustom()}
+                   title="File Picker"
+                   style="font-size:1.5em"
+                   on:click|preventDefault={() => selectCustom()}
+                   role=presentation
                 />
             </td>
             </tr>

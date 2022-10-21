@@ -27,13 +27,13 @@
 
 <div class="aa-autorec-headerButton">
     <div style="grid-row:1/2; grid-column:1/2" class="sectionButton" >
-        <label for="" on:click={() => seePreview()}
-            >{localize("autoanimations.menus.preview")}
-            <i class="fas fa-film fa-lg aa-zoom" /></label
-        >
+        <label for="" on:click={() => seePreview()} role=presentation>
+            {localize("autoanimations.menus.preview")}
+            <i class="fas fa-film fa-lg aa-zoom" />
+        </label>
     </div>
     <div style="grid-row:1/2; grid-column:2/3" class="sectionButton">
-        <label for="" on:click={() => (show3d = !show3d)}
+        <label for="" on:click={() => (show3d = !show3d)} role=presentation
             >{localize("autoanimations.menus.3dcanvas")}
             <i
                 class="fas fa-cube fa-lg aa-zoom {show3d ? 'aa-green' : ''}"
