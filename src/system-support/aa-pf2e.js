@@ -26,6 +26,7 @@ export function systemHooks() {
             debug("No Item Found, exiting main Workflow")
             return;
         }
+        compiledData.hitTargets = checkOutcome(compiledData);
         runPF2e(compiledData)
     });
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
@@ -89,6 +90,14 @@ function runPF2eWeapons (data) {
     const playOnDamage = data.playOnDamage;
     const msg = data.workflow;
     const isAttackRoll = msg.flags.pf2e?.context?.type?.includes("attack");
+
+    data.extraNames = [];
+    if (item.type === "weapon") {
+        const baseType = game.i18n.localize(CONFIG.PF2E.baseWeaponTypes[data.item.baseType]);
+        const group = game.i18n.localize(CONFIG.PF2E.weaponGroups[data.item.group]);
+        data.extraNames.push(baseType, group);
+    }
+
     //debugger
     if (playOnDamage && msg.isDamageRoll) {
         playPF2e(data);
@@ -201,3 +210,20 @@ function itemHasDamage(item) {
 function getWeaponBaseType(item) {
     return item.baseType;
 }
+
+function checkOutcome(input) {
+    let outcome = input.workflow.flags?.pf2e?.context?.outcome;
+    outcome = outcome ? outcome.toLowerCase() : "";
+    let hitTargets;
+    if (input.targets.length < 2 && !game.settings.get('autoanimations', 'playonDamageCore') && outcome) {
+        if (outcome === 'success' || outcome === 'criticalsuccess') {
+            hitTargets = targets;
+        } else {
+            hitTargets = false
+        }
+    } else {
+        hitTargets = input.targets;
+    }
+    return hitTargets;
+}
+

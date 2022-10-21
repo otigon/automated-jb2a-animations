@@ -46,6 +46,14 @@
     </tr>
     <tr>
         <td class="aa-table">
+            <strong>{localize("autoanimations.variants.above")} {localize("autoanimations.animTypes.templatefx")}</strong>
+        </td>
+        <td>
+            This setting will override Elevation to play the animation Above the template using the .aboveLightning() Sequencer method
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
             <strong>{localize("autoanimations.menus.playbackRate")}</strong>
         </td>
         <td> 

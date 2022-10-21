@@ -1,5 +1,5 @@
 import { trafficCop }       from "../router/traffic-cop.js"
-import systemData           from "../system-handlers/system-data.js"
+import AAHandler            from "../system-handlers/workflow-data.js";
 import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
@@ -18,7 +18,8 @@ export function systemHooks() {
 }
 
 async function runOse(input) {
-    let handler = await systemData.make(input)
+    const handler = await AAHandler.make(input);
+    if (!handler) { return; }
     if (!handler.item) {
         return;
     }

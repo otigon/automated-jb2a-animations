@@ -30,7 +30,7 @@ export default class AAHandler {
         this.item = data.item;
         this.itemUuid = this.item?.uuid || uuidv4();
         this.itemName = !this.isActiveEffect || this.systemId === "pf2e" ? this.item.name : this.item.label;
-        this.rinsedName = this.itemName ? this.itemName.replace(/\s+/g, '').toLowerCase() : "";
+        this.rinsedName = data.rinsedName || this.itemName ? this.itemName.replace(/\s+/g, '').toLowerCase() : "";
 
         this.reachCheck = data.reach || 0;
         this.allTargets = data.targets;

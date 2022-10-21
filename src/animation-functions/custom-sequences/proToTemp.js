@@ -35,7 +35,7 @@ export async function proToTemp(handler, animationData, config) {
     aaSeq.effect()
         .file(data.projectile.path.file)
         .atLocation(sourceToken)
-        .stretchTo(template, { cacheLocation: true })
+        .stretchTo(template, { cacheLocation: true, randomOffset: data.projectile.options.randomOffset })
         .elevation(handler.elevation(sourceToken, data.projectile.options.isAbsolute, data.projectile.options.elevation), {absolute: data.projectile.options.isAbsolute})
         .repeats(data.projectile.options.repeat, data.projectile.options.repeatDelay)
         .playbackRate(data.projectile.options.playbackRate)
@@ -52,6 +52,7 @@ export async function proToTemp(handler, animationData, config) {
             .repeats(data.preExplosion.options.repeat, data.preExplosion.options.repeatDelay)
             .playbackRate(data.preExplosion.options.playbackRate)
             .waitUntilFinished(data.preExplosion.options.wait)
+            .aboveLighting(data.preExplosion.options.aboveTemplate)
     }
     if (data.explosion.sound) {
         aaSeq.addSequence(data.explosion.sound)
@@ -65,12 +66,13 @@ export async function proToTemp(handler, animationData, config) {
         .zIndex(5)
         .playbackRate(data.explosion.options.playbackRate)
         .waitUntilFinished(-750 + data.explosion.options.wait)
+        .aboveLighting(data.explosion.options.aboveTemplate)
     if (data.afterImage.customPath) {
         aaSeq.effect()
             .file(data.afterImage.customPath, true)
             .atLocation(template, { cacheLocation: true })
             .scaleToObject(data.afterImage.options.scale)
-            .elevation(handler.elevation(sourceToken, data.afterImage.options.isAbsolute, data.afterImage.options.elevation), {absolute: afterImage.options.isAbsolute})
+            .elevation(handler.elevation(sourceToken, data.afterImage.options.isAbsolute, data.afterImage.options.elevation), {absolute: data.afterImage.options.isAbsolute})
             .persist(true)
             .origin(handler.itemUuid)
             .fadeIn(250)

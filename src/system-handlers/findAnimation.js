@@ -57,6 +57,16 @@ function checkAutorec(data) {
             }
         } else {
             autorecObject = AAAutorecFunctions.allMenuSearch(autorecSettings, rinsedName);
+            if (!autorecObject && data.extraNames?.length && !data.activeEffect) {
+                for (const name of data.extraNames) {
+                    const rinsedName = AAAutorecFunctions.rinseName(name);
+                    autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, rinsedName);
+                    if (autorecObject) {
+                        data.rinsedName = rinsedName;
+                        break;
+                    }
+                }
+            }
         }
     }
     if (autorecObject && data.isTemplate) {
