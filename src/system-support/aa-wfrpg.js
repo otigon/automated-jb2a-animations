@@ -8,18 +8,19 @@ export function systemHooks() {
         if (game.user.id !== info.user || !AnimationState.enabled) { return }
         let compiledData = await getRequiredData({
             item: data.weapon,
-            targets: data.context?.targets,
+            targets: compileTargets(data.context?.targets),
             tokenId: info.speaker?.token,
             actorId: info.speaker?.actor,
             workflow: data
         })
+        compiledData.targets = data.context?.targets ? Array.from(data.context?.targets).map(token => canvas.tokens.get(token.token)) : [];
         runWarhammer(compiledData)
     });
     Hooks.on("wfrp4e:rollPrayerTest", async (data, info) => {
         if (data.result.outcome != "success" && game.settings.get('autoanimations', 'castOnlyOnSuccess')) { return }
         let compiledData = await getRequiredData({
             item: data.prayer,
-            targets: data.context?.targets,
+            targets: compileTargets(data.context?.targets),
             tokenId: info.speaker?.token,
             actorId: info.speaker?.actor,
             workflow: data
@@ -31,7 +32,7 @@ export function systemHooks() {
         if (data.result.castOutcome != "success" && game.settings.get('autoanimations', 'castOnlyOnSuccess')) { return }
         let compiledData = await getRequiredData({
             item: data.spell,
-            targets: data.context?.targets,
+            targets: compileTargets(data.context?.targets),
             tokenId: info.speaker?.token,
             actorId: info.speaker?.actor,
             workflow: data
@@ -42,7 +43,7 @@ export function systemHooks() {
         if (game.user.id !== info.user || !AnimationState.enabled) { return }
         let compiledData = await getRequiredData({
             item: data.prayer,
-            targets: data.context?.targets,
+            targets: compileTargets(data.context?.targets),
             tokenId: info.speaker?.token,
             actorId: info.speaker?.actor,
             workflow: data
@@ -55,7 +56,7 @@ export function systemHooks() {
         if (!data.skill) { return }
         let compiledData = await getRequiredData({
             item: data.skill,
-            targets: data.context?.targets,
+            targets: compileTargets(data.context?.targets),
             tokenId: info.speaker?.token,
             actorId: info.speaker?.actor,
             workflow: data
@@ -69,6 +70,11 @@ async function runWarhammer(data) {
     const handler = await AAHandler.make(data)
     if (!handler) { return; }
     trafficCop(handler);
+}
+
+function compileTargets(targets) {
+    if (!targets) { return []; }
+    return Array.from(targets).map(token => canvas.tokens.get(token.token));
 }
 
 /*

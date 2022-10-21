@@ -105,7 +105,7 @@
                     </div>
                 </td>
                 <td class={isAttached ? "aa-disableOpacity" : ""}>
-                    <!--Set Masking-->
+                    <!--Remove Template-->
                     <div>
                         <label for="Remove {animation._data.id}"
                             >{localize("autoanimations.menus.remove")}
@@ -154,7 +154,18 @@
                     />
                 </td>
                 <td>
-                    <WaitDelay {animation}/>
+                    <!--Play Animation Above Template-->
+                    <div>
+                        <label for="aboveTemplate {animation._data.id}"
+                            >{localize("autoanimations.variants.above")} {localize("autoanimations.animTypes.templatefx")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="aboveTemplate {animation._data.id}"
+                            bind:checked={$animation.primary.options
+                                .aboveTemplate}
+                        />
+                    </div>
                 </td>
                 <td>
                     <div>
@@ -164,6 +175,13 @@
                         <input type="text" placeholder={defaultAnchor} bind:value={$animation.primary.options.anchor}>
                     </div>
                 </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <WaitDelay {animation}/>
+                </td>
+                <td></td>
             </tr>
         </table>
         <table class="d">

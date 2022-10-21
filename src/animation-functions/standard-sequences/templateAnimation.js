@@ -231,7 +231,7 @@ export async function templatefx(handler, animationData, templateDocument) {
         }
         seq.playbackRate(data.options.playbackRate)
         seq.name(handler.rinsedName)
-
+        seq.aboveLighting(data.options.aboveTemplate)
         function convertToXY(input) {
             let menuType = data.video.menuType;
             let templateType = template.t;

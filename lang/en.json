@@ -135,7 +135,11 @@
             "greenred": "Green Red",
             "orangeyellow": "Orange Yellow",
             "blackyellow": "Black Yellow",
-            "blackblue": "Black Blue"
+            "blackblue": "Black Blue",
+            "blue02": "Blue 02",
+            "blue03": "Blue 03" ,
+            "ring02": "Ring 02",
+            "ring03": "Ring 03"
         },
         "animations": {
             "coneofcold": "Cone of Cold",
@@ -424,7 +428,8 @@
             "stick": "Stick",
             "elemental": "Elemental",
             "nature": "Nature",
-            "void": "Void"
+            "void": "Void",
+            "above": "Above"
         },
         "menuTypes": {
             "creature": "Creature Attack",

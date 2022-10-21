@@ -54,7 +54,7 @@ export class DataSanitizer {
 
     }
 
-    static setSound(data, addDelay = 0) {
+    static setSound(data, addDelay = 0, overrideRepeat = false) {
 
         const input = {
             enable: data.enable ?? false,
@@ -62,7 +62,7 @@ export class DataSanitizer {
             delay: data.delay ?? 0,
             startTime: data.startTime ?? 0,
             volume: data.volume ?? 1,
-            repeat: data.repeat || 1,
+            repeat: overrideRepeat || data.repeat || 1,
             repeatDelay: data.repeatDelay ?? 250,
         }
         if (!input.enable || !input.file) { return false }
@@ -100,7 +100,7 @@ export class DataSanitizer {
         if (!data.options.isWait) {
             addSoundDelay = data.options.delay;
         }
-        data.sound = this.setSound(sound, addSoundDelay)
+        data.sound = this.setSound(sound, addSoundDelay, handler.systemData.overrideRepeat)
         if (menu === "melee") {
             data.meleeSwitch = this.compileMeleeSwitch(topLevel.meleeSwitch)
         }
@@ -193,6 +193,7 @@ export class DataSanitizer {
                 };
             case "templatefx":
                 return {
+                    aboveTemplate: data.aboveTemplate ?? false,
                     anchor: data.anchor,
                     delay: data.delay ?? 1,
                     elevation: data.elevation ?? 1000,
@@ -304,7 +305,7 @@ export class DataSanitizer {
         if (!data.options.isWait) {
             addSoundDelay = data.options.delay;
         }
-        data.sound = this.setSound(sound, addSoundDelay)
+        data.sound = this.setSound(sound, addSoundDelay, handler.systemData.overrideRepeat)
         data.path = secondary.enable ? await buildFile(false, data.video.menuType, data.video.animation, "static", data.video.variant, data.video.color, data.video.customPath) : "";
 
         return data;
@@ -565,6 +566,7 @@ export class DataSanitizer {
                         elevation: projectileOptions.elevation || 1000,
                         isAbsolute: projectileOptions.isAbsolute ?? false,
                         playbackRate: projectileOptions.playbackRate || 1,
+                        randomOffset: projectileOptions.randomOffset ?? false,
                         repeat: projectileOptions.repeat || 1,
                         repeatDelay: projectileOptions.repeatDelay || 250,
                         removeTemplate: projectileOptions.removeTemplate ?? false,
@@ -582,6 +584,7 @@ export class DataSanitizer {
                     color: preExplosion.color,
                     customPath: preExplosion.enableCustom && preExplosion.customPath ? preExplosion.customPath : false,
                     options: {
+                        aboveTemplate: preExplosionOptions.aboveTemplate ?? false,
                         elevation: preExplosionOptions.elevation ?? 1000,
                         isAbsolute: preExplosionOptions.isAbsolute ?? false,
                         playbackRate: preExplosionOptions.playbackRate || 1,
@@ -601,6 +604,7 @@ export class DataSanitizer {
                     color: explosion.color,
                     customPath: explosion.enableCustom && explosion.customPath ? explosion.customPath : false,
                     options: {
+                        aboveTemplate: explosionOptions.aboveTemplate ?? false,
                         elevation: explosionOptions.elevation ?? 1000,
                         isAbsolute: explosionOptions.isAbsolute ?? false,
                         playbackRate: explosionOptions.playbackRate || 1,

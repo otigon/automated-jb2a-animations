@@ -136,7 +136,19 @@
                     </td>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td>
+                        <!--Set Random Offset-->
+                        <div>
+                            <label for="RandomOffset {animation._data.id}"
+                                >{localize("autoanimations.menus.randomOffset")}
+                            </label>
+                            <input
+                                type="checkbox"
+                                id="RandomOffset {animation._data.id}"
+                                bind:checked={$animation.data.projectile.options.randomOffset}
+                            />
+                        </div>
+                    </td>
                     <td>
                         <div>
                             <label for=""
@@ -260,7 +272,19 @@
                             </td>
                         </tr>
                         <tr>
-                            <td></td>
+                            <td>
+                                <!--Play Animation Above Template-->
+                                <div>
+                                    <label for="aboveTemplatePre {animation._data.id}"
+                                        >{localize("autoanimations.variants.above")} {localize("autoanimations.animTypes.templatefx")}
+                                    </label>
+                                    <input
+                                        type="checkbox"
+                                        id="aboveTemplatePre {animation._data.id}"
+                                        bind:checked={$animation.data.preExplosion.options.aboveTemplate}
+                                    />
+                                </div>
+                            </td>
                             <td>
                                 <div>
                                     <label for=""
@@ -376,7 +400,19 @@
                     </td>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td>
+                        <!--Play Animation Above Template-->
+                        <div>
+                            <label for="aboveTemplateExp {animation._data.id}"
+                                >{localize("autoanimations.variants.above")} {localize("autoanimations.animTypes.templatefx")}
+                            </label>
+                            <input
+                                type="checkbox"
+                                id="aboveTemplateExp {animation._data.id}"
+                                bind:checked={$animation.data.explosion.options.aboveTemplate}
+                            />
+                        </div>
+                    </td>
                     <td>
                         <div>
                             <label for=""
