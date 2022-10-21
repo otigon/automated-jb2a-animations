@@ -135,6 +135,37 @@
                         <Opacity {animation} section="projectile"/>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <!--Set Random Offset-->
+                        <div>
+                            <label for="RandomOffset {animation._data.id}"
+                                >{localize("autoanimations.menus.randomOffset")}
+                            </label>
+                            <input
+                                type="checkbox"
+                                id="RandomOffset {animation._data.id}"
+                                bind:checked={$animation.data.projectile.options.randomOffset}
+                            />
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <label for=""
+                                >{localize("autoanimations.menus.playbackRate")}</label
+                            >
+                        </div>
+                        <div>
+                            <input
+                                type="number"
+                                bind:value={$animation.data.projectile.options.playbackRate}
+                                placeholder="1"
+                                step=".01"
+                            />
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
             </table>
         </TJSSvgFolder>
     </div>
@@ -239,7 +270,38 @@
                                 <!--Set Animation Opacity-->
                                 <Opacity {animation} section="preExplosion"/>
                             </td>
-                            </tr>
+                        </tr>
+                        <tr>
+                            <td>
+                                <!--Play Animation Above Template-->
+                                <div>
+                                    <label for="aboveTemplatePre {animation._data.id}"
+                                        >{localize("autoanimations.variants.above")} {localize("autoanimations.animTypes.templatefx")}
+                                    </label>
+                                    <input
+                                        type="checkbox"
+                                        id="aboveTemplatePre {animation._data.id}"
+                                        bind:checked={$animation.data.preExplosion.options.aboveTemplate}
+                                    />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <label for=""
+                                        >{localize("autoanimations.menus.playbackRate")}</label
+                                    >
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        bind:value={$animation.data.preExplosion.options.playbackRate}
+                                        placeholder="1"
+                                        step=".01"
+                                    />
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>        
                     </table>
                 </TJSSvgFolder>
             </div>
@@ -297,6 +359,7 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
                     <td>
                         <div>
                             <label for=""
@@ -335,8 +398,38 @@
                         <!--Set Animation Opacity-->
                         <Opacity {animation} section="explosion"/>
                     </td>
-                <tr>
                 </tr>
+                <tr>
+                    <td>
+                        <!--Play Animation Above Template-->
+                        <div>
+                            <label for="aboveTemplateExp {animation._data.id}"
+                                >{localize("autoanimations.variants.above")} {localize("autoanimations.animTypes.templatefx")}
+                            </label>
+                            <input
+                                type="checkbox"
+                                id="aboveTemplateExp {animation._data.id}"
+                                bind:checked={$animation.data.explosion.options.aboveTemplate}
+                            />
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <label for=""
+                                >{localize("autoanimations.menus.playbackRate")}</label
+                            >
+                        </div>
+                        <div>
+                            <input
+                                type="number"
+                                bind:value={$animation.data.explosion.options.playbackRate}
+                                placeholder="1"
+                                step=".01"
+                            />
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>    
             </table>
         </TJSSvgFolder>
     </div>

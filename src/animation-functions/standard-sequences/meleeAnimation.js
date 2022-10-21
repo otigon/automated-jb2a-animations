@@ -93,13 +93,14 @@ export async function melee(handler, animationData) {
             meleeSeq.randomizeMirrorY()
             meleeSeq.missed(!currentTarget.hit)
             meleeSeq.name("spot" + ` ${currentTarget.token.id}`)
-            meleeSeq.elevation(data.options.isAbsolute ? data.options.elevation : sourceToken.document.elevation + data.options.elevation)
+            meleeSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
             meleeSeq.zIndex(data.options.zIndex)
             if (i === meleeArray.length - 1 && data.options.isWait) {
                 meleeSeq.waitUntilFinished(data.options.delay)
             } else if (!data.options.isWait) {
                 meleeSeq.delay(data.options.delay)
             }
+            meleeSeq.playbackRate(data.options.playbackRate)
         }
 
         // Secondary animation and sound
@@ -120,7 +121,7 @@ export async function melee(handler, animationData) {
                 } else if (!secondary.options.isWait) {
                     secondarySeq.delay(secondary.options.delay)
                 }
-                secondarySeq.elevation(secondary.options.isAbsolute ? secondary.options.elevation : currentTarget.document.elevation + secondary.options.elevation)
+                secondarySeq.elevation(handler.elevation(currentTarget, secondary.options.isAbsolute, secondary.options.elevation), {absolute: data.options.isAbsolute})
                 secondarySeq.zIndex(secondary.options.zIndex)
                 secondarySeq.opacity(secondary.options.opacity)
                 secondarySeq.fadeIn(secondary.options.fadeIn)
@@ -133,6 +134,7 @@ export async function melee(handler, animationData) {
                     secondarySeq.mask(currentTarget)
                 }
                 secondarySeq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
+                secondarySeq.playbackRate(secondary.options.playbackRate)
             }
         }
 
@@ -171,7 +173,8 @@ export async function melee(handler, animationData) {
             rangeSeq.repeats(data.options.repeat, data.options.repeatDelay)
             rangeSeq.missed(!currentTarget.hit)
             rangeSeq.name("rangeSpot" + ` ${currentTarget.token.id}`)
-            rangeSeq.elevation(data.options.isAbsolute ? data.options.elevation : sourceToken.document.elevation + data.options.elevation)
+            rangeSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
+            rangeSeq.playbackRate(data.options.playbackRate)
 
             if (i === rangeArray.length - 1 && data.options.isWait) {
                 rangeSeq.waitUntilFinished(data.options.delay)
@@ -192,6 +195,7 @@ export async function melee(handler, animationData) {
                 returnSeq.repeats(data.options.repeat, data.options.repeatDelay)
                 returnSeq.stretchTo("rangeSpot" + ` ${currentTarget.id}`)
                 returnSeq.zIndex(data.options.zIndex)
+                returnSeq.playbackRate(data.options.playbackRate)
             }
         }
 
@@ -213,7 +217,7 @@ export async function melee(handler, animationData) {
                 } else if (!secondary.options.isWait) {
                     secondarySeq.delay(secondary.options.delay)
                 }
-                secondarySeq.elevation(secondary.options.isAbsolute ? secondary.options.elevation : currentTarget.document.elevation + secondary.options.elevation)
+                secondarySeq.elevation(handler.elevation(currentTarget, secondary.options.isAbsolute, secondary.options.elevation), {absolute: secondary.options.isAbsolute})
                 secondarySeq.zIndex(secondary.options.zIndex)
                 secondarySeq.opacity(secondary.options.opacity)
                 secondarySeq.fadeIn(secondary.options.fadeIn)
@@ -226,6 +230,7 @@ export async function melee(handler, animationData) {
                     secondarySeq.mask(currentTarget)
                 }
                 secondarySeq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
+                secondarySeq.playbackRate(secondary.options.playbackRate)
             }
         }
 

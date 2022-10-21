@@ -67,7 +67,7 @@
     $: macroPlay = $animation.macro.playWhen;
 </script>
 
-<SectionButtons  {animation} {category} {idx} type={fromMenu}  />
+<SectionButtons  {animation} {category} type={fromMenu}  />
 <div hidden={!soundOnly}>
     <SoundOnly {animation} {category} />
 </div>

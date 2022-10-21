@@ -6,11 +6,27 @@ export function registerActiveEffectHooks() {
     switch (game.system.id) {
         case 'pf2e':
             Hooks.on("createItem", (item, data, userId) => {
+                if (game.settings.get("autoanimations", "disableAEAnimations")) {
+                    debug(`Active Effect Animations are Disabled`);
+                    return;
+                }    
                 if (game.user.id !== userId) { return; }
+                const aePF2eTypes = ['condition', 'effect', 'feat']
+                if (!aePF2eTypes.includes(item.type)) {
+                    debug("This is not a PF2e Ruleset, exiting early")
+                    return;
+                }
+                if (item.system?.references?.parent && game.settings.get("autoanimations", "disableNestedEffects")) {
+                    debug("This is a nested Ruleset, exiting early")
+                    return;
+                }            
                 createRuleElementPF2e(item);
             })
             Hooks.on("preDeleteItem", (item, data, userId) => {
                 if (game.user.id !== userId) { return; }
+                const aePF2eTypes = ['condition', 'effect', 'feat']
+                if (!aePF2eTypes.includes(item.type)) { return; }
+            
                 deleteRuleElementPF2e(item)
             })
             break;
@@ -73,5 +89,31 @@ export function registerActiveEffectHooks() {
             */
             //}
             break;
+        default:
+            Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
+                if (game.settings.get("autoanimations", "disableAEAnimations")) {
+                    debug(`Active Effect Animations are Disabled`);
+                    return;
+                }
+                if (game.user.id !== userId) { return; }
+                toggleActiveEffects(data, toggle)
+            });
+            Hooks.on("createActiveEffect", (effect, data, userId) => {
+                if (game.settings.get("autoanimations", "disableAEAnimations")) {
+                    debug(`Active Effect Animations are Disabled`);
+                    return;
+                }
+                if (game.user.id !== userId) { return; }
+                createActiveEffects(effect)
+            });
+            Hooks.on("preDeleteActiveEffect", (effect, data, userId) => {
+                if (game.user.id !== userId) { return; }
+
+                deleteActiveEffects(effect)
+                if (game.modules.get('midi-qol')?.active) {
+                    checkConcentration(effect)
+                }
+            });
+
     }
 }

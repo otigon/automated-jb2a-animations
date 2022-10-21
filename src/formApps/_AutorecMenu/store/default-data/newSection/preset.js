@@ -46,6 +46,7 @@ export function preset(current = {}, type) {
                         options: {
                             elevation: 1000,
                             opacity: 1,
+                            playbackRate: 1,
                             repeat: 1,
                             repeatDelay: 250,
                             removeTemplate: false,
@@ -63,6 +64,7 @@ export function preset(current = {}, type) {
                         options: {
                             elevation: 1000,
                             opacity: 1,
+                            playbackRate: 1,
                             repeat: 1,
                             repeatDelay: 250,
                             scale: 1,
@@ -79,6 +81,7 @@ export function preset(current = {}, type) {
                         options: {
                             elevation: 1000,
                             opacity: 1,
+                            playbackRate: 1,
                             repeat: 1,
                             repeatDelay: 250,
                             scale: 1.25,
@@ -125,6 +128,7 @@ export function preset(current = {}, type) {
                             isMasked: false,
                             opacity: 1,
                             isRadius: false,
+                            playbackRate: 1,
                             size: 1.5,
                         },
                     },
@@ -157,6 +161,7 @@ export function preset(current = {}, type) {
                             isMasked: false,
                             isRadius: false,
                             opacity: 1,
+                            playbackRate: 1,
                             size: 1.5,
                         },
                     },
@@ -224,6 +229,7 @@ export function preset(current = {}, type) {
                         options: {
                             elevation: 1000,
                             opacity: 1,
+                            playbackRate: 1,
                             repeat: 1,
                             repeatDelay: 250,
                             removeTemplate: false,
@@ -240,6 +246,7 @@ export function preset(current = {}, type) {
                         options: {
                             elevation: 1000,
                             opacity: 1,
+                            playbackRate: 1,
                             repeat: 1,
                             repeatDelay: 250,
                             scale: 1,
@@ -257,6 +264,7 @@ export function preset(current = {}, type) {
                         options: {
                             elevation: 1000,
                             opacity: 1,
+                            playbackRate: 1,
                             repeat: 1,
                             repeatDelay: 250,
                             scale: 1.25,

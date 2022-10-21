@@ -23,7 +23,6 @@ export async function range(handler, animationData) {
             returnDelay = 1500;
     }
 
-
     let aaSeq = await new Sequence("Automated Animations")
 
     // Play Macro if Awaiting
@@ -53,17 +52,29 @@ export async function range(handler, animationData) {
         } else {
             hit = true;
         }
-
         let nextSeq = aaSeq.effect()
         nextSeq.file(data.path.file)
-        nextSeq.atLocation(sourceToken)
-        nextSeq.stretchTo(currentTarget, { onlyX: onlyX })
+        if (data.options.animationSource) {
+            let animationSource = handler.fakeSource(sourceToken);
+            nextSeq.atLocation({x: animationSource.x, y: animationSource.y})
+        } else {
+            if (data.options.reverse) {
+                nextSeq.atLocation(currentTarget)
+            } else {
+                nextSeq.atLocation(sourceToken)
+            }
+        }
+        if (data.options.reverse) {
+            nextSeq.stretchTo(sourceToken, { onlyX: onlyX, randomOffset: data.options.randomOffset })
+        } else {
+            nextSeq.stretchTo(currentTarget, { onlyX: onlyX, randomOffset: data.options.randomOffset })
+        }
         nextSeq.randomizeMirrorY()
         nextSeq.repeats(data.options.repeat, data.options.repeatDelay)
         nextSeq.opacity(data.options.opacity)
-        nextSeq.missed(!hit)
+        nextSeq.missed(!hit || handler.systemData.forceMiss || false)
         nextSeq.name("spot" + ` ${currentTarget.id}`)
-        nextSeq.elevation(data.options.isAbsolute ? data.options.elevation : sourceToken.document.elevation + data.options.elevation)
+        nextSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
         nextSeq.zIndex(data.options.zIndex)
 
         if (i === handler.allTargets.length - 1 && data.options.isWait) {
@@ -71,6 +82,7 @@ export async function range(handler, animationData) {
         } else if (!data.options.isWait) {
             nextSeq.delay(data.options.delay)
         }
+        nextSeq.playbackRate(data.options.playbackRate)
     }
 
     // Return Animation if Enabled
@@ -85,6 +97,7 @@ export async function range(handler, animationData) {
             returnSeq.repeats(data.options.repeat, data.options.repeatDelay)
             returnSeq.stretchTo("spot" + ` ${currentTarget.id}`)
             returnSeq.zIndex(data.options.zIndex)
+            returnSeq.playbackRate(data.options.playbackRate)
         }
     }
 
@@ -111,7 +124,7 @@ export async function range(handler, animationData) {
             } else if (!secondary.options.isWait) {
                 secondarySeq.delay(secondary.options.delay)
             }
-            secondarySeq.elevation(secondary.options.isAbsolute ? secondary.options.elevation : currentTarget.document.elevation + secondary.options.elevation)
+            secondarySeq.elevation(handler.elevation(currentTarget, secondary.options.isAbsolute, secondary.options.elevation), {absolute: secondary.options.isAbsolute})
             secondarySeq.zIndex(secondary.options.zIndex)
             secondarySeq.opacity(secondary.options.opacity)
             secondarySeq.fadeIn(secondary.options.fadeIn)
@@ -124,6 +137,7 @@ export async function range(handler, animationData) {
                 secondarySeq.mask(currentTarget)
             }
             secondarySeq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
+            secondarySeq.playbackRate(secondary.options.playbackRate)
         }
     }
     // Target animation and sound

@@ -5,7 +5,6 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 export async function templatefx(handler, animationData, templateDocument) {
 
     const sourceToken = handler.sourceToken;
-    const sourceElevation = sourceToken?.document?.elevation ?? 0;
 
     const template = handler.templateData ? handler.templateData : templateDocument ? templateDocument : canvas.templates.placeables[canvas.templates.placeables.length - 1].document;
     //const templateData = template ? template || {}: template.document || {};;
@@ -87,7 +86,7 @@ export async function templatefx(handler, animationData, templateDocument) {
                 height: (canvas.grid.size * (trueHeight / canvas.dimensions.distance)) * data.options.scale.y,
             })
             if (data.options.isMasked) {
-                coneRaySeq.mask(template)
+                templateSeq.mask(template)
             }
             if (data.options.persistent) {
                 templateSeq.persist(true)
@@ -168,7 +167,7 @@ export async function templatefx(handler, animationData, templateDocument) {
             } else if (!secondary.options.isWait) {
                 secondarySeq.delay(secondary.options.delay)
             }
-            secondarySeq.elevation(secondary.options.isAbsolute ? secondary.options.elevation : currentTarget.document.elevation + secondary.options.elevation)
+            secondarySeq.elevation(handler.elevation(currentTarget, secondary.options.isAbsolute, secondary.options.elevation), {absolute: secondary.options.isAbsolute})
             secondarySeq.zIndex(secondary.options.zIndex)
             secondarySeq.opacity(secondary.options.opacity)
             secondarySeq.fadeIn(secondary.options.fadeIn)
@@ -181,6 +180,7 @@ export async function templatefx(handler, animationData, templateDocument) {
                 secondarySeq.mask(currentTarget)
             }
             secondarySeq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
+            secondarySeq.playbackRate(secondary.options.playbackRate)
         }
     }
 
@@ -219,15 +219,37 @@ export async function templatefx(handler, animationData, templateDocument) {
 
 
     function setPrimary(seq) {
+        seq.anchor(convertToXY(data.options.anchor))
         seq.file(data.path.file)
         seq.opacity(data.options.opacity)
         seq.origin(handler.itemUuid)
-        seq.elevation(data.options.isAbsolute ? data.options.elevation : sourceElevation + data.options.elevation)
+        seq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
         seq.zIndex(data.options.zIndex)
         seq.rotate(data.options.rotate)
         if (data.options.isMasked) {
             seq.mask(template)
         }
+        seq.playbackRate(data.options.playbackRate)
+        seq.name(handler.rinsedName)
+        seq.aboveLighting(data.options.aboveTemplate)
+        function convertToXY(input) {
+            let menuType = data.video.menuType;
+            let templateType = template.t;
+            let defaultAnchor = templateType === "circle" || templateType === "rect" ? {x: 0.5, y: 0.5} : {x: 0, y: 0.5};
+            if (!input) { return defaultAnchor}
+            let dNum = menuType === "cone" || menuType === "ray"
+                        ? input || "0, 0.5"
+                        : input || "0.5, 0.5"
+            //if (!input) { return {x: dNum, y: dNum}}
+            let parsedInput = dNum.split(',').map(s => s.trim());
+            let posX = Number(parsedInput[0]);
+            let posY = Number(parsedInput[1]);
+            if (parsedInput.length === 2) {
+                return {x: posX, y: posY}
+            } else if( parsedInput.length === 1) {
+                return {x: posX, y: posX}
+            }
+        }    
     }
 
     function buildTile(tileX, tileY, isOverhead, tileWidth, tileHeight) {

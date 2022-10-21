@@ -298,7 +298,7 @@ export async function ontoken(handler, animationData) {
         seq.file(bottomAnim)
         seq.opacity(data.options.opacity)
         seq.size(size, { gridUnits: true })
-        seq.elevation(token.document.elevation)
+        seq.elevation(token.document?.elevation - 1)
         if (data.options.isMasked) {
             bottomEffect.mask(token)
         }
@@ -314,12 +314,13 @@ export async function ontoken(handler, animationData) {
             seq.persist(true, {persistTokenPrototype: true})
             seq.origin(handler.itemUuid)
         }
+        seq.playbackRate(data.options.playbackRate)
     }
     function setTop(token, size, seq) {
         seq.file(data.path.fileData)
         seq.opacity(data.options.opacity)
         seq.size(size, { gridUnits: true })
-        seq.elevation(token.document.elevation + 1)
+        seq.elevation(token.document?.elevation)
         if (data.options.isMasked) {
             seq.mask(token)
         }
@@ -334,12 +335,13 @@ export async function ontoken(handler, animationData) {
             seq.persist(true, {persistTokenPrototype: true})
             seq.origin(handler.itemUuid)
         }
+        seq.playbackRate(data.options.playbackRate)
     }
     function setPrimary(token, size, seq) {
         seq.file(data.path.file)
         seq.opacity(data.options.opacity)
         seq.size(size, { gridUnits: true })
-        seq.elevation(data.options.isAbsolute ? data.options.elevation : token.document.elevation + data.options.elevation)
+        seq.elevation(handler.elevation(token, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
         if (data.options.isMasked) {
             seq.mask(token)
         }
@@ -356,6 +358,7 @@ export async function ontoken(handler, animationData) {
             seq.origin(handler.itemUuid)
         }
         seq.anchor({x: data.options.anchor.x, y: data.options.anchor.y})
+        seq.playbackRate(data.options.playbackRate)
     }
     function setSecondary(token, seq) {
         let size = handler.getSize(secondary.options.isRadius, secondary.options.size, token, secondary.options.addTokenWidth)
@@ -363,7 +366,7 @@ export async function ontoken(handler, animationData) {
         seq.atLocation(token)
         seq.file(secondary.path?.file, true)
         seq.size(size, { gridUnits: true })
-        seq.elevation(data.options.isAbsolute ? data.options.elevation : token.document.elevation + secondary.options.elevation)
+        seq.elevation(handler.elevation(token, secondary.options.isAbsolute, secondary.options.elevation), {absolute: secondary.options.isAbsolute})
         seq.zIndex(secondary.options.zIndex)
         seq.opacity(secondary.options.opacity)
         seq.fadeIn(secondary.options.fadeIn)
@@ -376,6 +379,7 @@ export async function ontoken(handler, animationData) {
             seq.mask(token)
         }
         seq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
+        seq.playbackRate(secondary.options.playbackRate)
     }
 
     // Macro if Concurrent

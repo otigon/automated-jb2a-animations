@@ -36,8 +36,8 @@
       allResults = allResults.filter(m => {
         return m.name?.toLowerCase().includes(macro?.toLowerCase()) || !macro
       })
-
-      if (macro.startsWith("Compendium.") && allResults.length === 1) {
+  
+      if (macro?.startsWith("Compendium.") && allResults.length === 1) {
         allResults = Array.from(game.packs.get(allResults[0].id).index).map(m => {
           return {
             id: allResults[0].id + "." + m._id,

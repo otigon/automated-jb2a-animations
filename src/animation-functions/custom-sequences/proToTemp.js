@@ -35,9 +35,10 @@ export async function proToTemp(handler, animationData, config) {
     aaSeq.effect()
         .file(data.projectile.path.file)
         .atLocation(sourceToken)
-        .stretchTo(template, { cacheLocation: true })
-        .elevation(data.projectile.options.isAbsolute ? data.projectile.options.elevation : sourceToken.document.elevation + data.projectile.options.elevation)
+        .stretchTo(template, { cacheLocation: true, randomOffset: data.projectile.options.randomOffset })
+        .elevation(handler.elevation(sourceToken, data.projectile.options.isAbsolute, data.projectile.options.elevation), {absolute: data.projectile.options.isAbsolute})
         .repeats(data.projectile.options.repeat, data.projectile.options.repeatDelay)
+        .playbackRate(data.projectile.options.playbackRate)
         .waitUntilFinished(data.projectile.options.wait)
     if (data.preExplosion.sound) {
         aaSeq.addSequence(data.preExplosion.sound)
@@ -46,10 +47,12 @@ export async function proToTemp(handler, animationData, config) {
         aaSeq.effect()
             .file(data.preExplosion.path.file, true)
             .atLocation(template, { cacheLocation: true })
-            .elevation(data.preExplosion.options.isAbsolute ? data.preExplosion.options.elevation : sourceToken.document.elevation + data.preExplosion.options.elevation)
+            .elevation(handler.elevation(sourceToken, data.preExplosion.options.isAbsolute, data.preExplosion.options.elevation), {absolute: data.preExplosion.options.isAbsolute})
             .scaleToObject(data.preExplosion.options.scale)
             .repeats(data.preExplosion.options.repeat, data.preExplosion.options.repeatDelay)
+            .playbackRate(data.preExplosion.options.playbackRate)
             .waitUntilFinished(data.preExplosion.options.wait)
+            .aboveLighting(data.preExplosion.options.aboveTemplate)
     }
     if (data.explosion.sound) {
         aaSeq.addSequence(data.explosion.sound)
@@ -57,17 +60,19 @@ export async function proToTemp(handler, animationData, config) {
     aaSeq.effect()
         .file(data.explosion.path.file, true)
         .atLocation(template, { cacheLocation: true })
-        .elevation(data.explosion.options.isAbsolute ? data.explosion.options.elevation : sourceToken.document.elevation + data.explosion.options.elevation)
+        .elevation(handler.elevation(sourceToken, data.explosion.options.isAbsolute, data.explosion.options.elevation), {absolute: data.explosion.options.isAbsolute})
         .scaleToObject(data.explosion.options.scale)
         .repeats(data.explosion.options.repeat, data.explosion.options.repeatDelay)
         .zIndex(5)
+        .playbackRate(data.explosion.options.playbackRate)
         .waitUntilFinished(-750 + data.explosion.options.wait)
+        .aboveLighting(data.explosion.options.aboveTemplate)
     if (data.afterImage.customPath) {
         aaSeq.effect()
             .file(data.afterImage.customPath, true)
             .atLocation(template, { cacheLocation: true })
             .scaleToObject(data.afterImage.options.scale)
-            .elevation(data.afterImage.options.isAbsolute ? data.afterImage.options.elevation : sourceToken.document.elevation + data.afterImage.options.elevation)
+            .elevation(handler.elevation(sourceToken, data.afterImage.options.isAbsolute, data.afterImage.options.elevation), {absolute: data.afterImage.options.isAbsolute})
             .persist(true)
             .origin(handler.itemUuid)
             .fadeIn(250)
@@ -91,7 +96,7 @@ export async function proToTemp(handler, animationData, config) {
             } else if (!secondary.options.isWait) {
                 secondarySeq.delay(secondary.options.delay)
             }
-            secondarySeq.elevation(secondary.options.isAbsolute ? secondary.options.elevation : currentTarget.document.elevation + secondary.options.elevation)
+            secondarySeq.elevation(handler.elevation(currentTarget, secondary.options.isAbsolute, secondary.options.elevation), {absolute: secondary.options.isAbsolute})
             secondarySeq.zIndex(secondary.options.zIndex)
             secondarySeq.opacity(secondary.options.opacity)
             secondarySeq.fadeIn(secondary.options.fadeIn)
@@ -104,6 +109,7 @@ export async function proToTemp(handler, animationData, config) {
                 secondarySeq.mask(currentTarget)
             }
             secondarySeq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
+            secondarySeq.playbackRate(secondary.options.playbackRate)
         }
     }
 

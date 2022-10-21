@@ -9,6 +9,7 @@ export function templatefx() {
         opacity: 1,
         persistent: false,
         persistType: "sequencerground",
+        playbackRate: 1,
         removeTemplate: false,
         repeat: 1,
         repeatDelay: 250,

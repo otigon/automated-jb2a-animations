@@ -10,10 +10,12 @@
     import WaitDelay        from "./inputComponents/WaitDelay.svelte";
 
     import {aaReturnWeapons} from "../../../../database/jb2a-menu-options.js"
+    import systemData from "../../../../system-handlers/system-data";
 
     //import { ripple } from "@typhonjs-fvtt/svelte-standard/action";
 
     export let animation;
+    export let category;
 
     const folder = {
         label: game.i18n.localize("autoanimations.menus.options"),
@@ -119,9 +121,61 @@
                     </div>
                 </td>
                 <td>
+                    <!--Set Random Offset-->
+                    <div>
+                        <label for="RandomOffset {animation._data.id}"
+                            >{localize("autoanimations.menus.randomOffset")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="RandomOffset {animation._data.id}"
+                            bind:checked={$animation.primary.options.randomOffset}
+                        />
+                    </div>
+                </td>
+                <td>
+                    <NumberInput 
+                    {animation}
+                    label={localize("autoanimations.menus.playbackRate")}
+                    section="primary"
+                    field="playbackRate"
+                    />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <!--Reverse Animation (Switch Source/Target)-->
+                    <div>
+                        <label for="TempSource {animation._data.id}"
+                            >{localize("autoanimations.animations.reverse")} {localize("autoanimations.menus.animation")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="TempSource {animation._data.id}"
+                            bind:checked={$animation.primary.options.reverse}
+                        />
+                    </div>
+                </td>
+                <td>
                     <WaitDelay {animation}/>
                 </td>
+                {#if category.stores.animationSourceOption}
+                <td>
+                    <!--Set Source as Template Animation: EXPERITMENTAL-->
+                    <div>
+                        <label for="TempSource {animation._data.id}"
+                            >{localize("autoanimations.menus.animation")} {localize("autoanimations.menus.source")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="TempSource {animation._data.id}"
+                            bind:checked={$animation.primary.options.animationSource}
+                        />
+                    </div>
+                </td>
+                {:else}
                 <td></td>
+                {/if}
             </tr>
         </table>
     </TJSSvgFolder>

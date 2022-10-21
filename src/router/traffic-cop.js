@@ -7,11 +7,18 @@ const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function trafficCop(handler) {
     const autorecDisabled = game.settings.get("autoanimations", "disableAutoRec")
-
-    if (!handler.isEnabled) { return; }
-    if (!handler.isCustomized && !handler.autorecObject || (handler.autorecObject && autorecDisabled)) { return; }
-
-    const data = handler.isCustomized ? foundry.utils.deepClone(handler.flags) : foundry.utils.deepClone(handler.autorecObject);
+    /* Removing this. Workflow should no longer reach this point if no Animation is matched
+    if (!handler.isEnabled) { 
+        debug("Item is disabled, exiting workflow", handler.item)
+        return; 
+    }
+    if (!handler.isCustomized && !handler.autorecObject || (handler.autorecObject && autorecDisabled)) { 
+        debug("No animation found for Item", handler.item)
+        return; 
+    }
+    */
+    //const data = handler.isCustomized ? foundry.utils.deepClone(handler.flags) : foundry.utils.deepClone(handler.autorecObject);
+    const data = foundry.utils.deepClone(handler.animationData);
     Hooks.callAll("aa.preDataSanitize", handler, data);
 
     const sanitizedData = await DataSanitizer._getAnimationData(handler, data);
@@ -20,10 +27,35 @@ export async function trafficCop(handler) {
     let globalDelay = game.settings.get("autoanimations", "globaldelay");
     await wait(globalDelay);
 
+    let aaTemplateHook;
+
     if (sanitizedData.macro && sanitizedData.macro.enable && sanitizedData.macro.playWhen === "2") {
-        new Sequence()
+
+        if (handler.isTemplateItem) {
+            switch (game.system.id) {
+                case "a5e":
+                case "sw5e":
+                case "tormenta20":
+                case "swade":
+                    aaTemplateHook = Hooks.once("createMeasuredTemplate", (template) => {
+                        //Hooks.callAll("aa.preAnimationStart", sanitizedData, data);
+                        handler.templateData = template;
+                        playMacro()
+                    });
+                    setTimeout(killHook, 30000)
+                    break;
+                default:
+                    handler.templateData = canvas.templates.placeables[canvas.templates.placeables.length - 1].document;
+                    playMacro()
+                }    
+        } else {
+            playMacro()
+        }
+        function playMacro() {
+            new Sequence()
             .macro(sanitizedData.macro.name, handler.workflow, handler, sanitizedData.macro.args)
             .play()
+        }
         return;
     }
 
@@ -61,7 +93,7 @@ export async function trafficCop(handler) {
             return;
         }
         debug(`${animationType} Animation Start"`, handler, sanitizedData)
-        if (handler.templateData && animationType === "templatefx") {
+        if (handler.templateData) {
             animate[animationType](handler, sanitizedData);
             return;
         }
@@ -77,6 +109,7 @@ export async function trafficCop(handler) {
                     animate[animationType](handler, sanitizedData, template);
                 });
                 setTimeout(killHook, 30000)
+                break;
             default:
                 animate[animationType](handler, sanitizedData);
         }

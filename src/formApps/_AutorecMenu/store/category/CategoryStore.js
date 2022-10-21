@@ -60,6 +60,8 @@ export class CategoryStore extends WorldSettingArrayStore {
          scrollTop: aaSessionStorage.getStore(`${constants.moduleId}-category-scrolltop-${key}`, 0),
          // This allow setting the current Index of the section for the Video Preview app
          videoIDX: writable(void 0),
+
+         animationSourceOption: game.system.id === "dnd5e" || game.system.id === "pf2e",
       };
 
    }
@@ -160,6 +162,7 @@ export class CategoryStore extends WorldSettingArrayStore {
 
    }
    menuTypeChange(section, idx, section02 = "video", menuDB = "static") {
+      delete this._data[idx]._data.metaData;
       let menuType = this._data[idx]._data[section][section02].menuType;
       this._data[idx]._data[section][section02].animation = newNameMenu[menuDB][menuType][0][0];
 
@@ -171,6 +174,7 @@ export class CategoryStore extends WorldSettingArrayStore {
    }
 
    animationChange(section, idx, section02 = "video", menuDB = "static") {
+      delete this._data[idx]._data.metaData;
       let menuType = this._data[idx]._data[section][section02].menuType;
       let animation = this._data[idx]._data[section][section02].animation;
       this._data[idx]._data[section][section02].variant = newVariantMenu[menuDB][menuType][animation][0][0];
@@ -180,6 +184,7 @@ export class CategoryStore extends WorldSettingArrayStore {
    }
 
    variantChange(section, idx, section02 = "video", menuDB = "static") {
+      delete this._data[idx]._data.metaData;
       let menuType = this._data[idx]._data[section][section02].menuType;
       let animation = this._data[idx]._data[section][section02].animation;
       let variant = this._data[idx]._data[section][section02].variant;

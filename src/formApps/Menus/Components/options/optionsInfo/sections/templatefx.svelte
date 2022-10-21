@@ -14,6 +14,15 @@
         <td> Adjusts the rotation of the animation </td>
     </tr>
     <tr>
+        <td>
+            <strong>{localize("autoanimations.menus.anchor")}</strong>
+        </td>
+        <td>
+            Adjust the anchor position of the Effect. Default: <strong>0.5, 0.5</strong> for Square/Circle Templates, <strong>0, 0.5</strong> for Cone/Ray templates. <br> 
+            Accepts two numbers separated by a comma. Ex: <strong>0.5, 1</strong> returns x: 0.5, y:1, and using one number such as <strong>0.5</strong> returns x: 0.5, y: 0.5
+        </td>
+    </tr>
+    <tr>
         <td class="aa-table">
             <strong>{localize("autoanimations.menus.effect")} {localize("autoanimations.menus.opacity")}</strong>
         </td>
@@ -33,6 +42,22 @@
         </td>
         <td>
             If enabled, the effect will be masked to the Template
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.variants.above")} {localize("autoanimations.animTypes.templatefx")}</strong>
+        </td>
+        <td>
+            This setting will override Elevation to play the animation Above the template using the .aboveLightning() Sequencer method
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
+            <strong>{localize("autoanimations.menus.playbackRate")}</strong>
+        </td>
+        <td> 
+            Default 1: Set the playback speed of the animation
         </td>
     </tr>
     <tr>

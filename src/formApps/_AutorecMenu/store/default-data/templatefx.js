@@ -4,6 +4,7 @@ export const templatefx = [
    {
       ...common.main({ label: "calllightning" }),
       menu: "templatefx",
+      metaData: {default: true},
       primary: common.primary({
          video: { dbSection: "templatefx", menuType: "circle", animation: "calllightning", variant: '01', color: 'blueorange' },
          options: {
@@ -33,6 +34,7 @@ export const templatefx = [
    {
       ...common.main({ label: "fogcloud" }),
       menu: "templatefx",
+      metaData: {default: true},
       primary: common.primary({
          video: { dbSection: "templatefx", menuType: "circle", animation: "fogcloud", variant: '01', color: 'white' },
          options: {

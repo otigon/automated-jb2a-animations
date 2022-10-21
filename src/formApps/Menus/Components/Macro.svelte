@@ -5,6 +5,9 @@
     export let animation;
     export let category;
 
+    function removeMetaData() {
+       delete $animation.metaData
+   }
 </script>
 
 <div class="aa-macro-border">
@@ -17,6 +20,7 @@
             <select
                 bind:value={$animation.macro.playWhen}
                 style="text-align: center;width: 100%;"
+                on:change={() => removeMetaData()}
             >
                 <option value="0"
                     >{localize("autoanimations.menus.macroconcurrent")}</option

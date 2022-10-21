@@ -1,15 +1,48 @@
 import { debug }            from "../constants/constants.js";
 import { trafficCop }       from "../router/traffic-cop.js";
-import systemData           from "../system-handlers/system-data.js";
+import AAHandler            from "../system-handlers/workflow-data.js";
 import { AnimationState }   from "../AnimationState.js";
+import { getRequiredData }  from "./getRequiredData.js";
 
 // DnD5e System hooks provided to run animations
 export function systemHooks() {
-    //Hooks.on("dnd5e.displayCard", async (item, chat, options) => {useItem({item, chat, options})});
-    Hooks.on('dnd5e.useItem', async (item, config, options) => {useItem({item, config, options})})
-    Hooks.on("dnd5e.rollAttack", async (item, roll) => {attack({item, roll})})
-    Hooks.on("dnd5e.rollDamage", async (item, roll) => {damage({item, roll})})
-    Hooks.on("createMeasuredTemplate", async (template, data, userId) => {templateAnimation({template, data, userId})})    
+    if (game.modules.get("midi-qol")?.active) {
+        Hooks.on("midi-qol.AttackRollComplete", (workflow) => {
+            let playOnDamage = game.settings.get('autoanimations', 'playonDamage');
+            if (!AnimationState.enabled || workflow.item?.hasAreaTarget || (workflow.item?.hasDamage && playOnDamage)) { return };
+            attack(getWorkflowData(workflow)); criticalCheck(workflow)
+        });
+        Hooks.on("midi-qol.DamageRollComplete", (workflow) => { 
+            let playOnDamage = game.settings.get('autoanimations', 'playonDamage');
+            if (!AnimationState.enabled || workflow.item?.hasAreaTarget || (!playOnDamage && workflow.item?.hasAttack)) { return };
+            damage(getWorkflowData(workflow)) 
+        });
+        // Items with no Attack/Damage
+        Hooks.on("midi-qol.RollComplete", (workflow) => {
+            if (!AnimationState.enabled || workflow.item?.hasAreaTarget || workflow.item?.hasAttack || workflow.item?.hasDamage) { return };
+            useItem(getWorkflowData(workflow))
+        });
+    
+    } else {
+        Hooks.on("dnd5e.rollAttack", async (item, roll) => {
+            let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
+            if (!AnimationState.enabled || item.hasAreaTarget || (item.hasDamage && playOnDamage)) { return; }   
+            attack(await getRequiredData({item, actor: item.actor, workflow: item}))
+        })
+        Hooks.on("dnd5e.rollDamage", async (item, roll) => {
+            let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
+            if (!AnimationState.enabled || item.hasAreaTarget || (item.hasAttack && !playOnDamage)) { return; }
+            damage(await getRequiredData({item, actor: item.actor, workflow: item}))
+        })
+        Hooks.on('dnd5e.useItem', async (item, config, options) => {
+            if (item?.hasAreaTarget || item.hasAttack || item.hasDamage || !AnimationState.enabled) { return; }
+            useItem(await getRequiredData({item, actor: item.actor, workflow: item}))
+        })
+    }
+    Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
+        if (userId !== game.user.id || !AnimationState.enabled) { return };
+        templateAnimation(await getRequiredData({itemUuid: template.flags?.dnd5e?.origin, templateData: template, workflow: template, isTemplate: true}))
+    })
 }
 
 /**
@@ -22,95 +55,103 @@ export function systemHooks() {
  */
 
 async function useItem(input) {
-    if (input.item?.hasAreaTarget || input.item?.hasAttack || input.item?.hasDamage || !AnimationState.enabled) { return; }
-    debug("Playing Animation on Item Use")
-    let handler = await systemData.make(input);
+    debug("Item used, checking for animations")
+    const handler = await AAHandler.make(input)
+    if (!handler) { return; }
     if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
     trafficCop(handler)
+    /*
+        if (handler.isAura) {
+        trafficCop(handler);
+    } else {
+        if (item?.hasAreaTarget || item.hasAttack || item.hasDamage) { return; }
+        if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
+        trafficCop(handler)    
+    }
+    */
 }
 
 async function attack(input) {
-    let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
-    if (!AnimationState.enabled || input.item?.hasAreaTarget || (input.item?.hasDamage && playOnDamage)) { return; }
-    debug("Playing Animation on Attack Roll")
-    let handler = await systemData.make(input);
+    checkAmmo(input)
+    checkReach(input)
+    debug("Attack rolled, checking for animations");
+    const handler = await AAHandler.make(input)
+    if (!handler) { return; }
     if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
     trafficCop(handler)
 }
 
 async function damage(input) {
-    let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
-    if (!AnimationState.enabled || input.item?.hasAreaTarget || (input.item?.hasAttack && !playOnDamage)) { return; }
-    debug("Playing Animation on Damage Roll")
-    let handler = await systemData.make(input);
+    checkAmmo(input)
+    checkReach(input)
+    debug("Damage rolled, checking for animations")
+    const handler = await AAHandler.make(input)
+    if (!handler) { return; }
     if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
     trafficCop(handler)
 }
 
 async function templateAnimation(input) {
-    if (input.userId !== game.user.id || !AnimationState.enabled) { return };
-    debug("Playing Animation on Template Placement")
-    const itemUuid = input.template?.flags?.dnd5e?.origin;
-    const item = itemUuid ? await fromUuid(itemUuid) : "";
-    if (!item) { return; }
-    let handler = await systemData.make({item: item});
-    if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
+    debug("Template placed, checking for animations")
+    if (!input.item) { 
+        debug("No Item could be found")
+        return;
+    }
+    const handler = await AAHandler.make(input)
+    if (!handler) { return; }
     trafficCop(handler)
 }
 
-/* This is the previous method for 5e to gather all the relevant data from createChatMessage hook, before System hooks were implemented
-export async function runDnd5e(msg) {
-    if (msg.user.id !== game.user.id) { return };
+function checkAmmo(data) {
+    //const ammo = data.item?.flags?.autoanimations?.fromAmmo;
+    const ammoType = data.item?.system?.consume?.type;
+    data.ammoItem = ammoType === "ammo" ? data.token?.actor?.items?.get(data.item?.system?.consume?.target) : null;
+}
 
-    const animationNow = game.settings.get("autoanimations", "playonDamageCore");
-    let handler;
-    let rollType;
-    switch (game.system.id) {
-        case "dnd5e":
-            handler = await systemData.make(msg);
-            rollType = (msg.flags?.dnd5e?.roll?.type?.toLowerCase() ?? msg.flavor?.toLowerCase() ?? "pass");
-            break;
-        case "sw5e":
-            handler = await systemData.make(msg);
-            rollType = msg.flags?.sw5e?.roll?.type?.toLowerCase() ?? "pass";
-            break;
+function checkReach(data) {
+    let reach = 0;
+    if (data.item.system?.properties?.rch) {
+        reach += 1;
     }
+    data.reach = reach;
+}
 
-    if (!handler.item || !handler.sourceToken) {
-        return;
+function getWorkflowData(data) {
+    return {
+        item: data.item,
+        token: data.token,
+        targets: Array.from(data.targets),
+        hitTargets: Array.from(data.hitTargets),
+        workflow: data,
     }
+}
+
+function criticalCheck(workflow) {
+    if (!workflow.isCritical && !workflow.isFumble || !AnimationState.enabled) { return; }
+    debug("Checking for Crit or Fumble")
+    let critical = workflow.isCritical;
+    let fumble = workflow.isFumble;
+    let token;
+
+    let critAnim = game.settings.get("autoanimations", "CriticalAnimation");
+    let critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
 
     switch (true) {
-        case !handler.hasAttack && !handler.hasDamage:
-            trafficCop(handler);
+        case (game.settings.get("autoanimations", "EnableCritical") && critical):
+            token = canvas.tokens.get(workflow.tokenId);
+            new Sequence()
+                .effect()
+                .file(critAnim)
+                .atLocation(token)
+                .play()
             break;
-        case (handler.shouldPlayImmediately) && !rollType.includes("damage") && !rollType.includes("attack"):
-            trafficCop(handler);
-            break;
-        case animationNow:
-            if (rollType.includes("damage")) {
-                if (handler.shouldPlayImmediately) { return; }
-                trafficCop(handler);
-            }
-            break;
-        case !animationNow:
-            switch (true) {
-                case game.modules.get("mre-dnd5e")?.active && game.settings.get("mre-dnd5e", "autoCheck") && !handler.hasAttack && handler.hasDamage && !rollType.includes("damage"):
-                    trafficCop(handler);
-                    break;
-                case game.modules.get("mre-dnd5e")?.active && game.settings.get("mre-dnd5e", "autoCheck") && rollType.includes("damage"):
-                    break;
-                case rollType.includes("damage") && !handler.hasAttack:
-                case rollType.includes('attack'):
-                    if (handler.shouldPlayImmediately) { return; }
-                    trafficCop(handler);
-                    break;
-                case game.modules.get("betterrolls5e")?.active && !handler.hasAttack && handler.hasDamage:
-                    if (handler.shouldPlayImmediately) { return; }
-                    trafficCop(handler);
-                    break;
-            }
+        case (game.settings.get("autoanimations", "EnableCriticalMiss") && fumble):
+            token = canvas.tokens.get(workflow.tokenId);
+            new Sequence()
+                .effect()
+                .file(critMissAnim)
+                .atLocation(token)
+                .play()
             break;
     }
 }
-*/

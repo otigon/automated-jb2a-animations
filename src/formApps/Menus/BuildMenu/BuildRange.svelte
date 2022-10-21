@@ -19,7 +19,7 @@
     $: macroPlay = $animation.macro.playWhen;
 </script>
 
-<svelte:component this={settings.SectionButtons01} bind:show3d {animation} {category} {idx} type={fromMenu}/>
+<svelte:component this={settings.SectionButtons01} bind:show3d {animation} {category} type={fromMenu}/>
 {#if show3d && !soundOnly}
     <svelte:component this={settings.Canvas3D} {animation} {category} {idx} />
 {:else}
@@ -33,7 +33,7 @@
         <svelte:component this={settings.Source} {animation} {category} {idx}/>
             <div class="aa-primary-border">
                 <svelte:component this={settings.Video} {animation} {category} {idx} {title} section="primary"/>
-                <svelte:component this={options.Range} {animation}/>
+                <svelte:component this={options.Range} {animation} {category} />
                 <svelte:component this={settings.Sound} {animation} {category} {idx} section="primary" />
             </div>
             <svelte:component this={settings.Secondary} {animation} {category} {idx}/>

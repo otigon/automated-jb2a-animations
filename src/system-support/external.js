@@ -1,7 +1,7 @@
-import systemData from "../system-handlers/system-data.js";
-import { AnimationState } from "../AnimationState.js";
-import { trafficCop } from "../router/traffic-cop.js";
-import { custom_warning } from "../constants/constants.js";
+import AAHandler            from "../system-handlers/workflow-data.js";
+import { AnimationState }   from "../AnimationState.js";
+import { trafficCop }       from "../router/traffic-cop.js";
+import { custom_warning }   from "../constants/constants.js";
 /**
  *  AutoAnimations class allows for external calls to directly play animations
  * 
@@ -32,7 +32,8 @@ export class AutoAnimations
             ...options
         }
 
-        let handler = await systemData.make(null, null, data)
+        const handler = await AAHandler.make(data)
+        if (!handler) { return; }
         trafficCop(handler);
     }
 }
@@ -72,6 +73,7 @@ export async function playAnimation(sourceToken, item, options = {}) {
         ...options
     }
 
-    let handler = await systemData.make(null, null, data)
+    const handler = await AAHandler.make(data)
+    if (!handler) { return; }
     trafficCop(handler);
 }

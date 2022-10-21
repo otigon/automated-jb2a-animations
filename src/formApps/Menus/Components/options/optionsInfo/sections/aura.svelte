@@ -47,6 +47,14 @@
     </tr>
     <tr>
         <td class="aa-table">
+            <strong>{localize("autoanimations.menus.playbackRate")}</strong>
+        </td>
+        <td> 
+            Default 1: Set the playback speed of the animation
+        </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
             <strong>{localize("autoanimations.menus.radius")}</strong>
         </td>
         <td>

@@ -166,7 +166,14 @@
                 </td>
             </tr>
             <tr>
-                <td></td>
+                <td>
+                    <NumberInput 
+                    {animation}
+                    label={localize("autoanimations.menus.playbackRate")}
+                    section="secondary"
+                    field="playbackRate"
+                    />
+                </td>
                 <td>
                     <!--Set Delay for proceeding animation-->
                     <WaitDelay

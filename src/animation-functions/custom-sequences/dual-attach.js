@@ -41,7 +41,7 @@ export async function dualattach(handler, animationData) {
                 .persist(true)
                 .playbackRate(data.options.playbackRate)
                 .origin(handler.itemUuid)
-                .elevation(data.options.isAbsolute ? data.options.elevation : sourceToken.document.elevation + data.options.elevation)
+                .elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
             }
         }
         if (data.playMacro && data.macro.playWhen === "0") {

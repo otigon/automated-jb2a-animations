@@ -6,6 +6,7 @@ export function range() {
         isWait: false,
         onlyX: false,
         opacity: 1,
+        playbackRate: 1,
         repeat: 1,
         repeatDelay: 250,
         zIndex: 1,

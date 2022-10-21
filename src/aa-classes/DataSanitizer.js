@@ -9,8 +9,8 @@ export class DataSanitizer {
         let menu = flagData.menu;
         menu = menu === "aefx" ? flagData.activeEffectType : menu;
         const data = {
-            primary: menu === "preset" ? await this.compilePreset(handler, flagData) : await this.compilePrimary(handler, flagData),
-            secondary: flagData.secondary ? await this.compileSecondary(flagData) : false,
+            primary: menu === "preset" ? await this.compilePreset(flagData) : await this.compilePrimary(flagData, menu, handler),
+            secondary: flagData.secondary ? await this.compileSecondary(flagData, handler) : false,
             sourceFX: await this.compileSource(handler, flagData),
             targetFX: flagData.target ? await this.compileTarget(flagData) : false,
             macro: await this.compileMacro(handler, flagData)
@@ -54,7 +54,7 @@ export class DataSanitizer {
 
     }
 
-    static setSound(data, addDelay = 0) {
+    static setSound(data, addDelay = 0, overrideRepeat = false) {
 
         const input = {
             enable: data.enable ?? false,
@@ -62,7 +62,7 @@ export class DataSanitizer {
             delay: data.delay ?? 0,
             startTime: data.startTime ?? 0,
             volume: data.volume ?? 1,
-            repeat: data.repeat || 1,
+            repeat: overrideRepeat || data.repeat || 1,
             repeatDelay: data.repeatDelay ?? 250,
         }
         if (!input.enable || !input.file) { return false }
@@ -76,9 +76,8 @@ export class DataSanitizer {
         return soundSeq;
     }
 
-    static async compilePrimary(handler, flagData) {
+    static async compilePrimary(flagData, menu, handler) {
         const topLevel = flagData || {};
-        const menu = handler.isActiveEffect ? topLevel.activeEffectType : topLevel.menu;
 
         const primary = topLevel.primary || topLevel.data || {};
         const options = primary.options || {};
@@ -94,14 +93,14 @@ export class DataSanitizer {
                 color: video.color,
                 customPath: video.enableCustom && video.customPath ? video.customPath : false,
             },
-            options: this.setPrimaryOptions(options, menu),
+            options: this.setPrimaryOptions(options, menu, handler),
             //sound: this.setSound(sound),
         }
         let addSoundDelay = 0; 
         if (!data.options.isWait) {
             addSoundDelay = data.options.delay;
         }
-        data.sound = this.setSound(sound, addSoundDelay)
+        data.sound = this.setSound(sound, addSoundDelay, handler.systemData.overrideRepeat)
         if (menu === "melee") {
             data.meleeSwitch = this.compileMeleeSwitch(topLevel.meleeSwitch)
         }
@@ -137,7 +136,7 @@ export class DataSanitizer {
         return data;
     }
 
-    static setPrimaryOptions(data, type) {
+    static setPrimaryOptions(data, type, handler) {
         switch (type) {
             case "melee":
                 return {
@@ -146,6 +145,7 @@ export class DataSanitizer {
                     isAbsolute: data.isAbsolute ?? false,
                     isWait: data.isWait ?? false,
                     opacity: data.opacity ?? 1,
+                    playbackRate: data.playbackRate || 1,
                     repeat: data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
                     size: data.size || 1,
@@ -153,6 +153,7 @@ export class DataSanitizer {
                 };
             case "range":
                 return {
+                    animationSource: data.animationSource ?? false,
                     delay: data.delay || 0,
                     elevation: data.elevation ?? 1000,
                     isAbsolute: data.isAbsolute ?? false,
@@ -160,8 +161,11 @@ export class DataSanitizer {
                     isWait: data.isWait ?? false,
                     onlyX: data.onlyX ?? false,
                     opacity: data.opacity ?? 1,
-                    repeat: data.repeat || 1,
+                    playbackRate: data.playbackRate || 1,
+                    randomOffset: data.randomOffset ?? false,
+                    repeat: handler.systemData.overrideRepeat || data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
+                    reverse: data.reverse ?? false,
                     zIndex: data.zIndex || 1,
                 };
             case "ontoken":
@@ -178,6 +182,7 @@ export class DataSanitizer {
                     isWait: data.isWait ?? false,
                     opacity: data.opacity ?? 1,
                     persistent: data.persistent ?? false,
+                    playbackRate: data.playbackRate || 1,
                     playOn: data.playOn || "default",
                     repeat: data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
@@ -188,6 +193,8 @@ export class DataSanitizer {
                 };
             case "templatefx":
                 return {
+                    aboveTemplate: data.aboveTemplate ?? false,
+                    anchor: data.anchor,
                     delay: data.delay ?? 1,
                     elevation: data.elevation ?? 1000,
                     isAbsolute: data.isAbsolute ?? false,
@@ -198,6 +205,7 @@ export class DataSanitizer {
                     opacity: data.opacity ?? 1,
                     persistent: data.persistent ?? false,
                     persistType: data.persistType || "sequencerground",
+                    playbackRate: data.playbackRate || 1,
                     removeTemplate:  data.removeTemplate ?? false,
                     repeat: data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
@@ -225,6 +233,7 @@ export class DataSanitizer {
                     fadeOut: data.fadeOut ?? 500,
                     isWait: data.isWait ?? false,
                     opacity: data.opacity ?? 1,
+                    playbackRate: data.playbackRate || 1,
                     playOn: data.playOn || "source",
                     size: data.size || 3,
                     tint: data.tint ?? false,
@@ -252,7 +261,7 @@ export class DataSanitizer {
         }
     }
 
-    static async compileSecondary(flagData) {
+    static async compileSecondary(flagData, handler) {
         const topLevel = flagData || {};
 
         const secondary = topLevel.secondary || {};
@@ -283,7 +292,8 @@ export class DataSanitizer {
                 isRadius: options.isRadius ?? false,
                 isWait: options.isWait ?? false,
                 opacity: options.opacity || 1,
-                repeat: options.repeat || 1,
+                playbackRate: options.playbackRate || 1,
+                repeat: handler.systemData.overrideRepeat || options.repeat || 1,
                 repeatDelay: options.repeatDelay ?? 250,
                 rotateSource: options.rotateSource ?? false,
                 size: options.size || 1,
@@ -295,7 +305,7 @@ export class DataSanitizer {
         if (!data.options.isWait) {
             addSoundDelay = data.options.delay;
         }
-        data.sound = this.setSound(sound, addSoundDelay)
+        data.sound = this.setSound(sound, addSoundDelay, handler.systemData.overrideRepeat)
         data.path = secondary.enable ? await buildFile(false, data.video.menuType, data.video.animation, "static", data.video.variant, data.video.color, data.video.customPath) : "";
 
         return data;
@@ -333,6 +343,7 @@ export class DataSanitizer {
                 isRadius: options.isRadius ?? false,
                 isWait: options.isWait ?? false,
                 opacity: options.opacity || 1,
+                playbackRate: options.playbackRate || 1,
                 repeat: options.repeat || 1,
                 repeatDelay: options.repeatDelay || 1,
                 size: options.size || 1,
@@ -346,7 +357,8 @@ export class DataSanitizer {
         }
         data.sound = this.setSound(sound, addSoundDelay)
 
-        const sourceTokenGS = data.options.isRadius ? data.options.size * 2 : (handler.sourceToken.w / canvas.grid.size) * 1.5 * data.options.size;
+        //const sourceTokenGS = data.options.isRadius ? data.options.size * 2 : (handler.sourceToken.w / canvas.grid.size) * 1.5 * data.options.size;
+        const sourceSize = handler.getSize(data.options.isRadius, data.options.size, handler.sourceToken, data.options.addTokenWidth)
 
         const sourceFile = data.enable ? await buildFile(false, data.video.menuType, data.video.animation, data.video.dbSection, data.video.variant, data.video.color, data.video.customPath) : "";
 
@@ -359,9 +371,9 @@ export class DataSanitizer {
             sourceEffect.file(sourceFile.file, true)
             sourceEffect.atLocation(handler.sourceToken)
             // TO-DO switch Scale/Radius
-            sourceEffect.size(sourceTokenGS, { gridUnits: true })
+            sourceEffect.size(sourceSize, { gridUnits: true })
             sourceEffect.repeats(data.options.repeat, data.options.repeatDelay)
-            sourceEffect.elevation(data.options.isAbsolute ? data.options.elevation : handler.sourceToken.document.elevation + data.options.elevation)
+            sourceEffect.elevation(data.options.isAbsolute ? data.options.elevation : data.options.elevation - 1, {absolute: data.options.isAbsolute})
             sourceEffect.zIndex(data.options.zIndex)
             if (data.options.isMasked) {
                 sourceEffect.mask(handler.sourceToken)
@@ -375,6 +387,7 @@ export class DataSanitizer {
                 sourceEffect.delay(data.options.delay)
             }
             sourceEffect.anchor({x: data.options.anchor.x, y: data.options.anchor.y})
+            sourceEffect.playbackRate(data.options.playbackRate)
         }
         return data;
     }
@@ -409,6 +422,7 @@ export class DataSanitizer {
                 //isWait: options.isWait ?? false,
                 isRadius: options.isRadius ?? false,
                 opacity: options.opacity || 1,
+                playbackRate: options.playbackRate || 1,
                 persistent: options.persistent ?? false,
                 repeat: options.repeat || 1,
                 repeatDelay: options.repeatDelay ?? 250,
@@ -511,7 +525,7 @@ export class DataSanitizer {
         return data;
     }
 
-    static async compilePreset(handler, flagData) {
+    static async compilePreset(flagData) {
         const topLevel = flagData || {};
         const presetType = topLevel.presetType;
 
@@ -551,6 +565,8 @@ export class DataSanitizer {
                     options: {
                         elevation: projectileOptions.elevation || 1000,
                         isAbsolute: projectileOptions.isAbsolute ?? false,
+                        playbackRate: projectileOptions.playbackRate || 1,
+                        randomOffset: projectileOptions.randomOffset ?? false,
                         repeat: projectileOptions.repeat || 1,
                         repeatDelay: projectileOptions.repeatDelay || 250,
                         removeTemplate: projectileOptions.removeTemplate ?? false,
@@ -568,8 +584,10 @@ export class DataSanitizer {
                     color: preExplosion.color,
                     customPath: preExplosion.enableCustom && preExplosion.customPath ? preExplosion.customPath : false,
                     options: {
+                        aboveTemplate: preExplosionOptions.aboveTemplate ?? false,
                         elevation: preExplosionOptions.elevation ?? 1000,
                         isAbsolute: preExplosionOptions.isAbsolute ?? false,
+                        playbackRate: preExplosionOptions.playbackRate || 1,
                         repeat: preExplosionOptions.repeat || 1,
                         repeatDelay: preExplosionOptions.repeatDelay || 250,
                         scale: preExplosionOptions.scale || 1,
@@ -586,8 +604,10 @@ export class DataSanitizer {
                     color: explosion.color,
                     customPath: explosion.enableCustom && explosion.customPath ? explosion.customPath : false,
                     options: {
+                        aboveTemplate: explosionOptions.aboveTemplate ?? false,
                         elevation: explosionOptions.elevation ?? 1000,
                         isAbsolute: explosionOptions.isAbsolute ?? false,
+                        playbackRate: explosionOptions.playbackRate || 1,
                         repeat: explosionOptions.repeat || 1,
                         repeatDelay: explosionOptions.repeatDelay || 250,
                         scale: explosionOptions.scale || 1,
@@ -647,6 +667,7 @@ export class DataSanitizer {
                         isMasked: startOptions.isMasked ?? false,
                         isRadius: startOptions.isRadius ?? false,
                         opacity: startOptions.opacity ?? 1,
+                        playbackRate: startOptions.playbackRate || 1,
                         size: startOptions.size ?? 1,
                     },
                 },
@@ -679,6 +700,7 @@ export class DataSanitizer {
                         isMasked: endOptions.isMasked ?? false,
                         isRadius: endOptions.isRadius ?? false,
                         opacity: endOptions.opacity ?? 1,
+                        playbackRate: endOptions.playbackRate || 1,
                         size: endOptions.size ?? 1,
                     },
                 },

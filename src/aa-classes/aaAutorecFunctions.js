@@ -26,7 +26,7 @@ export class AAAutorecFunctions {
             return;
         }
 
-        let sortedMenu = menu.sort((a, b) => b.label.replace(/\s+/g, '').length - a.label.replace(/\s+/g, '').length);
+        let sortedMenu = menu.sort((a, b) => b.label.replace(/\s+/g, '').length - a.label?.replace(/\s+/g, '').length);
 
         return sortedMenu.find(x => name.includes(this.rinseName(x.label))) || false;
     }

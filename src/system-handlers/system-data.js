@@ -1,31 +1,32 @@
 import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 import { debug } from "../constants/constants.js";
 import { endTiming } from "../constants/timings.js";
-import { AASystemData } from "./getdata-by-system.js";
+//import { AASystemData } from "./getdata-by-system.js";
 import { flagMigrations } from "../mergeScripts/items/itemFlagMerge.js";
 import { AAAutorecFunctions } from "../aa-classes/aaAutorecFunctions.js";
 
 export default class systemData {
 
-    static async make(msg, isChat, external) {
-        const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
-        const data = external ? external : AASystemData[systemID] ? await AASystemData[systemID](msg, isChat) : await AASystemData.standardChat(msg)
+    static async make(data) {
+        //const systemID = game.system.id.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "");
+        //const data = external ? external : AASystemData[systemID] ? await AASystemData[systemID](msg, isChat) : await AASystemData.standardChat(msg)
         if (!data.item) { debug("Item Retrieval Failed", data); return {}; }
 
-        let isActiveEffect = external ? data.activeEffect : false;
+        //let isActiveEffect = external ? data.activeEffect : false;
+        let isActiveEffect = data.activeEffect;
+
         const flags = await flagMigrations.handle(data.item, {isActiveEffect});
 
-        return new systemData(data, flags, msg);
+        return new systemData(data, flags);
     }
 
-    constructor(systemData, flagData, msg) {
+    constructor(data, flagData) {
         debug("Compiling Automated Animations data")
-        const data = systemData;
         this.gameSystem = game.system.id;
 
         const midiActive = game.modules.get('midi-qol')?.active;
         this.systemId = game.system.id;
-        this.workflow = msg || "";
+        this.workflow = data.workflow;
         this.flags = flagData ?? {};
         //this.animation = this.flags.animation || "";
 
@@ -37,25 +38,24 @@ export default class systemData {
         this.hasDamage = this.item?.hasDamage ?? false;
         this.itemName = this.item.name?.toLowerCase() || this.item.sourceName?.toLowerCase();
 
-        if (this.systemId === 'pf2e') {endTiming
-            const pf2eRuleTypes = ['condition', 'effect', 'feat'];
-            this.isPF2eRuleset = pf2eRuleTypes?.includes(this.item.type);
+        if (this.systemId === 'pf2e') {
+            const pf2eActiveEffects = ['condition', 'effect'];
+            this.isPF2eActiveEffect = this.item?.rules?.[0]?.key === "BattleForm" ? false : pf2eActiveEffects?.includes(this.item.type);
         }
 
-        this.isActiveEffect = this.item?.uuid?.includes("ActiveEffect") || this.isPF2eRuleset ? true : false;
+        this.isActiveEffect = data.activeEffect;
 
         if (this.isActiveEffect) {
-            if (this.systemId === 'dnd5e' || this.systemId === 'pf1' || this.systemId === 'wfrp4e' || this.systemId === "sfrpg") {
-                this.itemName = this.item.label || "placeholder";
-            }
             if (this.systemId === 'pf2e') {
                 this.itemName = this.item.name.replace(/[^A-Za-z0-9 .*_-]/g, "");
+            } else {
+                this.itemName = this.item.label || "placeholder";
             }
             this.workflow = "on";
         }
 
         if (this.workflow === "on") {
-            this.workflowBackup = msg || {};
+            this.workflowBackup = data.workflow || {};
         }
 
         this.itemMacro = this.item.flags?.itemacro?.macro?.name ?? "";
@@ -86,19 +86,29 @@ export default class systemData {
 
         this.rinsedName = this.itemName ? AAAutorecFunctions.rinseName(this.itemName) : "noitem";
 
-        if (this.isActiveEffect || this.pf2eRuleset) {
+        if (this.isActiveEffect || this.isPF2eActiveEffect) {
             this.autorecObject = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.aefx, this.rinsedName);
+        } else if (data.isTemplate) {
+            this.autorecObject = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.templatefx, this.rinsedName);
+            if (!this.autorecObject) {
+                this.autorecObject = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.preset, this.rinsedName);
+                this.autorecObject?.presetType === "proToTemp" ? "" : this.autorecObject = false;
+            }
+            if (!this.autorecObject) {
+                this.autorecObject = AAAutorecFunctions.singleMenuSearch(this.autorecSettings.aura, this.rinsedName);
+            }
         } else {
             this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, this.rinsedName);
         }
 
-        if (!this.autorecObject && game.system.id === "pf2e") {
+        //Disabling the PF2e fallback to treat these as normal Active Effect type animations
+        //if (!this.autorecObject && game.system.id === "pf2e") {
             /* fallback assignment for active effects, default assignment otherwise. */
-            this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, this.rinsedName);
-        } 
+            //this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, this.rinsedName);
+        //} 
     
         // If there is no match and there are alternative names, then attempt to use those names instead
-        if (!this.autorecObject && data.extraNames?.length && !this.isActiveEffect && !this.pf2eRuleset) {
+        if (!this.autorecObject && data.extraNames?.length && !this.isActiveEffect && !this.isPF2eActiveEffect) {
             for (const name of data.extraNames) {
                 const rinsedName = AAAutorecFunctions.rinseName(name);
                 this.autorecObject = AAAutorecFunctions.allMenuSearch(this.autorecSettings, rinsedName);
@@ -176,6 +186,10 @@ export default class systemData {
         return this.flags.macro?.enable && this.flags.macro?.name
     }
 
+    elevation(token = {}, abs = false, level = 0) {
+        return abs ? level : level - 1; 
+    }
+
     getSize(isRadius = false, size = 1, token, addToken = false) {
         return isRadius 
             ? addToken ? (size * 2) + (token.w / canvas.grid.size) : size * 2 
@@ -183,6 +197,7 @@ export default class systemData {
     }
 
     getDistanceTo(target) {
+        /*
         if (game.system.id === 'pf1') {
             const scene = game.scenes.active;
             const gridSize = scene.grid.size;
@@ -203,25 +218,26 @@ export default class systemData {
             let y2 = top(target);
 
             if (isLeftOf) {
-                x1 += (this.sourceToken.width - 1) * gridSize;
+                x1 += (this.sourceToken.document.width - 1) * gridSize;
             }
             else if (isRightOf) {
-                x2 += (target.width - 1) * gridSize;
+                x2 += (target.document.width - 1) * gridSize;
             }
 
             if (isAbove) {
-                y1 += (this.sourceToken.height - 1) * gridSize;
+                y1 += (this.sourceToken.document.height - 1) * gridSize;
             }
             else if (isBelow) {
-                y2 += (target.height - 1) * gridSize;
+                y2 += (target.document.height - 1) * gridSize;
             }
 
             const ray = new Ray({ x: x1, y: y1 }, { x: x2, y: y2 });
             const distance = canvas.grid.grid.measureDistances([{ ray }], { gridSpaces: true })[0];
             return distance;
-        } else {   
+        } else {  
+        */ 
             return canvas.grid.measureDistance(this.sourceToken, target, {gridSpaces: true});
-        }
+        //}
     }
 
     buildTargetSeq(targetFX, target, addDelay = 0) {
@@ -244,7 +260,7 @@ export default class systemData {
         targetEffect.size(setSize, { gridUnits: true })
         targetEffect.origin(this.itemUuid)
         targetEffect.repeats(targetFX.options.repeat, targetFX.options.repeatDelay)
-        targetEffect.elevation(targetFX.options.isAbsolute ? targetFX.options.elevation : target.document.elevation + targetFX.options.elevation)
+        targetEffect.elevation(targetFX.options.isAbsolute ? targetFX.options.elevation : targetFX.options.elevation - 1, {absolute: targetFX.options.isAbsolute})
         if (targetFX.options.isMasked) {
             targetEffect.mask(target)
         }
@@ -259,10 +275,24 @@ export default class systemData {
         targetEffect.opacity(targetFX.options.opacity)
         targetEffect.zIndex(targetFX.options.zIndex)
         targetEffect.anchor({x: targetFX.options.anchor.x, y: targetFX.options.anchor.y})
+        targetEffect.playbackRate(targetFX.options.playbackRate)
 
         return targetFX;
     }
     
+    fakeSource(token) {
+        let templateSource = Sequencer.EffectManager.getEffects({sceneId: canvas.scene.id, name: this.rinsedName})[0];
+        if (!templateSource) { return token; }
+
+        let gridSize = canvas.grid.size / 2;
+        let tsXmin = templateSource.source.x - (templateSource.source.width / 2) + gridSize;
+        let tsXmax = templateSource.source.x + (templateSource.source.width / 2) - gridSize;
+        let tsYmin = templateSource.source.y - (templateSource.source.height / 2) + gridSize;
+        let txYmax = templateSource.source.y + (templateSource.source.height / 2) - gridSize;
+        let newX = Sequencer.Helpers.random_int_between(tsXmin, tsXmax);
+        let newY = Sequencer.Helpers.random_int_between(tsYmin, txYmax);
+        return {x: newX, y: newY}
+    }
 }
 
 

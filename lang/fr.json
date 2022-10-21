@@ -1,86 +1,86 @@
 {
 	"autoanimations": {
-        "settings": {
+		"settings": {
 			"initpopup_name": "Désactiver le popup de démarrage",
-			"initpopup_hint": "Cochez cette case empêchera le popup de démarrage de s'afficher",
+			"initpopup_hint": "Cocher cette case empêchera le popup de démarrage de s'afficher",
 			"animtab_name": "Masquer l'onglet Animation aux joueurs",
-			"animtab_hint": "Cochez cette case pour rendre l'onglet Animation invisible aux joueurs",
+			"animtab_hint": "Cocher cette case rendra l'onglet Animation invisible pour les joueurs",
 			"midionhit_name": "Jouer les animations uniquement si la cible est touchée",
-			"midionhit_hint": "Nécessite Midi-QOL Workflow option pour vérifier si les attaques ont touchées",
+			"midionhit_hint": "Nécessite de régler Midi-QOL Workflow pour qu'il vérifie si une attaque a touché",
 			"midionmiss_name": "Jouer des animations sur les succès et les échecs",
-			"midionmiss_hint": "En cas d'échec, l'animation déviera de sa cible. Requière MIDI Workflow pour vérifier les résultats",
+			"midionmiss_hint": "En cas d'échec, l'animation déviera de sa cible. Nécessite que MIDI Workflow vérifie si l'attaque touche",
 			"midiondmg_name": "Ne jouer les animations que sur les jets de dégâts",
-			"midiondmg_hint": "NÉCESSITE UN RAFRAÎCHISSEMENT. Lorsque cette option est activée, les animations ne sont jouées QUE sur le jet de dégâts.",
+			"midiondmg_hint": "NÉCESSITE UN RAFRAÎCHISSEMENT. Lorsque cette option est activée, les animations ne sont jouées QUE sur le jet de dégâts",
 			"demonlordtrigger_name": "Déclencheur pour jouer les animations",
 			"demonlordtrigger_hint": "Choisissez la condition pour jouer les animations",
 			"demonlordtrigger_rollattack": "Jouer les animations lors d'un jet d'attaque",
-			"demonlordtrigger_hits": "Jouer les animations si touché",
-			"demonlordtrigger_misses": "Jouer les animations sur les succès et les échecs",
+			"demonlordtrigger_hits": "Jouer les animations si l'attaque touche",
+			"demonlordtrigger_misses": "Jouer les animations que l'attaque touche ou pas",
 			"demonlordtrigger_rolldamage": "Jouer les animations sur les jets de dégâts",
-			"demonlordtrigger_applydamage": "Jouer les animations lors de l'application de dommages",
+			"demonlordtrigger_applydamage": "Jouer les animations lors de l'application des dégâts",
 			"coreondmg_name": "Jouer les animations d'attaque uniquement sur les jets de dégâts",
-			"coreondmg_hint": "Par défaut, les animations sont jouées sur les jets d'attaque.",
-			"error": "Un des modules JB2A (gratuit ou Patreon) est REQUIS pour que les animations automatisées fonctionnent.",
+			"coreondmg_hint": "Par défaut, les animations sont jouées sur les jets d'attaque",
+			"error": "Un des modules JB2A (gratuit OU Patreon) est REQUIS pour que les animations automatisées fonctionnent",
 			"animPreview": "Aperçu de l'animation",
 			"animPreviewHint": "Aperçu de la vidéo dans l'onglet A-A",
 			"autoRecSetting": "Configurer la reconnaissance automatique",
-			"toggleAnimations": "Active/désactive les animations",
+			"toggleAnimations": "Activer/désactiver les animations",
 			"toggleAnimations_hint": "Nécessite un rafraîchissement si l'on active les animations",
-			"ON": "ON",
-			"OFF": "OFF",
+			"ON": "ACTIF",
+			"OFF": "INACTIF",
 			"settingDisableAutoRec": "Désactiver la reconnaissance automatique",
 			"settingDisableAutoRecHint": "Seuls les éléments configurés sur mesure joueront des animations",
 			"globaldelay_name": "Délai global",
 			"globaldelay_hint": "Retarder le début de toutes les animations en millisecondes",
-			"s3Name": "JB2A Asset Location",
-			"s3Hint": "NÉCESSITE UN RAFRAÎCHISSEMENT : Ne changez que si votre module JB2A est hébergé en externe sur un seau S3 ou similaire. Sinon, laissez vide. Exemple : S3Bucket/jb2a_patreon ou S3Bucket/JB2A_DnD5e (pas de barre oblique à la fin).",
+			"s3Name": "Lieu des Assets JB2A",
+			"s3Hint": "NÉCESSITE UN RAFRAÎCHISSEMENT : Ne changez que si votre module JB2A est hébergé en externe sur un bucket S3 ou équivalent. Sinon, laissez vide. Exemple : S3Bucket/jb2a_patreon ou S3Bucket/JB2A_DnD5e (pas de barre oblique à la fin)",
 			"decoupleSounds": "Découpler les sons",
 			"decoupleSounds_hint": "Empêche les sons de se répéter avec les animations",
-			"settingRangeSwitch": "Désactiver le passage de la mêlée à la portée",
-			"settingRangeSwitchhint": "Désactive le passage de l'animation de mêlée à l'animation de portée.",
+			"settingRangeSwitch": "Désactiver le passage de corps-à-corps à portée",
+			"settingRangeSwitchhint": "Désactive le passage de l'animation de corps-à-corps à l'animation de portée",
 			"noTips": "Conseils pour désactiver l'effet persistant",
-			"noTipsHint": "Désactive l'infobulle indiquant comment supprimer les effets persistants.",
-			"disableAEAnimations": "Désactiver les animations d'effets actifs",
-			"disableAEAnimationsHint": "Désactiver toutes les animations pour les effets actifs",
+			"noTipsHint": "Désactive l'infobulle indiquant comment supprimer les effets persistants",
+			"disableAEAnimations": "Désactiver les animations d'effet actif",
+			"disableAEAnimationsHint": "Désactive toutes les animations pour les effets actifs",
 			"crithit_name": "Coups critiques",
-			"crithit_hint": "Activation des animations de coups critiques sur le token source.",
-			"crithitAnim_name": "Animation du coup critique",
-			"critmiss_name": "Echec  critiques",
-			"critmiss_hint": "Activation  des animations d'échec critique sur le token source.",
+			"crithit_hint": "Activer les animations des coups critiques sur le jeton source",
+			"crithitAnim_name": "Animation de coup critique",
+			"critmiss_name": "Échecs critiques",
+			"critmiss_hint": "Activer les animations d'échec critique sur le jeton source",
 			"critmissAnim_name": "Animation d'échec critique",
 			"disableNested": "Désactiver les animations imbriquées",
-			"disableNestedHint": "Empêche les animations pour les conditions (ensembles de règles) créées par d'autres conditions.",
-			"debugging": "Activer le débogage",
-			"recovery_name": "Jet de récupértation",
-			"recovery_hint": "Permettre aux jets de récupération d'être joué sur le token source.",
-			"recoveryAnim_name": "Animation de jet de récupération",
-			"cypherCrit_name": "Coup critique",
-			"cypherCrit_hint": "Permet aux animations critiques (sur 20) d'être joué sur le token source.",
+			"disableNestedHint": "Empêche les animations pour les conditions (ensembles de régles) créées par d'autres conditions",
+			"debugging": "Activer la recherche d'anomalies",
+			"recovery_name": "Jets de récupération",
+			"recovery_hint": "Activer les jets de récupération sur le jeton source",
+			"recoveryAnim_name": "Animation des jets de récupération",
+			"cypherCrit_name": "Critiques",
+			"cypherCrit_hint": "Activer les animations des coups critiques (20 naturel) sur le jeton source",
 			"cypherCritAnim_name": "Animation de coup critique",
-			"cypherFumble_name": "Échec critique",
-			"cypherFumble_hint": "Activation de l'animation d'échec critique (jet de 1) sur le token source.",
+			"cypherFumble_name": "Échecs critiques",
+			"cypherFumble_hint": "Activer l'animation des échecs critiques (1 naturel) sur le jeton source",
 			"cypherFumbleAnim_name": "Animation d'échec critique",
 			"mightroll_name": "Jet de puissance",
-			"mightroll_hint": "Activation de la lecture des animations des jets de puissance sur le token source.",
+			"mightroll_hint": "Activer les animations des jets de puissance sur le jeton source",
 			"mightRollAnim_name": "Animation de Puissance",
 			"speedroll_name": "Jet de vitesse",
-			"speedroll_hint": "Activation de la lecture des animations de jet de vitesse sur le token source.",
-			"speedRollAnim_name": "Vitesse d'animation",
+			"speedroll_hint": "Activer les animations de jet de vitesse sur le jeton source",
+			"speedRollAnim_name": "Animation de vitesse",
 			"intellectroll_name": "Jet d'intelligence",
-			"intellectroll_hint": "Permet de jouer les animations de jet d'intelligence sur le token source.",
+			"intellectroll_hint": "Active les animations de jet d'intelligence sur le jeton source",
 			"intellectRollAnim_name": "Animation d'Intelligence",
-			"wfrp4eCastOnlyOnSuccess": "Animation sur un jet réussi",
-			"wfrp4eCastOnlyOnSuccessHint": "En sélectionnant cette option, l'animation du sort/miracle/compétences sera jouée uniquement lorsque le sort/miracle/compétences a été lancé avec succès (test réussi et nombre CN atteint).",
+			"wfrp4eCastOnlyOnSuccess": "Animation de sort sur un lancement réussi",
+			"wfrp4eCastOnlyOnSuccessHint": "En sélectionnant cette option, l'animation du sort ne sera jouée que si le sort a été lancé avec succès (test réussi et nombre CN atteint)",
 			"teleport": "Vous avez choisi un point hors de portée. Choisissez à nouveau",
-			"extraexplain": "Nécessite une animation primaire, soit une reconnaissance personnalisée, soit une reconnaissance automatique."
-
-
-
-
-
-			
-        },
-        "colors": {
+			"extraexplain": "Nécessite une animation primaire, soit une reconnaissance personnalisée, soit une reconnaissance automatique",
+			"restoreHint": "Effacer le menu actuel et restaurer la configuration par défaut",
+			"mergeHint": "Fusionner un nouveau menu dans votre menu existant",
+			"exportHint": "Exporter votre menu vers un fichier JSON",
+			"overwriteWarn": "Écraser effacera votre menu existant",
+			"restoreDefault": "Restaurer le menu par défaut",
+			"overwriteHint": "Effacer le menu actuel et importer un nouveau menu"
+		},
+		"colors": {
 			"lightorange": "Orange clair",
 			"bluegreen": "Bleu Vert",
 			"palegreen": "Vert pâle",
@@ -90,7 +90,7 @@
 			"pink": "Rose",
 			"purple": "Violet",
 			"red": "Rouge",
-			"regular": "Défaut",
+			"regular": "Normal",
 			"yellow": "Jaune",
 			"darkred": "Rouge sombre",
 			"darkgreen": "Vert sombre",
@@ -99,7 +99,7 @@
 			"purpleblue": "Violet Bleu",
 			"purpleteal": "Violet Turquoise",
 			"yellowblue": "Jaune Bleu",
-			"random": "Au hasard",
+			"random": "Aléatoire",
 			"grey": "Gris",
 			"bluegrey": "Bleu Gris",
 			"darkblue": "Bleu foncé",
@@ -119,8 +119,8 @@
 			"lightblue": "Bleu clair",
 			"rainbow": "Arc-en-ciel",
 			"white": "Blanc",
-			"yellowwhite": "Blanc",
-			"darkorangepurple": "Orange foncée Pourpre",
+			"yellowwhite": "Blanc jaune",
+			"darkorangepurple": "Orange foncé Pourpre",
 			"darkgreenpurple": "Vert foncé Violet",
 			"darkteal": "Sarcelle foncé",
 			"darkorange": "Orange foncé",
@@ -133,24 +133,23 @@
 			"brightblue": "Bleu vif",
 			"purplegreen": "Vert pourpre",
 			"greenred": "Vert Rouge",
-			"orangeyellow": "Jaune orangé"
-
-
-        },
-        "animations": {
+			"orangeyellow": "Jaune orangé",
+			"blackyellow": "Noir Jaune",
+			"blackblue": "Noir Bleu"
+		},
+		"animations": {
 			"coneofcold": "Cône de froid",
-			"breathweaponspray01": "Arme à souffle Spray 01",
-			"breathweaponspray02": "Arme à souffle Spray 02",
+			"breathweaponspray01": "Arme de souffle aspersion 01",
+			"breathweaponspray02": "Arme de souffle Aspersion 02",
 			"sacredflame": "Flamme sacrée",
 			"loop": "Boucle",
 			"complete": "Complète",
-			"strands": "Strands",
-
-			"dart": "Dart",
+			"strands": "Brins",
+			"dart": "Fléchette",
 			"inwarddots": "Pointes vers l'intérieur",
 			"inwardstars": "Étoiles intérieures",
 			"curewounds": "Soin des blessures",
-			"generichealing": "Guérison générique",
+			"generichealing": "Soins génériques",
 			"itemHealingWord": "Mot de guérison",
 			"disintegrate": "Désintégration",
 			"eldritchblast": "Décharge occulte",
@@ -177,7 +176,7 @@
 			"breathweapon": "Souffle Draconique",
 			"snowflake": "Flocon de neige",
 			"entangle": "Enchevêtrement",
-			"impact": "Impact",
+			"impact": "Impacte",
 			"icespikes": "Pointes de glace",
 			"divinesmite": "Chatiment Divin",
 			"stars": "Étoiles",
@@ -202,7 +201,7 @@
 			"moonbeam": "Rayon de lune",
 			"staticelectricity": "Électricité statique",
 			"dodecahedron": "Dodécaèdre",
-			"drop": "Drop",
+			"drop": "Goutte",
 			"fear": "Peur",
 			"heart": "Cœur",
 			"horror": "Horreur",
@@ -211,32 +210,32 @@
 			"shield": "Bouclier",
 			"crackedshield": "Bouclier fissuré",
 			"snowflakes": "Flocons de neige",
-			"stun": "Assommer",
+			"stun": "Assommer/Étourdir",
 			"fireballbeam": "Rayon boule de feu",
 			"grease": "Graisse",
 			"armsofhadar": "Tentacules de Hadar",
-			"blacktentacles": "Tentacules noirs d'Evard",
+			"blacktentacles": "Tentacules noirs",
 			"iceshard": "Couteau de glace",
 			"eruption": "Éruption",
 			"circleofstars": "Cercle d'étoiles",
 			"detectmagic": "Détection de la magie",
 			"music": "Musique",
 			"notes": "Notes",
-			"huntersmark": "HMarque du chasseur",
+			"huntersmark": "Marque du chasseur",
 			"energy": "Énergie",
 			"conduit": "Conduit",
 			"liquid": "Liquide",
 			"splash": "Éclaboussures",
-			"tokenborder": "Bordure du token",
+			"tokenborder": "Bordure du jeton",
 			"snowball": "Boule de neige",
-			"dizzystars": "Dizzy Stars",
+			"dizzystars": "Étoiles étourdies",
 			"shields": "Boucliers",
 			"sparkles": "Étincelles",
 			"energyfield": "Champ d'énergie",
 			"boulderimpact": "Impact de roche",
 			"eldritchweb": "Toile occulte",
 			"abjuration": "Abjuration",
-			"conjuration": "Conjuration",
+			"conjuration": "Conjuration/invocation",
 			"divination": "Divination",
 			"enchantment": "Enchantement",
 			"evocation": "Évocation",
@@ -249,7 +248,7 @@
 			"poison": "Poison",
 			"explode": "Explosion",
 			"indicator": "Indicateur",
-			"outpulse": "Outpulse",
+			"outpulse": "Excédent",
 			"ui": "UI",
 			"ball": "Balle",
 			"strike": "Frappe",
@@ -263,7 +262,7 @@
 			"sleep": "Sommeil 01",
 			"smoke": "Fumée",
 			"particles": "Particules",
-			"dots": "Point",
+			"dots": "Points",
 			"swirl": "Tourbillon",
 			"skull": "Crâne",
 			"dagger": "Dague",
@@ -287,76 +286,78 @@
 			"siegeboulder": "Boulet de siège",
 			"sling": "Fronde",
 			"unarmedstrike": "Attaques à mains nues",
-			"1hb": "1 Mains Contendante",
-			"1hp": "1 Mains Perçante",
-			"1hs": "1 Mains Tranchate",
-			"2hb": "2 Mains Contendante",
-			"2hp": "2 Mains Perçante",
-			"2hs": "2 Mains Tranchante",
+			"1hb": "1 Mains Contondant",
+			"1hp": "1 Mains Perforant",
+			"1hs": "1 Mains Tranchant",
+			"2hb": "2 Mains Contondant",
+			"2hp": "2 Mains Perforant",
+			"2hs": "2 Mains Tranchant",
 			"claw": "Griffe",
 			"bite": "Morsure",
-			"flurryofblows": "Rafale de coups",
+			"flurryofblows": "Déluge de coups",
 			"sneakattack": "Attaque sournoise",
 			"bullet": "Balle",
 			"bolt": "Carreau",
-			"snipe": "Snipe",
+			"snipe": "tirer en restant caché",
 			"chakram": "Chakram",
 			"falchion": "Fauchon",
-			"glaive": "Glaive",
+			"glaive": "Coutille",
 			"club": "Gourdin",
 			"hammer": "Marteau",
 			"warhammer": "Marteau de guerre",
 			"wrench": "Clé à molette",
 			"pumpkin": "Citrouille",
 			"halberd": "Hallebarde",
-			"quarterstaff": "Bâton de chasse",
+			"quarterstaff": "Bâton",
 			"crossbow": "Arbalète",
 			"bow": "Arc",
-
-
-
-
-
-
-			"leaves": "Feuilles"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        },
-        "variants": {
-            "1":"01",
-            "2":"02",
-            "3":"03",
-            "01":"01",
-            "02":"02",
-            "03":"03",
-            "04":"04",
-            "05":"05",
-            "06":"06",
-            "07":"07",
-            "08":"08",
-            "09":"09",
-            "10":"10",
-            "11":"11",
-            "12":"12",
-            "13":"13",
+			"leaves": "Feuilles",
+			"bone": "Os",
+			"frightened": "Effrayé",
+			"bomb": "Bombe",
+			"cannonball": "Boulet de canon",
+			"flask": "Flasque",
+			"grenade": "Grenade",
+			"grenadelaunch": "Lance grenade",
+			"missile": "Projectile",
+			"single": "Unique",
+			"few": "Peu",
+			"water": "Eau",
+			"circle": "Cercle",
+			"ring": "Anneau",
+			"square": "Carré",
+			"blob": "Goutte",
+			"intro": "Intro",
+			"reverse": "Inversé",
+			"explosion": "Explosion",
+			"diamond": "Diamant",
+			"many": "Beaucoup",
+			"spike": "Pique",
+			"outro_explode": "Outro exploser",
+			"outro_fade": "Outro disparu"
+		},
+		"variants": {
+			"1": "01",
+			"2": "02",
+			"3": "03",
+			"01": "01",
+			"02": "02",
+			"03": "03",
+			"04": "04",
+			"05": "05",
+			"06": "06",
+			"07": "07",
+			"08": "08",
+			"09": "09",
+			"10": "10",
+			"11": "11",
+			"12": "12",
+			"13": "13",
 			"magical": "Magique",
 			"physical": "Physique",
-			"nohit": "Pas de coup",
+			"nohit": "Raté",
 			"fire": "Feu",
-			"regular": "Défaut",
+			"regular": "Normal",
 			"poison": "Poison",
 			"cold": "Froid",
 			"lightning": "Foudre",
@@ -365,9 +366,9 @@
 			"secondary": "Secondaire",
 			"square": "Carré",
 			"circle": "Cercle",
-			"reverse": "Inverser",
+			"reverse": "Inversé",
 			"simple": "Simple",
-			"rolled": "Jet",
+			"rolled": "Lancé",
 			"runeabove": "Rune au dessus",
 			"runebelow": "Rune en dessous",
 			"skullabove": "Crâne au-dessus",
@@ -375,7 +376,7 @@
 			"starabove": "Étoile au-dessus",
 			"starbelow": "Étoile en dessous",
 			"chevron": "Chevron",
-			"drop": "Drop",
+			"drop": "Goutte",
 			"fear": "Peur",
 			"heart": "Cœur",
 			"horror": "Horreur",
@@ -386,12 +387,12 @@
 			"shields": "Boucliers",
 			"crackedshield": "Bouclier fissuré",
 			"skull": "Crâne",
-			"stun": "Assommer",
-			"snowflake": "Flocon de neige",
+			"stun": "Étourdir",
+			"snowflake": "Eclat de flocon de neige",
 			"loop": "Boucle",
 			"intro": "Intro",
 			"outro": "Outro",
-			"inspire": "Inspire",
+			"inspire": "Inspiré",
 			"marker": "Marqueur",
 			"source": "Source",
 			"target": "Cible",
@@ -399,19 +400,18 @@
 			"fade": "Fondu",
 			"nodebris": "Pas de débris",
 			"eye": "Oeil",
-			"eyeloop": "Oeil Boucle",
+			"eyeloop": "Boucle oculaire",
 			"paw": "Patte",
-			"pawloop": "Patte Boucle",
+			"pawloop": "Boucle de patte",
 			"nopulse": "Pas d'impulsion",
 			"left": "Gauche",
 			"mid": "Milieu",
 			"center": "Centre",
-
 			"noring": "Aucun anneau",
 			"bell": "Cloche",
 			"shockwave": "Onde de choc",
 			"complete": "Complète",
-			"single": "Simple",
+			"single": "Unique",
 			"double": "Double",
 			"pulse": "Impulsion",
 			"ring": "Anneau",
@@ -419,14 +419,15 @@
 			"fire02": "Feu 02",
 			"burst": "Éclat",
 			"acid": "Acide",
-			"slow": "Lent",
-			"fast": "Rapide"	
-
-
-
-
-        },
-        "menuTypes": {
+			"slow": "Lenteur",
+			"fast": "Rapide",
+			"symbol": "Symbole",
+			"elemental": "Élémentaire",
+			"nature": "Nature",
+			"void": "Néant",
+			"stick": "Bâton"
+		},
+		"menuTypes": {
 			"creature": "Attaque de créature",
 			"generic": "Générique",
 			"weapon": "Arme",
@@ -442,44 +443,44 @@
 			"music": "Musique",
 			"particles": "Particules",
 			"shieldfx": "Effets de bouclier",
-			"tokenborder": "Bordure du token",
+			"tokenborder": "Bordure du jeton",
 			"trap": "Piège",
 			"cone": "Cône",
 			"square": "Carré",
 			"circle": "Cercle",
 			"ray": "Rayon",
-			"leaves": "Feuilles"
-
-
-
-
-
-
-		
-        },
-        "animTypes": {
-			"melee": "Mêlée",
+			"leaves": "Feuilles",
+			"chains": "Chaines",
+			"shrapnel": "Shrapnels",
+			"shieldspell": "Bouclier",
+			"eyes": "Yeux",
+			"plants": "Plante",
+			"vines": "Lianes",
+			"sideImpact": "Impact de côté"
+		},
+		"animTypes": {
+			"melee": "Corps-à-corps",
 			"range": "Portée",
-			"ontoken": "Sur le Token",
+			"ontoken": "Sur le jeton",
 			"preset": "Préréglages",
 			"templatefx": "Modèles",
-			"aura": "Aura"
-
+			"aura": "Aura",
+			"aefx": "Effets actifs"
 		},
-        "presetTypes": {
+		"presetTypes": {
 			"bardicinspiration": "Inspiration bardique",
 			"bless": "Bénédiction",
 			"dualattach": "Double attache",
 			"fireball": "Boule de feu",
-			"huntersmark": "HMarque du chasseur",
+			"huntersmark": "Marque du chasseur",
 			"shieldspell": "Bouclier",
 			"sneakattack": "Attaque sournoise",
 			"animTeleportation": "Téléportation",
 			"thunderwave": "Onde de choc",
-			"prototemp": "Projectile vers gabarit"
-        },
-        "menus": {
-
+			"prototemp": "Projectile vers gabarit",
+			"proToTemp": "Projectile vers le modèle"
+		},
+		"menus": {
 			"primary": "Primaire",
 			"animation": "Animation",
 			"extra": "Extra",
@@ -496,25 +497,24 @@
 			"macro": "Macro",
 			"add": "Ajouter",
 			"customize": "Personnaliser",
-            "override": "Passer outre",
-			"autorecognized": "est configuré dans les Paramètres globaux",
+			"override": "Surcharger",
+			"autorecognized": "est configuré dans les paramètres globaux",
 			"playwhen": "Quand jouer",
 			"macroconcurrent": "En même temps que l'animation",
 			"awaitmacro": "Attendre la fin de la macro",
 			"macroonly": "Macro uniquement, pas d'animation",
 			"name": "Nom",
 			"args": "Envoyer les arguments",
-			"melee": "Mêlée",
+			"melee": "Corps-à-corps",
 			"ranged": "Portée",
-			"switch": "Switch",
+			"switch": "Échange",
 			"custom": "Personnalisé",
 			"return": "Retour",
 			"variant": "Variante",
 			"color": "Couleur",
 			"rangeDetect": "Détection de la portée",
-			"gridSquares": "Carrés de la grille pour l'interrupteur  de portée",
-			"below": "En dessous de Token",
-
+			"gridSquares": "Carrés de la grille pour le commutateur de portée",
+			"below": "En dessous du jeton",
 			"explosion": "Explosion",
 			"radius": "Rayon (carrés de la grille)",
 			"sound": "Sons",
@@ -523,27 +523,21 @@
 			"volume": "Volume (0-1)",
 			"delay": "Délai",
 			"persistant": "Persistant",
-
-
-
-
-
-
 			"alpha": "Alpha",
 			"repeat": "Répéter",
 			"scale": "Échelle",
 			"opacity": "Opacité",
 			"playOn": "Jouer sur",
-			"targetDefault": "Source par défaut",
+			"targetDefault": "Cible par défaut",
 			"both": "Les deux",
 			"constantScaleY": "Échelle Y constante",
 			"remove": "Supprimer le modèle",
 			"overheadtile": "Tuile de premier plan",
-			"groundtile": "Tuile au second plan",
+			"groundtile": "Tuile du sol",
 			"sequencereffect": "Effet de Sequencer",
 			"attachtotemplate": "Attacher au modèle",
 			"occlusionMode": "Mode Occlusion",
-			"occlusion01": "Fondu (Carreau entier)",
+			"occlusion01": "Fondu (Tuile entière)",
 			"occlusion02": "Toit (bloque la vision et l'éclairage)",
 			"occlusion03": "Radial (entourant le token)",
 			"occlusion00": "Aucun (toujours visible)",
@@ -555,73 +549,109 @@
 			"life": "Vie",
 			"emiterSize": "Taille de l'émetteur",
 			"rate": "Taux",
-			"sprite": "Sprite",
+			"sprite": "Lutin",
 			"projectile": "Projectile",
 			"ignoreTargets": "Ignorer les cibles",
 			"options": "Options",
-			"markerColor": "Couleur du marqueur",
+			"markerColor": "Couleur de son marqueur",
 			"markerColorTarget": "Couleur du marqueur Cible",
 			"playbackRate": "Taux de lecture",
 			"anchorX": "Ancre X",
 			"anchorY": "Ancre Y",
 			"endEffect": "Effet de fin",
 			"hideBorder": "Cacher des joueurs",
-			"itemName": "Nom de l'article",
+			"itemName": "Nom de l'objet",
 			"sortmenu": "Menu de tri",
 			"search": "Recherche",
 			"overwrite": "Écraser",
 			"merge": "Fusionner",
 			"menuImport": "Menu de reconnaissance automatique Écraser / Fusionner",
 			"wait": "Attendre",
-
 			"addAfterImage": "Ajouter après l'image",
-
-
-
-
-
-
-			"token": "Token",
-
-
-
-
-
-			"export": "Exporter les options",
-
-
-			
-
-			"musicnote": "Notes de musique"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			
-
-
-        },
-        "optionsInfo": {
-
-        }
-    }
+			"token": "Jeton",
+			"export": "Exporter",
+			"musicnote": "Notes de musique",
+			"mask": "Masque",
+			"above": "Au dessus du jeton",
+			"not": "Pas",
+			"z-index": "Index-Z",
+			"visibility": "Visibilité",
+			"bound": "Lié",
+			"unbound": "Non lié",
+			"video": "Vidéo",
+			"between": "Entre",
+			"yes": "Oui",
+			"no": "Non",
+			"automatic": "Automatique",
+			"manual": "Manuel",
+			"preview": "Aperçu",
+			"menuManager": "Gestionnaire de menu",
+			"section": "Section",
+			"menu": "Menu",
+			"copy": "Copier",
+			"path": "Chemin",
+			"ammunition": "Munition",
+			"persistence": "Persistance",
+			"pre": "Pré",
+			"width": "Largeur",
+			"quickReference": "Référence rapide",
+			"level": "Niveau",
+			"duplicate": "Dupliquer",
+			"only": "Seulement",
+			"all": "Tous",
+			"unbind": "Délier",
+			"effect": "Effet",
+			"fadeIn": "Fondu",
+			"select": "Sélectionner",
+			"elevation": "Élévation",
+			"useammo": "Utiliser des munitions",
+			"item": "Objet",
+			"label": "Libellé",
+			"activate": "Activer",
+			"saturate": "Saturer",
+			"end": "Terminer",
+			"teleport": "Téléportation",
+			"rotation": "Rotation",
+			"sideImpact": "Impact de côté",
+			"anchor": "Ancre",
+			"insertMacro": "Insérer le nom de la macro",
+			"damage": "dégâts",
+			"3dcanvas": "Canvas 3D",
+			"globalFound": "Correspondance globale trouvée",
+			"globalNotFound": "Correspondance globale non trouvée",
+			"movement": "Déplacement",
+			"tint": "Teinte",
+			"fadeOut": "Fondu au noir"
+		},
+		"app": {
+			"aaAutorec-range": {
+				"label": "Portée",
+				"icon": "fas fa-people-arrows"
+			},
+			"aaAutorec-ontoken": {
+				"label": "Sur le jeton",
+				"icon": "fas fa-child"
+			},
+			"aaAutorec-melee": {
+				"label": "Corps-à-corps",
+				"icon": "fas fa-shield-alt"
+			},
+			"aaAutorec-aefx": {
+				"icon": "fas fa-atom",
+				"label": "Effets actifs"
+			},
+			"aaAutorec-templatefx": {
+				"label": "Modèles",
+				"icon": "fas fa-shapes"
+			},
+			"aaAutorec-aura": {
+				"label": "Aura",
+				"icon": "fab fa-creative-commons-by"
+			},
+			"aaAutorec-preset": {
+				"label": "Préréglage",
+				"icon": "fas fa-gift"
+			}
+		}
+	}
 }

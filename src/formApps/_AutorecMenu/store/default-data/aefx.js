@@ -4,6 +4,7 @@ export const aefx = [
    {
       ...common.main({ label: "frightened" }),
       menu: "aefx",
+      metaData: {default: true},
       activeEffectType: "ontoken",
       primary: {
          options: {

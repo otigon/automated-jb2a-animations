@@ -41,6 +41,11 @@
 
     $: isAttached = persistent && persistType === "attachtemplate";
 
+    $: menuType = $animation.primary.video.menuType;
+
+    $: defaultAnchor = menuType === "cone" || menuType ==="ray"
+                                ? "0, 0.5"
+                                : "0.5, 0.5"
 </script>
 
 <div class="aa-options-border">
@@ -100,7 +105,7 @@
                     </div>
                 </td>
                 <td class={isAttached ? "aa-disableOpacity" : ""}>
-                    <!--Set Masking-->
+                    <!--Remove Template-->
                     <div>
                         <label for="Remove {animation._data.id}"
                             >{localize("autoanimations.menus.remove")}
@@ -141,7 +146,38 @@
             </tr>
             <tr>
                 <td>
+                    <NumberInput 
+                    {animation}
+                    label={localize("autoanimations.menus.playbackRate")}
+                    section="primary"
+                    field="playbackRate"
+                    />
                 </td>
+                <td>
+                    <!--Play Animation Above Template-->
+                    <div>
+                        <label for="aboveTemplate {animation._data.id}"
+                            >{localize("autoanimations.variants.above")} {localize("autoanimations.animTypes.templatefx")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="aboveTemplate {animation._data.id}"
+                            bind:checked={$animation.primary.options
+                                .aboveTemplate}
+                        />
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <label for="">{localize("autoanimations.menus.anchor")}</label>
+                    </div>
+                    <div>
+                        <input type="text" placeholder={defaultAnchor} bind:value={$animation.primary.options.anchor}>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
                 <td>
                     <WaitDelay {animation}/>
                 </td>
