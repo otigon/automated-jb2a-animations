@@ -135,7 +135,11 @@
 			"greenred": "Vert Rouge",
 			"orangeyellow": "Jaune orangé",
 			"blackyellow": "Noir Jaune",
-			"blackblue": "Noir Bleu"
+			"blackblue": "Noir Bleu",
+			"blue02": "Bleu 02",
+			"blue03": "Bleu 03",
+			"ring02": "Anneau 02",
+			"ring03": "Anneau 03"
 		},
 		"animations": {
 			"coneofcold": "Cône de froid",
@@ -425,7 +429,8 @@
 			"elemental": "Élémentaire",
 			"nature": "Nature",
 			"void": "Néant",
-			"stick": "Bâton"
+			"stick": "Bâton",
+			"above": "Au-dessus de"
 		},
 		"menuTypes": {
 			"creature": "Attaque de créature",
