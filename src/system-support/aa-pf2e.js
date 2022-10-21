@@ -92,7 +92,7 @@ function runPF2eWeapons (data) {
     const isAttackRoll = msg.flags.pf2e?.context?.type?.includes("attack");
 
     data.extraNames = [];
-    if (item.type === "weapon") {
+    if (data.item.type === "weapon") {
         const baseType = game.i18n.localize(CONFIG.PF2E.baseWeaponTypes[data.item.baseType]);
         const group = game.i18n.localize(CONFIG.PF2E.weaponGroups[data.item.group]);
         data.extraNames.push(baseType, group);
@@ -217,7 +217,7 @@ function checkOutcome(input) {
     let hitTargets;
     if (input.targets.length < 2 && !game.settings.get('autoanimations', 'playonDamageCore') && outcome) {
         if (outcome === 'success' || outcome === 'criticalsuccess') {
-            hitTargets = targets;
+            hitTargets = input.targets;
         } else {
             hitTargets = false
         }
