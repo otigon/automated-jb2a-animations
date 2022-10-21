@@ -6,10 +6,15 @@
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     import { debounce }         from "@typhonjs-fvtt/runtime/svelte/util";
 
+    import { TJSSettingsSwap }  from "@typhonjs-fvtt/svelte-standard/component";
+
     import CategorySelect       from "./category/CategorySelect.svelte";
 
+    import SettingsFooter       from "./SettingsFooter.svelte";
+
+    import { constants }        from "../../../constants.js";
+    import { gameSettings }     from "../../../gameSettings.js";
     import { aaSessionStorage } from "../../../sessionStorage.js";
-    import { constants}         from "../../../constants.js";
 
     export let elementRoot;
 
@@ -28,6 +33,9 @@
     $: storePosition($position);
 </script>
 
-<ApplicationShell bind:elementRoot stylesContent={{ color: "black" }}>
-    <CategorySelect />
+<ApplicationShell bind:elementRoot>
+    <TJSSettingsSwap settings={gameSettings} options={{ storage: aaSessionStorage }}>
+        <CategorySelect />
+        <SettingsFooter slot=settings-footer />
+    </TJSSettingsSwap>
 </ApplicationShell>

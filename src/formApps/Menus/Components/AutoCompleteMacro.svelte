@@ -4,39 +4,39 @@
      */
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { writable } from "svelte/store";
-    
+
     export let animation;
     export let category;
-    
+
     $: macro = $animation.macro.name;
 
     export let macro;
-  
+
     let macros = writable([]);
-  
+
     const id = randomID() + "-list";
-  
+
     function filterMacros() {
-  
+
       let allResults = Array.from(game.macros)
         .map(m => ({
           id: m.id,
           name: m.name
         }));
-  
+
       const compendiums = Array.from(game.packs)
         .filter(pack => pack.documentName === "Macro")
         .map(pack => ({
           id: pack.metadata.id,
           name: "Compendium." + pack.metadata.id
         }))
-  
+
       allResults = allResults.concat(compendiums);
-  
+
       allResults = allResults.filter(m => {
         return m.name?.toLowerCase().includes(macro?.toLowerCase()) || !macro
       })
-  
+
       if (macro.startsWith("Compendium.") && allResults.length === 1) {
         allResults = Array.from(game.packs.get(allResults[0].id).index).map(m => {
           return {
@@ -65,12 +65,12 @@
         <option value={m.name}>{m.text ?? ""}</option>
       {/each}
     </datalist>
-    <i
-    title="Open Macro"
-    style="font-size: 20px; flex:0;"
-    class="fas fa-edit aa-zoom"
-    on:click={() => category.openMacro(animation._data.macro.name)}
-    ></i>
+    <i title="Open Macro"
+       style="font-size: 20px; flex:0;"
+       class="fas fa-edit aa-zoom"
+       on:click={() => category.openMacro(animation._data.macro.name)}
+       role=presentation>
+    </i>
 </div>
 
 <style>

@@ -35,6 +35,7 @@
 <div class="aa-autorec-headerButton02">
     <div style="grid-row:1/2; grid-column:1/2" class="sectionButton">
         <label for="" on:click={() => seePreview()}
+               role=presentation
             >{localize("autoanimations.menus.preview")}
             <i class="fas fa-film fa-lg aa-zoom" /></label
         >

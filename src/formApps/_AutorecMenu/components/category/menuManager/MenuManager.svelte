@@ -129,12 +129,11 @@
 </div>
 <div class="flexcol aa-tabs">
     <div style="grid-row:2/3;grid-column:1/2">
-        <button
-            on:click|preventDefault={() => mergeMenu("merge")}
-            class="aa-green"
-            >{localize("autoanimations.menus.merge")}
-            {localize("autoanimations.menus.menu")}</button
-        >
+        <button on:click|preventDefault={() => mergeMenu("merge")}
+                class="aa-green">
+            {localize("autoanimations.menus.merge")}
+            {localize("autoanimations.menus.menu")}
+        </button>
     </div>
     <div style="grid-row:2/3;grid-column:2/3">
         <label for="">{localize("autoanimations.settings.mergeHint")}</label>

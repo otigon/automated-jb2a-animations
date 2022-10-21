@@ -29,10 +29,9 @@ import { autoRecMigration }             from "./mergeScripts/autorec/autoRecMerg
 import { AnimationState }               from "./AnimationState.js";
 
 // Initialize all game settings
-import { initSettings }                 from "./initSettings.js";
 import { gameSettings }                 from "./gameSettings.js";
 
-// Initializes Autorec stores 
+// Initializes Autorec stores
 import { autoRecStores }                from "./formApps/_AutorecMenu/store/AutoRecStores.js";
 
 // Routing for registering Hooks to run animations
@@ -116,7 +115,7 @@ Hooks.on('aa.initialize', async () => {
         if (s3Location && (s3Location.includes('jb2a_patreon') || s3Location.includes('JB2A_DnD5e'))) { } else {
             ui.notifications.error(game.i18n.format("autoanimations.settings.error"));
         }
-    } 
+    }
 
     // If an S3 Location is found in the Game Settings, run this. Otherwise continue to else section
     if (s3Location) {
@@ -218,7 +217,7 @@ Hooks.on("aa.initialize", async () => {
 });
 */
 Hooks.once('ready', async function () {
-    initSettings(gameSettings);
+    gameSettings.initialize();
 
     // Initializes all AutoRecStores backed by individual game settings.
     autoRecStores.initialize();

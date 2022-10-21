@@ -1,4 +1,3 @@
-//import { showMainMenu } from '../AutorecMenu/showMainUI.js';
 import { showAutorecMenu } from './showUI.js'
 
 export default class AutorecShim extends FormApplication

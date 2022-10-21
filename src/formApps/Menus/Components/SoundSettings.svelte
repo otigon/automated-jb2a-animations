@@ -35,14 +35,11 @@
         >
             <div class="aa-Sound-container">
                 <div style="grid-row: 1/2; grid-column: 1/2">
-                    <i
-                        class="fas fa-music aa-blue {isValid
-                            ? ''
-                            : 'aa-disableOpacity'}"
-                        style="font-size: 1.5em;"
-                        title="Play Sound"
-                        on:click={() =>
-                            category.playSound(animation._data[section].sound)}
+                    <i class="fas fa-music aa-blue {isValid ? '' : 'aa-disableOpacity'}"
+                       style="font-size: 1.5em;"
+                       title="Play Sound"
+                       on:click={() => category.playSound(animation._data[section].sound)}
+                       role=presentation
                     />
                 </div>
                 <div style="grid-row: 1/2; grid-column: 2/3">
@@ -53,10 +50,11 @@
                     />
                 </div>
                 <div style="grid-row: 1/2; grid-column: 3/4">
-                    <i class="fas fa-file-import" 
-                    title="File Picker"
-                    style="font-size:1.5em"
-                    on:click|preventDefault={() => category.selectSound(section, idx)}
+                    <i class="fas fa-file-import"
+                       title="File Picker"
+                       style="font-size:1.5em"
+                       on:click|preventDefault={() => category.selectSound(section, idx)}
+                       role=presentation
                     />
                 </div>
             </div>

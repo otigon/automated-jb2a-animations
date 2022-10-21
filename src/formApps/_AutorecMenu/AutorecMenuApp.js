@@ -1,7 +1,7 @@
 import { SvelteApplication }    from "@typhonjs-fvtt/runtime/svelte/application";
 
 import { AutorecAppShell }      from "./components";
-
+import { gameSettings }         from "../../gameSettings.js";
 import { constants }            from "../../constants.js";
 
 export default class AutorecMenuApp extends SvelteApplication {
@@ -46,5 +46,37 @@ export default class AutorecMenuApp extends SvelteApplication {
          app.id === "AA-Video-Preview" || app.id === "Autorec-Menu-Manager").forEach(app => app.close());
 
         return super.close(options);
+    }
+
+    /**
+     * Specify the set of config buttons which should appear in the Application header. Buttons should be returned as an
+     * Array of objects.
+     *
+     * Provides an explicit override of Application._getHeaderButtons to add
+     *
+     * @returns {ApplicationHeaderButton[]} The app header buttons.
+     * @override
+     */
+    _getHeaderButtons()
+    {
+        const buttons = super._getHeaderButtons();
+
+        const showSettings = gameSettings.uiControl.showSettings;
+
+        buttons.unshift({
+            class: "settings",
+            icon: showSettings ? "fa-regular fa-square-list" : "fa-regular fa-gear",
+            label: showSettings ? "Main Menu" : "Settings",
+
+            onclick: function()
+            {
+                const newShowSettings = gameSettings.uiControl.swapShowSettings();
+
+                this.icon = newShowSettings ? "fa-regular fa-square-list" : "fa-regular fa-gear";
+                this.label = newShowSettings ? "Main Menu" : "Settings";
+            }
+        });
+
+        return buttons;
     }
 }

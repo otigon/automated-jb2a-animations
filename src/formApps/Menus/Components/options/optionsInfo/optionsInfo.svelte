@@ -70,6 +70,7 @@
             <li
                 class:active={$tabStore === section.section}
                 on:click={() => ($tabStore = section.section)}
+                role=presentation
             >
                 <i class={section.icon} />{localize(section.label)}
             </li>

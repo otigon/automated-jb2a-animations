@@ -6,13 +6,6 @@
     import { applyScrolltop }    from "@typhonjs-fvtt/runtime/svelte/action";
     import { animateEvents }     from "@typhonjs-fvtt/runtime/svelte/animate";
 
-    import BuildMelee            from "../../../Menus/BuildMenu/BuildMelee.svelte";
-    import BuildRange            from "../../../Menus/BuildMenu/BuildRange.svelte";
-    import BuildOnToken          from "../../../Menus/BuildMenu/BuildOnToken.svelte";
-    import BuildTemplateFx       from "../../../Menus/BuildMenu/BuildTemplateFX.svelte";
-    import BuildAura             from "../../../Menus/BuildMenu/BuildAura.svelte";
-    import BuildPreset           from "../../../Menus/BuildMenu/BuildPreset.svelte";
-    import BuildActiveEffects    from "../../../Menus/BuildMenu/BuildActiveEffects.svelte";
 
     import Animation            from "../animation/Animation.svelte";
 
@@ -36,32 +29,6 @@
     const onFolderChange = foundry.utils.debounce(() => category.calcAllFolderState(), 100);
 
     $: onFolderChange($dataReducer);
-
-    let newContentOptions = {
-      "aaAutorec-melee": {
-         component: BuildMelee,
-      },
-      "aaAutorec-range": {
-         component: BuildRange,
-      },
-      "aaAutorec-ontoken": {
-         component: BuildOnToken,
-      },
-      "aaAutorec-templatefx": {
-         component: BuildTemplateFx,
-      },
-      "aaAutorec-aura": {
-         component: BuildAura,
-      },
-      "aaAutorec-preset": {
-         component: BuildPreset,
-      },
-      "aaAutorec-aefx": {
-         component: BuildActiveEffects,
-      }
-   }
-
-   $: menuRoute = newContentOptions[category.key].component
 </script>
 
 <main use:applyScrolltop={category.stores.scrollTop}
@@ -70,7 +37,7 @@
       on:closeAny={onFolderChange}>
         {#each [...$dataReducer] as animation, idx (animation.id)}
             <section animate:flipWithEvents={{duration: 250, easing: quintOut}}>
-                <Animation {animation} {menuRoute} {idx} {category}/>
+                <Animation {animation} {idx} {category}/>
             </section>
         {/each}
 </main>

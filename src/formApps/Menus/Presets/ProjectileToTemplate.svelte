@@ -364,14 +364,16 @@
             </div>
             <div class="aa-custom" style="grid-row: 1/2; grid-column: 4/5">
                 <i class="fas fa-file-import"
-                title="File Picker"
-                style="font-size:1.5em"
-                on:click|preventDefault={() => category.selectCustom("data", "afterImage", idx)}
+                   title="File Picker"
+                   style="font-size:1.5em"
+                   on:click|preventDefault={() => category.selectCustom("data", "afterImage", idx)}
+                   role=presentation
                 />
                 <i class="fas fa-database"
-                title="Sequencer Database Viewer"
-                style="font-size:1.5em;margin-left: 10px"
-                on:click|preventDefault={() => category.openSequencerViewer()}
+                   title="Sequencer Database Viewer"
+                   style="font-size:1.5em;margin-left: 10px"
+                   on:click|preventDefault={() => category.openSequencerViewer()}
+                   role=presentation
                 />
 
             </div>
