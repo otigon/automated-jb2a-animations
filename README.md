@@ -38,7 +38,7 @@ Current System Compatibility:
 - Tormenta 20  
 - Starfinder  
 - Warhammer 4e
-- Swade (Support is sketchy and I will not be updating further. If you can help out please send a PR)
+- Swade
 - DCC
 - Alien RPG
 - Forbidden Lands
