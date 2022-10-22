@@ -1,10 +1,13 @@
 <script>
+    import { getContext }   from "svelte";
 
-    export let animation;
-    export let category;
-    export let idx;
+    //export let animation;
+    //export let category;
+    //export let idx;
     export let section;
     export let section02;
+
+    let { animation, category, idx } = getContext('animation-data');
 
     $: isCustom = $animation[section][section02].enableCustom;
 

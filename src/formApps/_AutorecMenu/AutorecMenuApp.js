@@ -22,8 +22,8 @@ export default class AutorecMenuApp extends SvelteApplication {
      */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            title: `A-A Automatic Recognition Menu New`,
-            id: `AA-autorec-settings-New`,
+            title: `A-A Automatic Recognition Menu`,
+            id: `AA-autorec-settings`,
             zIndex: 102,
             resizable: true,
             minimizable: true,

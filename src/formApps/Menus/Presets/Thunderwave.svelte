@@ -1,5 +1,6 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }   from "svelte";
 
     import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
 
@@ -9,9 +10,10 @@
     import Opacity          from "./inputComponents/Opacity02.svelte";
     import OptionsDialog    from "../Components/options/optionsInfoDialog.js";
 
-    export let animation;
-    export let category;
-    export let idx;
+    //export let animation;
+    //export let category;
+    //export let idx;
+    let { animation, category, idx } = getContext('animation-data');
 
     const title = "Thunderwave 5e";
 
@@ -58,7 +60,7 @@
             <table class="d">
                 <tr>
                     <td>
-                        <Elevation {animation} section="data" />
+                        <Elevation section="data" />
                     </td>
                     <td>
                         <div>
@@ -95,7 +97,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <Opacity {animation} />
+                        <Opacity />
                     </td>
                     <td>
                         <!--Set Only X Scaling-->
@@ -115,7 +117,7 @@
             </table>
         </TJSSvgFolder>
     </div>
-    <SoundSettings {category} {animation} {idx} section="data" />
+    <SoundSettings section="data" />
 
 </div>
 

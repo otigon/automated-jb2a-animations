@@ -10,12 +10,13 @@
     import WaitDelay        from "./inputComponents/WaitDelay.svelte";
 
     import {aaReturnWeapons} from "../../../../database/jb2a-menu-options.js"
-    import systemData from "../../../../system-handlers/system-data";
+    import { getContext }   from "svelte";
 
     //import { ripple } from "@typhonjs-fvtt/svelte-standard/action";
 
-    export let animation;
-    export let category;
+    //export let animation;
+    //export let category;
+    let { animation, category} = getContext('animation-data');
 
     const folder = {
         label: game.i18n.localize("autoanimations.menus.options"),

@@ -1,5 +1,9 @@
 <script>
-    export let animation;
+    import { getContext }   from "svelte";
+
+    //export let animation;
+    let { animation } = getContext('animation-data');
+
     export let section;
     export let field;
     export let isDisabled = "";

@@ -14,7 +14,7 @@ export default class AEMenuApp extends SvelteApplication {
     {
         super({
             title: `A-A Item Menu`,
-            id: `AA-ae-settings-New`,
+            id: `AA-ae-settings`,
             zIndex: 102,
             svelte: {
                 class: AEAppShell,

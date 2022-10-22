@@ -2,11 +2,13 @@
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
+    import { getContext }   from "svelte";
 
     import NumberInput      from "./inputComponents/NumberInput.svelte";
     import Opacity          from "./inputComponents/Opacity.svelte";
 
-    export let animation;
+    //export let animation;
+    let { animation} = getContext('animation-data');
 
     const folder = {
         styles: {

@@ -1,14 +1,17 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }   from "svelte";
 
     import { currentStore } from "./videoPreview/previewStore.js";
 
-    export let animation;
-    export let category;
+    //export let animation;
+    //export let category;
     //export let idx;
     export let type = "autorec";
 
     export let show3d = false;
+
+    let { animation, category } = getContext('animation-data');
 
     $: currentIDX = category.stores.videoIDX;
 

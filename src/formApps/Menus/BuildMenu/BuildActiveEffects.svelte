@@ -1,5 +1,6 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }   from "svelte";
 
     import BuildAeOnToken   from "../ActiveEffects/BuildAEOnToken.svelte";
     import BuildAeAura      from "../ActiveEffects/BuildAEAura.svelte";
@@ -8,10 +9,11 @@
     import SoundOnly        from "../Components/SoundOnly.svelte";
     import { aefx }       from "../../_AutorecMenu/store/default-data/newSection/aefx.js"
 
-    export let animation;
-    export let category;
-    export let idx;
+    //export let animation;
+    //export let category;
+    //export let idx;
     export let fromMenu = 'autorec';
+    let { animation } = getContext('animation-data');
 
     $: activeEffectType = $animation.activeEffectType;
 
@@ -43,12 +45,12 @@
     $: macroEnabled = $animation.macro.enable;
 </script>
 
-<SectionButtons {animation} {category} type={fromMenu} />
+<SectionButtons type={fromMenu} />
 <div hidden={!soundOnly}>
-    <SoundOnly {animation} {category} />
+    <SoundOnly />
 </div>
 <div hidden={!macroEnabled}>
-    <Macro {animation} {category} />
+    <Macro  />
 </div>
 <div hidden={soundOnly}>
     <div hidden={$animation.macro.enable && $animation.macro.playWhen === "2"}>
@@ -75,12 +77,7 @@
                 </select>
             </div>
         </div>
-        <svelte:component
-            this={activeEffectRoute}
-            {animation}
-            {category}
-            {idx}
-        />
+        <svelte:component this={activeEffectRoute} />
     </div>
 </div>
 

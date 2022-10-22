@@ -1,14 +1,16 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }   from "svelte";
 
     import Canvas3dOptions from "./options/Canvas3dOptions.svelte";
     import Canvas3DSecondary from "./options/Canvas3DSecondary.svelte";
 
     import SoundSettings from "./SoundSettings.svelte";
 
-    export let animation;
-    export let category;
-    export let idx
+    //export let animation;
+    //export let category;
+    //export let idx
+    let { animation, category, idx } = getContext('animation-data');
 
     function setSprite(type) {
         let spritePath;

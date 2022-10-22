@@ -1,5 +1,6 @@
 <script>
     import { localize }     from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }   from "svelte";
 
     import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
 
@@ -9,7 +10,8 @@
     import OptionsDialog    from "../../Components/options/optionsInfoDialog.js";
     import WaitDelay        from "../../Components/options/inputComponents/WaitDelay.svelte";
 
-    export let animation;
+    //export let animation;
+    let { animation } = getContext('animation-data');
 
     const folder = {
         styles: {
@@ -45,7 +47,7 @@
             <tr>
                 <td>
                     <!--Set Elevation of Animation-->
-                    <Elevation {animation} section="primary" />
+                    <Elevation section="primary" />
                 </td>
                 <td>
                     <!--Set Visibility Binding-->
@@ -77,12 +79,11 @@
             <tr>
                 <td>
                     <!--Set Animation Opacity-->
-                    <Opacity {animation} section="primary" />
+                    <Opacity section="primary" />
                 </td>
                 <td>
                     <!--Set Z-Index-->
                     <NumberInput
-                    {animation}
                     label={localize("autoanimations.menus.z-index")}
                     section={"primary"}
                     field={"zIndex"}
@@ -102,7 +103,6 @@
                 <td>
                     <!--Set Radius of Animation-->
                     <NumberInput
-                    {animation}
                     label={localize("autoanimations.menus.radius")}
                     section={"primary"}
                     field={"size"}
@@ -127,7 +127,6 @@
                 <td>
                     <!--Set Fade In time-->
                     <NumberInput
-                    {animation}
                     label={localize("autoanimations.menus.fadeIn")}
                     section="primary"
                     field="fadeIn"
@@ -139,7 +138,6 @@
                 <td>
                     <!--Set Fade Out time-->
                     <NumberInput
-                    {animation}
                     label={localize("autoanimations.menus.fadeOut")}
                     section="primary"
                     field="fadeOut"
@@ -147,11 +145,10 @@
                 />
                 </td>
                 <td>
-                    <WaitDelay {animation} section="primary"/>
+                    <WaitDelay section="primary"/>
                 </td>
                 <td>
                     <NumberInput 
-                    {animation}
                     label={localize("autoanimations.menus.playbackRate")}
                     section="primary"
                     field="playbackRate"

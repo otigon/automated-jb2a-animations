@@ -1,16 +1,19 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }   from "svelte";
 
     import CustomPicker from "./CustomPicker.svelte";
     import SectionHeader from "./SectionHeader.svelte";
 
-    export let animation;
+    //export let animation;
     export let section;
     export let section02 = "video";
     export let title;
-    export let idx;
-    export let category;
+    //export let idx;
+    //export let category;
  
+    let { animation, category, idx } = getContext('animation-data');
+
     $: dbSection = $animation[section][section02].dbSection;
     $: menuType = $animation[section][section02].menuType;
     $: anim = $animation[section][section02].animation;
@@ -111,7 +114,7 @@
         </tr>
     </table>
 </div>
-<CustomPicker {animation} {section} {section02} {idx} {category} />
+<CustomPicker {section} {section02} />
 
 <style lang="scss">
 </style>

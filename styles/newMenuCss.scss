@@ -1,4 +1,4 @@
-#AA-autorec-settings-New, #AA-item-settings-New, #AA-ae-settings-New {
+#AA-autorec-settings, #AA-item-settings, #AA-ae-settings {
     min-height: 250px;
     min-width: 550px;
     max-width: 1024px;
@@ -208,7 +208,7 @@
     }
 }
 
-#AA-item-settings-New, #AA-ae-settings-New{
+#AA-item-settings, #AA-ae-settings{
     --tjs-summary-margin: 0 0 0 1%;
 
     summary {

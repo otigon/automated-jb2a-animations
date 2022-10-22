@@ -5,23 +5,25 @@ import SoundSettings from "../Components/SoundSettings.svelte";
 import ExtraSource from "../Components/ExtraSource.svelte";
 import Secondary from "../Components/Secondary.svelte";
 import AuraEffects from "../../Menus/Components/options/AuraEffects.svelte";
+//import { getContext }   from "svelte";
 
-export let animation;
-export let idx = 0;
-export let category;
+//export let animation;
+//export let idx = 0;
+//export let category;
+//let { animation , category, idx} = getContext('animation-data');
 
 let title = game.i18n.localize("autoanimations.menus.primary") + " " + game.i18n.localize("autoanimations.menus.animation")
 
 </script>
 
-    <ExtraSource {animation} {idx} {category}/>
+    <ExtraSource />
     <div class="aa-primary-border">
-    <VideoSelect {animation} section="primary" {title} {idx} {category}/>
-    <AuraOptions {animation} />
-    <AuraEffects {animation} />
-    <SoundSettings {animation} {category} {idx} section="primary"/>
+    <VideoSelect section="primary" {title} />
+    <AuraOptions />
+    <AuraEffects />
+    <SoundSettings section="primary"/>
     </div>
-    <Secondary {animation} {idx} {category} />
+    <Secondary />
 
 <style lang='scss'>
 

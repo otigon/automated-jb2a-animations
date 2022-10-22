@@ -1,5 +1,6 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }   from "svelte";
 
     import DualAttach           from "../Presets/DualAttach.svelte"
     import ProjectileToTemplate from "../Presets/ProjectileToTemplate.svelte";
@@ -11,10 +12,11 @@
     import { preset }       from "../../_AutorecMenu/store/default-data/newSection/preset.js"
     //import * as reset           from "../Presets/presetDefaults";
 
-    export let animation;
-    export let category;
-    export let idx = 0;
+    //export let animation;
+    //export let category;
+    //export let idx = 0;
     export let fromMenu = 'autorec';
+    let { animation } = getContext('animation-data');
 
     $: presetType = $animation.presetType;
 
@@ -67,12 +69,12 @@
     $: macroPlay = $animation.macro.playWhen;
 </script>
 
-<SectionButtons  {animation} {category} type={fromMenu}  />
+<SectionButtons type={fromMenu}  />
 <div hidden={!soundOnly}>
-    <SoundOnly {animation} {category} />
+    <SoundOnly />
 </div>
 <div hidden={!macroEnabled}>
-    <Macro {animation} {category} />
+    <Macro />
 </div>
 <div hidden={soundOnly || (macroEnabled && macroPlay === "2")}>
         <div class="aa-pickAnim">
@@ -111,7 +113,7 @@
                 </select>
             </div>
         </div>
-        <svelte:component this={presetRoute} {animation} {category} {idx} />
+        <svelte:component this={presetRoute} />
 </div>
 
 <style lang="scss">

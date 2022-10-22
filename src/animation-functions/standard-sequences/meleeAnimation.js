@@ -36,7 +36,7 @@ export async function melee(handler, animationData) {
 
     // Compile separate Range and Melee arrays where applicable, with Hit determination for Sequencer Miss effect
     for (let target of handler.allTargets) {
-        let distanceTo = handler.getDistanceTo(target) / canvas.dimensions.distance;
+        let distanceTo = handler.getDistance(target);
         let rangeDistance = data.meleeSwitch.detect === "manual"
             ? data.meleeSwitch.range
             : (switchDistance / canvas.dimensions.distance) + handler.reachCheck;

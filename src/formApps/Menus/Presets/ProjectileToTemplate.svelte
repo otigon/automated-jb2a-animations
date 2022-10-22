@@ -1,6 +1,7 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
+    import { getContext }   from "svelte";
 
     import SectionHeader    from "../Components/SectionHeader.svelte";
     import VideoSelect      from "../Components/VideoSelect.svelte";
@@ -9,9 +10,10 @@
     import Elevation        from "./inputComponents/Elevation.svelte";
     import OptionsDialog    from "../Components/options/optionsInfoDialog.js";
     import * as settings    from "../Components"
-    export let animation;
-    export let category;
-    export let idx;
+    //export let animation;
+    //export let category;
+    //export let idx;
+    let { animation, category, idx } = getContext('animation-data');
 
     const title = "Projectile to Template";
 
@@ -51,12 +53,9 @@
 
 <div class="aa-section-border">
     <VideoSelect
-        {animation}
         section="data"
         section02="projectile"
         title="Projectile"
-        {idx}
-        {category}
     />
     <div class="aa-options-border">
         <TJSSvgFolder {folder}>
@@ -66,7 +65,7 @@
             <table class="d">
                 <tr>
                     <td>
-                        <Elevation {animation} section="projectile" />
+                        <Elevation section="projectile" />
                     </td>
                     <td>
                         <div>
@@ -169,7 +168,7 @@
             </table>
         </TJSSvgFolder>
     </div>
-    <SoundSettings {animation} {category} {idx} section="data" section02="projectile" />
+    <SoundSettings section="data" section02="projectile" />
 </div>
 
 <div class="aa-section-border">
@@ -184,19 +183,16 @@
         </div>
         <div class={$animation.data.preExplosion.enable ? "" : "aa-disableOpacity"}>
             <VideoSelect
-            {animation}
             section="data"
             section02="preExplosion"
             title="Pre Explosion"
-            {idx}
-            {category}
             />
             <div class="aa-options-border">
                 <TJSSvgFolder {folder}>
                     <table class="d">
                         <tr>
                             <td>
-                                <Elevation {animation} section="preExplosion" />
+                                <Elevation section="preExplosion" />
                             </td>
                             <td>
                                 <div>
@@ -305,26 +301,23 @@
                     </table>
                 </TJSSvgFolder>
             </div>
-            <SoundSettings {animation} {category} {idx} section="data" section02="preExplosion" />
+            <SoundSettings section="data" section02="preExplosion" />
         </div>
     </TJSSvgFolder>
 </div>
 
 <div class="aa-section-border">
     <VideoSelect
-        {animation}
         section="data"
         section02="explosion"
         title="Primary Explosion"
-        {idx}
-        {category}
     />
     <div class="aa-options-border">
         <TJSSvgFolder {folder}>
             <table class="d">
                 <tr>
                     <td>
-                        <Elevation {animation} section="explosion" />
+                        <Elevation section="explosion" />
                     </td>
                     <td>
                         <div>
@@ -433,7 +426,7 @@
             </table>
         </TJSSvgFolder>
     </div>
-    <SoundSettings {category} {animation} {idx} section="data" section02="explosion" />
+    <SoundSettings section="data" section02="explosion" />
 </div>
 <div class="aa-section-border">
     <TJSSvgFolder folder={afterImage}>
@@ -475,7 +468,7 @@
             <table class="d">
                 <tr>
                     <td>
-                        <Elevation {animation} section="afterImage" />
+                        <Elevation section="afterImage" />
                     </td>
                     <td>
                         <!--Set Persistence-->
@@ -514,8 +507,8 @@
     </TJSSvgFolder>
 </div>
 
-<svelte:component this={settings.Secondary} {animation} {category} {idx}/>
-<svelte:component this={settings.Target} {animation} {category} {idx}/>
+<svelte:component this={settings.Secondary} />
+<svelte:component this={settings.Target} />
 
 <style lang="scss">
     .aa-customAnim-container {

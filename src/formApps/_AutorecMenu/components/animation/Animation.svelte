@@ -12,6 +12,7 @@
    import { createOverflowItems }   from "./createOverflowItems.js";
 
    import { selectBuildMenu }       from "../../../Menus/BuildMenu/selectBuildMenu.js";
+   import { setContext } from "svelte";
 
    /** @type {AnimationStore} */
    export let animation = void 0;
@@ -21,6 +22,8 @@
 
    //** Menu builder set in the Category List. Determines which menu set will be rendered*/
    export let idx = void 0;
+
+   setContext('animation-data', {animation, category, idx})
 
    /**
     * @type {object} Defines folder data for TJSIconFolder.

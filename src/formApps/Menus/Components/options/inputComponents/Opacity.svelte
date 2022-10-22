@@ -1,6 +1,7 @@
 <script>
 
-    export let animation;
+    import { getContext }   from "svelte";
+    let { animation } = getContext('animation-data');
     export let section = "primary";
     export let field = "opacity";
     export let min = 0;

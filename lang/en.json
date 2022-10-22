@@ -10,7 +10,7 @@
             "midionmiss_name": "Play Animations on Hits and Misses",
             "midionmiss_hint": "On a Miss, the Animation will veer off target. Requires MIDI Workflow to check for hits",
             "midiondmg_name":"Only play animations on Damage Rolls",
-            "midiondmg_hint":"REQUIRES A REFRESH. When Enabled, this will ONLY play the animations on the Damage Roll",
+            "midiondmg_hint":"When Enabled, this will ONLY play the animations on the Damage Roll if one is present on the item",
             "demonlordtrigger_name":"Trigger to play animations",
             "demonlordtrigger_hint":"Choose the condition for play animations",
             "demonlordtrigger_rollattack":"Play animations on roll attack",
@@ -23,9 +23,9 @@
             "error":"A JB2A Module (Free OR Patreon) is REQUIRED for Automated Animations to Work",
             "animPreview": "Animation Preview",
             "animPreviewHint": "Video Preview in the A-A Tab",
-            "autoRecSetting": "Configure Automatic Recognition",
-            "toggleAnimations": "Toggle Animations",
-            "toggleAnimations_hint": "Requires refresh if turning Animations ON",
+            "autoRecSetting": "Launch Menu",
+            "toggleAnimations": "Automated Animations",
+            "toggleAnimations_hint": "Disable the module at client level. Turn off all Animations from the Sequencer Module settings",
             "ON": "On",
             "OFF": "Off",
             "settingDisableAutoRec": "Disable Automatic Recognition",
@@ -78,7 +78,10 @@
             "mergeHint": "Merge a new Menu into your existing Menu",
             "overwriteHint": "Erase current Menu and import a new Menu",
             "exportHint": "Export your Menu to a JSON file",
-            "overwriteWarn": "Overwrite will delete your existing Menu"
+            "overwriteWarn": "Overwrite will delete your existing Menu",
+            "launchMenu": "Launch Menu",
+            "menuName": "Global Automatic Recognition Menu",
+            "menuHint": "Launch the Global Autorec menu. This also houses the Settings menu for Automated Animations"
         },
         "colors": {
             "lightorange": "Light Orange",

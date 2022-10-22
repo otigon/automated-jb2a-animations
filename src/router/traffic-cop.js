@@ -45,7 +45,7 @@ export async function trafficCop(handler) {
                     setTimeout(killHook, 30000)
                     break;
                 default:
-                    handler.templateData = canvas.templates.placeables[canvas.templates.placeables.length - 1].document;
+                    handler.templateData = canvas.templates?.placeables?.[canvas.templates.placeables.length - 1]?.document;
                     playMacro()
                 }    
         } else {
@@ -97,6 +97,18 @@ export async function trafficCop(handler) {
             animate[animationType](handler, sanitizedData);
             return;
         }
+        if (sanitizedData?.macro && sanitizedData?.macro?.args?.warpgateTemplate) {
+            // Play Macro if it is for using Crosshairs to create a Template
+            new Sequence()
+                .macro(sanitizedData.macro.name, handler.workflow, handler, sanitizedData.macro.args)
+                .play()
+            aaTemplateHook = Hooks.once("createMeasuredTemplate", (template) => {
+                //Hooks.callAll("aa.preAnimationStart", sanitizedData, data);
+                animate[animationType](handler, sanitizedData, template);
+            });
+            setTimeout(killHook, 30000)
+            return;
+        }
         //sections for Template Hooks.once or straight to function
         switch (game.system.id) {
             case "a5e":
@@ -111,7 +123,12 @@ export async function trafficCop(handler) {
                 setTimeout(killHook, 30000)
                 break;
             default:
-                animate[animationType](handler, sanitizedData);
+                let template = canvas.templates?.placeables?.[canvas.templates.placeables.length - 1]?.document
+                if (!template) { 
+                    debug("No template found for the Template animaiton, existing early")
+                    return;
+                }
+                animate[animationType](handler, sanitizedData, template);
         }
         return;
     } else {

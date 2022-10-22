@@ -1,9 +1,13 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }   from "svelte";
 
-    export let animation;
-    export let category;
-    export let idx;
+    //export let animation;
+    //export let category;
+    //export let idx;
+
+    let { animation, category, idx } = getContext('animation-data');
+
     let section = "soundOnly";
 
     $: isValid = $animation.soundOnly.sound.enable && $animation.soundOnly.sound.file

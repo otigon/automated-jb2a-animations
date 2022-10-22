@@ -8,8 +8,10 @@
     import ScaleRadius      from "./inputComponents/ScaleRadius.svelte";
     import Opacity          from "./inputComponents/Opacity.svelte";
     import OptionsDialog    from "./optionsInfoDialog.js";
+    import { getContext }   from "svelte";
 
-    export let animation;
+    //export let animation;
+    let { animation} = getContext('animation-data');
 
     const folder = {
         styles: {

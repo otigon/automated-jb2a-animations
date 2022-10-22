@@ -27,7 +27,7 @@ export default class AAHandler {
 
         this.sourceToken = data.token?.isEmbedded ? data.token?.object : data.token;
 
-        this.item = data.item;
+        this.item = data.ammoItem || data.item;
         this.itemUuid = this.item?.uuid || uuidv4();
         this.itemName = !this.isActiveEffect || this.systemId === "pf2e" ? this.item.name : this.item.label;
         this.rinsedName = data.rinsedName || this.itemName ? this.itemName.replace(/\s+/g, '').toLowerCase() : "";
@@ -127,6 +127,87 @@ export default class AAHandler {
         //}
     }
 
+    getDistance(target) {
+        if (this.systemId === "pf1") {
+            // This code was provided by David (AKA Claudekennilol) specific for PF1
+            const scene = game.scenes.active;
+            const gridSize = scene.grid.size;
+    
+            const left = (token) => token.x;
+            const right = (token) => token.x + token.w;
+            const top = (token) => token.y;
+            const bottom = (token) => token.y + token.h;
+    
+            const isLeftOf = right(this.sourceToken) <= left(target);
+            const isRightOf = left(this.sourceToken) >= right(target);
+            const isAbove = bottom(this.sourceToken) <= top(target);
+            const isBelow = top(this.sourceToken) >= bottom(target);
+    
+            let x1 = left(this.sourceToken);
+            let x2 = left(target);
+            let y1 = top(this.sourceToken);
+            let y2 = top(target);
+    
+            if (isLeftOf) {
+                x1 += (this.sourceToken.document.width - 1) * gridSize;
+            }
+            else if (isRightOf) {
+                x2 += (target.document.width - 1) * gridSize;
+            }
+    
+            if (isAbove) {
+                y1 += (this.sourceToken.document.height - 1) * gridSize;
+            }
+            else if (isBelow) {
+                y2 += (target.document.height - 1) * gridSize;
+            }
+    
+            const ray = new Ray({ x: x1, y: y1 }, { x: x2, y: y2 });
+            const distance = canvas.grid.grid.measureDistances([{ ray }], { gridSpaces: true })[0];
+            return distance / canvas.dimensions.distance;
+        } else {
+            // This code was written by TPosney for Midi-QOL. It is adapated here for A-A
+            const t1 = this.sourceToken;
+            const noResult = { distance: -1, acBonus: undefined };
+            if (!canvas || !canvas.scene)
+                return noResult;
+            if (!canvas.grid || !canvas.dimensions)
+                noResult;
+            if (!t1 || !target)
+                return noResult;
+            if (!canvas || !canvas.grid || !canvas.dimensions)
+                return noResult;
+            //@ts-ignore
+            const t1StartX = t1.document.width >= 1 ? 0.5 : t1.document.width / 2;
+            const t1StartY = t1.document.height >= 1 ? 0.5 : t1.document.height / 2;
+            const t2StartX = target.document.width >= 1 ? 0.5 : target.document.width / 2;
+            const t2StartY = target.document.height >= 1 ? 0.5 : target.document.height / 2;
+            var x, x1, y, y1, d, r, segments = [], rdistance, distance;
+            for (x = t1StartX; x < t1.document.width; x++) {
+                for (y = t1StartY; y < t1.document.height; y++) {
+                    const origin = new PIXI.Point(...canvas.grid.getCenter(Math.round(t1.document.x + (canvas.dimensions.size * x)), Math.round(t1.document.y + (canvas.dimensions.size * y))));
+                    for (x1 = t2StartX; x1 < target.document.width; x1++) {
+                        for (y1 = t2StartY; y1 < target.document.height; y1++) {
+                            const dest = new PIXI.Point(...canvas.grid.getCenter(Math.round(target.document.x + (canvas.dimensions.size * x1)), Math.round(target.document.y + (canvas.dimensions.size * y1))));
+                            const r = new Ray(origin, dest);
+                            segments.push({ ray: r });
+                        }
+                    }
+                }
+            }
+            if (segments.length === 0) {
+                return noResult;
+            }
+            rdistance = segments.map(ray => canvas.grid.measureDistances([ray], { gridSpaces: true })[0]);
+            distance = rdistance[0];
+            rdistance.forEach(d => {
+                if (d < distance)
+                    distance = d;
+            });
+            return distance / canvas.dimensions.distance;
+        }
+    }
+    
     // Returns a Target Animation Sequence
     buildTargetSeq(targetFX, target, addDelay = 0) {
         let hit;
@@ -169,9 +250,9 @@ export default class AAHandler {
     }
     
     // Returns a pseudo Token X/Y for Ranged effects
-    fakeSource(token) {
+    fakeSource() {
         let templateSource = Sequencer.EffectManager.getEffects({sceneId: canvas.scene.id, name: this.rinsedName})[0];
-        if (!templateSource) { return token; }
+        if (!templateSource) { return this.sourceToken; }
 
         let gridSize = canvas.grid.size / 2;
         let tsXmin = templateSource.source.x - (templateSource.source.width / 2) + gridSize;

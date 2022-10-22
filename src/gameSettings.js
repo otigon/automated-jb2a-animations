@@ -31,7 +31,9 @@ class AAGameSettings extends TJSGameSettings
       });
 
       game.settings.registerMenu(namespace, 'custom-autorec', {
-         label: 'autoanimations.settings.autoRecSetting',
+         name: "autoanimations.settings.menuName",
+         hint: "autoanimations.settings.menuHint",
+         label: 'autoanimations.settings.launchMenu',
          icon: 'fas fa-dice-d20',
          type: AutorecShim,
          restricted: true,
@@ -87,7 +89,7 @@ class AAGameSettings extends TJSGameSettings
          options: {
             name: 'autoanimations.settings.settingDisableAutoRec',
             hint: 'autoanimations.settings.settingDisableAutoRecHint',
-            scope: scope.client,
+            scope: scope.world,
             config: true,
             type: Boolean,
             default: false
@@ -153,10 +155,23 @@ class AAGameSettings extends TJSGameSettings
          options: {
             name: 'autoanimations.settings.settingRangeSwitch',
             hint: 'autoanimations.settings.settingRangeSwitchhint',
-            scope: scope.client,
+            scope: scope.world,
             config: true,
             type: Boolean,
             default: false,
+         }
+      });
+
+      settings.push({
+         namespace,
+         key: 'disableAEAnimations',
+         options: {
+            name: 'autoanimations.settings.disableAEAnimations',
+            hint: 'autoanimations.settings.disableAEAnimationsHint',
+            scope: scope.world,
+            type: Boolean,
+            default: false,
+            config: true,
          }
       });
 
@@ -166,10 +181,22 @@ class AAGameSettings extends TJSGameSettings
          options: {
             name: 'autoanimations.settings.noTips',
             hint: 'autoanimations.settings.noTipsHint',
-            scope: scope.client,
+            scope: scope.world,
             config: true,
             type: Boolean,
             default: false,
+         }
+      });
+
+      settings.push({
+         namespace,
+         key: 'debug',
+         options: {
+            name: 'autoanimations.settings.debugging',
+            scope: scope.world,
+            config: true,
+            default: false,
+            type: Boolean
          }
       });
 
@@ -178,7 +205,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'EnableCritical',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.cypherCrit_name',
                   hint: 'autoanimations.settings.cypherCrit_hint',
@@ -192,7 +219,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'CriticalAnimation',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.CriticalAnimation',
                   scope: scope.world,
@@ -206,7 +233,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'EnableFumble',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.cypherFumble_name',
                   hint: 'autoanimations.settings.cypherFumble_hint',
@@ -220,7 +247,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'FumbleAnimation',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.cypherFumbleAnim_name',
                   scope: scope.world,
@@ -234,7 +261,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'EnableOnRecoveryRoll',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.recovery_name',
                   hint: 'autoanimations.settings.recovery_hint',
@@ -248,7 +275,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'RecoveryRollAnimation',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.recoveryAnim_name',
                   scope: scope.world,
@@ -262,7 +289,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'EnableOnMightRoll',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.mightroll_name',
                   hint: 'autoanimations.settings.mightroll_hint',
@@ -276,7 +303,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'MightRollAnimation',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.mightRollAnim_name',
                   scope: scope.world,
@@ -290,7 +317,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'EnableOnSpeedRoll',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.speedroll_name',
                   hint: 'autoanimations.settings.speedroll_hint',
@@ -304,7 +331,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'SpeedRollAnimation',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.speedRollAnim_name',
                   scope: scope.world,
@@ -318,7 +345,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'EnableOnIntellecRoll',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.intellectroll_name',
                   hint: 'autoanimations.settings.intellectroll_hint',
@@ -332,7 +359,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'IntellectRollAnimation',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.intellectRollAnim_name',
                   scope: scope.world,
@@ -347,7 +374,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'playtrigger',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.demonlordtrigger_name',
                   hint: 'autoanimations.settings.demonlordtrigger_hint',
@@ -370,7 +397,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'playonDamage',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.midiondmg_name',
                   hint: 'autoanimations.settings.midiondmg_hint',
@@ -384,25 +411,11 @@ class AAGameSettings extends TJSGameSettings
 
          case 'dnd5e':
          case 'sw5e':
-            settings.push({
-               namespace,
-               key: 'disableAEAnimations',
-               folder: 'Game System', // TODO: lang key
-               options: {
-                  name: 'autoanimations.settings.disableAEAnimations',
-                  hint: 'autoanimations.settings.disableAEAnimationsHint',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: false,
-                  config: true,
-               }
-            });
-
             if (game.modules.get('midi-qol')?.active) {
                settings.push({
                   namespace,
                   key: 'playonhit',
-                  folder: 'Midi-QOL', // TODO: lang key
+                  folder: 'Midi-QOL',
                   options: {
                      name: 'autoanimations.settings.midionhit_name',
                      hint: 'autoanimations.settings.midionhit_hint',
@@ -416,7 +429,7 @@ class AAGameSettings extends TJSGameSettings
                settings.push({
                   namespace,
                   key: 'playonmiss',
-                  folder: 'Midi-QOL', // TODO: lang key
+                  folder: 'Midi-QOL',
                   options: {
                      name: 'autoanimations.settings.midionmiss_name',
                      hint: 'autoanimations.settings.midionmiss_hint',
@@ -430,7 +443,7 @@ class AAGameSettings extends TJSGameSettings
                settings.push({
                   namespace,
                   key: 'playonDamage',
-                  folder: 'Midi-QOL', // TODO: lang key
+                  folder: 'Midi-QOL',
                   options: {
                      name: 'autoanimations.settings.midiondmg_name',
                      hint: 'autoanimations.settings.midiondmg_hint',
@@ -444,7 +457,7 @@ class AAGameSettings extends TJSGameSettings
                settings.push({
                   namespace,
                   key: 'EnableCritical',
-                  folder: 'Midi-QOL', // TODO: lang key
+                  folder: 'Midi-QOL',
                   options: {
                      name: 'autoanimations.settings.crithit_name',
                      hint: 'autoanimations.settings.crithit_hint',
@@ -458,7 +471,7 @@ class AAGameSettings extends TJSGameSettings
                settings.push({
                   namespace,
                   key: 'CriticalAnimation',
-                  folder: 'Midi-QOL', // TODO: lang key
+                  folder: 'Midi-QOL',
                   options: {
                      name: 'autoanimations.settings.crithitAnim_name',
                      //name: 'Choose A File',
@@ -473,7 +486,7 @@ class AAGameSettings extends TJSGameSettings
                settings.push({
                   namespace,
                   key: 'EnableCriticalMiss',
-                  folder: 'Midi-QOL', // TODO: lang key
+                  folder: 'Midi-QOL',
                   options: {
                      name: 'autoanimations.settings.critmiss_name',
                      hint: 'autoanimations.settings.critmiss_hint',
@@ -487,7 +500,7 @@ class AAGameSettings extends TJSGameSettings
                settings.push({
                   namespace,
                   key: 'CriticalMissAnimation',
-                  folder: 'Midi-QOL', // TODO: lang key
+                  folder: 'Midi-QOL',
                   options: {
                      name: 'autoanimations.settings.critmissAnim_name',
                      scope: scope.world,
@@ -501,7 +514,7 @@ class AAGameSettings extends TJSGameSettings
                settings.push({
                   namespace,
                   key: 'playonDamageCore',
-                  folder: 'Game System', // TODO: lang key
+                  folder: game.system.title || game.system.name,
                   options: {
                      name: 'autoanimations.settings.coreondmg_name',
                      hint: 'autoanimations.settings.coreondmg_hint',
@@ -518,7 +531,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'playonDamageCore',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.coreondmg_name',
                   hint: 'autoanimations.settings.coreondmg_hint',
@@ -532,7 +545,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'playonmiss',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.midionmiss_name',
                   hint: 'Requires Animations to be played on Attack rolls',
@@ -546,7 +559,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'disableNestedEffects',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.disableNested',
                   hint: 'autoanimations.settings.disableNestedHint',
@@ -562,7 +575,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'disableAEAnimations',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.disableAEAnimations',
                   hint: 'autoanimations.settings.disableAEAnimationsHint',
@@ -577,7 +590,7 @@ class AAGameSettings extends TJSGameSettings
             settings.push({
                namespace,
                key: 'castOnlyOnSuccess',
-               folder: 'Game System', // TODO: lang key
+               folder: game.system.title || game.system.name,
                options: {
                   name: 'autoanimations.settings.wfrp4eCastOnlyOnSuccess',
                   hint: 'autoanimations.settings.wfrp4eCastOnlyOnSuccessHint',
@@ -588,19 +601,23 @@ class AAGameSettings extends TJSGameSettings
                }
             });
             break;
+         case "cyberpunk-red-core":
+            settings.push({
+               namespace,
+               key: 'autofire',
+               folder: game.system.title || game.system.name,
+               options: {
+                  name: 'Enable Automatic Repeats',
+                  hint: 'Override repeats for the Primary animation when Automatic or Suppressive fire is enabled for weapon',
+                  scope: scope.world,
+                  type: Boolean,
+                  default: true,
+                  config: true,
+               }
+            });
+            break;      
       }
 
-      settings.push({
-         namespace,
-         key: 'debug',
-         options: {
-            name: 'autoanimations.settings.debugging',
-            scope: scope.world,
-            config: true,
-            default: false,
-            type: Boolean
-         }
-      });
 
       // Selectively register settings w/ core Foundry based on whether the user is GM.
       this.registerAll(settings, !game.user.isGM);

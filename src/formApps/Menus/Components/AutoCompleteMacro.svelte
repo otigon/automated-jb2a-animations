@@ -4,9 +4,11 @@
      */
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { writable } from "svelte/store";
+    import { getContext }   from "svelte";
 
-    export let animation;
-    export let category;
+    //export let animation;
+    //export let category;
+    let { animation, category } = getContext('animation-data');
 
     $: macro = $animation.macro.name;
 

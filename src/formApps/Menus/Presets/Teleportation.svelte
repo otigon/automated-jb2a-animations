@@ -1,6 +1,7 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
+    import { getContext }   from "svelte";
 
     import VideoSelect      from "../Components/VideoSelect.svelte";
     import Opacity          from "./inputComponents/Opacity.svelte";
@@ -8,9 +9,10 @@
     import OptionsDialog    from "../Components/options/optionsInfoDialog.js";
     import ScaleRadius      from "./inputComponents/ScaleRadius.svelte";
 
-    export let animation;
-    export let category;
-    export let idx;
+    //export let animation;
+    //export let category;
+    //export let idx;
+    let { animation } = getContext('animation-data');
 
     const folder = {
         styles: {
@@ -252,10 +254,7 @@
         </div>
         <div class={$animation.data.start.enable ? "" : "aa-disableOpacity"}>
             <VideoSelect
-                {animation}
-                {category}
                 title="Start Animation"
-                {idx}
                 section="data"
                 section02="start"
             />
@@ -278,12 +277,11 @@
                                 </div>
                             </td>
                             <td>
-                                <Elevation {animation} section="start" />
+                                <Elevation section="start" />
                             </td>
                             <td>
                                 <!--Set Size of Animation-->
                                 <ScaleRadius
-                                    {animation}
                                     section={"start"}
                                     field={"size"}
                                     step="0.01"
@@ -293,7 +291,7 @@
                         <tr>
                             <td>
                                 <!--Set Animation Opacity-->
-                                <Opacity {animation} section="start" />
+                                <Opacity section="start" />
                             </td>
                             <td>
                                 <div>
@@ -384,12 +382,9 @@
         </div>
         <div class={$animation.data.between.enable ? "" : "aa-disableOpacity"}>
             <VideoSelect
-                {animation}
-                {category}
                 title={localize("autoanimations.menus.between") +
                     " " +
                     localize("autoanimations.menus.animation")}
-                {idx}
                 section="data"
                 section02="between"
             />
@@ -398,7 +393,7 @@
                     <table class="d">
                         <tr>
                             <td>
-                                <Elevation {animation} section="between" />
+                                <Elevation section="between" />
                             </td>
                             <td>
                                 <div>
@@ -420,7 +415,7 @@
                             </td>
                             <td>
                                 <!--Set Animation Opacity-->
-                                <Opacity {animation} section="between" />
+                                <Opacity section="between" />
                             </td>
                         </tr>
                         <tr>
@@ -463,10 +458,7 @@
         </div>
         <div class={$animation.data.end.enable ? "" : "aa-disableOpacity"}>
             <VideoSelect
-                {animation}
-                {category}
                 title="End Animation"
-                {idx}
                 section="data"
                 section02="end"
             />
@@ -489,12 +481,11 @@
                                 </div>
                             </td>
                             <td>
-                                <Elevation {animation} section="end" />
+                                <Elevation section="end" />
                             </td>
                             <td>
                                 <!--Set Size of Animation-->
                                 <ScaleRadius
-                                    {animation}
                                     section={"end"}
                                     field={"size"}
                                     step="0.01"
@@ -504,7 +495,7 @@
                         <tr>
                             <td>
                                 <!--Set Animation Opacity-->
-                                <Opacity {animation} section="end" />
+                                <Opacity section="end" />
                             </td>
                             <td>
                                 <div>

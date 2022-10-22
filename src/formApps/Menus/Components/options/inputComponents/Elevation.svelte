@@ -1,7 +1,8 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }   from "svelte";
 
-    export let animation;
+    let { animation } = getContext('animation-data');
     export let section = "primary";
 
     $: isAbsolute = $animation[section].options.isAbsolute;

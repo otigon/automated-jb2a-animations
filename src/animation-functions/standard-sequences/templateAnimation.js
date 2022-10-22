@@ -6,7 +6,7 @@ export async function templatefx(handler, animationData, templateDocument) {
 
     const sourceToken = handler.sourceToken;
 
-    const template = handler.templateData ? handler.templateData : templateDocument ? templateDocument : canvas.templates.placeables[canvas.templates.placeables.length - 1].document;
+    const template = handler.templateData ? handler.templateData : templateDocument //? templateDocument : canvas.templates.placeables[canvas.templates.placeables.length - 1].document;
     //const templateData = template ? template || {}: template.document || {};;
     const templateType = template?.t;
 
@@ -29,7 +29,7 @@ export async function templatefx(handler, animationData, templateDocument) {
     }
 
     // Play Macro if Awaiting
-    if (macro && macro.playWhen === "1") {
+    if (macro && macro.playWhen === "1" && !macro?.args?.warpgateTemplate) {
         let userData = macro.args;
         aaSeq.macro(macro.name, handler.workflow, handler, userData)
     }
@@ -191,7 +191,7 @@ export async function templatefx(handler, animationData, templateDocument) {
         }
     }
 
-    if (macro && macro.playWhen === "0") {
+    if (macro && macro.playWhen === "0" && !macro?.args?.warpgateTemplate) {
         let userData = macro.args;
         new Sequence()
             .macro(macro.name, handler.workflow, handler, userData)
