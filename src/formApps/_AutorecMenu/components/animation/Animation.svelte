@@ -11,15 +11,19 @@
 
    import { createOverflowItems }   from "./createOverflowItems.js";
 
+   import { selectBuildMenu }       from "../../../Menus/BuildMenu/selectBuildMenu.js";
+   import { setContext } from "svelte";
+
    /** @type {AnimationStore} */
-   export let animation;
+   export let animation = void 0;
 
    /** @type {CategoryStore} */
-   export let category;
+   export let category = void 0;
 
    //** Menu builder set in the Category List. Determines which menu set will be rendered*/
-   export let menuRoute;
-   export let idx;
+   export let idx = void 0;
+
+   setContext('animation-data', {animation, category, idx})
 
    /**
     * @type {object} Defines folder data for TJSIconFolder.
@@ -45,21 +49,16 @@
 
    const menu = {
       items: createOverflowItems(animation, category),
-   }
-
-   $: status = animation.stores.folderOpen
-   $: currentState = $status;
+   };
 </script>
 
-<div>
+<div class=animation>
    <TJSSvgFolder {folder}>
         <TJSInput {input} slot=label />
         <TJSToggleIconButton button={buttonOverflow} slot=summary-end>
             <TJSMenu {menu} />
         </TJSToggleIconButton>
-        {#if currentState}
-        <svelte:component this={menuRoute} {animation} {idx} {category}/>
-        {/if}
+        <svelte:component this={selectBuildMenu(category.key)} {animation} {idx} {category}/>
    </TJSSvgFolder>
 </div>
 

@@ -1,6 +1,7 @@
 <script>
     import { localize }     from "@typhonjs-fvtt/runtime/svelte/helper";
     import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
+    import { getContext }   from "svelte";
 
     import VideoSelect      from "../Components/VideoSelect.svelte";
     import SoundSettings    from "../Components/SoundSettings.svelte";
@@ -8,9 +9,10 @@
     import OptionsDialog    from "../Components/options/optionsInfoDialog.js";
     import Elevation        from "../Components/options/inputComponents/Elevation.svelte";
 
-    export let animation;
-    export let category;
-    export let idx;
+    //export let animation;
+    //export let category;
+    //export let idx;
+    let { animation } = getContext('animation-data');
 
     const folder = {
         styles: {
@@ -38,13 +40,7 @@
 </script>
 
 <div class="aa-section-border">
-    <VideoSelect
-        {animation}
-        {category}
-        title="Dual Attach"
-        {idx}
-        section="data"
-    />
+    <VideoSelect title="Dual Attach" section="data" />
     <div class="aa-options-border">
         <TJSSvgFolder {folder}>
             <div slot="summary-end">
@@ -97,7 +93,7 @@
             </table>
         </TJSSvgFolder>
     </div>
-    <SoundSettings {animation} {category} {idx} section="data" />
+    <SoundSettings section="data" />
 </div>
 
 <style lang="scss">

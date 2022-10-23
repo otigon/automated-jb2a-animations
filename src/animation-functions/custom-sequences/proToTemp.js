@@ -2,14 +2,14 @@
 import { howToDelete } from "../../constants/constants.js";
 
 // Credit goes to Wasp-Sequencer Guy for the structure of the Fireball Sequence
-export async function proToTemp(handler, animationData, config) {
+export async function proToTemp(handler, animationData, templateDocument) {
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
     const secondary = animationData.secondary;
     const targetFX = animationData.targetFX;
 
-    const template = config ? config : canvas.templates.placeables[canvas.templates.placeables.length - 1];
+    const template = handler.templateData ? handler.templateData : templateDocument//canvas.templates.placeables[canvas.templates.placeables.length - 1];
     const sourceToken = handler.sourceToken;
 
     let aaSeq = await new Sequence("Automated Animations")
@@ -73,7 +73,7 @@ export async function proToTemp(handler, animationData, config) {
             .atLocation(template, { cacheLocation: true })
             .scaleToObject(data.afterImage.options.scale)
             .elevation(handler.elevation(sourceToken, data.afterImage.options.isAbsolute, data.afterImage.options.elevation), {absolute: data.afterImage.options.isAbsolute})
-            .persist(true)
+            .persist(data.afterImage.options.persistent)
             .origin(handler.itemUuid)
             .fadeIn(250)
             .fadeOut(500)

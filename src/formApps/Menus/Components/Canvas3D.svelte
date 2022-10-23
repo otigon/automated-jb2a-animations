@@ -1,14 +1,16 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }   from "svelte";
 
     import Canvas3dOptions from "./options/Canvas3dOptions.svelte";
     import Canvas3DSecondary from "./options/Canvas3DSecondary.svelte";
 
     import SoundSettings from "./SoundSettings.svelte";
 
-    export let animation;
-    export let category;
-    export let idx
+    //export let animation;
+    //export let category;
+    //export let idx
+    let { animation, category, idx } = getContext('animation-data');
 
     function setSprite(type) {
         let spritePath;
@@ -52,7 +54,7 @@
             <input type="checkbox" style="position:relative; left: -10px"
             id="Canvas3D {animation._data.id}"
             bind:checked={$animation.levels3d.enable}
-            >    
+            >
         </div>
     </td>
     <td style="width: 60%; border:none" class={isEnabled ? "" : "aa-disableOpacity"}>
@@ -75,7 +77,7 @@
                     >{localize("autoanimations.menus.explosion")}</option
                 >
             </select>
-        </div>    
+        </div>
     </td>
     <td style="width: 20%; border:none"></td>
 </table>
@@ -96,9 +98,10 @@
             </td>
             <td style="width: 4em;border: none">
                 <i class="fas fa-file-import"
-                title="File Picker"
-                style="font-size:1.5em"
-                on:click|preventDefault={() => selectCustom()}
+                   title="File Picker"
+                   style="font-size:1.5em"
+                   on:click|preventDefault={() => selectCustom()}
+                   role=presentation
                 />
             </td>
             </tr>

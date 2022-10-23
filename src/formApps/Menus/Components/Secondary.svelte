@@ -5,10 +5,13 @@
     import SoundSettings from "./SoundSettings.svelte";
     import VideoSelect from "./VideoSelect.svelte";
     import SecondaryOptions from "./options/SecondaryOptions.svelte";
+    import { getContext }   from "svelte";
 
-    export let animation;
-    export let idx;
-    export let category;
+    //export let animation;
+    //export let idx;
+    //export let category;
+
+    let { animation, category, idx } = getContext('animation-data');
 
     let title = "Secondary" + " " + game.i18n.localize("autoanimations.menus.animation")
 

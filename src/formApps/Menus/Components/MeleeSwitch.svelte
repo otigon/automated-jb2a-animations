@@ -7,10 +7,13 @@
     import Sound from "./SoundSettings.svelte"
 
     import { aaReturnWeapons } from "../../../database/jb2a-menu-options.js"
+    import { getContext }   from "svelte";
 
-    export let animation;
-    export let category;
-    export let idx;
+    //export let animation;
+    //export let category;
+    //export let idx;
+
+    let { animation, category, idx } = getContext('animation-data');
 
     const folderOptions = {
         styles: {

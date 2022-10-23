@@ -3,7 +3,8 @@
   import { ripple } from "@typhonjs-fvtt/svelte-standard/action";
   import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
   import { getContext } from "svelte";
-  
+  import { setContext } from "svelte";
+
   import {
     TJSMenu,
     TJSToggleIconButton,
@@ -22,6 +23,8 @@
    * @ItemStore
    */
   export let animation;
+
+  setContext('animation-data', {animation, category: animation, idx: 0})
 
   export let item;
 
@@ -83,17 +86,16 @@
 
 </script>
 
-<header>
+<header class="animation">
   <ul>
     <div style="grid-row: 1/2; grid-column: 1/2">
-      <Slider {animation} label={disabledLabel} field="isEnabled" />
+      <Slider  label={disabledLabel} field="isEnabled" />
     </div>
     <div
       style="grid-row: 2/3; grid-column: 1/2"
       class={!isEnabled ? "aa-disableOpacity" : ""}
     >
       <Slider
-        {animation}
         label={localize("autoanimations.menus.customize") + " " + "Item"}
         field="isCustomized"
       />
@@ -159,7 +161,7 @@
       <svelte:component this={NoneChosen} {isEnabled} {isCustomized} {isInAutorec} />
     </div>
   {:else}
-    <CategoryList {animation} />
+    <CategoryList />
   {/if}
 </main>
 

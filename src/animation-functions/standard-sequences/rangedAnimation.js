@@ -55,8 +55,7 @@ export async function range(handler, animationData) {
         let nextSeq = aaSeq.effect()
         nextSeq.file(data.path.file)
         if (data.options.animationSource) {
-            let animationSource = handler.fakeSource(sourceToken);
-            nextSeq.atLocation({x: animationSource.x, y: animationSource.y})
+            nextSeq.atLocation({x: data.options.fakeLocation.x, y: data.options.fakeLocation.y})
         } else {
             if (data.options.reverse) {
                 nextSeq.atLocation(currentTarget)

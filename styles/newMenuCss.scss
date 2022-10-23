@@ -1,9 +1,10 @@
-#AA-autorec-settings-New, #AA-item-settings-New, #AA-ae-settings-New {
+#AA-autorec-settings, #AA-item-settings, #AA-ae-settings {
     min-height: 250px;
     min-width: 550px;
     max-width: 1024px;
 
     .window-content {
+        color: black;
         padding: 0;
         overflow: inherit;
         background: rgba(125, 125, 125, 0.75);
@@ -23,176 +24,191 @@
     }
 
     // Reverse universal selector set for `.window-app .window-content > *`.
-    .window-content>* {
+    .window-content > * {
         flex: unset;
     }
 
-    .aa-Sound-container {
-        display: grid;
-        grid-template-columns: 6% 90% 4%;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        align-items: center;
-        margin-right: 5%;
-        margin-left: 3%;
-        font-size: small;
-        font-weight: normal;
-        button {
-            background: none;
-            border: none;
-            font-size: 1.5em;
-        }
-    }
-    
-    table {
-        border-collapse: separate;
-        border: none;
-        background: none;
-        font-size: 0.8em;
-        text-align: center;
-        padding-right: .8em;
-        padding-left: .8em;
+    // Variables for TJSSettingsEdit via TJSSettingsSwap.
+    .tjs-settings {
+        --tjs-settings-padding: 0.5em 1em;
+        --tjs-settings-section-background: rgba(199, 199, 199, 0.85);
+        --tjs-settings-section-border: 2px solid rgba(0, 0, 0, 0.75);
+        --tjs-settings-section-border-radius: 0.75em;
+
+        --tjs-input-border-radius: 1em;
+        --tjs-input-padding: 0 0.5em;
     }
 
-    table {
-        input[type="number"] {
-            width: 50%;
-            margin-top: 3px;
-            margin-left: auto;
-            margin-right: auto;
-            font-size: 1em;
-            height: 1.5em;
-            color: black;
-        }
-        input[type="text"] {
-            width: 50%;
-            margin-top: 3px;
-            margin-left: auto;
-            margin-right: auto;
-            font-size: 1em;
-            height: 1.5em;
-            color: black;
-        }
-        input[type="checkbox"] {
-            margin: auto;
-            margin-top: 3px;
-        }
-        label {
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        td {
-            border: 2px solid rgba(48, 48, 48, 0.2);
-            border-radius: 5px;
-        }
-
-        tr {
-            height: fit-content;
-        }
-    }
-
-    table.d {
-        width: 100%;
-        table-layout: fixed;
-    }
-    table.c {
-        input[type="checkbox"] {
-            /* Add if not using autoprefixer */
-            -webkit-appearance: none;
-            /* Remove most all native input styles */
-            appearance: none;
-            /* For iOS < 15 */
-            background-color: var(--form-background);
-            /* Not removed via appearance */
-            margin-right: 5px;
-          
-            font: inherit;
-            color: currentColor;
-            width: 1.5em;
-            height: 1.5em;
-            border: 0.15em solid grey;
-            border-radius: 50%;
-            transform: translateY(-0.075em);
+    // Applies to elements under Animation component.
+    .animation {
+        .aa-Sound-container {
             display: grid;
-            place-content: center;
-          }
-          input[type="checkbox"]::before {
-            content: "";
-            width: 0.65em;
-            height: 0.65em;
-            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-            transform: scale(0);
-            transform-origin: bottom left;
-            transition: 120ms transform ease-in-out;
-            box-shadow: inset 1em 1em var(--form-control-color);
-            /* Windows High Contrast Mode */
-            background-color: CanvasText;
-          }
-          
-          input[type="checkbox"]:checked::before {
-            transform: scale(1);
-          }
-          
-          
-          input[type="checkbox"]:disabled {
-            --form-control-color: var(--form-control-disabled);
-          
-            color: var(--form-control-disabled);
-            cursor: not-allowed;
-          }
-    }
-    .aaSelect {
+            grid-template-columns: 6% 90% 4%;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            align-items: center;
+            margin-right: 5%;
+            margin-left: 3%;
+            font-size: small;
+            font-weight: normal;
+            button {
+                background: none;
+                border: none;
+                font-size: 1.5em;
+            }
+        }
+
         table {
             border-collapse: separate;
             border: none;
             background: none;
             font-size: 0.8em;
             text-align: center;
-            padding-right: 1em;
-            padding-left: 1em;
+            padding-right: .8em;
+            padding-left: .8em;
+        }
+
+        table {
+            input[type="number"] {
+                width: 50%;
+                margin-top: 3px;
+                margin-left: auto;
+                margin-right: auto;
+                font-size: 1em;
+                height: 1.5em;
+                color: black;
             }
-        table.aaMenu {
+            input[type="text"] {
+                width: 50%;
+                margin-top: 3px;
+                margin-left: auto;
+                margin-right: auto;
+                font-size: 1em;
+                height: 1.5em;
+                color: black;
+            }
+            input[type="checkbox"] {
+                margin: auto;
+                margin-top: 3px;
+            }
+            label {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
             td {
-                border: none;
-                select {
-                    align-self: center;
-                }
-                label {
-                    font-size: large;
-                    font-family: "Modesto Condensed", "Palatino Linotype", serif;
-                    font-weight: bold;
-                }
+                border: 2px solid rgba(48, 48, 48, 0.2);
+                border-radius: 5px;
             }
+
             tr {
-                background: transparent;
+                height: fit-content;
             }
         }
-    }
-    input {
-        color: black;
-        background: rgba(182, 182, 182, 0.461);
-        border: 1px solid rgba(77, 77, 77, 0.5);
-    }
-    input[type="color"] {
-        background: none;
-        box-shadow: none;
-        border: none;
-    }
-    select {
-        background-color: rgba(160, 160, 160);
-        text-align: center;
-        font-weight: normal;
-        font-family: "Signika", sans-serif;
-        font-size: 14px;
-        color: black;
-        min-height: 1.5em;
-        width: 10em;
-        border-radius: 7px;
+
+        table.d {
+            width: 100%;
+            table-layout: fixed;
+        }
+        table.c {
+            input[type="checkbox"] {
+                /* Add if not using autoprefixer */
+                -webkit-appearance: none;
+                /* Remove most all native input styles */
+                appearance: none;
+                /* For iOS < 15 */
+                background-color: var(--form-background);
+                /* Not removed via appearance */
+                margin-right: 5px;
+
+                font: inherit;
+                color: currentColor;
+                width: 1.5em;
+                height: 1.5em;
+                border: 0.15em solid grey;
+                border-radius: 50%;
+                transform: translateY(-0.075em);
+                display: grid;
+                place-content: center;
+            }
+            input[type="checkbox"]::before {
+                content: "";
+                width: 0.65em;
+                height: 0.65em;
+                clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+                transform: scale(0);
+                transform-origin: bottom left;
+                transition: 120ms transform ease-in-out;
+                box-shadow: inset 1em 1em var(--form-control-color);
+                /* Windows High Contrast Mode */
+                background-color: CanvasText;
+            }
+
+            input[type="checkbox"]:checked::before {
+                transform: scale(1);
+            }
+
+
+            input[type="checkbox"]:disabled {
+                --form-control-color: var(--form-control-disabled);
+
+                color: var(--form-control-disabled);
+                cursor: not-allowed;
+            }
+        }
+        .aaSelect {
+            table {
+                border-collapse: separate;
+                border: none;
+                background: none;
+                font-size: 0.8em;
+                text-align: center;
+                padding-right: 1em;
+                padding-left: 1em;
+            }
+            table.aaMenu {
+                td {
+                    border: none;
+                    select {
+                        align-self: center;
+                    }
+                    label {
+                        font-size: large;
+                        font-family: "Modesto Condensed", "Palatino Linotype", serif;
+                        font-weight: bold;
+                    }
+                }
+                tr {
+                    background: transparent;
+                }
+            }
+        }
+        input {
+            color: black;
+            background: rgba(182, 182, 182, 0.461);
+            border: 1px solid rgba(77, 77, 77, 0.5);
+        }
+        input[type="color"] {
+            background: none;
+            box-shadow: none;
+            border: none;
+        }
+
+        select {
+            background-color: rgba(160, 160, 160);
+            text-align: center;
+            font-weight: normal;
+            font-family: "Signika", sans-serif;
+            font-size: 14px;
+            color: black;
+            min-height: 1.5em;
+            width: 10em;
+            border-radius: 7px;
+        }
     }
 }
 
-#AA-item-settings-New, #AA-ae-settings-New{
+#AA-item-settings, #AA-ae-settings{
     --tjs-summary-margin: 0 0 0 1%;
 
     summary {
@@ -231,7 +247,7 @@
         }
         tr td:first-child {
            width: 18%
-        } 
+        }
     }
 
     .window-content {
@@ -304,7 +320,7 @@
         background-color: var(--form-background);
         /* Not removed via appearance */
         margin: 0;
-      
+
         font: inherit;
         color: currentColor;
         width: 1.5em;
@@ -312,7 +328,7 @@
         border: 0.15em solid currentColor;
         border-radius: 50%;
         transform: translateY(-0.075em);
-      
+
         display: grid;
         place-content: center;
       }
@@ -328,15 +344,15 @@
         /* Windows High Contrast Mode */
         background-color: CanvasText;
       }
-      
+
       input[type="checkbox"]:checked::before {
         transform: scale(1);
       }
-      
-      
+
+
       input[type="checkbox"]:disabled {
         --form-control-color: var(--form-control-disabled);
-      
+
         color: var(--form-control-disabled);
         cursor: not-allowed;
       }
@@ -344,12 +360,12 @@
 
 .aa-red {
     color: red;
-    transition: "color" 0.5s;
+    transition: color 0.5s;
 }
 
 .aa-green {
     color: green;
-    transition: "color" 0.5s;
+    transition: color 0.5s;
 }
 
 .aa-blue {

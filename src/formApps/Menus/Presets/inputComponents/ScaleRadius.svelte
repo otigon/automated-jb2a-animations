@@ -1,5 +1,9 @@
 <script>
-    export let animation;
+    import { getContext }   from "svelte";
+
+    //export let animation;
+    let { animation } = getContext('animation-data');
+
     export let section;
     export let field;
     export let isDisabled = "";
@@ -23,9 +27,9 @@
 
 <div class="{isDisabled}">
     <div>
-        <label for="" class="aaLabelBorder {!isRadius ? "aaIsSelected" : "aaNotSelected"}" on:click={() => switchScale()}>{scaleLabel}</label>
+        <label for="" class="aaLabelBorder {!isRadius ? "aaIsSelected" : "aaNotSelected"}" on:click={() => switchScale()} role=presentation>{scaleLabel}</label>
         <label for=""> &nbsp|&nbsp </label>
-        <label for="" class="aaLabelBorder {isRadius ? "aaIsSelected" : "aaNotSelected"}" on:click={() => switchRadius()}>{radiusLabel}</label>
+        <label for="" class="aaLabelBorder {isRadius ? "aaIsSelected" : "aaNotSelected"}" on:click={() => switchRadius()} role=presentation>{radiusLabel}</label>
     </div>
     <div>
         <input

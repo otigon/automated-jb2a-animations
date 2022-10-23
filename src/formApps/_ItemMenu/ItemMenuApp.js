@@ -14,7 +14,7 @@ export default class ItemMenuApp extends SvelteApplication {
     {
         super({
             title: `A-A Item Menu`,
-            id: `AA-item-settings-New`,
+            id: `AA-item-settings`,
             zIndex: 102,
             svelte: {
                 class: ItemAppShell,

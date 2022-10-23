@@ -1,9 +1,12 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }   from "svelte";
     import AutoCompleteMacro from "./AutoCompleteMacro.svelte";
 
-    export let animation;
-    export let category;
+    //export let animation;
+    //export let category;
+
+    let { animation, category } = getContext('animation-data');
 
     function removeMetaData() {
        delete $animation.metaData

@@ -17,7 +17,7 @@
 <header>
     <ul>
     {#each autoRecStores.categories as category}
-        <li class:active={$selected === category} on:click={() => $selected = category}>
+        <li class:active={$selected === category} on:click={() => $selected = category} role=presentation>
             <i class={category.icon} />{category.label}
         </li>
         <span />
@@ -28,7 +28,7 @@
 <CategoryControl category={$selected} />
 <CategoryList category={$selected} />
 
-<footer class="aa-AutorecManager" on:click={() => MenuManager.show()}>
+<footer class="aa-AutorecManager" on:click={() => MenuManager.show()} role=presentation>
   <ul >
     {bottomLabel}
     </ul>
@@ -59,6 +59,7 @@
         margin: auto;
 
         color: rgb(50, 50, 50);
+        cursor: pointer;
 
         font-family: "Modesto Condensed", "Palatino Linotype", serif;
         font-size: 1.1em;
@@ -87,12 +88,13 @@
     bottom: 0;
     flex: none;
     padding: 0.5em 0.5em;
+    cursor: pointer;
 
     background: rgb(159, 160, 160);
     transition: background .5s;
     border-top: 1px solid rgb(100, 100, 100);
 
-    height: fit-content;
+    height: 40px;
     width: 100%;
 
     font-size: 1em;

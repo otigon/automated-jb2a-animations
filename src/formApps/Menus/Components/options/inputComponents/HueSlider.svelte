@@ -1,5 +1,6 @@
 <script>
-    export let animation;
+    import { getContext }   from "svelte";
+    let { animation } = getContext('animation-data');
 
     export let label = "Change Hue";
 

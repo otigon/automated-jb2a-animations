@@ -1,10 +1,13 @@
 <script>
+    import { getContext }   from "svelte";
 
-    export let animation;
-    export let category;
-    export let idx;
+    //export let animation;
+    //export let category;
+    //export let idx;
     export let section;
     export let section02;
+
+    let { animation, category, idx } = getContext('animation-data');
 
     $: isCustom = $animation[section][section02].enableCustom;
 
@@ -38,15 +41,17 @@
         </td>
         <td style="width: 4em;border: none" class={isCustom ? "" : "aa-disableOpacity"}>
             <i class="fas fa-file-import"
-            title="File Picker"
-            style="font-size:1.5em"
-            on:click|preventDefault={() => category.selectCustom(section, section02, idx)}
+               title="File Picker"
+               style="font-size:1.5em"
+               on:click|preventDefault={() => category.selectCustom(section, section02, idx)}
+               role=presentation
             />
             <i class="fas fa-database"
-            title="Sequencer Database Viewer"
-            style="font-size:1.5em;margin-left: 5px"
-            on:click|preventDefault={() => category.openSequencerViewer()}
-            />    
+               title="Sequencer Database Viewer"
+               style="font-size:1.5em;margin-left: 5px"
+               on:click|preventDefault={() => category.openSequencerViewer()}
+               role=presentation
+            />
         </td>
     </tr>
 </table>

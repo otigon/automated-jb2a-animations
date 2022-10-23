@@ -8,13 +8,15 @@ export class DataSanitizer {
         if (!flagData) { return; }
         let menu = flagData.menu;
         menu = menu === "aefx" ? flagData.activeEffectType : menu;
-        const data = {
-            primary: menu === "preset" ? await this.compilePreset(flagData) : await this.compilePrimary(flagData, menu, handler),
-            secondary: flagData.secondary ? await this.compileSecondary(flagData, handler) : false,
-            sourceFX: await this.compileSource(handler, flagData),
-            targetFX: flagData.target ? await this.compileTarget(flagData) : false,
-            macro: await this.compileMacro(handler, flagData)
-        }
+        const data = {};
+
+        //const data = {
+            data.primary = menu === "preset" ? await this.compilePreset(flagData) : await this.compilePrimary(flagData, menu, handler),
+            data.secondary = flagData.secondary ? await this.compileSecondary(flagData, handler) : false,
+            data.sourceFX = await this.compileSource(handler, flagData, data.primary),
+            data.targetFX = flagData.target ? await this.compileTarget(flagData) : false,
+            data.macro = await this.compileMacro(handler, flagData)
+        //}
         return data;
     }
 
@@ -154,6 +156,7 @@ export class DataSanitizer {
             case "range":
                 return {
                     animationSource: data.animationSource ?? false,
+                    fakeLocation: handler.fakeSource(),
                     delay: data.delay || 0,
                     elevation: data.elevation ?? 1000,
                     isAbsolute: data.isAbsolute ?? false,
@@ -311,9 +314,8 @@ export class DataSanitizer {
         return data;
     }
 
-    static async compileSource(handler, flagData) {
+    static async compileSource(handler, flagData, primary) {
         const topLevel = flagData || {};
-
         const source = topLevel.source || {};
         const video = source.video || {};
         const options = source.options || {};
@@ -332,6 +334,8 @@ export class DataSanitizer {
                 customPath: video.enableCustom && video.customPath ? video.customPath : false,
             },
             options: {
+                animationSource: primary?.options?.animationSource ?? false,
+                fakeLocation: primary?.options?.fakeLocation,
                 addTokenWidth: options.addTokenWidth ?? false,
                 anchor: this.convertToXY(options.anchor, true),
                 delay: options.delay ?? 0,
@@ -369,7 +373,11 @@ export class DataSanitizer {
         if (data.enable) {
             let sourceEffect = data.sourceSeq.effect()
             sourceEffect.file(sourceFile.file, true)
-            sourceEffect.atLocation(handler.sourceToken)
+            if (data.options.animationSource) {
+                sourceEffect.atLocation({x: data.options.fakeLocation.x, y: data.options.fakeLocation.y})
+            } else {    
+                sourceEffect.atLocation(handler.sourceToken)
+            }
             // TO-DO switch Scale/Radius
             sourceEffect.size(sourceSize, { gridUnits: true })
             sourceEffect.repeats(data.options.repeat, data.options.repeatDelay)

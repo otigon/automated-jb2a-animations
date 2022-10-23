@@ -1,5 +1,7 @@
 <script>
-    export let animation;
+    import { getContext }   from "svelte";
+
+    let { animation } = getContext('animation-data');
     export let section = "primary";
     export let field = "delay";
     export let isDisabled = "";
@@ -23,9 +25,9 @@
 
 <div class="{isDisabled}">
     <div>
-        <label for="" class="aaLabelBorder {!isWait ? "aaIsSelected" : ""}" on:click={() => switchWait()}>{delayLabel}</label>
+        <label for="" class="aaLabelBorder {!isWait ? "aaIsSelected" : ""}" on:click={() => switchWait()} role=presentation>{delayLabel}</label>
         <label for=""> &nbsp|&nbsp </label>
-        <label for="" class="aaLabelBorder {isWait ? "aaIsSelected" : ""}" on:click={() => switchDelay()}>{waitLabel}</label>
+        <label for="" class="aaLabelBorder {isWait ? "aaIsSelected" : ""}" on:click={() => switchDelay()} role=presentation>{waitLabel}</label>
     </div>
     <div>
         <input

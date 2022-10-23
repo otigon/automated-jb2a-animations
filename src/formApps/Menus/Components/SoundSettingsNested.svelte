@@ -1,12 +1,15 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
+    import { getContext }   from "svelte";
 
-    export let animation;
-    export let category;
+    //export let animation;
+    //export let category;
     export let section;
     export let section02;
-    export let idx;
+    //export let idx;
+
+    let { animation, category, idx } = getContext('animation-data');
 
     const folder = {
         styles: {
@@ -39,8 +42,9 @@
                         <i
                             class="fas fa-music aa-blue {isValid ? "" : "aa-disableOpacity"}"
                             style="font-size: 1.5em;"
-                            title="Play Sound"        
+                            title="Play Sound"
                             on:click={() => category.playSound(animation._data[section][section02].sound)}
+                            role=presentation
                         />
                 </div>
                 <div style="grid-row: 1/2; grid-column: 2/3">
@@ -51,10 +55,11 @@
                     />
                 </div>
                 <div style="grid-row: 1/2; grid-column: 3/4">
-                    <i class="fas fa-file-import" 
-                    title="File Picker"
-                    style="font-size:1.5em"
-                    on:click|preventDefault={() => category.selectSoundNested(section, section02, idx)}
+                    <i class="fas fa-file-import"
+                       title="File Picker"
+                       style="font-size:1.5em"
+                       on:click|preventDefault={() => category.selectSoundNested(section, section02, idx)}
+                       role=presentation
                     />
                 </div>
             </div>

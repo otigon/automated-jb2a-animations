@@ -8,8 +8,10 @@
     import Opacity          from "./inputComponents/Opacity.svelte";
     import OptionsDialog    from "./optionsInfoDialog.js";
     import WaitDelay        from "./inputComponents/WaitDelay.svelte";
+    import { getContext }   from "svelte";
 
-    export let animation;
+    //export let animation;
+    let { animation} = getContext('animation-data');
 
     const folder = {
         styles: {

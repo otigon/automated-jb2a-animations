@@ -1,5 +1,6 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }   from "svelte";
 
     import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
 
@@ -10,7 +11,8 @@
     import OptionsDialog    from "../../Components/options/optionsInfoDialog.js";
     import WaitDelay        from "../../Components/options/inputComponents/WaitDelay.svelte";
 
-    export let animation;
+    //export let animation;
+    let { animation } = getContext('animation-data');
 
     const folder = {
         styles: {
@@ -52,12 +54,11 @@
             <tr>
                 <td>
                     <!--Set Elevation of Animation-->
-                    <Elevation {animation} section="primary" />
+                    <Elevation section="primary" />
                 </td>
                 <td>
                     <!--Set Number of times the animation plays-->
                     <NumberInput
-                        {animation}
                         label={localize("autoanimations.menus.repeat")}
                         section={"primary"}
                         field={"repeat"}
@@ -67,7 +68,6 @@
                 <td>
                     <!--Set delay between repeats-->
                     <NumberInput
-                        {animation}
                         label={localize("autoanimations.menus.repeat") +
                             " " +
                             localize("autoanimations.menus.delay")}
@@ -146,12 +146,11 @@
                 </td>
                 <td>
                     <!--Set Animation Opacity-->
-                    <Opacity {animation}/>
+                    <Opacity />
                 </td>
                 <td>
                     <!--Set Z-Index of Animation-->
                     <NumberInput
-                        {animation}
                         label={localize("autoanimations.menus.z-index")}
                         section={"primary"}
                         field={"zIndex"}
@@ -162,7 +161,6 @@
                 <td>
                     <!--Set Scale of Animation. Not rendered if Anim Type is Templates-->
                     <ScaleRadius
-                        {animation}
                         section={"primary"}
                         field={"size"}
                         step="0.01"
@@ -185,7 +183,6 @@
                 </td>
                 <td>
                     <NumberInput
-                    {animation}
                     label={localize("autoanimations.menus.fadeIn")}
                     section="primary"
                     field="fadeIn"
@@ -197,7 +194,6 @@
             <tr>
                 <td>
                     <NumberInput
-                    {animation}
                     label={localize("autoanimations.menus.fadeOut")}
                     section="primary"
                     field="fadeOut"
@@ -225,14 +221,13 @@
             <tr>
                 <td>
                     <NumberInput 
-                    {animation}
                     label={localize("autoanimations.menus.playbackRate")}
                     section="primary"
                     field="playbackRate"
                     />
                 </td>
                 <td>
-                    <WaitDelay {animation} section="primary"/>
+                    <WaitDelay section="primary"/>
                 </td>
                 <td></td>
             </tr>

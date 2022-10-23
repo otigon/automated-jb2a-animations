@@ -1,4 +1,5 @@
 <script>
+   import { getContext }   from "svelte";
 
    import BuildMelee       from "../../../Menus/BuildMenu/BuildMelee.svelte";
    import BuildRange       from "../../../Menus/BuildMenu/BuildRange.svelte";
@@ -7,7 +8,8 @@
    import BuildAura        from "../../../Menus/BuildMenu/BuildAura.svelte";
    import BuildPreset      from "../../../Menus/BuildMenu/BuildPreset.svelte";
 
-   export let animation;
+   //export let animation;
+   let { animation } = getContext('animation-data');
 
    let newContentOptions = {
       melee: {
@@ -37,9 +39,9 @@
 
 </script>
 
-   <div class={!isEnabled || !isCustomized ? "aa-disableOpacity" : ""}>
+   <div class="animation {!isEnabled || !isCustomized ? "aa-disableOpacity" : ""}">
       <div class="sectionBorder">
-         <svelte:component this={menuRoute} {animation} category={animation} fromMenu="item"/>
+         <svelte:component this={menuRoute} fromMenu="item"/>
       </div>
    </div>
 

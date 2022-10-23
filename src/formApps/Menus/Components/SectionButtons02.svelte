@@ -1,12 +1,15 @@
 <script>
     import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }   from "svelte";
 
     import { currentStore } from "./videoPreview/previewStore.js";
 
-    export let animation;
-    export let category;
+    //export let animation;
+    //export let category;
     //export let idx;
     export let type = "autorec";
+
+    let { animation, category } = getContext('animation-data');
 
     $: currentIDX = category.stores.videoIDX;
 
@@ -39,6 +42,7 @@
 <div class="aa-autorec-headerButton02">
     <div style="grid-row:1/2; grid-column:1/2" class="sectionButton">
         <label for="" on:click={() => seePreview()}
+               role=presentation
             >{localize("autoanimations.menus.preview")}
             <i class="fas fa-film fa-lg aa-zoom" /></label
         >

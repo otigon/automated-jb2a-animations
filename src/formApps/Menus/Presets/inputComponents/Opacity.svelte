@@ -1,9 +1,11 @@
 <script>
+    import { getContext }   from "svelte";
 
-    export let animation;
+    //export let animation;
     export let section;
     export let field = "opacity";
     export let label = game.i18n.localize("autoanimations.menus.effect") + " " + game.i18n.localize("autoanimations.menus.opacity")
+    let { animation } = getContext('animation-data');
 
 
 </script>

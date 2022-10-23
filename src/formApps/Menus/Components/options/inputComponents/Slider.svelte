@@ -3,9 +3,10 @@
     // Inclusive Components by Heydon Pickering https://inclusive-components.design/toggle-button/
     // On Designing and Building Toggle Switches by Sara Soueidan https://www.sarasoueidan.com/blog/toggle-switch-design/
     // and this example by Scott O'hara https://codepen.io/scottohara/pen/zLZwNv
+    import { getContext }   from "svelte";
 
     export let label;
-    export let animation;
+    let { animation } = getContext('animation-data');
     export let field;
 
     const uniqueID = Math.floor(Math.random() * 100);

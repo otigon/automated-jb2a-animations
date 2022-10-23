@@ -4,14 +4,16 @@ import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
 export function systemHooks() {
-    Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem) => {
-        const controlledTokens = canvas.tokens.controlled;
-        let token;
-        if (controlledTokens.length > 0) {
-            token = controlledTokens.find(token => token.document.actorId === SwadeTokenOrActor.id);
+    Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem, SwadeAction) => {
+        if (SwadeAction === "damage" || (SwadeAction === "formula" && !SwadeItem.system.damage)) {
+            const controlledTokens = canvas.tokens.controlled;
+            let token;
+            if (controlledTokens.length > 0) {
+                token = controlledTokens.find(token => token.document.actorId === SwadeTokenOrActor.id);
+            }
+            if (token) { SwadeTokenOrActor = token; }
+            runSwade(SwadeTokenOrActor, SwadeItem)
         }
-        if (token) { SwadeTokenOrActor = token; }
-        runSwade(SwadeTokenOrActor, SwadeItem)
     });
     async function get_brsw_data (data) {
         var tokenId = data.getFlag("betterrolls-swade2", "token");
