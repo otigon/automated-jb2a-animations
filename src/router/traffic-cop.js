@@ -97,13 +97,13 @@ export async function trafficCop(handler) {
             animate[animationType](handler, sanitizedData);
             return;
         }
+        // In place specifically for using Warpgate to spawn a Template thru a Macro
         if (sanitizedData?.macro && sanitizedData?.macro?.args?.warpgateTemplate) {
             // Play Macro if it is for using Crosshairs to create a Template
             new Sequence()
                 .macro(sanitizedData.macro.name, handler.workflow, handler, sanitizedData.macro.args)
                 .play()
-            aaTemplateHook = Hooks.once("createMeasuredTemplate", (template) => {
-                //Hooks.callAll("aa.preAnimationStart", sanitizedData, data);
+                aaTemplateHook = Hooks.once("createMeasuredTemplate", (template) => {
                 animate[animationType](handler, sanitizedData, template);
             });
             setTimeout(killHook, 30000)
