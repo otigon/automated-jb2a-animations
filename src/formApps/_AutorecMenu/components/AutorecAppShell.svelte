@@ -16,6 +16,10 @@
     import { gameSettings }     from "../../../gameSettings.js";
     import { aaSessionStorage } from "../../../sessionStorage.js";
 
+    import { AutorecSanitizer } from "../../../aa-classes/autorecSanityCheck.js"
+
+    AutorecSanitizer.checkForDuplicates();
+    
     export let elementRoot;
 
     const { application } = getContext('external');

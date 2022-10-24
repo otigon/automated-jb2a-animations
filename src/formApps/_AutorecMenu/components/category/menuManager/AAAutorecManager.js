@@ -1,12 +1,23 @@
 import { autoRecMigration }                 from "../../../../../mergeScripts/autorec/autoRecMerge";
 import { currentAutorecVersion }            from "../../../../../mergeScripts/autorec/autoRecMerge.js";
-import { custom_warning, custom_error }     from "../../../../../constants/constants";
+import { custom_warning, custom_error, custom_notify }     from "../../../../../constants/constants";
 import { uuidv4 }                           from "@typhonjs-fvtt/runtime/svelte/util";
+import { AutorecSanitizer }                 from "../../../../../aa-classes/autorecSanityCheck";
+import { defaultData }                      from "./defaultIndex";
 
 export class AAAutorecManager
 {
     static async restoreDefault() {
-        Hooks.call("AutomaticAnimations.Clear.Data");
+        let restoredMenu = defaultData();
+
+        await game.settings.set("autoanimations", "aaAutorec", void 0);
+        await game.settings.set("autoanimations", "aaAutorec-aefx", restoredMenu.aefx);
+        await game.settings.set("autoanimations", "aaAutorec-aura", restoredMenu.aura);
+        await game.settings.set("autoanimations", "aaAutorec-melee", restoredMenu.melee);
+        await game.settings.set("autoanimations", "aaAutorec-preset", restoredMenu.preset);
+        await game.settings.set("autoanimations", "aaAutorec-range", restoredMenu.range);
+        await game.settings.set("autoanimations", "aaAutorec-ontoken", restoredMenu.ontoken);
+        await game.settings.set("autoanimations", "aaAutorec-templatefx", restoredMenu.templatefx);    
     }
 
     // Returns the current Global Automatic Recognition Menus with Version
@@ -36,9 +47,9 @@ export class AAAutorecManager
         let addAll = false;
         if (!options) { addAll = true; }
 
-        const metaData = data || {};
+        let metaData = data || {};
 
-        const exportData = {
+        let exportData = {
             melee: await game.settings.get("autoanimations", "aaAutorec-melee"),
             range: await game.settings.get("autoanimations", "aaAutorec-range"),
             ontoken: await game.settings.get("autoanimations", "aaAutorec-ontoken"),
@@ -50,32 +61,39 @@ export class AAAutorecManager
         };
 
         if (exportData.melee.length && (options?.melee || addAll)) {
-            exportData.melee.forEach((a) => a.metaData = metaData);
-            await game.settings.set("autoanimations", "aaAutorec-melee", exportData.melee);
+            let newMelee = setMeta(exportData.melee)
+            await game.settings.set("autoanimations", "aaAutorec-melee", newMelee);
         }
         if (exportData.range.length && (options?.range || addAll)) {
-            exportData.range.forEach((a) => a.metaData = metaData);
-            await game.settings.set("autoanimations", "aaAutorec-range", exportData.range);
+            let newRange = setMeta(exportData.range)
+            await game.settings.set("autoanimations", "aaAutorec-range", newRange);
         }
         if (exportData.ontoken.length && (options?.ontoken || addAll)) {
-            exportData.ontoken.forEach((a) => a.metaData = metaData);
-            await game.settings.set("autoanimations", "aaAutorec-ontoken", exportData.ontoken);
+            let newOnToken = setMeta(exportData.ontoken)
+            await game.settings.set("autoanimations", "aaAutorec-ontoken", newOnToken);
         }
         if (exportData.templatefx.length && (options?.templatefx || addAll)) {
-            exportData.templatefx.forEach((a) => a.metaData = metaData);
-            await game.settings.set("autoanimations", "aaAutorec-templatefx", exportData.templatefx);
+            let newTemplateFx = setMeta(exportData.templatefx)
+            await game.settings.set("autoanimations", "aaAutorec-templatefx", newTemplateFx);
         }
         if (exportData.aura.length && (options?.aura || addAll)) {
-            exportData.aura.forEach((a) => a.metaData = metaData);
-            await game.settings.set("autoanimations", "aaAutorec-aura", exportData.aura);
+            let newAura = setMeta(exportData.aura)
+            await game.settings.set("autoanimations", "aaAutorec-aura", newAura);
         }
         if (exportData.preset.length && (options?.preset || addAll)) {
-            exportData.preset.forEach((a) => a.metaData = metaData);
-            await game.settings.set("autoanimations", "aaAutorec-preset", exportData.preset);
+            let newPreset = setMeta(exportData.preset)
+            await game.settings.set("autoanimations", "aaAutorec-preset", newPreset);
         }
         if (exportData.aefx.length && (options?.aefx || addAll)) {
-            exportData.aefx.forEach((a) => a.metaData = metaData);
-            await game.settings.set("autoanimations", "aaAutorec-aefx", exportData.aefx);
+            let newAefx = setMeta(exportData.aefx)
+            await game.settings.set("autoanimations", "aaAutorec-aefx", newAefx);
+        }
+
+        function setMeta(menu) {
+            let newMenu = foundry.utils.deepClone(menu);
+            newMenu = AutorecSanitizer.newSectionIds(newMenu);
+            newMenu.forEach((a) => a.metaData = metaData);
+            return newMenu;
         }
 
     }
@@ -148,6 +166,7 @@ export class AAAutorecManager
                     currentMenu[mergeList[i]].push(incomingMenu[a])
                 }
             }
+            custom_notify(`${game.i18n.localize(`autoanimations.animTypes.${mergeList[i]}`)} Menu has been successfully merged`);
             game.settings.set('autoanimations', `aaAutorec-${mergeList[i]}`, currentMenu[mergeList[i]])
         }
     }

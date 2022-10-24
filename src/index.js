@@ -43,7 +43,7 @@ import "../styles/newMenuCss.scss";
 import { aaDeletedItems }               from "./deletedItems.js";
 
 import { patreonMerge }                 from "./database/database-merge/patreonMerge.js";
-import { freeMerge }                    from "./database/database-merge/freeMerge.js"
+import { freeMerge }                    from "./database/database-merge/freeMerge.js";
 
 Hooks.once('socketlib.ready', function () {
     setupSocket();
@@ -55,14 +55,7 @@ Hooks.on('AutomaticAnimations.Open.Menu.New',() => showAutorecMenu());
 
 // Resets all Autorec menus
 Hooks.on('AutomaticAnimations.Clear.Data', async () => {
-    await game.settings.set("autoanimations", "aaAutorec", void 0);
-    await game.settings.set("autoanimations", "aaAutorec-aefx", void 0);
-    await game.settings.set("autoanimations", "aaAutorec-aura", void 0);
-    await game.settings.set("autoanimations", "aaAutorec-melee", void 0);
-    await game.settings.set("autoanimations", "aaAutorec-preset", void 0);
-    await game.settings.set("autoanimations", "aaAutorec-range", void 0);
-    await game.settings.set("autoanimations", "aaAutorec-ontoken", void 0);
-    await game.settings.set("autoanimations", "aaAutorec-templatefx", void 0);
+    AAAutorecManager.restoreDefault()
 });
 
 // Places the A-A button on Item sheet header

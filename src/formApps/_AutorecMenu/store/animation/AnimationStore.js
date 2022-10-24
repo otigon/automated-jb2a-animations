@@ -46,7 +46,7 @@ export class AnimationStore extends CategoryStore.EntryStore {
       if (typeof data?.label === 'string') {
          let cntr = 1;
          const baseName = data.label ?? '';
-
+         delete data.metaData;
          do {
             data.label = `${baseName}-${cntr++}`;
          } while (categoryStore.findEntry((entry) => entry.label === data.label) !== void 0);

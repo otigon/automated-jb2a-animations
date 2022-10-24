@@ -1,7 +1,9 @@
+import { currentAutorecVersion }    from "./autoRecMerge";
+
 export class aaAutorec {
     static get defaultConfiguration() {
         const defaultConfig = {
-            version: 5,
+            version: currentAutorecVersion(),
         };
         return defaultConfig;
     }

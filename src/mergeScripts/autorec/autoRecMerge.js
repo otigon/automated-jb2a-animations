@@ -1,4 +1,5 @@
-import * as autorecMerge from "./merges/versionIndex.js";
+import * as autorecMerge    from "./merges/versionIndex.js";
+import { AutorecSanitizer } from "../../aa-classes/autorecSanityCheck.js";
 
 export function currentAutorecVersion() {
     return Object.keys(autoRecMigration.migrations).map(n => Number(n)).reverse()[0];
@@ -54,25 +55,32 @@ export const autoRecMigration = {
             return currentAutorec;
         } else {
             if (options.melee || options.submitAll) {
-                await game.settings.set('autoanimations', 'aaAutorec-melee', currentAutorec.melee)
+                let newMelee = AutorecSanitizer.newSectionIds( currentAutorec.melee )
+                await game.settings.set('autoanimations', 'aaAutorec-melee', newMelee)
             }
             if (options.range || options.submitAll) {
-                await game.settings.set('autoanimations', 'aaAutorec-range', currentAutorec.range)
+                let newRange = AutorecSanitizer.newSectionIds( currentAutorec.range )
+                await game.settings.set('autoanimations', 'aaAutorec-range', newRange)
             }
             if (options.ontoken || options.submitAll) {
-                await game.settings.set('autoanimations', 'aaAutorec-ontoken', currentAutorec.ontoken)
+                let newOnToken = AutorecSanitizer.newSectionIds( currentAutorec.ontoken )
+                await game.settings.set('autoanimations', 'aaAutorec-ontoken', newOnToken)
             }
             if (options.templatefx || options.submitAll) {
-                await game.settings.set('autoanimations', 'aaAutorec-templatefx', currentAutorec.templatefx)
+                let newTemplateFx = AutorecSanitizer.newSectionIds( currentAutorec.templatefx )
+                await game.settings.set('autoanimations', 'aaAutorec-templatefx', newTemplateFx)
             }
             if (options.aura || options.submitAll) {
-                await game.settings.set('autoanimations', 'aaAutorec-aura', currentAutorec.aura)
+                let newAura = AutorecSanitizer.newSectionIds( currentAutorec.aura )
+                await game.settings.set('autoanimations', 'aaAutorec-aura', newAura)
             }
             if (options.preset || options.submitAll) {
-                await game.settings.set('autoanimations', 'aaAutorec-preset', currentAutorec.preset)
+                let newPreset = AutorecSanitizer.newSectionIds( currentAutorec.preset )
+                await game.settings.set('autoanimations', 'aaAutorec-preset', newPreset)
             }
             if (options.aefx || options.submitAll) {
-                await game.settings.set('autoanimations', 'aaAutorec-aefx', currentAutorec.aefx)
+                let newAefx = AutorecSanitizer.newSectionIds( currentAutorec.aefx )
+                await game.settings.set('autoanimations', 'aaAutorec-aefx', newAefx)
             }
             if (Object.keys(this.migrations).map(n => Number(n)).reverse()[0] === 5) {
                 game.settings.set('autoanimations', 'aaAutorec', {version: 5});
