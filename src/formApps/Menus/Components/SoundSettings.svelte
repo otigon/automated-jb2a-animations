@@ -21,6 +21,10 @@
 
     $: isValid =
         $animation[section].sound.file && $animation[section].sound.enable;
+
+    function checkMeta() {
+        delete $animation.metaData
+    }
 </script>
 
 <div class="aa-sound-border">
@@ -31,6 +35,7 @@
                 style="align-self:center"
                 title="Toggle Sound On/Off"
                 bind:checked={$animation[section].sound.enable}
+                on:change={() => checkMeta()}
             />
         </div>
         <div

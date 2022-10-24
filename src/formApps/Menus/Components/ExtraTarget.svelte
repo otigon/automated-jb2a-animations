@@ -22,6 +22,10 @@
             "--tjs-summary-chevron-size": "0.7em",
         },
     };
+    function checkMeta() {
+        delete $animation.metaData
+    }
+
 </script>
 
 <div class="aa-section-border">
@@ -35,6 +39,7 @@
                 style="align-self:center"
                 title="Toggle Target FX On/Off"
                 bind:checked={$animation.target.enable}
+                on:change={() => checkMeta()}
             />
         </div>
         <div class={!$animation.target.enable ? "aa-isDisabled" : ""}>

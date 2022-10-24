@@ -23,6 +23,10 @@
             "--tjs-summary-chevron-size": "0.7em",
         },
     };
+    function checkMeta() {
+        delete $animation.metaData
+    }
+
 </script>
 
 <div class="aa-section-border">
@@ -36,6 +40,7 @@
                 style="align-self:center"
                 title="Toggle Secondary On/Off"
                 bind:checked={$animation.secondary.enable}
+                on:change={() => checkMeta()}
             />
         </div>
         <div class={!$animation.secondary.enable ? "aa-isDisabled" : ""}>

@@ -256,14 +256,15 @@ export class AnimationStore extends ObjectEntryStore {
       Sequencer.DatabaseViewer.show(true)
    }
 
-   async copyFromAutorec(data) {
-      if (!data) {
+   async copyFromAutorec(autorec) {
+      if (!autorec) {
          ui.notifications.info("Automated Animations | There is no Global match found to copy!")
          return;
       }
-      if (!isObject(data)) {
+      if (!isObject(autorec)) {
          ui.notifications.info("Automated Animations | Global Autorec data is not valid")
       }
+      let data = foundry.utils.deepClone(autorec)
       let isCustomized = this._data.isCustomized;
       let isEnabled = this._data.isEnabled;
       let label = this._data.label;
