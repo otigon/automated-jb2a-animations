@@ -57,7 +57,7 @@ function extractItemId(msg) {
 */
 function funkyTest(msg) {
     let findItemId = $(msg.content).find(`[data-item-id]`);
-    let itemId = findItemId?.[0]?.attributes?.['data-item-id']?.value;
+    let itemId = findItemId?.[0]?.attributes?.['data-item-id']?.value || findItemId?.prevObject?.[0]?.attributes?.['data-item-id']?.value;
     if (!itemId) {
         const systemId = game.system.id;
         let flags = msg.flags;
@@ -69,10 +69,10 @@ function funkyTest(msg) {
     }
 
     let findTokenId = $(msg.content).find(`[data-item-id]`);
-    let tokenId = findTokenId?.[0]?.attributes?.['data-token-id']?.value;
+    let tokenId = findTokenId?.[0]?.attributes?.['data-token-id']?.value || findItemId?.prevObject?.[0]?.attributes?.['data-token-id']?.value;
 
     let findActorId = $(msg.content).find(`[data-actor-id]`);
-    let actorId = findActorId?.[0]?.attributes?.['data-token-id']?.value;
+    let actorId = findActorId?.[0]?.attributes?.['data-actor-id']?.value || findItemId?.prevObject?.[0]?.attributes?.['data-actor-id']?.value;
 
     return {itemId, tokenId, actorId}
 }

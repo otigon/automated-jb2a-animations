@@ -103,7 +103,8 @@ export async function trafficCop(handler) {
             new Sequence()
                 .macro(sanitizedData.macro.name, handler.workflow, handler, sanitizedData.macro.args)
                 .play()
-                aaTemplateHook = Hooks.once("createMeasuredTemplate", (template) => {
+                aaTemplateHook = Hooks.once("createMeasuredTemplate", async (template) => {
+                await wait(500)
                 animate[animationType](handler, sanitizedData, template);
             });
             setTimeout(killHook, 30000)
