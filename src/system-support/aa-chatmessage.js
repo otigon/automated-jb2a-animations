@@ -56,8 +56,9 @@ function extractItemId(msg) {
 }
 */
 function funkyTest(msg) {
-    let findItemId = $(msg.content).find(`[data-item-id]`);
-    let itemId = findItemId?.[0]?.attributes?.['data-item-id']?.value || findItemId?.prevObject?.[0]?.attributes?.['data-item-id']?.value;
+    //let findItemId = $(msg.content).find(`[data-item-id]`);
+    let filterItemId = $(msg.content).filter(`[data-item-id]`);
+    let itemId = filterItemId?.[0]?.attributes?.['data-item-id']?.value || filterItemId?.prevObject?.[0]?.attributes?.['data-item-id']?.value;
     if (!itemId) {
         const systemId = game.system.id;
         let flags = msg.flags;
@@ -68,11 +69,11 @@ function funkyTest(msg) {
                 msg.rolls?.[0]?.options?.itemId
     }
 
-    let findTokenId = $(msg.content).find(`[data-item-id]`);
-    let tokenId = findTokenId?.[0]?.attributes?.['data-token-id']?.value || findItemId?.prevObject?.[0]?.attributes?.['data-token-id']?.value;
+    let filterTokenId = $(msg.content).filter(`[data-token-id]`);
+    let tokenId = filterTokenId?.[0]?.attributes?.['data-token-id']?.value || filterTokenId?.prevObject?.[0]?.attributes?.['data-token-id']?.value;
 
-    let findActorId = $(msg.content).find(`[data-actor-id]`);
-    let actorId = findActorId?.[0]?.attributes?.['data-actor-id']?.value || findItemId?.prevObject?.[0]?.attributes?.['data-actor-id']?.value;
+    let filterActorId = $(msg.content).filter(`[data-actor-id]`);
+    let actorId = filterActorId?.[0]?.attributes?.['data-actor-id']?.value || filterActorId?.prevObject?.[0]?.attributes?.['data-actor-id']?.value;
 
     return {itemId, tokenId, actorId}
 }
