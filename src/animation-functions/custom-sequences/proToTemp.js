@@ -8,6 +8,7 @@ export async function proToTemp(handler, animationData, templateDocument) {
     const sourceFX = animationData.sourceFX;
     const secondary = animationData.secondary;
     const targetFX = animationData.targetFX;
+    const macro = animationData.macro;
 
     const template = handler.templateData ? handler.templateData : templateDocument//canvas.templates.placeables[canvas.templates.placeables.length - 1];
     const sourceToken = handler.sourceToken;
@@ -18,12 +19,13 @@ export async function proToTemp(handler, animationData, templateDocument) {
             canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.id])
         })
     }
+    
     // Play Macro if Awaiting
-    if (data.playMacro && data.macro.playWhen === "1") {
-        handler.templateData = config;
-        let userData = data.macro.args;
-        aaSeq.macro(data.macro.name, handler.workflow, handler, userData)
+    if (macro && macro.playWhen === "1" && !macro?.args?.warpgateTemplate) {
+        let userData = macro.args;
+        aaSeq.macro(macro.name, handler.workflow, handler, userData)
     }
+
     // Source Effect if active
     if (sourceFX.enabled) {
         aaSeq.addSequence(sourceFX.sourceSeq)
@@ -123,13 +125,13 @@ export async function proToTemp(handler, animationData, templateDocument) {
         }
     }
 
-    if (data.playMacro && data.macro.playWhen === "0") {
-        handler.templateData = config;
-        let userData = data.macro.args;
+    if (macro && macro.playWhen === "0" && !macro?.args?.warpgateTemplate) {
+        let userData = macro.args;
         new Sequence()
-            .macro(data.macro.name, handler.workflow, handler, userData)
+            .macro(macro.name, handler.workflow, handler, userData)
             .play()
     }
+
     if (data.afterImage.enable && data.afterImage.options.persistent) { howToDelete("sequencerground") }
     aaSeq.play()
 }

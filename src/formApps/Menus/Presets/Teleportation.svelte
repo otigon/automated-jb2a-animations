@@ -8,6 +8,8 @@
     import Elevation        from "./inputComponents/Elevation.svelte";
     import OptionsDialog    from "../Components/options/optionsInfoDialog.js";
     import ScaleRadius      from "./inputComponents/ScaleRadius.svelte";
+    import SoundSettings    from "../Components/SoundSettings.svelte";
+
 
     //export let animation;
     //export let category;
@@ -242,6 +244,7 @@
         </tr>
     </table>
 </div>
+<SoundSettings section="data" />
 <div class="aa-section-border">
     <TJSSvgFolder folder={startFolder}>
         <div slot="summary-end">

@@ -11,6 +11,18 @@
 
     let { animation, category, idx } = getContext('animation-data');
 
+    // If the Sound object was not set, set it now
+    if (!$animation[section][section02].sound) {
+        $animation[section][section02].sound = {
+            enable: false,
+            delay: 0,
+            file: "",
+            repeat: 1,
+            repeatDelay: 250,
+            startTime: 0,
+            volume: 0.75
+        }
+    }
     const folder = {
         styles: {
             "--tjs-summary-font-family":

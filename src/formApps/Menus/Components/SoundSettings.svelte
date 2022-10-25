@@ -19,6 +19,19 @@
         },
     };
 
+    // If the Sound object was not set, set it now
+    if (!$animation[section].sound) {
+        $animation[section].sound = {
+            enable: false,
+            delay: 0,
+            file: "",
+            repeat: 1,
+            repeatDelay: 250,
+            startTime: 0,
+            volume: 0.75
+        }
+    }
+
     $: isValid =
         $animation[section].sound.file && $animation[section].sound.enable;
 

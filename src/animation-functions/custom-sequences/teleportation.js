@@ -4,6 +4,7 @@ export async function teleportation(handler, animationData) {
 
     const sourceToken = handler.sourceToken;
     const data = animationData.primary;
+    const macro = animationData.macro;
     //const sourceFX = animationData.sourceFX;
 
 
@@ -74,18 +75,21 @@ export async function teleportation(handler, animationData) {
         Sequencer.EffectManager.endEffects({ name: "teleportation" })
 
         let aaSeq = new Sequence();
-        if (data.playMacro && data.macro.playWhen === "1") {
-            let userData = data.macro.args;
-            aaSeq.macro(data.macro.name, handler.workflow, handler, userData)
+
+        // Play Macro if Awaiting
+        if (macro && macro.playWhen === "1" && !macro?.args?.warpgateTemplate) {
+            let userData = macro.args;
+            aaSeq.macro(macro.name, handler.workflow, handler, userData)
         }
 
         let startX = sourceToken.center?.x;
         let startY = sourceToken.center?.y;
+
+        if (data.sound) {
+            aaSeq.addSequence(data.sound)
+        }
         // Start Animation
         if (data.start) {
-            if (data.sound) {
-                aaSeq.addSequence(data.sound)
-            }
             let startEffect = aaSeq.effect()
             startEffect.file(startFile.file)
             startEffect.atLocation({x: startX, y: startY})
@@ -163,12 +167,13 @@ export async function teleportation(handler, animationData) {
         }
 
         // Macro if Concurrent
-        if (data.playMacro && data.macro.playWhen === "0") {
-            let userData = data.macro.args;
+        if (macro && macro.playWhen === "0" && !macro?.args?.warpgateTemplate) {
+            let userData = macro.args;
             new Sequence()
-                .macro(data.macro.name, handler.workflow, handler, userData)
+                .macro(macro.name, handler.workflow, handler, userData)
                 .play()
         }
+
         aaSeq.play()
     };
 }

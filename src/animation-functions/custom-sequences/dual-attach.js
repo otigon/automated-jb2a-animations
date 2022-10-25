@@ -4,6 +4,7 @@ export async function dualattach(handler, animationData) {
 
     const data = animationData.primary;
     const sourceFX = animationData.sourceFX;
+    const macro = animationData.macro;
 
     const animFile = await buildFile(false, data.video.menuType, data.video.animation, "range", data.video.variant, data.video.color, data.video.customPath)
 
@@ -16,9 +17,9 @@ export async function dualattach(handler, animationData) {
 
         let aaSeq = new Sequence();
         // Play Macro if Awaiting
-        if (data.playMacro && data.macro.playWhen === "1") {
-            let userData = data.macro.args;
-            aaSeq.macro(data.macro.name, handler.workflow, handler, userData)
+        if (macro && macro.playWhen === "1" && !macro?.args?.warpgateTemplate) {
+            let userData = macro.args;
+            aaSeq.macro(macro.name, handler.workflow, handler, userData)
         }
         // Extra Effects => Source Token if active
         if (sourceFX.enabled) {
@@ -44,10 +45,11 @@ export async function dualattach(handler, animationData) {
                 .elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
             }
         }
-        if (data.playMacro && data.macro.playWhen === "0") {
-            let userData = data.macro.args;
+        // Macro if Concurrent
+        if (macro && macro.playWhen === "0" && !macro?.args?.warpgateTemplate) {
+            let userData = macro.args;
             new Sequence()
-                .macro(data.macro.name, handler.workflow, handler, userData)
+                .macro(macro.name, handler.workflow, handler, userData)
                 .play()
         }
         aaSeq.play()
