@@ -1,5 +1,6 @@
 import { createActiveEffects, deleteActiveEffects, checkConcentration, toggleActiveEffects } from "./handleActiveEffects.js";
 import { createRuleElementPF2e, deleteRuleElementPF2e } from "./pf2e/handlePF2eRuleElements.js";
+import AAHandler from "../system-handlers/workflow-data.js";
 import { debug } from "../constants/constants.js";
 
 export function registerActiveEffectHooks() {
@@ -45,7 +46,7 @@ export function registerActiveEffectHooks() {
                             token,
                             targets: game.user.targets
                         }
-                        const handler = await systemData.make(sfrpgData)
+                        const handler = await AAHandler.make(sfrpgData)
                         trafficCop(handler);
                     }
                 })

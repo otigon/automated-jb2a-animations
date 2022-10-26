@@ -81,6 +81,25 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
 
 });
 
+/**
+ * WORK IN PROGRESS - NOT READY FOR WIDE USE
+ * Required
+ * @param {Object} token // The token using the Item
+ * @param {Object} item // The Item being used
+ * 
+ * Optional
+ * @param {Object} options // Options to pass thru to Automated Animations include:
+ * Options List
+ * @param {Array/Set} targets // Array or Set of user Targets. Otherwise this will default to game.user.targets
+ * @param {Array/Set} hitTargets // Array or Set of user Targets. Otherise this defaults to game.user.targets
+ * @param {Boolean} playOnMiss // If True, targets not in the "Hit Targets" list will have the animation "miss" the token
+ * @param {Objects} templateData // If the item includes a template placed on the canvas, pass that object thru options
+ *  
+ */
+Hooks.on("aa.workflow", async (token, item, options) => {
+    playAnimation(token, item, options)
+})
+
 // Places the A-A button on Active Effect sheet header
 Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
     if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {

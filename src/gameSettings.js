@@ -615,7 +615,28 @@ class AAGameSettings extends TJSGameSettings
                   config: true,
                }
             });
-            break;      
+            break;
+            /* Considering options for changing 5e options on "How To Play" Animations
+         default:
+            settings.push({
+               namespace,
+               key: 'howToPlay',
+               folder: game.system.title || game.system.name,
+               options: {
+                  name: 'When to play Animations',
+                  hint: 'Tell Automated Animations when you would like animations to play',
+                  scope: scope.world,
+                  type: String,
+                  choices: {
+                     onUse: 'On Item Use',
+                     attack: 'On Attacks',
+                     damage: 'On Damage, if Present',
+                  },
+                  default: 'onUse',
+                  config: true
+               }
+            });
+            */
       }
 
 
