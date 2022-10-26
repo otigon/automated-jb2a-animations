@@ -25,7 +25,8 @@ export async function dualattach(handler, animationData) {
         if (sourceFX.enabled) {
             aaSeq.addSequence(sourceFX.sourceSeq)
         }
-        if (data.playSound) {
+        // Primary Sound
+        if (data.sound) {
             aaSeq.addSequence(data.sound)
         }
         // Animation Start Hook
