@@ -111,10 +111,10 @@ function getTokenFromScene(id) {
     return canvas.scene.tokens.get(id);
 }
 function getTokenFromUuid(uuid) {
-    return fromUuidSync(uuid).object;
+    return fromUuidSync(uuid)?.object;
 }
 function getTokenFromCompiledUuid(id) {
-    return fromUuidSync(`${canvas.scene.uuid}.Token.${id}`).object;
+    return fromUuidSync(`${canvas.scene.uuid}.Token.${id}`)?.object;
 }
 function getTokenFromActor(actor, actorId) {
     let idActor = actor ? actor.id : actorId;

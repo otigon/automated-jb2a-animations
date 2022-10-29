@@ -19,8 +19,8 @@ async function checkChatMessage(msg) {
 
     let compiledData = await getRequiredData({
         itemId: findData.itemId,
-        actorId: findData.actorId || msg.speaker?.actor,
-        tokenId: findData.tokenId || tokenId || msg.speaker?.token,
+        actorId: msg.speaker?.actor || findData.actorId,
+        tokenId:  msg.speaker?.token || findData.tokenId,
         workflow: msg,
     })
 
@@ -35,10 +35,10 @@ async function checkChatMessage(msg) {
 }
 
 function getFireModeOptions(data) {
-    let item = data.item;
+    let item = data.item || {};
     let id = item.id;
     let parent = item.parent;
-    const fireMode = parent.flags?.["cyberpunk-red-core"]?.[`firetype-${id}`]
+    const fireMode = parent?.flags?.["cyberpunk-red-core"]?.[`firetype-${id}`]
     /**
      * Fire Mode types
      * aimed
@@ -53,7 +53,7 @@ function getFireModeOptions(data) {
 }
 
 function checkAmmo(data) {
-    let item = data.item;
+    let item = data.item || {};
     let token = data.token;
     let ammoId = item.system?.magazine?.ammoId;
 
@@ -68,11 +68,11 @@ function funkyTest(msg) {
     let findItemId = $(msg.content).find(`[data-item-id]`);
     let itemId = findItemId?.[0]?.attributes?.['data-item-id']?.value;
 
-    let findTokenId = $(msg.content).find(`[data-item-id]`);
+    let findTokenId = $(msg.content).find(`[data-token-id]`);
     let tokenId = findTokenId?.[0]?.attributes?.['data-token-id']?.value;
 
     let findActorId = $(msg.content).find(`[data-actor-id]`);
-    let actorId = findActorId?.[0]?.attributes?.['data-token-id']?.value;
+    let actorId = findActorId?.[0]?.attributes?.['data-actor-id']?.value;
 
     return {itemId, tokenId, actorId}
 }
