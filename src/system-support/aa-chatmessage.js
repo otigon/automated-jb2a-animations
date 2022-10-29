@@ -20,8 +20,8 @@ async function checkChatMessage(msg) {
     let compiledData = await getRequiredData({
         itemId: findData.itemId,
         item: item,
-        actorId: findData.actorId || msg.speaker?.actor,
-        tokenId: findData.tokenId || msg.speaker?.token,
+        actorId: msg.speaker?.actor || findData.actorId,
+        tokenId: msg.speaker?.token || findData.tokenId,
         workflow: msg,
     })
     const handler = await AAHandler.make(compiledData)
