@@ -4,7 +4,7 @@ export async function db047(path) {
     const prefix = (str) => (strs, ...exprs) => `${BASE}${str}/${strs.reduce((a, c, i) => a + exprs[i - 1] + c)}`
     const lg = prefix('Generic')
 
-    const patreonDB047 = {
+    const freeDB047 = {
         range: {
             weapon: {
                 missile: {
@@ -102,5 +102,5 @@ export async function db047(path) {
             },
         },
     }
-    return patreonDB047;
+    return freeDB047;
 }

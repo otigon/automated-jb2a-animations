@@ -39,5 +39,9 @@ export const patreonMerge = {
             let db050 = await patreon.db050(path);
             foundry.utils.mergeObject(JB2APATREONDB, db050);
         },
+        "0.5.1": async (path) => {
+            let db051 = await patreon.db051(path);
+            foundry.utils.mergeObject(JB2APATREONDB, db051);
+        },
     }
 }

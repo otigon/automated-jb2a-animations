@@ -345,14 +345,19 @@ export async function ontoken(handler, animationData) {
         if (data.options.isMasked) {
             seq.mask(token)
         }
-        seq.fadeIn(250)
-        seq.fadeOut(500)
         seq.zIndex(data.options.zIndex)
         if (!data.options.persistent) {
             seq.atLocation(token)
             seq.repeats(data.options.repeat, data.options.repeatDelay)
+            seq.fadeIn(data.options.fadeIn)
+            seq.fadeOut(data.options.fadeOut)    
         }
         if (data.options.persistent) {
+            seq.fadeIn(data.options.fadeIn)
+            if (data.video.variant === "complete" || data.video.animation === "complete") { }
+            else {
+                seq.fadeOut(data.options.fadeOut)    
+            }
             seq.attachTo(token, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
             seq.persist(true, {persistTokenPrototype: true})
             seq.origin(handler.itemUuid)

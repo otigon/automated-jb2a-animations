@@ -4,7 +4,7 @@ export async function db049(path) {
     const prefix = (str) => (strs, ...exprs) => `${BASE}${str}/${strs.reduce((a, c, i) => a + exprs[i - 1] + c)}`
     const l2 = prefix('2nd_Level')
 
-    const patreonDB049 = {
+    const freeDB049 = {
         static: {
             spell: {
                 divinesmite: {
@@ -15,5 +15,5 @@ export async function db049(path) {
             },
         },
     }
-    return patreonDB049;
+    return freeDB049;
 }

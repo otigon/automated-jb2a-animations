@@ -33,11 +33,17 @@ async function menuOptions(database) {
     /** Build new ANIMATION menu choices ending in Array */
     for (let section of menuSets) {
         newNameMenu[section] = {};
+        let currentNameArray = [];
         Object.keys(jb2a[section]).forEach(
             function (a) {
+                currentNameArray = [];
                 Object.keys(jb2a[section][a]).forEach(function (b) {
+                    currentNameArray.push(b)
+                })
+                currentNameArray.sort((a, b) => a.localeCompare(b))
+                currentNameArray.forEach(function (d) {
                     if (!newNameMenu[section][a]) { newNameMenu[section][a] = [] };
-                    newNameMenu[section][a].push([ b, game.i18n.localize(`autoanimations.animations.${b}`) ])
+                    newNameMenu[section][a].push([ d, game.i18n.localize(`autoanimations.animations.${d}`) ])
                 })
             })
     }
@@ -45,13 +51,19 @@ async function menuOptions(database) {
     /** Build new VARIANT menu choices ending in Array */
     for (let section of menuSets) {
         newVariantMenu[section] = {};
+        let currentVariantArray = [];
         Object.keys(jb2a[section]).forEach(
             function (a) {
                 Object.keys(jb2a[section][a]).forEach(function (b) {
                     if (!newVariantMenu[section][a]) { newVariantMenu[section][a] = {} };
+                    currentVariantArray = [];
                     Object.keys(jb2a[section][a][b]).forEach(function (c) {
-                        if (!newVariantMenu[section][a][b]) { newVariantMenu[section][a][b] = [] }
-                        newVariantMenu[section][a][b].push([ c, game.i18n.localize(`autoanimations.variants.${c}`) ])
+                        currentVariantArray.push(c)
+                    })
+                    currentVariantArray.sort((a, b) => a.localeCompare(b))
+                    currentVariantArray.forEach(function (d) {
+                        if (!newVariantMenu[section][a][b]) { newVariantMenu[section][a][b] = [] };
+                        newVariantMenu[section][a][b].push([d, game.i18n.localize(`autoanimations.variants.${d}`)])
                     })
                 })
             })
@@ -60,17 +72,24 @@ async function menuOptions(database) {
     /** Build new COLOR menu choices ending in Array */
     for (let section of menuSets) {
         newColorMenu[section] = {};
+        let currentColorArray = [];
         Object.keys(jb2a[section]).forEach(
             function (a) {
                 Object.keys(jb2a[section][a]).forEach(function (b) {
                     if (!newColorMenu[section][a]) { newColorMenu[section][a] = {} };
                     Object.keys(jb2a[section][a][b]).forEach(function (c) {
                         if (!newColorMenu[section][a][b]) { newColorMenu[section][a][b] = {} };
+                        currentColorArray = [];
                         Object.keys(jb2a[section][a][b][c]).forEach(function (d) {
+                            currentColorArray.push(d)
+                        })
+                        currentColorArray.sort((a, b) => a.localeCompare(b))
+                        currentColorArray.forEach(function (d) {
                             if (!newColorMenu[section][a][b][c]) { newColorMenu[section][a][b][c] = [] };
                             if (d === "_markers") { return; }
                             newColorMenu[section][a][b][c].push([ d, game.i18n.localize(`autoanimations.colors.${d}`) ])
                         })
+
                     })
                 })
             })
@@ -108,7 +127,7 @@ async function menuOptions(database) {
     */
     //await addRandom(aaColorMenu)
     //await remove_Template(aaTypeMenu)
-    //console.log( {newTypeMenu, newNameMenu, newVariantMenu, newColorMenu} )
+    console.log( {newTypeMenu, newNameMenu, newVariantMenu, newColorMenu} )
 }
 
 export { aaReturnWeapons, newTypeMenu, newNameMenu, newVariantMenu, newColorMenu, aaRangeWeapons }

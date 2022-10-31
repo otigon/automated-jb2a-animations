@@ -5,7 +5,7 @@ export async function db048(path) {
     const l1 = prefix('1st_Level')
     const lg = prefix('Generic')
 
-    const patreonDB048 = {
+    const freeDB048 = {
         templatefx: {
             circle: {
                 water: {
@@ -132,6 +132,6 @@ export async function db048(path) {
             }
         },
     }
-    return patreonDB048;
+    return freeDB048;
 
 }

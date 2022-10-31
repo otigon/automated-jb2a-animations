@@ -50,11 +50,7 @@ export async function templatefx(handler, animationData, templateDocument) {
 
         let trueSize;
         if (templateType === 'rect') {
-            if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3) && templateTypes.includes(handler.item.system?.target?.type)) {
-                trueSize = Math.sqrt(Math.pow(template.distance, 2) - Math.pow((handler.item.system?.target?.value * 2), 2));
-            } else {
-                trueSize = template.width;
-            }
+            trueSize = template.width;
         } else {
             trueSize = template.distance * 2;
         }
@@ -110,11 +106,7 @@ export async function templatefx(handler, animationData, templateDocument) {
         if (templateType === 'circle' || templateType === 'rect') {
             let trueSize;
             if (templateType === 'rect') {
-                if (game.modules.get("dnd5e-helpers")?.active && (game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 2 || game.settings.get("dnd5e-helpers", "gridTemplateScaling") === 3) && templateTypes.includes(handler.item.system?.target?.type)) {
-                    trueSize = Math.sqrt(Math.pow(template.distance, 2) - Math.pow((handler.item.system?.target?.value * 2), 2));
-                } else {
-                    trueSize = Math.sqrt(Math.pow(template.distance, 2)/2)
-                }
+                trueSize = Math.sqrt(Math.pow(template.distance, 2)/2)
             } else {
                 trueSize = template.distance * 2;
             }

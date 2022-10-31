@@ -181,6 +181,23 @@ export async function db048(path) {
                     }
                 }
             },
+            spell: {
+                entangle: {
+                    '02': {
+                        purplepink: [l1`Entangle/EntangleLoop02_01_Dark_PinkPurple_500x500.webm`],
+                        green: [l1`Entangle/EntangleLoop02_02_Regular_Green_500x500.webm`],
+                        darkblue: [l1`Entangle/EntangleLoop02_03_Dark_Blue_500x500.webm`],
+                    },
+                    complete: {
+                        _markers: {
+                            loop: { start: 2125, end: 6250 }
+                        },        
+                        purplepink: [l1`Entangle/Entangle02_01_Dark_PinkPurple_500x500.webm`],
+                        green: [l1`Entangle/Entangle02_02_Regular_Green_500x500.webm`],
+                        darkblue: [l1`Entangle/Entangle02_03_Dark_Blue_500x500.webm`],
+                    }
+                }
+            },
             vines: {
                 complete: {
                     nature: {

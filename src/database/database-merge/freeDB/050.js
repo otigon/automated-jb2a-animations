@@ -4,7 +4,7 @@ export async function db050(path) {
     const prefix = (str) => (strs, ...exprs) => `${BASE}${str}/${strs.reduce((a, c, i) => a + exprs[i - 1] + c)}`
     const lg = prefix('Generic')
 
-    const patreonDB050 = {
+    const freeDB050 = {
         static: {
             plants: {
                 circle: {
@@ -37,5 +37,5 @@ export async function db050(path) {
             },
         },
     }
-    return patreonDB050;
+    return freeDB050;
 }

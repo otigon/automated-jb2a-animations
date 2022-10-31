@@ -161,6 +161,14 @@ export async function db050(path) {
                 },
             },
             spell: {
+                entangle: {
+                    '02': {
+                        darkorange: [l1`Entangle/EntangleLoop02_03_Dark_Orange_500x500.webm`]
+                    },
+                    complete: {
+                        darkorange: [l1`Entangle/Entangle02_03_Dark_Orange_500x500.webm`]
+                    }
+                },
                 whirlwind: {
                     '01': {
                         whiteblue: [l7`Whirlwind/Whirlwind_01_BlueWhite_400x400.webm`],

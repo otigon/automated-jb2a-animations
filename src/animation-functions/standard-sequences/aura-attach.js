@@ -199,7 +199,10 @@ export async function aura(handler, animationData) {
         seq.attachTo(token, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
         seq.opacity(data.options.opacity)
         seq.fadeIn(data.options.fadeIn)
-        seq.fadeOut(data.options.fadeOut)
+        if (data.video.variant === "complete" || data.video.animation === "complete") { }
+        else {
+            seq.fadeOut(data.options.fadeOut)    
+        }
         seq.zIndex(data.options.zIndex)
         /*
         if (data.options.easeIn) {

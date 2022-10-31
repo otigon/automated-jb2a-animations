@@ -148,15 +148,6 @@ export async function db049(path) {
                     }
                 }
             },
-            shrapnel: {
-                grenade: {
-                    '03': {
-                        green: [lg`Explosion/ShrapnelGrenade03_01_Regular_Green_800x800.webm`],
-                        orange: [lg`Explosion/ShrapnelGrenade03_01_Regular_Orange_800x800.webm`],
-                        red: [lg`Explosion/ShrapnelGrenade03_01_Regular_Red_800x800.webm`]
-                    }
-                }
-            },
             spell: {
                 divinesmite: {
                     reverse: {

@@ -39,5 +39,9 @@ export const freeMerge = {
             let db050 = await free.db050(path);
             foundry.utils.mergeObject(JB2AFREEDB, db050);
         },
+        "0.5.1": async (path) => {
+            let db051 = await free.db051(path);
+            foundry.utils.mergeObject(JB2AFREEDB, db051);
+        },
     }
 }

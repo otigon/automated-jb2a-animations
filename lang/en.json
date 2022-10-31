@@ -142,7 +142,8 @@
             "blue02": "Blue 02",
             "blue03": "Blue 03" ,
             "ring02": "Ring 02",
-            "ring03": "Ring 03"
+            "ring03": "Ring 03",
+            "orangered": "Orange Red"
         },
         "animations": {
             "coneofcold": "Cone of Cold",
@@ -340,7 +341,10 @@
             "water": "Water",
             "reverse": "Reverse",
             "circle": "Circle",
-            "ring": "Ring"
+            "ring": "Ring",
+            "outburst": "Outburst",
+            "boomerang": "Boomerang",
+            "triboomerang": "Tri Boomerang"
         },
         "variants": {
             "1":"01",
@@ -432,7 +436,8 @@
             "elemental": "Elemental",
             "nature": "Nature",
             "void": "Void",
-            "above": "Above"
+            "above": "Above",
+            "liquid": "Liquid"
         },
         "menuTypes": {
             "creature": "Creature Attack",
