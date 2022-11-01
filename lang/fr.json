@@ -142,7 +142,8 @@
 			"blue02": "Bleu 02",
 			"blue03": "Bleu 03",
 			"ring02": "Anneau 02",
-			"ring03": "Anneau 03"
+			"ring03": "Anneau 03",
+			"orangered": "Rouge orangé"
 		},
 		"animations": {
 			"coneofcold": "Cône de froid",
@@ -341,7 +342,10 @@
 			"many": "Beaucoup",
 			"spike": "Pique",
 			"outro_explode": "Outro exploser",
-			"outro_fade": "Outro disparu"
+			"outro_fade": "Outro disparu",
+			"triboomerang": "Boomerang triple",
+			"outburst": "Explosion",
+			"boomerang": "Boomerang"
 		},
 		"variants": {
 			"1": "01",
@@ -433,7 +437,8 @@
 			"nature": "Nature",
 			"void": "Néant",
 			"stick": "Bâton",
-			"above": "Au-dessus de"
+			"above": "Au-dessus de",
+			"liquid": "Liquide"
 		},
 		"menuTypes": {
 			"creature": "Attaque de créature",
