@@ -38,14 +38,16 @@ export async function trafficCop(handler) {
                 case "dnd4e":
                 case "tormenta20":
                 case "swade":
-                    aaTemplateHook = Hooks.once("createMeasuredTemplate", (template) => {
+                    aaTemplateHook = Hooks.once("createMeasuredTemplate", async (template) => {
                         //Hooks.callAll("aa.preAnimationStart", sanitizedData, data);
+                        await wait(500)
                         handler.templateData = template;
                         playMacro()
                     });
                     setTimeout(killHook, 30000)
                     break;
                 default:
+                    await wait(500)
                     handler.templateData = canvas.templates?.placeables?.[canvas.templates.placeables.length - 1]?.document;
                     playMacro()
                 }    
@@ -119,13 +121,15 @@ export async function trafficCop(handler) {
             case "dnd4e":
             case "tormenta20":
             case "swade":
-                aaTemplateHook = Hooks.once("createMeasuredTemplate", (template) => {
+                aaTemplateHook = Hooks.once("createMeasuredTemplate", async (template) => {
                     //Hooks.callAll("aa.preAnimationStart", sanitizedData, data);
+                    await wait(500)
                     animate[animationType](handler, sanitizedData, template);
                 });
                 setTimeout(killHook, 30000)
                 break;
             default:
+                await wait(500)
                 let template = canvas.templates?.placeables?.[canvas.templates.placeables.length - 1]?.document
                 if (!template) { 
                     debug("No template found for the Template animaiton, existing early")

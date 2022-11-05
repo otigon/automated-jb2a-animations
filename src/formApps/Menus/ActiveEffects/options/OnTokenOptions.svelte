@@ -72,7 +72,7 @@
                             " " +
                             localize("autoanimations.menus.delay")}
                         section={"primary"}
-                        field={"delay"}
+                        field={"repeatDelay"}
                         isDisabled={persistent ? "aa-disableOpacity" : ""}
                     />
                 </td>
