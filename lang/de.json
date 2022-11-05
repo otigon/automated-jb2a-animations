@@ -23,7 +23,7 @@
 			"error": "Ein JB2A-Modul (gratis oder Patreon) wird benötigt, damit die automatischen Animationen funktionieren",
 			"animPreview": "Animationsvorschau",
 			"animPreviewHint": "Videovorschau im A-A Reiter",
-			"autoRecSetting": "Automatische Erkennung konfigurieren",
+			"autoRecSetting": "Menü starten",
 			"toggleAnimations": "Automatisierte Animationen",
 			"toggleAnimations_hint": "Benötigt Neuladen beim Einschalten",
 			"ON": "An",
@@ -41,7 +41,9 @@
 			"critmiss_hint": "Aktiviere diese Option, damit kritische Fehlschlag-Animationen auf dem Ausgangsfigur abgespielt werden können",
 			"critmissAnim_name": "Kritischer-Fehlschlag-Animation",
 			"debugging": "Debugging aktivieren",
-			"teleport": "Du hast einen Punkt außerhalb der Reichweite ausgewählt. Wähle erneut"
+			"teleport": "Du hast einen Punkt außerhalb der Reichweite ausgewählt. Wähle erneut",
+			"decoupleSounds_hint": "Verhindert die Wiederholung von Sounds mit Animationen",
+			"disableAEAnimations": ""
 		},
 		"colors": {
 			"palegreen": "Blassgrün",
