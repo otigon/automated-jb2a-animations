@@ -10,9 +10,9 @@ export function systemHooks() {
 
         let compiledData = await getRequiredData({
             itemId: data.itemId,
-            hitTargets: Array.isArray(data.hitTargets) ? data.hitTargets : Array.from(data.hitTargets),
             token: data.sourceToken,
             targets: Array.isArray(data.targets) ? data.targets : Array.from(data.targets),
+            hitTargets: data.hitTargets ? Array.isArray(data.hitTargets) ? data.hitTargets : Array.from(data.hitTargets) : data.targets ? Array.isArray(data.targets) ? data.targets : Array.from(data.targets) : [],
             workflow: data
         })
         if (!compiledData.item) { return; }
