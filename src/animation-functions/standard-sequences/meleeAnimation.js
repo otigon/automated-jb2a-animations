@@ -258,4 +258,12 @@ export async function melee(handler, animationData) {
             .play()
     }
     aaSeq.play()
+
+    // Macro if Awaiting Animation
+    if (macro && macro.playWhen === "3") {
+        let userData = macro.args;
+        new Sequence()
+            .macro(macro.name, handler.workflow, handler, userData)
+            .play()
+    } 
 }

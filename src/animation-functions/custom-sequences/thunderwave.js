@@ -62,6 +62,15 @@ export async function thunderwave(handler, animationData, config) {
         canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.id])
     }
     aaSeq.play()
+
+    // Macro if Awaiting Animation
+    if (macro && macro.playWhen === "3") {
+        let userData = macro.args;
+        new Sequence()
+            .macro(macro.name, handler.workflow, handler, userData)
+            .play()
+    }
+    
     await wait(500)
     Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
 

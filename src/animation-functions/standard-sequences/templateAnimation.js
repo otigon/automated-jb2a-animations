@@ -192,6 +192,14 @@ export async function templatefx(handler, animationData, templateDocument) {
 
     aaSeq.play()
 
+    // Macro if Awaiting Animation
+    if (macro && macro.playWhen === "3") {
+        let userData = macro.args;
+        new Sequence()
+            .macro(macro.name, handler.workflow, handler, userData)
+            .play()
+    }
+    
     if (data.options.persistent) {
         switch (data.options.persistType) {
             case "overheadtile":

@@ -24,7 +24,7 @@ export async function teleportation(handler, animationData) {
     const delayFade = data.options.delayFade || 0;
     const delayReturn = data.options.delayReturn || 0;
 
-    let aaSeq01 = new Sequence()
+    let aaSeq01 = await new Sequence()
     aaSeq01.effect()
         .file(filePath)
         .atLocation(sourceToken)
@@ -175,5 +175,14 @@ export async function teleportation(handler, animationData) {
         }
 
         aaSeq.play()
+
+        // Macro if Awaiting Animation
+        if (macro && macro.playWhen === "3") {
+            let userData = macro.args;
+            new Sequence()
+                .macro(macro.name, handler.workflow, handler, userData)
+                .play()
+        }
+
     };
 }

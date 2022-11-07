@@ -34,6 +34,9 @@
                 <option value="2"
                     >{localize("autoanimations.menus.macroonly")}</option
                 >
+                <option value="3"
+                >{localize("autoanimations.menus.await")} {localize("autoanimations.menus.animation")}</option
+                >
             </select>
         </div>
     </div>

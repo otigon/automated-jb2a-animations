@@ -166,6 +166,15 @@ export async function range(handler, animationData) {
     }
     aaSeq.play()
     await wait(handler.animEnd)
+
+    // Macro if Awaiting Animation
+    if (macro && macro.playWhen === "3") {
+        let userData = macro.args;
+        new Sequence()
+            .macro(macro.name, handler.workflow, handler, userData)
+            .play()
+    }
+
     // Animation End Hook
     Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
 }

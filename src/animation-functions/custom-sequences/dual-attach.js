@@ -15,7 +15,7 @@ export async function dualattach(handler, animationData) {
 
     async function cast() {
 
-        let aaSeq = new Sequence();
+        let aaSeq = await new Sequence();
         // Play Macro if Awaiting
         if (macro && macro.playWhen === "1" && !macro?.args?.warpgateTemplate) {
             let userData = macro.args;
@@ -54,6 +54,15 @@ export async function dualattach(handler, animationData) {
                 .play()
         }
         aaSeq.play()
+
+        // Macro if Awaiting Animation
+        if (macro && macro.playWhen === "3") {
+            let userData = macro.args;
+            new Sequence()
+                .macro(macro.name, handler.workflow, handler, userData)
+                .play()
+        }
+
         //Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
     }
     cast()

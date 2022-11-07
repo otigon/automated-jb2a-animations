@@ -633,7 +633,8 @@
             "anchor": "Anchor",
             "insertMacro": "Insert Macro Name",
             "damage": "damage",
-            "randomOffset": "Random Offset"
+            "randomOffset": "Random Offset",
+            "await": "Await"
         },
         "optionsInfo": {
 

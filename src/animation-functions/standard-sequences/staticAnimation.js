@@ -395,6 +395,15 @@ export async function ontoken(handler, animationData) {
             .play()
     }
     aaSeq.play()
+
+    // Macro if Awaiting Animation
+    if (macro && macro.playWhen === "3") {
+        let userData = macro.args;
+        new Sequence()
+            .macro(macro.name, handler.workflow, handler, userData)
+            .play()
+    }
+    
     Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
     if (data.options.persistent) { howToDelete("sequencerground") }
 }
