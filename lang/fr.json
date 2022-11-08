@@ -635,7 +635,8 @@
 			"movement": "Déplacement",
 			"tint": "Teinte",
 			"fadeOut": "Fondu au noir",
-			"randomOffset": "Décalage aléatoire"
+			"randomOffset": "Décalage aléatoire",
+			"await": "Attendez"
 		},
 		"app": {
 			"aaAutorec-range": {
