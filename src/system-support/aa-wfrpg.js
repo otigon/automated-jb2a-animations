@@ -1,5 +1,6 @@
 import { trafficCop }       from "../router/traffic-cop.js"
 import AAHandler            from "../system-handlers/workflow-data.js";
+import { debug }            from "../constants/constants.js";
 import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
@@ -63,6 +64,13 @@ export function systemHooks() {
         })
         runWarhammer(compiledData)
     });
+    
+    Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
+        if (userId !== game.user.id || !AnimationState.enabled) { return };
+        if(!template.flags?.wfrp4e?.item || !template.flags?.wfrp4e?.actor) { return; } 
+        const uuid = `Actor.${template.flags.wfrp4e.actor}.Item.${template.flags.wfrp4e.item}`
+        templateAnimation(await getRequiredData({itemUuid: uuid, templateData: template, workflow: template, isTemplate: true}))
+    })  
 }
 
 async function runWarhammer(data) {
@@ -76,6 +84,18 @@ function compileTargets(targets) {
     if (!targets) { return []; }
     return Array.from(targets).map(token => canvas.tokens.get(token.token));
 }
+
+async function templateAnimation(input) {
+    debug("Template placed, checking for animations")
+    if (!input.item) { 
+        debug("No Item could be found")
+        return;
+    }
+    const handler = await AAHandler.make(input)
+    if (!handler) { return; }
+    trafficCop(handler)
+}
+
 
 /*
 async function wfrpWeapon(data, info) {
