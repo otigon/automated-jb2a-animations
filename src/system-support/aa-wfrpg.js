@@ -67,10 +67,10 @@ export function systemHooks() {
     
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
         if (userId !== game.user.id || !AnimationState.enabled) { return };
-        if(!template.flags?.wfrp4e?.item || !template.flags?.wfrp4e?.actor) { return; } 
-        const uuid = `Actor.${template.flags.wfrp4e.actor}.Item.${template.flags.wfrp4e.item}`
+        if (!template.flags?.wfrp4e?.itemuuid) { return; } 
+        const uuid = template.flags.wfrp4e.itemuuid;
         templateAnimation(await getRequiredData({itemUuid: uuid, templateData: template, workflow: template, isTemplate: true}))
-    })  
+    });
 }
 
 async function runWarhammer(data) {
