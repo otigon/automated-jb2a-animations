@@ -133,6 +133,7 @@ export class AnimationStore extends CategoryStore.EntryStore {
       } else {
          console.log(this._data.metaData);
          ui.notifications.info("Automated Animations | MetaData logged to Dev Console");
+         Hooks.callAll("AutomatedAnimations.metaData", this._data.metaData)
       }
   }
 }
