@@ -43,7 +43,15 @@
 			"debugging": "Debugging aktivieren",
 			"teleport": "Du hast einen Punkt außerhalb der Reichweite ausgewählt. Wähle erneut",
 			"decoupleSounds_hint": "Verhindert die Wiederholung von Sounds mit Animationen",
-			"disableAEAnimations": ""
+			"disableAEAnimations": "Aktive Effekt-Animationen deaktivieren",
+			"s3Name": "JB2A Standort der Anlage",
+			"noTips": "Tipps zum Deaktivieren von Dauereffekten",
+			"noTipsHint": "Deaktiviert den Tooltip für das Löschen von dauerhaften Effekten",
+			"recovery_name": "Wiederherstellungsrollen",
+			"decoupleSounds": "Geräusche entkoppeln",
+			"disableNested": "Verschachtelte Animationen deaktivieren",
+			"disableNestedHint": "Verhindert Animationen für Bedingungen (Regelsätze), die von anderen Bedingungen erstellt wurden",
+			"disableAEAnimationsHint": "Alle Animationen für aktive Effekte deaktivieren"
 		},
 		"colors": {
 			"palegreen": "Blassgrün",
