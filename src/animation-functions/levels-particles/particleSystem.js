@@ -1,30 +1,32 @@
 import { DataSanitizer } from "../../aa-classes/DataSanitizer.js";
 
 export async function particleEffects(handler, animationData = {}) {
-
     //const options3d = autoObject ? autoObject.levels3d || {} : handler.flags?.levels3d || {};
-
-    if (!options3d.type) { return; }
+    
+    const data = await DataSanitizer.compileParticleData(animationData)
+    const secondary = data.secondary;
+    if (!data) { return; }
     const sourceToken = handler.sourceToken;
     //const target = handler.allTargets[0];
     const targets = handler.allTargets;
 
-    const data = await DataSanitizer.compileParticleData(animationData)
     
     /**
      * This checks the "Primary Animation" sounds, and if present
      * will play that sound alongside the 3D Particle Animation
      */
-    if (animationData.primary?.playSound) {
-        let soundSeq = await new Sequence("Automated Animations");
-        const primary = animationData.primary;
+    if (data.sound) {
+        //let soundSeq = await new Sequence("Automated Animations");
+        const audio = data.sound;
+        /*
         soundSeq.sound()
             .file(primary.itemAudio.file, true)
             .volume(primary.itemAudio.volume)
             .delay(primary.itemAudio.delay)
             .repeats(primary.itemAudio.repeat, data.delay)
             .startTime(primary.itemAudio.startTime)
-        soundSeq.play()
+        */
+        audio.play()
     }
 
 
@@ -45,7 +47,7 @@ export async function particleEffects(handler, animationData = {}) {
 
     class ParticleFunctions {
         static projectile(data, sourceToken, targets) {
-            if (data.explosion.enable) {
+            if (secondary.enable) {
                 new Particle3D(data.type)
                     .from(sourceToken)
                     .to(targets)
@@ -64,16 +66,16 @@ export async function particleEffects(handler, animationData = {}) {
                     .rate(data.rate, 1)
                     .onEnd(
                         new Particle3D("e")
-                            .sprite(data.explosion.sprite)
-                            .speed(data.explosion.speed)
-                            .color(data.explosion.color01, data.explosion.color02)
-                            .scale(data.explosion.scale)
-                            .gravity(data.explosion.gravity)
-                            .life(data.explosion.life)
-                            .rate(data.explosion.rate, 1)
-                            .emitterSize(data.explosion.emittersize)
-                            .alpha(data.explosion.alpha)
-                            .mass(data.explosion.mass)
+                            .sprite(secondary.sprite)
+                            .speed(secondary.speed)
+                            .color(secondary.color01, secondary.color02)
+                            .scale(secondary.scale)
+                            .gravity(secondary.gravity)
+                            .life(secondary.life)
+                            .rate(secondary.rate, 1)
+                            .emitterSize(secondary.emittersize)
+                            .alpha(secondary.alpha)
+                            .mass(secondary.mass)
                     )
                     .start()
             } else {
@@ -98,7 +100,7 @@ export async function particleEffects(handler, animationData = {}) {
         }
 
         static ray(data, sourceToken, targets) {
-            if (data.explosion.enable) {
+            if (secondary.enable) {
                 new Particle3D(data.type)
                     .from(sourceToken)
                     .to(targets)
@@ -117,16 +119,16 @@ export async function particleEffects(handler, animationData = {}) {
                     .rate(data.rate, 1)
                     .onEnd(
                         new Particle3D("e")
-                            .sprite(data.explosion.sprite)
-                            .speed(data.explosion.speed)
-                            .color(data.explosion.color01, data.explosion.color02)
-                            .scale(data.explosion.scale)
-                            .gravity(data.explosion.gravity)
-                            .life(data.explosion.life)
-                            .rate(data.explosion.rate, 1)
-                            .emitterSize(data.explosion.emittersize)
-                            .alpha(data.explosion.alpha)
-                            .mass(data.explosion.mass)
+                            .sprite(secondary.sprite)
+                            .speed(secondary.speed)
+                            .color(secondary.color01, secondary.color02)
+                            .scale(secondary.scale)
+                            .gravity(secondary.gravity)
+                            .life(secondary.life)
+                            .rate(secondary.rate, 1)
+                            .emitterSize(secondary.emittersize)
+                            .alpha(secondary.alpha)
+                            .mass(secondary.mass)
                     )
                     .start()
             } else {
@@ -169,7 +171,7 @@ export async function particleEffects(handler, animationData = {}) {
         }
     
         static sprites(data, sourceToken, targets) {
-            if (data.explosion.enable) {
+            if (secondary.enable) {
                 new Particle3D(data.type)
                     .from(sourceToken)
                     .to(targets)
@@ -182,16 +184,16 @@ export async function particleEffects(handler, animationData = {}) {
                     .alpha(data.alpha)
                     .onEnd(
                         new Particle3D("e")
-                            .sprite(data.explosion.sprite)
-                            .speed(data.explosion.speed)
-                            .color(data.explosion.color01, data.explosion.color02)
-                            .scale(data.explosion.scale)
-                            .gravity(data.explosion.gravity)
-                            .life(data.explosion.life)
-                            .rate(data.explosion.rate, 1)
-                            .emitterSize(data.explosion.emittersize)
-                            .alpha(data.explosion.alpha)
-                            .mass(data.explosion.mass)
+                            .sprite(secondary.sprite)
+                            .speed(secondary.speed)
+                            .color(secondary.color01, secondary.color02)
+                            .scale(secondary.scale)
+                            .gravity(secondary.gravity)
+                            .life(secondary.life)
+                            .rate(secondary.rate, 1)
+                            .emitterSize(secondary.emittersize)
+                            .alpha(secondary.alpha)
+                            .mass(secondary.mass)
                     )
                     .start()
             } else {
@@ -212,7 +214,7 @@ export async function particleEffects(handler, animationData = {}) {
     
     }
 
-    ParticleFunctions[options3d.type](data, sourceToken, targets)
+    ParticleFunctions[data.type](data, sourceToken, targets)
     /*
     function projectileRay() {
 

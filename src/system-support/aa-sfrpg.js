@@ -25,8 +25,9 @@ export function systemHooks() {
         if (item.type === 'feat') { return; }
 
         if (!item.hasAttack && !item.hasDamage) {
-            let data = {}
-            runStarfinder(data, msg)
+            let findData = funkyTest(msg);
+            let compiledData = await getRequiredData({itemId: findData.itemId, tokenId: findData.tokenId, actorId: findData.actorId, workflow: msg})
+            runStarfinder(compiledData)
         }
     });
     Hooks.on("damageRolled", async (data) => {
@@ -52,4 +53,31 @@ async function runStarfinder(data) {
     const handler = await AAHandler.make(data)
     if (!handler) { return; }
     trafficCop(handler);
+}
+
+function funkyTest(msg) {
+    //let findItemId = $(msg.content).find(`[data-item-id]`);
+    let filterItemId = $(msg.content).filter(`[data-item-id]`);
+    let itemId = filterItemId?.[0]?.attributes?.['data-item-id']?.value || filterItemId?.prevObject?.[0]?.attributes?.['data-item-id']?.value;
+    if (!itemId) {
+        const systemId = game.system.id;
+        let flags = msg.flags;
+        itemId = flags.itemId ??
+                flags.ItemId ??
+                flags[systemId]?.itemId ??
+                flags[systemId]?.ItemId ??
+                msg.rolls?.[0]?.options?.itemId
+    }
+
+    let filterTokenId = $(msg.content).filter(`[data-token-id]`);
+    let tokenId = filterTokenId?.[0]?.attributes?.['data-token-id']?.value || filterTokenId?.prevObject?.[0]?.attributes?.['data-token-id']?.value;
+    let splitTokenId = tokenId.split(".");
+    if (splitTokenId.length > 1) {
+        tokenId = splitTokenId[splitTokenId.length - 1]
+    }
+
+    let filterActorId = $(msg.content).filter(`[data-actor-id]`);
+    let actorId = filterActorId?.[0]?.attributes?.['data-actor-id']?.value || filterActorId?.prevObject?.[0]?.attributes?.['data-actor-id']?.value;
+
+    return {itemId, tokenId, actorId}
 }

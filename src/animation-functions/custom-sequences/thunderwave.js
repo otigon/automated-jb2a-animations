@@ -11,7 +11,7 @@ export async function thunderwave(handler, animationData, config) {
 
     const template = config ? config : canvas.templates.placeables[canvas.templates.placeables.length - 1];
     const templateData = config ? config || {} : template.document || {};
-    const trueSize = Math.sqrt(Math.pow(templateData.distance, 2)/2)
+    const trueSize = Math.sqrt(Math.pow(templateData.distance, 2) / 2)
 
     const getPosition = getRelativePosition(sourceToken, templateData)
     const angle = getPosition.angle;
@@ -48,7 +48,7 @@ export async function thunderwave(handler, animationData, config) {
         .rotate(angle)
         .opacity(data.options.opacity)
         .size(3, { gridUnits: true })
-        .elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
+        .elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), { absolute: data.options.isAbsolute })
         .repeats(data.options.repeat, data.options.repeatDelay)
 
     if (macro && macro.playWhen === "0") {
@@ -61,16 +61,15 @@ export async function thunderwave(handler, animationData, config) {
     if (data.options.removeTemplate) {
         canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.id])
     }
-    aaSeq.play()
 
-    // Macro if Awaiting Animation
+    // Macro if Awaiting Animation. This will respect the Delay/Wait options in the Animation chains
     if (macro && macro.playWhen === "3") {
         let userData = macro.args;
-        new Sequence()
-            .macro(macro.name, handler.workflow, handler, userData)
-            .play()
+        aaSeq.macro(macro.name, handler.workflow, handler, userData)
     }
-    
+
+    aaSeq.play()
+
     await wait(500)
     Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
 

@@ -80,7 +80,13 @@ function checkAutorec(data) {
 
 async function checkItem(data) {
     // Send the Item thru the flag migrations if necessary. Returns early if no A-A flags
-    const itemFlags = await flagMigrations.handle(data.item, {activeEffect: data.activeEffect}) || {};
+    //const itemFlags = await flagMigrations.handle(data.item, {activeEffect: data.activeEffect}) || {};
+    let itemFlags;
+    if (data.ammoItem) {
+        itemFlags = await flagMigrations.handle(data.ammoItem, {activeEffect: data.activeEffect}) || {};
+    } else {
+        itemFlags = await flagMigrations.handle(data.item, {activeEffect: data.activeEffect}) || {};
+    }
 
     let isEnabled = itemFlags.isEnabled ?? true;
     // If Item is disabled, return false

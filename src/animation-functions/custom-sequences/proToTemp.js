@@ -133,13 +133,13 @@ export async function proToTemp(handler, animationData, templateDocument) {
     }
 
     if (data.afterImage.enable && data.afterImage.options.persistent) { howToDelete("sequencerground") }
-    aaSeq.play()
 
-    // Macro if Awaiting Animation
+    // Macro if Awaiting Animation. This will respect the Delay/Wait options in the Animation chains
     if (macro && macro.playWhen === "3") {
         let userData = macro.args;
-        new Sequence()
-            .macro(macro.name, handler.workflow, handler, userData)
-            .play()
+        aaSeq.macro(macro.name, handler.workflow, handler, userData)
     }
+    
+    aaSeq.play()
+
 }
