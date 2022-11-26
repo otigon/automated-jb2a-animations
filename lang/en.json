@@ -634,7 +634,8 @@
             "insertMacro": "Insert Macro Name",
             "damage": "damage",
             "randomOffset": "Random Offset",
-            "await": "Await"
+            "await": "Await",
+            "bind": "Bind"
         },
         "optionsInfo": {
 

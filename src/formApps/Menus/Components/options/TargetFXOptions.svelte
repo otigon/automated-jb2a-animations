@@ -96,7 +96,7 @@
                             : 'aa-disableOpacity'}"
                     >
                         <label for="TVis {animation._data.id}"
-                            >{localize("autoanimations.menus.unbind")}
+                            >{localize("autoanimations.menus.bind")}
                             {localize("autoanimations.menus.visibility")}
                         </label>
                         <input
@@ -115,7 +115,7 @@
                             : 'aa-disableOpacity'}"
                     >
                         <label for="TAlpha {animation._data.id}"
-                            >{localize("autoanimations.menus.unbind")}
+                            >{localize("autoanimations.menus.bind")}
                             {localize("autoanimations.menus.alpha")}
                         </label>
                         <input
