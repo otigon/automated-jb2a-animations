@@ -4,6 +4,15 @@ import { AnimationState }   from "../AnimationState.js";
 import { debug }            from "../constants/constants.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
+const PF2E_SIZE_TO_REACH = {
+    tiny: 0,
+    sm: 5,
+    med: 5,
+    lg: 5,
+    huge: 10,
+    grg: 15,
+};
+
 export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => {
         if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
@@ -148,6 +157,17 @@ async function playPF2e(input) {
         debug("No Item could be found")
         return;
     }
+
+    if (input.item.traits) {
+        const reachTrait = input.item.traits.find((t) => /^reach-\d+$/.test(t));
+        let reachValue = reachTrait ? Number(reachTrait.replace("reach-", "")) : PF2E_SIZE_TO_REACH[input.item.actor?.size ?? "med"];
+        if (!reachTrait && input.item.traits.has("reach")) {
+            reachValue += 5;
+        }
+
+        input.reach = Math.round(reachValue / 5) - 1;
+    }
+
     const handler = await AAHandler.make(input)
     if (!handler) { return; }
     trafficCop(handler);
@@ -226,4 +246,3 @@ function checkOutcome(input) {
     }
     return hitTargets;
 }
-
