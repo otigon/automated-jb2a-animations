@@ -46,7 +46,7 @@ export class AutoAnimations
  *  @param {Object} options 
  * 
  *  Options can be:
- *  @param {Array or Set} targets // Array or Set of targeted tokens
+ *  @param {Array or Set or Object} targets // Array or Set of targeted tokens or a single Object
  *  @param {Optional} hitTargets // Array or Set of tokens that are "hit"
  *  @param {Number} reachCheck // Reach for Source Token
  *  @param {Boolean} playOnMiss // Animation should play on Misses
@@ -61,7 +61,14 @@ export async function playAnimation(sourceToken, item, options = {}) {
 
     let targets;
     if (options.targets) {
-        targets = !Array.isArray(options.targets) ? Array.from(options.targets) : options.targets;
+        if (options.targets instanceof Set) {
+            targets = Array.from(options.targets)
+        } else if (options.targets instanceof Array) {
+            targets = options.targets;
+        } else {
+            targets = [options.targets]
+        }
+        //targets = !Array.isArray(options.targets) ? Array.from(options.targets) : options.targets;
     } else {
         targets = Array.from(game.user.targets);
     }

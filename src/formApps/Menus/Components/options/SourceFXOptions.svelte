@@ -164,7 +164,19 @@
                 </td>
             </tr>
             <tr>
-                <td></td>
+                <td>
+                    <!--Set Persistence-->
+                    <div>
+                        <label for="Persist {animation._data.id}"
+                            >{localize("autoanimations.menus.persistant")}
+                            <input
+                                type="checkbox"
+                                id="Persist {animation._data.id}"
+                                bind:checked={$animation.source.options.persistent}
+                            />
+                        </label>
+                    </div>
+                </td>
                 <td>
                     <!--Set Delay for proceeding animation-->
                     <WaitDelay

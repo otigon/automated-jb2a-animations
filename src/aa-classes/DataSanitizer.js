@@ -347,6 +347,7 @@ export class DataSanitizer {
                 isRadius: options.isRadius ?? false,
                 isWait: options.isWait ?? false,
                 opacity: options.opacity || 1,
+                persistent: options.persistent ?? false,
                 playbackRate: options.playbackRate || 1,
                 repeat: options.repeat || 1,
                 repeatDelay: options.repeatDelay || 1,
@@ -375,9 +376,16 @@ export class DataSanitizer {
             sourceEffect.file(sourceFile.file, true)
             if (data.options.animationSource) {
                 sourceEffect.atLocation({x: data.options.fakeLocation.x, y: data.options.fakeLocation.y})
-            } else {    
-                sourceEffect.atLocation(handler.sourceToken)
+            } else {
+                if (data.options.persistent) {
+                    sourceEffect.attachTo(handler.sourceToken)
+                    sourceEffect.persist(true, {persistTokenPrototype: true})
+                    sourceEffect.origin(handler.itemUuid)
+                } else {
+                    sourceEffect.attachTo(handler.sourceToken)
+                }
             }
+            
             // TO-DO switch Scale/Radius
             sourceEffect.size(sourceSize, { gridUnits: true })
             sourceEffect.repeats(data.options.repeat, data.options.repeatDelay)
@@ -388,7 +396,10 @@ export class DataSanitizer {
             }
             sourceEffect.opacity(data.options.opacity)
             sourceEffect.fadeIn(data.options.fadeIn)
-            sourceEffect.fadeOut(data.options.fadeOut)
+            if (data.video.variant === "complete" || data.video.animation === "complete") { }
+            else {
+                sourceEffect.fadeOut(data.options.fadeOut)    
+            }
             if (data.options.isWait) {
                 sourceEffect.waitUntilFinished(data.options.delay)
             } else {
