@@ -1,627 +1,315 @@
 {
-    "autoanimations": {
-        "settings": {
-            "initpopup_name": "Deaktivere das Popup-Startfenster",
-            "initpopup_hint": "Aktiviere dieses Kontrollkästchens um zu verhindern, dass das Popup-Fenster angezeigt wird.",
-            "animtab_name": "Verstecke den Animationsreiter vor den Spielern",
-            "animtab_hint": "Durch Aktivieren dieses Kontrollkästchens wird verhindert, dass der Animationsreiter von Spielern gesehen wird.",
-            "midionhit_name": "Animationen beim Treffen abspielen",
-            "midionhit_hint": "Benötigt Midi-QOL Arbeitseinstellungen um zu überprüfen ob der Angriff getroffen hat",
-            "midionmiss_name": "Animationen beim Treffen und Verfehlen abspielen",
-            "midionmiss_hint": "Wenn das Ziel verfehlt wird, weicht die Animation vom Ziel ab. Benötigt MIDI-Arbeitablauf um zu überprüfen ob es zutrifft.",
-            "midiondmg_name":  "Animation nur bei Schadenswürfen",
-            "midiondmg_hint": "Benötigt eine Aktualisierung. Wenn aktiviert, wird die Animation NUR bei Schadenswürfen abgespielt",
-            "demonlordtrigger_name":"Auslösen um die Animationen abzuspielen",
-            "demonlordtrigger_hint":"Wähle die Bedingung um die Animationen abzuspielen",
-            "demonlordtrigger_rollattack":"Animationen beim Angriffswurf abspielen",
-            "demonlordtrigger_hits":"Animationen beim Treffen abspielen",
-            "demonlordtrigger_misses": "Animationen beim Treffen und Verfehlen abspielen",
-            "demonlordtrigger_rolldamage":"Animationen bei Schadenswürfen abspielen",
-            "demonlordtrigger_applydamage":"Animationen beim Schaden verursachen abspielen",
-            "coreondmg_name": "Angriffsanimation nur bei Schadenswürfen",
-            "coreondmg_hint": "In der Grundeinstellung, Animation nur bei Angriffswürfen",
-            "error": "Ein JB2A-Modul (gratis oder Patreon) wird benötigt, damit die automatischen Animationen funktionieren",
-            "animPreview": "Animationsvorschau",
-            "animPreviewHint": "Videovorschau im A-A Reiter",
-            "autoRecSetting": "Automatische Erkennung konfigurieren",
-            "toggleAnimations": "Animationen umschalten",
-            "toggleAnimations_hint": "Benötigt Neuladen beim Einschalten",
-            "ON": "An",
-            "OFF": "Aus",
-            "settingDisableAutoRec": "Deaktiviere die automatische Erkennung",
-            "settingDisableAutoRecHint": "Nur benutzerdefiniert konfigurierte Gegenstände werden eine Animation abspielen",
-            "globaldelay_name": "Globale Verzögerung",
-            "globaldelay_hint": "Verzögere den Start aller Animationen in Millisekunden",
-
-
-
-
-            "settingRangeSwitch": "Deaktiviere Nah- und Fernkampf Wechsel",
-            "settingRangeSwitchhint": "Deaktiviere den Wechsel zwischen Nahkampf Animation und Fernkampfanimation",
-        
-
-
-
-            "crithit_name": "Kritische Treffer",
-            "crithit_hint": "Aktiviere diese Option, damit Animationen mit kritischen Treffern auf der Ausgangsfigur abgespielt werden können",
-            "crithitAnim_name": "Kritische Trefferanimationn",
-            "critmiss_name": "Kritischer Fehlschlag",
-            "critmiss_hint": "Aktiviere diese Option, damit kritische Fehlschlag-Animationen auf dem Ausgangsfigur abgespielt werden können",
-            "critmissAnim_name": "Kritischer-Fehlschlag-Animation",
-        
-
-            "debugging": "Debugging aktivieren",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            "teleport": "Du hast einen Punkt außerhalb der Reichweite ausgewählt. Wähle erneut"
-
-
-
-
-
-
-            
-        },
-        "colors": {
-
-
-            "palegreen": "Blassgrün",
-            "blue":"Blau",
-            "green":"Grün",
-            "orange":"Orange",
-            "pink":"Pink",
-            "purple":"Violett",
-            "red":"Rot",
-            "regular":"Regulär",
-            "yellow":"Gelb",
-            "darkred":"Dunkelrot",
-            "darkgreen":"Dunkelgrün",
-            "darkpurple":"Dunkelviolett",
-            "orangepink":"Orange pink",
-            "purpleblue":"Lila blau",
-            "purpleteal":"Lila blaugrün",
-            "yellowblue":"Gelb blau",
-            "random":"Zufällig",
-            "grey": "Grau",
-            "bluegrey": "Blau grau",
-            "darkblue":"Dunkelblau",
-            "tealyellow": "Blaugrün gelb",
-            "purplepink": "Pink lila",
-            "pinkyellow": "Pink gelb",
-            "blueorange": "Blau orange",
-            "greenorange": "Grün orange",
-            "black": "Schwarz",
-            "darkwhiteblue": "Dunkel Weiß Blau",
-            "whiteblue": "Weiß blau",
-            "rainbow01": "Regenbogen 01",
-            "rainbow02": "Regenbogen 02",
-            "lightgreen": "Hellgrün",
-            "greenyellow": "Grün gelb",
-            "brown": "Braun",
-            "lightblue": "Hellblau",
-            "rainbow": "Regenbogen",
-            "white": "Weiß",
-            "yellowwhite": "Weiß",
-            "darkorangepurple": "Dunkelorange Lila "
-
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-        },
-        "animations": {
-            "coneofcold": "Kältekegel",
-
-
-
-
-            "complete": "Abgeschlossen",
-
-
-
-
-
-            "curewounds": "Wunden heilen",
-            "generichealing": "Generische Heilung",
-            "itemHealingWord": "Heilendes Wort",
-            "disintegrate":"Auflösung",
-            "eldritchblast":"Schauriger Strahl",
-            "firebolt":"Feuerpfeil",
-            "magicmissile":"Magisches Geschoss",
-            "rayoffrost":"Kältestrahl",
-            "scorchingray":"Sengender Strahl",
-            "witchbolt":"Hexenpfeil",
-            "thunderwave":"Donnerwoge",
-            "shatter":"Zerbersten",
-            "shieldspell":"Schild",
-            "calllightning":"Blitze herbeirufen",
-            "darkness":"Dunkelheit",
-            "fogcloud":"Nebelwolke",
-            "sleetstorm":"Schneesturm",
-            "spiritguardians":"Schutzgeister",
-            "wallofforce":"Energiewand",
-            "whirlwind":"Wirbelwind",
-            "antilifeshell":"Schutzhülle gegen Lebendes",
-            "guidingbolt": "Lenkendes Geschoss",
-            "mistystep": "Nebelschritt",
-            "bardicinspiration": "Bardische Inspiration",
-            "musicnote": "Musiknoten",
-            "breathweapon": "Odemwaffe",
-            "snowflake": "Schneeflockenausbruch",
-            "entangle": "Verstricken",
-            "impact": "Aufprall",
-            "icespikes": "Ice Spikes",
-            "divinesmite": "Göttliches Niederstrecken",
-            "stars": "Sterne",
-            "marker": "Marker",
-            "magicsign": "Magisches Symbol",
-            "cloudofdaggers": "Dolchwolke",
-            "lightningbolt": "Blitz",
-            "bless": "Segnen",
-            "lightningbolt02": "Blitz 02",
-            "cloudofkunais": "Kunaiwolke",
-            "web": "Netz",
-            "tollthedead": "Totenläuten",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            "huntersmark": "Zeichen des Jägers",
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            "poison": "Gift",
-            "explosion": "Explosion",
-
-
-
-
-
-
-
-            "fire": "Feuer",
-
-
-            "static": "Statisch",
-
-            "sleep": "Schlaf 01",
-
-
-
-
-            "skull": "Schädel",
-            "dagger":"Dolch",
-            "greataxe":"Zweihandaxt",
-            "greatclub":"Zweihandknüppel",
-            "greatsword":"Zweihandschwert",
-            "handaxe":"Beil",
-            "lasersword":"Laserschwert",
-            "mace":"Streitkolben",
-            "maul":"Zweihandhammer",
-            "rapier":"Rapier",
-            "spear":"Speer",
-            "sword":"Schwert",
-            "itemLongsword": "Langschwert",
-            "scimitar": "Krummsäbel",
-            "shortsword": "Kurzschwert",
-            "arrow":"Pfeil",
-            "boulder":"Felsblock",
-            "javelin":"Wurfspeer",
-            "lasershot":"Laserstrahl",
-            "siegeboulder":"Belagerungsblock",
-            "sling":"Schleuder",
-            "unarmedstrike":"waffenloser Schlag",
-            "1hb":"1 einhändiges knüppeln",
-            "1hp":"1 einhändiges stechen",
-            "1hs":"1 einhändiges aufschlitzt",
-            "2hb":"2 zweihändiges knüppeln",
-            "2hp":"2 zweihändiges stechen",
-            "2hs":"2 zweihändiges aufschlitzen",
-            "claw":"Klaue",
-            "bite":"Biss",
-            "flurryofblows": "Schlaghagel",
-            "sneakattack": "Hinterhältiger Angriff",
-            "bullet": "Patrone",
-            "bolt": "Bolzen",
-            "snipe": "Snipe",
-            "chakram": "Chakram",
-
-
-
-
-
-
-
-            "halberd": "Hellebarde",
-            "quarterstaff": "Kampfstab",
-            "crossbow": "Armbrust"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        },
-        "variants": {
-            "1": "01",
-            "2": "02",
-            "3": "03",
-            "01":"01",
-            "02":"02",
-            "03":"03",
-            "04":"04",
-            "05":"05",
-            "06":"06",
-            "07":"07",
-            "08":"08",
-            "09":"09",
-            "10":"10",
-            "11":"11",
-            "12":"12",
-            "13":"13",
-            "magical": "Magisch",
-            "physical": "Physisch",
-
-            "fire": "Feuer",
-            "regular":"Regulär",
-            "poison": "Gift",
-            "cold": "Kälte",
-            "lightning": "Blitz",
-            "kunai":"Kunai",
-            "primary": "Primär",
-
-            "square": "Rechteck",
-            "circle": "Kreis",
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            "skull": "Schädel",
-
-            "snowflake": "Schneeflockenausbruch",
-
-
-
-
-            "marker": "Marker",
-            "source": "Ursprung",
-            "target": "Ziel",
-            "explode": "Explodieren",
-            "fade": "Ausblenden",
-
-            "eye": "Auge",
-
-            "paw": "Pfote",
-        
-
-
-
-
-
-
-            "bell": "Glocke",
-            "shockwave": "Schockwelle",
-            "complete": "Abgeschlossen",
-            "single": "Einzel",
-            "double": "Doppel",
-        
-
-            "fire01": "Feuer v01",
-            "fire02": "Feuer v02",
-        
-            "acid": "Säure"
-
-
-
-
-
-
-        },
-        "menuTypes": {
-            "creature": "Kreaturenangriff",
-            "generic": "Generisch",
-            "weapon":"Waffe",
-            "spell":"Zauber",
-
-            "fire": "Feuer",
-
-            "lightning": "Blitz",
-
-            "magicsign": "Magisches Symbol",
-            "marker": "Marker",
-            "music": "Musik",
-
-
-
-
-            "cone": "Kegel",
-            "square": "Rechteck",
-            "circle": "Kreis",
-            "ray": "Strahl"
-        
-
-
-
-
-
-
-
-            
-        },
-        "animTypes": {
-            "melee": "Nahkampfwaffe",
-            "range": "Fernwaffe",
-            "ontoken": "Auf Figur",
-            "preset": "Voreinstellungen",
-            "templatefx": "Schablone",
-            "aura": "Aura",
-            "aefx": "Active Effects"
-        },
-        "presetTypes": {
-            "bardicinspiration": "Bardische Inspiration",
-            "bless": "Segnen",
-
-
-            "huntersmark": "Zeichen des Jägers",
-            "shieldspell":"Schild",
-            "sneakattack": "Hinterhältiger Angriff",
-            "animTeleportation": "Teleportation",
-            "thunderwave":"Donnerwoge"
-
-        },
-        "menus": {
-
-            "primary": "Primär",
-            "animation": "Animation",
-
-
-            "preset": "Voreinstellung",
-            "type": "Typ",
-            "source": "Ursprung",
-            "target": "Ziel",
-            "submit": "Speichern",
-
-            "and": "und",
-
-
-
-
-            "customize": "Anpassen",
-
-
-
-
-
-
-
-
-            "melee": "Nahkampfwaffe",
-            "ranged": "Fernwaffe",
-            "switch": "Wechsel",
-            "custom": "Eigene",
-            "return": "Zurückkehrend",
-            "variant": "Variante",
-            "color": "Farbe",
-            "rangeDetect": "Fernkampferkennung",
-            "gridSquares": "Rasterfelder für den Wechsel auf Fernkampf",
-            "below": "Unter Figur",
-
-            "explosion": "Explosion",
-            "radius": "Radius",
-
-            "start": "Start",
-
-            "volume": "Lautstärke (0-1)",
-            "delay": "Verzögerung",
-
-
-
-
-
-
-
-
-            "repeat": "Wiederholen",
-            "scale": "Skalierung",
-            "opacity": "Deckkraft",
-            "playOn": "Abspielen bei",
-
-
-
-            "remove": "Schablone entfernen",
-
-
-
-
-            "occlusionMode": "Ausblendungs-Modus",
-            "occlusion01": "Ausblenden (gesamte Kachel)",
-            "occlusion02": "Dach (blockiert Sicht und Beleuchtung)",
-            "occlusion03": "Kreisförmig (um die Figur)",
-            "occlusion00": "Keiner (immer sichtbar)",
-            "occlusionAlpha": "Ausblendungstransparenz",
-        
-
-
-
-
-
-
-
-
-            "ignoreTargets": "Ziele ignorieren",
-
-            "markerColor": "Marker Farbe selbst",
-            "markerColorTarget": "Markerfarbe Ziel",
-
-            "anchorX": "Anker X",
-            "anchorY": "Anker Y",
-        
-
-            "itemName": "Gegenstandsname",
-
-            "search": "Suche",
-
-
-
-
-
-
-
-
-            "yes": "Ja",
-            "no": "Nein",
-
-
-
-
-
-
-
-
-            "export": "Einstellungen Exportieren",
-
-
-
-
-            "musicnote": "Musiknoten"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-
-
-
-
-
-
-
-
-
-        },
-        "optionsInfo": {
-
-        }
-    }
+	"autoanimations": {
+		"settings": {
+			"initpopup_name": "Deaktivere das Popup-Startfenster",
+			"initpopup_hint": "Aktiviere dieses Kontrollkästchens um zu verhindern, dass das Popup-Fenster angezeigt wird.",
+			"animtab_name": "Verstecke den Animationsreiter vor den Spielern",
+			"animtab_hint": "Durch Aktivieren dieses Kontrollkästchens wird verhindert, dass der Animationsreiter von Spielern gesehen wird.",
+			"midionhit_name": "Animationen beim Treffen abspielen",
+			"midionhit_hint": "Benötigt Midi-QOL Arbeitseinstellungen um zu überprüfen ob der Angriff getroffen hat",
+			"midionmiss_name": "Animationen beim Treffen und Verfehlen abspielen",
+			"midionmiss_hint": "Wenn das Ziel verfehlt wird, weicht die Animation vom Ziel ab. Benötigt MIDI-Arbeitablauf um zu überprüfen ob es zutrifft.",
+			"midiondmg_name": "Animation nur bei Schadenswürfen",
+			"midiondmg_hint": "Wenn aktiviert, wird die Animation NUR bei Schadenswürfen abgespielt",
+			"demonlordtrigger_name": "Auslösen um die Animationen abzuspielen",
+			"demonlordtrigger_hint": "Wähle die Bedingung um die Animationen abzuspielen",
+			"demonlordtrigger_rollattack": "Animationen beim Angriffswurf abspielen",
+			"demonlordtrigger_hits": "Animationen beim Treffen abspielen",
+			"demonlordtrigger_misses": "Animationen beim Treffen und Verfehlen abspielen",
+			"demonlordtrigger_rolldamage": "Animationen bei Schadenswürfen abspielen",
+			"demonlordtrigger_applydamage": "Animationen beim Schaden verursachen abspielen",
+			"coreondmg_name": "Angriffsanimation nur bei Schadenswürfen",
+			"coreondmg_hint": "In der Grundeinstellung, Animation nur bei Angriffswürfen",
+			"error": "Ein JB2A-Modul (gratis oder Patreon) wird benötigt, damit die automatischen Animationen funktionieren",
+			"animPreview": "Animationsvorschau",
+			"animPreviewHint": "Videovorschau im A-A Reiter",
+			"autoRecSetting": "Menü starten",
+			"toggleAnimations": "Automatisierte Animationen",
+			"toggleAnimations_hint": "Benötigt Neuladen beim Einschalten",
+			"ON": "An",
+			"OFF": "Aus",
+			"settingDisableAutoRec": "Deaktiviere die automatische Erkennung",
+			"settingDisableAutoRecHint": "Nur benutzerdefiniert konfigurierte Gegenstände werden eine Animation abspielen",
+			"globaldelay_name": "Globale Verzögerung",
+			"globaldelay_hint": "Verzögere den Start aller Animationen in Millisekunden",
+			"settingRangeSwitch": "Deaktiviere Nah- und Fernkampf Wechsel",
+			"settingRangeSwitchhint": "Deaktiviere den Wechsel zwischen Nahkampf Animation und Fernkampfanimation",
+			"crithit_name": "Kritische Treffer",
+			"crithit_hint": "Aktiviere diese Option, damit Animationen mit kritischen Treffern auf der Ausgangsfigur abgespielt werden können",
+			"crithitAnim_name": "Kritische Trefferanimationn",
+			"critmiss_name": "Kritischer Fehlschlag",
+			"critmiss_hint": "Aktiviere diese Option, damit kritische Fehlschlag-Animationen auf dem Ausgangsfigur abgespielt werden können",
+			"critmissAnim_name": "Kritischer-Fehlschlag-Animation",
+			"debugging": "Debugging aktivieren",
+			"teleport": "Du hast einen Punkt außerhalb der Reichweite ausgewählt. Wähle erneut",
+			"decoupleSounds_hint": "Verhindert die Wiederholung von Sounds mit Animationen",
+			"disableAEAnimations": "Aktive Effekt-Animationen deaktivieren",
+			"s3Name": "JB2A Standort der Anlage",
+			"noTips": "Tipps zum Deaktivieren von Dauereffekten",
+			"noTipsHint": "Deaktiviert den Tooltip für das Löschen von dauerhaften Effekten",
+			"recovery_name": "Wiederherstellungsrollen",
+			"decoupleSounds": "Geräusche entkoppeln",
+			"disableNested": "Verschachtelte Animationen deaktivieren",
+			"disableNestedHint": "Verhindert Animationen für Bedingungen (Regelsätze), die von anderen Bedingungen erstellt wurden",
+			"disableAEAnimationsHint": "Alle Animationen für aktive Effekte deaktivieren"
+		},
+		"colors": {
+			"palegreen": "Blassgrün",
+			"blue": "Blau",
+			"green": "Grün",
+			"orange": "Orange",
+			"pink": "Rosa",
+			"purple": "Violett",
+			"red": "Rot",
+			"regular": "Regulär",
+			"yellow": "Gelb",
+			"darkred": "Dunkelrot",
+			"darkgreen": "Dunkelgrün",
+			"darkpurple": "Dunkelviolett",
+			"orangepink": "Orange pink",
+			"purpleblue": "Lila blau",
+			"purpleteal": "Lila blaugrün",
+			"yellowblue": "Gelb blau",
+			"random": "Zufällig",
+			"grey": "Grau",
+			"bluegrey": "Blau grau",
+			"darkblue": "Dunkelblau",
+			"tealyellow": "Blaugrün gelb",
+			"purplepink": "Pink lila",
+			"pinkyellow": "Pink gelb",
+			"blueorange": "Blau orange",
+			"greenorange": "Grün orange",
+			"black": "Schwarz",
+			"darkwhiteblue": "Dunkel Weiß Blau",
+			"whiteblue": "Weiß blau",
+			"rainbow01": "Regenbogen 01",
+			"rainbow02": "Regenbogen 02",
+			"lightgreen": "Hellgrün",
+			"greenyellow": "Grün gelb",
+			"brown": "Braun",
+			"lightblue": "Hellblau",
+			"rainbow": "Regenbogen",
+			"white": "Weiß",
+			"yellowwhite": "Weiß",
+			"darkorangepurple": "Dunkelorange Lila "
+		},
+		"animations": {
+			"coneofcold": "Kältekegel",
+			"complete": "Abgeschlossen",
+			"curewounds": "Wunden heilen",
+			"generichealing": "Generische Heilung",
+			"itemHealingWord": "Heilendes Wort",
+			"disintegrate": "Auflösung",
+			"eldritchblast": "Schauriger Strahl",
+			"firebolt": "Feuerpfeil",
+			"magicmissile": "Magisches Geschoss",
+			"rayoffrost": "Kältestrahl",
+			"scorchingray": "Sengender Strahl",
+			"witchbolt": "Hexenpfeil",
+			"thunderwave": "Donnerwoge",
+			"shatter": "Zerbersten",
+			"shieldspell": "Schild",
+			"calllightning": "Blitze herbeirufen",
+			"darkness": "Dunkelheit",
+			"fogcloud": "Nebelwolke",
+			"sleetstorm": "Schneesturm",
+			"spiritguardians": "Schutzgeister",
+			"wallofforce": "Energiewand",
+			"whirlwind": "Wirbelwind",
+			"antilifeshell": "Schutzhülle gegen Lebendes",
+			"guidingbolt": "Lenkendes Geschoss",
+			"mistystep": "Nebelschritt",
+			"bardicinspiration": "Bardische Inspiration",
+			"musicnote": "Musiknoten",
+			"breathweapon": "Odemwaffe",
+			"snowflake": "Schneeflockenausbruch",
+			"entangle": "Verstricken",
+			"impact": "Aufprall",
+			"icespikes": "Eis Stacheln",
+			"divinesmite": "Göttliches Niederstrecken",
+			"stars": "Sterne",
+			"marker": "Marker",
+			"magicsign": "Magisches Symbol",
+			"cloudofdaggers": "Dolchwolke",
+			"lightningbolt": "Blitz",
+			"bless": "Segnen",
+			"lightningbolt02": "Blitz 02",
+			"cloudofkunais": "Kunaiwolke",
+			"web": "Netz",
+			"tollthedead": "Totenläuten",
+			"huntersmark": "Zeichen des Jägers",
+			"poison": "Gift",
+			"explosion": "Explosion",
+			"fire": "Feuer",
+			"static": "Statisch",
+			"sleep": "Schlaf 01",
+			"skull": "Schädel",
+			"dagger": "Dolch",
+			"greataxe": "Zweihandaxt",
+			"greatclub": "Zweihandknüppel",
+			"greatsword": "Zweihandschwert",
+			"handaxe": "Beil",
+			"lasersword": "Laserschwert",
+			"mace": "Streitkolben",
+			"maul": "Zweihandhammer",
+			"rapier": "Rapier",
+			"spear": "Speer",
+			"sword": "Schwert",
+			"itemLongsword": "Langschwert",
+			"scimitar": "Krummsäbel",
+			"shortsword": "Kurzschwert",
+			"arrow": "Pfeil",
+			"boulder": "Felsblock",
+			"javelin": "Wurfspeer",
+			"lasershot": "Laserstrahl",
+			"siegeboulder": "Belagerungsblock",
+			"sling": "Schleuder",
+			"unarmedstrike": "waffenloser Schlag",
+			"1hb": "1 einhändiges knüppeln",
+			"1hp": "1 einhändiges stechen",
+			"1hs": "1 einhändiges aufschlitzt",
+			"2hb": "2 zweihändiges knüppeln",
+			"2hp": "2 zweihändiges stechen",
+			"2hs": "2 zweihändiges aufschlitzen",
+			"claw": "Klaue",
+			"bite": "Biss",
+			"flurryofblows": "Schlaghagel",
+			"sneakattack": "Hinterhältiger Angriff",
+			"bullet": "Patrone",
+			"bolt": "Bolzen",
+			"snipe": "Snipe",
+			"chakram": "Chakram",
+			"halberd": "Hellebarde",
+			"quarterstaff": "Kampfstab",
+			"crossbow": "Armbrust"
+		},
+		"variants": {
+			"1": "01",
+			"2": "02",
+			"3": "03",
+			"01": "01",
+			"02": "02",
+			"03": "03",
+			"04": "04",
+			"05": "05",
+			"06": "06",
+			"07": "07",
+			"08": "08",
+			"09": "09",
+			"10": "10",
+			"11": "11",
+			"12": "12",
+			"13": "13",
+			"magical": "Magisch",
+			"physical": "Physisch",
+			"fire": "Feuer",
+			"regular": "Regulär",
+			"poison": "Gift",
+			"cold": "Kälte",
+			"lightning": "Blitz",
+			"kunai": "Kunai",
+			"primary": "Primär",
+			"square": "Rechteck",
+			"circle": "Kreis",
+			"skull": "Schädel",
+			"snowflake": "Schneeflockenausbruch",
+			"marker": "Marker",
+			"source": "Ursprung",
+			"target": "Ziel",
+			"explode": "Explodieren",
+			"fade": "Ausblenden",
+			"eye": "Auge",
+			"paw": "Pfote",
+			"bell": "Glocke",
+			"shockwave": "Schockwelle",
+			"complete": "Abgeschlossen",
+			"single": "Einzel",
+			"double": "Doppel",
+			"fire01": "Feuer v01",
+			"fire02": "Feuer v02",
+			"acid": "Säure",
+			"secondary": "Sekundär"
+		},
+		"menuTypes": {
+			"creature": "Kreaturenangriff",
+			"generic": "Generisch",
+			"weapon": "Waffe",
+			"spell": "Zauber",
+			"fire": "Feuer",
+			"lightning": "Blitz",
+			"magicsign": "Magisches Symbol",
+			"marker": "Marker",
+			"music": "Musik",
+			"cone": "Kegel",
+			"square": "Rechteck",
+			"circle": "Kreis",
+			"ray": "Strahl"
+		},
+		"animTypes": {
+			"melee": "Nahkampfwaffe",
+			"range": "Fernwaffe",
+			"ontoken": "Auf Figur",
+			"preset": "Voreinstellungen",
+			"templatefx": "Schablone",
+			"aura": "Aura",
+			"aefx": "Active Effects"
+		},
+		"presetTypes": {
+			"bardicinspiration": "Bardische Inspiration",
+			"bless": "Segnen",
+			"huntersmark": "Zeichen des Jägers",
+			"shieldspell": "Schild",
+			"sneakattack": "Hinterhältiger Angriff",
+			"animTeleportation": "Teleportation",
+			"thunderwave": "Donnerwoge"
+		},
+		"menus": {
+			"primary": "Primär",
+			"animation": "Animation",
+			"preset": "Voreinstellung",
+			"type": "Typ",
+			"source": "Ursprung",
+			"target": "Ziel",
+			"submit": "Speichern",
+			"and": "und",
+			"customize": "Anpassen",
+			"melee": "Nahkampfwaffe",
+			"ranged": "Fernwaffe",
+			"switch": "Wechsel",
+			"custom": "Eigene",
+			"return": "Zurückkehrend",
+			"variant": "Variante",
+			"color": "Farbe",
+			"rangeDetect": "Fernkampferkennung",
+			"gridSquares": "Rasterfelder für den Wechsel auf Fernkampf",
+			"below": "Unter Figur",
+			"explosion": "Explosion",
+			"radius": "Radius",
+			"start": "Start",
+			"volume": "Lautstärke (0-1)",
+			"delay": "Verzögerung",
+			"repeat": "Wiederholen",
+			"scale": "Skalierung",
+			"opacity": "Deckkraft",
+			"playOn": "Abspielen bei",
+			"remove": "Schablone entfernen",
+			"occlusionMode": "Ausblendungs-Modus",
+			"occlusion01": "Ausblenden (gesamte Kachel)",
+			"occlusion02": "Dach (blockiert Sicht und Beleuchtung)",
+			"occlusion03": "Kreisförmig (um die Figur)",
+			"occlusion00": "Keiner (immer sichtbar)",
+			"occlusionAlpha": "Ausblendungstransparenz",
+			"ignoreTargets": "Ziele ignorieren",
+			"markerColor": "Marker Farbe selbst",
+			"markerColorTarget": "Markerfarbe Ziel",
+			"anchorX": "Anker X",
+			"anchorY": "Anker Y",
+			"itemName": "Gegenstandsname",
+			"search": "Suche",
+			"yes": "Ja",
+			"no": "Nein",
+			"export": "Einstellungen Exportieren",
+			"musicnote": "Musiknoten"
+		}
+	}
 }
