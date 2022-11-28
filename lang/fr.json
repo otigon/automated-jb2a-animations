@@ -636,7 +636,8 @@
 			"tint": "Teinte",
 			"fadeOut": "Fondu au noir",
 			"randomOffset": "Décalage aléatoire",
-			"await": "Patienter"
+			"await": "Patienter",
+			"bind": "Lier"
 		},
 		"app": {
 			"aaAutorec-range": {
