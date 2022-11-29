@@ -12,7 +12,7 @@ export async function teleportation(handler, animationData) {
     const endFile = await buildFile(true, data.end.menuType, data.end.animation, "static", data.end.variant, data.end.color, data.end.customPath);
     const betweenFile = await buildFile(false, data.between.menuType, data.between.animation, "range", data.between.variant, data.between.color, data.between.customPath);
 
-    let sourceTokenGS = sourceToken.w / canvas.grid.size;
+    let sourceTokenGS = (sourceToken.w ? (sourceToken.w / canvas.grid.size ) : sourceToken.width;
 
     let userIDs = Array.from(game.users).map(user => user.id);
     let gmIDs = Array.from(game.users).filter(i => i.isGM).map(user => user.id)
@@ -67,7 +67,7 @@ export async function teleportation(handler, animationData) {
         let gridPos = canvas.grid.getTopLeft(pos.x, pos.y);
         let centerPos;
         if (canvas.scene.gridType === 0) {
-            centerPos = [gridPos[0] + sourceToken.w, gridPos[1] + sourceToken.w];
+            centerPos = [gridPos[0] + (sourceToken.w ?? sourceToken.width), gridPos[1] + (sourceToken.w ?? sourceToken.width)];
         } else {
             centerPos = canvas.grid.getCenter(pos.x, pos.y);
         }

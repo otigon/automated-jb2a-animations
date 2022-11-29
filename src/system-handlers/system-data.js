@@ -192,8 +192,8 @@ export default class systemData {
 
     getSize(isRadius = false, size = 1, token, addToken = false) {
         return isRadius 
-            ? addToken ? (size * 2) + (token.w / canvas.grid.size) : size * 2 
-            : (token.w / canvas.grid.size) * 1.5 * size;
+            ? addToken ? ((size * 2) + ((token.w ? (token.w / canvas.grid.size) : token.width))) : size * 2 
+            : ((token.w ? (token.w / canvas.grid.size) : token.width)) * 1.5 * size;
     }
 
     getDistanceTo(target) {

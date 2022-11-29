@@ -10,7 +10,7 @@ export async function melee(handler, animationData) {
     const macro = animationData.macro;
 
     const sourceToken = handler.sourceToken;
-    const sourceTokenGS = (sourceToken.w / canvas.grid.size) * 5;
+    const sourceTokenGS = ((sourceToken.w  / canvas.grid.size) ?? sourceToken.width) * 5;
 
     const switchDisabled = game.settings.get("autoanimations", "rangeSwitch")
 
