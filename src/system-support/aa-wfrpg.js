@@ -40,6 +40,20 @@ export function systemHooks() {
         })
         runWarhammer(compiledData)
     });
+
+    Hooks.on("wfrp4e:applyDamage", async (scriptArgs) => {
+        if (game.user.id !== scriptArgs.opposedTest.attackerTest.data.context.cardOptions.user || !AnimationState.enabled) { return }
+        if (scriptArgs.opposedTest.attackerTest.result.castOutcome != "success" || !scriptArgs.opposedTest.attackerTest.spell?.system?.magicMissile?.value) { return }
+        let compiledData = await getRequiredData({
+            item: scriptArgs.opposedTest.attackerTest.spell,
+            targets: game.canvas.tokens.getDocuments().filter(x=>x.actorId == scriptArgs.opposedTest.defenderTest.data.context.speaker.actor),
+            tokenId: game.canvas.tokens.getDocuments().find(x=>x.actorId == scriptArgs.opposedTest.attackerTest.data.context.speaker.actor).id,
+            actorId: scriptArgs.attacker.id,
+            workflow: scriptArgs.opposedTest.attackerTest
+        })
+        runWarhammer(compiledData)
+    });
+
     Hooks.on("wfrp4e:rollTraitTest", async (data, info) => {
         if (game.user.id !== info.user || !AnimationState.enabled) { return }
         let compiledData = await getRequiredData({
