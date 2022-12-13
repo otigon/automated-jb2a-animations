@@ -218,6 +218,9 @@ export async function aura(handler, animationData) {
             seq.loopProperty("alphaFilter", "alpha", { from: data.options.alphaMin, to: data.options.alphaMax, duration: data.options.alphaDuration, pingPong: true })
         }
         seq.playbackRate(data.options.playbackRate)
+        if (handler.systemData.tieToDocuments) {
+            seq.tieToDocuments(handler.item)
+        }
     }
 
     function setSecondary(token, seq) {

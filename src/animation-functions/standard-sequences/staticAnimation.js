@@ -315,6 +315,9 @@ export async function ontoken(handler, animationData) {
             seq.origin(handler.itemUuid)
         }
         seq.playbackRate(data.options.playbackRate)
+        if (handler.systemData.tieToDocuments) {
+            seq.tieToDocuments(handler.item)
+        }
     }
     function setTop(token, size, seq) {
         seq.file(data.path.fileData)
@@ -336,6 +339,9 @@ export async function ontoken(handler, animationData) {
             seq.origin(handler.itemUuid)
         }
         seq.playbackRate(data.options.playbackRate)
+        if (handler.systemData.tieToDocuments) {
+            seq.tieToDocuments(handler.item)
+        }
     }
     function setPrimary(token, size, seq) {
         seq.file(data.path.file)
@@ -364,6 +370,9 @@ export async function ontoken(handler, animationData) {
         }
         seq.anchor({x: data.options.anchor.x, y: data.options.anchor.y})
         seq.playbackRate(data.options.playbackRate)
+        if (handler.systemData.tieToDocuments) {
+            seq.tieToDocuments(handler.item)
+        }
     }
     function setSecondary(token, seq) {
         let size = handler.getSize(secondary.options.isRadius, secondary.options.size, token, secondary.options.addTokenWidth)

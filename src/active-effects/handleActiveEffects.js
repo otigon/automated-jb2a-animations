@@ -36,6 +36,7 @@ export async function createActiveEffects(effect) {
         targets: [],
         item: effect,
         activeEffect: true,
+        tieToDocuments: true,
     }
 
     let handler = await AAHandler.make(data);
@@ -55,8 +56,8 @@ export async function createActiveEffects(effect) {
     trafficCop(handler);
 }
 
-export async function deleteActiveEffects(effect) {
-    let aaEffects = Sequencer.EffectManager.getEffects({ origin: effect.uuid })
+export async function deleteActiveEffects(effect, shouldDelete = false) {
+    //let aaEffects = Sequencer.EffectManager.getEffects({ origin: effect.uuid })
 
     const token = effect.parent?.token || canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
 
@@ -81,7 +82,31 @@ export async function deleteActiveEffects(effect) {
     //: foundry.utils.deepClone(handler.autorecObject);
 
     const macro = await DataSanitizer.compileMacro(handler, flagData);
+    if (macro) {
+        //let userData = macro.args;
+        new Sequence()
+            .macro(macro.name, "off", handler, macro.args)
+            .play()
+    }
 
+    if (shouldDelete) {
+        let aaEffects = Sequencer.EffectManager.getEffects({ origin: effect.uuid });
+        if (aaEffects.length > 0) {  
+            // Filters the active Animations to isolate the ones active on the Token
+            let currentEffect = aaEffects.filter(i => effect.uuid.includes(i.source?.actor?.id));
+            currentEffect = currentEffect.length < 1 ? aaEffects.filter(i => effect.uuid.includes(i.source?.id)) : currentEffect;
+            if (currentEffect.length < 0) { return; }
+    
+            // Fallback for the Source Token
+            if (!handler.sourceToken) {
+                handler.sourceToken = currentEffect[0].source;
+            }
+    
+            // End all Animations on the token with .origin(effect.uuid)
+            Sequencer.EffectManager.endEffects({ origin: effect.uuid, object: handler.sourceToken })
+        }    
+    }
+    /*
     if (aaEffects.length > 0) {  
         // Filters the active Animations to isolate the ones active on the Token
         let currentEffect = aaEffects.filter(i => effect.uuid.includes(i.source?.actor?.id));
@@ -111,6 +136,7 @@ export async function deleteActiveEffects(effect) {
                 .play()
         }
     }
+    */
 }
 
 
@@ -234,7 +260,7 @@ export async function OlddeleteActiveEffects(effect) {
 export async function toggleActiveEffects(effect, toggle) {
 
     if (toggle.disabled === true) {
-        deleteActiveEffects(effect)
+        deleteActiveEffects(effect, true)
     } else if (toggle.disabled === false) {
         createActiveEffects(effect);
     }

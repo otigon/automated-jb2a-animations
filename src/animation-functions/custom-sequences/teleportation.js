@@ -18,33 +18,42 @@ export async function teleportation(handler, animationData) {
     let gmIDs = Array.from(game.users).filter(i => i.isGM).map(user => user.id)
 
     const hideBorder = data.options.hideFromPlayers ? gmIDs : userIDs;
-    const userColor = game.user?.color ? "0x" + game.user.color.replace(/^#/, '') : 0x0D26FF;
-    const filePath = data.options.measureType === 'equidistant' ? "modules/autoanimations/animationPNG/teleportSquare.png" : "modules/autoanimations/animationPNG/teleportCircle.png"
+    //const userColor = game.user?.color ? "0x" + game.user.color.replace(/^#/, '') : 0x0D26FF;
+    //const filePath = data.options.measureType === 'equidistant' ? "modules/autoanimations/animationPNG/teleportSquare.png" : "modules/autoanimations/animationPNG/teleportCircle.png"
 
     const delayFade = data.options.delayFade || 0;
     const delayReturn = data.options.delayReturn || 0;
+    
+    const borderSize = (sourceTokenGS / canvas.grid.size) + 0.5 + (data.options.range / canvas.dimensions.distance);
 
-    let aaSeq01 = await new Sequence()
-    aaSeq01.effect()
-        .file(filePath)
-        .atLocation(sourceToken)
-        .size(((sourceTokenGS / canvas.grid.size) + 0.5 + (data.options.range / canvas.dimensions.distance)) * 2, { gridUnits: true })
+    const borderType = data.options.measureType === "equidistant" ? "roundedRect" : "circle";
+    const borderLocation = borderType === "circle" ? {} : {offset: {x: -borderSize, y: -borderSize}, gridUnits: true};
+    const borderData = {
+        lineSize: 4,
+        lineColor: game.user.color,
+        radius: borderType === "circle" ? borderSize : .25,
+        width: borderSize * 2,
+        height: borderSize * 2,
+        gridUnits: true,
+        name: "teleBorder"
+    }
+
+    let borderSeq = await new Sequence()
+    let borderEffect = borderSeq.effect()
         .fadeIn(500)
-        .scaleIn(0, 500)
+        .persist()
         .fadeOut(500)
-        .name("teleportation")
+        .atLocation(sourceToken, borderLocation)
+        .shape(borderType, borderData)
         .elevation(sourceToken?.document?.elevation - 1)
-        .persist(true)
-        .opacity(0.5)
-        .filter("Glow", {
-            distance: 10,
-            outerStrength: 5,
-            innerStrength: 5,
-            color: userColor,
-            quality: 0.2,
-        })
         .forUsers(hideBorder)
-    aaSeq01.play()
+        .name("teleportation")
+        .opacity(0.75)
+    if (borderType === "circle") {
+        borderEffect.loopProperty("shapes.teleBorder", "scale.x", { from: 0.98, to: 1.02, duration: 1500, pingPong: true, ease: "easeInOutSine" })
+        borderEffect.loopProperty("shapes.teleBorder", "scale.y", { from: 0.98, to: 1.02, duration: 1500, pingPong: true, ease: "easeInOutSine" })    
+    }
+    borderSeq.play()
 
     let pos;
     canvas.app.stage.addListener('pointerdown', event => {

@@ -97,6 +97,7 @@ export async function trafficCop(handler) {
         }
         debug(`${animationType} Animation Start"`, handler, sanitizedData)
         if (handler.templateData) {
+            await wait(500)
             animate[animationType](handler, sanitizedData);
             return;
         }
