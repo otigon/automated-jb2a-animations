@@ -43,7 +43,7 @@
 </script>
 <TJSSvgFolder
     folder={folderOptions}
-    label={localize("autoanimations.variants.secondary")}
+    label={localize("autoanimations.animations.explosion")}
 >
     <div slot="summary-end">
         <input

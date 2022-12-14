@@ -66,16 +66,10 @@
                 bind:value={$animation.levels3d.type}
                 on:change={() => setSprite(animation._data.levels3d.type)}
             >
-                <option value="projectile"
-                    >{localize("autoanimations.menus.projectile")}</option
-                >
-                <option value="sprites">3D Object</option>
-                <option value="ray"
-                    >{localize("autoanimations.menuTypes.ray")}</option
-                >
-                <option value="explosion"
-                    >{localize("autoanimations.menus.explosion")}</option
-                >
+                <option value="projectile">{localize("autoanimations.menus.projectile")}</option>
+                <option value="sprite">3D Object</option>
+                <option value="ray">{localize("autoanimations.menuTypes.ray")}</option>
+                <option value="explosion">{localize("autoanimations.menus.explosion")}</option >
             </select>
         </div>
     </td>
@@ -93,7 +87,7 @@
                 <input
                 type="text"
                 bind:value={$animation.levels3d.data.spritePath}
-                style="font-weight:normal; font-size:small; border-radius: 5px;text-align:left"
+                style="font-weight:normal; font-size:small; border-radius: 5px;text-align:left; width: 100%"
                 />
             </td>
             <td style="width: 4em;border: none">
@@ -140,4 +134,5 @@
         font-weight: bold;
         font-size: 1.5em;
     }
+
 </style>
