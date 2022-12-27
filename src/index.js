@@ -1,49 +1,49 @@
 // Initilize the A-A Database
-import { initializeJB2APatreonDB }      from "./database/jb2a-patreon-database.js";
-import { initializeJB2AFreeDB }         from "./database/jb2a-free-database.js";
-import { JB2APATREONDB }                from "./database/jb2a-patreon-database.js";
-import { JB2AFREEDB }                   from "./database/jb2a-free-database.js";
+import { initializeJB2APatreonDB } from "./database/jb2a-patreon-database.js";
+import { initializeJB2AFreeDB } from "./database/jb2a-free-database.js";
+import { JB2APATREONDB } from "./database/jb2a-patreon-database.js";
+import { JB2AFREEDB } from "./database/jb2a-free-database.js";
 
 // Accessible to users
-import { AutoAnimations}                from "./system-support/external.js"
-import { AAAutorecManager }             from "./formApps/_AutorecMenu/components/category/menuManager/AAAutorecManager.js";
-import { playAnimation }                from "./system-support/external.js";
+import { AutoAnimations } from "./system-support/external.js"
+import { AAAutorecManager } from "./formApps/_AutorecMenu/components/category/menuManager/AAAutorecManager.js";
+import { playAnimation } from "./system-support/external.js";
 
 // Register all active effect Hooks
-import { registerActiveEffectHooks }    from "./active-effects/handleActiveEffectHooks";
+import { registerActiveEffectHooks } from "./active-effects/handleActiveEffectHooks";
 
 // Animation Menus for Items and Active Effects
-import AEMenuApp                        from "./formApps/_ActiveEffects/AEMenuApp.js";
-import ItemMenuApp                      from "./formApps/_ItemMenu/ItemMenuApp.js";
+import AEMenuApp from "./formApps/_ActiveEffects/AEMenuApp.js";
+import ItemMenuApp from "./formApps/_ItemMenu/ItemMenuApp.js";
 // Show Autorec menu via macro with Hooks.call('AutomaticAnimations.Open.Menu.New')
-import { showAutorecMenu }              from "./formApps/_AutorecMenu/showUI.js";
+import { showAutorecMenu } from "./formApps/_AutorecMenu/showUI.js";
 
 // Register Socketlib settings for creating and removing Tiles as GM
-import { setupSocket }                  from "./socketset.js";
+import { setupSocket } from "./socketset.js";
 
 // Migration scripts for Item/Active Effect and Autorec
-import { flagMigrations }               from "./mergeScripts/items/itemFlagMerge.js";
-import { autoRecMigration }             from "./mergeScripts/autorec/autoRecMerge.js";
+import { flagMigrations } from "./mergeScripts/items/itemFlagMerge.js";
+import { autoRecMigration } from "./mergeScripts/autorec/autoRecMerge.js";
 
 // Animation State setting for if Animations are disabled from within A-A
-import { AnimationState }               from "./AnimationState.js";
+import { AnimationState } from "./AnimationState.js";
 
 // Initialize all game settings
-import { gameSettings }                 from "./gameSettings.js";
+import { gameSettings } from "./gameSettings.js";
 
 // Initializes Autorec stores
-import { autoRecStores }                from "./formApps/_AutorecMenu/store/AutoRecStores.js";
+import { autoRecStores } from "./formApps/_AutorecMenu/store/AutoRecStores.js";
 
 // Routing for registering Hooks to run animations
-import * as systemSupport               from "./system-support/index.js"
+import * as systemSupport from "./system-support/index.js"
 
 import "../styles/newMenuCss.scss";
 
 // MAP for caching Deleted items. Specifically for items that delete themselves on final usage so Animations can still play
-import { aaDeletedItems }               from "./deletedItems.js";
+import { aaDeletedItems } from "./deletedItems.js";
 
-import { patreonMerge }                 from "./database/database-merge/patreonMerge.js";
-import { freeMerge }                    from "./database/database-merge/freeMerge.js";
+import { patreonMerge } from "./database/database-merge/patreonMerge.js";
+import { freeMerge } from "./database/database-merge/freeMerge.js";
 
 Hooks.once('socketlib.ready', function () {
     setupSocket();
@@ -51,7 +51,7 @@ Hooks.once('socketlib.ready', function () {
 
 export let aaDatabase;
 // Hook for macro to open Autorec Menu
-Hooks.on('AutomaticAnimations.Open.Menu.New',() => showAutorecMenu());
+Hooks.on('AutomaticAnimations.Open.Menu.New', () => showAutorecMenu());
 
 // Resets all Autorec menus
 Hooks.on('AutomaticAnimations.Clear.Data', async () => {
@@ -107,7 +107,7 @@ Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
     }
     const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
     aaBtn.click(async ev => {
-        await flagMigrations.handle(app.document, {isActiveEffect: true});
+        await flagMigrations.handle(app.document, { isActiveEffect: true });
         new AEMenuApp(app.document, {}).render(true, { focus: true });
     });
     html.closest('.app').find('.aa-item-settings').remove();
@@ -178,7 +178,7 @@ Hooks.on('aa.initialize', async () => {
     if (game.settings.get("autoanimations", "killAllAnim") === "off") {
         AnimationState.enabled = false;
     }
-    console.log('%cAutomated Animations Database has been compiled and registered', 'color: green', {aaDatabase})
+    console.log('%cAutomated Animations Database has been compiled and registered', 'color: green', { aaDatabase })
     Hooks.callAll('aa.ready', aaDatabase)
 })
 
@@ -192,7 +192,7 @@ Hooks.once('ready', async function () {
     handleAutorec();
 
     // Cache deleted items
-    Hooks.on("deleteItem", async (item) => {storeDeletedItems(item)})
+    Hooks.on("deleteItem", async (item) => { storeDeletedItems(item) })
 
     /**
      * Officially Supported Systems:
@@ -213,6 +213,7 @@ Hooks.once('ready', async function () {
      * Warhammer Fantasy RPG
      * Old School Essentials
      * Cyberpunk Red (Only for Attacks)
+     * TheWitcherTRPG (Only for Attacks)
     */
 
     // Register Hooks by system
@@ -235,10 +236,10 @@ function handleAutorec() {
     // Version 5 and up uses a different game setting per menu
     if (versionCheck < 5) {
         let oldData = game.settings.get('autoanimations', 'aaAutorec');
-        autoRecMigration.handle(oldData, {shouldSubmit: true, submitAll: true});
+        autoRecMigration.handle(oldData, { shouldSubmit: true, submitAll: true });
     } else if (versionCheck < currentVersion) {
         console.warn("Automated Animations | Updating Global Automatic Recognition Menu");
-        autoRecMigration.handle(null, {shouldSubmit: true, submitAll: true, newSchema: true});
+        autoRecMigration.handle(null, { shouldSubmit: true, submitAll: true, newSchema: true });
     }
 }
 

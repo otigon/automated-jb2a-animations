@@ -18,6 +18,8 @@
             "demonlordtrigger_misses": "Play animations on hits and misses",
             "demonlordtrigger_rolldamage":"Play animations on roll damage",
             "demonlordtrigger_applydamage":"Play animations on apply damage",
+            "coreonatk_name":"Play Attack Animations on Attack Rolls",
+            "coreonatk_hint":"By Default, Animations play on Attack Rolls",
             "coreondmg_name":"Play Attack Animations on Damage Rolls Only",
             "coreondmg_hint":"By Default, Animations play on Attack Rolls",
             "error":"A JB2A Module (Free OR Patreon) is REQUIRED for Automated Animations to Work",
