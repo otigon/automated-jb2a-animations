@@ -89,6 +89,7 @@
             "palegreen": "Pale Green",
             "blue":"Blue",
             "green":"Green",
+            "green02": "Green 02",
             "orange":"Orange",
             "pink":"Pink",
             "purple":"Purple",
@@ -122,7 +123,7 @@
             "lightblue": "Light Blue",
             "rainbow": "Rainbow",
             "white": "White",
-            "yellowwhite": "White",
+            "yellowwhite": "Yellow White",
             "darkorangepurple": "Dark Orange Purple",
             "darkgreenpurple": "Dark Green Purple",
             "darkteal": "Dark Teal",
@@ -143,7 +144,10 @@
             "blue03": "Blue 03" ,
             "ring02": "Ring 02",
             "ring03": "Ring 03",
-            "orangered": "Orange Red"
+            "orangered": "Orange Red",
+            "darkpink": "Dark Pink",
+            "darkyellow": "Dark Yellow",
+            "textured": "Textured"
         },
         "animations": {
             "coneofcold": "Cone of Cold",
@@ -344,7 +348,15 @@
             "ring": "Ring",
             "outburst": "Outburst",
             "boomerang": "Boomerang",
-            "triboomerang": "Tri Boomerang"
+            "triboomerang": "Tri Boomerang",
+            "slashing": "Slashing",
+            "frost": "Frost",
+            "boneshield": "Bone Shield",
+            "roundshield": "Round Shield",
+            "towershield": "Tower Shield",
+            "smokering": "Smoke Ring",
+            "feathers": "Feathers",
+            "plume": "Plume"
         },
         "variants": {
             "1":"01",
@@ -437,7 +449,11 @@
             "nature": "Nature",
             "void": "Void",
             "above": "Above",
-            "liquid": "Liquid"
+            "liquid": "Liquid",
+            "frost": "Frost",
+            "ring02": "Ring 02",
+            "ring03": "Ring 03",
+            "outburst": "Outburst"
         },
         "menuTypes": {
             "creature": "Creature Attack",
@@ -468,7 +484,10 @@
             "eyes": "Eyes",
             "sideImpact": "Side Impact",
             "plants": "Plants",
-            "vines": "Vines"
+            "vines": "Vines",
+            "impact": "Impact",
+            "nature": "Nature",
+            "smoke": "Smoke"
         },
         "animTypes": {
             "melee": "Melee",
