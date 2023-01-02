@@ -7,9 +7,14 @@
       TJSInput,
       TJSMenu,
       TJSSvgFolder,
+      TJSIconButton,
       TJSToggleIconButton }         from "@typhonjs-fvtt/svelte-standard/component";
 
+   import AdvancedQuickView from "./advancedSearch/AdvancedQuickView.svelte";
+
    import { createOverflowItems }   from "./createOverflowItems.js";
+
+   import TJSSvgCustomFolder from "./TJSSvgCustomFolder.svelte";
 
    import { selectBuildMenu }       from "../../../Menus/BuildMenu/selectBuildMenu.js";
    import { setContext } from "svelte";
@@ -50,16 +55,24 @@
    const menu = {
       items: createOverflowItems(animation, category),
    };
+
+   $: isExactMatch = $animation.advanced?.exactMatch;
+   $: excludedTerms = $animation.advanced?.excludedTerms;
+   $: exactMatchButton = {
+       icon: isExactMatch ? "fas fa-equals" : excludedTerms?.length ? "fas fa-not-equal" : "",
+       title: isExactMatch ? "Exact Match" : excludedTerms?.length ? "Has Excluded Terms" : "",
+    };
 </script>
 
 <div class=animation>
-   <TJSSvgFolder {folder}>
+   <TJSSvgCustomFolder {folder}>
+        <AdvancedQuickView info={exactMatchButton} slot=prepend/>
         <TJSInput {input} slot=label />
         <TJSToggleIconButton button={buttonOverflow} slot=summary-end>
             <TJSMenu {menu} />
         </TJSToggleIconButton>
         <svelte:component this={selectBuildMenu(category.key)} {animation} {idx} {category}/>
-   </TJSSvgFolder>
+   </TJSSvgCustomFolder>
 </div>
 
 <style lang=scss>
