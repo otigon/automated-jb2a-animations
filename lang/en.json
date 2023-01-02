@@ -654,7 +654,14 @@
             "damage": "damage",
             "randomOffset": "Random Offset",
             "await": "Await",
-            "bind": "Bind"
+            "bind": "Bind",
+            "property": "Property",
+            "exclude": "Exclude",
+            "excludedSearchWords": "Excluded Search Words",
+            "forceExact": "Force Exact Match",
+            "advanced": "Advanced",
+            "recognition": "Recognition",
+            "features": "Features"
         },
         "optionsInfo": {
 

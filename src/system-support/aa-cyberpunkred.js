@@ -12,6 +12,7 @@ async function checkChatMessage(msg) {
     if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
 
     let findData = funkyTest(msg)
+
     if (!findData.itemId) { 
         debug("Could not extract Item ID from Chat Message HTML")
         return; 
