@@ -44,9 +44,9 @@ export class AAAutorecFunctions {
         return sortedMenus.find(x => x.label && name.includes(this.rinseName(x.label))) || false;
     }
     */
-    static singleMenuSearch(menu, name, trueName) {
+    static singleMenuSearch(menu, rinsedName, trueName) {
 
-        if (!name) { 
+        if (!rinsedName) { 
             custom_warning("No Name was provided for the Global Menu search")
             return;
         }
@@ -56,7 +56,16 @@ export class AAAutorecFunctions {
         let exactMatchMenus = sortedMenu.filter(x => x.exactMatch);
         let bestMatchMenus = sortedMenu.filter(x => !x.exactMatch);
 
-        return exactMatchMenus.find(x => x.label && x.label === trueName) || bestMatchMenus.find(x => x.label && name.includes(this.rinseName(x.label))) || false;
+        return exactMatchMenus.find(x => x.label && x.label === trueName)
+        || 
+        bestMatchMenus.find(x => 
+            x.advanced?.excludedTerms?.length ? 
+            x.label && rinsedName.includes(this.rinseName(x.label)) && !x.advanced.excludedTerms.some(el => rinsedName.includes(this.rinseName(el)))
+            :
+            x.label && rinsedName.includes(this.rinseName(x.label))
+        ) 
+        || false;        
+        //return exactMatchMenus.find(x => x.label && x.label === trueName) || bestMatchMenus.find(x => x.label && name.includes(this.rinseName(x.label))) || false;
         //return sortedMenu.find(x => name.includes(this.rinseName(x.label))) || false;
     }
 
