@@ -53,11 +53,10 @@ export class AAAutorecFunctions {
 
         let sortedMenu = menu.sort((a, b) => b.label.replace(/\s+/g, '').length - a.label?.replace(/\s+/g, '').length);
 
-        let exactMatchMenus = sortedMenu.filter(x => x.exactMatch);
-        let bestMatchMenus = sortedMenu.filter(x => !x.exactMatch);
+        let exactMatchMenus = sortedMenu.filter(x => x.advanced?.exactMatch);
+        let bestMatchMenus = sortedMenu.filter(x => !x.advanced?.exactMatch);
 
-        return exactMatchMenus.find(x => x.label && x.label === trueName) || bestMatchMenus.find(x => x.label && name.includes(this.rinseName(x.label))) || false;
-        //return sortedMenu.find(x => name.includes(this.rinseName(x.label))) || false;
+        return allMenuSearch({exactMatchMenus, bestMatchMenus}, rinseName(name), trueName);
     }
 
     static singleMenuStrictSearch(menu, name) {
