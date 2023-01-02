@@ -143,7 +143,11 @@
 			"blue03": "Bleu 03",
 			"ring02": "Anneau 02",
 			"ring03": "Anneau 03",
-			"orangered": "Rouge orangé"
+			"orangered": "Rouge orangé",
+			"green02": "Vert 02",
+			"darkpink": "Rose sombre",
+			"darkyellow": "Jaune sombre",
+			"textured": "Texturé"
 		},
 		"animations": {
 			"coneofcold": "Cône de froid",
@@ -345,7 +349,15 @@
 			"outro_fade": "Outro disparu",
 			"triboomerang": "Boomerang triple",
 			"outburst": "Explosion",
-			"boomerang": "Boomerang"
+			"boomerang": "Boomerang",
+			"slashing": "Tranchant",
+			"frost": "Froid",
+			"boneshield": "Bouclier d'os",
+			"roundshield": "Bouclier rond",
+			"towershield": "Pavois",
+			"smokering": "Anneau de fumée",
+			"feathers": "Plumes",
+			"plume": "Plume"
 		},
 		"variants": {
 			"1": "01",
@@ -438,7 +450,11 @@
 			"void": "Néant",
 			"stick": "Bâton",
 			"above": "Au-dessus de",
-			"liquid": "Liquide"
+			"liquid": "Liquide",
+			"frost": "Givre",
+			"ring02": "Anneau 02",
+			"ring03": "Anneau 03",
+			"outburst": "Explosion extérieure"
 		},
 		"menuTypes": {
 			"creature": "Attaque de créature",
@@ -469,7 +485,10 @@
 			"eyes": "Yeux",
 			"plants": "Plante",
 			"vines": "Lianes",
-			"sideImpact": "Impact de côté"
+			"sideImpact": "Impact de côté",
+			"impact": "Impact",
+			"nature": "Nature",
+			"smoke": "Fumée"
 		},
 		"animTypes": {
 			"melee": "Corps-à-corps",
