@@ -53,8 +53,8 @@ export class AAAutorecFunctions {
 
         let sortedMenu = menu.sort((a, b) => b.label.replace(/\s+/g, '').length - a.label?.replace(/\s+/g, '').length);
 
-        let exactMatchMenus = sortedMenu.filter(x => x.exactMatch);
-        let bestMatchMenus = sortedMenu.filter(x => !x.exactMatch);
+        let exactMatchMenus = sortedMenu.filter(x => x.advanced?.exactMatch);
+        let bestMatchMenus = sortedMenu.filter(x => !x.advanced?.exactMatch);
 
         return exactMatchMenus.find(x => x.label && x.label === trueName)
         || 
