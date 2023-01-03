@@ -50,6 +50,15 @@ async function templateAnimation(input) {
         debug("No Item could be found")
         return;
     }
+    // Spell variants can be identified by the template name
+    const templateName = input.templateData.flags?.pf2e?.origin?.name
+    // If item and template name differ, the variant spell can be created by applying the variants overlay
+    if (templateName && input.item.name !== templateName) {
+        // Search for the variant overlay by name
+        const overlayId = input.item.overlays.find(o => o.name == templateName)?._id
+        if (overlayId) input.item = input.item.loadVariant({ overlayIds: [overlayId] })
+    }
+    
     const handler = await AAHandler.make(input)
     if (!handler) { return;}
     trafficCop(handler)
