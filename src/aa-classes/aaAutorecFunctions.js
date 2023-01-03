@@ -23,6 +23,23 @@ export class AAAutorecFunctions {
     }
 
     static allMenuSearch(menus, rinsedName, trueName) {
+        let filteredBestMatch = menus.bestMatchMenus.filter(x => x.label && rinsedName.includes(this.rinseName(x.label)));
+        let superFiltered;
+        console.log(filteredBestMatch)
+        if (filteredBestMatch.length > 1) {
+            superFiltered = filteredBestMatch.filter(x => x.advanced?.excludedTerms?.length > 0)
+        }
+        if (filteredBestMatch.length === superFiltered.length) {
+            return filteredBestMatch[0];
+        } else if (superFiltered.length > filteredBestMatch.length) {
+            return superFiltered[0];
+        }
+        console.log(superFiltered)
+
+
+
+
+
         return menus.exactMatchMenus.find(x => x.label && x.label === trueName)
         || 
         menus.bestMatchMenus.find(x => 
