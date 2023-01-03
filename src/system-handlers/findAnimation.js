@@ -68,11 +68,17 @@ export async function handleItem(data) {
             }
         }    
     }
+    
     if (autorecObject && data.isTemplate) {
         let data = autorecObject;
         if (data.menu === "range" || data.menu === "melee" || data.menu === "ontoken") {
             autorecObject = AAAutorecFunctions.singleMenuSearch(autorecSettings.templatefx, rinsedItemName, itemName);
         }
+    } else if ( data.isVariant && !autorecObject && data.isTemplate) {
+        // For use with Variant spell casting, based off PF2e. If the variant name is not found in the Global menu, it looks for one matching the original name
+        let newItemName = input.originalItem?.name;
+        let newRinsedName = newItemName ? AAAutorecFunctions.rinseName(newItemName) : "noitem";
+        autorecObject = AAAutorecFunctions.allMenuSearch(menus, newRinsedName, newItemName);
     }
     return autorecObject;
 }
