@@ -656,7 +656,14 @@
 			"fadeOut": "Fondu au noir",
 			"randomOffset": "Décalage aléatoire",
 			"await": "Patienter",
-			"bind": "Lier"
+			"bind": "Lier",
+			"property": "Propriété",
+			"exclude": "Exclure",
+			"excludedSearchWords": "Terme exclus de la recherche",
+			"forceExact": "Forcer la correspondance",
+			"advanced": "Avancé",
+			"recognition": "Reconnaissance",
+			"features": "Fonctionnalités"
 		},
 		"app": {
 			"aaAutorec-range": {
