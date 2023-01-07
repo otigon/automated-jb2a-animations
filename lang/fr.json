@@ -81,7 +81,9 @@
 			"overwriteHint": "Effacer le menu actuel et importer un nouveau menu",
 			"launchMenu": "Menu de lancement",
 			"menuName": "Menu global de la reconnaissance automatique",
-			"menuHint": "Lancez le menu Global Autorec. Celui-ci abrite également le menu des paramètres des animations automatisées"
+			"menuHint": "Lancez le menu Global Autorec. Celui-ci abrite également le menu des paramètres des animations automatisées",
+			"hideTemplate_name": "Grilles des gabarits sur un survol",
+			"hideTemplate_hint": "Retire le soulignement de la grille du gabarit à moins de le survoler. Les réglages de TOKEN MAGIC FX pour le survol doivent être DÉSACTIVÉS"
 		},
 		"colors": {
 			"lightorange": "Orange clair",
