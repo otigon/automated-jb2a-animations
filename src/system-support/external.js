@@ -72,11 +72,15 @@ export async function playAnimation(sourceToken, item, options = {}) {
     } else {
         targets = Array.from(game.user.targets);
     }
+    
+    let workflow;
+    if (options.workflow) { workflow = options.workflow };
 
     const data = {
         token: sourceToken,
         targets: targets,
         item: item,
+        workflow: workflow,
         ...options
     }
 
