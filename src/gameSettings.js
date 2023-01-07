@@ -3,11 +3,11 @@ import { aaAutorec } from "./mergeScripts/autorec/aaAutoRecList.js";
 import { AnimationState } from "./AnimationState.js";
 
 import { TJSGameSettings } from '@typhonjs-fvtt/svelte-standard/store';
-
 class AAGameSettings extends TJSGameSettings
 {
    constructor() {
       super('autoanimations');
+      console.log(TJSGameSettings)
    }
 
    initialize() {
@@ -187,6 +187,21 @@ class AAGameSettings extends TJSGameSettings
             default: false,
          }
       });
+
+      settings.push({
+         namespace,
+         key: "hideTemplateGrid",
+         options: {
+            name: 'autoanimations.settings.hideTemplate_name',
+            hint: 'autoanimations.settings.hideTemplate_hint',
+            scope: scope.world,
+            config: true,
+            type: Boolean,
+            default: false,
+            requiresReload: true
+            //onChange: () => super.#reloadConfirm//window.location.reload()
+         },
+      })
 
       settings.push({
          namespace,

@@ -81,7 +81,9 @@
             "overwriteWarn": "Overwrite will delete your existing Menu",
             "launchMenu": "Launch Menu",
             "menuName": "Global Automatic Recognition Menu",
-            "menuHint": "Launch the Global Autorec menu. This also houses the Settings menu for Automated Animations"
+            "menuHint": "Launch the Global Autorec menu. This also houses the Settings menu for Automated Animations",
+            "hideTemplate_name": "Template Grids on Hover",
+            "hideTemplate_hint": "Removes the Template Grid Highlighting unless Hovered over. TOKEN MAGIC FX SETTINGS FOR HOVER MUST BE DISABLED"
         },
         "colors": {
             "lightorange": "Light Orange",

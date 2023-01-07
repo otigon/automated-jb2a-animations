@@ -45,6 +45,8 @@ import { aaDeletedItems }               from "./deletedItems.js";
 import { patreonMerge }                 from "./database/database-merge/patreonMerge.js";
 import { freeMerge }                    from "./database/database-merge/freeMerge.js";
 
+import { socketlibSocket } from "./socketset.js";
+
 Hooks.once('socketlib.ready', function () {
     setupSocket();
 });
@@ -220,6 +222,21 @@ Hooks.once('ready', async function () {
     systemSupport[systemIdClean] ? systemSupport[systemIdClean].systemHooks() : systemSupport.standard.systemHooks();
 
     registerActiveEffectHooks();
+    
+    // Code Adapted from Token Magic FX by Secretfire under GPL V3 (https://github.com/Feu-Secret/Tokenmagic/blob/master/LICENSE) to only show Template Grid Highlighting whilst hovering in the template area
+    if (game.settings.get('autoanimations', 'hideTemplateGrid')) {
+        if (game.modules.get('tokenmagic')?.active && game.settings.get("tokenmagic", "defaultTemplateOnHover")) {} else {
+            canvas.stage.on("mousemove", event => {
+                const { x: mx, y: my } = event.data.getLocalPosition(canvas.templates);
+                for (const template of canvas.templates.placeables) {
+                    const hl = canvas.grid.getHighlightLayer(`MeasuredTemplate.${template.id}`) ?? {};
+                    const { x: cx, y: cy } = template.center;
+                    const mouseover = template?.shape?.contains(mx - cx, my - cy);
+                    hl.visible = mouseover;
+                }
+            });
+        }
+    }    
 
     Hooks.callAll("aa.initialize")
 });
