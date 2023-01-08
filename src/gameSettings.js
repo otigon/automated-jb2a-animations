@@ -194,7 +194,7 @@ class AAGameSettings extends TJSGameSettings
          options: {
             name: 'autoanimations.settings.hideTemplate_name',
             hint: 'autoanimations.settings.hideTemplate_hint',
-            scope: scope.world,
+            scope: scope.client,
             config: true,
             type: Boolean,
             default: false,
