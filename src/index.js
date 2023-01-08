@@ -275,6 +275,9 @@ function handleTemplates() {
     if (templatesGridHidden === "full") {
         if (game.modules.get('tokenmagic')?.active && game.settings.get("tokenmagic", "defaultTemplateOnHover")) { } else {
             removeGridHighlightsOnLoad();
+            Hooks.on("createMeasuredTemplate", (template) => {
+                canvas.grid.getHighlightLayer(`MeasuredTemplate.${template.id}`).visible = false;
+            });
             Hooks.on("canvasReady", () => {
                 removeGridHighlightsOnLoad()
             });    
