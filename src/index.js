@@ -223,21 +223,12 @@ Hooks.once('ready', async function () {
 
     registerActiveEffectHooks();
     
-    // Code Adapted from Token Magic FX by Secretfire under GPL V3 (https://github.com/Feu-Secret/Tokenmagic/blob/master/LICENSE) to only show Template Grid Highlighting whilst hovering in the template area
     if (game.settings.get('autoanimations', 'hideTemplateGrid')) {
-        if (game.modules.get('tokenmagic')?.active && game.settings.get("tokenmagic", "defaultTemplateOnHover")) {} else {
-            canvas.stage.on("mousemove", event => {
-                const { x: mx, y: my } = event.data.getLocalPosition(canvas.templates);
-                for (const template of canvas.templates.placeables) {
-                    const hl = canvas.grid.getHighlightLayer(`MeasuredTemplate.${template.id}`) ?? {};
-                    const { x: cx, y: cy } = template.center;
-                    const mouseover = template?.shape?.contains(mx - cx, my - cy);
-                    hl.visible = mouseover;
-                }
-            });
+        if (game.modules.get('tokenmagic')?.active && game.settings.get("tokenmagic", "defaultTemplateOnHover")) { } else {
+            canvasMouseEvent()
         }
-    }    
-
+    }
+    
     Hooks.callAll("aa.initialize")
 });
 
@@ -263,6 +254,19 @@ window.AutoAnimations = AutoAnimations;
 window.AutomatedAnimations = {
     AutorecManager: AAAutorecManager,
     playAnimation: (sourceToken, item, options = {}) => playAnimation(sourceToken, item, options),
+}
+
+// Code Adapted from Token Magic FX by Secretfire with permission, under GPL V3 (https://github.com/Feu-Secret/Tokenmagic/blob/master/LICENSE) to only show Template Grid Highlighting whilst hovering in the template area
+function canvasMouseEvent() {
+    canvas.stage.on("mousemove", event => {
+        const { x: templateX, y: templateY } = event.data.getLocalPosition(canvas.templates);
+        for (let template of canvas.templates.placeables) {
+            const highlight = canvas.grid.getHighlightLayer(`MeasuredTemplate.${template.id}`) ?? {};
+            const {x: centerX, y: centerY} = template.center;
+            const mouseInTemplate = template?.shape?.contains(templateX - centerX, templateY - centerY);
+            highlight.visible = mouseInTemplate;
+        }
+    });
 }
 
 function moduleIncludes(test) {
