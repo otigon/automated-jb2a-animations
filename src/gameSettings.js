@@ -196,10 +196,14 @@ class AAGameSettings extends TJSGameSettings
             hint: 'autoanimations.settings.hideTemplate_hint',
             scope: scope.client,
             config: true,
-            type: Boolean,
-            default: false,
+            type: String,
+            choices: {
+               off: 'autoanimations.settings.OFF',
+               templateLayer: 'autoanimations.settings.hoverInTemplateLayer',
+               full: 'autoanimations.settings.hoverInTemplate',
+            },
+            default: "off",
             requiresReload: true
-            //onChange: () => super.#reloadConfirm//window.location.reload()
          },
       })
 
