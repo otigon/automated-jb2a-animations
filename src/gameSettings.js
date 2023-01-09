@@ -7,6 +7,7 @@ import { TJSGameSettings } from '@typhonjs-fvtt/svelte-standard/store';
 class AAGameSettings extends TJSGameSettings {
    constructor() {
       super('autoanimations');
+      console.log(TJSGameSettings)
    }
 
    initialize() {
@@ -186,6 +187,25 @@ class AAGameSettings extends TJSGameSettings {
             default: false,
          }
       });
+
+      settings.push({
+         namespace,
+         key: "hideTemplateGrid",
+         options: {
+            name: 'autoanimations.settings.hideTemplate_name',
+            hint: 'autoanimations.settings.hideTemplate_hint',
+            scope: scope.client,
+            config: true,
+            type: String,
+            choices: {
+               off: 'autoanimations.settings.OFF',
+               templateLayer: 'autoanimations.settings.hoverInTemplateLayer',
+               full: 'autoanimations.settings.hoverInTemplate',
+            },
+            default: "off",
+            requiresReload: true
+         },
+      })
 
       settings.push({
          namespace,

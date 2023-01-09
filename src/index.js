@@ -45,6 +45,8 @@ import { aaDeletedItems } from "./deletedItems.js";
 import { patreonMerge } from "./database/database-merge/patreonMerge.js";
 import { freeMerge } from "./database/database-merge/freeMerge.js";
 
+import { socketlibSocket } from "./socketset.js";
+
 Hooks.once('socketlib.ready', function () {
     setupSocket();
 });
@@ -221,6 +223,8 @@ Hooks.once('ready', async function () {
     systemSupport[systemIdClean] ? systemSupport[systemIdClean].systemHooks() : systemSupport.standard.systemHooks();
 
     registerActiveEffectHooks();
+    
+    handleTemplates();
 
     Hooks.callAll("aa.initialize")
 });
@@ -247,6 +251,65 @@ window.AutoAnimations = AutoAnimations;
 window.AutomatedAnimations = {
     AutorecManager: AAAutorecManager,
     playAnimation: (sourceToken, item, options = {}) => playAnimation(sourceToken, item, options),
+}
+
+
+function handleTemplates() {
+
+    let templatesGridHidden = game.settings.get('autoanimations', 'hideTemplateGrid');
+    // Settings for showing the Template Grid Highlight whilst hovering in the Template Layer
+    if (templatesGridHidden === "templateLayer") {
+        if (game.modules.get('tokenmagic')?.active && game.settings.get("tokenmagic", "defaultTemplateOnHover")) { } else {
+            removeGridHighlightsOnLoad();
+            Hooks.on("canvasReady", () => {
+                removeGridHighlightsOnLoad()
+            });
+            Hooks.on("createMeasuredTemplate", (template) => {
+                canvas.grid.getHighlightLayer(`MeasuredTemplate.${template.id}`).visible = false;
+            });
+            Hooks.on('hoverMeasuredTemplate', (template, isHovered) => {
+                canvas.grid.getHighlightLayer(`MeasuredTemplate.${template.id}`).visible = isHovered;
+            })
+        }
+    }
+    // Settings for showing the Template Grid Highlight whilst hovrering anywhere in the Template area
+    if (templatesGridHidden === "full") {
+        if (game.modules.get('tokenmagic')?.active && game.settings.get("tokenmagic", "defaultTemplateOnHover")) { } else {
+            removeGridHighlightsOnLoad();
+            Hooks.on("createMeasuredTemplate", (template) => {
+                canvas.grid.getHighlightLayer(`MeasuredTemplate.${template.id}`).visible = false;
+            });
+            Hooks.on("canvasReady", () => {
+                removeGridHighlightsOnLoad()
+            });    
+            canvasMouseEvent()
+        }
+    }
+
+    // Removes the template Grid Highlighting on Canvas Load
+    function removeGridHighlightsOnLoad() {
+        let highlights = Object.keys(canvas.grid.highlightLayers);
+        if (highlights.length) {
+            highlights.forEach((e) => {
+                if (e.startsWith("MeasuredTemplate")) {
+                    canvas.grid.getHighlightLayer(e).visible = false
+                }
+            })
+        }
+    }
+
+    // Code Adapted from Token Magic FX by Secretfire with permission, under GPL V3 (https://github.com/Feu-Secret/Tokenmagic/blob/master/LICENSE) to only show Template Grid Highlighting whilst hovering in the template area
+    function canvasMouseEvent() {
+        canvas.stage.on("mousemove", event => {
+            const { x: templateX, y: templateY } = event.data.getLocalPosition(canvas.templates);
+            for (let template of canvas.templates.placeables) {
+                const highlight = canvas.grid.getHighlightLayer(`MeasuredTemplate.${template.id}`) ?? {};
+                const { x: centerX, y: centerY } = template.center;
+                const mouseInTemplate = template?.shape?.contains(templateX - centerX, templateY - centerY);
+                highlight.visible = mouseInTemplate;
+            }
+        });
+    }
 }
 
 function moduleIncludes(test) {

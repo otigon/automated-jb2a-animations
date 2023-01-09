@@ -42,7 +42,7 @@
                 on:change={() => checkMeta()}
             />
         </div>
-        <div class={!$animation.target.enable ? "aa-isDisabled" : ""}>
+        <div class={!$animation.target?.enable ? "aa-isDisabled" : ""}>
             <VideoSelect {animation} section="target" {title} {idx} {category}/>
             <TargetFxOptions {animation} />
             <SoundSettings {animation} {category} {idx} section="target" />

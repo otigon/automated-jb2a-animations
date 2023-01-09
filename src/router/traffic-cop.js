@@ -1,24 +1,19 @@
 import { DataSanitizer } from "../aa-classes/DataSanitizer.js";
 import { debug } from "../constants/constants.js";
+import { AAAutorecFunctions } from "../aa-classes/aaAutorecFunctions.js";
 
 import * as animate from "../animation-functions"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function trafficCop(handler) {
-    const autorecDisabled = game.settings.get("autoanimations", "disableAutoRec")
-    /* Removing this. Workflow should no longer reach this point if no Animation is matched
-    if (!handler.isEnabled) { 
-        debug("Item is disabled, exiting workflow", handler.item)
-        return; 
-    }
-    if (!handler.isCustomized && !handler.autorecObject || (handler.autorecObject && autorecDisabled)) { 
-        debug("No animation found for Item", handler.item)
-        return; 
-    }
-    */
-    //const data = handler.isCustomized ? foundry.utils.deepClone(handler.flags) : foundry.utils.deepClone(handler.autorecObject);
+    
     const data = foundry.utils.deepClone(handler.animationData);
+    if (data.advanced?.excludedType?.enabled && data.advanced?.excludedType?.path && data.advanced?.excludedType?.property) {
+        if (AAAutorecFunctions.checkExcludedProperty(handler.item, data.advanced?.excludedType?.property, data.advanced?.excludedType?.path)) {
+            return;
+        }
+    } 
     Hooks.callAll("aa.preDataSanitize", handler, data);
 
     const sanitizedData = await DataSanitizer._getAnimationData(handler, data);
@@ -97,6 +92,7 @@ export async function trafficCop(handler) {
         }
         debug(`${animationType} Animation Start"`, handler, sanitizedData)
         if (handler.templateData) {
+            await wait(500)
             animate[animationType](handler, sanitizedData);
             return;
         }

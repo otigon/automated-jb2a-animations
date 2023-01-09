@@ -31,6 +31,7 @@ export async function createRuleElementPF2e(item) {
         targets: [],
         item: item,
         activeEffect: true,
+        tieToDocuments: true,
     }
     let handler = await AAHandler.make(data);
     if (!handler) { return; }
@@ -55,7 +56,7 @@ export async function deleteRuleElementPF2e(item) {
     const aePF2eTypes = ['condition', 'effect']
     if (!aePF2eTypes.includes(item.type)) { return; }
 
-    let aaEffects = Sequencer.EffectManager.getEffects({ origin: item.uuid })
+    //let aaEffects = Sequencer.EffectManager.getEffects({ origin: item.uuid })
 
     const token = item.parent?.token || canvas.tokens.placeables.find(token => token.actor?.items?.get(item.id) != null)
     
@@ -79,7 +80,13 @@ export async function deleteRuleElementPF2e(item) {
         //: foundry.utils.deepClone(handler.autorecObject);
 
     const macro = await DataSanitizer.compileMacro(handler, flagData);
+    if (macro) {
+        new Sequence()
+            .macro(macro.name, "off", handler, macro.args)
+            .play()
+    }
 
+    /*
     if (aaEffects.length > 0) {
         // Filters the active Animations to isolate the ones active on the Token
         let currentEffect = aaEffects.filter(i => item.uuid.includes(i.source?.actor?.id));
@@ -107,6 +114,7 @@ export async function deleteRuleElementPF2e(item) {
                 .play()
         }
     }
+    */
 }
 
 

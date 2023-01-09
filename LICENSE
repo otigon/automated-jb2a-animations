@@ -1,7 +1,5 @@
 MIT License
 
-Copyright (c) 2020 Tim Posney
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -23,3 +21,5 @@ SOFTWARE.
 Code from the module Midi-QOL (https://gitlab.com/tposney/midi-qol) written by Tim Posney has been included in Automated Animations to aid with checking distance between tokens.
 
 Code from the Misty Step Animation was originally created by HoneyBadger (Trioderegion), big thanks for his involvement in the Foundry Community!
+
+Code from Token Magic FX is used and modified to only show Template Grid Highlighting on hover (index.js L229-237). Code is adapated from Secretfire under GPL V3 (https://github.com/Feu-Secret/Tokenmagic/blob/master/LICENSE)

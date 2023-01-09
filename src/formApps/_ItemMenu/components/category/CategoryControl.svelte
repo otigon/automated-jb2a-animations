@@ -54,7 +54,8 @@
   }
 
   //Check the Autorec Menu for a matching Section
-  $: isInAutorec = AAAutorecFunctions.allMenuSearch(autorecSettings, AAAutorecFunctions.rinseName($animation.label));
+  let filteredSettings = AAAutorecFunctions.sortAndFilterMenus(autorecSettings)
+  $: isInAutorec = AAAutorecFunctions.allMenuSearch(filteredSettings, AAAutorecFunctions.rinseName($animation.label));
 
   let menu = isInAutorec
     ? game.i18n.localize(`autoanimations.animTypes.${isInAutorec.menu}`)

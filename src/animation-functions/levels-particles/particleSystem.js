@@ -4,6 +4,7 @@ export async function particleEffects(handler, animationData = {}) {
     //const options3d = autoObject ? autoObject.levels3d || {} : handler.flags?.levels3d || {};
     
     const data = await DataSanitizer.compileParticleData(animationData)
+
     const secondary = data.secondary;
     if (!data) { return; }
     const sourceToken = handler.sourceToken;
@@ -170,7 +171,7 @@ export async function particleEffects(handler, animationData = {}) {
                 .start()
         }
     
-        static sprites(data, sourceToken, targets) {
+        static sprite(data, sourceToken, targets) {
             if (secondary.enable) {
                 new Particle3D(data.type)
                     .from(sourceToken)

@@ -40,8 +40,13 @@ export function systemHooks() {
     });
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
         if (userId !== game.user.id || !AnimationState.enabled) { return };
-        templateAnimation(await getRequiredData({itemUuid: template.flags?.pf2e?.origin?.uuid, templateData: template, workflow: template, isTemplate: true}))
-    })    
+        templateAnimation(await getRequiredData({
+            itemUuid: template.flags?.pf2e?.origin?.uuid,
+            templateData: template,
+            workflow: template,
+            isTemplate: true
+        }))
+    })
 }
 
 async function templateAnimation(input) {
@@ -50,6 +55,19 @@ async function templateAnimation(input) {
         debug("No Item could be found")
         return;
     }
+    // Spell variants can be identified by the template name
+    const templateName = input.templateData.flags?.pf2e?.origin?.name
+    // If item and template name differ, the variant spell can be created by applying the variants overlay
+    if (templateName && input.item.name !== templateName) {
+        // Search for the variant overlay by name
+        const overlayId = input.item.overlays.find(o => o.name == templateName)?._id
+        if (overlayId) {
+            input.item = input.item.loadVariant({ overlayIds: [overlayId] })
+            input.isVariant = true;
+            input.originalItem = input.item?.original;
+        }
+    }
+    
     const handler = await AAHandler.make(input)
     if (!handler) { return;}
     trafficCop(handler)
@@ -192,7 +210,7 @@ function spellHasAttack(item) {
     return getSpellType(item) === "attack"
 }
 function spellHasAOE(item) {
-    return item.system.area?.value && item.system.area?.areaType;
+    return item.system.area?.value && item.system.area?.type;
 }
 
 function findAttackOnItem(item) {
