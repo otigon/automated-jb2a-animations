@@ -32,8 +32,8 @@ export function copyToFrom(animation, item, autorecSettings, isAE) {
          let name = isAE ? item.label : item.name;
 
          const isInAutorec = isAE
-            ? AAAutorecFunctions.singleMenuSearch(autorecSettings, AAAutorecFunctions.rinseName(name))
-            : AAAutorecFunctions.allMenuSearch(autorecSettings, AAAutorecFunctions.rinseName(name));
+            ? AAAutorecFunctions.singleMenuSearch(AAAutorecFunctions.sortAndFilterMenus(autorecSettings), AAAutorecFunctions.rinseName(name))
+            : AAAutorecFunctions.allMenuSearch(AAAutorecFunctions.sortAndFilterMenus(autorecSettings), AAAutorecFunctions.rinseName(name));
          if (!isInAutorec) {
             custom_notify("There is no matching Global entry to copy from");
             return;
