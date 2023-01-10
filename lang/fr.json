@@ -667,7 +667,8 @@
 			"forceExact": "Forcer la correspondance",
 			"advanced": "Avancé",
 			"recognition": "Reconnaissance",
-			"features": "Fonctionnalités"
+			"features": "Fonctionnalités",
+			"checkCollision": "Vérifier les collisions"
 		},
 		"app": {
 			"aaAutorec-range": {
