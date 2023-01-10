@@ -84,50 +84,6 @@ export default class AAHandler {
     }
 
     // Returns distance from Source Token to a given Target
-    getDistanceTo(target) {
-        /*
-        if (game.system.id === 'pf1') {
-            const scene = game.scenes.active;
-            const gridSize = scene.grid.size;
-
-            const left = (token) => token.x;
-            const right = (token) => token.x + token.w;
-            const top = (token) => token.y;
-            const bottom = (token) => token.y + token.h;
-
-            const isLeftOf = right(this.sourceToken) <= left(target);
-            const isRightOf = left(this.sourceToken) >= right(target);
-            const isAbove = bottom(this.sourceToken) <= top(target);
-            const isBelow = top(this.sourceToken) >= bottom(target);
-
-            let x1 = left(this.sourceToken);
-            let x2 = left(target);
-            let y1 = top(this.sourceToken);
-            let y2 = top(target);
-
-            if (isLeftOf) {
-                x1 += (this.sourceToken.document.width - 1) * gridSize;
-            }
-            else if (isRightOf) {
-                x2 += (target.document.width - 1) * gridSize;
-            }
-
-            if (isAbove) {
-                y1 += (this.sourceToken.document.height - 1) * gridSize;
-            }
-            else if (isBelow) {
-                y2 += (target.document.height - 1) * gridSize;
-            }
-
-            const ray = new Ray({ x: x1, y: y1 }, { x: x2, y: y2 });
-            const distance = canvas.grid.grid.measureDistances([{ ray }], { gridSpaces: true })[0];
-            return distance;
-        } else {  
-        */ 
-            return canvas.grid.measureDistance(this.sourceToken, target, {gridSpaces: true});
-        //}
-    }
-
     getDistance(target) {
         if (this.systemId === "pf1") {
             // This code was provided by David (AKA Claudekennilol) specific for PF1

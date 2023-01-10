@@ -10,7 +10,7 @@ import { AAAutorecManager }             from "./formApps/_AutorecMenu/components
 import { playAnimation }                from "./system-support/external.js";
 
 // Register all active effect Hooks
-import { registerActiveEffectHooks }    from "./active-effects/handleActiveEffectHooks";
+//import { registerActiveEffectHooks }    from "./active-effects/handleActiveEffectHooks";
 
 // Animation Menus for Items and Active Effects
 import AEMenuApp                        from "./formApps/_ActiveEffects/AEMenuApp.js";
@@ -19,7 +19,7 @@ import ItemMenuApp                      from "./formApps/_ItemMenu/ItemMenuApp.j
 import { showAutorecMenu }              from "./formApps/_AutorecMenu/showUI.js";
 
 // Register Socketlib settings for creating and removing Tiles as GM
-import { setupSocket }                  from "./socketset.js";
+import { setupSocket, socketlibSocket }                  from "./socketset.js";
 
 // Migration scripts for Item/Active Effect and Autorec
 import { flagMigrations }               from "./mergeScripts/items/itemFlagMerge.js";
@@ -35,7 +35,7 @@ import { gameSettings }                 from "./gameSettings.js";
 import { autoRecStores }                from "./formApps/_AutorecMenu/store/AutoRecStores.js";
 
 // Routing for registering Hooks to run animations
-import * as systemSupport               from "./system-support/index.js"
+//import * as systemSupport               from "./system-support/index.js"
 
 import "../styles/newMenuCss.scss";
 
@@ -45,7 +45,9 @@ import { aaDeletedItems }               from "./deletedItems.js";
 import { patreonMerge }                 from "./database/database-merge/patreonMerge.js";
 import { freeMerge }                    from "./database/database-merge/freeMerge.js";
 
-import { socketlibSocket } from "./socketset.js";
+import AAHandler                        from "./system-handlers/workflow-data.js";
+import { trafficCop }                   from "./router/traffic-cop.js";
+import { DataSanitizer }                from "./aa-classes/DataSanitizer.js";
 
 Hooks.once('socketlib.ready', function () {
     setupSocket();
@@ -218,10 +220,10 @@ Hooks.once('ready', async function () {
     */
 
     // Register Hooks by system
-    const systemIdClean = game.system.id.replace(/\-/g, '');
-    systemSupport[systemIdClean] ? systemSupport[systemIdClean].systemHooks() : systemSupport.standard.systemHooks();
+    //const systemIdClean = game.system.id.replace(/\-/g, '');
+    //systemSupport[systemIdClean] ? systemSupport[systemIdClean].systemHooks() : systemSupport.standard.systemHooks();
 
-    registerActiveEffectHooks();
+    //registerActiveEffectHooks();
     
     handleTemplates();
 
@@ -250,6 +252,11 @@ window.AutoAnimations = AutoAnimations;
 window.AutomatedAnimations = {
     AutorecManager: AAAutorecManager,
     playAnimation: (sourceToken, item, options = {}) => playAnimation(sourceToken, item, options),
+    AnimationState,
+    WorkflowHandler: AAHandler,
+    Router: trafficCop,
+    DataSanitizer,
+    removeTile: socketlibSocket,
 }
 
 

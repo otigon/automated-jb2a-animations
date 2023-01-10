@@ -7,7 +7,6 @@ class AAGameSettings extends TJSGameSettings
 {
    constructor() {
       super('autoanimations');
-      console.log(TJSGameSettings)
    }
 
    initialize() {
@@ -22,7 +21,7 @@ class AAGameSettings extends TJSGameSettings
          client: 'client',
          world: 'world'
       };
-
+      const folder = "Module Settings"
       const settings = [];
 
       // Add a convenience hook to open Autorec settings from macro.
@@ -51,6 +50,7 @@ class AAGameSettings extends TJSGameSettings
       settings.push({
          namespace,
          key: 'killAllAnim',
+         folder: folder,
          options: {
             name: 'autoanimations.settings.toggleAnimations',
             hint: 'autoanimations.settings.toggleAnimations_hint',
@@ -86,6 +86,7 @@ class AAGameSettings extends TJSGameSettings
       settings.push({
          namespace,
          key: 'disableAutoRec',
+         folder: folder,
          options: {
             name: 'autoanimations.settings.settingDisableAutoRec',
             hint: 'autoanimations.settings.settingDisableAutoRecHint',
@@ -99,6 +100,7 @@ class AAGameSettings extends TJSGameSettings
       settings.push({
          namespace,
          key: 'globaldelay',
+         folder: folder,
          options: {
             name: 'autoanimations.settings.globaldelay_name',
             hint: 'autoanimations.settings.globaldelay_hint',
@@ -112,6 +114,7 @@ class AAGameSettings extends TJSGameSettings
       settings.push({
          namespace,
          key: 'jb2aLocation',
+         folder: folder,
          options: {
             name: 'autoanimations.settings.s3Name',
             hint: 'autoanimations.settings.s3Hint',
@@ -126,6 +129,7 @@ class AAGameSettings extends TJSGameSettings
       settings.push({
          namespace,
          key: 'hideFromPlayers',
+         folder: folder,
          options: {
             name: 'autoanimations.settings.animtab_name',
             hint: 'autoanimations.settings.animtab_hint',
@@ -152,6 +156,7 @@ class AAGameSettings extends TJSGameSettings
       settings.push({
          namespace,
          key: 'rangeSwitch',
+         folder: folder,
          options: {
             name: 'autoanimations.settings.settingRangeSwitch',
             hint: 'autoanimations.settings.settingRangeSwitchhint',
@@ -165,6 +170,7 @@ class AAGameSettings extends TJSGameSettings
       settings.push({
          namespace,
          key: 'disableAEAnimations',
+         folder: folder,
          options: {
             name: 'autoanimations.settings.disableAEAnimations',
             hint: 'autoanimations.settings.disableAEAnimationsHint',
@@ -178,6 +184,7 @@ class AAGameSettings extends TJSGameSettings
       settings.push({
          namespace,
          key: 'noTips',
+         folder: folder,
          options: {
             name: 'autoanimations.settings.noTips',
             hint: 'autoanimations.settings.noTipsHint',
@@ -191,6 +198,7 @@ class AAGameSettings extends TJSGameSettings
       settings.push({
          namespace,
          key: "hideTemplateGrid",
+         folder: folder,
          options: {
             name: 'autoanimations.settings.hideTemplate_name',
             hint: 'autoanimations.settings.hideTemplate_hint',
@@ -210,6 +218,7 @@ class AAGameSettings extends TJSGameSettings
       settings.push({
          namespace,
          key: 'debug',
+         folder: folder,
          options: {
             name: 'autoanimations.settings.debugging',
             scope: scope.world,
@@ -218,7 +227,7 @@ class AAGameSettings extends TJSGameSettings
             type: Boolean
          }
       });
-
+      /*
       switch (game.system.id) {
          case "cyphersystem":
             settings.push({
@@ -656,8 +665,8 @@ class AAGameSettings extends TJSGameSettings
                }
             });
             */
-      }
-
+      //}
+      Hooks.callAll('aa.registerSettings', settings, namespace, scope)
 
       // Selectively register settings w/ core Foundry based on whether the user is GM.
       this.registerAll(settings, !game.user.isGM);
