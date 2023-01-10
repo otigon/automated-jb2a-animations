@@ -3,8 +3,8 @@ import { aaAutorec } from "./mergeScripts/autorec/aaAutoRecList.js";
 import { AnimationState } from "./AnimationState.js";
 
 import { TJSGameSettings } from '@typhonjs-fvtt/svelte-standard/store';
-class AAGameSettings extends TJSGameSettings
-{
+
+class AAGameSettings extends TJSGameSettings {
    constructor() {
       super('autoanimations');
       console.log(TJSGameSettings)
@@ -218,7 +218,6 @@ class AAGameSettings extends TJSGameSettings
             type: Boolean
          }
       });
-
       switch (game.system.id) {
          case "cyphersystem":
             settings.push({
@@ -635,27 +634,68 @@ class AAGameSettings extends TJSGameSettings
                }
             });
             break;
-            /* Considering options for changing 5e options on "How To Play" Animations
-         default:
+         case "TheWitcherTRPG":
             settings.push({
                namespace,
-               key: 'howToPlay',
+               key: "attackSkill",
                folder: game.system.title || game.system.name,
                options: {
-                  name: 'When to play Animations',
-                  hint: 'Tell Automated Animations when you would like animations to play',
+                  name: 'autoanimations.settings.coreonatk_name',
+                  hint: 'autoanimations.settings.coreonatk_hint',
                   scope: scope.world,
-                  type: String,
-                  choices: {
-                     onUse: 'On Item Use',
-                     attack: 'On Attacks',
-                     damage: 'On Damage, if Present',
-                  },
-                  default: 'onUse',
-                  config: true
+                  type: Boolean,
+                  default: true,
+                  config: true,
                }
             });
-            */
+            settings.push({
+               namespace,
+               key: "damage",
+               folder: game.system.title || game.system.name,
+               options: {
+                  name: 'autoanimations.settings.coreondmg_name',
+                  hint: 'autoanimations.settings.coreondmg_hint',
+                  scope: scope.world,
+                  type: Boolean,
+                  default: true,
+                  config: true,
+               }
+            });
+            settings.push({
+               namespace,
+               key: "spell",
+               folder: game.system.title || game.system.name,
+               options: {
+                  name: 'autoanimations.settings.coreonatk_name',
+                  hint: 'autoanimations.settings.coreonatk_hint',
+                  scope: scope.world,
+                  type: Boolean,
+                  default: true,
+                  config: true,
+               }
+            });
+            break;
+         /* Considering options for changing 5e options on "How To Play" Animations
+      default:
+         settings.push({
+            namespace,
+            key: 'howToPlay',
+            folder: game.system.title || game.system.name,
+            options: {
+               name: 'When to play Animations',
+               hint: 'Tell Automated Animations when you would like animations to play',
+               scope: scope.world,
+               type: String,
+               choices: {
+                  onUse: 'On Item Use',
+                  attack: 'On Attacks',
+                  damage: 'On Damage, if Present',
+               },
+               default: 'onUse',
+               config: true
+            }
+         });
+         */
       }
 
 
