@@ -16,7 +16,9 @@ export function systemHooks() {
         }
     });
     async function get_brsw_data (data) {
-        var tokenId = data.getFlag("betterrolls-swade2", "token");
+        //var tokenId = data.getFlag("betterrolls-swade2", "token");
+        return {token: data.token, actor: data.actor, item: data.item}
+        /*
         if (tokenId) {
             var token = canvas.tokens.get(tokenId);
             var itemId = data.getFlag("betterrolls-swade2", "item_id");
@@ -31,29 +33,30 @@ export function systemHooks() {
             const actorOrToken = actor
             return {actorOrToken, item}
         }
+        */
     }
     Hooks.on("BRSW-RollItem", async (data, html) => {
-        const {actorOrToken, item} = await get_brsw_data (data)
+        const {token, actor, item} = await get_brsw_data (data)
         if (item.flags?.autoanimations?.menu === "templatefx" || (item.flags?.autoanimations?.menu === "preset" && item.flags?.autoanimations?.presetType === "proToTemp")) {
             return //Return to prevent duplicate effects on placing a template.
-        } else { runSwade(actorOrToken, item) }
+        } else { runSwade(token, actor, item) }
     });
     Hooks.on("BRSW-BeforePreviewingTemplate", async (template, data, ev) => {
-        const {actorOrToken, item} = await get_brsw_data (data)
-        runSwade(actorOrToken, item)
+        const {token, actor, item} = await get_brsw_data (data)
+        runSwade(token, actor, item)
     })
     Hooks.on("BRSW-CreateItemCardNoRoll", async (data) => {
-        const {actorOrToken, item} = await get_brsw_data (data)
+        const {token, actor, item} = await get_brsw_data (data)
         if (item.flags?.autoanimations?.menu === "templatefx" || (item.flags?.autoanimations?.menu === "preset" && item.flags?.autoanimations?.presetType === "proToTemp")) {
             return //Return to prevent duplicate effects on placing a template.
-        } else { runSwade(actorOrToken, item) }
+        } else { runSwade(token, actor, item) }
     })
 }
 
 // TO-DO, CHECK SWADE
-async function runSwade(SwadeTokenOrActor, SwadeItem) {
+async function runSwade(token, actor, item) {
     if (!AnimationState.enabled) { return; }
-    let data = await getRequiredData({token: SwadeTokenOrActor, item: SwadeItem })
+    let data = await getRequiredData({token, actor, item })
     if (!data.item) { return; }
     const handler = await AAHandler.make(data)
     if (!handler) { return; }
