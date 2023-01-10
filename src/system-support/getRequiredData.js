@@ -1,7 +1,4 @@
-
-export function parseChatMessage(msg) {
-
-}
+import { aaDeletedItems } from "../deletedItems";
 
 export async function getRequiredData(data) {
     //let {item, itemId, itemUuid, itemName, token, tokenId, tokenUuid, targets, actorId, actor} = data;
@@ -37,7 +34,9 @@ export async function getRequiredData(data) {
 
 async function getItem(data) {
     let {item, itemId, itemUuid, itemName, token, tokenId, tokenUuid, targets, actorId, actor} = data;
-    return itemUuid 
+    return itemId
+            ? checkDeletedItems(itemId)
+            : itemUuid 
             ? await getItemFromUuid(itemUuid)
             : token && itemId
             ? getItemFromToken(token, itemId)
@@ -54,12 +53,16 @@ async function getItem(data) {
             : null
 }
 async function getItemFromUuid(uuid) {
-    return fromUuid(uuid);
+    return await fromUuid(uuid) || checkDeletedItems(uuid)
+}
+function checkDeletedItems(id) {
+    let idSplit = id.split('.');
+    return aaDeletedItems.get(idSplit[idSplit.length - 1]) || false;
 }
 // TO-DO: This can return null in some instances, follow up 
 async function getItemFromCompiledUuid(itemId, actor, actorId) {
     const idActor = actor ? actor.id : actorId;
-    return fromUuid(`Actor.${idActor}.Item.${itemId}`);
+    return await fromUuid(`Actor.${idActor}.Item.${itemId}`);
 }
 function getItemFromToken(token, itemId) {
     return token.actor?.items?.get(itemId)

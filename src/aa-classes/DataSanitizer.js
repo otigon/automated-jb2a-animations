@@ -737,6 +737,7 @@ export class DataSanitizer {
                     alpha: options.alpha ?? 1,
                     delayFade: options.delayFade ?? 0,
                     delayReturn: options.delayReturn ?? 0,
+                    checkCollision: options.checkCollision ?? false,
                 },
                 sound: setSound(sound)
             }

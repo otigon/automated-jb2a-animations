@@ -64,12 +64,24 @@ export async function teleportation(handler, animationData) {
 
         if (canvas.grid.measureDistance(sourceToken, { x: topLeft[0], y: topLeft[1] }, { gridSpaces: true }) <= data.options.range) {
             //console.log(canvas.grid.measureDistance(sourceToken, { x: topLeft[0], y: topLeft[1] }, {gridSpaces: true}))
-            deleteTemplatesAndMove();
-            canvas.app.stage.removeListener('pointerdown');
+            if (data.options.checkCollision && testCollision(pos)) {
+                ui.notifications.error("Your Path is Blocked!! Try Again")
+            } else {
+                deleteTemplatesAndMove();
+                canvas.app.stage.removeListener('pointerdown');    
+            }
         } else {
             ui.notifications.error(game.i18n.format("autoanimations.settings.teleport"))
         }
     });
+
+    function testCollision(pos) {
+        let pointerCenter = {
+            x: canvas.grid.getCenter(pos.x, pos.y)[0],
+            y: canvas.grid.getCenter(pos.x, pos.y)[1],
+        };
+        return sourceToken.checkCollision(pointerCenter)
+    }
 
     async function deleteTemplatesAndMove() {
 

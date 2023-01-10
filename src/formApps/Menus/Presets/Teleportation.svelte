@@ -242,6 +242,25 @@
                 </div>
             </td>
         </tr>
+        <tr>
+            <td></td>
+            <td>
+                <div>
+                    <label for="Collision {animation._data.id}"
+                        >{localize("autoanimations.menus.checkCollision")}
+                        </label
+                    >
+                </div>
+                <div>
+                    <input
+                        type="checkbox"
+                        id="Collision {animation._data.id}"
+                        bind:checked={$animation.data.options.checkCollision}
+                    />
+                </div>
+            </td>
+            <td></td>
+        </tr>
     </table>
 </div>
 <SoundSettings section="data" />

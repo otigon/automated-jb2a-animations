@@ -665,7 +665,8 @@
             "forceExact": "Force Exact Match",
             "advanced": "Advanced",
             "recognition": "Recognition",
-            "features": "Features"
+            "features": "Features",
+            "checkCollision": "Check for Collision"
         },
         "optionsInfo": {
 
