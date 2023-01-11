@@ -85,7 +85,9 @@
 			"hideTemplate_name": "Grilles des gabarits sur un survol",
 			"hideTemplate_hint": "Retire le soulignement de la grille du gabarit à moins de le survoler. Les réglages de TOKEN MAGIC FX pour le survol doivent être DÉSACTIVÉS",
 			"hoverInTemplate": "Afficher à tout survol",
-			"hoverInTemplateLayer": "Afficher au survol dans le calque du modèle"
+			"hoverInTemplateLayer": "Afficher au survol dans le calque du modèle",
+			"coreonatk_name": "Lancer les animations d'attaque sur les jets d'attaque",
+			"coreonatk_hint": "Par défaut, les animations sont lancées sur les jets d'attaque"
 		},
 		"colors": {
 			"lightorange": "Orange clair",
