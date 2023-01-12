@@ -83,7 +83,11 @@
 			"menuName": "Menu global de la reconnaissance automatique",
 			"menuHint": "Lancez le menu Global Autorec. Celui-ci abrite également le menu des paramètres des animations automatisées",
 			"hideTemplate_name": "Grilles des gabarits sur un survol",
-			"hideTemplate_hint": "Retire le soulignement de la grille du gabarit à moins de le survoler. Les réglages de TOKEN MAGIC FX pour le survol doivent être DÉSACTIVÉS"
+			"hideTemplate_hint": "Retire le soulignement de la grille du gabarit à moins de le survoler. Les réglages de TOKEN MAGIC FX pour le survol doivent être DÉSACTIVÉS",
+			"hoverInTemplate": "Afficher à tout survol",
+			"hoverInTemplateLayer": "Afficher au survol dans le calque du modèle",
+			"coreonatk_name": "Lancer les animations d'attaque sur les jets d'attaque",
+			"coreonatk_hint": "Par défaut, les animations sont lancées sur les jets d'attaque"
 		},
 		"colors": {
 			"lightorange": "Orange clair",
@@ -665,7 +669,8 @@
 			"forceExact": "Forcer la correspondance",
 			"advanced": "Avancé",
 			"recognition": "Reconnaissance",
-			"features": "Fonctionnalités"
+			"features": "Fonctionnalités",
+			"checkCollision": "Vérifier les collisions"
 		},
 		"app": {
 			"aaAutorec-range": {
