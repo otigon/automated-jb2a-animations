@@ -7,7 +7,6 @@ import { TJSGameSettings } from '@typhonjs-fvtt/svelte-standard/store';
 class AAGameSettings extends TJSGameSettings {
    constructor() {
       super('autoanimations');
-      console.log(TJSGameSettings)
    }
 
    initialize() {
