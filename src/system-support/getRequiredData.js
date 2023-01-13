@@ -34,9 +34,7 @@ export async function getRequiredData(data) {
 
 async function getItem(data) {
     let {item, itemId, itemUuid, itemName, token, tokenId, tokenUuid, targets, actorId, actor} = data;
-    return itemId
-            ? checkDeletedItems(itemId)
-            : itemUuid 
+    return itemUuid 
             ? await getItemFromUuid(itemUuid)
             : token && itemId
             ? getItemFromToken(token, itemId)
@@ -49,7 +47,7 @@ async function getItem(data) {
             : itemId && (actorId || actor)
             ? await getItemFromCompiledUuid(itemId, actor, actorId)
             : itemId
-            ? getItemFromIdBlind(itemId)
+            ? checkDeletedItems(itemId) || getItemFromIdBlind(itemId)
             : null
 }
 async function getItemFromUuid(uuid) {
@@ -85,7 +83,7 @@ function getItemFromIdBlind(id) {
     for (let token of canvas.tokens.placeables) {
         let items = Array.from(token.actor.items);
         let foundItem = items.find(c => c.id === id);
-        if (foundItem) { return foundItem}
+        if (foundItem) { return foundItem || false}
     }
 }
 
