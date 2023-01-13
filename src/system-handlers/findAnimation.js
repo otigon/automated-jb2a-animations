@@ -15,6 +15,8 @@ export async function handleItem(data) {
 
     // Send Item thru Flag Merge
     const itemFlags = await flagMigrations.handle(data.item, {activeEffect: data.activeEffect}) || {};
+    const itemIsEnabled = !!itemFlags.killAnim ? false : itemFlags.isEnabled ?? true;
+    if (!itemIsEnabled) { return false}
     // If Item has Ammunition send it thru the Flag Merge
     const ammoFlags = ammoItem ? await flagMigrations.handle(ammoItem, {activeEffect: data.activeEffect}) || {isEnabled: true} : null;
     
