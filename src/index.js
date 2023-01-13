@@ -260,7 +260,7 @@ function handleTemplates() {
     if (templatesGridHidden === "templateLayer") {
         if (game.modules.get('tokenmagic')?.active && game.settings.get("tokenmagic", "defaultTemplateOnHover")) { } else {
             removeGridHighlightsOnLoad();
-            Hooks.on("canvasReady", () => {
+            Hooks.on("canvasReady", async () => {
                 removeGridHighlightsOnLoad()
             });
             Hooks.on("createMeasuredTemplate", (template) => {
@@ -275,13 +275,14 @@ function handleTemplates() {
     if (templatesGridHidden === "full") {
         if (game.modules.get('tokenmagic')?.active && game.settings.get("tokenmagic", "defaultTemplateOnHover")) { } else {
             removeGridHighlightsOnLoad();
+            canvasMouseEvent()
             Hooks.on("createMeasuredTemplate", (template) => {
                 canvas.grid.getHighlightLayer(`MeasuredTemplate.${template.id}`).visible = false;
             });
-            Hooks.on("canvasReady", () => {
+            Hooks.on("canvasReady", async () => {
                 removeGridHighlightsOnLoad()
-            });    
-            canvasMouseEvent()
+                canvasMouseEvent()
+            });
         }
     }
 
