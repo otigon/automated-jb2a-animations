@@ -25,6 +25,7 @@ export function systemHooks() {
     
     } else {
         Hooks.on("dnd5e.rollAttack", async (item, roll) => {
+            criticalCheck(roll, item);
             let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
             if (!AnimationState.enabled || item.hasAreaTarget || (item.hasDamage && playOnDamage)) { return; }   
             attack(await getRequiredData({item, actor: item.actor, workflow: item}))
@@ -126,19 +127,18 @@ function getWorkflowData(data) {
     }
 }
 
-function criticalCheck(workflow) {
+function criticalCheck(workflow, item = {}) {
     if (!workflow.isCritical && !workflow.isFumble || !AnimationState.enabled) { return; }
     debug("Checking for Crit or Fumble")
     let critical = workflow.isCritical;
     let fumble = workflow.isFumble;
-    let token;
+    let token = canvas.tokens.get(workflow.tokenId) || getTokenFromItem(item.id);;
 
     let critAnim = game.settings.get("autoanimations", "CriticalAnimation");
     let critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
 
     switch (true) {
         case (game.settings.get("autoanimations", "EnableCritical") && critical):
-            token = canvas.tokens.get(workflow.tokenId);
             new Sequence()
                 .effect()
                 .file(critAnim)
@@ -146,7 +146,6 @@ function criticalCheck(workflow) {
                 .play()
             break;
         case (game.settings.get("autoanimations", "EnableCriticalMiss") && fumble):
-            token = canvas.tokens.get(workflow.tokenId);
             new Sequence()
                 .effect()
                 .file(critMissAnim)
@@ -154,4 +153,13 @@ function criticalCheck(workflow) {
                 .play()
             break;
     }
+
+    function getTokenFromItem(item) {
+        let token = item?.parent?.token;
+        if (token) { return token }
+        let tokens = canvas.tokens.placeables.filter(token => token.actor?.items?.get(item.id));
+        let trueToken = tokens.length > 1 ? tokens.find(x => x.id === _token.id) || tokens[0] : tokens[0];
+        return trueToken;
+    }
+    
 }
