@@ -6,7 +6,18 @@
 
     import OptionsDialog    from "./optionsInfoDialog.js";
 
-    let tokenAnimations = game.Levels3DPreview.CONFIG.tokenAnimations;
+    let tokenAnimations = game.Levels3DPreview?.CONFIG?.tokenAnimations || {
+        bow: {},
+        breath: {},
+        buff: {},
+        charge: {},
+        debuff: {},
+        knockback: {},
+        shake: {},
+        slash: {},
+        swipe: {},
+        twirl: {},
+    };
 
     //export let animation;
     let { animation} = getContext('animation-data');
@@ -161,7 +172,7 @@
                                 <input
                                     type="number"
                                     bind:value={$animation.levels3d.data.scale}
-                                    placeholder="0.7"
+                                    placeholder="1"
                                     step=".01"
                                 />
                             </div>

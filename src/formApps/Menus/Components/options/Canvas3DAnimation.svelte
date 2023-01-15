@@ -40,7 +40,19 @@
         },
     };
 
-    let tokenAnimations = game.Levels3DPreview.CONFIG.tokenAnimations;
+    let tokenAnimations = game.Levels3DPreview?.CONFIG?.tokenAnimations || {
+        bow: {},
+        breath: {},
+        buff: {},
+        charge: {},
+        debuff: {},
+        knockback: {},
+        shake: {},
+        slash: {},
+        swipe: {},
+        twirl: {},
+    };
+        
     if (!$animation.levels3d.tokens) {
         $animation.levels3d.tokens = {
             enable: false,
