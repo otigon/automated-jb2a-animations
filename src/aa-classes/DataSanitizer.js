@@ -510,11 +510,13 @@ export class DataSanitizer {
         if (!options3d.enable) { return false; }
         const type = options3d.type;
         const options = options3d.data || {};
+        const tokens = options3d.tokens || {};
 
         const secondary = options3d.secondary || {};
         const data = {
             type: type,
             alpha: options.alpha ?? particleDefaultValues[type].alpha,
+            animationType: options.animationType ?? "twirl",
             arc: options.arc ?? particleDefaultValues[type].arc,
             color01: options.color01 ?? particleDefaultValues[type].color01,
             color02: options.color02 ?? particleDefaultValues[type].color02,
@@ -523,26 +525,43 @@ export class DataSanitizer {
             gravity: options.gravity ?? particleDefaultValues[type].gravity,
             life: options.life ?? particleDefaultValues[type].life,
             mass: options.mass ?? particleDefaultValues[type].mass,
+            playOn: options.playOn ?? "source",
             rate: options.rate ?? particleDefaultValues[type].rate,
             repeat: options.repeat ?? particleDefaultValues[type].repeat,
+            resetTime: options.resetTime ?? 100,
+            rotateTowards: options.rotateTowards ?? false,
+            rotationX: options.rotationX ?? 0,
+            rotationY: options.rotationY ?? 0,
+            rotationZ: options.rotationZ ?? 0,
             scale: options.scale ?? particleDefaultValues[type].scale,
             speed: options.speed ?? particleDefaultValues[type].speed,
             sprite: options.spritePath ?? particleDefaultValues[type].sprite,
             sound: this.setSound(options3d.sound),
+            tokenAnimation: {
+                enable: tokens.enable ?? false,
+                source: tokens.source ?? false,
+                sourceType: tokens.sourceType ?? "twirl",
+                sourceStart: tokens.sourcePlay !== "end"  ? true : false,
+                sourceEnd: tokens.sourcePlay !== "start" ? true : false,
+                target: tokens.target ?? false,
+                targetType: tokens.targetType ?? "shake",
+                targetStart: tokens.targetPlay !== "end"  ? true : false,
+                targetEnd: tokens.targetPlay !== "start" ? true : false,
+            },
             secondary: {
                 enable: secondary.enable || false,
-                alpha: secondary.data?.alpha ?? particleDefaultValues[type].explosion.alpha,
-                color01: secondary.data?.color01 ?? particleDefaultValues[type].explosion.color01,
-                color02: secondary.data?.color02 ?? particleDefaultValues[type].explosion.color02,
-                emittersize: secondary.data?.emittersize ?? particleDefaultValues[type].explosion.emittersize,
-                gravity: secondary.data?.gravity ?? particleDefaultValues[type].explosion.gravity,
-                life: secondary.data?.life ?? particleDefaultValues[type].explosion.life,
-                mass: secondary.data?.mass ?? particleDefaultValues[type].explosion.mass,
-                rate: secondary.data?.rate ?? particleDefaultValues[type].explosion.rate,
-                scale: secondary.data?.scale ?? particleDefaultValues[type].explosion.scale,
-                speed: secondary.data?.speed ?? particleDefaultValues[type].explosion.speed,
+                alpha: secondary.data?.alpha ?? 0.5,
+                color01: secondary.data?.color01 ?? "#FFFFFF",
+                color02: secondary.data?.color02 ?? "#FFFFFF",
+                emittersize: secondary.data?.emittersize ?? 1,
+                gravity: secondary.data?.gravity ?? 2,
+                life: secondary.data?.life ?? 500,
+                mass: secondary.data?.mass ?? 100,
+                rate: secondary.data?.rate ?? 10,
+                scale: secondary.data?.scale ?? 1,
+                speed: secondary.data?.speed ?? 1,
                 type: "explosion",
-                //sprite: secondary.data?.sprite ?? particleDefaultValues[type].explosion.sprite,
+                sprite: "modules/levels-3d-preview/assets/particles/dust.png",
             }
         };
         return data;

@@ -668,7 +668,21 @@
             "advanced": "Advanced",
             "recognition": "Recognition",
             "features": "Features",
-            "checkCollision": "Check for Collision"
+            "checkCollision": "Check for Collision",
+            "resetTime": "Reset Time",
+            "rotateTowards": "Rotate Towards"
+        },
+        "tokenAnimations": {
+            "bow": "Bow",
+            "breath": "Breath",
+            "buff": "Buff",
+            "charge": "Charge",
+            "debuff": "Debuff",
+            "knockback": "Knockback",
+            "shake": "Shake",
+            "slash": "Slash",
+            "swipe": "Swipe",
+            "twirl": "Twirl"
         },
         "optionsInfo": {
 
