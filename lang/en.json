@@ -459,7 +459,15 @@
             "frost": "Frost",
             "ring02": "Ring 02",
             "ring03": "Ring 03",
-            "outburst": "Outburst"
+            "outburst": "Outburst",
+            "abjuration": "Abjuration",
+            "conjuration": "Conjuration",
+            "divination": "Divination",
+            "enchantment": "Enchantment",
+            "evocation": "Evocation",
+            "illusion": "Illusion",
+            "necromancy": "Necromancy",
+            "transmutation": "Transmutation"
         },
         "menuTypes": {
             "creature": "Creature Attack",

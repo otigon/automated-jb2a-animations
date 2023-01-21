@@ -1,6 +1,5 @@
 import { debug } from "../constants/constants.js";
 import { trafficCop } from "../router/traffic-cop.js"
-import systemData from "../system-handlers/system-data.js";
 import AAHandler from "../system-handlers/workflow-data.js";
 import { AnimationState } from "../AnimationState.js";
 import { getRequiredData } from "./getRequiredData.js";

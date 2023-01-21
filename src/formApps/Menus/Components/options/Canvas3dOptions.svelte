@@ -48,7 +48,6 @@
     $: type = $animation.levels3d.type;
 </script>
 {#if type !== "token"}
-    {#if type !== "sprite"}
         <div class="aa-options-border" style="margin-top: .5em;">
             <h1>Colors</h1>
             <table class="d" style="padding-right: 4em; padding-left: 4em">
@@ -74,6 +73,7 @@
                             />
                         </div>
                     </td>
+                    {#if type !== "sprite"}
                     <td>
                         <div class="flexcol">
                             <label for=""
@@ -95,10 +95,10 @@
                             />
                         </div>
                     </td>
+                    {/if}
                 </tr>
             </table>
         </div>
-    {/if}
     <div class="aa-options-border">
         <TJSSvgFolder {folder}>
             <div slot="summary-end">

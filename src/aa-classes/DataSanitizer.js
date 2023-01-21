@@ -106,7 +106,7 @@ export class DataSanitizer {
         if (menu === "melee") {
             data.meleeSwitch = this.compileMeleeSwitch(topLevel.meleeSwitch)
         }
-        if (data.video.menuType === 'shieldfx') { data.options.isShieldFX = true}
+        if (data.video.menuType === 'shieldfx' && !video.enableCustom) { data.options.isShieldFX = true}
         data.path = await buildFile(false, data.video.menuType, data.video.animation, data.video.dbSection, data.video.variant, data.video.color, data.video.customPath)
         return data;
     }
@@ -561,7 +561,7 @@ export class DataSanitizer {
                 scale: secondary.data?.scale ?? 1,
                 speed: secondary.data?.speed ?? 1,
                 type: "explosion",
-                sprite: "modules/levels-3d-preview/assets/particles/dust.png",
+                sprite: secondary.data?.spritePath ?? particleDefaultValues.explosion.sprite,
             }
         };
         return data;
