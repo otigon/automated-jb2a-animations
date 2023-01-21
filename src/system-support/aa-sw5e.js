@@ -139,7 +139,7 @@ function criticalCheck(workflow) {
     switch (true) {
         case (game.settings.get("autoanimations", "EnableCritical") && critical):
             token = canvas.tokens.get(workflow.tokenId);
-            new Sequence()
+            new Sequence({moduleName: "Automated Animations", softFail: !game.settings.get("autoanimations", "debug")})
                 .effect()
                 .file(critAnim)
                 .atLocation(token)
@@ -147,7 +147,7 @@ function criticalCheck(workflow) {
             break;
         case (game.settings.get("autoanimations", "EnableCriticalMiss") && fumble):
             token = canvas.tokens.get(workflow.tokenId);
-            new Sequence()
+            new Sequence({moduleName: "Automated Animations", softFail: !game.settings.get("autoanimations", "debug")})
                 .effect()
                 .file(critMissAnim)
                 .atLocation(token)

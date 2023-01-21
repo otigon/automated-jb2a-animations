@@ -18,7 +18,7 @@ export async function templatefx(handler, animationData, templateDocument) {
 
     const templateTypes = ['sphere', 'cylinder', 'radius']
 
-    let aaSeq = await new Sequence("Automated Animations")
+    let aaSeq = await new Sequence(handler.sequenceData)
 
     if ((data.options.persistent && data.options.persistType !== "attachtemplate") || !data.options.persistent) {
         aaSeq.thenDo(function () {
@@ -151,7 +151,7 @@ export async function templatefx(handler, animationData, templateDocument) {
             }
             let secondarySeq = aaSeq.effect()
             secondarySeq.atLocation(currentTarget)
-            secondarySeq.file(secondary.path?.file, true)
+            secondarySeq.file(secondary.path?.file)
             secondarySeq.size(secondary.options.size * 2, { gridUnits: true })
             secondarySeq.repeats(secondary.options.repeat, secondary.options.repeatDelay)
             if (i === handler.allTargets.length - 1 && secondary.options.isWait && targetFX.enable) {

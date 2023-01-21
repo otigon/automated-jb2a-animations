@@ -23,7 +23,7 @@ export async function range(handler, animationData) {
             returnDelay = 1500;
     }
 
-    let aaSeq = await new Sequence("Automated Animations")
+    let aaSeq = await new Sequence(handler.sequenceData)
 
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1") {
@@ -90,7 +90,7 @@ export async function range(handler, animationData) {
             let currentTarget = handler.allTargets[i]
 
             let returnSeq = aaSeq.effect()
-            returnSeq.file(data.path.returnFile, true)
+            returnSeq.file(data.path.returnFile)
             returnSeq.opacity(data.options.opacity)
             returnSeq.atLocation(sourceToken)
             returnSeq.repeats(data.options.repeat, data.options.repeatDelay)
@@ -115,7 +115,7 @@ export async function range(handler, animationData) {
             }
             let secondarySeq = aaSeq.effect()
             secondarySeq.atLocation("spot" + ` ${currentTarget.id}`)
-            secondarySeq.file(secondary.path?.file, true)
+            secondarySeq.file(secondary.path?.file)
             secondarySeq.size(secondary.options.size * 2, { gridUnits: true })
             secondarySeq.repeats(secondary.options.repeat, secondary.options.repeatDelay)
             if (i === handler.allTargets.length - 1 && secondary.options.isWait && targetFX.enable) {

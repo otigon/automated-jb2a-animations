@@ -66,7 +66,7 @@ export async function trafficCop(handler) {
             repeat: data.soundOnly?.sound?.repeat ?? 1,
             repeatDelay: data.soundOnly?.sound?.repeatDelay ?? 250,
         }
-        new Sequence()
+        new Sequence(handler.sequenceData)
             .sound()
                 .file(sound.file)
                 .volume(sound.volume)
@@ -109,7 +109,7 @@ export async function trafficCop(handler) {
             setTimeout(killHook, 30000)
             return;
         }
-        //sections for Template Hooks.once or straight to function
+        //sections for Template Hooks.once or straight to function. Systems running the createMeasuredTemplate hook, or those whose workflow runs after template placement, will skip Hooks.once
         switch (game.system.id) {
             case "a5e":
             case "pf2e":

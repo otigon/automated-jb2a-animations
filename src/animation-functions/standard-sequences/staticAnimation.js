@@ -11,7 +11,7 @@ export async function ontoken(handler, animationData) {
     const macro = animationData.macro;
     const sourceSize = handler.getSize(data.options.isRadius, data.options.size, sourceToken, data.options.addTokenWidth)
 
-    const aaSeq = await new Sequence("Automated Animations")
+    const aaSeq = await new Sequence(handler.sequenceData)
     const bottomAnim = data.path.fileData?.replace('Above', 'Below')
 
     // Play Macro if Awaiting
@@ -378,7 +378,7 @@ export async function ontoken(handler, animationData) {
         let size = handler.getSize(secondary.options.isRadius, secondary.options.size, token, secondary.options.addTokenWidth)
 
         seq.atLocation(token)
-        seq.file(secondary.path?.file, true)
+        seq.file(secondary.path?.file)
         seq.size(size, { gridUnits: true })
         seq.elevation(handler.elevation(token, secondary.options.isAbsolute, secondary.options.elevation), {absolute: secondary.options.isAbsolute})
         seq.zIndex(secondary.options.zIndex)

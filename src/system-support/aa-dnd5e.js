@@ -139,14 +139,14 @@ function criticalCheck(workflow, item = {}) {
 
     switch (true) {
         case (game.settings.get("autoanimations", "EnableCritical") && critical):
-            new Sequence()
+            new Sequence({moduleName: "Automated Animations", softFail: !game.settings.get("autoanimations", "debug")})
                 .effect()
                 .file(critAnim)
                 .atLocation(token)
                 .play()
             break;
         case (game.settings.get("autoanimations", "EnableCriticalMiss") && fumble):
-            new Sequence()
+            new Sequence({moduleName: "Automated Animations", softFail: !game.settings.get("autoanimations", "debug")})
                 .effect()
                 .file(critMissAnim)
                 .atLocation(token)

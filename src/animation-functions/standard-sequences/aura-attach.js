@@ -10,7 +10,7 @@ export async function aura(handler, animationData) {
     const easeArray = ['easeInOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutQuad', 'easeInCirc']
     const sourceToken = handler.sourceToken;
     //const aura = await buildFile(false, data.video.menuType, data.video.animation, "static", data.video.variant, data.video.color, data.video.customPath);
-    let aaSeq = new Sequence("Automated Animations")
+    let aaSeq = new Sequence(handler.sequenceData)
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1") {
         let userData = macro.args;
@@ -227,7 +227,7 @@ export async function aura(handler, animationData) {
         let size = handler.getSize(secondary.options.isRadius, secondary.options.size, token, secondary.options.addTokenWidth)
 
         seq.atLocation(token)
-        seq.file(secondary.path?.file, true)
+        seq.file(secondary.path?.file)
         seq.size(size, { gridUnits: true })
         seq.elevation(handler.elevation(token, secondary.options.isAbsolute, secondary.options.elevation), {absolute: secondary.options.isAbsolute})
         seq.zIndex(secondary.options.zIndex)

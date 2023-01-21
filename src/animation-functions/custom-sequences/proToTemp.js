@@ -13,7 +13,7 @@ export async function proToTemp(handler, animationData, templateDocument) {
     const template = handler.templateData ? handler.templateData : templateDocument//canvas.templates.placeables[canvas.templates.placeables.length - 1];
     const sourceToken = handler.sourceToken;
 
-    let aaSeq = await new Sequence("Automated Animations")
+    let aaSeq = await new Sequence(handler.sequenceData)
     if (data.projectile.options.removeTemplate) {
         aaSeq.thenDo(function () {
             canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.id])
@@ -47,7 +47,7 @@ export async function proToTemp(handler, animationData, templateDocument) {
     }
     if (data.preExplosion.enable) {
         aaSeq.effect()
-            .file(data.preExplosion.path.file, true)
+            .file(data.preExplosion.path.file)
             .atLocation(template, { cacheLocation: true })
             .elevation(handler.elevation(sourceToken, data.preExplosion.options.isAbsolute, data.preExplosion.options.elevation), {absolute: data.preExplosion.options.isAbsolute})
             .scaleToObject(data.preExplosion.options.scale)
@@ -60,7 +60,7 @@ export async function proToTemp(handler, animationData, templateDocument) {
         aaSeq.addSequence(data.explosion.sound)
     }
     aaSeq.effect()
-        .file(data.explosion.path.file, true)
+        .file(data.explosion.path.file)
         .atLocation(template, { cacheLocation: true })
         .elevation(handler.elevation(sourceToken, data.explosion.options.isAbsolute, data.explosion.options.elevation), {absolute: data.explosion.options.isAbsolute})
         .scaleToObject(data.explosion.options.scale)
@@ -71,7 +71,7 @@ export async function proToTemp(handler, animationData, templateDocument) {
         .aboveLighting(data.explosion.options.aboveTemplate)
     if (data.afterImage.customPath) {
         aaSeq.effect()
-            .file(data.afterImage.customPath, true)
+            .file(data.afterImage.customPath)
             .atLocation(template, { cacheLocation: true })
             .scaleToObject(data.afterImage.options.scale)
             .elevation(handler.elevation(sourceToken, data.afterImage.options.isAbsolute, data.afterImage.options.elevation), {absolute: data.afterImage.options.isAbsolute})
@@ -90,7 +90,7 @@ export async function proToTemp(handler, animationData, templateDocument) {
 
             let secondarySeq = aaSeq.effect()
             secondarySeq.atLocation(currentTarget)
-            secondarySeq.file(secondary.path?.file, true)
+            secondarySeq.file(secondary.path?.file)
             secondarySeq.size(secondary.options.size * 2, { gridUnits: true })
             secondarySeq.repeats(secondary.options.repeat, secondary.options.repeatDelay)
             if (i === handler.allTargets.length - 1 && secondary.options.isWait && targetFX.enable) {

@@ -21,7 +21,7 @@ export async function thunderwave(handler, animationData, config) {
 
     const gridSize = canvas.scene.data.grid.size;
 
-    let aaSeq = await new Sequence("Automated Animations")
+    let aaSeq = await new Sequence(handler.sequenceData)
 
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1") {

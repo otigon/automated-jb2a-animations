@@ -42,6 +42,8 @@ export default class AAHandler {
 
         this.templateData = data.templateData;
 
+        this.sequenceData = {moduleName: "Automated Animations", softFail: !game.settings.get("autoanimations", "debug")}
+
         this.systemData = data;
         /**
          * Optional parameters passed from System Specific Settings thru this.systemData:
