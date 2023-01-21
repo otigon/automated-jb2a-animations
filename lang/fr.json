@@ -460,7 +460,15 @@
 			"frost": "Givre",
 			"ring02": "Anneau 02",
 			"ring03": "Anneau 03",
-			"outburst": "Explosion extérieure"
+			"outburst": "Explosion extérieure",
+			"conjuration": "Invocation",
+			"divination": "Divination",
+			"enchantment": "Enchantement",
+			"evocation": "Évocation",
+			"illusion": "Illusion",
+			"necromancy": "Nécromancie",
+			"abjuration": "Abjuration",
+			"transmutation": "Transmutation"
 		},
 		"menuTypes": {
 			"creature": "Attaque de créature",
