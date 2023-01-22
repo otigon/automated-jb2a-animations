@@ -43,7 +43,7 @@ export function systemHooks() {
     Hooks.on("wfrp4e:rollTraitTest", async (data, info) => {
         if (game.user.id !== info.user || !AnimationState.enabled) { return }
         let compiledData = await getRequiredData({
-            item: data.prayer,
+            item: data.trait,
             targets: compileTargets(data.context?.targets),
             tokenId: info.speaker?.token,
             actorId: info.speaker?.actor,

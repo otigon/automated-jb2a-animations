@@ -20,6 +20,7 @@
         });
 
         async function setDefault() {
+            AAAutorecManager.exportMenu("-backup")
             Hooks.call("AutomaticAnimations.Clear.Data");
             application.close();
         }
