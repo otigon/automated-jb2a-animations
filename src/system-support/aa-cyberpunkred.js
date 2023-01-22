@@ -56,11 +56,13 @@ function getFireModeOptions(data) {
 function checkAmmo(data) {
     let item = data.item || {};
     let token = data.token;
-    let ammoId = item.system?.magazine?.ammoId;
+    let ammoId = item.system?.magazine?.ammoId?.split('.') ?? item.system?.magazine?.ammoData?.uuid?.split('.');
+
 
     let ammoItem;
     if (ammoId) {
-        ammoItem = token.actor?.items?.get(ammoId);
+        let trueId = ammoId[ammoId.length - 1];
+        ammoItem = token.actor?.items?.get(trueId);
     }
     return ammoItem;
 }
