@@ -33,6 +33,8 @@ export async function buildFile(getMeta, dbType, name, animationType, animationV
         const variant = variantArray.some(el => animationVariant === el) ? animationVariant : variantArray[0];
 
         const colorArray = Object.keys(jb2a[type][menuType][path][variant]);
+        let markerCheck = colorArray.indexOf("_markers");
+        if (markerCheck !== -1) { colorArray.splice( markerCheck, 1)}
         if (animationColor === "random") {
             color = animationColor;
         } else {
@@ -40,6 +42,7 @@ export async function buildFile(getMeta, dbType, name, animationType, animationV
         }
 
         file = color === "random" ? `autoanimations.${type}.${[menuType]}.${path}.${variant}` : `autoanimations.${type}.${[menuType]}.${path}.${variant}.${color}`;
+        //validateVideoPath(type, menuType, path, variant, color)
         //msFile = color === "random" ? `autoanimations.${type}.${[menuType]}.${path}.02` : `autoanimations.${type}.${[menuType]}.${path}.02.${color}`;
         //let file = color === "random" ? `autoanimations.${type}.${path}.${variant}` : `autoanimations.${type}.${path}.${variant}.${color}`;
         //let msFile = color === "random" ? `autoanimations.${type}.${path}.02` : `autoanimations.${type}.${path}.02.${color}`;
@@ -69,4 +72,16 @@ function getVideoDimensionsOf(url) {
         }, false);
         video.src = url;
     });
+}
+
+function validateVideoPath(type, menuType, path, variant, color) {
+    debugger
+    if (Sequencer.Database.getPathsUnder(`autoanimations.${type}.${[menuType]}.${path}.${variant}.${color}`, true)) {
+        return `autoanimations.${type}.${[menuType]}.${path}.${variant}.${color}`;
+    }
+
+    if (Sequencer.Database.getPathsUnder(`autoanimations.${type}.${[menuType]}.${path}.${variant}`, true)) {
+        return `autoanimations.${type}.${[menuType]}.${path}.${variant}`
+    }
+
 }
