@@ -34,10 +34,10 @@ export async function db047(path) {
                     },
                     '04': {
                         purplepink: {
-                            '15ft': [lg`Weapon_Attacks/Ranged/Missile04_01_Regular_PinkPurple_15ft_1000x400.webm`],
-                            '30ft': [lg`Weapon_Attacks/Ranged/Missile04_01_Regular_PinkPurple_30ft_1600x400.webm`],
-                            '60ft': [lg`Weapon_Attacks/Ranged/Missile04_01_Regular_PinkPurple_60ft_2800x400.webm`],
-                            '90ft': [lg`Weapon_Attacks/Ranged/Missile04_01_Regular_PinkPurple_90ft_4000x400.webm`],
+                            '15ft': [lg`Weapon_Attacks/Ranged/Missile04_01_Regular_PurplePink_15ft_1000x400.webm`],
+                            '30ft': [lg`Weapon_Attacks/Ranged/Missile04_01_Regular_PurplePink_30ft_1600x400.webm`],
+                            '60ft': [lg`Weapon_Attacks/Ranged/Missile04_01_Regular_PurplePink_60ft_2800x400.webm`],
+                            '90ft': [lg`Weapon_Attacks/Ranged/Missile04_01_Regular_PurplePink_90ft_4000x400.webm`],
                         }
                     },
                 }
@@ -84,8 +84,6 @@ export async function db047(path) {
                     '01': {
                         white: [
                             lg`Explosion/TopFractureFlask01_01_400x400.webm`,
-                            lg`Explosion/TopFractureFlask02_01_400x400.webm`,
-                            lg`Explosion/TopFractureFlask03_01_400x400.webm`
                         ]
                     }
                 }

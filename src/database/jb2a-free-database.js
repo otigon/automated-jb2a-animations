@@ -787,7 +787,7 @@ export async function initializeJB2AFreeDB(path) {
                     ],
                     orange: [
                         lg`Explosion/Explosion_01_Orange_400x400.webm`,
-                        lg`Explosion/Explosion_08_Regular_Orange_400x400.webm`,
+                        lg`Explosion/Explosion_05_Regular_Orange_400x400.webm`,
                     ],
                     yellowblue: [
                         lg`Explosion/Explosion_03_Regular_BlueYellow_400x400.webm`
