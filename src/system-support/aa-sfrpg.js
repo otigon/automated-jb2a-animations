@@ -71,8 +71,8 @@ function funkyTest(msg) {
 
     let filterTokenId = $(msg.content).filter(`[data-token-id]`);
     let tokenId = filterTokenId?.[0]?.attributes?.['data-token-id']?.value || filterTokenId?.prevObject?.[0]?.attributes?.['data-token-id']?.value;
-    let splitTokenId = tokenId.split(".");
-    if (splitTokenId.length > 1) {
+    let splitTokenId = tokenId?.split(".");
+    if (splitTokenId?.length > 1) {
         tokenId = splitTokenId[splitTokenId.length - 1]
     }
 
