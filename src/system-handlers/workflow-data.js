@@ -228,7 +228,12 @@ export default class AAHandler {
         let targetEffect = targetFX.targetSeq.effect()
         targetEffect.delay(targetFX.options.delay + addDelay)
         targetEffect.file(targetFX.path?.file, true)
-        targetEffect.atLocation(target)
+        if (targetFX.options.persistent) {
+            targetEffect.persist(true, {persistTokenPrototype: true})
+            targetEffect.attachTo(target)
+        } else {
+            targetEffect.atLocation(target)
+        }
         targetEffect.size(setSize, { gridUnits: true })
         targetEffect.origin(this.itemUuid)
         targetEffect.repeats(targetFX.options.repeat, targetFX.options.repeatDelay)
@@ -239,9 +244,6 @@ export default class AAHandler {
         if (targetFX.options.rotateSource) {
             targetEffect.rotateTowards(this.sourceToken)
             targetEffect.rotate(180)    
-        }
-        if (targetFX.options.persistent) {
-            targetEffect.persist(true, {persistTokenPrototype: true})
         }
         targetEffect.fadeOut(500)
         targetEffect.opacity(targetFX.options.opacity)
