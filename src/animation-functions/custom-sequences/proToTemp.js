@@ -26,9 +26,9 @@ export async function proToTemp(handler, animationData, templateDocument) {
         aaSeq.macro(macro.name, handler.workflow, handler, userData)
     }
 
-    // Source Effect if active
-    if (sourceFX.enabled) {
-        aaSeq.addSequence(sourceFX.sourceSeq)
+    // Extra Effects => Source Token if active
+    if (sourceFX) {
+        handler.compileSourceEffect(sourceFX, aaSeq)
     }
     //Projectile Sound and Animation
     if (data.projectile.sound) {
@@ -82,47 +82,10 @@ export async function proToTemp(handler, animationData, templateDocument) {
     }
 
     if (secondary) {
-        if (secondary.sound) {
-            aaSeq.addSequence(secondary.sound)
-        }
-        for (let i = 0; i < handler.allTargets.length; i++) {
-            let currentTarget = handler.allTargets[i]
-
-            let secondarySeq = aaSeq.effect()
-            secondarySeq.atLocation(currentTarget)
-            secondarySeq.file(secondary.path?.file)
-            secondarySeq.size(secondary.options.size * 2, { gridUnits: true })
-            secondarySeq.repeats(secondary.options.repeat, secondary.options.repeatDelay)
-            if (i === handler.allTargets.length - 1 && secondary.options.isWait && targetFX.enable) {
-                secondarySeq.waitUntilFinished(secondary.options.delay)
-            } else if (!secondary.options.isWait) {
-                secondarySeq.delay(secondary.options.delay)
-            }
-            secondarySeq.elevation(handler.elevation(currentTarget, secondary.options.isAbsolute, secondary.options.elevation), {absolute: secondary.options.isAbsolute})
-            secondarySeq.zIndex(secondary.options.zIndex)
-            secondarySeq.opacity(secondary.options.opacity)
-            secondarySeq.fadeIn(secondary.options.fadeIn)
-            secondarySeq.fadeOut(secondary.options.fadeOut)
-            if (secondary.options.rotateSource) {
-                secondarySeq.rotateTowards(sourceToken)
-                secondarySeq.rotate(180)    
-            }    
-            if (secondary.options.isMasked) {
-                secondarySeq.mask(currentTarget)
-            }
-            secondarySeq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
-            secondarySeq.playbackRate(secondary.options.playbackRate)
-        }
+        handler.compileSecondaryEffect(secondary, aaSeq, handler.allTargets, targetFX.enable, false)
     }
-
-    if (targetFX.enable) {
-        if (targetFX.sound) {
-            aaSeq.addSequence(targetFX.sound)
-        }
-        for (let currentTarget of handler.allTargets) {
-            let targetSequence = handler.buildTargetSeq(targetFX, currentTarget);
-            aaSeq.addSequence(targetSequence.targetSeq)
-        }
+    if (targetFX) {
+        handler.compileTargetEffect(targetFX, aaSeq, handler.allTargets, false)
     }
 
     if (macro && macro.playWhen === "0" && !macro?.args?.warpgateTemplate) {

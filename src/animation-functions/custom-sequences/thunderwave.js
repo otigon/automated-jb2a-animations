@@ -29,8 +29,8 @@ export async function thunderwave(handler, animationData, config) {
         aaSeq.macro(macro.name, handler.workflow, handler, userData)
     }
     // Extra Effects => Source Token if active
-    if (sourceFX.enable) {
-        aaSeq.addSequence(sourceFX.sourceSeq)
+    if (sourceFX) {
+        handler.compileSourceEffect(sourceFX, aaSeq)
     }
     // Primary Sound
     if (data.sound) {

@@ -13,7 +13,7 @@ export class DataSanitizer {
         //const data = {
             data.primary = menu === "preset" ? await this.compilePreset(flagData) : await this.compilePrimary(flagData, menu, handler),
             data.secondary = flagData.secondary ? await this.compileSecondary(flagData, handler) : false,
-            data.sourceFX = await this.compileSource(handler, flagData, data.primary),
+            data.sourceFX = await this.compileSource(flagData, data.primary),
             data.targetFX = flagData.target ? await this.compileTarget(flagData) : false,
             data.macro = await this.compileMacro(handler, flagData)
         //}
@@ -314,7 +314,7 @@ export class DataSanitizer {
         return data;
     }
 
-    static async compileSource(handler, flagData, primary) {
+    static async compileSource(flagData, primary) {
         const topLevel = flagData || {};
         const source = topLevel.source || {};
         const video = source.video || {};
@@ -361,53 +361,7 @@ export class DataSanitizer {
             addSoundDelay = data.options.delay;
         }
         data.sound = this.setSound(sound, addSoundDelay)
-
-        //const sourceTokenGS = data.options.isRadius ? data.options.size * 2 : (handler.sourceToken.w / canvas.grid.size) * 1.5 * data.options.size;
-        const sourceSize = handler.getSize(data.options.isRadius, data.options.size, handler.sourceToken, data.options.addTokenWidth)
-
-        const sourceFile = data.enable ? await buildFile(false, data.video.menuType, data.video.animation, data.video.dbSection, data.video.variant, data.video.color, data.video.customPath) : "";
-
-        data.sourceSeq = new Sequence();
-        if (data.sound) {
-            data.sourceSeq.addSequence(data.sound)
-        }
-        if (data.enable) {
-            let sourceEffect = data.sourceSeq.effect()
-            sourceEffect.file(sourceFile.file, true)
-            if (data.options.animationSource) {
-                sourceEffect.atLocation({x: data.options.fakeLocation.x, y: data.options.fakeLocation.y})
-            } else {
-                if (data.options.persistent) {
-                    sourceEffect.attachTo(handler.sourceToken)
-                    sourceEffect.persist(true, {persistTokenPrototype: true})
-                    sourceEffect.origin(handler.itemUuid)
-                } else {
-                    sourceEffect.attachTo(handler.sourceToken)
-                }
-            }
-            
-            // TO-DO switch Scale/Radius
-            sourceEffect.size(sourceSize, { gridUnits: true })
-            sourceEffect.repeats(data.options.repeat, data.options.repeatDelay)
-            sourceEffect.elevation(data.options.isAbsolute ? data.options.elevation : data.options.elevation - 1, {absolute: data.options.isAbsolute})
-            sourceEffect.zIndex(data.options.zIndex)
-            if (data.options.isMasked) {
-                sourceEffect.mask(handler.sourceToken)
-            }
-            sourceEffect.opacity(data.options.opacity)
-            sourceEffect.fadeIn(data.options.fadeIn)
-            if (data.video.variant === "complete" || data.video.animation === "complete") { }
-            else {
-                sourceEffect.fadeOut(data.options.fadeOut)    
-            }
-            if (data.options.isWait) {
-                sourceEffect.waitUntilFinished(data.options.delay)
-            } else {
-                sourceEffect.delay(data.options.delay)
-            }
-            sourceEffect.anchor({x: data.options.anchor.x, y: data.options.anchor.y})
-            sourceEffect.playbackRate(data.options.playbackRate)
-        }
+        data.path = data.enable ? await buildFile(false, data.video.menuType, data.video.animation, data.video.dbSection, data.video.variant, data.video.color, data.video.customPath) : "";
         return data;
     }
 
@@ -436,6 +390,8 @@ export class DataSanitizer {
                 anchor: this.convertToXY(options.anchor, true),
                 delay: options.delay ?? 0,
                 elevation: options.elevation ?? 1000,
+                fadeIn: options.fadeIn ?? 250,
+                fadeOut: options.fadeOut ?? 250,
                 isAbsolute: options.isAbsolute ?? false,
                 isMasked: options.isMasked ?? false,
                 //isWait: options.isWait ?? false,
