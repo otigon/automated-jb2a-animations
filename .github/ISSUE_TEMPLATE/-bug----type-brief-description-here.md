@@ -27,6 +27,8 @@ If applicable, add screenshots to help explain your problem.
  - Foundry Version: [e.g. 9.238]
  - System Version: [e.g. DND5e 1.5.7]
  - Sequencer Version: [e.g. 1.0.0]
+ - Automated Animations version
+ - Hosting Location (Local, Forge, etc)
  - Browser & version [e.g. Google Chrome 98.0.4758.82]
 
 **Active modules:**
