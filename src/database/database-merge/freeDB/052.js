@@ -59,6 +59,68 @@ export async function db052(path) {
                 },
             }
         },
+        templatefx: {
+            circle: {
+                magicsign: {
+                    abjuration: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        blue: [lg`Magic_Signs/AbjurationCircleComplete_02_Regular_Blue_800x800.webm`],
+                    },
+                    conjuration: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        yellow: [lg`Magic_Signs/ConjurationCircleComplete_02_Regular_Yellow_800x800.webm`]
+                    },
+                    divination: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        blue: [lg`Magic_Signs/DivinationCircleComplete_02_Regular_Blue_800x800.webm`],
+                    },
+                    enchantment: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        pink: [lg`Magic_Signs/EnchantmentCircleComplete_02_Regular_Pink_800x800.webm`],
+                    },
+                    evocation: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        red: [lg`Magic_Signs/EvocationCircleComplete_02_Regular_Red_800x800.webm`],
+                    },
+                    illusion: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        purple: [lg`Magic_Signs/IllusionCircleComplete_02_Regular_Purple_800x800.webm`],
+                    },
+                    necromancy: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        green: [lg`Magic_Signs/NecromancyCircleComplete_02_Regular_Green_800x800.webm`],
+                    },
+                    transmutation: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        yellow: [lg`Magic_Signs/TransmutationCircleComplete_02_Regular_Yellow_800x800.webm`]
+                    }
+                },
+            },
+        },
         static: {
             impact: {
                 frost: {
