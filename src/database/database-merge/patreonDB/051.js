@@ -45,7 +45,7 @@ export async function db051(path) {
                             '60ft': [lg`Weapon_Attacks/Ranged/Boomerang01_02_Regular_White_60ft_2800x400.webm`],
                             '90ft': [lg`Weapon_Attacks/Ranged/Boomerang01_02_Regular_White_90ft_4000x400.webm`]
                         }
-                    }    
+                    }
                 },
                 bullet: {
                     '1': {
@@ -103,7 +103,7 @@ export async function db051(path) {
                             '60ft': [lg`Weapon_Attacks/Ranged/Boomerang02_02_Regular_White_60ft_2800x400.webm`],
                             '90ft': [lg`Weapon_Attacks/Ranged/Boomerang02_02_Regular_White_90ft_4000x400.webm`]
                         }
-                    }    
+                    }
                 },
             },
             spell: {
@@ -117,7 +117,7 @@ export async function db051(path) {
                             '90ft': [l3`Fireball/FireballBeam_01_Dark_Green_90ft_4000x400.webm`]
                         }
                     },
-                },    
+                },
             },
         },
         templatefx: {
@@ -132,7 +132,105 @@ export async function db051(path) {
                     nodebris: {
                         darkgreen: [l3`Fireball/FireballLoopNoDebris_01_Dark_Green_800x800.webm`],
                     },
-                },    
+                },
+                magicsign: {
+                    abjuration: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        blue: [lg`Magic_Signs/AbjurationCircleComplete_02_Regular_Blue_800x800.webm`],
+                        green: [lg`Magic_Signs/AbjurationCircleComplete_02_Regular_Green_800x800.webm`],
+                        pink: [lg`Magic_Signs/AbjurationCircleComplete_02_Regular_Pink_800x800.webm`],
+                        purple: [lg`Magic_Signs/AbjurationCircleComplete_02_Regular_Purple_800x800.webm`],
+                        red: [lg`Magic_Signs/AbjurationCircleComplete_02_Regular_Red_800x800.webm`],
+                        yellow: [lg`Magic_Signs/AbjurationCircleComplete_02_Regular_Yellow_800x800.webm`]
+                    },
+                    conjuration: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        blue: [lg`Magic_Signs/ConjurationCircleComplete_02_Regular_Blue_800x800.webm`],
+                        green: [lg`Magic_Signs/ConjurationCircleComplete_02_Regular_Green_800x800.webm`],
+                        pink: [lg`Magic_Signs/ConjurationCircleComplete_02_Regular_Pink_800x800.webm`],
+                        purple: [lg`Magic_Signs/ConjurationCircleComplete_02_Regular_Purple_800x800.webm`],
+                        red: [lg`Magic_Signs/ConjurationCircleComplete_02_Regular_Red_800x800.webm`],
+                        yellow: [lg`Magic_Signs/ConjurationCircleComplete_02_Regular_Yellow_800x800.webm`]
+                    },
+                    divination: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        blue: [lg`Magic_Signs/DivinationCircleComplete_02_Regular_Blue_800x800.webm`],
+                        green: [lg`Magic_Signs/DivinationCircleComplete_02_Regular_Green_800x800.webm`],
+                        pink: [lg`Magic_Signs/DivinationCircleComplete_02_Regular_Pink_800x800.webm`],
+                        purple: [lg`Magic_Signs/DivinationCircleComplete_02_Regular_Purple_800x800.webm`],
+                        red: [lg`Magic_Signs/DivinationCircleComplete_02_Regular_Red_800x800.webm`],
+                        yellow: [lg`Magic_Signs/DivinationCircleComplete_02_Regular_Yellow_800x800.webm`]
+                    },
+                    enchantment: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        blue: [lg`Magic_Signs/EnchantmentCircleComplete_02_Regular_Blue_800x800.webm`],
+                        green: [lg`Magic_Signs/EnchantmentCircleComplete_02_Regular_Green_800x800.webm`],
+                        pink: [lg`Magic_Signs/EnchantmentCircleComplete_02_Regular_Pink_800x800.webm`],
+                        purple: [lg`Magic_Signs/EnchantmentCircleComplete_02_Regular_Purple_800x800.webm`],
+                        red: [lg`Magic_Signs/EnchantmentCircleComplete_02_Regular_Red_800x800.webm`],
+                        yellow: [lg`Magic_Signs/EnchantmentCircleComplete_02_Regular_Yellow_800x800.webm`]
+                    },
+                    evocation: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        blue: [lg`Magic_Signs/EvocationCircleComplete_02_Regular_Blue_800x800.webm`],
+                        green: [lg`Magic_Signs/EvocationCircleComplete_02_Regular_Green_800x800.webm`],
+                        pink: [lg`Magic_Signs/EvocationCircleComplete_02_Regular_Pink_800x800.webm`],
+                        purple: [lg`Magic_Signs/EvocationCircleComplete_02_Regular_Purple_800x800.webm`],
+                        red: [lg`Magic_Signs/EvocationCircleComplete_02_Regular_Red_800x800.webm`],
+                        yellow: [lg`Magic_Signs/EvocationCircleComplete_02_Regular_Yellow_800x800.webm`]
+                    },
+                    illusion: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        blue: [lg`Magic_Signs/IllusionCircleComplete_02_Regular_Blue_800x800.webm`],
+                        green: [lg`Magic_Signs/IllusionCircleComplete_02_Regular_Green_800x800.webm`],
+                        pink: [lg`Magic_Signs/IllusionCircleComplete_02_Regular_Pink_800x800.webm`],
+                        purple: [lg`Magic_Signs/IllusionCircleComplete_02_Regular_Purple_800x800.webm`],
+                        red: [lg`Magic_Signs/IllusionCircleComplete_02_Regular_Red_800x800.webm`],
+                        yellow: [lg`Magic_Signs/IllusionCircleComplete_02_Regular_Yellow_800x800.webm`]
+                    },
+                    necromancy: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        blue: [lg`Magic_Signs/NecromancyCircleComplete_02_Regular_Blue_800x800.webm`],
+                        green: [lg`Magic_Signs/NecromancyCircleComplete_02_Regular_Green_800x800.webm`],
+                        pink: [lg`Magic_Signs/NecromancyCircleComplete_02_Regular_Pink_800x800.webm`],
+                        purple: [lg`Magic_Signs/NecromancyCircleComplete_02_Regular_Purple_800x800.webm`],
+                        red: [lg`Magic_Signs/NecromancyCircleComplete_02_Regular_Red_800x800.webm`],
+                        yellow: [lg`Magic_Signs/NecromancyCircleComplete_02_Regular_Yellow_800x800.webm`]
+                    },
+                    transmutation: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        blue: [lg`Magic_Signs/TransmutationCircleComplete_02_Regular_Blue_800x800.webm`],
+                        green: [lg`Magic_Signs/TransmutationCircleComplete_02_Regular_Green_800x800.webm`],
+                        pink: [lg`Magic_Signs/TransmutationCircleComplete_02_Regular_Pink_800x800.webm`],
+                        purple: [lg`Magic_Signs/TransmutationCircleComplete_02_Regular_Purple_800x800.webm`],
+                        red: [lg`Magic_Signs/TransmutationCircleComplete_02_Regular_Red_800x800.webm`],
+                        yellow: [lg`Magic_Signs/TransmutationCircleComplete_02_Regular_Yellow_800x800.webm`]
+                    }
+                },
             },
             square: {
                 entangle: {
@@ -149,7 +247,7 @@ export async function db051(path) {
                     liquid: {
                         _markers: {
                             loop: { start: 2125, end: 6250 }
-                            },            
+                            },
                         grey: [
                             lg`Nature/GroupVineLiquid01_01_Regular_Grey_300x300.webm`,
                             lg`Nature/VineLiquid01_01_Regular_Grey_300x300.webm`,
@@ -216,7 +314,7 @@ export async function db051(path) {
                         orangered: [lg`Nature/SwirlingLeavesLoop02_01_Regular_OrangeRed_400x400.webm`],
                         pink: [lg`Nature/SwirlingLeavesLoop02_01_Regular_Pink_400x400.webm`],
                     },
-                },    
+                },
                 outburst: {
                     '01': {
                         purpleblue: [lg`Nature/SwirlingLeavesOutburst_01_01_Regular_BluePurple_400x400.webm`],
@@ -225,7 +323,7 @@ export async function db051(path) {
                         pink: [lg`Nature/SwirlingLeavesOutburst_01_01_Regular_Pink_400x400.webm`],
                     }
                 },
-            },    
+            },
             magicsign: {
                 abjuration: {
                     complete: {
@@ -338,7 +436,7 @@ export async function db051(path) {
                         red: [lg`Magic_Signs/TransmutationCircleComplete_02_Regular_Red_800x800.webm`],
                         yellow: [lg`Magic_Signs/TransmutationCircleComplete_02_Regular_Yellow_800x800.webm`],
                     }
-                },    
+                },
             },
             marker: {
                 energystrand: {
@@ -348,7 +446,7 @@ export async function db051(path) {
                         greenorange: [lg`Marker/EnergyStrands02_01_Regular_GreenOrange_400x400.webm`],
                         orangered: [lg`Marker/EnergyStrands02_01_Regular_OrangeRed_400x400.webm`],
                     }
-                },    
+                },
             },
             spell: {
                 entangle: {
@@ -369,14 +467,14 @@ export async function db051(path) {
                     nodebris: {
                         darkgreen: [l3`Fireball/FireballLoopNoDebris_01_Dark_Green_800x800.webm`],
                     },
-                },    
+                },
             },
             vines: {
                 complete: {
                     liquid: {
                         _markers: {
                             loop: { start: 2125, end: 6250 }
-                            },            
+                            },
                         grey: [
                             lg`Nature/GroupVineLiquid01_01_Regular_Grey_300x300.webm`,
                             lg`Nature/VineLiquid01_01_Regular_Grey_300x300.webm`,
