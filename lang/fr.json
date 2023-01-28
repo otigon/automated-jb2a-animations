@@ -468,7 +468,10 @@
 			"illusion": "Illusion",
 			"necromancy": "Nécromancie",
 			"abjuration": "Abjuration",
-			"transmutation": "Transmutation"
+			"transmutation": "Transmutation",
+			"runeloop": "Rune boucle",
+			"runeoutro": "Rune Outro",
+			"runeintro": "Rune Intro"
 		},
 		"menuTypes": {
 			"creature": "Attaque de créature",
