@@ -18,6 +18,8 @@
             "demonlordtrigger_misses": "Play animations on hits and misses",
             "demonlordtrigger_rolldamage":"Play animations on roll damage",
             "demonlordtrigger_applydamage":"Play animations on apply damage",
+            "coreonatk_name":"Play Attack Animations on Attack Rolls",
+            "coreonatk_hint":"By Default, Animations play on Attack Rolls",
             "coreondmg_name":"Play Attack Animations on Damage Rolls Only",
             "coreondmg_hint":"By Default, Animations play on Attack Rolls",
             "error":"A JB2A Module (Free OR Patreon) is REQUIRED for Automated Animations to Work",
@@ -85,7 +87,10 @@
             "hideTemplate_name": "Template Grids on Hover",
             "hideTemplate_hint": "Removes the Template Grid Highlighting unless Hovered over. TOKEN MAGIC FX SETTINGS FOR HOVER MUST BE DISABLED",
             "hoverInTemplateLayer": "Show on Hover in Template Layer",
-            "hoverInTemplate": "Show on any Hover"
+            "hoverInTemplate": "Show on any Hover",
+            "playAnimations": "When to play Animations",
+            "attack": "Attack Rolls",
+            "damage": "Damage Rolls"
         },
         "colors": {
             "lightorange": "Light Orange",
@@ -397,6 +402,9 @@
             "rolled": "Rolled",
             "runeabove": "Rune Above",
             "runebelow": "Rune Below",
+            "runeintro": "Rune Intro",
+            "runeloop": "Rune Loop",
+            "runeoutro": "Rune Outro",
             "skullabove": "Skull Above",
             "skullbelow": "Skull Below",
             "starabove": "Star Above",
@@ -457,7 +465,15 @@
             "frost": "Frost",
             "ring02": "Ring 02",
             "ring03": "Ring 03",
-            "outburst": "Outburst"
+            "outburst": "Outburst",
+            "abjuration": "Abjuration",
+            "conjuration": "Conjuration",
+            "divination": "Divination",
+            "enchantment": "Enchantment",
+            "evocation": "Evocation",
+            "illusion": "Illusion",
+            "necromancy": "Necromancy",
+            "transmutation": "Transmutation"
         },
         "menuTypes": {
             "creature": "Creature Attack",
@@ -665,7 +681,22 @@
             "forceExact": "Force Exact Match",
             "advanced": "Advanced",
             "recognition": "Recognition",
-            "features": "Features"
+            "features": "Features",
+            "checkCollision": "Check for Collision",
+            "resetTime": "Reset Time",
+            "rotateTowards": "Rotate Towards"
+        },
+        "tokenAnimations": {
+            "bow": "Bow",
+            "breath": "Breath",
+            "buff": "Buff",
+            "charge": "Charge",
+            "debuff": "Debuff",
+            "knockback": "Knockback",
+            "shake": "Shake",
+            "slash": "Slash",
+            "swipe": "Swipe",
+            "twirl": "Twirl"
         },
         "optionsInfo": {
 

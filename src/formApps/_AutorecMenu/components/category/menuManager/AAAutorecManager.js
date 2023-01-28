@@ -99,7 +99,7 @@ export class AAAutorecManager
     }
 
     // Exports ALL Global Automatic Recognition Menus
-    static async exportMenu() {
+    static async exportMenu(string = "") {
 
         const exportData = {
             melee: await game.settings.get("autoanimations", "aaAutorec-melee"),
@@ -112,7 +112,7 @@ export class AAAutorecManager
             version: await game.settings.get('autoanimations', 'aaAutorec').version,
         };
 
-        const filename = `fvtt-autoanimations-autorecognition.json`;
+        const filename = `fvtt-AutomatedAnimations-GlobalMenu${string}.json`;
 
         saveDataToFile(JSON.stringify(exportData, null, 2), "text/json", filename);    
     }

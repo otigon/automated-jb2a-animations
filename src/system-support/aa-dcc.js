@@ -1,11 +1,10 @@
 import { trafficCop }       from "../router/traffic-cop.js"
 import AAHandler            from "../system-handlers/workflow-data.js";
-import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
 export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => {
-        if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
+        if (msg.user.id !== game.user.id) { return };
 
         let compiledData = await getRequiredData({
             itemId: msg.flags?.dcc?.ItemId,
@@ -21,11 +20,9 @@ async function runDcc(input) {
 
     if (!game.settings.get('dcc', 'useStandardDiceRoller')) {
         const handler = await AAHandler.make(input)
-        if (!handler) { return; }
         trafficCop(handler);
     } else if (input.flags?.dcc?.RollType === "Damage" || input.flags?.dcc?.RollType === "SpellCheck") {
         const handler = await AAHandler.make(input)
-        if (!handler) { return; }
         trafficCop(handler);
     }
 }

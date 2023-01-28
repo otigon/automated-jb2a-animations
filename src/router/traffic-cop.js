@@ -7,7 +7,7 @@ import * as animate from "../animation-functions"
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function trafficCop(handler) {
-    
+    if (!handler) { return; }
     const data = foundry.utils.deepClone(handler.animationData);
     if (data.advanced?.excludedType?.enabled && data.advanced?.excludedType?.path && data.advanced?.excludedType?.property) {
         if (AAAutorecFunctions.checkExcludedProperty(handler.item, data.advanced?.excludedType?.property, data.advanced?.excludedType?.path)) {
@@ -26,7 +26,7 @@ export async function trafficCop(handler) {
 
     if (sanitizedData.macro && sanitizedData.macro.enable && sanitizedData.macro.playWhen === "2") {
 
-        if (handler.isTemplateItem) {
+        if (handler.isTemplateAnimation) {
             switch (game.system.id) {
                 case "a5e":
                 case "sw5e":
@@ -45,7 +45,7 @@ export async function trafficCop(handler) {
                     await wait(500)
                     handler.templateData = canvas.templates?.placeables?.[canvas.templates.placeables.length - 1]?.document;
                     playMacro()
-                }    
+                }
         } else {
             playMacro()
         }
@@ -66,7 +66,7 @@ export async function trafficCop(handler) {
             repeat: data.soundOnly?.sound?.repeat ?? 1,
             repeatDelay: data.soundOnly?.sound?.repeatDelay ?? 250,
         }
-        new Sequence()
+        new Sequence(handler.sequenceData)
             .sound()
                 .file(sound.file)
                 .volume(sound.volume)
@@ -109,7 +109,7 @@ export async function trafficCop(handler) {
             setTimeout(killHook, 30000)
             return;
         }
-        //sections for Template Hooks.once or straight to function
+        //sections for Template Hooks.once or straight to function. Systems running the createMeasuredTemplate hook, or those whose workflow runs after template placement, will skip Hooks.once
         switch (game.system.id) {
             case "a5e":
             case "pf2e":

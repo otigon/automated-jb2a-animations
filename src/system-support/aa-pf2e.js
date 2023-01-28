@@ -1,6 +1,5 @@
 import { trafficCop }       from "../router/traffic-cop.js"
 import AAHandler            from "../system-handlers/workflow-data.js";
-import { AnimationState }   from "../AnimationState.js";
 import { debug }            from "../constants/constants.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
@@ -15,7 +14,7 @@ const PF2E_SIZE_TO_REACH = {
 
 export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => {
-        if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
+        if (msg.user.id !== game.user.id) { return };
         const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
 
         let compiledData = await getRequiredData({
@@ -26,6 +25,7 @@ export function systemHooks() {
             actorId: msg.speaker?.actor,
             workflow: msg,
             playOnDamage: playOnDmg,
+            bypassTemplates: true,
         })
         if (compiledData.item?.type === "effect" || compiledData.item?.type === "condition") {
             debug ("This is a Condition or Effect, exiting main workflow")
@@ -39,7 +39,7 @@ export function systemHooks() {
         runPF2e(compiledData)
     });
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
-        if (userId !== game.user.id || !AnimationState.enabled) { return };
+        if (userId !== game.user.id) { return };
         templateAnimation(await getRequiredData({
             itemUuid: template.flags?.pf2e?.origin?.uuid,
             templateData: template,
@@ -69,7 +69,6 @@ async function templateAnimation(input) {
     }
     
     const handler = await AAHandler.make(input)
-    if (!handler) { return;}
     trafficCop(handler)
 }
 
@@ -187,7 +186,6 @@ async function playPF2e(input) {
     }
 
     const handler = await AAHandler.make(input)
-    if (!handler) { return; }
     trafficCop(handler);
 }
 /**
@@ -236,7 +234,7 @@ function findDamageOnItem(item) {
 }
 
 function itemHasDamage(item) {
-    let damage = item.system?.damage?.value || {};
+    let damage = item.system?.damage?.value || item.system?.damageRolls || {};
     return Object.keys(damage).length
 }
 

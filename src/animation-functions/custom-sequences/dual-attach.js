@@ -15,15 +15,15 @@ export async function dualattach(handler, animationData) {
 
     async function cast() {
 
-        let aaSeq = await new Sequence();
+        let aaSeq = await new Sequence(handler.sequenceData);
         // Play Macro if Awaiting
         if (macro && macro.playWhen === "1" && !macro?.args?.warpgateTemplate) {
             let userData = macro.args;
             aaSeq.macro(macro.name, handler.workflow, handler, userData)
         }
         // Extra Effects => Source Token if active
-        if (sourceFX.enabled) {
-            aaSeq.addSequence(sourceFX.sourceSeq)
+        if (sourceFX) {
+            handler.compileSourceEffect(sourceFX, aaSeq)
         }
         // Primary Sound
         if (data.sound) {

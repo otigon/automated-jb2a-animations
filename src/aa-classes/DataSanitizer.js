@@ -13,7 +13,7 @@ export class DataSanitizer {
         //const data = {
             data.primary = menu === "preset" ? await this.compilePreset(flagData) : await this.compilePrimary(flagData, menu, handler),
             data.secondary = flagData.secondary ? await this.compileSecondary(flagData, handler) : false,
-            data.sourceFX = await this.compileSource(handler, flagData, data.primary),
+            data.sourceFX = await this.compileSource(flagData, data.primary),
             data.targetFX = flagData.target ? await this.compileTarget(flagData) : false,
             data.macro = await this.compileMacro(handler, flagData)
         //}
@@ -106,7 +106,7 @@ export class DataSanitizer {
         if (menu === "melee") {
             data.meleeSwitch = this.compileMeleeSwitch(topLevel.meleeSwitch)
         }
-        if (data.video.menuType === 'shieldfx') { data.options.isShieldFX = true}
+        if (data.video.menuType === 'shieldfx' && !video.enableCustom) { data.options.isShieldFX = true}
         data.path = await buildFile(false, data.video.menuType, data.video.animation, data.video.dbSection, data.video.variant, data.video.color, data.video.customPath)
         return data;
     }
@@ -314,7 +314,7 @@ export class DataSanitizer {
         return data;
     }
 
-    static async compileSource(handler, flagData, primary) {
+    static async compileSource(flagData, primary) {
         const topLevel = flagData || {};
         const source = topLevel.source || {};
         const video = source.video || {};
@@ -361,53 +361,7 @@ export class DataSanitizer {
             addSoundDelay = data.options.delay;
         }
         data.sound = this.setSound(sound, addSoundDelay)
-
-        //const sourceTokenGS = data.options.isRadius ? data.options.size * 2 : (handler.sourceToken.w / canvas.grid.size) * 1.5 * data.options.size;
-        const sourceSize = handler.getSize(data.options.isRadius, data.options.size, handler.sourceToken, data.options.addTokenWidth)
-
-        const sourceFile = data.enable ? await buildFile(false, data.video.menuType, data.video.animation, data.video.dbSection, data.video.variant, data.video.color, data.video.customPath) : "";
-
-        data.sourceSeq = new Sequence();
-        if (data.sound) {
-            data.sourceSeq.addSequence(data.sound)
-        }
-        if (data.enable) {
-            let sourceEffect = data.sourceSeq.effect()
-            sourceEffect.file(sourceFile.file, true)
-            if (data.options.animationSource) {
-                sourceEffect.atLocation({x: data.options.fakeLocation.x, y: data.options.fakeLocation.y})
-            } else {
-                if (data.options.persistent) {
-                    sourceEffect.attachTo(handler.sourceToken)
-                    sourceEffect.persist(true, {persistTokenPrototype: true})
-                    sourceEffect.origin(handler.itemUuid)
-                } else {
-                    sourceEffect.attachTo(handler.sourceToken)
-                }
-            }
-            
-            // TO-DO switch Scale/Radius
-            sourceEffect.size(sourceSize, { gridUnits: true })
-            sourceEffect.repeats(data.options.repeat, data.options.repeatDelay)
-            sourceEffect.elevation(data.options.isAbsolute ? data.options.elevation : data.options.elevation - 1, {absolute: data.options.isAbsolute})
-            sourceEffect.zIndex(data.options.zIndex)
-            if (data.options.isMasked) {
-                sourceEffect.mask(handler.sourceToken)
-            }
-            sourceEffect.opacity(data.options.opacity)
-            sourceEffect.fadeIn(data.options.fadeIn)
-            if (data.video.variant === "complete" || data.video.animation === "complete") { }
-            else {
-                sourceEffect.fadeOut(data.options.fadeOut)    
-            }
-            if (data.options.isWait) {
-                sourceEffect.waitUntilFinished(data.options.delay)
-            } else {
-                sourceEffect.delay(data.options.delay)
-            }
-            sourceEffect.anchor({x: data.options.anchor.x, y: data.options.anchor.y})
-            sourceEffect.playbackRate(data.options.playbackRate)
-        }
+        data.path = data.enable ? await buildFile(false, data.video.menuType, data.video.animation, data.video.dbSection, data.video.variant, data.video.color, data.video.customPath) : "";
         return data;
     }
 
@@ -436,6 +390,8 @@ export class DataSanitizer {
                 anchor: this.convertToXY(options.anchor, true),
                 delay: options.delay ?? 0,
                 elevation: options.elevation ?? 1000,
+                fadeIn: options.fadeIn ?? 250,
+                fadeOut: options.fadeOut ?? 250,
                 isAbsolute: options.isAbsolute ?? false,
                 isMasked: options.isMasked ?? false,
                 //isWait: options.isWait ?? false,
@@ -510,11 +466,13 @@ export class DataSanitizer {
         if (!options3d.enable) { return false; }
         const type = options3d.type;
         const options = options3d.data || {};
+        const tokens = options3d.tokens || {};
 
         const secondary = options3d.secondary || {};
         const data = {
             type: type,
             alpha: options.alpha ?? particleDefaultValues[type].alpha,
+            animationType: options.animationType ?? "twirl",
             arc: options.arc ?? particleDefaultValues[type].arc,
             color01: options.color01 ?? particleDefaultValues[type].color01,
             color02: options.color02 ?? particleDefaultValues[type].color02,
@@ -523,26 +481,43 @@ export class DataSanitizer {
             gravity: options.gravity ?? particleDefaultValues[type].gravity,
             life: options.life ?? particleDefaultValues[type].life,
             mass: options.mass ?? particleDefaultValues[type].mass,
+            playOn: options.playOn ?? "source",
             rate: options.rate ?? particleDefaultValues[type].rate,
             repeat: options.repeat ?? particleDefaultValues[type].repeat,
+            resetTime: options.resetTime ?? 100,
+            rotateTowards: options.rotateTowards ?? false,
+            rotationX: options.rotationX ?? 0,
+            rotationY: options.rotationY ?? 0,
+            rotationZ: options.rotationZ ?? 0,
             scale: options.scale ?? particleDefaultValues[type].scale,
             speed: options.speed ?? particleDefaultValues[type].speed,
             sprite: options.spritePath ?? particleDefaultValues[type].sprite,
             sound: this.setSound(options3d.sound),
+            tokenAnimation: {
+                enable: tokens.enable ?? false,
+                source: tokens.source ?? false,
+                sourceType: tokens.sourceType ?? "twirl",
+                sourceStart: tokens.sourcePlay !== "end"  ? true : false,
+                sourceEnd: tokens.sourcePlay !== "start" ? true : false,
+                target: tokens.target ?? false,
+                targetType: tokens.targetType ?? "shake",
+                targetStart: tokens.targetPlay !== "end"  ? true : false,
+                targetEnd: tokens.targetPlay !== "start" ? true : false,
+            },
             secondary: {
                 enable: secondary.enable || false,
-                alpha: secondary.data?.alpha ?? particleDefaultValues[type].explosion.alpha,
-                color01: secondary.data?.color01 ?? particleDefaultValues[type].explosion.color01,
-                color02: secondary.data?.color02 ?? particleDefaultValues[type].explosion.color02,
-                emittersize: secondary.data?.emittersize ?? particleDefaultValues[type].explosion.emittersize,
-                gravity: secondary.data?.gravity ?? particleDefaultValues[type].explosion.gravity,
-                life: secondary.data?.life ?? particleDefaultValues[type].explosion.life,
-                mass: secondary.data?.mass ?? particleDefaultValues[type].explosion.mass,
-                rate: secondary.data?.rate ?? particleDefaultValues[type].explosion.rate,
-                scale: secondary.data?.scale ?? particleDefaultValues[type].explosion.scale,
-                speed: secondary.data?.speed ?? particleDefaultValues[type].explosion.speed,
+                alpha: secondary.data?.alpha ?? 0.5,
+                color01: secondary.data?.color01 ?? "#FFFFFF",
+                color02: secondary.data?.color02 ?? "#FFFFFF",
+                emittersize: secondary.data?.emittersize ?? 1,
+                gravity: secondary.data?.gravity ?? 2,
+                life: secondary.data?.life ?? 500,
+                mass: secondary.data?.mass ?? 100,
+                rate: secondary.data?.rate ?? 10,
+                scale: secondary.data?.scale ?? 1,
+                speed: secondary.data?.speed ?? 1,
                 type: "explosion",
-                //sprite: secondary.data?.sprite ?? particleDefaultValues[type].explosion.sprite,
+                sprite: secondary.data?.spritePath ?? particleDefaultValues.explosion.sprite,
             }
         };
         return data;
@@ -737,6 +712,7 @@ export class DataSanitizer {
                     alpha: options.alpha ?? 1,
                     delayFade: options.delayFade ?? 0,
                     delayReturn: options.delayReturn ?? 0,
+                    checkCollision: options.checkCollision ?? false,
                 },
                 sound: setSound(sound)
             }

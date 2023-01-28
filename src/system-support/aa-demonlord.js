@@ -1,11 +1,9 @@
 import { trafficCop }       from "../router/traffic-cop.js"
 import AAHandler            from "../system-handlers/workflow-data.js";
-import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
 export function systemHooks() {
     Hooks.on("DL.Action", async (data) => {
-        if (!AnimationState.enabled) { return; }
         const eventType = data.type
 
         let compiledData = await getRequiredData({
@@ -43,6 +41,5 @@ export function systemHooks() {
 
 async function runDemonlord(data) {
     const handler = await AAHandler.make(data)
-    if (!handler) { return; }
     trafficCop(handler);
 }

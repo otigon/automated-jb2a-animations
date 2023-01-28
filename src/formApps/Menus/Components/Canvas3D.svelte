@@ -4,6 +4,7 @@
 
     import Canvas3dOptions from "./options/Canvas3dOptions.svelte";
     import Canvas3DSecondary from "./options/Canvas3DSecondary.svelte";
+    import Canvas3DTokenAnimation from "./options/Canvas3DAnimation.svelte"
 
     import SoundSettings from "./SoundSettings.svelte";
 
@@ -19,6 +20,9 @@
                 spritePath =
                     "modules/levels-3d-preview/assets/particles/dust.png";
                 break;
+            case "sprit":
+                spritePath = "modules/canvas3dcompendium/assets/Tiles/RPG%20Items/Arrow_Golden.glb";
+                break;
             default:
                 spritePath =
                     "modules/levels-3d-preview/assets/particles/emberssmall.png";
@@ -29,7 +33,7 @@
     async function selectCustom() {
         const current = animation._data.levels3d.data.spritePath;
         const picker = new FilePicker({
-            type: "imagevideo",
+            type: "any",
             current,
             callback: (path) => {
                 $animation.levels3d.data.spritePath = path;
@@ -70,42 +74,50 @@
                 <option value="sprite">3D Object</option>
                 <option value="ray">{localize("autoanimations.menuTypes.ray")}</option>
                 <option value="explosion">{localize("autoanimations.menus.explosion")}</option >
+                <option value="token">{localize("autoanimations.menus.token")}</option>
             </select>
         </div>
     </td>
     <td style="width: 20%; border:none"></td>
 </table>
 <div class="aa-section-border {isEnabled ? "" : "aa-disableOpacity"}">
-    <table class="c">
-        <tr>
-            <td style="width: 6em; border: none;">
-                <div class="flexrow">
-                    <label for="" class="aa-customFont">{localize('autoanimations.menus.sprite')}</label>
-                </div>
-            </td>
-            <td style=" border: none">
-                <input
-                type="text"
-                bind:value={$animation.levels3d.data.spritePath}
-                style="font-weight:normal; font-size:small; border-radius: 5px;text-align:left; width: 100%"
-                />
-            </td>
-            <td style="width: 4em;border: none">
-                <i class="fas fa-file-import"
-                   title="File Picker"
-                   style="font-size:1.5em"
-                   on:click|preventDefault={() => selectCustom()}
-                   role=presentation
-                />
-            </td>
-            </tr>
-    </table>
+    {#if type !== "token"}
+        <table class="c">
+            <tr>
+                <td style="width: 6em; border: none;">
+                    <div class="flexrow">
+                        <label for="" class="aa-customFont">{localize('autoanimations.menus.sprite')}</label>
+                    </div>
+                </td>
+                <td style=" border: none">
+                    <input
+                    type="text"
+                    bind:value={$animation.levels3d.data.spritePath}
+                    style="font-weight:normal; font-size:small; border-radius: 5px;text-align:left; width: 100%"
+                    />
+                </td>
+                <td style="width: 4em;border: none">
+                    <i class="fas fa-file-import"
+                    title="File Picker"
+                    style="font-size:1.5em"
+                    on:click|preventDefault={() => selectCustom()}
+                    role=presentation
+                    />
+                </td>
+                </tr>
+        </table>
+    {/if}
     <Canvas3dOptions {animation} />
     <SoundSettings {animation} {category} {idx} section="levels3d" />
 </div>
-<div class="aa-section-border {isEnabled ? "" : "aa-disableOpacity"}">
-    <Canvas3DSecondary {animation} />
-</div>
+{#if type !== "token"}
+    <div class="aa-section-border {isEnabled ? "" : "aa-disableOpacity"}">
+        <Canvas3DSecondary {animation} />
+    </div>
+    <div class="aa-section-border {isEnabled ? "" : "aa-disableOpacity"}">
+        <Canvas3DTokenAnimation {animation} />
+    </div>
+{/if}
 
 <style lang="scss">
     h1 {

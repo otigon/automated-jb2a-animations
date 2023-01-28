@@ -22,7 +22,7 @@
     $:
     {
     $doc;
-    $animation.label = $doc.label
+    $animation.label = $doc.label || $doc.name
     }
 
     let aaFlags = itemFlags.autoanimations || {};

@@ -3,8 +3,8 @@ import { aaAutorec } from "./mergeScripts/autorec/aaAutoRecList.js";
 import { AnimationState } from "./AnimationState.js";
 
 import { TJSGameSettings } from '@typhonjs-fvtt/svelte-standard/store';
-class AAGameSettings extends TJSGameSettings
-{
+
+class AAGameSettings extends TJSGameSettings {
    constructor() {
       super('autoanimations');
    }
@@ -552,6 +552,62 @@ class AAGameSettings extends TJSGameSettings
                      config: true,
                   }
                });
+               settings.push({
+                  namespace,
+                  key: 'EnableCritical',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.crithit_name',
+                     hint: 'autoanimations.settings.crithit_hint',
+                     scope: scope.world,
+                     type: Boolean,
+                     default: false,
+                     config: true
+                  }
+               });
+
+               settings.push({
+                  namespace,
+                  key: 'CriticalAnimation',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.crithitAnim_name',
+                     //name: 'Choose A File',
+                     scope: scope.world,
+                     config: true,
+                     type: String,
+                     default: "",
+                     filePicker: 'imagevideo'
+                  }
+               });
+
+               settings.push({
+                  namespace,
+                  key: 'EnableCriticalMiss',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.critmiss_name',
+                     hint: 'autoanimations.settings.critmiss_hint',
+                     scope: scope.world,
+                     type: Boolean,
+                     default: false,
+                     config: true
+                  }
+               });
+
+               settings.push({
+                  namespace,
+                  key: 'CriticalMissAnimation',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.critmissAnim_name',
+                     scope: scope.world,
+                     config: true,
+                     type: String,
+                     default: "",
+                     filePicker: 'imagevideo'
+                  }
+               });
             }
             break;
 
@@ -644,23 +700,61 @@ class AAGameSettings extends TJSGameSettings
                }
             });
             break;
-            /* Considering options for changing 5e options on "How To Play" Animations
-         default:
+         case "TheWitcherTRPG":
             settings.push({
                namespace,
-               key: 'howToPlay',
+               key: "attackSkill",
                folder: game.system.title || game.system.name,
                options: {
-                  name: 'When to play Animations',
-                  hint: 'Tell Automated Animations when you would like animations to play',
+                  name: 'autoanimations.settings.coreonatk_name',
+                  hint: 'autoanimations.settings.coreonatk_hint',
+                  scope: scope.world,
+                  type: Boolean,
+                  default: true,
+                  config: true,
+               }
+            });
+            settings.push({
+               namespace,
+               key: "damage",
+               folder: game.system.title || game.system.name,
+               options: {
+                  name: 'autoanimations.settings.coreondmg_name',
+                  hint: 'autoanimations.settings.coreondmg_hint',
+                  scope: scope.world,
+                  type: Boolean,
+                  default: true,
+                  config: true,
+               }
+            });
+            settings.push({
+               namespace,
+               key: "spell",
+               folder: game.system.title || game.system.name,
+               options: {
+                  name: 'autoanimations.settings.coreonatk_name',
+                  hint: 'autoanimations.settings.coreonatk_hint',
+                  scope: scope.world,
+                  type: Boolean,
+                  default: true,
+                  config: true,
+               }
+            });
+            break;
+         case "twodsix":
+            settings.push({
+               namespace,
+               key: 'playtrigger',
+               folder: game.system.title || game.system.name,
+               options: {
+                  name: 'autoanimations.settings.playAnimations',
                   scope: scope.world,
                   type: String,
                   choices: {
-                     onUse: 'On Item Use',
-                     attack: 'On Attacks',
-                     damage: 'On Damage, if Present',
+                     onAttack: 'autoanimations.settings.attack',
+                     onDamage: 'autoanimations.settings.damage',
                   },
-                  default: 'onUse',
+                  default: 'onAttack',
                   config: true
                }
             });

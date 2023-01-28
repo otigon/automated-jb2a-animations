@@ -43,6 +43,7 @@ Current System Compatibility:
 - Forbidden Lands
 - Star Wars FFG
 - Cyberpunk Red
+- TheWitcherTRPG
 
 Systems in Process for Compatibility:   
 - Please log a GitHub request for other systems  

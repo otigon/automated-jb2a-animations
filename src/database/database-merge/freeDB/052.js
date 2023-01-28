@@ -34,17 +34,6 @@ export async function db052(path) {
                 lasersword: {
                     '02': {
                         blue: [lg`Weapon_Attacks/Melee/LaserSword01_02_Regular_Blue_800x600.webm`],
-                        blue02: [lg`Weapon_Attacks/Melee/LaserSword01_02_Regular_Blue02_800x600.webm`],
-                        blue03: [lg`Weapon_Attacks/Melee/LaserSword01_02_Regular_Blue03_800x600.webm`],
-                        darkred: [lg`Weapon_Attacks/Melee/LaserSword01_02_Dark_Red_800x600.webm`],
-                        darkwhite: [lg`Weapon_Attacks/Melee/LaserSword01_02_Dark_White_800x600.webm`],
-                        green: [lg`Weapon_Attacks/Melee/LaserSword01_02_Regular_Green_800x600.webm`],
-                        green02: [lg`Weapon_Attacks/Melee/LaserSword01_02_Regular_Green02_800x600.webm`],
-                        orange: [lg`Weapon_Attacks/Melee/LaserSword01_02_Regular_Orange_800x600.webm`],
-                        purple: [lg`Weapon_Attacks/Melee/LaserSword01_02_Regular_Purple_800x600.webm`],
-                        red: [lg`Weapon_Attacks/Melee/LaserSword01_02_Regular_Red_800x600.webm`],
-                        white: [lg`Weapon_Attacks/Melee/LaserSword01_02_Regular_White_800x600.webm`],
-                        yellow: [lg`Weapon_Attacks/Melee/LaserSword01_02_Regular_Yellow_800x600.webm`],
                     },
                 }    
             },
@@ -69,6 +58,68 @@ export async function db052(path) {
                     },
                 },
             }
+        },
+        templatefx: {
+            circle: {
+                magicsign: {
+                    abjuration: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        blue: [lg`Magic_Signs/AbjurationCircleComplete_02_Regular_Blue_800x800.webm`],
+                    },
+                    conjuration: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        yellow: [lg`Magic_Signs/ConjurationCircleComplete_02_Regular_Yellow_800x800.webm`]
+                    },
+                    divination: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        blue: [lg`Magic_Signs/DivinationCircleComplete_02_Regular_Blue_800x800.webm`],
+                    },
+                    enchantment: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        pink: [lg`Magic_Signs/EnchantmentCircleComplete_02_Regular_Pink_800x800.webm`],
+                    },
+                    evocation: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        red: [lg`Magic_Signs/EvocationCircleComplete_02_Regular_Red_800x800.webm`],
+                    },
+                    illusion: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        purple: [lg`Magic_Signs/IllusionCircleComplete_02_Regular_Purple_800x800.webm`],
+                    },
+                    necromancy: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        green: [lg`Magic_Signs/NecromancyCircleComplete_02_Regular_Green_800x800.webm`],
+                    },
+                    transmutation: {
+                        _markers: {
+                            loop: { start: 3000, end: 8000 },
+                            forcedEnd: 8000
+                        },
+                        yellow: [lg`Magic_Signs/TransmutationCircleComplete_02_Regular_Yellow_800x800.webm`]
+                    }
+                },
+            },
         },
         static: {
             impact: {

@@ -10,15 +10,22 @@ export async function aura(handler, animationData) {
     const easeArray = ['easeInOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutQuad', 'easeInCirc']
     const sourceToken = handler.sourceToken;
     //const aura = await buildFile(false, data.video.menuType, data.video.animation, "static", data.video.variant, data.video.color, data.video.customPath);
-    let aaSeq = new Sequence("Automated Animations")
+    
+    let newTargetArray = [];
+    for (let target of handler.allTargets) {
+        let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0;
+        if (!checkAnim) { newTargetArray.push(target) }
+    }
+    
+    let aaSeq = new Sequence(handler.sequenceData)
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1") {
         let userData = macro.args;
         aaSeq.macro(macro.name, handler.workflow, handler, userData)
     }
     // Extra Effects => Source Token if active
-    if (sourceFX.enable) {
-        aaSeq.addSequence(sourceFX.sourceSeq)
+    if (sourceFX) {
+        handler.compileSourceEffect(sourceFX, aaSeq)
     }
     // Primary Sound
     if (data.sound) {
@@ -45,12 +52,7 @@ export async function aura(handler, animationData) {
         }
 
         if (secondary) {
-            if (secondary.sound) {
-                aaSeq.addSequence(secondary.sound)
-            }
-            let secondarySeq = aaSeq.effect()
-            setSecondary(sourceToken, secondarySeq)
-            secondarySeq.delay(secondary.options.delay)
+            handler.compileSecondaryEffect(secondary, aaSeq, [sourceToken], false, false)
         }
     }
 
@@ -75,32 +77,11 @@ export async function aura(handler, animationData) {
                     aaEffect.delay(data.options.delay)
                 }
         }
-
         if (secondary) {
-            if (secondary.sound) {
-                aaSeq.addSequence(secondary.sound)
-            }
-            for (let i = 0; i < newTargetArray.length; i++) {
-                let currentTarget = newTargetArray[i]
-                let secondarySeq = aaSeq.effect()
-                setSecondary(currentTarget, secondarySeq)
-
-                if (i === newTargetArray.length - 1 && secondary.options.isWait && targetFX.enable) {
-                    secondarySeq.waitUntilFinished(secondary.options.delay)
-                } else if (!secondary.options.isWait) {
-                    secondarySeq.delay(secondary.options.delay)
-                }
-            }
+            handler.compileSecondaryEffect(secondary, aaSeq, newTargetArray, targetFX.enable, false)
         }
-
-        if (targetFX.enable) {
-            if (targetFX.sound) {
-                aaSeq.addSequence(targetFX.sound)
-            }
-            for (let currentTarget of newTargetArray) {
-                let targetSequence = handler.buildTargetSeq(targetFX, currentTarget);
-                aaSeq.addSequence(targetSequence.targetSeq)
-            }
+        if (targetFX) {
+            handler.compileTargetEffect(targetFX, aaSeq, newTargetArray, false)
         }
     }
 
@@ -138,44 +119,16 @@ export async function aura(handler, animationData) {
                 }
             }
         }
-        if (secondary && secondary.sound) {
-            aaSeq.addSequence(secondary.sound)
+
+        if (secondary) {
+            handler.compileSecondaryEffect(secondary, aaSeq, [sourceToken], false, false)
         }
-
-        if (secondary && !sourceCheckAnim) {
-            let sourceSecondarySeq = aaSeq.effect()
-            setSecondary(sourceToken, sourceSecondarySeq)
-
-            if (newTargetArray.length < 1 && secondary.options.isWait) {
-                sourceSecondarySeq.waitUntilFinished(secondary.options.delay)
-            } else if (!secondary.options.isWait) {
-                sourceSecondarySeq.delay(secondary.options.delay)
-            }
-        }
-
         if (newTargetArray.length > 0) {
-            if (secondary && newTargetArray.length > 0) {
-                for (let i = 0; i < newTargetArray.length; i++) {
-                    let currentTarget = newTargetArray[i];
-                    let secondarySeq = aaSeq.effect()
-                    setSecondary(currentTarget, secondarySeq)
-
-                    if (i === newTargetArray.length - 1 && secondary.options.isWait && targetFX.enable) {
-                        secondarySeq.waitUntilFinished(secondary.options.delay)
-                    } else if (!secondary.options.isWait) {
-                        secondarySeq.delay(secondary.options.delay)
-                    }
-                }
+            if (secondary) {
+                handler.compileSecondaryEffect(secondary, aaSeq, newTargetArray, targetFX.enable, false)
             }
-
-            if (targetFX.enable && newTargetArray.length > 0) {
-                if (targetFX.sound) {
-                    aaSeq.addSequence(targetFX.sound)
-                }
-                for (let currentTarget of newTargetArray) {
-                    let targetSequence = handler.buildTargetSeq(targetFX, currentTarget);
-                    aaSeq.addSequence(targetSequence.targetSeq)
-                }
+            if (targetFX) {
+                handler.compileTargetEffect(targetFX, aaSeq, newTargetArray, false)
             }
         }
     }
@@ -222,29 +175,6 @@ export async function aura(handler, animationData) {
             seq.tieToDocuments(handler.item)
         }
     }
-
-    function setSecondary(token, seq) {
-        let size = handler.getSize(secondary.options.isRadius, secondary.options.size, token, secondary.options.addTokenWidth)
-
-        seq.atLocation(token)
-        seq.file(secondary.path?.file, true)
-        seq.size(size, { gridUnits: true })
-        seq.elevation(handler.elevation(token, secondary.options.isAbsolute, secondary.options.elevation), {absolute: secondary.options.isAbsolute})
-        seq.zIndex(secondary.options.zIndex)
-        seq.opacity(secondary.options.opacity)
-        seq.fadeIn(secondary.options.fadeIn)
-        seq.fadeOut(secondary.options.fadeOut)
-        if (secondary.options.rotateSource) {
-            seq.rotateTowards(sourceToken)
-            seq.rotate(180)    
-        }    
-        if (secondary.options.isMasked) {
-            seq.mask(token)
-        }
-        seq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
-        seq.playbackRate(secondary.options.playbackRate)
-    }
-
     // Macro if Concurrent
     if (macro && macro.playWhen === "0") {
         let userData = macro.args;

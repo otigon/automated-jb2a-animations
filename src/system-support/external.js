@@ -1,5 +1,4 @@
 import AAHandler            from "../system-handlers/workflow-data.js";
-import { AnimationState }   from "../AnimationState.js";
 import { trafficCop }       from "../router/traffic-cop.js";
 import { custom_warning }   from "../constants/constants.js";
 /**
@@ -10,7 +9,7 @@ import { custom_warning }   from "../constants/constants.js";
  *  @param {Object} item // The item being used, or a false item with at least {name: "ItemName"} for Autorec
  *  @param {Object} options
  * 
- *  Options include anything from system-data.js to override settings. Most common being:
+ *  Options include anything from workflow-data.js to override settings. Most common being:
  *  @param {Number} reachCheck // Reach for Source Token
  *  @param {Boolean} playOnMiss // Animation should play on Misses
  *  @param {Optional} hitTargets // Array or Set of tokens that are "hit"
@@ -21,7 +20,6 @@ export class AutoAnimations
 {
     static async playAnimation(sourceToken, targets, item, options = {}) {
         custom_warning("AutoAnimations.playAnimation is deprecated in favor of AutomatedAnimations.PlayAnimation. This will be removed in Version 5")
-        if (!AnimationState.enabled) { return; }
         if (!Array.isArray(targets)) {
             targets = Array.from(targets)
         }
@@ -33,7 +31,6 @@ export class AutoAnimations
         }
 
         const handler = await AAHandler.make(data)
-        if (!handler) { return; }
         trafficCop(handler);
     }
 }
@@ -55,8 +52,6 @@ export class AutoAnimations
  * @returns 
  */
 export async function playAnimation(sourceToken, item, options = {}) {
-    if (!AnimationState.enabled) { return; }
-
     if (!item) { return; }
 
     let targets;
@@ -81,6 +76,5 @@ export async function playAnimation(sourceToken, item, options = {}) {
     }
 
     const handler = await AAHandler.make(data)
-    if (!handler) { return; }
     trafficCop(handler);
 }

@@ -8,8 +8,8 @@ export async function teleportation(handler, animationData) {
     //const sourceFX = animationData.sourceFX;
 
 
-    const startFile = await buildFile(true, data.start.menuType, data.start.animation, "static", data.start.variant, data.start.color, data.start.customPath);
-    const endFile = await buildFile(true, data.end.menuType, data.end.animation, "static", data.end.variant, data.end.color, data.end.customPath);
+    const startFile = await buildFile(false, data.start.menuType, data.start.animation, "static", data.start.variant, data.start.color, data.start.customPath);
+    const endFile = await buildFile(false, data.end.menuType, data.end.animation, "static", data.end.variant, data.end.color, data.end.customPath);
     const betweenFile = await buildFile(false, data.between.menuType, data.between.animation, "range", data.between.variant, data.between.color, data.between.customPath);
 
     let sourceTokenGS = sourceToken.w / canvas.grid.size;
@@ -38,7 +38,7 @@ export async function teleportation(handler, animationData) {
         name: "teleBorder"
     }
 
-    let borderSeq = await new Sequence()
+    let borderSeq = await new Sequence(handler.sequenceData)
     let borderEffect = borderSeq.effect()
         .fadeIn(500)
         .persist()
@@ -64,12 +64,24 @@ export async function teleportation(handler, animationData) {
 
         if (canvas.grid.measureDistance(sourceToken, { x: topLeft[0], y: topLeft[1] }, { gridSpaces: true }) <= data.options.range) {
             //console.log(canvas.grid.measureDistance(sourceToken, { x: topLeft[0], y: topLeft[1] }, {gridSpaces: true}))
-            deleteTemplatesAndMove();
-            canvas.app.stage.removeListener('pointerdown');
+            if (data.options.checkCollision && testCollision(pos)) {
+                ui.notifications.error("Your Path is Blocked!! Try Again")
+            } else {
+                deleteTemplatesAndMove();
+                canvas.app.stage.removeListener('pointerdown');    
+            }
         } else {
             ui.notifications.error(game.i18n.format("autoanimations.settings.teleport"))
         }
     });
+
+    function testCollision(pos) {
+        let pointerCenter = {
+            x: canvas.grid.getCenter(pos.x, pos.y)[0],
+            y: canvas.grid.getCenter(pos.x, pos.y)[1],
+        };
+        return sourceToken.checkCollision(pointerCenter)
+    }
 
     async function deleteTemplatesAndMove() {
 
@@ -83,7 +95,7 @@ export async function teleportation(handler, animationData) {
 
         Sequencer.EffectManager.endEffects({ name: "teleportation" })
 
-        let aaSeq = new Sequence();
+        let aaSeq = new Sequence(handler.sequenceData);
 
         // Play Macro if Awaiting
         if (macro && macro.playWhen === "1" && !macro?.args?.warpgateTemplate) {

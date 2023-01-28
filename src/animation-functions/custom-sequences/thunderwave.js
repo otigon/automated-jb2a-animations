@@ -21,7 +21,7 @@ export async function thunderwave(handler, animationData, config) {
 
     const gridSize = canvas.scene.data.grid.size;
 
-    let aaSeq = await new Sequence("Automated Animations")
+    let aaSeq = await new Sequence(handler.sequenceData)
 
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1") {
@@ -29,8 +29,8 @@ export async function thunderwave(handler, animationData, config) {
         aaSeq.macro(macro.name, handler.workflow, handler, userData)
     }
     // Extra Effects => Source Token if active
-    if (sourceFX.enable) {
-        aaSeq.addSequence(sourceFX.sourceSeq)
+    if (sourceFX) {
+        handler.compileSourceEffect(sourceFX, aaSeq)
     }
     // Primary Sound
     if (data.sound) {

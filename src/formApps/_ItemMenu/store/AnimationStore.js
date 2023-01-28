@@ -341,7 +341,6 @@ export class AnimationStore extends ObjectEntryStore {
             delete data.meleeSwitch;
             delete data.levels3d;
             delete data.source;
-            delete data.target;
             break;
       }
       delete data.fromAmmo;

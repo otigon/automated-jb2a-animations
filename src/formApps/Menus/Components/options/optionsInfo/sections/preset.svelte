@@ -321,6 +321,14 @@
         </td>
     </tr>
     <tr>
+        <td class="aa-table">
+            <strong>Check for Collision</strong>
+        </td>
+        <td>
+            Checks the path for any collisions with walls, and does not move if any are found
+        </td>
+    </tr>
+    <tr>
         <th colspan="2" style="background: rgba(17, 0, 148, .5)">
             Start / End Animation
         </th>

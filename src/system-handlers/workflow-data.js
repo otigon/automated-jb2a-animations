@@ -1,10 +1,16 @@
 import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
-import { debug } from "../constants/constants.js";
+import { debug, custom_notify } from "../constants/constants.js";
 import { handleItem } from "./findAnimation.js";
 import { endTiming } from "../constants/timings.js";
+import { sourceEffect, secondaryEffect, targetEffect } from "./commonSequences.js";
+import { AnimationState } from "../AnimationState.js";
 
 export default class AAHandler {
     static async make(data) {
+        if (!AnimationState.enabled) {
+            custom_notify("Animations are Disabled from the Automated Animations Settings", true);
+            return false;
+        }
         const animationData = await handleItem(data);
         if (!animationData) { 
             debug(`No Animation matched for Item`, data )
@@ -42,6 +48,8 @@ export default class AAHandler {
 
         this.templateData = data.templateData;
 
+        this.sequenceData = {moduleName: "Automated Animations", softFail: !game.settings.get("autoanimations", "debug")}
+
         this.systemData = data;
         /**
          * Optional parameters passed from System Specific Settings thru this.systemData:
@@ -51,7 +59,7 @@ export default class AAHandler {
          */
     }
 
-    get isTemplateItem () {
+    get isTemplateAnimation () {
         const presetType = this.animationData.presetType;
         return this.menu === 'templatefx' ||  (this.menu === 'preset' && presetType === "proToTemp") || (this.menu === 'preset' && presetType === "thunderwave")
     }
@@ -164,48 +172,128 @@ export default class AAHandler {
             return distance / canvas.dimensions.distance;
         }
     }
-    
-    // Returns a Target Animation Sequence
-    buildTargetSeq(targetFX, target, addDelay = 0) {
-        let hit;
-        if (this.playOnMiss) {
-            hit = this.hitTargetsId.includes(target.id) ? true : false;
-        } else {
-            hit = true;
-        }
-    
-        //const targetTokenGS = targetFX.options.isRadius ? targetFX.options.size * 2 : (target.w / canvas.grid.size) * 1.5 * targetFX.options.size;
-        const setSize = this.getSize(targetFX.options.isRadius, targetFX.options.size, target)
-    
-        targetFX.targetSeq = new Sequence();
-    
-        let targetEffect = targetFX.targetSeq.effect()
-        targetEffect.delay(targetFX.options.delay + addDelay)
-        targetEffect.file(targetFX.path?.file, true)
-        targetEffect.atLocation(target)
-        targetEffect.size(setSize, { gridUnits: true })
-        targetEffect.origin(this.itemUuid)
-        targetEffect.repeats(targetFX.options.repeat, targetFX.options.repeatDelay)
-        targetEffect.elevation(targetFX.options.isAbsolute ? targetFX.options.elevation : targetFX.options.elevation - 1, {absolute: targetFX.options.isAbsolute})
-        if (targetFX.options.isMasked) {
-            targetEffect.mask(target)
-        }
-        if (targetFX.options.rotateSource) {
-            targetEffect.rotateTowards(this.sourceToken)
-            targetEffect.rotate(180)    
-        }
-        if (targetFX.options.persistent) {
-            targetEffect.persist(true, {persistTokenPrototype: true})
-        }
-        targetEffect.fadeOut(500)
-        targetEffect.opacity(targetFX.options.opacity)
-        targetEffect.zIndex(targetFX.options.zIndex)
-        targetEffect.anchor({x: targetFX.options.anchor.x, y: targetFX.options.anchor.y})
-        targetEffect.playbackRate(targetFX.options.playbackRate)
-
-        return targetFX;
+    compileSourceEffect(sourceFX, seq, handler = this) {
+        sourceEffect(sourceFX, seq, handler)
     }
-    
+    compileSecondaryEffect(secondary, seq, targetArray, targetEnabled = false, missable = false, handler = this) {
+        secondaryEffect(secondary, seq, targetArray, targetEnabled, missable, handler)
+    }
+    compileTargetEffect(targetFX, seq, targetArray, missable = false, handler = this) {
+        targetEffect(targetFX, seq, targetArray, missable, handler)
+    }
+    /*
+    compileSourceEffect(sourceFX, seq) {
+        const options = sourceFX.options;
+        if (sourceFX.sound) {
+            seq.addSequence(sourceFX.sound)
+        }
+        let thisSeq = seq.effect()
+        .file(sourceFX.path.file)
+        .anchor({ x: options.anchor.x, y: options.anchor.y })
+        .elevation(options.isAbsolute ? options.elevation : options.elevation - 1, { absolute: options.isAbsolute })
+        .fadeIn(options.fadeIn)
+        .opacity(options.opacity)
+        .origin(this.itemUuid)
+        .playbackRate(options.playbackRate)
+        .repeats(options.repeat, options.repeatDelay)
+        .size(this.getSize(options.isRadius, options.size, this.sourceToken, options.addTokenWidth), { gridUnits: true })
+        .zIndex(options.zIndex)
+        if (options.animationSource) {
+            thisSeq.atLocation({ x: options.fakeLocation.x, y: options.fakeLocation.y })
+        } else {
+            if (options.persistent) {
+                thisSeq.attachTo(this.sourceToken)
+                thisSeq.persist(true, { persistTokenPrototype: true })
+            } else {
+                thisSeq.attachTo(this.sourceToken)
+            }
+        }
+        if (options.isMasked) {
+            thisSeq.mask(this.sourceToken)
+        }
+        if (sourceFX.video.variant === "complete" || sourceFX.video.animation === "complete") { }
+        else { thisSeq.fadeOut(options.fadeOut) }
+        if (options.isWait) { thisSeq.waitUntilFinished(options.delay) }
+        else { thisSeq.delay(options.delay) }
+    }
+
+    compileSecondaryEffect(secondary, seq, targetArray, targetEnabled = false, missable = false) {
+        const options = secondary.options;
+        if (secondary.sound) {
+            seq.addSequence(secondary.sound)
+        }
+        for (let i = 0; i < targetArray.length; i++) {
+            let currentTarget = targetArray[i];
+
+            let thisSeq = seq.effect()
+            .file(secondary.path?.file)
+            .anchor({x: options.anchor.x, y: options.anchor.y})
+            .atLocation(missable ? `spot ${currentTarget.id}` : currentTarget)
+            .elevation(this.elevation(currentTarget, options.isAbsolute, options.elevation), {absolute: options.isAbsolute})
+            .fadeIn(options.fadeIn)
+            .fadeOut(options.fadeOut)
+            .opacity(options.opacity)
+            .origin(this.itemUuid)
+            .playbackRate(options.playbackRate)
+            .repeats(options.repeat, options.repeatDelay)
+            .size(this.getSize(options.isRadius, options.size, currentTarget, options.addTokenWidth), { gridUnits: true })
+            .zIndex(options.zIndex)
+            if (i === this.allTargets.length - 1 && options.isWait && targetEnabled) {
+                thisSeq.waitUntilFinished(options.delay)
+            } else if (!options.isWait) {
+                thisSeq.delay(options.delay)
+            }
+            if (options.rotateSource) {
+                thisSeq.rotateTowards(sourceToken)
+                thisSeq.rotate(180)    
+            }
+            if (options.isMasked) {
+                thisSeq.mask(currentTarget)
+            }
+        }
+    }
+
+    compileTargetEffect(targetFX, seq, targetArray, missable = false) {
+        const options = targetFX.options;
+        if (targetFX.sound) {
+            seq.addSequence(targetFX.sound)
+        }
+        for (let i = 0; i < targetArray.length; i++) {
+            let currentTarget = targetArray[i];
+            let checkAnim = Sequencer.EffectManager.getEffects({ object: currentTarget, origin: this.itemUuid }).length > 0;
+            if (checkAnim) { continue; }
+
+            let thisSeq = seq.effect()
+            .file(targetFX.path?.file)
+            .anchor({x: options.anchor.x, y: options.anchor.y})
+            .delay(options.delay)
+            .fadeIn(options.fadeIn)
+            .elevation(this.elevation(currentTarget, options.isAbsolute, options.elevation), {absolute: options.isAbsolute})
+            .opacity(options.opacity)
+            .origin(this.itemUuid)
+            .playbackRate(options.playbackRate)
+            .repeats(options.repeat, options.repeatDelay)
+            .size(this.getSize(options.isRadius, options.size, currentTarget, options.addTokenWidth), { gridUnits: true })
+            .zIndex(options.zIndex)
+            if (options.persistent) {
+                thisSeq.persist(true, {persistTokenPrototype: true})
+                thisSeq.attachTo(currentTarget, {bindVisibility: !targetFX.unbindVisibility, bindAlpha: !targetFX.unbindAlpha})
+            } else {
+                thisSeq.atLocation(missable ? `spot ${currentTarget.id}` : currentTarget)
+            }    
+            if (options.rotateSource) {
+                thisSeq.rotateTowards(sourceToken)
+                thisSeq.rotate(180)    
+            }
+            if (options.isMasked) {
+                thisSeq.mask(currentTarget)
+            }
+            if (targetFX.video?.variant === "complete" || targetFX.video?.animation === "complete") {} else {
+                thisSeq.fadeOut(options.fadeOut)    
+            }
+        }
+    }
+    */
     // Returns a pseudo Token X/Y for Ranged effects
     fakeSource() {
         let templateSource = Sequencer.EffectManager.getEffects({sceneId: canvas.scene.id, name: this.rinsedName})[0];

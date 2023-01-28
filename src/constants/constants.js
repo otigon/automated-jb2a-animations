@@ -5,10 +5,14 @@ export function debug(...args) {
 }
 
 // Credit to Wasp for these functions
-export function custom_notify(message) {
+export function custom_notify(message, consoleLog = false) {
     message = `Automated Animations | ${message}`;
-    ui.notifications.notify(message);
-    console.log(message.replace("<br>", "\n"));
+    if (consoleLog) {
+        console.log(`%c${message.replace("<br>", "\n")}`, 'color: orange');
+    } else {
+        ui.notifications.notify(message);
+        console.log(message.replace("<br>", "\n"));
+    }
 }
 
 export function custom_warning(warning, notify = false, ...args) {
