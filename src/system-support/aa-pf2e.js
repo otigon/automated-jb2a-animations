@@ -234,7 +234,7 @@ function findDamageOnItem(item) {
 }
 
 function itemHasDamage(item) {
-    let damage = item.system?.damage?.value || {};
+    let damage = item.system?.damage?.value || item.system?.damageRolls || {};
     return Object.keys(damage).length
 }
 
