@@ -1,7 +1,6 @@
 import { debug }            from "../constants/constants.js";
 import { trafficCop }       from "../router/traffic-cop.js";
 import AAHandler            from "../system-handlers/workflow-data.js";
-import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
 // DnD5e System hooks provided to run animations
@@ -9,17 +8,17 @@ export function systemHooks() {
     if (game.modules.get("midi-qol")?.active) {
         Hooks.on("midi-qol.AttackRollComplete", (workflow) => {
             let playOnDamage = game.settings.get('autoanimations', 'playonDamage');
-            if (!AnimationState.enabled || workflow.item?.hasAreaTarget || (workflow.item?.hasDamage && playOnDamage)) { return };
+            if (workflow.item?.hasAreaTarget || (workflow.item?.hasDamage && playOnDamage)) { return };
             attack(getWorkflowData(workflow)); criticalCheck(workflow)
         });
         Hooks.on("midi-qol.DamageRollComplete", (workflow) => { 
             let playOnDamage = game.settings.get('autoanimations', 'playonDamage');
-            if (!AnimationState.enabled || workflow.item?.hasAreaTarget || (!playOnDamage && workflow.item?.hasAttack)) { return };
+            if (workflow.item?.hasAreaTarget || (!playOnDamage && workflow.item?.hasAttack)) { return };
             damage(getWorkflowData(workflow)) 
         });
         // Items with no Attack/Damage
         Hooks.on("midi-qol.RollComplete", (workflow) => {
-            if (!AnimationState.enabled || workflow.item?.hasAreaTarget || workflow.item?.hasAttack || workflow.item?.hasDamage) { return };
+            if (workflow.item?.hasAreaTarget || workflow.item?.hasAttack || workflow.item?.hasDamage) { return };
             useItem(getWorkflowData(workflow))
         });
     
@@ -27,21 +26,21 @@ export function systemHooks() {
         Hooks.on("dnd5e.rollAttack", async (item, roll) => {
             criticalCheck(roll, item);
             let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
-            if (!AnimationState.enabled || item.hasAreaTarget || (item.hasDamage && playOnDamage)) { return; }   
+            if (item.hasAreaTarget || (item.hasDamage && playOnDamage)) { return; }   
             attack(await getRequiredData({item, actor: item.actor, workflow: item}))
         })
         Hooks.on("dnd5e.rollDamage", async (item, roll) => {
             let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
-            if (!AnimationState.enabled || item.hasAreaTarget || (item.hasAttack && !playOnDamage)) { return; }
+            if (item.hasAreaTarget || (item.hasAttack && !playOnDamage)) { return; }
             damage(await getRequiredData({item, actor: item.actor, workflow: item}))
         })
         Hooks.on('dnd5e.useItem', async (item, config, options) => {
-            if (item?.hasAreaTarget || item.hasAttack || item.hasDamage || !AnimationState.enabled) { return; }
+            if (item?.hasAreaTarget || item.hasAttack || item.hasDamage) { return; }
             useItem(await getRequiredData({item, actor: item.actor, workflow: item}))
         })
     }
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
-        if (userId !== game.user.id || !AnimationState.enabled) { return };
+        if (userId !== game.user.id) { return };
         templateAnimation(await getRequiredData({itemUuid: template.flags?.dnd5e?.origin, templateData: template, workflow: template, isTemplate: true}))
     })
 }
@@ -51,7 +50,6 @@ export function systemHooks() {
  * @param {Boolean} hasAreaTarget // Checks to see if the item has an AOE template
  * @param {Boolean} hasAttack // Checks if the item has Attack
  * @param {Boolean} hasDamage // Checks if the item has Damage
- * @param {Boolean} AnimationState // Checks if Animations are disabled
  *  
  */
 
@@ -128,7 +126,7 @@ function getWorkflowData(data) {
 }
 
 function criticalCheck(workflow, item = {}) {
-    if (!workflow.isCritical && !workflow.isFumble || !AnimationState.enabled) { return; }
+    if (!workflow.isCritical && !workflow.isFumble) { return; }
     debug("Checking for Crit or Fumble")
     let critical = workflow.isCritical;
     let fumble = workflow.isFumble;

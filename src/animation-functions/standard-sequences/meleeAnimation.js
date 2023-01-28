@@ -2,7 +2,6 @@ import { buildFile } from "../file-builder/build-filepath.js"
 import { aaReturnWeapons, aaRangeWeapons } from "../../database/jb2a-menu-options.js";
 
 export async function melee(handler, animationData) {
-    console.log(handler)
     const data = animationData.primary;
     const secondary = animationData.secondary;
     const sourceFX = animationData.sourceFX;

@@ -1,11 +1,16 @@
 import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
-import { debug } from "../constants/constants.js";
+import { debug, custom_notify } from "../constants/constants.js";
 import { handleItem } from "./findAnimation.js";
 import { endTiming } from "../constants/timings.js";
 import { sourceEffect, secondaryEffect, targetEffect } from "./commonSequences.js";
+import { AnimationState } from "../AnimationState.js";
 
 export default class AAHandler {
     static async make(data) {
+        if (!AnimationState.enabled) {
+            custom_notify("Animations are Disabled from the Automated Animations Settings", true);
+            return false;
+        }
         const animationData = await handleItem(data);
         if (!animationData) { 
             debug(`No Animation matched for Item`, data )
@@ -54,7 +59,7 @@ export default class AAHandler {
          */
     }
 
-    get isTemplateItem () {
+    get isTemplateAnimation () {
         const presetType = this.animationData.presetType;
         return this.menu === 'templatefx' ||  (this.menu === 'preset' && presetType === "proToTemp") || (this.menu === 'preset' && presetType === "thunderwave")
     }

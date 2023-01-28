@@ -1,6 +1,5 @@
 import { trafficCop }       from "../router/traffic-cop.js"
 import AAHandler            from "../system-handlers/workflow-data.js";
-import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
 export function systemHooks() {
@@ -31,7 +30,7 @@ export function systemHooks() {
         }
     });
     Hooks.on("damageRolled", async (data) => {
-        if (!AnimationState.enabled || (!game.settings.get("autoanimations", "playonDamage") && data.item?.hasAttack)) { return; }
+        if (!game.settings.get("autoanimations", "playonDamage") && data.item?.hasAttack) { return; }
         Hooks.once("createChatMessage", async (msg) => {
             if (msg.user.id !== game.user.id) { return };
             let compiledData = await getRequiredData({item: data.item, tokenId: msg.speaker.token, actorId: msg.speaker.actor, workflow: data})
@@ -39,7 +38,7 @@ export function systemHooks() {
         });
     });
     Hooks.on("attackRolled", async (data) => {
-        if (!AnimationState.enabled || (game.settings.get("autoanimations", "playonDamage") && data.item?.hasDamage)) { return; }
+        if (game.settings.get("autoanimations", "playonDamage") && data.item?.hasDamage) { return; }
         Hooks.once("createChatMessage", async (msg) => {
             if (msg.user.id !== game.user.id) { return };
             let compiledData = await getRequiredData({item: data.item, tokenId: msg.speaker.token, actorId: msg.speaker.actor, workflow: data})

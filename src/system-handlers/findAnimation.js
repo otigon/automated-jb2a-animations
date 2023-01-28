@@ -1,5 +1,6 @@
 import { flagMigrations } from "../mergeScripts/items/itemFlagMerge.js";
 import { AAAutorecFunctions } from "../aa-classes/aaAutorecFunctions.js";
+import { debug } from "../constants/constants.js";
 
 export async function handleItem(data) {
 
@@ -21,6 +22,7 @@ export async function handleItem(data) {
     const ammoFlags = ammoItem ? await flagMigrations.handle(ammoItem, {activeEffect: data.activeEffect}) || {isEnabled: true} : null;
     
     let autorecDisabled = game.settings.get("autoanimations", "disableAutoRec");
+    debug("Global Automatic Recognition menu is Disabled from the Module Settings");
 
     const autorecSettings = {
         melee: game.settings.get("autoanimations", "aaAutorec-melee"),
@@ -71,12 +73,12 @@ export async function handleItem(data) {
         }    
     }
     
-    if (autorecObject && data.isTemplate) {
+    if (autorecObject && data.isTemplate && !autorecDisabled) {
         let data = autorecObject;
         if (data.menu === "range" || data.menu === "melee" || data.menu === "ontoken") {
             autorecObject = AAAutorecFunctions.singleMenuSearch(autorecSettings.templatefx, rinsedItemName, itemName);
         }
-    } else if ( data.isVariant && !autorecObject && data.isTemplate) {
+    } else if ( data.isVariant && !autorecObject && data.isTemplate && !autorecDisabled) {
         // For use with Variant spell casting, based off PF2e. If the variant name is not found in the Global menu, it looks for one matching the original name
         let newItemName = input.originalItem?.name;
         let newRinsedName = newItemName ? AAAutorecFunctions.rinseName(newItemName) : "noitem";

@@ -26,7 +26,7 @@ export async function trafficCop(handler) {
 
     if (sanitizedData.macro && sanitizedData.macro.enable && sanitizedData.macro.playWhen === "2") {
 
-        if (handler.isTemplateItem) {
+        if (handler.isTemplateAnimation) {
             switch (game.system.id) {
                 case "a5e":
                 case "sw5e":
@@ -45,7 +45,7 @@ export async function trafficCop(handler) {
                     await wait(500)
                     handler.templateData = canvas.templates?.placeables?.[canvas.templates.placeables.length - 1]?.document;
                     playMacro()
-                }    
+                }
         } else {
             playMacro()
         }

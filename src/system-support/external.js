@@ -1,5 +1,4 @@
 import AAHandler            from "../system-handlers/workflow-data.js";
-import { AnimationState }   from "../AnimationState.js";
 import { trafficCop }       from "../router/traffic-cop.js";
 import { custom_warning }   from "../constants/constants.js";
 /**
@@ -21,7 +20,6 @@ export class AutoAnimations
 {
     static async playAnimation(sourceToken, targets, item, options = {}) {
         custom_warning("AutoAnimations.playAnimation is deprecated in favor of AutomatedAnimations.PlayAnimation. This will be removed in Version 5")
-        if (!AnimationState.enabled) { return; }
         if (!Array.isArray(targets)) {
             targets = Array.from(targets)
         }
@@ -55,8 +53,6 @@ export class AutoAnimations
  * @returns 
  */
 export async function playAnimation(sourceToken, item, options = {}) {
-    if (!AnimationState.enabled) { return; }
-
     if (!item) { return; }
 
     let targets;
