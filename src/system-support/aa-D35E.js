@@ -28,6 +28,5 @@ export function systemHooks() {
 
 async function runD35E(input) {
     const handler = await AAHandler.make(input)
-    if (!handler) { return; }
     trafficCop(handler);
 }

@@ -730,6 +730,24 @@ class AAGameSettings extends TJSGameSettings {
                }
             });
             break;
+         case "twodsix":
+            settings.push({
+               namespace,
+               key: 'playtrigger',
+               folder: game.system.title || game.system.name,
+               options: {
+                  name: 'autoanimations.settings.playAnimations',
+                  scope: scope.world,
+                  type: String,
+                  choices: {
+                     onAttack: 'autoanimations.settings.attack',
+                     onDamage: 'autoanimations.settings.damage',
+                  },
+                  default: 'onAttack',
+                  config: true
+               }
+            });
+            break;
          /* Considering options for changing 5e options on "How To Play" Animations
       default:
          settings.push({

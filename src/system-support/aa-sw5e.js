@@ -55,18 +55,8 @@ export function systemHooks() {
 async function useItem(input) {
     debug("Item used, checking for animations")
     const handler = await AAHandler.make(input)
-    if (!handler) { return; }
-    if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
+    if (!handler?.item || !handler?.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler); return;}
     trafficCop(handler)
-    /*
-        if (handler.isAura) {
-        trafficCop(handler);
-    } else {
-        if (item?.hasAreaTarget || item.hasAttack || item.hasDamage) { return; }
-        if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
-        trafficCop(handler)    
-    }
-    */
 }
 
 async function attack(input) {
@@ -74,8 +64,7 @@ async function attack(input) {
     checkReach(input)
     debug("Attack rolled, checking for animations");
     const handler = await AAHandler.make(input)
-    if (!handler) { return; }
-    if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
+    if (!handler?.item || !handler?.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler); return;}
     trafficCop(handler)
 }
 
@@ -84,8 +73,7 @@ async function damage(input) {
     checkReach(input)
     debug("Damage rolled, checking for animations")
     const handler = await AAHandler.make(input)
-    if (!handler) { return; }
-    if (!handler.item || !handler.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler.item, handler.sourceToken); return;}
+    if (!handler?.item || !handler?.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler); return;}
     trafficCop(handler)
 }
 
@@ -96,7 +84,6 @@ async function templateAnimation(input) {
         return;
     }
     const handler = await AAHandler.make(input)
-    if (!handler) { return; }
     trafficCop(handler)
 }
 

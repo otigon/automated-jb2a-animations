@@ -87,7 +87,10 @@
             "hideTemplate_name": "Template Grids on Hover",
             "hideTemplate_hint": "Removes the Template Grid Highlighting unless Hovered over. TOKEN MAGIC FX SETTINGS FOR HOVER MUST BE DISABLED",
             "hoverInTemplateLayer": "Show on Hover in Template Layer",
-            "hoverInTemplate": "Show on any Hover"
+            "hoverInTemplate": "Show on any Hover",
+            "playAnimations": "When to play Animations",
+            "attack": "Attack Rolls",
+            "damage": "Damage Rolls"
         },
         "colors": {
             "lightorange": "Light Orange",

@@ -41,6 +41,5 @@ export function systemHooks() {
 
 async function runDemonlord(data) {
     const handler = await AAHandler.make(data)
-    if (!handler) { return; }
     trafficCop(handler);
 }

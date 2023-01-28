@@ -16,6 +16,5 @@ async function runPF1(input) {
     const requiredData = await getRequiredData(input)
     if (!requiredData.item) { return; }
     const handler = await AAHandler.make(requiredData)
-    if (!handler) { return; }
     trafficCop(handler);
 }

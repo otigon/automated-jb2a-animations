@@ -69,7 +69,6 @@ async function templateAnimation(input) {
     }
     
     const handler = await AAHandler.make(input)
-    if (!handler) { return;}
     trafficCop(handler)
 }
 
@@ -187,7 +186,6 @@ async function playPF2e(input) {
     }
 
     const handler = await AAHandler.make(input)
-    if (!handler) { return; }
     trafficCop(handler);
 }
 /**

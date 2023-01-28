@@ -18,6 +18,5 @@ export function systemHooks() {
 
 async function runA5e(input) {
     const handler = await AAHandler.make(input)
-    if (!handler) { return; }
     trafficCop(handler);
 }

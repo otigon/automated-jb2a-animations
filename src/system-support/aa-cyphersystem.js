@@ -110,7 +110,6 @@ async function runCypherSystem(input) {
                 //const targets = Array.from(input.user.targets);
                 if (!input.item) { return; }
                 const handler = await AAHandler.make(input)
-                if (!handler) { return; }
                 trafficCop(handler);
             }
         }

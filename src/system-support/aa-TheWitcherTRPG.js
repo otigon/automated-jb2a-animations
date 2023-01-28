@@ -40,6 +40,5 @@ async function checkMessage(msg) {
     }
 
     const handler = await AAHandler.make(compiledData)
-    if (!handler) { return; }
     trafficCop(handler);
 }

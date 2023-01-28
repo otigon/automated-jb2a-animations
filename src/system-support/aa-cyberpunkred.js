@@ -29,8 +29,7 @@ async function checkChatMessage(msg) {
     let isAmmo = checkAmmo(compiledData);
     if (isAmmo) { compiledData.ammoItem = isAmmo }
     const handler = await AAHandler.make(compiledData)
-    if (!handler) { return; }
-    if (!handler.item || !handler.sourceToken) { debug("No Item or Source Token", handler.item, handler.sourceToken); return;}
+    if (!handler?.item || !handler?.sourceToken) { debug("No Item or Source Token", handler); return;}
     trafficCop(handler);
 }
 

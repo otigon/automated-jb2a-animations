@@ -57,6 +57,5 @@ async function runSwade(token, actor, item) {
     let data = await getRequiredData({token, actor, item })
     if (!data.item) { return; }
     const handler = await AAHandler.make(data)
-    if (!handler) { return; }
     trafficCop(handler);
 }

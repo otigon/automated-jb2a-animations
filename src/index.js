@@ -215,6 +215,8 @@ Hooks.once('ready', async function () {
      * Warhammer Fantasy RPG
      * Old School Essentials
      * Cyberpunk Red (Only for Attacks)
+     * The Witcher RPG
+     * TwoDSix
     */
 
     // Register Hooks by system

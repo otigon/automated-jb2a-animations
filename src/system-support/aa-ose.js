@@ -18,9 +18,6 @@ export function systemHooks() {
 
 async function runOse(input) {
     const handler = await AAHandler.make(input);
-    if (!handler) { return; }
-    if (!handler.item) {
-        return;
-    }
+    if (!handler?.item) { return; }
     trafficCop(handler);
 }

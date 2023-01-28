@@ -50,7 +50,6 @@ export function systemHooks() {
 async function runStarfinder(data) {
     if (!data.item) { return; }
     const handler = await AAHandler.make(data)
-    if (!handler) { return; }
     trafficCop(handler);
 }
 

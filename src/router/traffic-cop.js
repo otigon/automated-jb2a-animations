@@ -7,7 +7,7 @@ import * as animate from "../animation-functions"
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function trafficCop(handler) {
-    
+    if (!handler) { return; }
     const data = foundry.utils.deepClone(handler.animationData);
     if (data.advanced?.excludedType?.enabled && data.advanced?.excludedType?.path && data.advanced?.excludedType?.property) {
         if (AAAutorecFunctions.checkExcludedProperty(handler.item, data.advanced?.excludedType?.property, data.advanced?.excludedType?.path)) {

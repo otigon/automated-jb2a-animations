@@ -24,8 +24,7 @@ async function checkChatMessage(msg) {
         workflow: msg,
     })
     const handler = await AAHandler.make(compiledData)
-    if (!handler) { return; }
-    if (!handler.item || !handler.sourceToken) { debug("No Item or Source Token", handler.item, handler.sourceToken); return;}
+    if (!handler?.item || !handler?.sourceToken) { debug("No Item or Source Token", handler); return;}
     trafficCop(handler);
 }
 /*

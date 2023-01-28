@@ -31,7 +31,6 @@ export class AutoAnimations
         }
 
         const handler = await AAHandler.make(data)
-        if (!handler) { return; }
         trafficCop(handler);
     }
 }
@@ -77,6 +76,5 @@ export async function playAnimation(sourceToken, item, options = {}) {
     }
 
     const handler = await AAHandler.make(data)
-    if (!handler) { return; }
     trafficCop(handler);
 }

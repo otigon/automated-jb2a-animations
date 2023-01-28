@@ -75,7 +75,6 @@ export function systemHooks() {
 async function runWarhammer(data) {
     if (!data.item) { return; }
     const handler = await AAHandler.make(data)
-    if (!handler) { return; }
     trafficCop(handler);
 }
 
@@ -91,30 +90,5 @@ async function templateAnimation(input) {
         return;
     }
     const handler = await AAHandler.make(input)
-    if (!handler) { return; }
     trafficCop(handler)
 }
-
-
-/*
-async function wfrpWeapon(data, info) {
-    let handler = await systemData.make(data, );
-    trafficCop(handler);
-}
-async function wfrpPrayer(data, info) {
-    let handler = await systemData.make({data, info}, null, { item: data.prayer, targets: data.context?.targets, info: info });
-    trafficCop(handler);
-}
-async function wfrpCast(data, info) {
-    let handler = await systemData.make({ item: data.spell, targets: data.context?.targets, info: info });
-    trafficCop(handler);
-}
-async function wfrpTrait(data, info) {
-    let handler = await systemData.make({ item: data.trait, targets: data.context?.targets, info: info });
-    trafficCop(handler);
-}
-async function wfrpSkill(data, info) {
-    let handler = await systemData.make({ item: data.skill, targets: data.context?.targets, info: info });
-    trafficCop(handler);
-}
-*/

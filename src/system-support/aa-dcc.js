@@ -20,11 +20,9 @@ async function runDcc(input) {
 
     if (!game.settings.get('dcc', 'useStandardDiceRoller')) {
         const handler = await AAHandler.make(input)
-        if (!handler) { return; }
         trafficCop(handler);
     } else if (input.flags?.dcc?.RollType === "Damage" || input.flags?.dcc?.RollType === "SpellCheck") {
         const handler = await AAHandler.make(input)
-        if (!handler) { return; }
         trafficCop(handler);
     }
 }
