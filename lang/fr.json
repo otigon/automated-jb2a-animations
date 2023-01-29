@@ -87,7 +87,10 @@
 			"hoverInTemplate": "Afficher à tout survol",
 			"hoverInTemplateLayer": "Afficher au survol dans le calque du modèle",
 			"coreonatk_name": "Lancer les animations d'attaque sur les jets d'attaque",
-			"coreonatk_hint": "Par défaut, les animations sont lancées sur les jets d'attaque"
+			"coreonatk_hint": "Par défaut, les animations sont lancées sur les jets d'attaque",
+			"attack": "jets d'attaque",
+			"damage": "Jets de dégâts",
+			"playAnimations": "Quand jouer les animations"
 		},
 		"colors": {
 			"lightorange": "Orange clair",
