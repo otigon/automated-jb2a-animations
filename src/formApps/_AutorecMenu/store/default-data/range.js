@@ -8,6 +8,7 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "weapon", animation: 'bolt', variant: 'physical', color: 'orange' },
          options: {
+            contrast: 0,
             delay: 0,
             elevation: 1000,
             isReturning: false,
@@ -16,6 +17,9 @@ export const range = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
+            saturate: 0,
+            tint: false,
+            tintColor: "#FFFFFF",   
             zIndex: 1
          }
       }),
@@ -64,6 +68,7 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "weapon", animation: 'arrow', variant: 'regular', color: 'regular' },
          options: {
+            contrast: 0,
             delay: 0,
             elevation: 1000,
             isReturning: false,
@@ -72,6 +77,9 @@ export const range = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
+            saturate: 0,
+            tint: false,
+            tintColor: "#FFFFFF",   
             zIndex: 1
          }
       }),
@@ -119,6 +127,7 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "spell", animation: 'disintegrate', variant: '01', color: 'green' },
          options: {
+            contrast: 0,
             delay: 0,
             elevation: 1000,
             isReturning: false,
@@ -127,6 +136,9 @@ export const range = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
+            saturate: 0,
+            tint: false,
+            tintColor: "#FFFFFF",   
             zIndex: 1
          }
       }),
@@ -174,6 +186,7 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "spell", animation: 'eldritchblast', variant: '01', color: 'purple' },
          options: {
+            contrast: 0,
             delay: 0,
             elevation: 1000,
             isReturning: false,
@@ -182,6 +195,9 @@ export const range = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
+            saturate: 0,
+            tint: false,
+            tintColor: "#FFFFFF",   
             zIndex: 1
          }
       }),
@@ -228,6 +244,7 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "spell", animation: 'firebolt', variant: '01', color: 'orange' },
          options: {
+            contrast: 0,
             delay: 0,
             elevation: 1000,
             isReturning: false,
@@ -236,6 +253,9 @@ export const range = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
+            saturate: 0,
+            tint: false,
+            tintColor: "#FFFFFF",   
             zIndex: 1
          }
       }),
@@ -286,6 +306,7 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "spell", animation: 'guidingbolt', variant: '01', color: 'yellowblue' },
          options: {
+            contrast: 0,
             delay: 0,
             elevation: 1000,
             isReturning: false,
@@ -294,6 +315,9 @@ export const range = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
+            saturate: 0,
+            tint: false,
+            tintColor: "#FFFFFF",   
             zIndex: 1
          }
       }),
@@ -347,6 +371,7 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "spell", animation: 'magicmissile', variant: '01', color: 'purple' },
          options: {
+            contrast: 0,
             delay: 0,
             elevation: 1000,
             isReturning: false,
@@ -355,6 +380,9 @@ export const range = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
+            saturate: 0,
+            tint: false,
+            tintColor: "#FFFFFF",   
             zIndex: 1
          }
       }),
@@ -402,6 +430,7 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "spell", animation: 'rayoffrost', variant: '01', color: 'blue' },
          options: {
+            contrast: 0,
             delay: 0,
             elevation: 1000,
             isReturning: false,
@@ -410,6 +439,9 @@ export const range = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
+            saturate: 0,
+            tint: false,
+            tintColor: "#FFFFFF",   
             zIndex: 1
          }
       }),
@@ -457,6 +489,7 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "spell", animation: 'scorchingray', variant: '01', color: 'orange' },
          options: {
+            contrast: 0,
             delay: 0,
             elevation: 1000,
             isReturning: false,
@@ -465,6 +498,9 @@ export const range = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
+            saturate: 0,
+            tint: false,
+            tintColor: "#FFFFFF",   
             zIndex: 1
          }
       }),
@@ -512,6 +548,7 @@ export const range = [
       primary: common.primary({
          video: { dbSection: "range", menuType: "spell", animation: 'witchbolt', variant: '01', color: 'blue' },
          options: {
+            contrast: 0,
             delay: 0,
             elevation: 1000,
             isReturning: false,
@@ -520,6 +557,9 @@ export const range = [
             opacity: 1,
             repeat: 1,
             repeatDelay: 500,
+            saturate: 0,
+            tint: false,
+            tintColor: "#FFFFFF",   
             zIndex: 1
          }
       }),
