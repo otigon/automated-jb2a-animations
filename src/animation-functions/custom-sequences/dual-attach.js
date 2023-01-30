@@ -18,8 +18,7 @@ export async function dualattach(handler, animationData) {
         let aaSeq = await new Sequence(handler.sequenceData);
         // Play Macro if Awaiting
         if (macro && macro.playWhen === "1" && !macro?.args?.warpgateTemplate) {
-            let userData = macro.args;
-            aaSeq.macro(macro.name, handler.workflow, handler, userData)
+            handler.complileMacroSection(aaSeq, macro)
         }
         // Extra Effects => Source Token if active
         if (sourceFX) {
@@ -48,16 +47,12 @@ export async function dualattach(handler, animationData) {
         }
         // Macro if Concurrent
         if (macro && macro.playWhen === "0" && !macro?.args?.warpgateTemplate) {
-            let userData = macro.args;
-            new Sequence()
-                .macro(macro.name, handler.workflow, handler, userData)
-                .play()
+            handler.runMacro(macro)
         }
 
         // Macro if Awaiting Animation. This will respect the Delay/Wait options in the Animation chains
         if (macro && macro.playWhen === "3") {
-            let userData = macro.args;
-            aaSeq.macro(macro.name, handler.workflow, handler, userData)
+            handler.complileMacroSection(aaSeq, macro)
         }
 
         aaSeq.play()

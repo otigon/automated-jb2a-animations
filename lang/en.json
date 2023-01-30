@@ -684,7 +684,10 @@
             "features": "Features",
             "checkCollision": "Check for Collision",
             "resetTime": "Reset Time",
-            "rotateTowards": "Rotate Towards"
+            "rotateTowards": "Rotate Towards",
+            "contrast": "Contrast",
+            "saturation": "Saturation",
+            "colorTint": "Color Tint"
         },
         "tokenAnimations": {
             "bow": "Bow",

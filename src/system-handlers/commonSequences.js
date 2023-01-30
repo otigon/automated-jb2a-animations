@@ -14,6 +14,10 @@ export function sourceEffect(sourceFX, seq, handler) {
     .repeats(options.repeat, options.repeatDelay)
     .size(handler.getSize(options.isRadius, options.size, handler.sourceToken, options.addTokenWidth), { gridUnits: true })
     .zIndex(options.zIndex)
+    if (options.tint) {
+        thisSeq.tint(options.tintColor)
+        thisSeq.filter("ColorMatrix", {contrast: options.contrast, saturate: options.saturation})
+    }
     if (options.animationSource) {
         thisSeq.atLocation({ x: options.fakeLocation.x, y: options.fakeLocation.y })
     } else {
@@ -54,6 +58,10 @@ export function secondaryEffect(secondary, seq, targetArray, targetEnabled = fal
         .repeats(options.repeat, options.repeatDelay)
         .size(handler.getSize(options.isRadius, options.size, currentTarget, options.addTokenWidth), { gridUnits: true })
         .zIndex(options.zIndex)
+        if (options.tint) {
+            thisSeq.tint(options.tintColor)
+            thisSeq.filter("ColorMatrix", {contrast: options.contrast, saturate: options.saturation})
+        }    
         if (i === handler.allTargets.length - 1 && options.isWait && targetEnabled) {
             thisSeq.waitUntilFinished(options.delay)
         } else if (!options.isWait) {
@@ -91,6 +99,10 @@ export function targetEffect(targetFX, seq, targetArray, missable = false, handl
         .repeats(options.repeat, options.repeatDelay)
         .size(handler.getSize(options.isRadius, options.size, currentTarget, options.addTokenWidth), { gridUnits: true })
         .zIndex(options.zIndex)
+        if (options.tint) {
+            thisSeq.tint(options.tintColor)
+            thisSeq.filter("ColorMatrix", {contrast: options.contrast, saturate: options.saturation})
+        }    
         if (options.persistent) {
             thisSeq.persist(true, {persistTokenPrototype: true})
             thisSeq.attachTo(currentTarget, {bindVisibility: !targetFX.unbindVisibility, bindAlpha: !targetFX.unbindAlpha})
@@ -108,5 +120,13 @@ export function targetEffect(targetFX, seq, targetArray, missable = false, handl
             thisSeq.fadeOut(options.fadeOut)    
         }
     }
+}
 
+export function macroSection(seq, macro, handler) {
+    let userData = macro.args
+    if(game.modules.get("advanced-macros")?.active){
+        seq.macro(macro.name, handler.workflow, handler, userData)
+      }else{
+        seq.macro(macro.name)
+    }
 }

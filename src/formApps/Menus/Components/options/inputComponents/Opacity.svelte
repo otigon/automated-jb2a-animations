@@ -7,6 +7,7 @@
     export let min = 0;
     export let max = 1;
     export let step = 0.01;
+    export let placeDefault = 1;
 
     export let label = game.i18n.localize("autoanimations.menus.effect") + " " + game.i18n.localize("autoanimations.menus.opacity")
 
@@ -21,7 +22,7 @@
         <input
             type="number"
             bind:value={$animation[section].options[field]}
-            placeholder="1"
+            placeholder={placeDefault}
             min={min}
             max={max}
             step={step}

@@ -30,8 +30,7 @@ export async function templatefx(handler, animationData, templateDocument) {
 
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1" && !macro?.args?.warpgateTemplate) {
-        let userData = macro.args;
-        aaSeq.macro(macro.name, handler.workflow, handler, userData)
+        handler.complileMacroSection(aaSeq, macro)
     }
     // Extra Effects => Source Token if active
     if (sourceFX) {
@@ -145,16 +144,12 @@ export async function templatefx(handler, animationData, templateDocument) {
     }
 
     if (macro && macro.playWhen === "0" && !macro?.args?.warpgateTemplate) {
-        let userData = macro.args;
-        new Sequence()
-            .macro(macro.name, handler.workflow, handler, userData)
-            .play()
+        handler.runMacro(macro)
     }
 
     // Macro if Awaiting Animation. This will respect the Delay/Wait options in the Animation chains
     if (macro && macro.playWhen === "3") {
-        let userData = macro.args;
-        aaSeq.macro(macro.name, handler.workflow, handler, userData)
+        handler.complileMacroSection(aaSeq, macro)
     }
     
     aaSeq.play()
@@ -191,6 +186,10 @@ export async function templatefx(handler, animationData, templateDocument) {
         seq.playbackRate(data.options.playbackRate)
         seq.name(handler.rinsedName)
         seq.aboveLighting(data.options.aboveTemplate)
+        if (data.options.tint) {
+            seq.tint(data.options.tintColor)
+            seq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+        }
         function convertToXY(input) {
             let menuType = data.video.menuType;
             let templateType = template.t;

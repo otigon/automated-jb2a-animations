@@ -14,6 +14,7 @@ export function source() {
       options: {
          addTokenWidth: false,
          anchor: "0.5",
+         contrast: 0,
          delay: 0,
          elevation: 1000,
          fadeIn: 250,
@@ -24,7 +25,10 @@ export function source() {
          opacity: 1,
          repeat: 1,
          repeatDelay: 250,
+         saturate: 0,
          size: 1,
+         tint: false,
+         tintColor: "#FFFFFF",
          zIndex: 1,
       },
    };

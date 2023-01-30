@@ -8,6 +8,7 @@ export const templatefx = [
       primary: common.primary({
          video: { dbSection: "templatefx", menuType: "circle", animation: "calllightning", variant: '01', color: 'blueorange' },
          options: {
+            contrast: 0,
             delay: 0,
             elevation: 1000,
             isMasked: false,
@@ -21,7 +22,10 @@ export const templatefx = [
             repeat: 1,
             repeatDelay: 500,
             rotate: 0,
+            saturate: 0,
             scale: "1",
+            tint: false,
+            tintColor: "#FFFFFF",
             zIndex: 1
          }
       }),
@@ -38,6 +42,7 @@ export const templatefx = [
       primary: common.primary({
          video: { dbSection: "templatefx", menuType: "circle", animation: "fogcloud", variant: '01', color: 'white' },
          options: {
+            contrast: 0,
             delay: 0,
             elevation: 1000,
             isWait: false,
@@ -51,7 +56,10 @@ export const templatefx = [
             repeat: 1,
             repeatDelay: 500,
             rotate: 0,
+            saturate: 0,
             scale: "1",
+            tint: false,
+            tintColor: "#FFFFFF",
             zIndex: 1
          }
       }),

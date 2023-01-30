@@ -27,8 +27,7 @@ export async function range(handler, animationData) {
 
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1") {
-        let userData = macro.args;
-        aaSeq.macro(macro.name, handler.workflow, handler, userData)
+        handler.complileMacroSection(aaSeq, macro)
     }
     // Extra Effects => Source Token if active
     if (sourceFX) {
@@ -75,7 +74,10 @@ export async function range(handler, animationData) {
         nextSeq.name("spot" + ` ${currentTarget.id}`)
         nextSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
         nextSeq.zIndex(data.options.zIndex)
-
+        if (data.options.tint) {
+            nextSeq.tint(data.options.tintColor)
+            nextSeq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+        }    
         if (i === handler.allTargets.length - 1 && data.options.isWait) {
             nextSeq.waitUntilFinished(data.options.delay)
         } else if (!data.options.isWait) {
@@ -97,6 +99,10 @@ export async function range(handler, animationData) {
             returnSeq.stretchTo("spot" + ` ${currentTarget.id}`)
             returnSeq.zIndex(data.options.zIndex)
             returnSeq.playbackRate(data.options.playbackRate)
+            if (data.options.tint) {
+                returnSeq.tint(data.options.tintColor)
+                returnSeq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+            }
         }
     }
 
@@ -110,16 +116,12 @@ export async function range(handler, animationData) {
 
     // Macro if Concurrent
     if (macro && macro.playWhen === "0") {
-        let userData = macro.args;
-        new Sequence()
-            .macro(macro.name, handler.workflow, handler, userData)
-            .play()
+        handler.runMacro(macro)
     }
 
     // Macro if Awaiting Animation. This will respect the Delay/Wait options in the Animation chains
     if (macro && macro.playWhen === "3") {
-        let userData = macro.args;
-        aaSeq.macro(macro.name, handler.workflow, handler, userData)
+        handler.complileMacroSection(aaSeq, macro)
     }
     
     aaSeq.play()
