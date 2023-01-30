@@ -1,7 +1,7 @@
 ---
 name: "[SYSTEM REQUEST] - TYPE FULL SYSTEM NAME HERE"
 about: Requests for Compatibility with a new game System
-title: ''
+title: "[SYSTEM REQUEST] - TYPE FULL SYSTEM NAME HERE"
 labels: ''
 assignees: ''
 
