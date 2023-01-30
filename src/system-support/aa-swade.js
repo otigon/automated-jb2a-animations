@@ -11,7 +11,7 @@ export function systemHooks() {
                 token = controlledTokens.find(token => token.document.actorId === SwadeTokenOrActor.id);
             }
             if (token) { SwadeTokenOrActor = token; }
-            runSwade(SwadeTokenOrActor, SwadeItem)
+            runSwade(SwadeTokenOrActor, SwadeTokenOrActor, SwadeItem)
         }
     });
     async function get_brsw_data (data) {
