@@ -1,5 +1,6 @@
 export function templatefx() {
     return {
+        contrast: 0,
         delay: 0,
         elevation: 1000,
         isMasked: false,
@@ -14,7 +15,10 @@ export function templatefx() {
         repeat: 1,
         repeatDelay: 250,
         rotate: 0,
+        saturate: 0,
         scale: "1",
+        tint: false,
+        tintColor: "#FFFFFF",
         zIndex: 1,
     }
 }

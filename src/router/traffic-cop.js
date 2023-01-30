@@ -50,9 +50,10 @@ export async function trafficCop(handler) {
             playMacro()
         }
         function playMacro() {
-            new Sequence()
-            .macro(sanitizedData.macro.name, handler.workflow, handler, sanitizedData.macro.args)
-            .play()
+            handler.runMacro(sanitizedData.macro)
+            //new Sequence()
+            //.macro(sanitizedData.macro.name, handler.workflow, handler, sanitizedData.macro.args)
+            //.play()
         }
         return;
     }

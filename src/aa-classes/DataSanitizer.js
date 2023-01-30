@@ -142,6 +142,7 @@ export class DataSanitizer {
         switch (type) {
             case "melee":
                 return {
+                    contrast: data.contrast ?? 0,
                     delay: data.delay || 0,
                     elevation: data.elevation ?? 1000,
                     isAbsolute: data.isAbsolute ?? false,
@@ -150,12 +151,16 @@ export class DataSanitizer {
                     playbackRate: data.playbackRate || 1,
                     repeat: data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
+                    saturation: data.saturation ?? 0,
                     size: data.size || 1,
+                    tint: data.tint ?? false,
+                    tintColor: data.tintColor || "#FFFFFF",
                     zIndex: data.zIndex || 1,
                 };
             case "range":
                 return {
                     animationSource: data.animationSource ?? false,
+                    contrast: data.contrast ?? 0,
                     fakeLocation: handler.fakeSource(),
                     delay: data.delay || 0,
                     elevation: data.elevation ?? 1000,
@@ -169,12 +174,16 @@ export class DataSanitizer {
                     repeat: handler.systemData.overrideRepeat || data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
                     reverse: data.reverse ?? false,
+                    saturation: data.saturation ?? 0,
+                    tint: data.tint ?? false,
+                    tintColor: data.tintColor || "#FFFFFF",
                     zIndex: data.zIndex || 1,
                 };
             case "ontoken":
                 return {
                     addTokenWidth: data.addTokenWidth ?? false,
                     anchor: this.convertToXY(data.anchor, true),
+                    contrast: data.contrast ?? 0,
                     delay: data.delay ?? 1,
                     elevation: data.elevation ?? 1000,
                     isAbsolute: data.isAbsolute ?? false,
@@ -189,7 +198,10 @@ export class DataSanitizer {
                     playOn: data.playOn || "default",
                     repeat: data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
+                    saturation: data.saturation ?? 0,
                     size: data.size || 1,
+                    tint: data.tint ?? false,
+                    tintColor: data.tintColor || "#FFFFFF",
                     unbindAlpha: data.unbindAlpha ?? false,
                     unbindVisibility: data.unbindVisibility ?? false,
                     zIndex: data.zIndex || 1,
@@ -198,6 +210,7 @@ export class DataSanitizer {
                 return {
                     aboveTemplate: data.aboveTemplate ?? false,
                     anchor: data.anchor,
+                    contrast: data.contrast ?? 0,
                     delay: data.delay ?? 1,
                     elevation: data.elevation ?? 1000,
                     isAbsolute: data.isAbsolute ?? false,
@@ -213,7 +226,10 @@ export class DataSanitizer {
                     repeat: data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
                     rotate: data.rotate ?? 0,
+                    saturation: data.saturation ?? 0,
                     scale: this.convertToXY(data.scale),
+                    tint: data.tint ?? false,
+                    tintColor: data.tintColor || "#FFFFFF",
                     scaleX: data.scaleX || 1,
                     scaleY: data.scaleY || 1,
                     zIndex: data.zIndex || 1,
@@ -229,6 +245,7 @@ export class DataSanitizer {
                     breathDuration: data.breathDuration || 1000,
                     breathMax: data.breathMax ?? 1.05,
                     breathMin: data.breathMin ?? 0.95,
+                    contrast: data.contrast ?? 0,
                     delay: data.delay || 1,
                     elevation: data.elevation ?? 1000,
                     isAbsolute: data.isAbsolute ?? false,
@@ -286,6 +303,7 @@ export class DataSanitizer {
             options: {
                 addTokenWidth: options.addTokenWidth ?? false,
                 anchor: this.convertToXY(options.anchor, true),
+                contrast: options.contrast ?? 0,
                 delay: options.delay ?? 0,
                 elevation: options.elevation ?? 1000,
                 isAbsolute: options.isAbsolute ?? false,
@@ -299,7 +317,10 @@ export class DataSanitizer {
                 repeat: handler.systemData.overrideRepeat || options.repeat || 1,
                 repeatDelay: options.repeatDelay ?? 250,
                 rotateSource: options.rotateSource ?? false,
+                saturation: options.saturation ?? 0,
                 size: options.size || 1,
+                tint: options.tint ?? false,
+                tintColor: options.tintColor || "#FFFFFF",
                 zIndex: options.zIndex || 1,
             },
             //sound: this.setSound(sound, topLevel.primary.options),
@@ -338,6 +359,7 @@ export class DataSanitizer {
                 fakeLocation: primary?.options?.fakeLocation,
                 addTokenWidth: options.addTokenWidth ?? false,
                 anchor: this.convertToXY(options.anchor, true),
+                contrast: options.contrast ?? 0,
                 delay: options.delay ?? 0,
                 elevation: options.elevation ?? 1000,
                 isAbsolute: options.isAbsolute ?? false,
@@ -351,7 +373,10 @@ export class DataSanitizer {
                 playbackRate: options.playbackRate || 1,
                 repeat: options.repeat || 1,
                 repeatDelay: options.repeatDelay || 1,
+                saturation: options.saturation ?? 0,
                 size: options.size || 1,
+                tint: options.tint ?? false,
+                tintColor: options.tintColor || "#FFFFFF",
                 zIndex: options.zIndex || 1,
             },
             //sound: this.setSound(sound)
@@ -388,6 +413,7 @@ export class DataSanitizer {
             options: {
                 addTokenWidth: options.addTokenWidth ?? false,
                 anchor: this.convertToXY(options.anchor, true),
+                contrast: options.contrast ?? 0,
                 delay: options.delay ?? 0,
                 elevation: options.elevation ?? 1000,
                 fadeIn: options.fadeIn ?? 250,
@@ -402,7 +428,10 @@ export class DataSanitizer {
                 repeat: options.repeat || 1,
                 repeatDelay: options.repeatDelay ?? 250,
                 rotateSource: options.rotateSource ?? false,
+                saturation: options.saturation ?? 0,
                 size: options.size || 1,
+                tint: options.tint ?? false,
+                tintColor: options.tintColor || "#FFFFFF",
                 unbindAlpha: options.unbindAlpha ?? false,
                 unbindVisibility: options.unbindVisibility ?? false,
                 zIndex: options.zIndex || 1,
@@ -792,3 +821,50 @@ export class DataSanitizer {
     
     }
 }
+/*
+// Testing Hex to HSL conversion. Code from Jon Kantner https://css-tricks.com/converting-color-spaces-in-javascript/
+function hexToHSL(H) {
+    // Convert hex to RGB first
+    let r = 0, g = 0, b = 0;
+    if (H.length == 4) {
+      r = "0x" + H[1] + H[1];
+      g = "0x" + H[2] + H[2];
+      b = "0x" + H[3] + H[3];
+    } else if (H.length == 7) {
+      r = "0x" + H[1] + H[2];
+      g = "0x" + H[3] + H[4];
+      b = "0x" + H[5] + H[6];
+    }
+    // Then to HSL
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    let cmin = Math.min(r,g,b),
+        cmax = Math.max(r,g,b),
+        delta = cmax - cmin,
+        h = 0,
+        s = 0,
+        l = 0;
+  
+    if (delta == 0)
+      h = 0;
+    else if (cmax == r)
+      h = ((g - b) / delta) % 6;
+    else if (cmax == g)
+      h = (b - r) / delta + 2;
+    else
+      h = (r - g) / delta + 4;
+  
+    h = Math.round(h * 60);
+  
+    if (h < 0)
+      h += 360;
+  
+    l = (cmax + cmin) / 2;
+    s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+    s = +(s * 100).toFixed(1);
+    l = +(l * 100).toFixed(1);
+  
+    return ({h: h, s: s/100, l: l/100})
+  }
+*/
