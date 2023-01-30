@@ -686,7 +686,10 @@
 			"features": "Fonctionnalités",
 			"checkCollision": "Vérifier les collisions",
 			"resetTime": "Remettre le temps à zéro",
-			"rotateTowards": "Faire une rotation vers"
+			"rotateTowards": "Faire une rotation vers",
+			"saturation": "Saturation",
+			"colorTint": "Teinte de couleur",
+			"contrast": "Contraste"
 		},
 		"app": {
 			"aaAutorec-range": {
