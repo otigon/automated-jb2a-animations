@@ -1,5 +1,5 @@
 ---
-name: "[REQUEST] - TYPE SHORT DESCRIPTION HERE"
+name: "[FEATURE REQUEST] - TYPE SHORT DESCRIPTION HERE"
 about: Suggest an idea for this project
 title: ''
 labels: ''
