@@ -1,6 +1,6 @@
 ---
 name: "[FEATURE REQUEST] - TYPE SHORT DESCRIPTION HERE"
-about: Suggest an idea for this project
+about: "[FEATURE REQUEST] - TYPE SHORT DESCRIPTION HERE"
 title: ''
 labels: ''
 assignees: ''
