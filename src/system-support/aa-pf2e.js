@@ -103,9 +103,9 @@ async function runPF2e(data) {
             //hasDamage && data.playOnDamage && data.workflow.isDamageRoll ? playPF2e(data) : !hasDamage && !data.workflow.isDamageRoll ? playPF2e(data) : playPF2e(data)
             if (hasDamage && data.playOnDamage && data.workflow.isDamageRoll) {
                 playPF2e(data)
-            } else if (!hasDamage && data.workflow.isCheckRoll) {
+            } else if (!hasDamage && !data.workflow.isDamageRoll) {
                 playPF2e(data)
-            } else if (hasDamage && !data.playOnDamage && data.workflow.isCheckRoll) {
+            } else if (hasDamage && !data.playOnDamage && !data.workflow.isDamageRoll) {
                 playPF2e(data)
             }
     }
