@@ -27,9 +27,14 @@ export async function initializeJB2APatreonDB(path) {
 
     JB2APATREONDB.range = {
         _template: 'ranged',
+        _free:['weapon', 'generic', 'spell', '_template'],
         weapon: {
+            _free:['arrow', 'bolt', 'bomb', 'bullet', 'cannonball', 'dagger', 'flask', 'lasershot', 'lasersword',
+                    , 'snipe', 'snowball'],
             arrow: {
+                _free:['regular', 'physical'],
                 'regular': {
+                    _free:['regular', 'green'],
                     regular: {
                         '05ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_05ft_600x400.webm`],
                         '15ft': [lg`Weapon_Attacks/Ranged/Arrow01_01_Regular_White_15ft_1000x400.webm`],
@@ -46,6 +51,7 @@ export async function initializeJB2APatreonDB(path) {
                     }
                 },
                 'physical': {
+                    _free:['blue'],
                     blue: {
                         '05ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Blue_Physical_05ft_600x400.webm`],
                         '15ft': [lg`Weapon_Attacks/Ranged/Arrow02_01_Regular_Blue_Physical_15ft_1000x400.webm`],
@@ -267,7 +273,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             bolt: {
+                _free:['physical'],
                 'physical': {
+                    _free:['orange'],
                     orange: {
                         '05ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Physical_05ft_600x400.webm`],
                         '15ft': [lg`Weapon_Attacks/Ranged/Bolt01_01_Regular_Orange_Physical_15ft_1000x400.webm`],
@@ -496,7 +504,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             bomb: {
+                _free:['01'],
                 '01': {
+                    _free:['black'],
                     black: {
                         '05ft': [lg`Weapon_Attacks/Ranged/ThrowBomb01_01_Regular_Black_05ft_600x400.webm`],
                         '15ft': [lg`Weapon_Attacks/Ranged/ThrowBomb01_01_Regular_Black_15ft_1000x400.webm`],
@@ -556,7 +566,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             bullet: {
+                _free:['1', '2', '3'],
                 '1': {
+                    _free:['orange'],
                     orange: {
                         '05ft': [lg`Weapon_Attacks/Ranged/Bullet_01_Regular_Orange_05ft_600x400.webm`],
                         '15ft': [lg`Weapon_Attacks/Ranged/Bullet_01_Regular_Orange_15ft_1000x400.webm`],
@@ -587,6 +599,7 @@ export async function initializeJB2APatreonDB(path) {
                     }
                 },
                 '2': {
+                    _free:['orange'],
                     orange: {
                         '05ft': [lg`Weapon_Attacks/Ranged/Bullet_02_Regular_Orange_05ft_600x400.webm`],
                         '15ft': [lg`Weapon_Attacks/Ranged/Bullet_02_Regular_Orange_15ft_1000x400.webm`],
@@ -617,6 +630,7 @@ export async function initializeJB2APatreonDB(path) {
                     }
                 },
                 '3': {
+                    _free:['blue'],
                     orange: {
                         '05ft': [lg`Weapon_Attacks/Ranged/Bullet_03_Regular_Orange_05ft_600x400.webm`],
                         '15ft': [lg`Weapon_Attacks/Ranged/Bullet_03_Regular_Orange_15ft_1000x400.webm`],
@@ -648,7 +662,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             cannonball: {
+                _free:['01'],
                 '01': {
+                    _free:['black'],
                     black: {
                         '05ft': [lg`Weapon_Attacks/Ranged/LaunchCannonBall01_01_Regular_Black_05ft_600x400.webm`],
                         '15ft': [lg`Weapon_Attacks/Ranged/LaunchCannonBall01_01_Regular_Black_15ft_1000x400.webm`],
@@ -677,7 +693,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             dagger: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: {
                         '15ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_15ft_1000x400.webm`],
                         '30ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_White_30ft_1600x400.webm`],
@@ -761,7 +779,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             flask: {
+                _free:['01'],
                 '01': {
+                    _free:['orange'],
                     orange: {
                         '05ft': [lg`Weapon_Attacks/Ranged/ThrowFlask01_01_Regular_Orange_05ft_600x400.webm`],
                         '15ft': [lg`Weapon_Attacks/Ranged/ThrowFlask01_01_Regular_Orange_15ft_1000x400.webm`],
@@ -934,7 +954,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             lasershot: {
+                _free:['01'],
                 '01': {
+                    _free:['blue', 'green', 'orange', 'red'],
                     blue: {
                         '05ft': [lg`Weapon_Attacks/Ranged/LaserShot_01_Regular_Blue_05ft_600x400.webm`],
                         '15ft': [lg`Weapon_Attacks/Ranged/LaserShot_01_Regular_Blue_15ft_1000x400.webm`],
@@ -980,7 +1002,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             lasersword: {
+                _free:['01', '02'],
                 '01': {
+                    _free:['blue'],
                     blue: {
                         '15ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Blue_15ft_1000x600.webm`],
                         '30ft': [lg`Weapon_Attacks/Ranged/LaserSword01_01_Regular_Blue_30ft_1600x600.webm`],
@@ -1055,6 +1079,7 @@ export async function initializeJB2APatreonDB(path) {
                     },
                 },
                 '02': {
+                    _free:['red'],
                     blue: {
                         '15ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Blue_15ft_1000x600.webm`],
                         '30ft': [lg`Weapon_Attacks/Ranged/LaserSwordDB01_01_Regular_Blue_30ft_1600x600.webm`],
@@ -1173,7 +1198,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             snipe: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: {
                         '05ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_05ft_600x400.webm`],
                         '15ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_15ft_1000x400.webm`],
@@ -1205,7 +1232,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             snowball: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: {
                         '05ft': [lg`Weapon_Attacks/Ranged/SnowballToss_01_Regular_White_05ft_600x500.webm`],
                         '15ft': [lg`Weapon_Attacks/Ranged/SnowballToss_01_Regular_White_15ft_1000x500.webm`],
@@ -1244,8 +1273,12 @@ export async function initializeJB2APatreonDB(path) {
 
         },
         spell: {
+            _free:['chainlightning', 'disintegrate', 'eldritchblast', 'fireballbeam', 'firebolt', 'guidingbolt',
+                    'magicmissile', 'rayoffrost', 'scorchingray', 'witchbolt'],
             chainlightning: {
+                _free:['primary', 'secondary'],
                 primary: {
+                    _free:['blue'],
                     blue: {
                         '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_05ft_Primary_600x400.webm`],
                         '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_15ft_Primary_1000x400.webm`],
@@ -1318,6 +1351,7 @@ export async function initializeJB2APatreonDB(path) {
                     },
                 },
                 secondary: {
+                    _free:['blue'],
                     blue: {
                         '05ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_05ft_Secondary_600x400.webm`],
                         '15ft': [l6`Chain_Lightning/ChainLightning_01_Regular_Blue_15ft_Secondary_1000x400.webm`],
@@ -1391,7 +1425,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             disintegrate: {
+                _free:['01'],
                 '01': {
+                    _free:['green'],
                     green: {
                         '05ft': [l6`Disintegrate/Disintegrate_01_Regular_Green01_05ft_600x400.webm`],
                         '15ft': [l6`Disintegrate/Disintegrate_01_Regular_Green01_15ft_1000x400.webm`],
@@ -1430,7 +1466,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             eldritchblast: {
+                _free:['01'],
                 '01': {
+                    _free:['purple'],
                     purple: {
                         '05ft': [l0`Eldritch_Blast/EldritchBlast_01_Regular_Purple_05ft_600x400.webm`],
                         '15ft': [l0`Eldritch_Blast/EldritchBlast_01_Regular_Purple_15ft_1000x400.webm`],
@@ -1509,7 +1547,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             fireballbeam: {
+                _free:['01'],
                 '01': {
+                    _free:['orange'],
                     blue: {
                         '05ft': [l3`Fireball/FireballBeam_01_Blue_05ft_600x400.webm`],
                         '15ft': [l3`Fireball/FireballBeam_01_Blue_15ft_1000x400.webm`],
@@ -1541,7 +1581,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             firebolt: {
+                _free:['01'],
                 '01': {
+                    _free:['orange'],
                     orange: {
                         '05ft': [l0`Fire_Bolt/FireBolt_01_Regular_Orange_05ft_600x400.webm`],
                         '15ft': [l0`Fire_Bolt/FireBolt_01_Regular_Orange_15ft_1000x400.webm`],
@@ -1594,7 +1636,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             guidingbolt: {
+                _free:['01'],
                 '01': {
+                    _free:['blueyellow'],
                     yellowblue: {
                         '05ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_05ft_600x400.webm`],
                         '15ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_15ft_1000x400.webm`],
@@ -1684,7 +1728,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             magicmissile: {
+                _free:['01'],
                 '01': {
+                    _free:['purple'],
                     blue: {
                         '05ft': [
                             l1`Magic_Missile/MagicMissile_01_Regular_Blue_05ft_01_600x400.webm`,
@@ -1880,7 +1926,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             rayoffrost: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: {
                         '05ft': [l0`Ray_Of_Frost/RayOfFrost_01_Regular_Blue_05ft_600x400.webm`],
                         '15ft': [l0`Ray_Of_Frost/RayOfFrost_01_Regular_Blue_15ft_1000x400.webm`],
@@ -1912,7 +1960,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             scorchingray: {
+                _free:['01'],
                 '01': {
+                    _free:['orange'],
                     orange: {
                         '05ft': [l2`Scorching_Ray/ScorchingRay_01_Regular_Orange_05ft_600x400.webm`],
                         '15ft': [l2`Scorching_Ray/ScorchingRay_01_Regular_Orange_15ft_1000x400.webm`],
@@ -2146,7 +2196,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             witchbolt: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: {
                         '05ft': [l1`Witch_Bolt/WitchBolt_01_Regular_Blue_05ft_600x400.webm`],
                         '15ft': [l1`Witch_Bolt/WitchBolt_01_Regular_Blue_15ft_1000x400.webm`],
@@ -2200,7 +2252,9 @@ export async function initializeJB2APatreonDB(path) {
             },
         },
         generic: {
+            _free:['conduit', 'energybeam', 'energystrand', 'iceshard', 'leaves'],
             conduit: {
+                _free:['circle'],
                 square: {
                     purpleblue: {
                         '05ft': [lg`Energy/EnergyConduitSquare_01_Regular_BluePurple_05ft_600x400.webm`],
@@ -2218,6 +2272,7 @@ export async function initializeJB2APatreonDB(path) {
                     },
                 },
                 circle: {
+                    _free:['purpleblue'],
                     purpleblue: {
                         '05ft': [lg`Energy/EnergyConduitCircle_01_Regular_BluePurple_05ft_600x400.webm`],
                         '15ft': [lg`Energy/EnergyConduitCircle_01_Regular_BluePurple_15ft_1000x400.webm`],
@@ -2235,7 +2290,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             energybeam: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: {
                         '15ft': [lg`Energy/EnergyBeam_01_Regular_Blue_15ft_1000x400.webm`],
                         '30ft': [lg`Energy/EnergyBeam_01_Regular_Blue_30ft_1600x400.webm`],
@@ -2375,7 +2432,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             energystrand: {
+                _free:['01'],
                 '01': {
+                    _free:['purple'],
                     darkgreen: {
                         '05ft': [
                             lg`Energy/EnergyStrand_01_Dark_Green_05ft_600x400.webm`,
@@ -2656,7 +2715,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             iceshard: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: {
                         '05ft': [lg`RangedSpell/ProjectileIceShard01_01_Regular_Blue_05ft_600x400.webm`],
                         '15ft': [lg`RangedSpell/ProjectileIceShard01_01_Regular_Blue_15ft_1000x400.webm`],
@@ -2667,7 +2728,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             leaves: {
+                _free:['01'],
                 '01': {
+                    _free:['greenorange'],
                     blue: {
                         '05ft': [lg`Nature/SwirlingLeaves01_01_Regular_Blue_05ft_600x400.webm`],
                         '15ft': [lg`Nature/SwirlingLeaves01_01_Regular_Blue_15ft_1000x400.webm`],
@@ -2734,7 +2797,9 @@ export async function initializeJB2APatreonDB(path) {
      */
 
     JB2APATREONDB.melee = {
+        _free:['creature', 'weapon'],
         creature: {
+            _free:['bite', 'claw'],
             bite: {
                 '01': {
                     red: [lg`Creature/Bite_01_Regular_Red_400x400.webm`],
@@ -2792,8 +2857,13 @@ export async function initializeJB2APatreonDB(path) {
             },
         },
         weapon: {
+            _free:['club', 'dagger', 'falchion', 'flurryofblows', 'glaive', 'greataxe', 'greatclub', 'greatsword',
+                    , 'halberd', 'hammer', 'handaxe', 'lasersword', 'mace', 'maul', 'quarterstaff', 'rapier',
+                    'scimitar', 'shortsword', 'spear', 'sword', 'unarmedstrike', 'warhammer', 'wrench'],
             club: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: [
                         [lg`Weapon_Attacks/Melee/Club01_01_Regular_White_800x600.webm`],
                         [lg`Weapon_Attacks/Melee/Club01_02_Regular_White_800x600.webm`],
@@ -2837,7 +2907,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             dagger: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: [lg`Weapon_Attacks/Melee/Dagger02_01_Regular_White_800x600.webm`],
                     orange: [lg`Weapon_Attacks/Melee/Dagger02_Fire_Regular_Orange_800x600.webm`],
                     pink: [lg`Weapon_Attacks/Melee/Dagger02_Fire_Regular_Pink_800x600.webm`],
@@ -2850,7 +2922,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             falchion: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     darkorangepurple: [
                         lg`Weapon_Attacks/Melee/Falchion01_01_Dark_OrangePurple_800x600.webm`,
                         lg`Weapon_Attacks/Melee/Falchion01_02_Dark_OrangePurple_800x600.webm`,
@@ -2902,7 +2976,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             flurryofblows: {
-                'magical': {
+                _free:['magical', 'physical'],
+                magical: {
+                    _free:['blue'],
                     darkred: [
                         lg`Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlows_01_Dark_Red_Magical01_800x600.webm`,
                         lg`Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlows_01_Dark_Red_Magical02_800x600.webm`
@@ -2932,7 +3008,8 @@ export async function initializeJB2APatreonDB(path) {
                         lg`Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlows_01_Regular_Yellow_Magical02_800x600.webm`
                     ]
                 },
-                'physical': {
+                physical: {
+                    _free:['blue'],
                     darkred: [
                         lg`Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlows_01_Dark_Red_Physical01_800x600.webm`,
                     ],
@@ -2955,7 +3032,7 @@ export async function initializeJB2APatreonDB(path) {
                         lg`Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlows_01_Regular_Yellow_Physical01_800x600.webm`
                     ]
                 },
-                'nohit': {
+                nohit: {
                     blue: [
                         lg`Unarmed_Attacks/Flurry_Of_Blows/FlurryOfBlowsNoHit_01_Regular_Blue_800x600.webm`,
                     ],
@@ -2965,7 +3042,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             glaive: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     darkorangepurple: [
                         lg`Weapon_Attacks/Melee/Glaive01_01_Dark_OrangePurple_800x600.webm`,
                         lg`Weapon_Attacks/Melee/Glaive01_02_Dark_OrangePurple_800x600.webm`,
@@ -3067,7 +3146,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             greataxe: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: [lg`Weapon_Attacks/Melee/GreatAxe01_01_Regular_White_800x600.webm`],
                     orange: [lg`Weapon_Attacks/Melee/GreatAxe01_Fire_Regular_Orange_800x600.webm`],
                     pink: [lg`Weapon_Attacks/Melee/GreatAxe01_Fire_Regular_Pink_800x600.webm`],
@@ -3079,7 +3160,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             greatclub: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: [lg`Weapon_Attacks/Melee/GreatClub01_01_Regular_White_800x600.webm`],
                     orange: [lg`Weapon_Attacks/Melee/GreatClub01_Fire_Regular_Orange_800x600.webm`],
                     pink: [lg`Weapon_Attacks/Melee/GreatClub01_Fire_Regular_Pink_800x600.webm`],
@@ -3091,7 +3174,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             greatsword: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: [lg`Weapon_Attacks/Melee/GreatSword01_01_Regular_White_800x600.webm`],
                     black: [lg`Weapon_Attacks/Melee/GreatSword01_Fire_Regular_Black_800x600.webm`],
                     orange: [lg`Weapon_Attacks/Melee/GreatSword01_Fire_Regular_Orange_800x600.webm`],
@@ -3104,7 +3189,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             halberd: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: [
                         lg`Weapon_Attacks/Melee/Halberd01_01_Regular_White_800x600.webm`,
                         lg`Weapon_Attacks/Melee/Halberd01_02_Regular_White_800x600.webm`,
@@ -3148,7 +3235,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             hammer: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: [
                         lg`Weapon_Attacks/Melee/Hammer01_01_Regular_White_800x600.webm`,
                         lg`Weapon_Attacks/Melee/Hammer01_02_Regular_White_800x600.webm`,
@@ -3200,7 +3289,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             handaxe: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: [lg`Weapon_Attacks/Melee/HandAxe02_01_Regular_White_800x600.webm`],
                     orange: [lg`Weapon_Attacks/Melee/HandAxe02_Fire_Regular_Orange_800x600.webm`],
                     pink: [lg`Weapon_Attacks/Melee/HandAxe02_Fire_Regular_Pink_800x600.webm`],
@@ -3212,7 +3303,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             lasersword: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [lg`Weapon_Attacks/Melee/LaserSword01_01_Regular_Blue_800x600.webm`],
                     blue02: [lg`Weapon_Attacks/Melee/LaserSword01_01_Regular_Blue02_800x600.webm`],
                     blue03: [lg`Weapon_Attacks/Melee/LaserSword01_01_Regular_Blue03_800x600.webm`],
@@ -3228,7 +3321,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             mace: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: [lg`Weapon_Attacks/Melee/Legacy/Mace01_01_Regular_White_800x600.webm`],
                     orange: [lg`Weapon_Attacks/Melee/Mace01_Fire_Regular_Orange_800x600.webm`],
                     pink: [lg`Weapon_Attacks/Melee/Mace01_Fire_Regular_Pink_800x600.webm`],
@@ -3282,7 +3377,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             maul: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: [lg`Weapon_Attacks/Melee/Maul01_01_Regular_White_800x600.webm`],
                     orange: [lg`Weapon_Attacks/Melee/Maul01_Fire_Regular_Orange_800x600.webm`],
                     pink: [lg`Weapon_Attacks/Melee/Maul01_Fire_Regular_Pink_800x600.webm`],
@@ -3294,7 +3391,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             quarterstaff: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: [
                         lg`Weapon_Attacks/Melee/Quarterstaff01_01_Regular_White_800x600.webm`,
                         lg`Weapon_Attacks/Melee/Quarterstaff01_02_Regular_White_800x600.webm`,
@@ -3464,6 +3563,7 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             rapier: {
+                _free:['01'],
                 fire: {
                     white: [lg`Weapon_Attacks/Melee/Legacy/Rapier01_01_Regular_White_800x600.webm`],
                     orange: [lg`Weapon_Attacks/Melee/Rapier01_Fire_Regular_Orange_800x600.webm`],
@@ -3475,6 +3575,7 @@ export async function initializeJB2APatreonDB(path) {
                     green: [lg`Weapon_Attacks/Melee/Rapier01_Fire_Regular_Green_800x600.webm`]
                 },
                 '01': {
+                    _free:['white'],
                     darkorangepurple: [
                         lg`Weapon_Attacks/Melee/Rapier01_01_Dark_OrangePurple_800x600.webm`,
                         lg`Weapon_Attacks/Melee/Rapier01_02_Dark_OrangePurple_800x600.webm`,
@@ -3518,7 +3619,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             scimitar: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     darkorangepurple: [
                         lg`Weapon_Attacks/Melee/Scimitar01_01_Dark_OrangePurple_800x600.webm`,
                         lg`Weapon_Attacks/Melee/Scimitar01_02_Dark_OrangePurple_800x600.webm`,
@@ -3562,7 +3665,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             shortsword: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     darkorangepurple: [
                         lg`Weapon_Attacks/Melee/Shortsword01_01_Dark_OrangePurple_800x600.webm`,
                         lg`Weapon_Attacks/Melee/Shortsword01_02_Dark_OrangePurple_800x600.webm`,
@@ -3614,9 +3719,10 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             spear: {
+                _free:['fire', '01'],
                 'fire': {
+                    _free:['white'],
                     white: [lg`Weapon_Attacks/Melee/Legacy/Spear01_01_Regular_White_800x600.webm`],
-
                     orange: [lg`Weapon_Attacks/Melee/Spear01_Fire_Regular_Orange_800x600.webm`],
                     pink: [lg`Weapon_Attacks/Melee/Spear01_Fire_Regular_Pink_800x600.webm`],
                     red: [lg`Weapon_Attacks/Melee/Spear01_Fire_Regular_Red_800x600.webm`],
@@ -3626,6 +3732,7 @@ export async function initializeJB2APatreonDB(path) {
                     green: [lg`Weapon_Attacks/Melee/Spear01_Fire_Regular_Green_800x600.webm`]
                 },
                 '01': {
+                    _free:['white'],
                     white: [
                         lg`Weapon_Attacks/Melee/Spear01_01_Regular_White_800x600.webm`,
                         lg`Weapon_Attacks/Melee/Spear01_02_Regular_White_800x600.webm`,
@@ -3677,6 +3784,7 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             sword: {
+                _free:['01'],
                 fire: {
                     white: [lg`Weapon_Attacks/Melee/Legacy/Sword01_01_Regular_White_800x600.webm`],
                     black: [lg`Weapon_Attacks/Melee/Sword01_Fire_Regular_Black_800x600.webm`],
@@ -3689,6 +3797,7 @@ export async function initializeJB2APatreonDB(path) {
                     green: [lg`Weapon_Attacks/Melee/Sword01_Fire_Regular_Green_800x600.webm`]
                 },
                 '01': {
+                    _free:['white'],
                     darkorangepurple: [
                         lg`Weapon_Attacks/Melee/Sword01_01_Dark_OrangePurple_800x600.webm`,
                         lg`Weapon_Attacks/Melee/Sword01_02_Dark_OrangePurple_800x600.webm`,
@@ -3740,7 +3849,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             unarmedstrike: {
+                _free:['magical', 'physical'],
                 'magical': {
+                    _free:['blue'],
                     darkred: [
                         lg`Unarmed_Attacks/Unarmed_Strike/UnarmedStrike_01_Dark_Red_Magical01_800x600.webm`,
                         lg`Unarmed_Attacks/Unarmed_Strike/UnarmedStrike_01_Dark_Red_Magical02_800x600.webm`
@@ -3771,6 +3882,7 @@ export async function initializeJB2APatreonDB(path) {
                     ]
                 },
                 'physical': {
+                    _free:['blue'],
                     darkred: [
                         lg`Unarmed_Attacks/Unarmed_Strike/UnarmedStrike_01_Dark_Red_Physical01_800x600.webm`,
                         lg`Unarmed_Attacks/Unarmed_Strike/UnarmedStrike_01_Dark_Red_Physical02_800x600.webm`
@@ -3810,7 +3922,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             warhammer: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: [
                         [lg`Weapon_Attacks/Melee/Warhammer01_01_Regular_White_800x600.webm`],
                         [lg`Weapon_Attacks/Melee/Warhammer01_02_Regular_White_800x600.webm`],
@@ -3854,7 +3968,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             wrench: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: [
                         [lg`Weapon_Attacks/Melee/Wrench01_01_Regular_White_800x600.webm`],
                         [lg`Weapon_Attacks/Melee/Wrench01_02_Regular_White_800x600.webm`],
@@ -3910,23 +4026,34 @@ export async function initializeJB2APatreonDB(path) {
      * 
      */
     JB2APATREONDB.templatefx = {
+        _free:['circle', 'cone', 'ray', 'square'],
         circle: {
+            _free:['armsofhadar', 'blacktentacles', 'calllightning', 'cloudofdagger', 'crackedshield', 'darkness',
+                    'detectmagic', 'drop', 'explosion', 'fear', 'fireball', 'fogcloud', 'heart', 'horror', 'magicsign',
+                    , 'moonbeam', 'musicnote', 'outpulse', 'poison', 'runes', 'shatter', 'shields', 'skull', 'sleetstorm', 
+                    'snowflakes', 'stun', 'snowflake', 'vortex', 'whirl'],
             armsofhadar: {
+                _free:['01'],
                 '01': {
+                    _free:['darkpurple'],
                     darkgreen: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Green_500x500.webm`],
                     darkpurple: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Purple_500x500.webm`],
                     darkred: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Red_500x500.webm`],
                 }
             },
             blacktentacles: {
+                _free:['01'],
                 '01': {
+                    _free:['darkpurple'],
                     darkgreen: [l4`Black_Tentacles/BlackTentacles_01_Dark_Green_600x600.webm`],
                     darkpurple: [l4`Black_Tentacles/BlackTentacles_01_Dark_Purple_600x600.webm`],
                     darkred: [l4`Black_Tentacles/BlackTentacles_01_Dark_Red_600x600.webm`],
                 },
             },
             calllightning: {
+                _free:['01'],
                 '01': {
+                    _free:['blue', 'blueorange', 'green', 'pinkyellow', 'purple', 'red', 'yellow'],
                     blue: [l3`Call_Lightning/CallLightning_01_Blue_1000x1000.webm`],
                     blueorange: [l3`Call_Lightning/CallLightning_01_BlueOrange_1000x1000.webm`],
                     green: [l3`Call_Lightning/CallLightning_01_Green_1000x1000.webm`],
@@ -3937,7 +4064,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             cloudofdaggers: {
+                _free:['01'],
                 '01': {
+                    _free:['blue', 'green', 'orange', 'purple', 'red', 'yellow'],
                     darkpurple: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Dark_Purple_400x400.webm`],
                     darkred: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Dark_Red_400x400.webm`],
                     blue: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Blue_400x400.webm`],
@@ -3959,19 +4088,25 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             crackedshield: {
+                _free:['01'],
                 '01': {
+                    _free:['darkpurple'],
                     darkred: [lg`Template/Circle/TemplateShieldCrackedCircle_01_Dark_Red_800x800.webm`],
                     darkpurple: [lg`Template/Circle/TemplateShieldCrackedCircle_01_Regular_Purple_800x800.webm`],
                 },
             },
             darkness: {
+                _free:['01'],
                 '01': {
+                    _free:['black', 'green'],
                     black: [l2`Darkness/Darkness_01_Black_600x600.webm`],
                     green: [l2`Darkness/Darkness_01_Green_600x600.webm`]
                 }
             },
             detectmagic: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Blue_1200x1200.webm`],
                     green: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Green_1200x1200.webm`],
                     greenorange: [l1`Detect_Magic/DetectMagicCircle_01_Regular_GreenOrange_1200x1200.webm`],
@@ -3980,13 +4115,17 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             drop: {
+                _free:['01'],
                 '01': {
+                    _free:['red'],
                     darkgreen: [lg`Template/Circle/TemplateDropCircle_01_Dark_Green_800x800.webm`],
                     red: [lg`Template/Circle/TemplateDropCircle_01_Regular_Red_800x800.webm`]
                 }
             },
             explosion: {
+                _free:['01'],
                 '01': {
+                    _free:['blue', 'orange', 'yellowblue'],
                     darkpurple: [
                         lg`Explosion/Explosion_04_Dark_Purple_400x400.webm`,
                     ],
@@ -4037,31 +4176,39 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             fear: {
+                _free:['01'],
                 '01': {
+                    _free:['darkpurple'],
                     darkorange: [lg`Template/Circle/TemplateFearCircle_01_Dark_Orange_800x800.webm`],
                     darkpurple: [lg`Template/Circle/TemplateFearCircle_01_Dark_Purple_800x800.webm`],
                     orange: [lg`Template/Circle/TemplateFearCircle_01_Regular_Orange_800x800.webm`],
                 },
             },
             fireball: {
+                _free:['loop', 'expode', 'nodebris'],
                 loop: {
+                    _free:['orange'],
                     blue: [l3`Fireball/FireballLoop_01_Blue_800x800.webm`],
                     orange: [l3`Fireball/FireballLoop_01_Orange_800x800.webm`],
                     purple: [l3`Fireball/FireballLoop_01_Purple_800x800.webm`],
                 },
                 explode: {
+                    _free:['orange'],
                     blue: [l3`Fireball/FireballExplosion_01_Blue_800x800.webm`],
                     orange: [l3`Fireball/FireballExplosion_01_Orange_800x800.webm`],
                     purple: [l3`Fireball/FireballExplosion_01_Purple_800x800.webm`],
                 },
                 nodebris: {
+                    _free:['orange'],
                     blue: [l3`Fireball/FireballLoopNoDebris_01_Blue_800x800.webm`],
                     orange: [l3`Fireball/FireballLoopNoDebris_01_Orange_800x800.webm`],
                     purple: [l3`Fireball/FireballLoopNoDebris_01_Purple_800x800.webm`],
                 },
             },
             fogcloud: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: [l1`Fog_Cloud/FogCloud_01_White_800x800.webm`]
                 },
                 '02': {
@@ -4070,21 +4217,28 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             heart: {
+                _free:['01'],
                 '01': {
+                    _free:['pink'],
                     darkred: [lg`Template/Circle/TemplateHeartCircle_01_Dark_Red_800x800.webm`],
                     pink: [lg`Template/Circle/TemplateHeartCircle_01_Regular_Pink_800x800.webm`],
                     teal: [lg`Template/Circle/TemplateHeartCircle_01_Regular_Teal_800x800.webm`],
                 },
             },
             horror: {
+                _free:['01'],
                 '01': {
+                    _free:['purple'],
                     darkteal: [lg`Template/Circle/TemplateHorrorCircle_01_Dark_Teal_800x800.webm`],
                     purple: [lg`Template/Circle/TemplateHorrorCircle_01_Regular_Purple_800x800.webm`],
                     teal: [lg`Template/Circle/TemplateHorrorCircle_01_Regular_Teal_800x800.webm`],
                 },
             },
             magicsign: {
+                _free:['abjuration', 'conjuration', 'divination', 'enchantment', 'illusion',
+                        'necromancy', 'transmutation'],
                 abjuration: {
+                    _free:['blue'],
                     blue: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Blue_800x800.webm`],
                     green: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Green_800x800.webm`],
                     pink: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Pink_800x800.webm`],
@@ -4093,6 +4247,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Yellow_800x800.webm`],
                 },
                 conjuration: {
+                    _free:['yellow'],
                     blue: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Blue_800x800.webm`],
                     green: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Green_800x800.webm`],
                     pink: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Pink_800x800.webm`],
@@ -4101,6 +4256,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Yellow_800x800.webm`],
                 },
                 divination: {
+                    _free:['blue'],
                     blue: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Blue_800x800.webm`],
                     green: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Green_800x800.webm`],
                     pink: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Pink_800x800.webm`],
@@ -4109,6 +4265,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Yellow_800x800.webm`],
                 },
                 enchantment: {
+                    _free:['pink'],
                     blue: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Blue_800x800.webm`],
                     green: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Green_800x800.webm`],
                     pink: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Pink_800x800.webm`],
@@ -4117,6 +4274,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Yellow_800x800.webm`],
                 },
                 evocation: {
+                    _free:['red'],
                     blue: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Blue_800x800.webm`],
                     green: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Green_800x800.webm`],
                     pink: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Pink_800x800.webm`],
@@ -4125,6 +4283,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Yellow_800x800.webm`],
                 },
                 illusion: {
+                    _free:['purple'],
                     blue: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Blue_800x800.webm`],
                     green: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Green_800x800.webm`],
                     pink: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Pink_800x800.webm`],
@@ -4133,6 +4292,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Yellow_800x800.webm`],
                 },
                 necromancy: {
+                    _free:['green'],
                     blue: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Blue_800x800.webm`],
                     green: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Green_800x800.webm`],
                     pink: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Pink_800x800.webm`],
@@ -4141,6 +4301,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Yellow_800x800.webm`],
                 },
                 transmutation: {
+                    _free:['yellow'],
                     blue: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Blue_800x800.webm`],
                     green: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Green_800x800.webm`],
                     pink: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Pink_800x800.webm`],
@@ -4150,42 +4311,52 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             moonbeam: {
+                _free:['loop', 'nopulse', 'intro', 'outro'],
                 loop: {
+                    _free:['blue'],
                     blue: [l2`Moonbeam/Moonbeam_01_Regular_Blue_400x400.webm`],
                     green: [l2`Moonbeam/Moonbeam_01_Regular_Green_400x400.webm`],
                     rainbow: [l2`Moonbeam/Moonbeam_01_Regular_Rainbow_400x400.webm`],
                 },
                 nopulse: {
+                    _free:['blue'],
                     blue: [l2`Moonbeam/MoonbeamNoPulse_01_Regular_Blue_400x400.webm`],
                     green: [l2`Moonbeam/MoonbeamNoPulse_01_Regular_Green_400x400.webm`],
                     rainbow: [l2`Moonbeam/MoonbeamNoPulse_01_Regular_Rainbow_400x400.webm`],
                 },
                 intro: {
+                    _free:['blue'],
                     blue: [l2`Moonbeam/MoonbeamIntro_01_Regular_Blue_400x400.webm`],
                     green: [l2`Moonbeam/MoonbeamIntro_01_Regular_Green_400x400.webm`],
                     rainbow: [l2`Moonbeam/MoonbeamIntro_01_Regular_Rainbow_400x400.webm`],
                 },
                 outro: {
+                    _free:['blue'],
                     blue: [l2`Moonbeam/MoonbeamOutro_01_Regular_Blue_400x400.webm`],
                     green: [l2`Moonbeam/MoonbeamOutro_01_Regular_Green_400x400.webm`],
                     rainbow: [l2`Moonbeam/MoonbeamOutro_01_Regular_Rainbow_400x400.webm`],
                 },
             },
             musicnote: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [lg`Template/Circle/TemplateMusicNoteCircle_01_Regular_Blue_800x800.webm`],
                     darkred: [lg`Template/Circle/TemplateMusicNoteCircle_01_Dark_Red_800x800.webm`],
                     purple: [lg`Template/Circle/TemplateMusicNoteCircle_01_Regular_Purple_800x800.webm`],
                 },
             },
             outpulse: {
+                _free:['01', '02'],
                 '01': {
+                    _free:['whiteblue'],
                     whiteblue: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm`],
                     greenorange: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_GreenOrange_Burst_600x600.webm`],
                     purplepink: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_PurplePink_Burst_600x600.webm`],
                     tealyellow: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_TealYellow_Burst_600x600.webm`],
                 },
                 '02': {
+                    _free:['whiteblue'],
                     whiteblue: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm`],
                     greenorange: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_GreenOrange_Burst_600x600.webm`],
                     purplepink: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_PurplePink_Burst_600x600.webm`],
@@ -4193,13 +4364,17 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             poison: {
+                _free:['01'],
                 '01': {
+                    _free:['darkgreen'],
                     darkgreen: [lg`Template/Circle/TemplatePoisonCircle_01_Dark_Green_800x800.webm`],
                     purple: [lg`Template/Circle/TemplatePoisonCircle_01_Regular_Purple_800x800.webm`],
                 },
             },
             runes: {
+                _free:['01'],
                 '01': {
+                    _free:['orange'],
                     darkorange: [lg`Template/Circle/TemplateRunesCircle_01_Dark_Orange_800x800.webm`],
                     darkred: [lg`Template/Circle/TemplateRunesCircle_01_Dark_Red_800x800.webm`],
                     blue: [lg`Template/Circle/TemplateRunesCircle_01_Regular_Blue_800x800.webm`],
@@ -4208,7 +4383,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             shatter: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     purple: [l2`Shatter/Shatter_01_Purple_400x400.webm`],
                     red: [l2`Shatter/Shatter_01_Red_400x400.webm`],
                     blue: [l2`Shatter/Shatter_01_Blue_400x400.webm`],
@@ -4217,20 +4394,26 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             shields: {
+                _free:['01'],
                 '01': {
+                    _free:['green'],
                     darkred: [lg`Template/Circle/TemplateShieldCircle_01_Dark_Red_800x800.webm`],
                     green: [lg`Template/Circle/TemplateShieldCircle_01_Regular_Green_800x800.webm`],
                 },
             },
             skull: {
+                _free:['01'],
                 '01': {
+                    _free:['purple'],
                     darkgreen: [lg`Template/Circle/TemplateSkullCircle_01_Dark_Green_800x800.webm`],
                     darkorange: [lg`Template/Circle/TemplateSkullCircle_01_Dark_Orange_800x800.webm`],
                     purple: [lg`Template/Circle/TemplateSkullCircle_01_Regular_Purple_800x800.webm`],
                 },
             },
             sleetstorm: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [l3`Sleet_Storm/SleetStorm_01_Blue_800x800.webm`],
                     green: [l3`Sleet_Storm/SleetStorm_01_Green_800x800.webm`],
                     purple: [l3`Sleet_Storm/SleetStorm_01_Purple_800x800.webm`],
@@ -4238,19 +4421,25 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             snowflakes: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     darkblue: [lg`Template/Circle/TemplateSnowflakeCircle_01_Dark_Blue_800x800.webm`],
                     blue: [lg`Template/Circle/TemplateSnowflakeCircle_01_Regular_Blue_800x800.webm`],
                 },
             },
             stun: {
+                _free:['01'],
                 '01': {
+                    _free:['purple'],
                     darkteal: [lg`Template/Circle/TemplateStunCircle_01_Dark_Teal_800x800.webm`],
                     purple: [lg`Template/Circle/TemplateStunCircle_01_Regular_Purple_800x800.webm`],
                 },
             },
             snowflake: {
+                _free:['01'],
                 '01': {
+                    _free:['whiteblue'],
                     whiteblue: [lg`Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm`],
                     greenorange: [lg`Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm`],
                     purplepink: [lg`Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm`],
@@ -4258,19 +4447,23 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             vortex: {
+                _free:['loop', 'intro', 'outro'],
                 loop: {
+                    _free:['blue'],
                     black: [lg`Template/Circle/Vortex_01_Dark_Black_600x600.webm`],
                     blue: [lg`Template/Circle/Vortex_01_Regular_Blue_600x600.webm`],
                     green: [lg`Template/Circle/Vortex_01_Regular_Green_600x600.webm`],
                     purple: [lg`Template/Circle/Vortex_01_Regular_Purple_600x600.webm`]
                 },
                 intro: {
+                    _free:['blue'],
                     black: [lg`Template/Circle/VortexIntro_01_Dark_Black_600x600.webm`],
                     blue: [lg`Template/Circle/VortexIntro_01_Regular_Blue_600x600.webm`],
                     green: [lg`Template/Circle/VortexIntro_01_Regular_Green_600x600.webm`],
                     purple: [lg`Template/Circle/VortexIntro_01_Regular_Purple_600x600.webm`]
                 },
                 outro: {
+                    _free:['blue'],
                     black: [lg`Template/Circle/VortexOutro_01_Dark_Black_600x600.webm`],
                     blue: [lg`Template/Circle/VortexOutro_01_Regular_Blue_600x600.webm`],
                     green: [lg`Template/Circle/VortexOutro_01_Regular_Green_600x600.webm`],
@@ -4278,19 +4471,23 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             whirl: {
+                _free:['loop', 'intro', 'outro'],
                 loop: {
+                    _free:['blue'],
                     black: [lg`Template/Circle/Whirl_01_Dark_Black_600x600.webm`],
                     blue: [lg`Template/Circle/Whirl_01_Regular_Blue_600x600.webm`],
                     green: [lg`Template/Circle/Whirl_01_Regular_Green_600x600.webm`],
                     purple: [lg`Template/Circle/Whirl_01_Regular_Purple_600x600.webm`]
                 },
                 intro: {
+                    _free:['blue'],
                     black: [lg`Template/Circle/WhirlIntro_01_Dark_Black_600x600.webm`],
                     blue: [lg`Template/Circle/WhirlIntro_01_Regular_Blue_600x600.webm`],
                     green: [lg`Template/Circle/WhirlIntro_01_Regular_Green_600x600.webm`],
                     purple: [lg`Template/Circle/WhirlIntro_01_Regular_Purple_600x600.webm`]
                 },
                 outro: {
+                    _free:['blue'],
                     black: [lg`Template/Circle/WhirlOutro_01_Dark_Black_600x600.webm`],
                     blue: [lg`Template/Circle/WhirlOutro_01_Regular_Blue_600x600.webm`],
                     green: [lg`Template/Circle/WhirlOutro_01_Regular_Green_600x600.webm`],
@@ -4299,14 +4496,18 @@ export async function initializeJB2APatreonDB(path) {
             },
         },
         cone: {
+            _free:['breathweapon', 'breathweapon01', 'breatweapon02', 'coneofcold', 'burninghands'],
             breathweapon: {
+                _free:['cold', 'fire01', 'poison'],
                 'cold': {
+                    _free:['blue'],
                     blue: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Blue_30ft_Cone_Burst_600x600.webm`],
                     green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Green_30ft_Cone_Burst_600x600.webm`],
                     orange: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Orange_30ft_Cone_Burst_600x600.webm`],
                     purple: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Cold01_Regular_Purple_30ft_Cone_Burst_600x600.webm`],
                 },
                 'fire01': {
+                    _free:['orange'],
                     blue: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Blue_30ft_Cone_Burst_600x600.webm`],
                     green: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_Green_30ft_Cone_Burst_600x600.webm`],
                     multi: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire01_Regular_MultiColor01_30ft_Cone_Burst_600x600.webm`],
@@ -4327,6 +4528,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Fire02_Regular_Yellow_30ft_Cone_Burst_600x600.webm`],
                 },
                 'poison': {
+                    _free:['green'],
                     black: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Dark_Black_30ft_Cone_Burst_600x600.webm`],
                     blue: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Regular_Blue_30ft_Cone_Burst_600x600.webm`],
                     darkred: [lg`Template/Cone/Breath_Weapon/BreathWeapon_Poison01_Dark_Red_30ft_Cone_Burst_600x600.webm`],
@@ -4336,6 +4538,7 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             breathweaponspray01: {
+                _free:['burst', 'loop'],
                 burst: {
                     green: [lg`Template/Cone/Breath_Weapon/Breathweapon02_Fire01_Regular_Green_Cone_Burst_800x800.webm`],
                     orange: [lg`Template/Cone/Breath_Weapon/Breathweapon02_Fire01_Regular_Orange_Cone_Burst_800x800.webm`],
@@ -4350,13 +4553,16 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             breathweaponspray02: {
+                _free:['burst', 'loop'],
                 burst: {
+                    _free:['orange'],
                     green: [lg`Template/Cone/Breath_Weapon/Breathweapon02_Fire02_Regular_Green_Cone_Burst_800x800.webm`],
                     orange: [lg`Template/Cone/Breath_Weapon/Breathweapon02_Fire02_Regular_Orange_Cone_Burst_800x800.webm`],
                     yellow: [lg`Template/Cone/Breath_Weapon/Breathweapon02_Holy02_Regular_Yellow_Cone_Burst_800x800.webm`],
                     purple: [lg`Template/Cone/Breath_Weapon/Breathweapon02_Arcana02_Regular_Purple_Cone_Burst_800x800.webm`],
                 },
                 loop: {
+                    _free:['orange'],
                     green: [lg`Template/Cone/Breath_Weapon/Breathweapon02_Fire02_Regular_Green_Cone_Loop_800x800.webm`],
                     orange: [lg`Template/Cone/Breath_Weapon/Breathweapon02_Fire02_Regular_Orange_Cone_Loop_800x800.webm`],
                     yellow: [lg`Template/Cone/Breath_Weapon/Breathweapon02_Holy02_Regular_Yellow_Cone_Loop_800x800.webm`],
@@ -4364,7 +4570,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             coneofcold: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [l5`Cone_Of_Cold/ConeOfCold_01_Regular_Blue_600x600.webm`],
                     green: [l5`Cone_Of_Cold/ConeOfCold_01_Regular_Green_600x600.webm`],
                     orange: [l5`Cone_Of_Cold/ConeOfCold_01_Regular_Orange_600x600.webm`],
@@ -4372,7 +4580,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             burninghands: {
+                _free:['01'],
                 '01': {
+                    _free:['orange'],
                     blue: [l1`Burning_Hands/BurningHands_01_Regular_Blue_600x600.webm`],
                     green: [l1`Burning_Hands/BurningHands_01_Regular_Green_600x600.webm`],
                     orange: [l1`Burning_Hands/BurningHands_01_Regular_Orange_600x600.webm`],
@@ -4386,165 +4596,26 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
         },
-        square: {
-            armsofhadar: {
-                '01': {
-                    darkgreen: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Green_500x500.webm`],
-                    darkpurple: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Purple_500x500.webm`],
-                    darkred: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Red_500x500.webm`],
-                }
-            },
-            blacktentacles: {
-                '01': {
-                    darkgreen: [l4`Black_Tentacles/BlackTentacles_01_Dark_Green_600x600.webm`],
-                    darkpurple: [l4`Black_Tentacles/BlackTentacles_01_Dark_Purple_600x600.webm`],
-                    darkred: [l4`Black_Tentacles/BlackTentacles_01_Dark_Red_600x600.webm`],
-                },
-            },
-            crackedshield: {
-                '01': {
-                    darkred: [lg`Template/Square/TemplateShieldCrackedSquare_01_Dark_Red_600x600.webm`],
-                    darkpurple: [lg`Template/Square/TemplateShieldCrackedSquare_01_Regular_Purple_600x600.webm`],
-                },
-            },
-            drop: {
-                '01': {
-                    darkgreen: [lg`Template/Square/TemplateDropSquare_01_Dark_Green_600x600.webm`],
-                    red: [lg`Template/Square/TemplateDropSquare_01_Regular_Red_600x600.webm`]
-                }
-            },
-            entangle: {
-                '01': {
-                    brown: [l1`Entangle/Entangle_01_Brown_400x400.webm`],
-                    green: [l1`Entangle/Entangle_01_Green_400x400.webm`],
-                    yellow: [l1`Entangle/Entangle_01_Yellow_400x400.webm`],
-                    darkpurple: [l1`Entangle/Entangle_01_Dark_Purple_400x400.webm`],
-                    palegreen: [l1`Entangle/Entangle_01_Regular_Green02_400x400.webm`]
-                }
-            },
-            fear: {
-                '01': {
-                    darkorange: [lg`Template/Square/TemplateFearSquare_01_Dark_Orange_600x600.webm`],
-                    darkpurple: [lg`Template/Square/TemplateFearSquare_01_Dark_Purple_600x600.webm`],
-                    orange: [lg`Template/Square/TemplateFearSquare_01_Regular_Orange_600x600.webm`],
-                },
-            },
-            grease: {
-                "01": {
-                    brown: [l1`Grease/Grease_Dark_Brown_600x600.webm`],
-                    green: [l1`Grease/Grease_Dark_Green_600x600.webm`],
-                    grey: [l1`Grease/Grease_Dark_Grey_600x600.webm`],
-                    purple: [l1`Grease/Grease_Dark_Purple_600x600.webm`],
-                }
-            },
-            heart: {
-                '01': {
-                    darkred: [lg`Template/Square/TemplateHeartSquare_01_Dark_Red_600x600.webm`],
-                    pink: [lg`Template/Square/TemplateHeartSquare_01_Regular_Pink_600x600.webm`],
-                    teal: [lg`Template/Square/TemplateHeartSquare_01_Regular_Teal_600x600.webm`],
-                },
-            },
-            horror: {
-                '01': {
-                    darkteal: [lg`Template/Square/TemplateHorrorSquare_01_Dark_Teal_600x600.webm`],
-                    purple: [lg`Template/Square/TemplateHorrorSquare_01_Regular_Purple_600x600.webm`],
-                    teal: [lg`Template/Square/TemplateHorrorSquare_01_Regular_Teal_600x600.webm`],
-                },
-            },
-            musicnote: {
-                '01': {
-                    blue: [lg`Template/Square/TemplateMusicNoteSquare_01_Regular_Blue_600x600.webm`],
-                    darkred: [lg`Template/Square/TemplateMusicNoteSquare_01_Dark_Red_600x600.webm`],
-                    purple: [lg`Template/Square/TemplateMusicNoteSquare_01_Regular_Purple_600x600.webm`],
-                },
-            },
-            poison: {
-                '01': {
-                    darkgreen: [lg`Template/Square/TemplatePoisonSquare_01_Dark_Green_600x600.webm`],
-                    purple: [lg`Template/Square/TemplatePoisonSquare_01_Regular_Purple_600x600.webm`],
-                },
-            },
-            runes: {
-                '01': {
-                    darkorange: [lg`Template/Square/TemplateRunesSquare_01_Dark_Orange_600x600.webm`],
-                    darkred: [lg`Template/Square/TemplateRunesSquare_01_Dark_Red_600x600.webm`],
-                    blue: [lg`Template/Square/TemplateRunesSquare_01_Regular_Blue_600x600.webm`],
-                    green: [lg`Template/Square/TemplateRunesSquare_01_Regular_Green02_600x600.webm`],
-                    orange: [lg`Template/Square/TemplateRunesSquare_01_Regular_Orange_600x600.webm`],
-                },
-            },
-            shields: {
-                '01': {
-                    darkred: [lg`Template/Square/TemplateShieldSquare_01_Dark_Red_600x600.webm`],
-                    green: [lg`Template/Square/TemplateShieldSquare_01_Regular_Green_600x600.webm`],
-                },
-            },
-            snowflakes: {
-                '01': {
-                    darkblue: [lg`Template/Square/TemplateSnowflakeSquare_01_Dark_Blue_600x600.webm`],
-                    blue: [lg`Template/Square/TemplateSnowflakeSquare_01_Regular_Blue_600x600.webm`],
-                },
-            },
-            skull: {
-                '01': {
-                    darkgreen: [lg`Template/Square/TemplateSkullSquare_01_Dark_Green_600x600.webm`],
-                    darkorange: [lg`Template/Square/TemplateSkullSquare_01_Dark_Orange_600x600.webm`],
-                    purple: [lg`Template/Square/TemplateSkullSquare_01_Regular_Purple_600x600.webm`],
-                },
-            },
-            stun: {
-                '01': {
-                    darkteal: [lg`Template/Square/TemplateStunSquare_01_Dark_Teal_600x600.webm`],
-                    purple: [lg`Template/Square/TemplateStunSquare_01_Regular_Purple_600x600.webm`],
-                },
-            },
-            thunderwave: {
-                left: {
-                    blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`],
-                    green: [l1`Thunderwave/Thunderwave_01_Bright_Green_BLeft_600x600.webm`],
-                    orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_BLeft_600x600.webm`],
-                    purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_BLeft_600x600.webm`],
-                    red: [l1`Thunderwave/Thunderwave_01_Dark_Red_BLeft_600x600.webm`],
-                },
-                mid: {
-                    blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`],
-                    green: [l1`Thunderwave/Thunderwave_01_Bright_Green_BMid_600x600.webm`],
-                    orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_BMid_600x600.webm`],
-                    purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_BMid_600x600.webm`],
-                    red: [l1`Thunderwave/Thunderwave_01_Dark_Red_BMid_600x600.webm`],
-                },
-                center: {
-                    blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`],
-                    green: [l1`Thunderwave/Thunderwave_01_Bright_Green_Center_600x600.webm`],
-                    orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_Center_600x600.webm`],
-                    purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_Center_600x600.webm`],
-                    red: [l1`Thunderwave/Thunderwave_01_Dark_Red_Center_600x600.webm`],
-                },
-            },
-            web: {
-                '01': {
-                    white: [l2`Web/Web_01_White_01_400x400.webm`]
-                },
-                '02': {
-                    white: [l2`Web/Web_01_White_02_400x400.webm`]
-                }
-            },
-        },
         ray: {
+            _free:['breathweapon', 'lightningbolt', 'gustofwind'],
             breathweapon: {
+                _free:['acid', 'fire', 'lightning'],
                 acid: {
+                    _free:['green'],
                     blue: [lg`Template/Line/Breath_Weapon/BreathWeapon_Acid01_Regular_Blue_30ft_Line_Burst_1200x200.webm`],
                     green: [lg`Template/Line/Breath_Weapon/BreathWeapon_Acid01_Regular_Green_30ft_Line_Burst_1200x200.webm`],
                     orange: [lg`Template/Line/Breath_Weapon/BreathWeapon_Acid01_Regular_Orange_30ft_Line_Burst_1200x200.webm`],
                     purple: [lg`Template/Line/Breath_Weapon/BreathWeapon_Acid01_Regular_Purple_30ft_Line_Burst_1200x200.webm`],
                 },
                 fire: {
+                    _free:['orange'],
                     blue: [lg`Template/Line/Breath_Weapon/BreathWeapon_Fire01_Regular_Blue_30ft_Line_Burst_1200x200.webm`],
                     green: [lg`Template/Line/Breath_Weapon/BreathWeapon_Fire01_Regular_Green_30ft_Line_Burst_1200x200.webm`],
                     orange: [lg`Template/Line/Breath_Weapon/BreathWeapon_Fire01_Regular_Orange_30ft_Line_Burst_1200x200.webm`],
                     purple: [lg`Template/Line/Breath_Weapon/BreathWeapon_Fire01_Regular_Purple_30ft_Line_Burst_1200x200.webm`],
                 },
                 lightning: {
+                    _free:['blue'],
                     blue: [lg`Template/Line/Breath_Weapon/BreathWeapon_Lightning01_Regular_Blue_30ft_Line_Burst_1200x200.webm`],
                     green: [lg`Template/Line/Breath_Weapon/BreathWeapon_Lightning01_Regular_Green_30ft_Line_Burst_1200x200.webm`],
                     orange: [lg`Template/Line/Breath_Weapon/BreathWeapon_Lightning01_Regular_Orange_30ft_Line_Burst_1200x200.webm`],
@@ -4567,7 +4638,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             lightningbolt: {
+                _free:['01', '02'],
                 '01': {
+                    _free:['blue'],
                     darkblue: [l3`Lightning_Bolt/LightningBolt_01_Dark_Blue_4000x200.webm`],
                     blue: [l3`Lightning_Bolt/LightningBolt_01_Regular_Blue_4000x200.webm`],
                     green: [l3`Lightning_Bolt/LightningBolt_01_Regular_Green_4000x200.webm`],
@@ -4576,6 +4649,7 @@ export async function initializeJB2APatreonDB(path) {
                     red: [l3`Lightning_Bolt/LightningBolt_01_Regular_Red_4000x200.webm`],
                 },
                 '02': {
+                    _free:['blue'],
                     darkblue: [l3`Lightning_Bolt/LightningBolt_01_Dark_Blue_4000x400.webm`],
                     blue: [l3`Lightning_Bolt/LightningBolt_01_Regular_Blue_4000x400.webm`],
                     green: [l3`Lightning_Bolt/LightningBolt_01_Regular_Green_4000x400.webm`],
@@ -4585,14 +4659,202 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             gustofwind: {
+                _free:['slow', 'fast'],
                 slow: {
+                    _free:['white'],
                     white: [l2`Gust_Of_Wind/GustOfWind_01_White_1200x200.webm`]
                 },
                 fast: {
+                    _free:['white'],
                     white: [l2`Gust_Of_Wind/GustOfWind_01_White_VeryFast_1200x200.webm`]
                 },
             },
 
+        },
+        square: {
+            _free:['armsofhadar', 'blacktentacles', 'crackedshield', 'drop', 'entangle', 'fear', 'grease', 'heart',
+                    'horror', 'musicnote', 'poison', 'runes', 'shields', 'snowflakes', 'skull', 'stun',
+                    'thunderwave', 'web'],
+            armsofhadar: {
+                _free:['01'],
+                '01': {
+                    _free:['darkpurple'],
+                    darkgreen: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Green_500x500.webm`],
+                    darkpurple: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Purple_500x500.webm`],
+                    darkred: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Red_500x500.webm`],
+                }
+            },
+            blacktentacles: {
+                _free:['01'],
+                '01': {
+                    _free:['darkpurple'],
+                    darkgreen: [l4`Black_Tentacles/BlackTentacles_01_Dark_Green_600x600.webm`],
+                    darkpurple: [l4`Black_Tentacles/BlackTentacles_01_Dark_Purple_600x600.webm`],
+                    darkred: [l4`Black_Tentacles/BlackTentacles_01_Dark_Red_600x600.webm`],
+                },
+            },
+            crackedshield: {
+                _free:['01'],
+                '01': {
+                    _free:['darkpurple'],
+                    darkred: [lg`Template/Square/TemplateShieldCrackedSquare_01_Dark_Red_600x600.webm`],
+                    darkpurple: [lg`Template/Square/TemplateShieldCrackedSquare_01_Regular_Purple_600x600.webm`],
+                },
+            },
+            drop: {
+                _free:['01'],
+                '01': {
+                    _free:['red'],
+                    darkgreen: [lg`Template/Square/TemplateDropSquare_01_Dark_Green_600x600.webm`],
+                    red: [lg`Template/Square/TemplateDropSquare_01_Regular_Red_600x600.webm`]
+                }
+            },
+            entangle: {
+                _free:['01'],
+                '01': {
+                    _free:['brown', 'green', 'yellow'],
+                    brown: [l1`Entangle/Entangle_01_Brown_400x400.webm`],
+                    green: [l1`Entangle/Entangle_01_Green_400x400.webm`],
+                    yellow: [l1`Entangle/Entangle_01_Yellow_400x400.webm`],
+                    darkpurple: [l1`Entangle/Entangle_01_Dark_Purple_400x400.webm`],
+                    palegreen: [l1`Entangle/Entangle_01_Regular_Green02_400x400.webm`]
+                }
+            },
+            fear: {
+                _free:['01'],
+                '01': {
+                    _free:['darkpurple'],
+                    darkorange: [lg`Template/Square/TemplateFearSquare_01_Dark_Orange_600x600.webm`],
+                    darkpurple: [lg`Template/Square/TemplateFearSquare_01_Dark_Purple_600x600.webm`],
+                    orange: [lg`Template/Square/TemplateFearSquare_01_Regular_Orange_600x600.webm`],
+                },
+            },
+            grease: {
+                _free:['01'],
+                "01": {
+                    _free:['brown'],
+                    brown: [l1`Grease/Grease_Dark_Brown_600x600.webm`],
+                    green: [l1`Grease/Grease_Dark_Green_600x600.webm`],
+                    grey: [l1`Grease/Grease_Dark_Grey_600x600.webm`],
+                    purple: [l1`Grease/Grease_Dark_Purple_600x600.webm`],
+                }
+            },
+            heart: {
+                _free:['01'],
+                '01': {
+                    _free:['pink'],
+                    darkred: [lg`Template/Square/TemplateHeartSquare_01_Dark_Red_600x600.webm`],
+                    pink: [lg`Template/Square/TemplateHeartSquare_01_Regular_Pink_600x600.webm`],
+                    teal: [lg`Template/Square/TemplateHeartSquare_01_Regular_Teal_600x600.webm`],
+                },
+            },
+            horror: {
+                _free:['01'],
+                '01': {
+                    _free:['purple'],
+                    darkteal: [lg`Template/Square/TemplateHorrorSquare_01_Dark_Teal_600x600.webm`],
+                    purple: [lg`Template/Square/TemplateHorrorSquare_01_Regular_Purple_600x600.webm`],
+                    teal: [lg`Template/Square/TemplateHorrorSquare_01_Regular_Teal_600x600.webm`],
+                },
+            },
+            musicnote: {
+                _free:['01'],
+                '01': {
+                    _free:['blue'],
+                    blue: [lg`Template/Square/TemplateMusicNoteSquare_01_Regular_Blue_600x600.webm`],
+                    darkred: [lg`Template/Square/TemplateMusicNoteSquare_01_Dark_Red_600x600.webm`],
+                    purple: [lg`Template/Square/TemplateMusicNoteSquare_01_Regular_Purple_600x600.webm`],
+                },
+            },
+            poison: {
+                _free:['01'],
+                '01': {
+                    _free:['darkgreen'],
+                    darkgreen: [lg`Template/Square/TemplatePoisonSquare_01_Dark_Green_600x600.webm`],
+                    purple: [lg`Template/Square/TemplatePoisonSquare_01_Regular_Purple_600x600.webm`],
+                },
+            },
+            runes: {
+                _free:['01'],
+                '01': {
+                    _free:['orange'],
+                    darkorange: [lg`Template/Square/TemplateRunesSquare_01_Dark_Orange_600x600.webm`],
+                    darkred: [lg`Template/Square/TemplateRunesSquare_01_Dark_Red_600x600.webm`],
+                    blue: [lg`Template/Square/TemplateRunesSquare_01_Regular_Blue_600x600.webm`],
+                    green: [lg`Template/Square/TemplateRunesSquare_01_Regular_Green02_600x600.webm`],
+                    orange: [lg`Template/Square/TemplateRunesSquare_01_Regular_Orange_600x600.webm`],
+                },
+            },
+            shields: {
+                _free:['01'],
+                '01': {
+                    _free:['green'],
+                    darkred: [lg`Template/Square/TemplateShieldSquare_01_Dark_Red_600x600.webm`],
+                    green: [lg`Template/Square/TemplateShieldSquare_01_Regular_Green_600x600.webm`],
+                },
+            },
+            snowflakes: {
+                _free:['01'],
+                '01': {
+                    _free:['blue'],
+                    darkblue: [lg`Template/Square/TemplateSnowflakeSquare_01_Dark_Blue_600x600.webm`],
+                    blue: [lg`Template/Square/TemplateSnowflakeSquare_01_Regular_Blue_600x600.webm`],
+                },
+            },
+            skull: {
+                _free:['01'],
+                '01': {
+                    _free:['purple'],
+                    darkgreen: [lg`Template/Square/TemplateSkullSquare_01_Dark_Green_600x600.webm`],
+                    darkorange: [lg`Template/Square/TemplateSkullSquare_01_Dark_Orange_600x600.webm`],
+                    purple: [lg`Template/Square/TemplateSkullSquare_01_Regular_Purple_600x600.webm`],
+                },
+            },
+            stun: {
+                _free:['01'],
+                '01': {
+                    _free:['purple'],
+                    darkteal: [lg`Template/Square/TemplateStunSquare_01_Dark_Teal_600x600.webm`],
+                    purple: [lg`Template/Square/TemplateStunSquare_01_Regular_Purple_600x600.webm`],
+                },
+            },
+            thunderwave: {
+                _free:['left', 'mid', 'center'],
+                left: {
+                    _free:['blue'],
+                    blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`],
+                    green: [l1`Thunderwave/Thunderwave_01_Bright_Green_BLeft_600x600.webm`],
+                    orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_BLeft_600x600.webm`],
+                    purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_BLeft_600x600.webm`],
+                    red: [l1`Thunderwave/Thunderwave_01_Dark_Red_BLeft_600x600.webm`],
+                },
+                mid: {
+                    _free:['blue'],
+                    blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`],
+                    green: [l1`Thunderwave/Thunderwave_01_Bright_Green_BMid_600x600.webm`],
+                    orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_BMid_600x600.webm`],
+                    purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_BMid_600x600.webm`],
+                    red: [l1`Thunderwave/Thunderwave_01_Dark_Red_BMid_600x600.webm`],
+                },
+                center: {
+                    _free:['blue'],
+                    blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`],
+                    green: [l1`Thunderwave/Thunderwave_01_Bright_Green_Center_600x600.webm`],
+                    orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_Center_600x600.webm`],
+                    purple: [l1`Thunderwave/Thunderwave_01_Dark_Purple_Center_600x600.webm`],
+                    red: [l1`Thunderwave/Thunderwave_01_Dark_Red_Center_600x600.webm`],
+                },
+            },
+            web: {
+                _free:['01'],
+                '01': {
+                    _free:['white'],
+                    white: [l2`Web/Web_01_White_01_400x400.webm`]
+                },
+                '02': {
+                    white: [l2`Web/Web_01_White_02_400x400.webm`]
+                }
+            },
         },
     }
 
@@ -4617,7 +4879,11 @@ export async function initializeJB2APatreonDB(path) {
      * 
      */
     JB2APATREONDB.static = {
+        _free:['chains', 'conditions', 'creature', 'energy', 'fire', 'generic', 'ice', 'lightning', 
+                'liquid', 'magicsign', 'marker', 'music', 'particles', 'shieldfx', 'shieldspell',
+                'shrapnel', 'spell', 'tokenborder', 'trap'],
         chains: {
+            _free:['standard'],
             diamond: {
                 '01': {
                     blue: [lg`Marker/MarkerChainDiamond01_01_Regular_Blue_Loop_400x400.webm`],
@@ -4691,7 +4957,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             standard: {
+                _free:['01', 'complete', 'loop'],
                 '01': {
+                    _free:['red'],
                     blue: [lg`Marker/MarkerChainStandard01_01_Regular_Blue_Loop_400x400.webm`],
                     purple: [lg`Marker/MarkerChainStandard01_01_Regular_Purple_Loop_400x400.webm`],
                     red: [lg`Marker/MarkerChainStandard01_01_Regular_Red_Loop_400x400.webm`],
@@ -4702,12 +4970,14 @@ export async function initializeJB2APatreonDB(path) {
                         loop: { start: 2033, end: 7000 },
                         forcedEnd: 7933
                     },
+                    _free:['red'],
                     blue: [lg`Marker/MarkerChainStandard01_02_Regular_Blue_Complete_400x400.webm`],
                     purple: [lg`Marker/MarkerChainStandard01_02_Regular_Purple_Complete_400x400.webm`],
                     red: [lg`Marker/MarkerChainStandard01_02_Regular_Red_Complete_400x400.webm`],
                     yellow: [lg`Marker/MarkerChainStandard01_02_Regular_Yellow_Complete_400x400.webm`],
                 },
                 loop: {
+                    _free:['red'],
                     blue: [lg`Marker/MarkerChainStandard01_02_Regular_Blue_Loop_400x400.webm`],
                     purple: [lg`Marker/MarkerChainStandard01_02_Regular_Purple_Loop_400x400.webm`],
                     red: [lg`Marker/MarkerChainStandard01_02_Regular_Red_Loop_400x400.webm`],
@@ -4717,98 +4987,121 @@ export async function initializeJB2APatreonDB(path) {
         },
         conditions: {
             drop: {
+                _free:['02', '03'],
                 '01': {
                     green: [lg`Marker/MarkerDrop_01_Dark_Green_400x400.webm`],
                     red: [lg`Marker/MarkerDrop_01_Regular_Red_400x400.webm`],
                 },
                 '02': {
+                    _free:['red'],
                     green: [lg`Marker/MarkerDrop_02_Dark_Green_400x400.webm`],
                     red: [lg`Marker/MarkerDrop_02_Regular_Red_400x400.webm`],
                 },
                 '03': {
+                    _free:['red'],
                     green: [lg`Marker/MarkerDrop_03_Dark_Green_400x400.webm`],
                     red: [lg`Marker/MarkerDrop_03_Regular_Red_400x400.webm`],
                 },
             },
             fear: {
+                _free:['01', '02', '03'],
                 '01': {
+                    _free:['darkpurple'],
                     orange: [lg`Marker/MarkerFear_01_Regular_Orange_400x400.webm`],
                     darkorange: [lg`Marker/MarkerFear_01_Dark_Orange_400x400.webm`],
                     darkpurple: [lg`Marker/MarkerFear_01_Dark_Purple_400x400.webm`],
                 },
                 '02': {
+                    _free:['darkpurple'],
                     orange: [lg`Marker/MarkerFear_02_Regular_Orange_400x400.webm`],
                     darkorange: [lg`Marker/MarkerFear_02_Dark_Orange_400x400.webm`],
                     darkpurple: [lg`Marker/MarkerFear_02_Dark_Purple_400x400.webm`],
                 },
                 '03': {
+                    _free:['darkpurple'],
                     orange: [lg`Marker/MarkerFear_03_Regular_Orange_400x400.webm`],
                     darkorange: [lg`Marker/MarkerFear_03_Dark_Orange_400x400.webm`],
                     darkpurple: [lg`Marker/MarkerFear_03_Dark_Purple_400x400.webm`],
                 },
             },
             heart: {
+                _free:['01', '02', '03'],
                 '01': {
+                    _free:['pink'],
                     darkred: [lg`Marker/MarkerHeart_01_Dark_Red_400x400.webm`],
                     pink: [lg`Marker/MarkerHeart_01_Regular_Pink_400x400.webm`],
                     teal: [lg`Marker/MarkerHeart_01_Regular_Teal_400x400.webm`],
                 },
                 '02': {
+                    _free:['pink'],
                     darkred: [lg`Marker/MarkerHeart_02_Dark_Red_400x400.webm`],
                     pink: [lg`Marker/MarkerHeart_02_Regular_Pink_400x400.webm`],
                     teal: [lg`Marker/MarkerHeart_02_Regular_Teal_400x400.webm`],
                 },
                 '03': {
+                    _free:['pink'],
                     darkred: [lg`Marker/MarkerHeart_03_Dark_Red_400x400.webm`],
                     pink: [lg`Marker/MarkerHeart_03_Regular_Pink_400x400.webm`],
                     teal: [lg`Marker/MarkerHeart_03_Regular_Teal_400x400.webm`],
                 },
             },
             horror: {
+                _free:['01', '02', '03'],
                 '01': {
+                    _free:['purple'],
                     purple: [lg`Marker/MarkerHorror_01_Regular_Purple_400x400.webm`],
                     teal: [lg`Marker/MarkerHorror_01_Regular_Teal_400x400.webm`],
                     darkteal: [lg`Marker/MarkerHorror_01_Dark_Teal_400x400.webm`],
                 },
                 '02': {
+                    _free:['purple'],
                     purple: [lg`Marker/MarkerHorror_02_Regular_Purple_400x400.webm`],
                     teal: [lg`Marker/MarkerHorror_02_Dark_Teal_400x400.webm`],
                     darkteal: [lg`Marker/MarkerHorror_02_Dark_Teal_400x400.webm`],
                 },
                 '03': {
+                    _free:['purple'],
                     purple: [lg`Marker/MarkerHorror_03_Regular_Purple_400x400.webm`],
                     teal: [lg`Marker/MarkerHorror_02_Regular_Teal_400x400.webm`],
                     darkteal: [lg`Marker/MarkerHorror_03_Dark_Teal_400x400.webm`],
                 },
             },
             light: {
+                _free:['pulse', 'nopulse'],
                 pulse: {
+                    _free:['blue'],
                     blue: [lg`Marker/MarkerLight_01_Regular_Blue_400x400.webm`],
                     green: [lg`Marker/MarkerLight_01_Regular_Green_400x400.webm`],
                     yellow: [lg`Marker/MarkerLight_01_Regular_Yellow_400x400.webm`],
                 },
                 nopulse: {
+                    _free:['blue'],
                     blue: [lg`Marker/MarkerLightNoPulse_01_Regular_Blue_400x400.webm`],
                     green: [lg`Marker/MarkerLightNoPulse_01_Regular_Green_400x400.webm`],
                     yellow: [lg`Marker/MarkerLightNoPulse_01_Regular_Yellow_400x400.webm`],
                 },
             },
             poison: {
+                _free:['02', '03'],
                 '01': {
                     darkgreen: [lg`Marker/MarkerPoison_01_Dark_Green_400x400.webm`],
                     purple: [lg`Marker/MarkerPoison_01_Regular_Purple_400x400.webm`],
                 },
                 '02': {
+                    _free:['darkgreen'],
                     darkgreen: [lg`Marker/MarkerPoison_02_Dark_Green_400x400.webm`],
                     purple: [lg`Marker/MarkerPoison_02_Regular_Purple_400x400.webm`],
                 },
                 '03': {
+                    _free:['darkgreen'],
                     darkgreen: [lg`Marker/MarkerPoison_03_Dark_Green_400x400.webm`],
                     purple: [lg`Marker/MarkerPoison_03_Regular_Purple_400x400.webm`],
                 },
             },
             runes: {
+                _free:['01', '02', '03'],
                 '01': {
+                    _free:['darkorange'],
                     black: [lg`Marker/MarkerRunes_01_Dark_Black_400x400.webm`],
                     blue: [lg`Marker/MarkerRunes_01_Regular_Blue_400x400.webm`],
                     darkorange: [lg`Marker/MarkerRunes_01_Dark_Orange_400x400.webm`],
@@ -4820,6 +5113,7 @@ export async function initializeJB2APatreonDB(path) {
                     white: [lg`Marker/MarkerRunes_01_Regular_White_400x400.webm`],
                 },
                 '02': {
+                    _free:['orange'],
                     black: [lg`Marker/MarkerRunes_02_Dark_Black_400x400.webm`],
                     blue: [lg`Marker/MarkerRunes_02_Regular_Blue_400x400.webm`],
                     darkorange: [lg`Marker/MarkerRunes_02_Dark_Orange_400x400.webm`],
@@ -4831,6 +5125,7 @@ export async function initializeJB2APatreonDB(path) {
                     white: [lg`Marker/MarkerRunes_02_Regular_White_400x400.webm`],
                 },
                 '03': {
+                    _free:['orange'],
                     black: [lg`Marker/MarkerRunes_03_Dark_Black_400x400.webm`],
                     blue: [lg`Marker/MarkerRunes_03_Regular_Blue_400x400.webm`],
                     darkorange: [lg`Marker/MarkerRunes_03_Dark_Orange_400x400.webm`],
@@ -4843,83 +5138,101 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             shields: {
+                _free:['02', '03'],
                 '01': {
                     blue: [lg`Marker/MarkerShield_01_Regular_Blue_400x400.webm`],
                     darkred: [lg`Marker/MarkerShield_01_Dark_Red_400x400.webm`],
                     green: [lg`Marker/MarkerShield_01_Regular_Green_400x400.webm`],
                 },
                 '02': {
+                    _free:['green'],
                     blue: [lg`Marker/MarkerShield_02_Regular_Blue_400x400.webm`],
                     darkred: [lg`Marker/MarkerShield_02_Dark_Red_400x400.webm`],
                     green: [lg`Marker/MarkerShield_02_Regular_Green_400x400.webm`],
                 },
                 '03': {
+                    _free:['green'],
                     blue: [lg`Marker/MarkerShield_03_Regular_Blue_400x400.webm`],
                     darkred: [lg`Marker/MarkerShield_03_Dark_Red_400x400.webm`],
                     green: [lg`Marker/MarkerShield_03_Regular_Green_400x400.webm`],
                 },
             },
             crackedshield: {
+                _free:['02', '03'],
                 '01': {
                     darkred: [lg`Marker/MarkerShieldCracked_01_Dark_Red_400x400.webm`],
                     purple: [lg`Marker/MarkerShieldCracked_01_Regular_Purple_400x400.webm`],
                 },
                 '02': {
+                    _free:['purple'],
                     darkred: [lg`Marker/MarkerShieldCracked_02_Dark_Red_400x400.webm`],
                     purple: [lg`Marker/MarkerShieldCracked_02_Regular_Purple_400x400.webm`],
                 },
                 '03': {
+                    _free:['purple'],
                     darkred: [lg`Marker/MarkerShieldCracked_03_Dark_Red_400x400.webm`],
                     purple: [lg`Marker/MarkerShieldCracked_03_Regular_Purple_400x400.webm`],
                 },
             },
             skull: {
+                _free:['01', '02', '03'],
                 '01': {
+                    _free:['darkorange'],
                     darkgreen: [lg`Marker/MarkerSkull_01_Dark_Green_400x400.webm`],
                     darkorange: [lg`Marker/MarkerSkull_01_Dark_Orange_400x400.webm`],
                     purple: [lg`Marker/MarkerSkull_01_Regular_Purple_400x400.webm`],
                 },
                 '02': {
+                    _free:['purple'],
                     darkgreen: [lg`Marker/MarkerSkull_02_Dark_Green_400x400.webm`],
                     darkorange: [lg`Marker/MarkerSkull_02_Dark_Orange_400x400.webm`],
                     purple: [lg`Marker/MarkerSkull_02_Regular_Purple_400x400.webm`],
                 },
                 '03': {
+                    _free:['purple'],
                     darkgreen: [lg`Marker/MarkerSkull_03_Dark_Green_400x400.webm`],
                     darkorange: [lg`Marker/MarkerSkull_03_Dark_Orange_400x400.webm`],
                     purple: [lg`Marker/MarkerSkull_03_Regular_Purple_400x400.webm`],
                 },
             },
             snowflakes: {
+                _free:['02', '03'],
                 '01': {
                     darkblue: [lg`Marker/MarkerSnowflake_01_Dark_Blue_400x400.webm`],
                     blue: [lg`Marker/MarkerSnowflake_01_Regular_Blue_400x400.webm`],
                 },
                 '02': {
+                    _free:['blue'],
                     darkblue: [lg`Marker/MarkerSnowflake_02_Dark_Blue_400x400.webm`],
                     blue: [lg`Marker/MarkerSnowflake_02_Regular_Blue_400x400.webm`],
                 },
                 '03': {
+                    _free:['blue'],
                     darkblue: [lg`Marker/MarkerSnowflake_03_Dark_Blue_400x400.webm`],
                     blue: [lg`Marker/MarkerSnowflake_03_Regular_Blue_400x400.webm`],
                 },
             },
             stun: {
+                _free:['02', '03'],
                 '01': {
                     darkteal: [lg`Marker/MarkerStun_01_Dark_Teal_400x400.webm`],
                     purple: [lg`Marker/MarkerStun_01_Regular_Purple_400x400.webm`],
                 },
                 '02': {
+                    _free:['purple'],
                     darkteal: [lg`Marker/MarkerStun_02_Dark_Teal_400x400.webm`],
                     purple: [lg`Marker/MarkerStun_02_Regular_Purple_400x400.webm`],
                 },
                 '03': {
+                    _free:['purple'],
                     darkteal: [lg`Marker/MarkerStun_03_Dark_Teal_400x400.webm`],
                     purple: [lg`Marker/MarkerStun_03_Regular_Purple_400x400.webm`],
                 },
             },
             dizzystars: {
+                _free:['01'],
                 '01': {
+                    _free:['blueorange'],
                     black: [lg`Conditions/Dizzy_Stars/DizzyStars_01_Black_400x400.webm`],
                     blueorange: [lg`Conditions/Dizzy_Stars/DizzyStars_01_BlueOrange_400x400.webm`],
                     green: [lg`Conditions/Dizzy_Stars/DizzyStars_01_Green_400x400.webm`],
@@ -4933,8 +5246,10 @@ export async function initializeJB2APatreonDB(path) {
             },
         },
         creature: {
+            _free:['bite', 'claw'],
             bite: {
                 '01': {
+                    _free:['red'],
                     red: [lg`Creature/Bite_01_Regular_Red_400x400.webm`],
                     blue: [lg`Creature/Bite_01_Regular_Blue_400x400.webm`],
                     green: [lg`Creature/Bite_01_Regular_Green_400x400.webm`],
@@ -4946,6 +5261,7 @@ export async function initializeJB2APatreonDB(path) {
             },
             claw: {
                 '01': {
+                    _free:['red'],
                     blue: [lg`Creature/Claws_01_Bright_Blue_400x400.webm`],
                     brown: [lg`Creature/Claws_01_Regular_Brown_400x400.webm`],
                     darkred: [lg`Creature/Claws_01_Dark_Red_400x400.webm`],
@@ -4958,8 +5274,11 @@ export async function initializeJB2APatreonDB(path) {
             },
         },
         energy: {
+            _free:['energyfield', 'shimmer', 'sparkles', 'strands'],
             energyfield: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [lg`Energy/EnergyField_01_Regular_Blue_600x600.webm`],
                     green: [lg`Energy/EnergyField_01_Regular_Green_600x600.webm`],
                     rainbow: [lg`Energy/EnergyField_01_Regular_Rainbow_600x600.webm`],
@@ -4996,7 +5315,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             shimmer: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [lg`Energy/Shimmer01_01_Regular_Blue_400x400.webm`],
                     green: [lg`Energy/Shimmer01_01_Regular_Green_400x400.webm`],
                     orange: [lg`Energy/Shimmer01_01_Regular_Orange_400x400.webm`],
@@ -5004,7 +5325,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             sparkles: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [lg`Energy/SwirlingSparkles_01_Regular_Blue_400x400.webm`],
                     bluepink: [lg`Energy/SwirlingSparkles_01_Regular_BluePink_400x400.webm`],
                     greenorange: [lg`Energy/SwirlingSparkles_01_Regular_GreenOrange_400x400.webm`],
@@ -5012,7 +5335,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             strands: {
+                _free:['01', '02', '03'],
                 '01': {
+                    _free:['green'],
                     blue: [lg`Energy/EnergyStrandIN01_01_Regular_Blue_600x600.webm`],
                     green: [lg`Energy/EnergyStrandIN01_01_Regular_Green_600x600.webm`],
                     purple: [lg`Energy/EnergyStrandIN01_01_Regular_Purple_600x600.webm`],
@@ -5020,6 +5345,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Energy/EnergyStrandIN01_01_Regular_Yellow_600x600.webm`],
                 },
                 '02': {
+                    _free:['green'],
                     blue: [lg`Energy/EnergyStrandIN01_02_Regular_Blue_600x600.webm`],
                     green: [lg`Energy/EnergyStrandIN01_02_Regular_Green_600x600.webm`],
                     purple: [lg`Energy/EnergyStrandIN01_02_Regular_Purple_600x600.webm`],
@@ -5027,6 +5353,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Energy/EnergyStrandIN01_02_Regular_Yellow_600x600.webm`],
                 },
                 '03': {
+                    _free:['green'],
                     blue: [lg`Energy/EnergyStrandIN01_03_Regular_Blue_600x600.webm`],
                     green: [lg`Energy/EnergyStrandIN01_03_Regular_Green_600x600.webm`],
                     purple: [lg`Energy/EnergyStrandIN01_03_Regular_Purple_600x600.webm`],
@@ -5036,27 +5363,34 @@ export async function initializeJB2APatreonDB(path) {
             },
         },
         fire: {
+            _free:['eruption', 'groundcrack', 'fireworks'],
             eruption: {
+                _free:['01'],
                 '01': {
+                    _free:['orange'],
                     blue: [lg`Fire/Eruption_01_Regular_Blue_600x600.webm`],
                     green: [lg`Fire/Eruption_01_Regular_Green_600x600.webm`],
                     orange: [lg`Fire/Eruption_01_Regular_Orange_600x600.webm`]
                 },
             },
             groundcrack: {
+                _free:['01', '02', '03'],
                 '01': {
+                    _free:['orange'],
                     blue: [lg`Fire/GroundCrackLoop_01_Regular_Blue_600x600.webm`],
                     green: [lg`Fire/GroundCrackLoop_01_Regular_Green_600x600.webm`],
                     orange: [lg`Fire/GroundCrackLoop_01_Regular_Orange_600x600.webm`],
                     purple: [lg`Fire/GroundCrackLoop_01_Regular_Purple_600x600.webm`],
                 },
                 '02': {
+                    _free:['orange'],
                     blue: [lg`Fire/GroundCrackLoop_02_Regular_Blue_600x600.webm`],
                     green: [lg`Fire/GroundCrackLoop_02_Regular_Green_600x600.webm`],
                     orange: [lg`Fire/GroundCrackLoop_02_Regular_Orange_600x600.webm`],
                     purple: [lg`Fire/GroundCrackLoop_02_Regular_Purple_600x600.webm`],
                 },
                 '03': {
+                    _free:['orange'],
                     blue: [lg`Fire/GroundCrackLoop_03_Regular_Blue_600x600.webm`],
                     green: [lg`Fire/GroundCrackLoop_03_Regular_Green_600x600.webm`],
                     orange: [lg`Fire/GroundCrackLoop_03_Regular_Orange_600x600.webm`],
@@ -5064,7 +5398,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             fireworks: {
+                _free:['01', '02'],
                 '01': {
+                    _free:['orangeyellow', 'yellow'],
                     green: [
                         lg`Fireworks/Firework02_01_Regular_Green_600x600.webm`,
                     ],
@@ -5090,6 +5426,7 @@ export async function initializeJB2APatreonDB(path) {
                     ],
                 },
                 '02': {
+                    _free:['orangeyellow', 'yellow'],
                     green: [
                         lg`Fireworks/Firework02_02_Regular_Green_600x600.webm`,
                     ],
@@ -5117,6 +5454,7 @@ export async function initializeJB2APatreonDB(path) {
             },
         },
         generic: {
+            _free:['indicator', 'outpulse', 'smoke', 'ui', 'vortex', 'whirl'],
             boulderimpact: {
                 '01': {
                     white: [lg`Impact/BoulderImpact_01_Regular_White_500x500.webm`]
@@ -5291,31 +5629,38 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             indicator: {
+                _free:['chevron', '01', '02', '03', '04', '05'],
                 chevron: {
+                    _free:['yellow'],
                     green: [lg`UI/3Chevrons_01_Regular_Green_200x200.webm`],
                     purple: [lg`UI/3Chevrons_01_Regular_Purple_200x200.webm`],
                     red: [lg`UI/3Chevrons_01_Regular_Red_200x200.webm`],
                     yellow: [lg`UI/3Chevrons_01_Regular_Yellow_200x200.webm`],
                 },
                 '01': {
+                    _free:['yellow'],
                     green: [lg`UI/Indicator_01_Regular_Green_200x200.webm`],
                     purple: [lg`UI/Indicator_01_Regular_Purple_200x200.webm`],
                     red: [lg`UI/Indicator_01_Regular_Red_200x200.webm`],
                     yellow: [lg`UI/Indicator_01_Regular_Yellow_200x200.webm`],
                 },
                 '02': {
+                    _free:['green'],
                     green: [lg`UI/Indicator01_02_Regular_BlueGreen_400x400.webm`],
                     red: [lg`UI/Indicator01_02_Regular_RedYellow_400x400.webm`],
                 },
                 '03': {
+                    _free:['green'],
                     green: [lg`UI/Indicator01_03_Regular_BlueGreen_200x200.webm`],
                     red: [lg`UI/Indicator01_03_Regular_RedYellow_200x200.webm`],
                 },
                 '04': {
+                    _free:['green'],
                     green: [lg`UI/Indicator02_02_Regular_BlueGreen_400x400.webm`],
                     red: [lg`UI/Indicator02_02_Regular_RedYellow_400x400.webm`],
                 },
                 '05': {
+                    _free:['green'],
                     green: [lg`UI/Indicator02_03_Regular_BlueGreen_200x200.webm`],
                     red: [lg`UI/Indicator02_03_Regular_RedYellow_200x200.webm`],
                 },
@@ -5329,13 +5674,16 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             outpulse: {
+                _free:['01', '02'],
                 '01': {
+                    _free:['whiteblue'],
                     whiteblue: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_BlueWhite_Burst_600x600.webm`],
                     greenorange: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_GreenOrange_Burst_600x600.webm`],
                     purplepink: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_PurplePink_Burst_600x600.webm`],
                     tealyellow: [lg`Template/Circle/OutPulse/OutPulse_01_Regular_TealYellow_Burst_600x600.webm`],
                 },
                 '02': {
+                    _free:['whiteblue'],
                     whiteblue: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_BlueWhite_Burst_600x600.webm`],
                     greenorange: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_GreenOrange_Burst_600x600.webm`],
                     purplepink: [lg`Template/Circle/OutPulse/OutPulse_02_Regular_PurplePink_Burst_600x600.webm`],
@@ -5343,7 +5691,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             smoke: {
+                _free:['01', '02', '03', 'ring02'],
                 '01': {
+                    _free:['grey'],
                     black: [lg`Smoke/SmokePuff01_01_Dark_Black_400x400.webm`],
                     blue: [lg`Smoke/SmokePuff01_01_Regular_Blue_400x400.webm`],
                     darkgreen: [lg`Smoke/SmokePuff01_01_Dark_Green_400x400.webm`],
@@ -5351,6 +5701,7 @@ export async function initializeJB2APatreonDB(path) {
                     grey: [lg`Smoke/SmokePuff01_01_Regular_Grey_400x400.webm`],
                 },
                 '02': {
+                    _free:['grey'],
                     black: [lg`Smoke/SmokePuff01_02_Dark_Black_400x400.webm`],
                     blue: [lg`Smoke/SmokePuff01_02_Regular_Blue_400x400.webm`],
                     darkgreen: [lg`Smoke/SmokePuff01_02_Dark_Green_400x400.webm`],
@@ -5358,6 +5709,7 @@ export async function initializeJB2APatreonDB(path) {
                     grey: [lg`Smoke/SmokePuff01_02_Regular_Grey_400x400.webm`],
                 },
                 '03': {
+                    _free:['grey'],
                     black: [lg`Smoke/SmokePuff01_03_Dark_Black_400x400.webm`],
                     blue: [lg`Smoke/SmokePuff01_03_Regular_Blue_400x400.webm`],
                     darkgreen: [lg`Smoke/SmokePuff01_03_Dark_Green_400x400.webm`],
@@ -5369,6 +5721,7 @@ export async function initializeJB2APatreonDB(path) {
                     white: [lg`Smoke/SmokeRing_01_Regular_White_800x800.webm`]
                 },
                 'ring02': {
+                    _free:['white'],
                     black: [
                         lg`Smoke/SmokePuffRing01_01_Dark_Black_400x400.webm`,
                         lg`Smoke/SmokePuffRing01_02_Dark_Black_400x400.webm`,
@@ -5386,35 +5739,44 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             ui: {
+                _free:['drop', 'fear', 'heart', 'horror', 'music', 'poison', 'rune01', 'rune02',
+                        'rune03', 'shields', 'crackedshield', 'skull', 'snowflake', 'stun'],
                 drop: {
+                    _free:['red'],
                     green: [lg`UI/IconDrop_01_Dark_Green_200x200.webm`],
                     red: [lg`UI/IconDrop_01_Regular_Red_200x200.webm`]
                 },
                 fear: {
+                    _free:['darkpurple'],
                     darkorange: [lg`UI/IconFear_01_Dark_Orange_200x200.webm`],
                     orange: [lg`UI/IconFear_01_Regular_Orange_200x200.webm`],
                     darkpurple: [lg`UI/IconFear_01_Dark_Purple_200x200.webm`]
                 },
                 heart: {
+                    _free:['pink'],
                     darkred: [lg`UI/IconHeart_01_Dark_Red_200x200.webm`],
                     pink: [lg`UI/IconHeart_01_Regular_Pink_200x200.webm`],
                     teal: [lg`UI/IconHeart_01_Regular_Teal_200x200.webm`]
                 },
                 horror: {
+                    _free:['purple'],
                     darkteal: [lg`UI/IconHorror_01_Dark_Teal_200x200.webm`],
                     purple: [lg`UI/IconHorror_01_Regular_Purple_200x200.webm`],
                     teal: [lg`UI/IconHorror_01_Regular_Teal_200x200.webm`]
                 },
                 music: {
+                    _free:['blue'],
                     blue: [lg`UI/IconMusicNote_01_Regular_Blue_200x200.webm`],
                     darkred: [lg`UI/IconMusicNote_01_Dark_Red_200x200.webm`],
                     purple: [lg`UI/IconMusicNote_01_Regular_Purple_200x200.webm`],
                 },
                 poison: {
+                    _free:['darkgreen'],
                     darkgreen: [lg`UI/IconPoison_01_Dark_Green_200x200.webm`],
                     purple: [lg`UI/IconPoison_01_Regular_Purple_200x200.webm`],
                 },
                 rune01: {
+                    _free:['orange'],
                     black: [lg`UI/IconRunes_01_Dark_Black_200x200.webm`],
                     blue: [lg`UI/IconRunes_01_Regular_Blue_200x200.webm`],
                     darkorange: [lg`UI/IconRunes_01_Dark_Orange_200x200.webm`],
@@ -5426,6 +5788,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`UI/IconRunes_01_Regular_Yellow_200x200.webm`],
                 },
                 rune02: {
+                    _free:['orange'],
                     black: [lg`UI/IconRunes02_01_Dark_Black_200x200.webm`],
                     blue: [lg`UI/IconRunes02_01_Regular_Blue_200x200.webm`],
                     darkorange: [lg`UI/IconRunes02_01_Dark_Orange_200x200.webm`],
@@ -5437,6 +5800,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`UI/IconRunes02_01_Regular_Yellow_200x200.webm`],
                 },
                 rune03: {
+                    _free:['orange'],
                     black: [lg`UI/IconRunes03_01_Dark_Black_200x200.webm`],
                     blue: [lg`UI/IconRunes03_01_Regular_Blue_200x200.webm`],
                     darkorange: [lg`UI/IconRunes03_01_Dark_Orange_200x200.webm`],
@@ -5448,42 +5812,51 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`UI/IconRunes03_01_Regular_Yellow_200x200.webm`],
                 },
                 shields: {
+                    _free:['green'],
                     blue: [lg`UI/IconShield_01_Regular_Blue_200x200.webm`],
                     darkred: [lg`UI/IconShield_01_Dark_Red_200x200.webm`],
                     green: [lg`UI/IconShield_01_Regular_Green_200x200.webm`]
                 },
                 crackedshield: {
+                    _free:['purple'],
                     darkred: [lg`UI/IconShieldCracked_01_Dark_Red_200x200.webm`],
                     purple: [lg`UI/IconShieldCracked_01_Regular_Purple_200x200.webm`],
                 },
                 skull: {
+                    _free:['purple'],
                     darkgreen: [lg`UI/IconSkull_01_Dark_Green_200x200.webm`],
                     darkorange: [lg`UI/IconSkull_01_Dark_Orange_200x200.webm`],
                     purple: [lg`UI/IconSkull_01_Regular_Purple_200x200.webm`],
                 },
                 snowflake: {
+                    _free:['blue'],
                     darkblue: [lg`UI/IconSnowflake_01_Dark_Blue_200x200.webm`],
                     blue: [lg`UI/IconSnowflake_01_Regular_Blue_200x200.webm`]
                 },
                 stun: {
+                    _free:['purple'],
                     darkteal: [lg`UI/IconStun_01_Dark_Teal_200x200.webm`],
                     purple: [lg`UI/IconStun_01_Regular_Purple_200x200.webm`],
                 }
             },
             vortex: {
+                _free:['loop', 'intro', 'outro'],
                 loop: {
+                    _free:['blue'],
                     black: [lg`Template/Circle/Vortex_01_Dark_Black_600x600.webm`],
                     blue: [lg`Template/Circle/Vortex_01_Regular_Blue_600x600.webm`],
                     green: [lg`Template/Circle/Vortex_01_Regular_Green_600x600.webm`],
                     purple: [lg`Template/Circle/Vortex_01_Regular_Purple_600x600.webm`]
                 },
                 intro: {
+                    _free:['blue'],
                     black: [lg`Template/Circle/VortexIntro_01_Dark_Black_600x600.webm`],
                     blue: [lg`Template/Circle/VortexIntro_01_Regular_Blue_600x600.webm`],
                     green: [lg`Template/Circle/VortexIntro_01_Regular_Green_600x600.webm`],
                     purple: [lg`Template/Circle/VortexIntro_01_Regular_Purple_600x600.webm`]
                 },
                 outro: {
+                    _free:['blue'],
                     black: [lg`Template/Circle/VortexOutro_01_Dark_Black_600x600.webm`],
                     blue: [lg`Template/Circle/VortexOutro_01_Regular_Blue_600x600.webm`],
                     green: [lg`Template/Circle/VortexOutro_01_Regular_Green_600x600.webm`],
@@ -5491,19 +5864,23 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             whirl: {
+                _free:['loop', 'intro', 'outro'],
                 loop: {
+                    _free:['blue'],
                     black: [lg`Template/Circle/Whirl_01_Dark_Black_600x600.webm`],
                     blue: [lg`Template/Circle/Whirl_01_Regular_Blue_600x600.webm`],
                     green: [lg`Template/Circle/Whirl_01_Regular_Green_600x600.webm`],
                     purple: [lg`Template/Circle/Whirl_01_Regular_Purple_600x600.webm`]
                 },
                 intro: {
+                    _free:['blue'],
                     black: [lg`Template/Circle/WhirlIntro_01_Dark_Black_600x600.webm`],
                     blue: [lg`Template/Circle/WhirlIntro_01_Regular_Blue_600x600.webm`],
                     green: [lg`Template/Circle/WhirlIntro_01_Regular_Green_600x600.webm`],
                     purple: [lg`Template/Circle/WhirlIntro_01_Regular_Purple_600x600.webm`]
                 },
                 outro: {
+                    _free:['blue'],
                     black: [lg`Template/Circle/WhirlOutro_01_Dark_Black_600x600.webm`],
                     blue: [lg`Template/Circle/WhirlOutro_01_Regular_Blue_600x600.webm`],
                     green: [lg`Template/Circle/WhirlOutro_01_Regular_Green_600x600.webm`],
@@ -5512,15 +5889,20 @@ export async function initializeJB2APatreonDB(path) {
             },
         },
         ice: {
+            _free:['icespikes', 'snowflake'],
             icespikes: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     blue: [lg`Ice/IceSpikesRadialBurst_01_Regular_Blue_1000x1000.webm`],
                     red: [lg`Ice/IceSpikesRadialBurst_01_Regular_Red_1000x1000.webm`],
                     white: [lg`Ice/IceSpikesRadialBurst_01_Regular_White_1000x1000.webm`]
                 }
             },
             snowflake: {
+                _free:['01'],
                 '01': {
+                    _free:['whiteblue'],
                     whiteblue: [lg`Ice/SnowflakeBurst_01_Regular_BlueWhite_Burst_600x600.webm`],
                     greenorange: [lg`Ice/SnowflakeBurst_01_Regular_GreenOrange_Burst_600x600.webm`],
                     purplepink: [lg`Ice/SnowflakeBurst_01_Regular_PurplePink_Burst_600x600.webm`],
@@ -5559,8 +5941,11 @@ export async function initializeJB2APatreonDB(path) {
             }
         },
         lightning: {
+            _free:['ball', 'staticelectricity'],
             ball: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [lg`Lightning/LightningBall_01_Regular_Blue_400x400.webm`],
                     green: [lg`Lightning/LightningBall_01_Regular_Green_400x400.webm`],
                     darkgreen: [lg`Lightning/LightningBall_01_Regular_Green02_400x400.webm`],
@@ -5602,7 +5987,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             staticelectricity: {
+                _free:['01', '02'],
                 '01': {
+                    _free:['blue'],
                     blue: [lg`Lightning/StaticElectricity_01_Regular_Blue_400x400.webm`],
                     darkgreen: [lg`Lightning/StaticElectricity_01_Regular_Green02_400x400.webm`],
                     darkpurple: [lg`Lightning/StaticElectricity_01_Dark_Purple_400x400.webm`],
@@ -5615,6 +6002,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Lightning/StaticElectricity_01_Regular_Yellow_400x400.webm`]
                 },
                 '02': {
+                    _free:['blue'],
                     blue: [lg`Lightning/StaticElectricity_02_Regular_Blue_400x400.webm`],
                     darkgreen: [lg`Lightning/StaticElectricity_02_Regular_Green02_400x400.webm`],
                     darkpurple: [lg`Lightning/StaticElectricity_02_Dark_Purple_400x400.webm`],
@@ -5641,8 +6029,11 @@ export async function initializeJB2APatreonDB(path) {
             },
         },
         liquid: {
+            _free:['splash', 'blob'],
             splash: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     black: [lg`Liquid/LiquidSplash01_Dark_Black_400x400.webm`],
                     blue: [lg`Liquid/LiquidSplash01_Regular_Blue_400x400.webm`],
                     brightgreen: [lg`Liquid/LiquidSplash01_Bright_Green_400x400.webm`],
@@ -5654,7 +6045,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             blob: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [lg`Liquid/LiquidBlob01_01_Regular_Blue_400x400.webm`],
                     green: [lg`Liquid/LiquidBlob01_01_Regular_Green_400x400.webm`],
                     purple: [lg`Liquid/LiquidBlob01_01_Regular_Purple_400x400.webm`],
@@ -5662,13 +6055,18 @@ export async function initializeJB2APatreonDB(path) {
             },
         },
         magicsign: {
+            _free:['abjuration', 'conjuration', 'divination', 'enchantment', 'evocation', 'illusion',
+                    'necromancy', 'transmutation'],
             abjuration: {
+                _free:['01', '02', 'runeintro', 'runeloop', 'runeoutro'],
                 '01': {
+                    _free:['blue'],
                     blue: [lg`Magic_Signs/Abjuration_01_Blue_Circle_800x800.webm`],
                     green: [lg`Magic_Signs/Abjuration_01_Green_Circle_800x800.webm`],
                     red: [lg`Magic_Signs/Abjuration_01_Red_Circle_800x800.webm`],
                 },
                 '02': {
+                    _free:['blue'],
                     blue: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Blue_800x800.webm`],
                     green: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Green_800x800.webm`],
                     pink: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Pink_800x800.webm`],
@@ -5677,6 +6075,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Yellow_800x800.webm`],
                 },
                 "runeintro": {
+                    _free:['blue'],
                   blue: [lg`Magic_Signs/Runes/AbjurationRuneIntro_01_Regular_Blue_400x400.webm`],
                   green: [lg`Magic_Signs/Runes/AbjurationRuneIntro_01_Regular_Green_400x400.webm`],
                   pink: [lg`Magic_Signs/Runes/AbjurationRuneIntro_01_Regular_Pink_400x400.webm`],
@@ -5685,6 +6084,7 @@ export async function initializeJB2APatreonDB(path) {
                   yellow: [lg`Magic_Signs/Runes/AbjurationRuneIntro_01_Regular_Yellow_400x400.webm`]
                 },
                 "runeloop": {
+                    _free:['blue'],
                   blue: [lg`Magic_Signs/Runes/AbjurationRuneLoop_01_Regular_Blue_400x400.webm`],
                   green: [lg`Magic_Signs/Runes/AbjurationRuneLoop_01_Regular_Green_400x400.webm`],
                   pink: [lg`Magic_Signs/Runes/AbjurationRuneLoop_01_Regular_Pink_400x400.webm`],
@@ -5693,6 +6093,7 @@ export async function initializeJB2APatreonDB(path) {
                   yellow: [lg`Magic_Signs/Runes/AbjurationRuneLoop_01_Regular_Yellow_400x400.webm`]
                 },
                 "runeoutro": {
+                    _free:['blue'],
                   blue: [lg`Magic_Signs/Runes/AbjurationRuneOutro_01_Regular_Blue_400x400.webm`],
                   green: [lg`Magic_Signs/Runes/AbjurationRuneOutro_01_Regular_Green_400x400.webm`],
                   pink: [lg`Magic_Signs/Runes/AbjurationRuneOutro_01_Regular_Pink_400x400.webm`],
@@ -5702,10 +6103,13 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             conjuration: {
+                _free:['01', '02', 'runeintro', 'runeloop', 'runeoutro'],
                 '01': {
+                    _free:['yellow'],
                     yellow: [lg`Magic_Signs/Conjuration_01_Yellow_Circle_800x800.webm`]
                 },
                 '02': {
+                    _free:['yellow'],
                     blue: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Blue_800x800.webm`],
                     green: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Green_800x800.webm`],
                     pink: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Pink_800x800.webm`],
@@ -5714,35 +6118,41 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Yellow_800x800.webm`],
                 },
                 "runeintro": {
-                  blue: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Yellow_400x400.webm`]
+                    _free:['yellow'],
+                    blue: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Yellow_400x400.webm`]
                 },
                 "runeloop": {
-                  blue: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Yellow_400x400.webm`]
+                    _free:['yellow'],
+                    blue: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Yellow_400x400.webm`]
                 },
                 "runeoutro": {
-                  blue: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Yellow_400x400.webm`]
+                    _free:['yellow'],
+                    blue: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Yellow_400x400.webm`]
                 }
             },
             divination: {
+                _free:['01', '02', 'runeintro', 'runeloop', 'runeoutro'],
                 '01': {
+                    _free:['lightblue'],
                     lightblue: [lg`Magic_Signs/Divination_01_Light_Blue_Circle_800x800.webm`]
                 },
                 '02': {
+                    _free:['blue'],
                     blue: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Blue_800x800.webm`],
                     green: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Green_800x800.webm`],
                     pink: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Pink_800x800.webm`],
@@ -5751,32 +6161,37 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Yellow_800x800.webm`],
                 },
                 "runeintro": {
-                  blue: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Yellow_400x400.webm`]
+                    _free:['blue'],
+                    blue: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Yellow_400x400.webm`]
                 },
                 "runeloop": {
-                  blue: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Yellow_400x400.webm`]
+                    _free:['blue'],
+                    blue: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Yellow_400x400.webm`]
                 },
                 "runeoutro": {
-                  blue: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Yellow_400x400.webm`]
+                    _free:['blue'],
+                    blue: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Yellow_400x400.webm`]
                 }
             },
             enchantment: {
+                _free:['02', 'runeintro', 'runeloop', 'runeoutro'],
                 '02': {
+                    _free:['pink'],
                     blue: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Blue_800x800.webm`],
                     green: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Green_800x800.webm`],
                     pink: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Pink_800x800.webm`],
@@ -5785,32 +6200,37 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Yellow_800x800.webm`],
                 },
                 "runeintro": {
-                  blue: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Yellow_400x400.webm`]
+                    _free:['pink'],
+                    blue: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Yellow_400x400.webm`]
                 },
                 "runeloop": {
-                  blue: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Yellow_400x400.webm`]
+                    _free:['pink'],
+                    blue: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Yellow_400x400.webm`]
                 },
                 "runeoutro": {
-                  blue: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Yellow_400x400.webm`]
+                    _free:['pink'],
+                    blue: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Yellow_400x400.webm`]
                 }
             },
             evocation: {
+                _free:['02', 'runeintro', 'runeloop', 'runeoutro'],
                 '02': {
+                    _free:['red'],
                     blue: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Blue_800x800.webm`],
                     green: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Green_800x800.webm`],
                     pink: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Pink_800x800.webm`],
@@ -5819,32 +6239,37 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Yellow_800x800.webm`],
                 },
                 "runeintro": {
-                  blue: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Yellow_400x400.webm`]
+                    _free:['red'],
+                    blue: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Yellow_400x400.webm`]
                 },
                 "runeloop": {
-                  blue: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Yellow_400x400.webm`]
+                    _free:['red'],
+                    blue: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Yellow_400x400.webm`]
                 },
                 "runeoutro": {
-                  blue: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Yellow_400x400.webm`]
+                    _free:['red'],
+                    blue: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Yellow_400x400.webm`]
                 }
             },
             illusion: {
+                _free:['02', 'runeintro', 'runeloop', 'runeoutro'],
                 '02': {
+                    _free:['purple'],
                     blue: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Blue_800x800.webm`],
                     green: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Green_800x800.webm`],
                     pink: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Pink_800x800.webm`],
@@ -5853,32 +6278,37 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Yellow_800x800.webm`],
                 },
                 "runeintro": {
-                  blue: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Yellow_400x400.webm`]
+                    _free:['purple'],
+                    blue: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Yellow_400x400.webm`]
                 },
                 "runeloop": {
-                  blue: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Yellow_400x400.webm`]
+                    _free:['purple'],
+                    blue: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Yellow_400x400.webm`]
                 },
                 "runeoutro": {
-                  blue: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Yellow_400x400.webm`]
-                }
+                    _free:['purple'],
+                    blue: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Yellow_400x400.webm`]
+                    }
             },
             necromancy: {
+                _free:['02', 'runeintro', 'runeloop', 'runeoutro'],
                 '02': {
+                    _free:['green'],
                     blue: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Blue_800x800.webm`],
                     green: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Green_800x800.webm`],
                     pink: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Pink_800x800.webm`],
@@ -5887,32 +6317,37 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Yellow_800x800.webm`],
                 },
                 "runeintro": {
-                  blue: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Yellow_400x400.webm`]
-                },
+                    _free:['green'],
+                    blue: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Yellow_400x400.webm`]
+                    },
                 "runeloop": {
-                  blue: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Yellow_400x400.webm`]
+                    _free:['green'],
+                    blue: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Yellow_400x400.webm`]
                 },
                 "runeoutro": {
-                  blue: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Yellow_400x400.webm`]
+                    _free:['green'],
+                    blue: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Yellow_400x400.webm`]
                 }
             },
             transmutation: {
+                _free:['02', 'runeintro', 'runeloop', 'runeoutro'],
                 '02': {
+                    _free:['yellow'],
                     blue: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Blue_800x800.webm`],
                     green: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Green_800x800.webm`],
                     pink: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Pink_800x800.webm`],
@@ -5921,41 +6356,49 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Yellow_800x800.webm`],
                 },
                 "runeintro": {
-                  blue: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Yellow_400x400.webm`]
+                    _free:['yellow'],
+                    blue: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Yellow_400x400.webm`]
                 },
                 "runeloop": {
-                  blue: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Yellow_400x400.webm`]
+                    _free:['yellow'],
+                    blue: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Yellow_400x400.webm`]
                 },
                 "runeoutro": {
-                  blue: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Blue_400x400.webm`],
-                  green: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Green_400x400.webm`],
-                  pink: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Pink_400x400.webm`],
-                  purple: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Purple_400x400.webm`],
-                  red: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Red_400x400.webm`],
-                  yellow: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Yellow_400x400.webm`]
+                    _free:['yellow'],
+                    blue: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Blue_400x400.webm`],
+                    green: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Green_400x400.webm`],
+                    pink: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Pink_400x400.webm`],
+                    purple: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Purple_400x400.webm`],
+                    red: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Red_400x400.webm`],
+                    yellow: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Yellow_400x400.webm`]
                 }
             },
         },
         marker: {
+            _free:['bubble', 'circleofstars', 'energystrands', 'music', 'standard'],
             bubble: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [lg`Marker/MarkerBubble_01_Regular_Blue_400x400.webm`],
                     green: [lg`Marker/MarkerBubble_01_Regular_Green_400x400.webm`],
                     rainbow: [lg`Marker/MarkerBubble_01_Regular_Rainbow_400x400.webm`],
                 }
             },
             circleofstars: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [lg`Marker/MarkerCircleOfStars_Regular_Blue_400x400.webm`],
                     green: [lg`Marker/MarkerCircleOfStars_Regular_Green_400x400.webm`],
                     greenorange: [lg`Marker/MarkerCircleOfStars_Regular_GreenOrange_400x400.webm`],
@@ -5965,7 +6408,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             energystrand: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [lg`Marker/EnergyStrands_01_Regular_Blue_600x600.webm`],
                     blueorange: [lg`Marker/EnergyStrands_01_Regular_BlueOrange_600x600.webm`],
                     darkred: [lg`Marker/EnergyStrands_01_Dark_Red_600x600.webm`],
@@ -5975,7 +6420,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             music: {
+                _free:['01'],
                 '01': {
+                    _free:['greenorange'],
                     darkred: [lg`Marker/MusicMarker_01_Dark_Red_400x400.webm`],
                     yellowblue: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
                     greenorange: [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
@@ -5984,7 +6431,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             standard: {
+                _free:['01'],
                 '01': {
+                    _free:['yellowblue'],
                     whiteblue: [lg`Marker/Marker_01_Dark_BlueWhite_400x400.webm`],
                     yellowblue: [lg`Marker/Marker_01_Regular_BlueYellow_400x400.webm`],
                     greenorange: [lg`Marker/Marker_01_Regular_GreenOrange_400x400.webm`],
@@ -6003,8 +6452,11 @@ export async function initializeJB2APatreonDB(path) {
             },
         },
         music: {
+            _free:['notes'],
             notes: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [
                         lg`Music_Notation/BassClef_01_Regular_Blue_200x200.webm`,
                         lg`Music_Notation/BeamedQuavers_01_Regular_Blue_200x200.webm`,
@@ -6045,35 +6497,44 @@ export async function initializeJB2APatreonDB(path) {
             }
         },
         particles: {
+            _free:['dots', 'inwarddots', 'stars', 'inwardstars', 'swirld'],
             dots: {
+                _free:['01', '02', '03', '04', '05'],
                 '01': {
+                    _free:['green'],
                     blue: [lg`Particles/ParticlesOutward01_01_Regular_Blue_400x400.webm`],
                     green: [lg`Particles/ParticlesOutward01_01_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesOutward01_01_Regular_Orange_400x400.webm`],
                 },
                 '02': {
+                    _free:['green'],
                     blue: [lg`Particles/ParticlesOutward01_02_Regular_Blue_400x400.webm`],
                     green: [lg`Particles/ParticlesOutward01_02_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesOutward01_02_Regular_Orange_400x400.webm`],
                 },
                 '03': {
+                    _free:['green'],
                     blue: [lg`Particles/ParticlesOutward01_03_Regular_Blue_400x400.webm`],
                     green: [lg`Particles/ParticlesOutward01_03_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesOutward01_03_Regular_Orange_400x400.webm`],
                 },
                 '04': {
+                    _free:['green'],
                     blue: [lg`Particles/ParticlesOutward01_04_Regular_Blue_400x400.webm`],
                     green: [lg`Particles/ParticlesOutward01_04_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesOutward01_04_Regular_Orange_400x400.webm`],
                 },
                 '05': {
+                    _free:['green'],
                     blue: [lg`Particles/ParticlesOutward01_05_Regular_Blue_400x400.webm`],
                     green: [lg`Particles/ParticlesOutward01_05_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesOutward01_05_Regular_Orange_400x400.webm`],
                 },
             },
             inwarddots: {
+                _free:['01', '02', '03', '04', '05'],
                 '01': {
+                    _free:['greenyellow'],
                     blue: [lg`Particles/ParticlesInward01_01_Regular_Blue_400x400.webm`],
                     greenyellow: [lg`Particles/ParticlesInward01_01_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesInward01_01_Regular_Orange_400x400.webm`],
@@ -6082,6 +6543,7 @@ export async function initializeJB2APatreonDB(path) {
                     white: [lg`Particles/ParticlesInward01_01_Regular_White_400x400.webm`],
                 },
                 '02': {
+                    _free:['greenyellow'],
                     blue: [lg`Particles/ParticlesInward01_02_Regular_Blue_400x400.webm`],
                     greenyellow: [lg`Particles/ParticlesInward01_02_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesInward01_02_Regular_Orange_400x400.webm`],
@@ -6090,6 +6552,7 @@ export async function initializeJB2APatreonDB(path) {
                     white: [lg`Particles/ParticlesInward01_02_Regular_White_400x400.webm`],
                 },
                 '03': {
+                    _free:['greenyellow'],
                     blue: [lg`Particles/ParticlesInward01_03_Regular_Blue_400x400.webm`],
                     greenyellow: [lg`Particles/ParticlesInward01_03_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesInward01_03_Regular_Orange_400x400.webm`],
@@ -6098,6 +6561,7 @@ export async function initializeJB2APatreonDB(path) {
                     white: [lg`Particles/ParticlesInward01_03_Regular_White_400x400.webm`],
                 },
                 '04': {
+                    _free:['greenyellow'],
                     blue: [lg`Particles/ParticlesInward01_04_Regular_Blue_400x400.webm`],
                     greenyellow: [lg`Particles/ParticlesInward01_04_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesInward01_04_Regular_Orange_400x400.webm`],
@@ -6106,6 +6570,7 @@ export async function initializeJB2APatreonDB(path) {
                     white: [lg`Particles/ParticlesInward01_04_Regular_White_400x400.webm`],
                 },
                 '05': {
+                    _free:['greenyellow'],
                     blue: [lg`Particles/ParticlesInward01_05_Regular_Blue_400x400.webm`],
                     greenyellow: [lg`Particles/ParticlesInward01_05_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesInward01_05_Regular_Orange_400x400.webm`],
@@ -6115,34 +6580,42 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             stars: {
+                _free:['01', '02', '03', '04', '05'],
                 '01': {
+                    _free:['green'],
                     blue: [lg`Particles/ParticlesOutward02_01_Regular_Blue_400x400.webm`],
                     green: [lg`Particles/ParticlesOutward02_01_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesOutward02_01_Regular_Orange_400x400.webm`],
                 },
                 '02': {
+                    _free:['green'],
                     blue: [lg`Particles/ParticlesOutward02_02_Regular_Blue_400x400.webm`],
                     green: [lg`Particles/ParticlesOutward02_02_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesOutward02_02_Regular_Orange_400x400.webm`],
                 },
                 '03': {
+                    _free:['green'],
                     blue: [lg`Particles/ParticlesOutward02_03_Regular_Blue_400x400.webm`],
                     green: [lg`Particles/ParticlesOutward02_03_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesOutward02_03_Regular_Orange_400x400.webm`],
                 },
                 '04': {
+                    _free:['green'],
                     blue: [lg`Particles/ParticlesOutward02_04_Regular_Blue_400x400.webm`],
                     green: [lg`Particles/ParticlesOutward02_04_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesOutward02_04_Regular_Orange_400x400.webm`],
                 },
                 '05': {
+                    _free:['green'],
                     blue: [lg`Particles/ParticlesOutward02_05_Regular_Blue_400x400.webm`],
                     green: [lg`Particles/ParticlesOutward02_05_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesOutward02_05_Regular_Orange_400x400.webm`],
                 },
             },
             inwardstars: {
+                _free:['01', '02', '03', '04', '05'],
                 '01': {
+                    _free:['greenyellow'],
                     blue: [lg`Particles/ParticlesInward02_01_Regular_Blue_400x400.webm`],
                     greenyellow: [lg`Particles/ParticlesInward02_01_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesInward02_01_Regular_Orange_400x400.webm`],
@@ -6151,6 +6624,7 @@ export async function initializeJB2APatreonDB(path) {
                     white: [lg`Particles/ParticlesInward02_01_Regular_White_400x400.webm`],
                 },
                 '02': {
+                    _free:['greenyellow'],
                     blue: [lg`Particles/ParticlesInward02_02_Regular_Blue_400x400.webm`],
                     greenyellow: [lg`Particles/ParticlesInward02_02_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesInward02_02_Regular_Orange_400x400.webm`],
@@ -6159,6 +6633,7 @@ export async function initializeJB2APatreonDB(path) {
                     white: [lg`Particles/ParticlesInward02_02_Regular_White_400x400.webm`],
                 },
                 '03': {
+                    _free:['greenyellow'],
                     blue: [lg`Particles/ParticlesInward02_03_Regular_Blue_400x400.webm`],
                     greenyellow: [lg`Particles/ParticlesInward02_03_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesInward02_03_Regular_Orange_400x400.webm`],
@@ -6167,6 +6642,7 @@ export async function initializeJB2APatreonDB(path) {
                     white: [lg`Particles/ParticlesInward02_03_Regular_White_400x400.webm`],
                 },
                 '04': {
+                    _free:['greenyellow'],
                     blue: [lg`Particles/ParticlesInward02_04_Regular_Blue_400x400.webm`],
                     greenyellow: [lg`Particles/ParticlesInward02_04_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesInward02_04_Regular_Orange_400x400.webm`],
@@ -6175,6 +6651,7 @@ export async function initializeJB2APatreonDB(path) {
                     white: [lg`Particles/ParticlesInward02_04_Regular_White_400x400.webm`],
                 },
                 '05': {
+                    _free:['greenyellow'],
                     blue: [lg`Particles/ParticlesInward02_05_Regular_Blue_400x400.webm`],
                     greenyellow: [lg`Particles/ParticlesInward02_05_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesInward02_05_Regular_Orange_400x400.webm`],
@@ -6184,7 +6661,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             swirl: {
+                _free:['01', '02'],
                 '01': {
+                    _free:['greenyellow'],
                     blue: [lg`Particles/ParticlesSwirl01_01_Regular_Blue_400x400.webm`],
                     greenyellow: [lg`Particles/ParticlesSwirl01_01_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesSwirl01_01_Regular_Orange_400x400.webm`],
@@ -6193,6 +6672,7 @@ export async function initializeJB2APatreonDB(path) {
                     white: [lg`Particles/ParticlesSwirl01_01_Regular_White_400x400.webm`],
                 },
                 '02': {
+                    _free:['greenyellow'],
                     blue: [lg`Particles/ParticlesSwirl02_01_Regular_Blue_400x400.webm`],
                     green: [lg`Particles/ParticlesSwirl02_01_Regular_GreenYellow_400x400.webm`],
                     orange: [lg`Particles/ParticlesSwirl02_01_Regular_Orange_400x400.webm`],
@@ -6203,8 +6683,11 @@ export async function initializeJB2APatreonDB(path) {
             },
         },
         shieldfx: {
+            _free:['eldritchweb', 'fire', 'earth', 'energyfield', 'ice'],
             eldritchweb: {
+                _free:['01'],
                 '01': {
+                    _free:['darkpurple'],
                     darkgreen: [lg`Energy/ShieldEldritchWebAbove01_01_Dark_Green_400x400.webm`],
                     darkpurple: [lg`Energy/ShieldEldritchWebAbove01_01_Dark_Purple_400x400.webm`],
                 },
@@ -6226,7 +6709,9 @@ export async function initializeJB2APatreonDB(path) {
             },
             */
             fire: {
+                _free:['01'],
                 '01': {
+                    _free:['orange'],
                     darkgreen: [lg`Fire/ShieldFireAbove01_01_Dark_Green_400x400.webm`],
                     orange: [lg`Fire/ShieldFireAbove01_01_Regular_Orange_400x400.webm`],
                 },
@@ -6248,7 +6733,9 @@ export async function initializeJB2APatreonDB(path) {
             },
             */
             earth: {
+                _free:['01'],
                 '01': {
+                    _free:['orange'],
                     darkorange: [lg`Fire/ShieldMoltenEarthAbove01_01_Dark_Orange_400x400.webm`],
                     orange: [lg`Fire/ShieldMoltenEarthAbove01_01_Regular_Orange_400x400.webm`],
                 },
@@ -6270,7 +6757,9 @@ export async function initializeJB2APatreonDB(path) {
             },
             */
             ice: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [lg`Ice/ShieldIceAbove01_01_Regular_Blue_400x400.webm`],
                     purple: [lg`Ice/ShieldIceAbove01_01_Regular_Purple_400x400.webm`],
                 },
@@ -6299,7 +6788,9 @@ export async function initializeJB2APatreonDB(path) {
             },
             */
             energyfield: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [lg`Energy/EnergyFieldTop_02_Regular_Blue_400x400.webm`],
                     green: [lg`Energy/EnergyFieldTop_02_Regular_Green_400x400.webm`],
                     purple: [lg`Energy/EnergyFieldTop_02_Regular_Purple_400x400.webm`],
@@ -6307,8 +6798,11 @@ export async function initializeJB2APatreonDB(path) {
             },
         },
         shieldspell: {
+            _free:['intro', 'loop', 'outro_explode', 'outro-fade', 'complete'],
             intro: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [l1`Shield/Shield_01_Regular_Blue_Intro_400x400.webm`],
                     green: [l1`Shield/Shield_01_Regular_Green_Intro_400x400.webm`],
                     purple: [l1`Shield/Shield_01_Regular_Purple_Intro_400x400.webm`],
@@ -6331,7 +6825,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             loop: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [l1`Shield/Shield_01_Regular_Blue_Loop_400x400.webm`],
                     green: [l1`Shield/Shield_01_Regular_Green_Loop_400x400.webm`],
                     purple: [l1`Shield/Shield_01_Regular_Purple_Loop_400x400.webm`],
@@ -6354,7 +6850,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             outro_explode: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [l1`Shield/Shield_01_Regular_Blue_OutroExplode_400x400.webm`],
                     green: [l1`Shield/Shield_01_Regular_Green_OutroExplode_400x400.webm`],
                     purple: [l1`Shield/Shield_01_Regular_Purple_OutroExplode_400x400.webm`],
@@ -6377,7 +6875,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             outro_fade: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [l1`Shield/Shield_01_Regular_Blue_OutroFade_400x400.webm`],
                     green: [l1`Shield/Shield_01_Regular_Green_OutroFade_400x400.webm`],
                     purple: [l1`Shield/Shield_01_Regular_Green_OutroFade_400x400.webm`],
@@ -6400,11 +6900,13 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             complete: {
+                _free:['01'],
                 '01': {
                     _markers: {
                         loop: { start: 1533, end: 5533 },
                         forcedEnd: 5533
                     },
+                    _free:['blue'],
                     blue: [l1`Shield/Shield_01_Regular_Blue_Complete_400x400.webm`],
                     green: [l1`Shield/Shield_01_Regular_Green_Complete_400x400.webm`],
                     purple: [l1`Shield/Shield_01_Regular_Purple_Complete_400x400.webm`],
@@ -6436,8 +6938,11 @@ export async function initializeJB2APatreonDB(path) {
             },
         },
         shrapnel: {
+            _free:['bomb'],
             bomb: {
+                _free:['01'],
                 '01': {
+                    _free:['black'],
                     black: [lg`Explosion/ShrapnelBomb01_01_Regular_Black_800x800.webm`],
                     blue: [lg`Explosion/ShrapnelBomb01_01_Regular_Blue_800x800.webm`],
                     green: [lg`Explosion/ShrapnelBomb01_01_Regular_Green_800x800.webm`],
@@ -6458,20 +6963,31 @@ export async function initializeJB2APatreonDB(path) {
             }
         },
         spell: {
+            _free:['antilifeshell', 'armsofhadar', 'bardicinspiration', 'blacktentacles', 'bless', 'calllightning',
+                    'cloudofdaggers', 'curewounds', 'darkness', 'detectmagic', 'divinesmite', 'entangle',
+                    'fireball', 'fogcloud', 'generichealing', 'grease', 'huntersmark', 'mistystep', 'moonbeam',
+                    'sacredflame', 'shatter', 'sleep', 'sleetstorm', 'spiritgaurdians', 'sneakattack',
+                    'thunderwave', 'tollthedead', 'wallofforce', 'web', 'whirlwind', ],
             antilifeshell: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [l5`Antilife_Shell/AntilifeShell_01_Blue_NoCircle_400x400.webm`]
                 }
             },
             armsofhadar: {
+                _free:['01'],
                 '01': {
+                    _free:['darkpurple'],
                     darkgreen: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Green_500x500.webm`],
                     darkpurple: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Purple_500x500.webm`],
                     darkred: [l1`Arms_Of_Hadar/ArmsOfHadar_01_Dark_Red_500x500.webm`],
                 }
             },
             bardicinspiration: {
+                _free:['inspire', 'marker'],
                 inspire: {
+                    _free:['greenorange'],
                     yellowblue: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_BlueYellow_400x400.webm`],
                     greenorange: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_GreenOrange_400x400.webm`],
                     purplepink: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_PurplePink_400x400.webm`],
@@ -6479,6 +6995,7 @@ export async function initializeJB2APatreonDB(path) {
                     pink: [l1`Bardic_Inspiration/BardicInspiration_01_Regular_Pink_400x400.webm`]
                 },
                 marker: {
+                    _free:['greenorange'],
                     yellowblue: [lg`Marker/MusicMarker_01_Regular_BlueYellow_400x400.webm`],
                     greenorange: [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
                     pink: [lg`Marker/MusicMarker_01_Regular_Pink_400x400.webm`],
@@ -6487,20 +7004,25 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             blacktentacles: {
+                _free:['01'],
                 '01': {
+                    _free:['darkpurple'],
                     darkgreen: [l4`Black_Tentacles/BlackTentacles_01_Dark_Green_600x600.webm`],
                     darkpurple: [l4`Black_Tentacles/BlackTentacles_01_Dark_Purple_600x600.webm`],
                     darkred: [l4`Black_Tentacles/BlackTentacles_01_Dark_Red_600x600.webm`],
                 },
             },
             bless: {
+                _free:['intro', 'outro'],
                 "intro": {
+                    _free:['yellow'],
                     blue: [l1`Bless/Bless_01_Regular_Blue_Intro_400x400.webm`],
                     green: [l1`Bless/Bless_01_Regular_Green_Intro_400x400.webm`],
                     purple: [l1`Bless/Bless_01_Regular_Purple_Intro_400x400.webm`],
                     yellow: [l1`Bless/Bless_01_Regular_Yellow_Intro_400x400.webm`],
                 },
                 "loop": {
+                    _free:['yellow'],
                     blue: [l1`Bless/Bless_01_Regular_Blue_Loop_400x400.webm`],
                     green: [l1`Bless/Bless_01_Regular_Green_Loop_400x400.webm`],
                     purple: [l1`Bless/Bless_01_Regular_Purple_Loop_400x400.webm`],
@@ -6508,7 +7030,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             calllightning: {
+                _free:['01'],
                 '01': {
+                    _free:['blue', 'blueorange', 'green', 'pinkyellow', 'purple', 'red', 'yellow'],
                     blue: [l3`Call_Lightning/CallLightning_01_Blue_1000x1000.webm`],
                     blueorange: [l3`Call_Lightning/CallLightning_01_BlueOrange_1000x1000.webm`],
                     green: [l3`Call_Lightning/CallLightning_01_Green_1000x1000.webm`],
@@ -6519,7 +7043,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             cloudofdaggers: {
+                _free:['01'],
                 '01': {
+                    _free:['blue', 'green', 'orange', 'purple', 'red', 'yellow'],
                     darkpurple: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Dark_Purple_400x400.webm`],
                     darkred: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Dark_Red_400x400.webm`],
                     blue: [l2`Cloud_Of_Daggers/CloudOfDaggers_01_Light_Blue_400x400.webm`],
@@ -6541,7 +7067,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             curewounds: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [l1`Cure_Wounds/CureWounds_01_Blue_400x400.webm`],
                     green: [l1`Cure_Wounds/CureWounds_01_Green_400x400.webm`],
                     pink: [l1`Cure_Wounds/CureWounds_01_Pink_400x400.webm`],
@@ -6550,13 +7078,17 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             darkness: {
+                _free:['01'],
                 '01': {
+                    _free:['black', 'green'],
                     black: [l2`Darkness/Darkness_01_Black_600x600.webm`],
                     green: [l2`Darkness/Darkness_01_Green_600x600.webm`]
                 }
             },
             detectmagic: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Blue_1200x1200.webm`],
                     green: [l1`Detect_Magic/DetectMagicCircle_01_Regular_Green_1200x1200.webm`],
                     greenorange: [l1`Detect_Magic/DetectMagicCircle_01_Regular_GreenOrange_1200x1200.webm`],
@@ -6565,7 +7097,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             divinesmite: {
-                'source': {
+                _free:['source', 'target'],
+                source: {
+                    _free:['yellowblue'],
                     yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Caster_400x400.webm`],
                     greenyellow: [l2`Divine_Smite/DivineSmite_01_Regular_GreenYellow_Caster_400x400.webm`],
                     orange: [l2`Divine_Smite/DivineSmite_01_Regular_Orange_Caster_400x400.webm`],
@@ -6574,7 +7108,8 @@ export async function initializeJB2APatreonDB(path) {
                     yellowwhite: [l2`Divine_Smite/DivineSmite_01_Regular_YellowWhite_Caster_400x400.webm`],
                     darkred: [l2`Divine_Smite/DivineSmite_01_Dark_Red_Caster_400x400.webm`],
                 },
-                'target': {
+                target: {
+                    _free:['yellowblue'],
                     yellowblue: [l2`Divine_Smite/DivineSmite_01_Regular_BlueYellow_Target_400x400.webm`],
                     greenyellow: [l2`Divine_Smite/DivineSmite_01_Regular_GreenYellow_Target_400x400.webm`],
                     orange: [l2`Divine_Smite/DivineSmite_01_Regular_Orange_Target_400x400.webm`],
@@ -6585,7 +7120,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             entangle: {
+                _free:['01'],
                 '01': {
+                    _free:['brown', 'green', 'yellow'],
                     brown: [l1`Entangle/Entangle_01_Brown_400x400.webm`],
                     green: [l1`Entangle/Entangle_01_Green_400x400.webm`],
                     yellow: [l1`Entangle/Entangle_01_Yellow_400x400.webm`],
@@ -6594,24 +7131,30 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             fireball: {
+                _free:['loop', 'explode', 'nodebris'],
                 loop: {
+                    _free:['orange'],
                     blue: [l3`Fireball/FireballLoop_01_Blue_800x800.webm`],
                     orange: [l3`Fireball/FireballLoop_01_Orange_800x800.webm`],
                     purple: [l3`Fireball/FireballLoop_01_Purple_800x800.webm`],
                 },
                 explode: {
+                    _free:['orange'],
                     blue: [l3`Fireball/FireballExplosion_01_Blue_800x800.webm`],
                     orange: [l3`Fireball/FireballExplosion_01_Orange_800x800.webm`],
                     purple: [l3`Fireball/FireballExplosion_01_Purple_800x800.webm`],
                 },
                 nodebris: {
+                    _free:['orange'],
                     blue: [l3`Fireball/FireballLoopNoDebris_01_Blue_800x800.webm`],
                     orange: [l3`Fireball/FireballLoopNoDebris_01_Orange_800x800.webm`],
                     purple: [l3`Fireball/FireballLoopNoDebris_01_Purple_800x800.webm`],
                 },
             },
             fogcloud: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: [l1`Fog_Cloud/FogCloud_01_White_800x800.webm`]
                 },
                 '02': {
@@ -6620,7 +7163,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             generichealing: {
+                _free:['01'],
                 '01': {
+                    _free:['blue', 'green', 'purple', 'yellow'],
                     blue: [lg`Healing/HealingAbility_01_Blue_400x400.webm`],
                     green: [lg`Healing/HealingAbility_01_Green_400x400.webm`],
                     purple: [lg`Healing/HealingAbility_01_Purple_400x400.webm`],
@@ -6635,7 +7180,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             grease: {
+                _free:['01'],
                 "01": {
+                    _free:['brown'],
                     brown: [l1`Grease/Grease_Dark_Brown_600x600.webm`],
                     green: [l1`Grease/Grease_Dark_Green_600x600.webm`],
                     grey: [l1`Grease/Grease_Dark_Grey_600x600.webm`],
@@ -6643,25 +7190,28 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             huntersmark: {
-                'eye': {
+                _free:['eye', 'eyeloop'],
+                eye: {
+                    _free:['green'],
                     blue: [l1`Hunters_Mark/HuntersMark_01_Regular_Blue_Pulse_200x200.webm`],
                     green: [l1`Hunters_Mark/HuntersMark_01_Regular_Green_Pulse_200x200.webm`],
                     purple: [l1`Hunters_Mark/HuntersMark_01_Regular_Purple_Pulse_200x200.webm`],
                     red: [l1`Hunters_Mark/HuntersMark_01_Regular_Red_Pulse_200x200.webm`],
                 },
-                'eyeloop': {
+                eyeloop: {
+                    _free:['green'],
                     blue: [l1`Hunters_Mark/HuntersMark_01_Regular_Blue_Loop_200x200.webm`],
                     green: [l1`Hunters_Mark/HuntersMark_01_Regular_Green_Loop_200x200.webm`],
                     purple: [l1`Hunters_Mark/HuntersMark_01_Regular_Purple_Loop_200x200.webm`],
                     red: [l1`Hunters_Mark/HuntersMark_01_Regular_Red_Loop_200x200.webm`],
                 },
-                'paw': {
+                paw: {
                     blue: [l1`Hunters_Mark/HuntersMark_02_Regular_Blue_Pulse_200x200.webm`],
                     green: [l1`Hunters_Mark/HuntersMark_02_Regular_Green_Pulse_200x200.webm`],
                     purple: [l1`Hunters_Mark/HuntersMark_02_Regular_Purple_Pulse_200x200.webm`],
                     red: [l1`Hunters_Mark/HuntersMark_02_Regular_Red_Pulse_200x200.webm`],
                 },
-                'pawloop': {
+                pawloop: {
                     blue: [l1`Hunters_Mark/HuntersMark_02_Regular_Blue_Loop_200x200.webm`],
                     green: [l1`Hunters_Mark/HuntersMark_02_Regular_Green_Loop_200x200.webm`],
                     purple: [l1`Hunters_Mark/HuntersMark_02_Regular_Purple_Loop_200x200.webm`],
@@ -6669,7 +7219,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             mistystep: {
+                _free:['01', '02'],
                 '01': {
+                    _free:['blue'],
                     black: [l2`Misty_Step/MistyStep_01_Dark_Black_400x400.webm`],
                     blue: [l2`Misty_Step/MistyStep_01_Regular_Blue_400x400.webm`],
                     green: [l2`Misty_Step/MistyStep_01_Regular_Green_400x400.webm`],
@@ -6682,6 +7234,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [l2`Misty_Step/MistyStep_01_Regular_Yellow_400x400.webm`],
                 },
                 '02': {
+                    _free:['blue'],
                     black: [l2`Misty_Step/MistyStep_02_Dark_Black_400x400.webm`],
                     blue: [l2`Misty_Step/MistyStep_02_Regular_Blue_400x400.webm`],
                     green: [l2`Misty_Step/MistyStep_02_Regular_Green_400x400.webm`],
@@ -6695,29 +7248,36 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             moonbeam: {
+                _free:['loop', 'nopulse', 'intro', 'outro'],
                 loop: {
+                    _free:['blue'],
                     blue: [l2`Moonbeam/Moonbeam_01_Regular_Blue_400x400.webm`],
                     green: [l2`Moonbeam/Moonbeam_01_Regular_Green_400x400.webm`],
                     rainbow: [l2`Moonbeam/Moonbeam_01_Regular_Rainbow_400x400.webm`],
                 },
                 nopulse: {
+                    _free:['blue'],
                     blue: [l2`Moonbeam/MoonbeamNoPulse_01_Regular_Blue_400x400.webm`],
                     green: [l2`Moonbeam/MoonbeamNoPulse_01_Regular_Green_400x400.webm`],
                     rainbow: [l2`Moonbeam/MoonbeamNoPulse_01_Regular_Rainbow_400x400.webm`],
                 },
                 intro: {
+                    _free:['blue'],
                     blue: [l2`Moonbeam/MoonbeamIntro_01_Regular_Blue_400x400.webm`],
                     green: [l2`Moonbeam/MoonbeamIntro_01_Regular_Green_400x400.webm`],
                     rainbow: [l2`Moonbeam/MoonbeamIntro_01_Regular_Rainbow_400x400.webm`],
                 },
                 outro: {
+                    _free:['blue'],
                     blue: [l2`Moonbeam/MoonbeamOutro_01_Regular_Blue_400x400.webm`],
                     green: [l2`Moonbeam/MoonbeamOutro_01_Regular_Green_400x400.webm`],
                     rainbow: [l2`Moonbeam/MoonbeamOutro_01_Regular_Rainbow_400x400.webm`],
                 },
             },
             sacredflame: {
+                _free:['source', 'target'],
                 source: {
+                    _free:['yellow'],
                     blue: [l0`Sacred_Flame/SacredFlameSource_01_Regular_Blue_400x400.webm`],
                     green: [l0`Sacred_Flame/SacredFlameSource_01_Regular_Green_400x400.webm`],
                     purple: [l0`Sacred_Flame/SacredFlameSource_01_Regular_Purple_400x400.webm`],
@@ -6725,6 +7285,7 @@ export async function initializeJB2APatreonDB(path) {
                     white: [l0`Sacred_Flame/SacredFlameSource_01_Regular_White_400x400.webm`],
                 },
                 target: {
+                    _free:['yellow'],
                     blue: [l0`Sacred_Flame/SacredFlameTarget_01_Regular_Blue_400x400.webm`],
                     green: [l0`Sacred_Flame/SacredFlameTarget_01_Regular_Green_400x400.webm`],
                     purple: [l0`Sacred_Flame/SacredFlameTarget_01_Regular_Purple_400x400.webm`],
@@ -6733,7 +7294,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             sneakattack: {
+                _free:['01'],
                 '01': {
+                    _free:['darkgreen'],
                     darkgreen: [l1`Sneak_Attack/Sneak_Attack_Dark_Green_300x300.webm`],
                     darkpurple: [l1`Sneak_Attack/Sneak_Attack_Dark_Purple_300x300.webm`],
                     darkred: [l1`Sneak_Attack/Sneak_Attack_Dark_Red_300x300.webm`],
@@ -6744,7 +7307,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             thunderwave: {
+                _free:['left', 'mid', 'center'],
                 left: {
+                    _free:['blue'],
                     blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_BLeft_600x600.webm`],
                     green: [l1`Thunderwave/Thunderwave_01_Bright_Green_BLeft_600x600.webm`],
                     orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_BLeft_600x600.webm`],
@@ -6752,6 +7317,7 @@ export async function initializeJB2APatreonDB(path) {
                     red: [l1`Thunderwave/Thunderwave_01_Dark_Red_BLeft_600x600.webm`],
                 },
                 mid: {
+                    _free:['blue'],
                     blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_BMid_600x600.webm`],
                     green: [l1`Thunderwave/Thunderwave_01_Bright_Green_BMid_600x600.webm`],
                     orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_BMid_600x600.webm`],
@@ -6759,6 +7325,7 @@ export async function initializeJB2APatreonDB(path) {
                     red: [l1`Thunderwave/Thunderwave_01_Dark_Red_BMid_600x600.webm`],
                 },
                 center: {
+                    _free:['blue'],
                     blue: [l1`Thunderwave/Thunderwave_01_Bright_Blue_Center_600x600.webm`],
                     green: [l1`Thunderwave/Thunderwave_01_Bright_Green_Center_600x600.webm`],
                     orange: [l1`Thunderwave/Thunderwave_01_Bright_Orange_Center_600x600.webm`],
@@ -6767,7 +7334,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             shatter: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     purple: [l2`Shatter/Shatter_01_Purple_400x400.webm`],
                     red: [l2`Shatter/Shatter_01_Red_400x400.webm`],
                     blue: [l2`Shatter/Shatter_01_Blue_400x400.webm`],
@@ -6776,7 +7345,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             sleep: {
+                _free:['01', '02', 'marker', 'symbol'],
                 '01': {
+                    _free:['pink'],
                     darkpurple: [l1`Sleep/Cloud01_01_Dark_Purple_400x400.webm`],
                     blue: [l1`Sleep/Cloud01_01_Regular_Blue_400x400.webm`],
                     green: [l1`Sleep/Cloud01_01_Regular_Green_400x400.webm`],
@@ -6785,6 +7356,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [l1`Sleep/Cloud01_01_Regular_Yellow_400x400.webm`],
                 },
                 '02': {
+                    _free:['pink'],
                     darkpurple: [l1`Sleep/Cloud01_02_Dark_Purple_400x400.webm`],
                     blue: [l1`Sleep/Cloud01_02_Regular_Blue_400x400.webm`],
                     green: [l1`Sleep/Cloud01_02_Regular_Green_400x400.webm`],
@@ -6793,6 +7365,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [l1`Sleep/Cloud01_02_Regular_Yellow_400x400.webm`],
                 },
                 marker: {
+                    _free:['pink'],
                     darkpurple: [l1`Sleep/SleepMarker01_01_Dark_Purple_400x400.webm`],
                     blue: [l1`Sleep/SleepMarker01_01_Regular_Blue_400x400.webm`],
                     green: [l1`Sleep/SleepMarker01_01_Regular_Green_400x400.webm`],
@@ -6801,6 +7374,7 @@ export async function initializeJB2APatreonDB(path) {
                     yellow: [l1`Sleep/SleepMarker01_01_Regular_Yellow_400x400.webm`],
                 },
                 symbol: {
+                    _free:['pink'],
                     darkpurple: [l1`Sleep/SleepSymbol01_01_Dark_Purple_400x400.webm`],
                     blue: [l1`Sleep/SleepSymbol01_01_Regular_Blue_400x400.webm`],
                     green: [l1`Sleep/SleepSymbol01_01_Regular_Green_400x400.webm`],
@@ -6810,7 +7384,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             sleetstorm: {
+                _free:['01'],
                 '01': {
+                    _free:['blue'],
                     blue: [l3`Sleet_Storm/SleetStorm_01_Blue_800x800.webm`],
                     green: [l3`Sleet_Storm/SleetStorm_01_Green_800x800.webm`],
                     purple: [l3`Sleet_Storm/SleetStorm_01_Purple_800x800.webm`],
@@ -6818,7 +7394,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             spiritguardians: {
+                _free:['01'],
                 '01': {
+                    _free:['yellowblue'],
                     black: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_Black_600x600.webm`],
                     darkblue: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_Blue_600x600.webm`],
                     darkpurple: [l3`Spirit_Guardians/SpiritGuardians_01_Dark_Purple_600x600.webm`],
@@ -6872,7 +7450,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             tollthedead: {
+                _free:['bell', 'complete', 'shockwave', 'skull'],
                 bell: {
+                    _free:['green'],
                     blue: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Blue_400x400.webm`],
                     green: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Green_400x400.webm`],
                     purple: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Purple_400x400.webm`],
@@ -6880,6 +7460,7 @@ export async function initializeJB2APatreonDB(path) {
                     grey: [l0`Toll_The_Dead/TollTheDeadBell_01_Regular_Grey_400x400.webm`],
                 },
                 complete: {
+                    _free:['green'],
                     blue: [l0`Toll_The_Dead/TollTheDead_01_Regular_Blue_400x400.webm`],
                     green: [l0`Toll_The_Dead/TollTheDead_01_Regular_Green_400x400.webm`],
                     purple: [l0`Toll_The_Dead/TollTheDead_01_Regular_Purple_400x400.webm`],
@@ -6887,6 +7468,7 @@ export async function initializeJB2APatreonDB(path) {
                     grey: [l0`Toll_The_Dead/TollTheDead_01_Regular_Grey_400x400.webm`],
                 },
                 shockwave: {
+                    _free:['green'],
                     blue: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Blue_400x400.webm`],
                     green: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Green_400x400.webm`],
                     purple: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Purple_400x400.webm`],
@@ -6894,6 +7476,7 @@ export async function initializeJB2APatreonDB(path) {
                     grey: [l0`Toll_The_Dead/TollTheDeadShockwave_01_Regular_Grey_400x400.webm`],
                 },
                 skull: {
+                    _free:['green'],
                     blue: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Blue_400x400.webm`],
                     green: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Green_400x400.webm`],
                     purple: [l0`Toll_The_Dead/TollTheDeadSkullSmoke_01_Regular_Purple_400x400.webm`],
@@ -6902,7 +7485,9 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             wallofforce: {
+                _free:['01'],
                 '01': {
+                    _free:['grey'],
                     blue: [l5`Wall_Of_Force/WallOfForce_01_Blue_Sphere_400x400.webm`],
                     green: [l5`Wall_Of_Force/WallOfForce_01_Green_Sphere_400x400.webm`],
                     grey: [l5`Wall_Of_Force/WallOfForce_01_Grey_Sphere_400x400.webm`],
@@ -6913,7 +7498,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             web: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     white: [l2`Web/Web_01_White_01_400x400.webm`]
                 },
                 '02': {
@@ -6921,7 +7508,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             whirlwind: {
+                _free:['01'],
                 '01': {
+                    _free:['bluegrey'],
                     blue: [l7`Whirlwind/Whirlwind_01_Blue_400x400.webm`],
                     bluegrey: [l7`Whirlwind/Whirlwind_01_BlueGrey_01_400x400.webm`],
                     green: [l7`Whirlwind/Whirlwind_01_Green_400x400.webm`],
@@ -6931,38 +7520,47 @@ export async function initializeJB2APatreonDB(path) {
             },
         },
         tokenborder: {
+            _free:['static', 'spinning'],
             static: {
+                _free:['01', '02', '03', '04', '05', '06', '07'],
                 '01': {
+                    _free:['blue'],
                     blue: [lg`Token_Border/TokenBorderCircle_01_Regular_Blue_400x400.webm`],
                     orange: [lg`Token_Border/TokenBorderCircle_01_Regular_Orange_400x400.webm`],
                     purple: [lg`Token_Border/TokenBorderCircle_01_Regular_Purple_400x400.webm`],
                 },
                 '02': {
+                    _free:['blue'],
                     blue: [lg`Token_Border/TokenBorderCircle_02_Regular_Blue_400x400.webm`],
                     orange: [lg`Token_Border/TokenBorderCircle_02_Regular_Orange_400x400.webm`],
                     purple: [lg`Token_Border/TokenBorderCircle_02_Regular_Purple_400x400.webm`],
                 },
                 '03': {
+                    _free:['blue'],
                     blue: [lg`Token_Border/TokenBorderCircle_03_Regular_Blue_400x400.webm`],
                     orange: [lg`Token_Border/TokenBorderCircle_03_Regular_Orange_400x400.webm`],
                     purple: [lg`Token_Border/TokenBorderCircle_03_Regular_Purple_400x400.webm`],
                 },
                 '04': {
+                    _free:['blue'],
                     blue: [lg`Token_Border/TokenBorderCircle_04_Regular_Blue_400x400.webm`],
                     orange: [lg`Token_Border/TokenBorderCircle_04_Regular_Orange_400x400.webm`],
                     purple: [lg`Token_Border/TokenBorderCircle_04_Regular_Purple_400x400.webm`],
                 },
                 '05': {
+                    _free:['blue'],
                     blue: [lg`Token_Border/TokenBorderCircle_05_Regular_Blue_400x400.webm`],
                     orange: [lg`Token_Border/TokenBorderCircle_05_Regular_Orange_400x400.webm`],
                     purple: [lg`Token_Border/TokenBorderCircle_05_Regular_Purple_400x400.webm`],
                 },
                 '06': {
+                    _free:['blue'],
                     blue: [lg`Token_Border/TokenBorderCircle_06_Regular_Blue_400x400.webm`],
                     orange: [lg`Token_Border/TokenBorderCircle_06_Regular_Orange_400x400.webm`],
                     purple: [lg`Token_Border/TokenBorderCircle_06_Regular_Purple_400x400.webm`],
                 },
                 '07': {
+                    _free:['blue'],
                     blue: [lg`Token_Border/TokenBorderCircle_07_Regular_Blue_400x400.webm`],
                     orange: [lg`Token_Border/TokenBorderCircle_07_Regular_Orange_400x400.webm`],
                     purple: [lg`Token_Border/TokenBorderCircle_07_Regular_Purple_400x400.webm`],
@@ -6999,37 +7597,45 @@ export async function initializeJB2APatreonDB(path) {
                 },
             },
             spinning: {
+                _free:['01', '02', '03', '04', '05', '06', '07'],
                 '01': {
+                    _free:['blue'],
                     blue: [lg`Token_Border/TokenBorderCircleSpin_01_Regular_Blue_400x400.webm`],
                     orange: [lg`Token_Border/TokenBorderCircleSpin_01_Regular_Orange_400x400.webm`],
                     purple: [lg`Token_Border/TokenBorderCircleSpin_01_Regular_Purple_400x400.webm`],
                 },
                 '02': {
+                    _free:['blue'],
                     blue: [lg`Token_Border/TokenBorderCircleSpin_02_Regular_Blue_400x400.webm`],
                     orange: [lg`Token_Border/TokenBorderCircleSpin_02_Regular_Orange_400x400.webm`],
                     purple: [lg`Token_Border/TokenBorderCircleSpin_02_Regular_Purple_400x400.webm`],
                 },
                 '03': {
+                    _free:['blue'],
                     blue: [lg`Token_Border/TokenBorderCircleSpin_03_Regular_Blue_400x400.webm`],
                     orange: [lg`Token_Border/TokenBorderCircleSpin_03_Regular_Orange_400x400.webm`],
                     purple: [lg`Token_Border/TokenBorderCircleSpin_03_Regular_Purple_400x400.webm`],
                 },
                 '04': {
+                    _free:['blue'],
                     blue: [lg`Token_Border/TokenBorderCircleSpin_04_Regular_Blue_400x400.webm`],
                     orange: [lg`Token_Border/TokenBorderCircleSpin_04_Regular_Orange_400x400.webm`],
                     purple: [lg`Token_Border/TokenBorderCircleSpin_04_Regular_Purple_400x400.webm`],
                 },
                 '05': {
+                    _free:['blue'],
                     blue: [lg`Token_Border/TokenBorderCircleSpin_05_Regular_Blue_400x400.webm`],
                     orange: [lg`Token_Border/TokenBorderCircleSpin_05_Regular_Orange_400x400.webm`],
                     purple: [lg`Token_Border/TokenBorderCircleSpin_05_Regular_Purple_400x400.webm`],
                 },
                 '06': {
+                    _free:['blue'],
                     blue: [lg`Token_Border/TokenBorderCircleSpin_06_Regular_Blue_400x400.webm`],
                     orange: [lg`Token_Border/TokenBorderCircleSpin_06_Regular_Orange_400x400.webm`],
                     purple: [lg`Token_Border/TokenBorderCircleSpin_06_Regular_Purple_400x400.webm`],
                 },
                 '07': {
+                    _free:['blue'],
                     blue: [lg`Token_Border/TokenBorderCircleSpin_07_Regular_Blue_400x400.webm`],
                     orange: [lg`Token_Border/TokenBorderCircleSpin_07_Regular_Orange_400x400.webm`],
                     purple: [lg`Token_Border/TokenBorderCircleSpin_07_Regular_Purple_400x400.webm`],
@@ -7067,12 +7673,16 @@ export async function initializeJB2APatreonDB(path) {
             },
         },
         trap: {
+            _free:['fire'],
             fire: {
+                _free:['single', 'double'],
                 single: {
+                    _free:['orange'],
                     orange: [lg`Traps/FireTrap02_01_Regular_Orange_1400x1400.webm`],
                     green: [lg`Traps/FireTrap02_01_Regular_Green_1400x1400.webm`]
                 },
                 double: {
+                    _free:['orange'],
                     orange: [lg`Traps/FireTrapDual02_01_Regular_Orange_1400x1400.webm`],
                     green: [lg`Traps/FireTrapDual02_01_Regular_Green_1400x1400.webm`]
                 }
@@ -7089,7 +7699,9 @@ export async function initializeJB2APatreonDB(path) {
 
     JB2APATREONDB.return = {
         _template: 'ranged',
+        _free:['weapon', '_template'],
         weapon: {
+            _free:['dagger'],
             bone: {
                 '01': {
                     white: {
@@ -7111,7 +7723,9 @@ export async function initializeJB2APatreonDB(path) {
                 }
             },
             dagger: {
+                _free:['01'],
                 '01': {
+                    _free:['white'],
                     blue: {
                         '15ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Blue_Return_15ft_1000x400.webm`],
                         '30ft': [lg`Weapon_Attacks/Ranged/Dagger01_01_Regular_Blue_Return_30ft_1600x400.webm`],

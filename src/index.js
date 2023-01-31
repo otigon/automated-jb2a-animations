@@ -3,6 +3,7 @@ import { initializeJB2APatreonDB }      from "./database/jb2a-patreon-database.j
 import { initializeJB2AFreeDB }         from "./database/jb2a-free-database.js";
 import { JB2APATREONDB }                from "./database/jb2a-patreon-database.js";
 import { JB2AFREEDB }                   from "./database/jb2a-free-database.js";
+import { initializeAADB }                 from "./database/databaseSort.js";
 
 // Accessible to users
 import { AutoAnimations}                from "./system-support/external.js"
@@ -130,7 +131,9 @@ Hooks.on('aa.initialize', async () => {
             ui.notifications.error(game.i18n.format("autoanimations.settings.error"));
         }
     }
+    initializeAADB()
 
+    /*
     // If an S3 Location is found in the Game Settings, run this. Otherwise continue to else section
     if (s3Location) {
         // If S3 includes the Patreon path, initialize the Patreon module and update to current installed version
@@ -174,7 +177,7 @@ Hooks.on('aa.initialize', async () => {
         // Set the AA Database based on presence of the Patreon Module
         aaDatabase = jb2aPatreonFound ? JB2APATREONDB : JB2AFREEDB
     }
-
+    
     // Register aaDatabase with Sequencer
     Sequencer.Database.registerEntries("autoanimations", aaDatabase, true);
     if (game.settings.get("autoanimations", "killAllAnim") === "off") {
@@ -182,6 +185,7 @@ Hooks.on('aa.initialize', async () => {
     }
     console.log('%cAutomated Animations Database has been compiled and registered', 'color: green', {aaDatabase})
     Hooks.callAll('aa.ready', aaDatabase)
+    */
 })
 
 Hooks.once('ready', async function () {

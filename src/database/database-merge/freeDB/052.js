@@ -27,9 +27,6 @@ export async function db052(path) {
      */
     const freeDB052 = {
         melee: {
-            creature: {
-
-            },
             weapon: {
                 lasersword: {
                     '02': {
@@ -140,12 +137,6 @@ export async function db052(path) {
                         white: [lg`Impact/GroundCrackFrostImpact_01_Regular_White_600x600.webm`],
                     },
                 },
-            },
-            lightning: {
-
-            },
-            liquid: {
-
             },
             magicsign: {
                 abjuration: {

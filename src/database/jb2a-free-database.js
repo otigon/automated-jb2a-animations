@@ -190,12 +190,14 @@ export async function initializeJB2AFreeDB(path) {
                 }
             },
             snipe: {
-                blue: {
-                    '05ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_05ft_600x400.webm`],
-                    '15ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_15ft_1000x400.webm`],
-                    '30ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_30ft_1600x400.webm`],
-                    '60ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_60ft_2800x400.webm`],
-                    '90ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_90ft_4000x400.webm`]
+                '01': {
+                    blue: {
+                        '05ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_05ft_600x400.webm`],
+                        '15ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_15ft_1000x400.webm`],
+                        '30ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_30ft_1600x400.webm`],
+                        '60ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_60ft_2800x400.webm`],
+                        '90ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_90ft_4000x400.webm`]
+                    }
                 }
             },
             snowball: {
@@ -2089,7 +2091,7 @@ export async function initializeJB2AFreeDB(path) {
             },
             sneakattack: {
                 '01': {
-                    'dark green': [l1`Sneak_Attack/Sneak_Attack_Dark_Green_300x300.webm`],
+                    'darkgreen': [l1`Sneak_Attack/Sneak_Attack_Dark_Green_300x300.webm`],
                 }
             },
             thunderwave: {

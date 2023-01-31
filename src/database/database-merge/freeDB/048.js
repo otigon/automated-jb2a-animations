@@ -21,9 +21,6 @@ export async function db048(path) {
                     }
                 }
             },
-            ray: {
-
-            },
             square: {
                 entangle: {
                     '02': {
