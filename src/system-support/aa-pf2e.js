@@ -16,7 +16,6 @@ export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => {
         if (msg.user.id !== game.user.id) { return };
         const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
-
         let compiledData = await getRequiredData({
             item: msg.item,
             itemId: msg.flags.pf2e?.origin?.uuid,
@@ -100,9 +99,13 @@ async function runPF2e(data) {
                     return;
                 }
             }
-            if (itemHasDamage(data.item) && data.playOnDamage && data.workflow.isDamageRoll) {
+            let hasDamage = itemHasDamage(data.item)
+            //hasDamage && data.playOnDamage && data.workflow.isDamageRoll ? playPF2e(data) : !hasDamage && !data.workflow.isDamageRoll ? playPF2e(data) : playPF2e(data)
+            if (hasDamage && data.playOnDamage && data.workflow.isDamageRoll) {
                 playPF2e(data)
-            } else if (!itemHasDamage(data.item) && !data.workflow.isDamageRoll) {
+            } else if (!hasDamage && data.workflow.isCheckRoll) {
+                playPF2e(data)
+            } else if (hasDamage && !data.playOnDamage && data.workflow.isCheckRoll) {
                 playPF2e(data)
             }
     }

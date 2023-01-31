@@ -62,6 +62,7 @@ export async function handleItem(data) {
             autorecObject = AAAutorecFunctions.allMenuSearch(menus, rinsedItemName, itemName);
             if (!autorecObject && data.extraNames?.length && !data.activeEffect) {
                 for (const name of data.extraNames) {
+                    if (!name) { continue }
                     const rinsedName = AAAutorecFunctions.rinseName(name);
                     autorecObject = AAAutorecFunctions.allMenuSearch(menus, rinsedName, itemName);
                     if (autorecObject) {
