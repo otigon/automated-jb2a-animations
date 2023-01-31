@@ -1,7 +1,7 @@
 ---
-name: "[REQUEST] - TYPE SHORT DESCRIPTION HERE"
-about: Suggest an idea for this project
-title: ''
+name: "[FEATURE REQUEST] - TYPE SHORT DESCRIPTION HERE"
+about: Have a Feature Request for Automated Animations? Use this template
+title: "[FEATURE REQUEST] - TYPE SHORT DESCRIPTION HERE"
 labels: ''
 assignees: ''
 

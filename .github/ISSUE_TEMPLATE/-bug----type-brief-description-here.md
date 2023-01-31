@@ -1,7 +1,7 @@
 ---
 name: "[BUG] - TYPE BRIEF DESCRIPTION HERE"
 about: Create a report to help us improve
-title: ''
+title: "[BUG] - TYPE BRIEF DESCRIPTION HERE"
 labels: ''
 assignees: ''
 
