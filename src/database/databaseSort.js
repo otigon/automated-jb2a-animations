@@ -1,6 +1,6 @@
-import { initializeJB2APatreonDB }  from "./jb2a-patreon-database";
-import { JB2APATREONDB }            from "./jb2a-patreon-database";
-import { dbMerge }                  from "./database-merge/dbMerge";
+import { initializeJB2APatreonDB } from "./jb2a-patreon-database";
+import { JB2APATREONDB } from "./jb2a-patreon-database";
+import { dbMerge } from "./database-merge/dbMerge";
 
 export let aaTestDatabase;
 
@@ -35,119 +35,123 @@ export async function initializeAADB() {
     } else {
         await initializeJB2APatreonDB(jb2aPatreonFound ? patreonPath : freePath);
         aaTestDatabase = JB2APATREONDB
-        await cleanDB(jb2aPatreonFound ? true : false);
-        //await dbMerge.handle(freeVersion, patreonVersion);
+        await sortDatabase(aaTestDatabase, jb2aPatreonFound ? true : false);
+        sortDatabase(aaTestDatabase)
+        await dbMerge.handle(freeVersion, patreonVersion);
         //await cleanDB();
         console.log(aaTestDatabase)
     }
+}
 
+export async function sortDatabase(database, isPatreon = false) {
 
-    async function cleanDB(isPatreon = false) {
-        if (isPatreon) { return; }
-        await clearTypes();
-        await clearAnimations();
-        await clearVariants();
-        await clearColor();
-    }
+    if (isPatreon) { return; }
+    await clearTypes();
+    await clearAnimations();
+    await clearVariants();
+    await clearColor();
 
+    return database;
+    
     async function clearTypes() {
-        let sections = Object.keys(aaTestDatabase);
+        let sections = Object.keys(database);
         for (let section of sections) {
             if (section === "_templates") { continue }
-            let freeOptions = aaTestDatabase[section]._free;
+            let freeOptions = database[section]._free;
             if (!freeOptions) { continue }
             await removePatreonType(freeOptions, section)
         }
     }
 
     async function removePatreonType(freeOptions, section) {
-        let types = Object.keys(aaTestDatabase[section]);
+        let types = Object.keys(database[section]);
         for (let i = 0; i < types.length; i++) {
             let typeFound = freeOptions.indexOf(types[i])
             if (typeFound === -1) {
-                delete aaTestDatabase[section][types[i]]
+                delete database[section][types[i]]
             }
         }
     }
 
     async function clearAnimations() {
-        let sections = Object.keys(aaTestDatabase);
+        let sections = Object.keys(database);
         for (let section of sections) {
             if (section === "_templates") { continue }
-            let types = Object.keys(aaTestDatabase[section])
+            let types = Object.keys(database[section])
             for (let type of types) {
                 if (type === "_template") { continue }
-                let freeOptions = aaTestDatabase[section][type]._free;
+                let freeOptions = database[section][type]._free;
                 if (!freeOptions) { continue }
-                await removePatreonAnimation(freeOptions, section, type) 
-            }    
+                await removePatreonAnimation(freeOptions, section, type)
+            }
         }
     }
 
     async function removePatreonAnimation(freeOptions, section, type) {
-        let animations = Object.keys(aaTestDatabase[section][type]);
+        let animations = Object.keys(database[section][type]);
         for (let i = 0; i < animations.length; i++) {
             let animationFound = freeOptions.indexOf(animations[i]);
             if (animationFound === -1) {
-                delete aaTestDatabase[section][type][animations[i]]
+                delete database[section][type][animations[i]]
             }
         }
     }
 
     async function clearVariants() {
-        let sections = Object.keys(aaTestDatabase);
+        let sections = Object.keys(database);
         for (let section of sections) {
             if (section === "_templates") { continue }
-            let types = Object.keys(aaTestDatabase[section])
+            let types = Object.keys(database[section])
             for (let type of types) {
                 if (type === "_template") { continue }
-                let animations = Object.keys(aaTestDatabase[section][type]);
+                let animations = Object.keys(database[section][type]);
                 for (let animation of animations) {
-                    let freeOptions = aaTestDatabase[section][type][animation]._free;
+                    let freeOptions = database[section][type][animation]._free;
                     if (!freeOptions) { continue }
                     await removePatreonVariant(freeOptions, section, type, animation)
                 }
-            }    
+            }
         }
     }
 
     async function removePatreonVariant(freeOptions, section, type, animation) {
-        let variants = Object.keys(aaTestDatabase[section][type][animation]);
+        let variants = Object.keys(database[section][type][animation]);
         for (let i = 0; i < variants.length; i++) {
             let variantFound = freeOptions.indexOf(variants[i]);
             if (variantFound === -1) {
-                delete aaTestDatabase[section][type][animation][variants[i]]
+                delete database[section][type][animation][variants[i]]
             }
         }
     }
 
     async function clearColor() {
-        let sections = Object.keys(aaTestDatabase);
+        let sections = Object.keys(database);
         for (let section of sections) {
             if (section === "_templates") { continue }
-            let types = Object.keys(aaTestDatabase[section])
+            let types = Object.keys(database[section])
             for (let type of types) {
                 if (type === "_template") { continue }
-                let animations = Object.keys(aaTestDatabase[section][type]);
+                let animations = Object.keys(database[section][type]);
                 for (let animation of animations) {
-                    let variants = Object.keys(aaTestDatabase[section][type][animation]);
+                    let variants = Object.keys(database[section][type][animation]);
                     for (let variant of variants) {
-                        let freeOptions = aaTestDatabase[section][type][animation][variant]._free;
+                        let freeOptions = database[section][type][animation][variant]._free;
                         if (!freeOptions) { continue }
-                        await removePatreonColor(freeOptions, section, type, animation, variant)    
+                        await removePatreonColor(freeOptions, section, type, animation, variant)
                     }
                 }
-            }    
+            }
         }
     }
 
     async function removePatreonColor(freeOptions, section, type, animation, variant) {
-        let colors = Object.keys(aaTestDatabase[section][type][animation][variant]);
+        let colors = Object.keys(database[section][type][animation][variant]);
         for (let i = 0; i < colors.length; i++) {
             let colorFound = freeOptions.indexOf(colors[i]);
             if (colorFound === -1) {
-                delete aaTestDatabase[section][type][animation][variant][colors[i]]
+                delete database[section][type][animation][variant][colors[i]]
             }
         }
     }
+
 }
