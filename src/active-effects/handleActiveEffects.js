@@ -31,7 +31,7 @@ export async function createActiveEffects(effect) {
 
     const data = {
         token: aeToken,
-        targets: [],
+        targets: [aeToken],
         item: effect,
         activeEffect: true,
         tieToDocuments: true,
