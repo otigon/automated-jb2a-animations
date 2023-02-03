@@ -16,6 +16,11 @@ export default class AAHandler {
             debug(`No Animation matched for Item`, data )
             return false;
         }
+        Hooks.callAll("AutomatedAnimations-WorkflowStart", data);
+        if (data.stopWorkflow) { 
+            debug(`Animation Workflow was interrupted by an External Source`, data )
+            return;
+        }
         return new AAHandler({...data, animationData});
     }
     constructor (data) {

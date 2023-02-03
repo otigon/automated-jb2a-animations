@@ -22,7 +22,9 @@ export async function handleItem(data) {
     const ammoFlags = ammoItem ? await flagMigrations.handle(ammoItem, {activeEffect: data.activeEffect}) || {isEnabled: true} : null;
     
     let autorecDisabled = game.settings.get("autoanimations", "disableAutoRec");
-    debug("Global Automatic Recognition menu is Disabled from the Module Settings");
+    if (autorecDisabled) {
+        debug("Global Automatic Recognition menu is Disabled from the Module Settings");
+    }
 
     const autorecSettings = {
         melee: game.settings.get("autoanimations", "aaAutorec-melee"),
