@@ -31,6 +31,9 @@ export function sourceEffect(sourceFX, seq, handler) {
     if (options.isMasked) {
         thisSeq.mask(handler.sourceToken)
     }
+    if (handler.systemData.tieToDocuments) {
+        thisSeq.tieToDocuments(handler.item)
+    }
     if (sourceFX.video.variant === "complete" || sourceFX.video.animation === "complete") { }
     else { thisSeq.fadeOut(options.fadeOut) }
     if (options.isWait) { thisSeq.waitUntilFinished(options.delay) }
