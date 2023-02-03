@@ -14,6 +14,7 @@ export async function db049(path) {
 
     const patreonDB049 = {
         range: {
+            _free: [],
             weapon: {
                 flask: {
                     '01': {

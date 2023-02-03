@@ -119,8 +119,8 @@ Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
 });
 
 Hooks.on('aa.initialize', async () => {
-    const patreonPath = "modules/jb2a_patreon";
-    const freePath = "modules/JB2A_DnD5e";
+    //const patreonPath = "modules/jb2a_patreon";
+    //const freePath = "modules/JB2A_DnD5e";
 
     const s3Location = game.settings.get('autoanimations', 'jb2aLocation');
     const jb2aPatreonFound = game.modules.get("jb2a_patreon");
@@ -186,6 +186,9 @@ Hooks.on('aa.initialize', async () => {
     console.log('%cAutomated Animations Database has been compiled and registered', 'color: green', {aaDatabase})
     Hooks.callAll('aa.ready', aaDatabase)
     */
+    if (game.settings.get("autoanimations", "killAllAnim") === "off") {
+        AnimationState.enabled = false;
+    }
 })
 
 Hooks.once('ready', async function () {

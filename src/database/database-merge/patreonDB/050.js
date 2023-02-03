@@ -8,6 +8,7 @@ export async function db050(path) {
 
     const patreonDB050 = {
         range: {
+            _free: [],
             weapon: {
                 boulder: {
                     '02': {
@@ -23,6 +24,7 @@ export async function db050(path) {
             },
         },
         templatefx: {
+            _free: [],
             cone: {
                 breathweaponspray01: {
                     burst: {

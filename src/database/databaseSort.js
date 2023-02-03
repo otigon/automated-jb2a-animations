@@ -1,15 +1,18 @@
-import { initializeJB2APatreonDB } from "./jb2a-patreon-database";
-import { JB2APATREONDB } from "./jb2a-patreon-database";
-import { dbMerge } from "./database-merge/dbMerge";
+import { initializeJB2APatreonDB }  from "./jb2a-patreon-database";
+import { initializeJB2AFreeDB }     from "./jb2a-free-database";
+import { JB2APATREONDB }            from "./jb2a-patreon-database";
+import { JB2AFREEDB }               from "./jb2a-free-database";
+import { dbMerge }                  from "./database-merge/dbMerge";
+import { custom_error }             from "../constants/constants";
 
-export let aaTestDatabase;
+export let aaDatabase;
 
 export async function initializeAADB() {
 
     const freePath = "modules/JB2A_DnD5e";
     const patreonPath = "modules/jb2a_patreon";
 
-    let s3Location;// = game.settings.get('autoanimations', 'jb2aLocation');
+    let s3Location = game.settings.get('autoanimations', 'jb2aLocation');
     const jb2aFreeFound = game.modules.get("JB2A_DnD5e");
     const jb2aPatreonFound = game.modules.get("jb2a_patreon");
 
@@ -19,33 +22,48 @@ export async function initializeAADB() {
         }
     }
 
-    let freeVersion = jb2aFreeFound?.version;
-    let patreonVersion = jb2aFreeFound?.version;
-
-    if (patreonVersion) {
-
-    } else if (freeVersion) {
-
-    } else {
-
-    }
+    const freeVersion = jb2aFreeFound?.version ?? "";
+    const patreonVersion = jb2aPatreonFound?.version ?? "";
 
     if (s3Location) {
-
+        if (s3Location.includes('patreon')) {
+            await initializeJB2APatreonDB(s3Location);
+            aaDatabase = JB2APATREONDB;
+            await dbMerge.handle("", patreonVersion, s3Location);
+            // Otherwise if the S3 Location includes the Free path intialize that DB and merge accordingly
+        } else if (s3Location.includes('JB2A_DnD5e')) {
+            await initializeJB2AFreeDB(s3Location)
+            aaDatabase = JB2AFREEDB;
+            await dbMerge.handle(freeVersion, "", s3Location)
+        } else {
+            await initializeJB2APatreonDB(s3Location);
+            aaDatabase = JB2APATREONDB;
+            custom_error("You have specified an External path (S3 Bucket or other) incorrectly", true)
+        }
+    } else if (!patreonVersion && !freeVersion) {
+        await initializeJB2AFreeDB(freePath)
     } else {
-        await initializeJB2APatreonDB(jb2aPatreonFound ? patreonPath : freePath);
-        aaTestDatabase = JB2APATREONDB
-        await sortDatabase(aaTestDatabase, jb2aPatreonFound ? true : false);
-        sortDatabase(aaTestDatabase)
+        if (jb2aPatreonFound) {
+            await initializeJB2APatreonDB(patreonPath);
+            aaDatabase = JB2APATREONDB;
+        } else {
+            await initializeJB2AFreeDB(freePath)
+            aaDatabase = JB2AFREEDB;
+        }
         await dbMerge.handle(freeVersion, patreonVersion);
-        //await cleanDB();
-        console.log(aaTestDatabase)
     }
+
+    // Register aaDatabase with Sequencer
+    Sequencer.Database.registerEntries("autoanimations", aaDatabase, true);
+    console.log('%cAutomated Animations Database has been compiled and registered', 'color: green', {aaDatabase})
+    Hooks.callAll('aa.ready', aaDatabase)
 }
 
 export async function sortDatabase(database, isPatreon = false) {
 
-    if (isPatreon) { return; }
+    if (isPatreon) { 
+        return await removeFreeMarker(database);
+    }
     await clearTypes();
     await clearAnimations();
     await clearVariants();
@@ -154,4 +172,94 @@ export async function sortDatabase(database, isPatreon = false) {
         }
     }
 
+}
+
+async function removeFreeMarker(database) {
+    await clearTypes();
+    await clearAnimations();
+    await clearVariants();
+    await clearColor();
+
+    return database;
+    
+    async function clearTypes() {
+        let sections = Object.keys(database);
+        for (let section of sections) {
+            if (section === "_templates") { continue }
+            await removePatreonType(section)
+        }
+    }
+
+    async function removePatreonType(section) {
+        let types = Object.keys(database[section]);
+        for (let i = 0; i < types.length; i++) {
+            delete database[section]._free
+        }
+    }
+
+    async function clearAnimations() {
+        let sections = Object.keys(database);
+        for (let section of sections) {
+            if (section === "_templates") { continue }
+            let types = Object.keys(database[section])
+            for (let type of types) {
+                if (type === "_template") { continue }
+                await removePatreonAnimation(section, type)
+            }
+        }
+    }
+
+    async function removePatreonAnimation(section, type) {
+        let animations = Object.keys(database[section][type]);
+        for (let i = 0; i < animations.length; i++) {
+            delete database[section][type]._free
+        }
+    }
+
+    async function clearVariants() {
+        let sections = Object.keys(database);
+        for (let section of sections) {
+            if (section === "_templates") { continue }
+            let types = Object.keys(database[section])
+            for (let type of types) {
+                if (type === "_template") { continue }
+                let animations = Object.keys(database[section][type]);
+                for (let animation of animations) {
+                    await removePatreonVariant(section, type, animation)
+                }
+            }
+        }
+    }
+
+    async function removePatreonVariant(section, type, animation) {
+        let variants = Object.keys(database[section][type][animation]);
+        for (let i = 0; i < variants.length; i++) {
+            delete database[section][type][animation]._free
+        }
+    }
+
+    async function clearColor() {
+        let sections = Object.keys(database);
+        for (let section of sections) {
+            if (section === "_templates") { continue }
+            let types = Object.keys(database[section])
+            for (let type of types) {
+                if (type === "_template") { continue }
+                let animations = Object.keys(database[section][type]);
+                for (let animation of animations) {
+                    let variants = Object.keys(database[section][type][animation]);
+                    for (let variant of variants) {
+                        await removePatreonColor(section, type, animation, variant)
+                    }
+                }
+            }
+        }
+    }
+
+    async function removePatreonColor(section, type, animation, variant) {
+        let colors = Object.keys(database[section][type][animation][variant]);
+        for (let i = 0; i < colors.length; i++) {
+            delete database[section][type][animation][variant]._free
+        }
+    }
 }

@@ -22,6 +22,7 @@ export async function db053(path) {
      */
     const patreonDB053 = {
         range: {
+            _free: [],
             spell: {
                 guidingbolt: {
                     '01': {
@@ -95,6 +96,7 @@ export async function db053(path) {
             },
         },
         templatefx: {
+            _free: [],
             circle: {
                 detectmagic: {
                     '01': {
@@ -202,7 +204,7 @@ export async function db053(path) {
                         _markers: {
                             loop: { start: 2625, end: 7625 }
                         },
-                        _free:['blue'],
+                        _free:['blue', "_markers"],
                         blue: [lg`Marker/MarkerBubbleComplete_01_Regular_Blue_400x400.webm`],
                         green: [lg`Marker/MarkerBubbleComplete_01_Regular_Green_400x400.webm`],
                         rainbow: [lg`Marker/MarkerBubbleComplete_01_Regular_Rainbow_400x400.webm`],
@@ -240,7 +242,7 @@ export async function db053(path) {
                         _markers: {
                             loop: { start: 1916, end: 6208 }
                         },
-                        _free:['orange'],
+                        _free:['orange', "_markers"],
                         darkred: [lg`Marker/MarkerShieldRampart01_01_Dark_Red_400x400.webm`],
                         orange: [lg`Marker/MarkerShieldRampart01_01_Regular_Orange_400x400.webm`],
                     },
@@ -403,7 +405,7 @@ export async function db053(path) {
                         _markers: {
                             loop: { start: 2000, end: 4000 }
                             },
-                        _free:['grey'],
+                        _free:['grey', '_markers'],
                         blue: [
                             lg`Smoke/SmokePlumes01_01_Regular_Blue_400x400.webm`,
                             lg`Smoke/SmokePlumes01_02_Regular_Blue_400x400.webm`,
@@ -481,12 +483,6 @@ export async function db053(path) {
                 },    
             },
         },
-        return: {
-            _template: 'ranged',
-            weapon: {
-                
-            }
-        }
     }
     return patreonDB053;
 }

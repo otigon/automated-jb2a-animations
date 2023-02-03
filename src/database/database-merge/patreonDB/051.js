@@ -28,6 +28,7 @@ export async function db051(path) {
     const patreonDB051 = {
         range: {
             _template: 'ranged',
+            _free: [],
             weapon: {
                 boomerang: {
                     '01': {
@@ -121,6 +122,7 @@ export async function db051(path) {
             },
         },
         templatefx: {
+            _free: [],
             circle: {
                 fireball: {
                     loop: {
@@ -423,6 +425,7 @@ export async function db051(path) {
         },
         return: {
             _template: 'ranged',
+            _free: [],
             weapon: {
                 boomerang: {
                     '01': {

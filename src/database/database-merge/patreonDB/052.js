@@ -19,6 +19,7 @@ export async function db052(path) {
      */
     const patreonDB052 = {
         range: {
+            _free: [],
             generic: {
                 poison: {
                     '01': {
