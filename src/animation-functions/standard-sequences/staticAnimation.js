@@ -74,7 +74,7 @@ export async function ontoken(handler, animationData) {
         }
 
         if (secondary) {
-            handler.compileSecondaryEffect(secondary, aaSeq, [sourceToken], false, true)
+            handler.compileSecondaryEffect(secondary, aaSeq, [sourceToken], false, false)
         }    
     }
 

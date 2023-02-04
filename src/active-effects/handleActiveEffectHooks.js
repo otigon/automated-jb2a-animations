@@ -3,6 +3,8 @@ import { createRuleElementPF2e, deleteRuleElementPF2e } from "./pf2e/handlePF2eR
 import AAHandler from "../system-handlers/workflow-data.js";
 import { debug } from "../constants/constants.js";
 
+const pf2eDeletedItems = new Map();
+
 export function registerActiveEffectHooks() {
     switch (game.system.id) {
         case 'pf2e':
@@ -24,12 +26,25 @@ export function registerActiveEffectHooks() {
                 createRuleElementPF2e(item);
             })
             Hooks.on("preDeleteItem", (item, data, userId) => {
-                if (game.user.id !== userId) { return; }
-                const aePF2eTypes = ['condition', 'effect', 'feat']
-                if (!aePF2eTypes.includes(item.type)) { return; }
-            
-                deleteRuleElementPF2e(item)
+                if (shouldContinue(item, userId)) {
+                    pf2eDeletedItems.set(item.id, {
+                        item, 
+                        token: item.parent?.token || canvas.tokens.placeables.find(token => token.actor?.items?.get(item.id) != null)
+                    })    
+                }
             })
+            Hooks.on("deleteItem", (item, data, userId) => {
+                if (shouldContinue(item, userId)) {
+                    let itemData = pf2eDeletedItems.get(item.id);
+                    if (!itemData) { return; }
+                    deleteRuleElementPF2e(itemData)
+                }
+            })
+            function shouldContinue(item, userId) {
+                if (game.user.id !== userId) { return false; }
+                if (!['condition', 'effect', 'feat'].includes(item.type)) { return false; }
+                return true;
+            }
             break;
         case "sfrpg":
             Hooks.on("updateItem", (item, diff, action, userId) => {

@@ -31,6 +31,9 @@ export function sourceEffect(sourceFX, seq, handler) {
     if (options.isMasked) {
         thisSeq.mask(handler.sourceToken)
     }
+    if (handler.systemData.tieToDocuments) {
+        thisSeq.tieToDocuments(handler.item)
+    }
     if (sourceFX.video.variant === "complete" || sourceFX.video.animation === "complete") { }
     else { thisSeq.fadeOut(options.fadeOut) }
     if (options.isWait) { thisSeq.waitUntilFinished(options.delay) }
@@ -68,7 +71,7 @@ export function secondaryEffect(secondary, seq, targetArray, targetEnabled = fal
             thisSeq.delay(options.delay)
         }
         if (options.rotateSource) {
-            thisSeq.rotateTowards(sourceToken)
+            thisSeq.rotateTowards(handler.sourceToken)
             thisSeq.rotate(180)    
         }
         if (options.isMasked) {
@@ -110,7 +113,7 @@ export function targetEffect(targetFX, seq, targetArray, missable = false, handl
             thisSeq.atLocation(missable ? `spot ${currentTarget.id}` : currentTarget)
         }    
         if (options.rotateSource) {
-            thisSeq.rotateTowards(sourceToken)
+            thisSeq.rotateTowards(handler.sourceToken)
             thisSeq.rotate(180)    
         }
         if (options.isMasked) {
