@@ -71,7 +71,7 @@ export function secondaryEffect(secondary, seq, targetArray, targetEnabled = fal
             thisSeq.delay(options.delay)
         }
         if (options.rotateSource) {
-            thisSeq.rotateTowards(sourceToken)
+            thisSeq.rotateTowards(handler.sourceToken)
             thisSeq.rotate(180)    
         }
         if (options.isMasked) {
@@ -113,7 +113,7 @@ export function targetEffect(targetFX, seq, targetArray, missable = false, handl
             thisSeq.atLocation(missable ? `spot ${currentTarget.id}` : currentTarget)
         }    
         if (options.rotateSource) {
-            thisSeq.rotateTowards(sourceToken)
+            thisSeq.rotateTowards(handler.sourceToken)
             thisSeq.rotate(180)    
         }
         if (options.isMasked) {
