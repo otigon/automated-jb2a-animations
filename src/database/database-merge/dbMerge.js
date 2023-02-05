@@ -79,5 +79,10 @@ export const dbMerge = {
             await sortDatabase(db053, isPatreon)
             foundry.utils.mergeObject(aaDatabase, db053);
         },
+        "0.5.4": async (path, isPatreon = false) => {
+            let db054 = await patreon.db054(path);
+            await sortDatabase(db054, isPatreon)
+            foundry.utils.mergeObject(aaDatabase, db054);
+        },
     }
 }
