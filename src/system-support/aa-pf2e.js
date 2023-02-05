@@ -147,9 +147,7 @@ async function runPF2eSpells(data) {
         case "utility":
         case "save":
             //if (spellHasAOE(item)) { return; }
-            if (itemHasDamage(item) && playOnDamage && msg.isDamageRoll) {
-                playPF2e(data)
-            } else if (!playOnDamage && !msg.isRoll) {
+            if (itemHasDamage(item) && msg.isDamageRoll) {
                 playPF2e(data)
             } else if (!itemHasDamage(item)) {
                 playPF2e(data)
