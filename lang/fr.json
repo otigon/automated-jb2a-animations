@@ -90,7 +90,9 @@
 			"coreonatk_hint": "Par défaut, les animations sont lancées sur les jets d'attaque",
 			"attack": "jets d'attaque",
 			"damage": "Jets de dégâts",
-			"playAnimations": "Quand jouer les animations"
+			"playAnimations": "Quand jouer les animations",
+			"disableGrantedAura": "Désactiver les animations des effets d'auras accordées",
+			"disableGrantedAuraHint": "Désactive les animations pour les effets accordés par les Auras"
 		},
 		"colors": {
 			"lightorange": "Orange clair",
