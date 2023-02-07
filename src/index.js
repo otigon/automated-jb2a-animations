@@ -1,8 +1,5 @@
 // Initilize the A-A Database
-import { initializeJB2APatreonDB }      from "./database/jb2a-patreon-database.js";
-import { initializeJB2AFreeDB }         from "./database/jb2a-free-database.js";
-import { JB2APATREONDB }                from "./database/jb2a-patreon-database.js";
-import { JB2AFREEDB }                   from "./database/jb2a-free-database.js";
+import { initializeAADB }                 from "./database/databaseSort.js";
 
 // Accessible to users
 import { AutoAnimations}                from "./system-support/external.js"
@@ -41,11 +38,6 @@ import "../styles/newMenuCss.scss";
 
 // MAP for caching Deleted items. Specifically for items that delete themselves on final usage so Animations can still play
 import { aaDeletedItems }               from "./deletedItems.js";
-
-import { patreonMerge }                 from "./database/database-merge/patreonMerge.js";
-import { freeMerge }                    from "./database/database-merge/freeMerge.js";
-
-import { socketlibSocket } from "./socketset.js";
 
 Hooks.once('socketlib.ready', function () {
     setupSocket();
@@ -118,8 +110,8 @@ Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
 });
 
 Hooks.on('aa.initialize', async () => {
-    const patreonPath = "modules/jb2a_patreon";
-    const freePath = "modules/JB2A_DnD5e";
+    //const patreonPath = "modules/jb2a_patreon";
+    //const freePath = "modules/JB2A_DnD5e";
 
     const s3Location = game.settings.get('autoanimations', 'jb2aLocation');
     const jb2aPatreonFound = game.modules.get("jb2a_patreon");
@@ -130,58 +122,11 @@ Hooks.on('aa.initialize', async () => {
             ui.notifications.error(game.i18n.format("autoanimations.settings.error"));
         }
     }
+    initializeAADB()
 
-    // If an S3 Location is found in the Game Settings, run this. Otherwise continue to else section
-    if (s3Location) {
-        // If S3 includes the Patreon path, initialize the Patreon module and update to current installed version
-        if (s3Location.includes('patreon')) {
-            await initializeJB2APatreonDB(s3Location);
-            await patreonMerge.handle(s3Location);
-            aaDatabase = JB2APATREONDB;
-            // Otherwise if the S3 Location includes the Free path intialize that DB and merge accordingly
-        } else if (s3Location.includes('JB2A_DnD5e')) {
-            await initializeJB2AFreeDB(s3Location)
-            await freeMerge.handle(s3Location)
-            aaDatabase = JB2AFREEDB;
-        } else {
-            await initializeJB2APatreonDB(s3Location);
-            aaDatabase = JB2APATREONDB;
-        }
-    } else if (!jb2aFreeFound && !jb2aPatreonFound) {
-        await initializeJB2APatreonDB(patreonPath);
-        aaDatabase = JB2APATREONDB;
-    } else {
-        // If the Patreon module is found, initialize the Patreon DB
-        // Run the DB thru the Merge function to update it to match their Patreon version
-        // Set the aaDatabase to match
-        if (jb2aPatreonFound) {
-            await initializeJB2APatreonDB(patreonPath);
-            await patreonMerge.handle(patreonPath);
-        }
-        // If the Free module is found, initialize the Free DB
-        // Run the Free DB thru the merges to match current installed version
-        if (jb2aFreeFound) {
-            await initializeJB2AFreeDB(freePath)
-            await freeMerge.handle(freePath)
-        }
-        // If BOTH the Free and Patreon version is found, Compare Versions
-        // If FREE is Newer than Patreon, merge in the updated Free DB, without overwriting existing entries
-        if (jb2aFreeFound && jb2aPatreonFound) {
-            if (isNewerVersion(jb2aFreeFound.version, jb2aPatreonFound.version)) {
-                foundry.utils.mergeObject(JB2APATREONDB, JB2AFREEDB, { overwrite: false })
-            }
-        }
-        // Set the AA Database based on presence of the Patreon Module
-        aaDatabase = jb2aPatreonFound ? JB2APATREONDB : JB2AFREEDB
-    }
-
-    // Register aaDatabase with Sequencer
-    Sequencer.Database.registerEntries("autoanimations", aaDatabase, true);
     if (game.settings.get("autoanimations", "killAllAnim") === "off") {
         AnimationState.enabled = false;
     }
-    console.log('%cAutomated Animations Database has been compiled and registered', 'color: green', {aaDatabase})
-    Hooks.callAll('aa.ready', aaDatabase)
 })
 
 Hooks.once('ready', async function () {

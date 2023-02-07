@@ -19,6 +19,7 @@ export async function db052(path) {
      */
     const patreonDB052 = {
         range: {
+            _free: [],
             generic: {
                 poison: {
                     '01': {
@@ -34,9 +35,13 @@ export async function db052(path) {
             },
         },
         melee: {
+            _free:['weapon', 'generic'],
             weapon: {
+                _free:['lasersword'],
                 lasersword: {
+                    _free:['02'],
                     '02': {
+                        _free:['blue'],
                         blue: [lg`Weapon_Attacks/Melee/LaserSword01_02_Regular_Blue_800x600.webm`],
                         blue02: [lg`Weapon_Attacks/Melee/LaserSword01_02_Regular_Blue02_800x600.webm`],
                         blue03: [lg`Weapon_Attacks/Melee/LaserSword01_02_Regular_Blue03_800x600.webm`],
@@ -53,30 +58,38 @@ export async function db052(path) {
                 }    
             },
             generic: {
+                _free:['slashing', 'whirlwind'],
                 slashing: {
+                    _free:['01', '02', '03'],
                     '01': {
+                        _free:['orange'],
                         greenyellow: [lg`Weapon_Attacks/Melee/GenericSlash01_01_Regular_GreenYellow_800x600.webm`],
                         purpleblue: [lg`Weapon_Attacks/Melee/GenericSlash01_01_Regular_BluePurple_800x600.webm`],
                         orange: [lg`Weapon_Attacks/Melee/GenericSlash01_01_Regular_Orange_800x600.webm`],
                     },
                     '02': {
+                        _free:['orange'],
                         greenyellow: [lg`Weapon_Attacks/Melee/GenericSlash01_02_Regular_GreenYellow_800x600.webm`],
                         purpleblue: [lg`Weapon_Attacks/Melee/GenericSlash01_02_Regular_BluePurple_800x600.webm`],
                         orange: [lg`Weapon_Attacks/Melee/GenericSlash01_02_Regular_Orange_800x600.webm`],
                     },
                     '03': {
+                        _free:['orange'],
                         greenyellow: [lg`Weapon_Attacks/Melee/GenericSlash01_03_Regular_GreenYellow_800x600.webm`],
                         purpleblue: [lg`Weapon_Attacks/Melee/GenericSlash01_03_Regular_BluePurple_800x600.webm`],
                         orange: [lg`Weapon_Attacks/Melee/GenericSlash01_03_Regular_Orange_800x600.webm`],
                     } ,
                 },
                 whirlwind: {
+                    _free:['01', '02'],
                     '01': {
+                        _free:['orange'],
                         greenyellow: [lg`Weapon_Attacks/Melee/GenericWhirlwind01_01_Regular_GreenYellow_800x600.webm`],
                         purpleblue: [lg`Weapon_Attacks/Melee/GenericWhirlwind01_01_Regular_BluePurple_800x600.webm`],
                         orange: [lg`Weapon_Attacks/Melee/GenericWhirlwind01_01_Regular_Orange_800x600.webm`],
                     },
                     '02': {
+                        _free:['orange'],
                         greenyellow: [lg`Weapon_Attacks/Melee/GenericWhirlwind01_02_Regular_GreenYellow_800x600.webm`],
                         purpleblue: [lg`Weapon_Attacks/Melee/GenericWhirlwind01_02_Regular_BluePurple_800x600.webm`],
                         orange: [lg`Weapon_Attacks/Melee/GenericWhirlwind01_02_Regular_Orange_800x600.webm`],
@@ -85,13 +98,18 @@ export async function db052(path) {
             }
         },
         templatefx: {
+            _free:['circle'],
             circle: {
+                _free:['magicsign'],
                 magicsign: {
+                    _free:['abjuration', 'conjuration', 'divination', 'enchantment', 'evocation', 'illusion',
+                            'necromancy', 'transmutation'],
                     abjuration: {
                         _markers: {
                             loop: { start: 3000, end: 8000 },
                             forcedEnd: 8000
                         },
+                        _free:['blue'],
                         blue: [lg`Magic_Signs/AbjurationCircleComplete_02_Regular_Blue_800x800.webm`],
                         green: [lg`Magic_Signs/AbjurationCircleComplete_02_Regular_Green_800x800.webm`],
                         pink: [lg`Magic_Signs/AbjurationCircleComplete_02_Regular_Pink_800x800.webm`],
@@ -104,6 +122,7 @@ export async function db052(path) {
                             loop: { start: 3000, end: 8000 },
                             forcedEnd: 8000
                         },
+                        _free:['yellow'],
                         blue: [lg`Magic_Signs/ConjurationCircleComplete_02_Regular_Blue_800x800.webm`],
                         green: [lg`Magic_Signs/ConjurationCircleComplete_02_Regular_Green_800x800.webm`],
                         pink: [lg`Magic_Signs/ConjurationCircleComplete_02_Regular_Pink_800x800.webm`],
@@ -116,6 +135,7 @@ export async function db052(path) {
                             loop: { start: 3000, end: 8000 },
                             forcedEnd: 8000
                         },
+                        _free:['blue'],
                         blue: [lg`Magic_Signs/DivinationCircleComplete_02_Regular_Blue_800x800.webm`],
                         green: [lg`Magic_Signs/DivinationCircleComplete_02_Regular_Green_800x800.webm`],
                         pink: [lg`Magic_Signs/DivinationCircleComplete_02_Regular_Pink_800x800.webm`],
@@ -128,6 +148,7 @@ export async function db052(path) {
                             loop: { start: 3000, end: 8000 },
                             forcedEnd: 8000
                         },
+                        _free:['pink'],
                         blue: [lg`Magic_Signs/EnchantmentCircleComplete_02_Regular_Blue_800x800.webm`],
                         green: [lg`Magic_Signs/EnchantmentCircleComplete_02_Regular_Green_800x800.webm`],
                         pink: [lg`Magic_Signs/EnchantmentCircleComplete_02_Regular_Pink_800x800.webm`],
@@ -140,6 +161,7 @@ export async function db052(path) {
                             loop: { start: 3000, end: 8000 },
                             forcedEnd: 8000
                         },
+                        _free:['red'],
                         blue: [lg`Magic_Signs/EvocationCircleComplete_02_Regular_Blue_800x800.webm`],
                         green: [lg`Magic_Signs/EvocationCircleComplete_02_Regular_Green_800x800.webm`],
                         pink: [lg`Magic_Signs/EvocationCircleComplete_02_Regular_Pink_800x800.webm`],
@@ -152,6 +174,7 @@ export async function db052(path) {
                             loop: { start: 3000, end: 8000 },
                             forcedEnd: 8000
                         },
+                        _free:['purple'],
                         blue: [lg`Magic_Signs/IllusionCircleComplete_02_Regular_Blue_800x800.webm`],
                         green: [lg`Magic_Signs/IllusionCircleComplete_02_Regular_Green_800x800.webm`],
                         pink: [lg`Magic_Signs/IllusionCircleComplete_02_Regular_Pink_800x800.webm`],
@@ -164,6 +187,7 @@ export async function db052(path) {
                             loop: { start: 3000, end: 8000 },
                             forcedEnd: 8000
                         },
+                        _free:['green'],
                         blue: [lg`Magic_Signs/NecromancyCircleComplete_02_Regular_Blue_800x800.webm`],
                         green: [lg`Magic_Signs/NecromancyCircleComplete_02_Regular_Green_800x800.webm`],
                         pink: [lg`Magic_Signs/NecromancyCircleComplete_02_Regular_Pink_800x800.webm`],
@@ -176,6 +200,7 @@ export async function db052(path) {
                             loop: { start: 3000, end: 8000 },
                             forcedEnd: 8000
                         },
+                        _free:['yellow'],
                         blue: [lg`Magic_Signs/TransmutationCircleComplete_02_Regular_Blue_800x800.webm`],
                         green: [lg`Magic_Signs/TransmutationCircleComplete_02_Regular_Green_800x800.webm`],
                         pink: [lg`Magic_Signs/TransmutationCircleComplete_02_Regular_Pink_800x800.webm`],
@@ -187,6 +212,7 @@ export async function db052(path) {
             },
         },
         static: {
+            _free:['magicsign'],
             fire: {
                 groundcrack: {
                     '01': {
@@ -253,8 +279,12 @@ export async function db052(path) {
                 },
             },
             magicsign: {
+                _free:['abjuration', 'conjuration', 'divination', 'enchantment', 'evocation', 'illusion',
+                'necromancy', 'transmutation'],
                 abjuration: {
+                    _free:['complete'],
                     complete: {
+                        _free:['darkblue'],
                         darkblue: [lg`Magic_Signs/AbjurationCircleComplete_02_Dark_Blue_800x800.webm`],
                         darkgreen: [lg`Magic_Signs/AbjurationCircleComplete_02_Dark_Green_800x800.webm`],
                         darkpink: [lg`Magic_Signs/AbjurationCircleComplete_02_Dark_Pink_800x800.webm`],
@@ -264,7 +294,9 @@ export async function db052(path) {
                     },
                 },
                 conjuration: {
+                    _free:['complete'],
                     complete: {
+                        _free:['darkyellow'],
                         darkblue: [lg`Magic_Signs/ConjurationCircleComplete_02_Dark_Blue_800x800.webm`],
                         darkgreen: [lg`Magic_Signs/ConjurationCircleComplete_02_Dark_Green_800x800.webm`],
                         darkpink: [lg`Magic_Signs/ConjurationCircleComplete_02_Dark_Pink_800x800.webm`],
@@ -274,7 +306,9 @@ export async function db052(path) {
                     },
                 },
                 divination: {
+                    _free:['complete'],
                     complete: {
+                        _free:['darkblue'],
                         darkblue: [lg`Magic_Signs/DivinationCircleComplete_02_Dark_Blue_800x800.webm`],
                         darkgreen: [lg`Magic_Signs/DivinationCircleComplete_02_Dark_Green_800x800.webm`],
                         darkpink: [lg`Magic_Signs/DivinationCircleComplete_02_Dark_Pink_800x800.webm`],
@@ -284,7 +318,9 @@ export async function db052(path) {
                     },
                 },
                 enchantment: {
+                    _free:['complete'],
                     complete: {
+                        _free:['darkpink'],
                         darkblue: [lg`Magic_Signs/EnchantmentCircleComplete_02_Dark_Blue_800x800.webm`],
                         darkgreen: [lg`Magic_Signs/EnchantmentCircleComplete_02_Dark_Green_800x800.webm`],
                         darkpink: [lg`Magic_Signs/EnchantmentCircleComplete_02_Dark_Pink_800x800.webm`],
@@ -294,7 +330,9 @@ export async function db052(path) {
                     },
                 },
                 illusion: {
+                    _free:['complete'],
                     complete: {
+                        _free:['darkpurple'],
                         darkblue: [lg`Magic_Signs/IllusionCircleComplete_02_Dark_Blue_800x800.webm`],
                         darkgreen: [lg`Magic_Signs/IllusionCircleComplete_02_Dark_Green_800x800.webm`],
                         darkpink: [lg`Magic_Signs/IllusionCircleComplete_02_Dark_Pink_800x800.webm`],
@@ -304,7 +342,9 @@ export async function db052(path) {
                     },
                 },
                 necromancy: {
+                    _free:['complete'],
                     complete: {
+                        _free:['darkgreen'],
                         darkblue: [lg`Magic_Signs/NecromancyCircleComplete_02_Dark_Blue_800x800.webm`],
                         darkgreen: [lg`Magic_Signs/NecromancyCircleComplete_02_Dark_Green_800x800.webm`],
                         darkpink: [lg`Magic_Signs/NecromancyCircleComplete_02_Dark_Pink_800x800.webm`],
@@ -314,7 +354,9 @@ export async function db052(path) {
                     },
                 },
                 transmutation: {
+                    _free:['complete'],
                     complete: {
+                        _free:['darkyellow'],
                         darkblue: [lg`Magic_Signs/TransmutationCircleComplete_02_Dark_Blue_800x800.webm`],
                         darkgreen: [lg`Magic_Signs/TransmutationCircleComplete_02_Dark_Green_800x800.webm`],
                         darkpink: [lg`Magic_Signs/TransmutationCircleComplete_02_Dark_Pink_800x800.webm`],

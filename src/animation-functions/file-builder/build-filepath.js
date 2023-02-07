@@ -1,6 +1,6 @@
 //import { JB2APATREONDB } from "../../database/jb2a-patreon-database.js";
 //import { JB2AFREEDB } from "../../database/jb2a-free-database.js";
-import {aaDatabase} from "../../index.js"
+import { aaDatabase } from "../../database/databaseSort.js";
 
 export async function buildFile(getMeta, dbType, name, animationType, animationVariant, animationColor, customPath) {
     if (!dbType && !customPath) {return false}
