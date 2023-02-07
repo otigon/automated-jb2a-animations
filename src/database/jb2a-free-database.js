@@ -279,7 +279,7 @@ export async function initializeJB2AFreeDB(path) {
             },
             guidingbolt: {
                 '01': {
-                    blueyellow: {
+                    yellowblue: {
                         '05ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_05ft_600x400.webm`],
                         '15ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_15ft_1000x400.webm`],
                         '30ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_30ft_1600x400.webm`],
@@ -1704,7 +1704,7 @@ export async function initializeJB2AFreeDB(path) {
             standard: {
                 '01': {
                     marker01: {
-                        "blueyellow": [lg`Marker/Marker_01_Regular_BlueYellow_400x400.webm`],
+                        "yellowblue": [lg`Marker/Marker_01_Regular_BlueYellow_400x400.webm`],
                     },
                     musicMarker: {
                         "greenorange": [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
