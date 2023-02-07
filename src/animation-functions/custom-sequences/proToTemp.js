@@ -1,4 +1,3 @@
-//import { buildFile } from "../file-builder/build-filepath.js";
 import { howToDelete } from "../../constants/constants.js";
 
 // Credit goes to Wasp-Sequencer Guy for the structure of the Fireball Sequence

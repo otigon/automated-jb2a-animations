@@ -107,7 +107,7 @@ export class DataSanitizer {
             data.meleeSwitch = this.compileMeleeSwitch(topLevel.meleeSwitch)
         }
         if (data.video.menuType === 'shieldfx' && !video.enableCustom) { data.options.isShieldFX = true}
-        data.path = await buildFile(false, data.video.menuType, data.video.animation, data.video.dbSection, data.video.variant, data.video.color, data.video.customPath)
+        data.path = await buildFile(data.video.dbSection, data.video, data.video.customPath)
         return data;
     }
 
@@ -330,7 +330,7 @@ export class DataSanitizer {
             addSoundDelay = data.options.delay;
         }
         data.sound = this.setSound(sound, addSoundDelay, handler.systemData.overrideRepeat)
-        data.path = secondary.enable ? await buildFile(false, data.video.menuType, data.video.animation, "static", data.video.variant, data.video.color, data.video.customPath) : "";
+        data.path = secondary.enable ? await buildFile("static", data.video, data.video.customPath) : "";
 
         return data;
     }
@@ -386,7 +386,7 @@ export class DataSanitizer {
             addSoundDelay = data.options.delay;
         }
         data.sound = this.setSound(sound, addSoundDelay)
-        data.path = data.enable ? await buildFile(false, data.video.menuType, data.video.animation, data.video.dbSection, data.video.variant, data.video.color, data.video.customPath) : "";
+        data.path = data.enable ? await buildFile(data.video.dbSection, data.video, data.video.customPath) : "";
         return data;
     }
 
@@ -438,7 +438,7 @@ export class DataSanitizer {
             },
             sound: this.setSound(sound, options.delay ?? 0)
         }
-        data.path = data.enable ? await buildFile(false, data.video.menuType, data.video.animation, "static", data.video.variant, data.video.color, data.video.customPath) : "";
+        data.path = data.enable ? await buildFile("static", data.video, data.video.customPath) : "";
         return data;
     }
 
@@ -658,9 +658,9 @@ export class DataSanitizer {
                     enable: false,
                 }    
             }
-            data.projectile.path = await buildFile(false, data.projectile.menuType, data.projectile.animation, data.projectile.dbSection, data.projectile.variant, data.projectile.color, data.projectile.customPath)
-            data.preExplosion.path = await buildFile(false, data.preExplosion.menuType, data.preExplosion.animation, data.preExplosion.dbSection, data.preExplosion.variant, data.preExplosion.color, data.preExplosion.customPath)
-            data.explosion.path = await buildFile(false, data.explosion.menuType, data.explosion.animation, data.explosion.dbSection, data.explosion.variant, data.explosion.color, data.explosion.customPath)
+            data.projectile.path = await buildFile(data.projectile.dbSection, data.projectile, data.projectile.customPath)
+            data.preExplosion.path = await buildFile(data.preExplosion.dbSection, data.preExplosion, data.preExplosion.customPath)
+            data.explosion.path = await buildFile(data.explosion.dbSection, data.explosion, data.explosion.customPath)
 
             return data;
         }
