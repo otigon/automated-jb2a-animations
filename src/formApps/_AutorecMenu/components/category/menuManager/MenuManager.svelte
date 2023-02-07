@@ -113,7 +113,7 @@
     }
 
     async function exportMenu() {
-        AAAutorecManager.exportMenu()
+        AAAutorecManager.exportMenu(`-${game.system.id}`)
         application.close();
     }
 </script>
