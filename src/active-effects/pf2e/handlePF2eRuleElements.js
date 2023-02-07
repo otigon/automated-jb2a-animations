@@ -19,6 +19,19 @@ export async function createRuleElementPF2e(item) {
         return;
     }
 
+    if (game.settings.get("autoanimations", "disableGrantedAuraEffects")) {
+        let tactorId = aeToken.actor.id;
+        let origin = item.flags?.pf2e?.aura?.origin;
+        if (origin) {
+            let idSplit = origin.split('.');
+            let id = idSplit[idSplit.length - 1];
+            if (tactorId !== id) {
+                debug("This is a Granted Ruleset, exiting early")
+                return;    
+            }
+        }
+    }            
+
     const aeNameField = item.name.replace(/[^A-Za-z0-9 .*_-]/g, "") + `${aeToken.id}`
     const checkAnim = await Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
     if (checkAnim) {

@@ -1,6 +1,3 @@
-# A Note on further development  
-Beginning roughly March 2023 no new features or system support will be added, at least by me. The first part of 2023 I'll be adding a few things to tidy up the current state of the module (This will include a way for new game systems to directly use Automated Animations by adding support on their end). Beyond that it will be in Maintenance mode. This means I'll address bugs as they occur, and shore up existing system support when necessary. It also means that I'll update the internal database for JB2A animations on a monthly basis. Any new features will need to be submitted via Pull Request.  
-  
 MIT License provided:   
 - Honeybadger (Trioderigon) and Wasp provided the framework for the Teleportation Preset  
 - The SEQUENCER module is now a dependancy of Automated Animations.  

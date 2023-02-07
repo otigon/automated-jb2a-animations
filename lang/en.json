@@ -90,7 +90,9 @@
             "hoverInTemplate": "Show on any Hover",
             "playAnimations": "When to play Animations",
             "attack": "Attack Rolls",
-            "damage": "Damage Rolls"
+            "damage": "Damage Rolls",
+            "disableGrantedAura": "Disable Granted Aura Effect Animations",
+            "disableGrantedAuraHint": "Disables Animations for Effects granted by Auras"
         },
         "colors": {
             "lightorange": "Light Orange",
