@@ -21,20 +21,22 @@ export async function buildFile(dbType, video, custom = true) {
     
     return {
         // FilePath will get the actual filepath. This is only used in Static and Templates
-        filePath: color === "random" 
-            ? aaDatabase[dbType][cleanType]?.[cleanAnimation]?.[cleanVariant][0][0]
-            : aaDatabase[dbType][cleanType]?.[cleanAnimation]?.[cleanVariant]?.[cleanColor][0],
+        filePath: aaDatabase[dbType][cleanType]?.[cleanAnimation]?.[cleanVariant]?.[cleanColor][0],
         // File contains the Database path structure to send to Sequencer
         file: color === "random" 
             ? `autoanimations.${dbType}.${[cleanType]}.${cleanAnimation}.${cleanVariant}` 
             : `autoanimations.${dbType}.${[cleanType]}.${cleanAnimation}.${cleanVariant}.${cleanColor}`,
-        // ReturnFile contains the Database path for the return animation to send to Sequencer
-        returnFile: returnArray.some(el => cleanAnimation === el) 
-            ? `autoanimations.return.weapon.${cleanAnimation}.${cleanVariant}.${cleanColor}` 
+        // ReturnFile contains the Database path for the return animation to send to Sequencer if it exists, otherwise false
+        returnFile: returnArray.find(el => cleanAnimation === el) 
+            ? color === "random"
+            ? `autoanimations.return.weapon.${cleanAnimation}.${cleanVariant}`
+            : `autoanimations.return.weapon.${cleanAnimation}.${cleanVariant}.${cleanColor}`
             : false,
+        // Cleaned properties
         cleanProperties: {
             cleanType, cleanAnimation, cleanVariant, cleanColor
         },
+        // Original properties
         originalProperties: {
             menuType, animation, variant, color
         }
@@ -42,20 +44,15 @@ export async function buildFile(dbType, video, custom = true) {
 
     function getCleanProperty(path, prop) {
         let newArray = Object.keys(path ?? {});
-        if (newArray.length) {
-            clearMarker(newArray)
+        return newArray.find(el => prop === el) ? prop : newArray[0] !== "_markers" ? newArray[0] : newArray[1]
+    }
+    function validateVideoPath(dbType, type, animation, variant, color) {
+        debugger
+        let dbPath = color === "random" ? `autoanimations.${dbType}.${[type]}.${animation}.${variant}` : `autoanimations.${dbType}.${[type]}.${animation}.${variant}.${color}`;
+        if (Sequencer.Database.getPathsUnder(dbPath, true)) {
+            return true;
+        } else {
+            return false;
         }
-        return cleanProperty(newArray, prop)
-    }
-    // If there is a _markers in this array, remove it. Mainly used for defaulting Patreon animations to Free
-    function clearMarker(inArray) {
-        let markerCheck = inArray.indexOf("_markers");
-        if (markerCheck !== -1) {
-            inArray.splice(markerCheck, 1)
-        }
-    }
-    // If the set property does not exist, use the first one in the array
-    function cleanProperty(inArray, prop) {
-        return inArray.some(el => prop === el) ? prop : inArray[0]
-    }
+    }    
 }
