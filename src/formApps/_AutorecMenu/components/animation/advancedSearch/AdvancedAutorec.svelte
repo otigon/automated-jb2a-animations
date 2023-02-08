@@ -5,7 +5,7 @@
     import {TJSIconButton}  from "@typhonjs-fvtt/svelte-standard/component";
     import {ripple}         from "@typhonjs-fvtt/svelte-standard/action";
 
-    const { application } = getContext("external");
+    const { application } = getContext("#external");
 
     export let animation;
 
@@ -106,7 +106,7 @@
                     <input type=text bind:value={$animation.advanced.excludedType.property}/>
                 </div>
             </div>
-        </th>    
+        </th>
     </tr>
 </table>
 <div class="aa-list" />
