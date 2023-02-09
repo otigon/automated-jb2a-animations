@@ -8,6 +8,7 @@ export async function db050(path) {
 
     const patreonDB050 = {
         range: {
+            _free: [],
             weapon: {
                 boulder: {
                     '02': {
@@ -23,6 +24,7 @@ export async function db050(path) {
             },
         },
         templatefx: {
+            _free: [],
             cone: {
                 breathweaponspray01: {
                     burst: {
@@ -101,6 +103,7 @@ export async function db050(path) {
             }
         },
         static: {
+            _free:['plants'],
             generic: {
                 boulderimpact: {
                     '02': {
@@ -109,51 +112,62 @@ export async function db050(path) {
                 }
             },
             plants: {
+                _free:['circle', 'ring', 'square'],
                 circle: {
+                    _free:['complete', 'loop'],
                     complete: {
                         _markers: {
                             loop: { start: 2000, end: 6000 }
                         },
+                        _free:['greenyellow'],
                         purpleblue: [lg`Nature/PlantGrowthRound01_01_Regular_BluePurple_500x500.webm`],
                         greenred: [lg`Nature/PlantGrowthRound02_01_Regular_GreenRed_500x500.webm`],
                         greenyellow: [lg`Nature/PlantGrowthRound03_01_Regular_GreenYellow_500x500.webm`]
                     },
                     loop: {
+                        _free:['greenyellow'],
                         purpleblue: [lg`Nature/PlantGrowthRoundLoop01_01_Regular_BluePurple_500x500.webm`],
                         greenred: [lg`Nature/PlantGrowthRoundLoop02_01_Regular_GreenRed_500x500.webm`],
                         greenyellow: [lg`Nature/PlantGrowthRoundLoop03_01_Regular_GreenYellow_500x500.webm`]
                     },
                 },
                 ring: {
+                    _free:['complete', 'loop', 'pulse'],
                     complete: {
                         _markers: {
                             loop: { start: 2000, end: 6000 }
                         },
+                        _free:['greenyellow'],
                         purpleblue: [lg`Nature/PlantGrowthRing01_01_Regular_BluePurple_500x500.webm`],
                         greenred: [lg`Nature/PlantGrowthRing02_01_Regular_GreenRed_500x500.webm`],
                         greenyellow: [lg`Nature/PlantGrowthRing03_01_Regular_GreenYellow_500x500.webm`]
                     },
                     loop: {
+                        _free:['greenyellow'],
                         purpleblue: [lg`Nature/PlantGrowthRingLoop01_01_Regular_BluePurple_500x500.webm`],
                         greenred: [lg`Nature/PlantGrowthRingLoop02_01_Regular_GreenRed_500x500.webm`],
                         greenyellow: [lg`Nature/PlantGrowthRingLoop03_01_Regular_GreenYellow_500x500.webm`]
                     },
                     pulse: {
+                        _free:['greenyellow'],
                         purpleblue: [lg`Nature/PlantGrowthRingPulse01_01_Regular_BluePurple_500x500.webm`],
                         greenred: [lg`Nature/PlantGrowthRingPulse02_01_Regular_GreenRed_500x500.webm`],
                         greenyellow: [lg`Nature/PlantGrowthRingPulse03_01_Regular_GreenYellow_500x500.webm`]
                     },
                 },
                 square: {
+                    _free:['complete', 'loop'],
                     complete: {
                         _markers: {
                             loop: { start: 2000, end: 6000 }
                         },
+                        _free:['greenyellow'],
                         purpleblue: [lg`Nature/PlantGrowthSquare01_01_Regular_BluePurple_500x500.webm`],
                         greenred: [lg`Nature/PlantGrowthSquare02_01_Regular_GreenRed_500x500.webm`],
                         greenyellow: [lg`Nature/PlantGrowthSquare03_01_Regular_GreenYellow_500x500.webm`]
                     },
                     loop: {
+                        _free:['greenyellow'],
                         purpleblue: [lg`Nature/PlantGrowthSquareLoop01_01_Regular_BluePurple_500x500.webm`],
                         greenred: [lg`Nature/PlantGrowthSquareLoop02_01_Regular_GreenRed_500x500.webm`],
                         greenyellow: [lg`Nature/PlantGrowthSquareLoop03_01_Regular_GreenYellow_500x500.webm`]

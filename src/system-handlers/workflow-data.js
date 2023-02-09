@@ -1,8 +1,8 @@
 import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
 import { debug, custom_notify } from "../constants/constants.js";
 import { handleItem } from "./findAnimation.js";
-import { endTiming } from "../constants/timings.js";
-import { sourceEffect, secondaryEffect, targetEffect } from "./commonSequences.js";
+//import { endTiming } from "../constants/timings.js";
+import { sourceEffect, secondaryEffect, targetEffect, macroSection } from "./commonSequences.js";
 import { AnimationState } from "../AnimationState.js";
 
 export default class AAHandler {
@@ -11,17 +11,46 @@ export default class AAHandler {
             custom_notify("Animations are Disabled from the Automated Animations Settings", true);
             return false;
         }
-        const animationData = await handleItem(data);
-        if (!animationData) { 
-            debug(`No Animation matched for Item`, data )
+        // Deep Clones the data sent by the system prep
+        let clonedData = foundry.utils.deepClone(data);
+
+        // Checks the item for any animation data on the item itself, or in the global menu
+        let animationData = await handleItem(clonedData);
+
+        // Hook to signify the start of the A-A workflow;
+        Hooks.callAll("AutomatedAnimations-WorkflowStart", clonedData, animationData);
+
+        // Can be added from the above Hook to stop the A-A workflow
+        if (clonedData.stopWorkflow) { 
+            debug(`Animation Workflow was interrupted by an External Source`, clonedData )
+            return;
+        }
+
+        // recheckAnimation can be passed as a Boolean to let A-A know it needs to recheck for Animations.
+        // Useful for changing out the Item to be processed mid-stream
+        let newAnimationData;
+        if (clonedData.recheckAnimation) {
+            newAnimationData = await handleItem(clonedData);
+            // If no Animation data is found for the newly passed Item, resets to the Original Item
+            if (!newAnimationData) {
+                clonedData.item = data.item
+            }
+        }
+
+        // If no Animation data is matched, returns False and stops workflow
+        if (!animationData && !newAnimationData) { 
+            debug(`No Animation matched for Item`, clonedData )
             return false;
         }
-        return new AAHandler({...data, animationData});
+
+        // Determines the animation data to be used, either original or new.
+        let finalAnimationData = newAnimationData ? newAnimationData : animationData
+        return new AAHandler({...clonedData, finalAnimationData});
     }
     constructor (data) {
         debug("Compiling Automated Animations data");
 
-        this.animationData = data.animationData;
+        this.animationData = data.finalAnimationData;
         
         this.isActiveEffect = data.activeEffect ?? false;
 
@@ -172,6 +201,22 @@ export default class AAHandler {
             return distance / canvas.dimensions.distance;
         }
     }
+
+    complileMacroSection(seq, macro, handler = this) {
+        macroSection(seq, macro, handler)
+    }
+    runMacro(macro, handler = this) {
+        let userData = macro.args
+        if (game.modules.get("advanced-macros")?.active) {
+            new Sequence()
+                .macro(macro.name, handler.workflow, handler, userData)
+                .play()
+        } else {
+            new Sequence()
+                .macro(macro.name)
+                .play()
+        }    
+    }
     compileSourceEffect(sourceFX, seq, handler = this) {
         sourceEffect(sourceFX, seq, handler)
     }
@@ -181,119 +226,7 @@ export default class AAHandler {
     compileTargetEffect(targetFX, seq, targetArray, missable = false, handler = this) {
         targetEffect(targetFX, seq, targetArray, missable, handler)
     }
-    /*
-    compileSourceEffect(sourceFX, seq) {
-        const options = sourceFX.options;
-        if (sourceFX.sound) {
-            seq.addSequence(sourceFX.sound)
-        }
-        let thisSeq = seq.effect()
-        .file(sourceFX.path.file)
-        .anchor({ x: options.anchor.x, y: options.anchor.y })
-        .elevation(options.isAbsolute ? options.elevation : options.elevation - 1, { absolute: options.isAbsolute })
-        .fadeIn(options.fadeIn)
-        .opacity(options.opacity)
-        .origin(this.itemUuid)
-        .playbackRate(options.playbackRate)
-        .repeats(options.repeat, options.repeatDelay)
-        .size(this.getSize(options.isRadius, options.size, this.sourceToken, options.addTokenWidth), { gridUnits: true })
-        .zIndex(options.zIndex)
-        if (options.animationSource) {
-            thisSeq.atLocation({ x: options.fakeLocation.x, y: options.fakeLocation.y })
-        } else {
-            if (options.persistent) {
-                thisSeq.attachTo(this.sourceToken)
-                thisSeq.persist(true, { persistTokenPrototype: true })
-            } else {
-                thisSeq.attachTo(this.sourceToken)
-            }
-        }
-        if (options.isMasked) {
-            thisSeq.mask(this.sourceToken)
-        }
-        if (sourceFX.video.variant === "complete" || sourceFX.video.animation === "complete") { }
-        else { thisSeq.fadeOut(options.fadeOut) }
-        if (options.isWait) { thisSeq.waitUntilFinished(options.delay) }
-        else { thisSeq.delay(options.delay) }
-    }
 
-    compileSecondaryEffect(secondary, seq, targetArray, targetEnabled = false, missable = false) {
-        const options = secondary.options;
-        if (secondary.sound) {
-            seq.addSequence(secondary.sound)
-        }
-        for (let i = 0; i < targetArray.length; i++) {
-            let currentTarget = targetArray[i];
-
-            let thisSeq = seq.effect()
-            .file(secondary.path?.file)
-            .anchor({x: options.anchor.x, y: options.anchor.y})
-            .atLocation(missable ? `spot ${currentTarget.id}` : currentTarget)
-            .elevation(this.elevation(currentTarget, options.isAbsolute, options.elevation), {absolute: options.isAbsolute})
-            .fadeIn(options.fadeIn)
-            .fadeOut(options.fadeOut)
-            .opacity(options.opacity)
-            .origin(this.itemUuid)
-            .playbackRate(options.playbackRate)
-            .repeats(options.repeat, options.repeatDelay)
-            .size(this.getSize(options.isRadius, options.size, currentTarget, options.addTokenWidth), { gridUnits: true })
-            .zIndex(options.zIndex)
-            if (i === this.allTargets.length - 1 && options.isWait && targetEnabled) {
-                thisSeq.waitUntilFinished(options.delay)
-            } else if (!options.isWait) {
-                thisSeq.delay(options.delay)
-            }
-            if (options.rotateSource) {
-                thisSeq.rotateTowards(sourceToken)
-                thisSeq.rotate(180)    
-            }
-            if (options.isMasked) {
-                thisSeq.mask(currentTarget)
-            }
-        }
-    }
-
-    compileTargetEffect(targetFX, seq, targetArray, missable = false) {
-        const options = targetFX.options;
-        if (targetFX.sound) {
-            seq.addSequence(targetFX.sound)
-        }
-        for (let i = 0; i < targetArray.length; i++) {
-            let currentTarget = targetArray[i];
-            let checkAnim = Sequencer.EffectManager.getEffects({ object: currentTarget, origin: this.itemUuid }).length > 0;
-            if (checkAnim) { continue; }
-
-            let thisSeq = seq.effect()
-            .file(targetFX.path?.file)
-            .anchor({x: options.anchor.x, y: options.anchor.y})
-            .delay(options.delay)
-            .fadeIn(options.fadeIn)
-            .elevation(this.elevation(currentTarget, options.isAbsolute, options.elevation), {absolute: options.isAbsolute})
-            .opacity(options.opacity)
-            .origin(this.itemUuid)
-            .playbackRate(options.playbackRate)
-            .repeats(options.repeat, options.repeatDelay)
-            .size(this.getSize(options.isRadius, options.size, currentTarget, options.addTokenWidth), { gridUnits: true })
-            .zIndex(options.zIndex)
-            if (options.persistent) {
-                thisSeq.persist(true, {persistTokenPrototype: true})
-                thisSeq.attachTo(currentTarget, {bindVisibility: !targetFX.unbindVisibility, bindAlpha: !targetFX.unbindAlpha})
-            } else {
-                thisSeq.atLocation(missable ? `spot ${currentTarget.id}` : currentTarget)
-            }    
-            if (options.rotateSource) {
-                thisSeq.rotateTowards(sourceToken)
-                thisSeq.rotate(180)    
-            }
-            if (options.isMasked) {
-                thisSeq.mask(currentTarget)
-            }
-            if (targetFX.video?.variant === "complete" || targetFX.video?.animation === "complete") {} else {
-                thisSeq.fadeOut(options.fadeOut)    
-            }
-        }
-    }
-    */
     // Returns a pseudo Token X/Y for Ranged effects
     fakeSource() {
         let templateSource = Sequencer.EffectManager.getEffects({sceneId: canvas.scene.id, name: this.rinsedName})[0];

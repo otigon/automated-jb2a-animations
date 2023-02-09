@@ -1,9 +1,10 @@
 <script>
-    import VideoSelect from "../Components/VideoSelect.svelte";
-    import OnTokenOptions from "./options/OnTokenOptions.svelte";
-    import SoundSettings from "../Components/SoundSettings.svelte";
-    import ExtraSource from "../Components/ExtraSource.svelte";
-    import Secondary from "../Components/Secondary.svelte";
+    import VideoSelect      from "../Components/VideoSelect.svelte";
+    import OnTokenOptions   from "./options/OnTokenOptions.svelte";
+    import SoundSettings    from "../Components/SoundSettings.svelte";
+    import ExtraSource      from "../Components/ExtraSource.svelte";
+    import Secondary        from "../Components/Secondary.svelte";
+    import EffectColor      from "../Components/options/EffectColor.svelte";
     import { getContext }   from "svelte";
 
     let { animation } = getContext('animation-data');
@@ -22,6 +23,7 @@
         <div class="aa-primary-border">
             <VideoSelect section="primary" {title} />
             <OnTokenOptions />
+            <svelte:component this={EffectColor} />
             <SoundSettings section="primary" />
         </div>
         <Secondary  />

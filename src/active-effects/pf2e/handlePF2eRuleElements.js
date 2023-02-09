@@ -19,6 +19,19 @@ export async function createRuleElementPF2e(item) {
         return;
     }
 
+    if (game.settings.get("autoanimations", "disableGrantedAuraEffects")) {
+        let tactorId = aeToken.actor.id;
+        let origin = item.flags?.pf2e?.aura?.origin;
+        if (origin) {
+            let idSplit = origin.split('.');
+            let id = idSplit[idSplit.length - 1];
+            if (tactorId !== id) {
+                debug("This is a Granted Ruleset, exiting early")
+                return;    
+            }
+        }
+    }            
+
     const aeNameField = item.name.replace(/[^A-Za-z0-9 .*_-]/g, "") + `${aeToken.id}`
     const checkAnim = await Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
     if (checkAnim) {
@@ -52,29 +65,18 @@ export async function createRuleElementPF2e(item) {
 
 }
 
-export async function deleteRuleElementPF2e(item) {
-    const aePF2eTypes = ['condition', 'effect']
-    if (!aePF2eTypes.includes(item.type)) { return; }
-
-    //let aaEffects = Sequencer.EffectManager.getEffects({ origin: item.uuid })
-
-    const token = item.parent?.token || canvas.tokens.placeables.find(token => token.actor?.items?.get(item.id) != null)
+export async function deleteRuleElementPF2e(itemData = {}) {
     
     const data = {
-        token: token,
+        token: itemData.token,
         targets: [],
-        item: item,
+        item: itemData.item,
         activeEffect: true,
     };
 
     const handler = await AAHandler.make(data);
     if (!handler) { return; }
-    /*
-    if (!handler.isEnabled || (!handler.autorecObject && !handler.isCustomized)) {
-        debug("Active Effect has no animation defined, exiting early", handler)
-        return;
-    }
-    */
+
     const flagData = handler.animationData
         //? foundry.utils.deepClone(handler.flags)
         //: foundry.utils.deepClone(handler.autorecObject);
@@ -85,36 +87,6 @@ export async function deleteRuleElementPF2e(item) {
             .macro(macro.name, "off", handler, macro.args)
             .play()
     }
-
-    /*
-    if (aaEffects.length > 0) {
-        // Filters the active Animations to isolate the ones active on the Token
-        let currentEffect = aaEffects.filter(i => item.uuid.includes(i.source?.actor?.id));
-        currentEffect = currentEffect.length < 1 ? aaEffects.filter(i => item.uuid.includes(i.source?.id)) : currentEffect;
-        if (currentEffect.length < 0) { return; }
-
-        // Fallback for the Source Token
-        if (!handler.sourceToken) {
-            handler.sourceToken = currentEffect[0].source;
-        }
-        
-        // If a Macro was defined, it will run here with "off" as args[0]
-        if (macro) {
-            new Sequence()
-                .macro(macro.name, "off", handler, macro.args)
-                .play()
-        }
-
-        // End all Animations on the token with .origin(effect.uuid)
-        Sequencer.EffectManager.endEffects({ origin: item.uuid, object: handler.sourceToken })
-    } else {
-        if (macro) {
-            new Sequence()
-                .macro(macro.name, "off", handler, macro.args)
-                .play()
-        }
-    }
-    */
 }
 
 

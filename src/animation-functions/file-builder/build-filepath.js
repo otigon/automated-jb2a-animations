@@ -1,87 +1,74 @@
-//import { JB2APATREONDB } from "../../database/jb2a-patreon-database.js";
-//import { JB2AFREEDB } from "../../database/jb2a-free-database.js";
-import {aaDatabase} from "../../index.js"
+import { aaDatabase } from "../../database/databaseSort.js";
+import { debug } from "../../constants/constants.js";
 
-export async function buildFile(getMeta, dbType, name, animationType, animationVariant, animationColor, customPath) {
-    if (!dbType && !customPath) {return false}
-    let file;
-    //let msFile;
-    let color;
-    let returnFile;
-    let fileData;
-    //let metadata;
+export async function buildFile(dbType, video, custom = true, options = {}) {
+    const {menuType, animation, variant, color, customPath} = video;
+
+    if (!dbType && (!customPath || !custom)) { return false }
 
     if (customPath) {
-        file = customPath;
-        fileData = customPath;
-        //msFile = customPath;
-        //if (getMeta) {
-            //fileData = customPath;
-            //metadata = await getVideoDimensionsOf(fileData);
-        //}    
-    } else {
-        //const jb2a = moduleIncludes("jb2a_patreon") === true ? JB2APATREONDB : JB2AFREEDB;
-        const jb2a = aaDatabase;
-        const path = name.replace(/melee|range|double/gi, function (x) {
-            return "";
-        });
-        color = animationColor.replace(/\s+/g, '');
-        const menuType = dbType;
-        const type = animationType;
-        if (!jb2a[type][menuType][path]) { return {}; }
-        const variantArray = Object.keys(jb2a[type][menuType][path]);
-        const variant = variantArray.some(el => animationVariant === el) ? animationVariant : variantArray[0];
+        return { file: customPath, fileData: customPath }
+    }
 
-        const colorArray = Object.keys(jb2a[type][menuType][path][variant]);
-        let markerCheck = colorArray.indexOf("_markers");
-        if (markerCheck !== -1) { colorArray.splice( markerCheck, 1)}
-        if (animationColor === "random") {
-            color = animationColor;
-        } else {
-            color = colorArray.some(el => color === el) ? color : colorArray[0];
+    let cleanType = menuType;
+    let cleanAnimation = animation;
+    let cleanVariant = variant;
+    let cleanColor = color;
+
+    // If the database path cannot be validated, play animation with defaults
+    if (!validateVideoPath(dbType, menuType, animation, variant, color)) {
+        debug("Error found while building database path, reverting a default")
+        cleanType = getCleanProperty(aaDatabase[dbType], menuType);
+        cleanAnimation = getCleanProperty(aaDatabase[dbType][cleanType], animation);
+        cleanVariant = getCleanProperty(aaDatabase[dbType][cleanType][cleanAnimation], variant);
+        cleanColor = getCleanProperty(aaDatabase[dbType][cleanType][cleanAnimation][cleanVariant], color);
+    }
+
+    // Gets the array or Return weapon keys from the database
+    const returnArray = Object.keys(aaDatabase.return.weapon);
+    
+    return {
+        filePath: options.getTruePath ? filePath() : void 0,
+        file: databasePath(),
+        returnFile: options.isReturnable ? returnDatabasePath() : void 0,
+        // Cleaned properties. Useful for debugging
+        cleanProperties: {
+            cleanType, cleanAnimation, cleanVariant, cleanColor
+        },
+        // Original properties. Useful for debugging
+        originalProperties: {
+            menuType, animation, variant, color
         }
-
-        file = color === "random" ? `autoanimations.${type}.${[menuType]}.${path}.${variant}` : `autoanimations.${type}.${[menuType]}.${path}.${variant}.${color}`;
-        //validateVideoPath(type, menuType, path, variant, color)
-        //msFile = color === "random" ? `autoanimations.${type}.${[menuType]}.${path}.02` : `autoanimations.${type}.${[menuType]}.${path}.02.${color}`;
-        //let file = color === "random" ? `autoanimations.${type}.${path}.${variant}` : `autoanimations.${type}.${path}.${variant}.${color}`;
-        //let msFile = color === "random" ? `autoanimations.${type}.${path}.02` : `autoanimations.${type}.${path}.02.${color}`;
-        const returnArray = Object.keys(jb2a.return.weapon);
-        returnFile = returnArray.some(el => path === el) ? `autoanimations.return.weapon.${path}.${variant}.${color}` : "";
-        fileData = color === "random" ? jb2a[type]?.[menuType]?.[path]?.[variant]?.[Object.keys(jb2a[type]?.[menuType]?.[path]?.[variant] || {})[0]][0] : jb2a[type]?.[menuType]?.[path]?.[variant]?.[color]?.[0];
-        //metadata = await getVideoDimensionsOf(fileData);
     }
 
-    return { file, returnFile, fileData }
-}
-
-function getVideoDimensionsOf(url) {
-    return new Promise(resolve => {
-        // create the video element
-        const video = document.createElement('video');
-        video.preload = "metadata";
-
-        // place a listener on it
-        video.addEventListener("loadedmetadata", function () {
-            // retrieve dimensions
-            const height = this.videoHeight;
-            const width = this.videoWidth;
-            const duration = this.duration
-            // send back result
-            resolve({ height, width, duration });
-        }, false);
-        video.src = url;
-    });
-}
-
-function validateVideoPath(type, menuType, path, variant, color) {
-    debugger
-    if (Sequencer.Database.getPathsUnder(`autoanimations.${type}.${[menuType]}.${path}.${variant}.${color}`, true)) {
-        return `autoanimations.${type}.${[menuType]}.${path}.${variant}.${color}`;
+    function getCleanProperty(path, prop) {
+        let newArray = Object.keys(path ?? {});
+        return newArray.find(el => prop === el) ? prop : newArray[0] !== "_markers" ? newArray[0] : newArray[1]
     }
-
-    if (Sequencer.Database.getPathsUnder(`autoanimations.${type}.${[menuType]}.${path}.${variant}`, true)) {
-        return `autoanimations.${type}.${[menuType]}.${path}.${variant}`
+    function validateVideoPath() {
+        if (!dbType || !menuType || !animation || !variant || !color) { return false; }
+        let dbPath = color === "random" ? `autoanimations.${dbType}.${[menuType]}.${animation}.${variant}` : `autoanimations.${dbType}.${[menuType]}.${animation}.${variant}.${color}`;
+        return !!Sequencer.Database.getEntry(dbPath, {softFail: true})
     }
-
+    // Returns the actual filepath. This is only used in Static and Templates
+    function filePath() {
+        let colorOptions = Object.keys(aaDatabase[dbType][cleanType]?.[cleanAnimation]?.[cleanVariant])
+        return color === "random"
+                ? aaDatabase[dbType][cleanType]?.[cleanAnimation]?.[cleanVariant]?.[colorOptions[0]]?.[0]
+                : aaDatabase[dbType][cleanType]?.[cleanAnimation]?.[cleanVariant]?.[cleanColor]?.[0]
+    }
+    // Returns the Database path structure to send to Sequencer
+    function databasePath() {
+        return color === "random"
+                ? `autoanimations.${dbType}.${[cleanType]}.${cleanAnimation}.${cleanVariant}` 
+                : `autoanimations.${dbType}.${[cleanType]}.${cleanAnimation}.${cleanVariant}.${cleanColor}`
+    }
+    // Returns the Database path for the return animation to send to Sequencer if it exists, otherwise false
+    function returnDatabasePath() {
+        return returnArray.find(el => cleanAnimation === el) 
+        ? color === "random"
+        ? `autoanimations.return.weapon.${cleanAnimation}.${cleanVariant}`
+        : `autoanimations.return.weapon.${cleanAnimation}.${cleanVariant}.${cleanColor}`
+        : false
+    }
 }

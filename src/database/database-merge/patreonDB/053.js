@@ -22,6 +22,7 @@ export async function db053(path) {
      */
     const patreonDB053 = {
         range: {
+            _free: [],
             spell: {
                 guidingbolt: {
                     '01': {
@@ -95,6 +96,7 @@ export async function db053(path) {
             },
         },
         templatefx: {
+            _free: [],
             circle: {
                 detectmagic: {
                     '01': {
@@ -144,6 +146,7 @@ export async function db053(path) {
             },
         },
         static: {
+            _free:['marker', 'nature', 'sideImpact', 'smoke'],
             energy: {
                 energyfield: {
                     '01': {
@@ -191,14 +194,17 @@ export async function db053(path) {
                 },    
             },
             marker: {
+                _free:['bubble', 'roundshield', 'smokering'],
                 bubble: {
+                    _free:['complete'],
                     '01': {
                         yellow: [lg`Marker/MarkerBubble_01_Regular_Yellow_400x400.webm`],
                     },    
                     complete: {
                         _markers: {
                             loop: { start: 2625, end: 7625 }
-                        },    
+                        },
+                        _free:['blue', "_markers"],
                         blue: [lg`Marker/MarkerBubbleComplete_01_Regular_Blue_400x400.webm`],
                         green: [lg`Marker/MarkerBubbleComplete_01_Regular_Green_400x400.webm`],
                         rainbow: [lg`Marker/MarkerBubbleComplete_01_Regular_Rainbow_400x400.webm`],
@@ -226,14 +232,17 @@ export async function db053(path) {
                     },
                 },
                 roundshield: {
+                    _free:['loop', 'complete'],
                     loop: {
+                        _free:['orange'],
                         darkred: [lg`Marker/MarkerShieldRampartLoop01_01_Dark_Red_400x400.webm`],
                         orange: [lg`Marker/MarkerShieldRampartLoop01_01_Regular_Orange_400x400.webm`],
                     },
                     complete: {
                         _markers: {
                             loop: { start: 1916, end: 6208 }
-                        },    
+                        },
+                        _free:['orange', "_markers"],
                         darkred: [lg`Marker/MarkerShieldRampart01_01_Dark_Red_400x400.webm`],
                         orange: [lg`Marker/MarkerShieldRampart01_01_Regular_Orange_400x400.webm`],
                     },
@@ -265,7 +274,9 @@ export async function db053(path) {
                     },
                 },
                 smokering: {
+                    _free:['loop'],
                     loop: {
+                        _free:['purpleblue'],
                         darkred: [lg`Marker/MarkerSmokeRingLoop01_Dark_Red_400x400.webm`],
                         purpleblue: [lg`Marker/MarkerSmokeRingLoop01_Regular_BluePurple_400x400.webm`],
                         purple: [lg`Marker/MarkerSmokeRingLoop01_Regular_Purple_400x400.webm`],
@@ -282,8 +293,11 @@ export async function db053(path) {
                 },    
             },
             nature: {
+                _free:['feathers'],
                 feathers: {
+                    _free:['outburst'],
                     outburst: {
+                        _free:['textured'],
                         blue: [
                             lg`Nature/SwirlingFeathersOutburst01_01_Regular_Blue_400x400.webm`,
                             lg`Nature/SwirlingFeathersOutburst02_01_Regular_Blue_400x400.webm`,
@@ -320,8 +334,11 @@ export async function db053(path) {
                 },    
             },
             sideImpact: {
+                _free:['smoke'],
                 smoke: {
+                    _free:['01', '02'],
                     "01": {
+                        _free:['grey'],
                         black: [
                             lg`Smoke/SmokePuffSide01_01_Dark_Black_400x400.webm`,
                             lg`Smoke/SmokePuffSide01_02_Dark_Black_400x400.webm`,
@@ -366,6 +383,7 @@ export async function db053(path) {
                         ]
                     },
                     '02': {
+                        _free:['white'],
                         black: [
                             lg`Smoke/SmokePuffSide02_01_Dark_Black_400x400.webm`,
                             lg`Smoke/SmokePuffSide02_02_Dark_Black_400x400.webm`,
@@ -380,11 +398,14 @@ export async function db053(path) {
                 }
             },
             smoke: {
+                _free:['plume'],
                 plume: {
+                    _free:['complete'],
                     complete: {
                         _markers: {
                             loop: { start: 2000, end: 4000 }
-                            },        
+                            },
+                        _free:['grey', '_markers'],
                         blue: [
                             lg`Smoke/SmokePlumes01_01_Regular_Blue_400x400.webm`,
                             lg`Smoke/SmokePlumes01_02_Regular_Blue_400x400.webm`,
@@ -462,12 +483,6 @@ export async function db053(path) {
                 },    
             },
         },
-        return: {
-            _template: 'ranged',
-            weapon: {
-                
-            }
-        }
     }
     return patreonDB053;
 }

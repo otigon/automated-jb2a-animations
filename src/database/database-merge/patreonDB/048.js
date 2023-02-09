@@ -7,9 +7,13 @@ export async function db048(path) {
 
     const patreonDB048 = {
         templatefx: {
+            _free:['circle', 'cone', 'square', 'vines'],
             circle: {
+                _free:['water'],
                 water: {
+                    _free:['01'],
                     '01': {
+                        _free:['blue'],
                         black: [lg`Liquid/WaterSplashLoop_01_01_Regular_Black_600x600.webm`],
                         blue: [lg`Liquid/WaterSplashLoop_01_01_Regular_Blue_600x600.webm`],
                         green: [lg`Liquid/WaterSplashLoop_01_01_Regular_Green_600x600.webm`],
@@ -19,8 +23,11 @@ export async function db048(path) {
                 },
             },
             cone: {
+                _free:['water'],
                 water: {
+                    _free:['01'],
                     '01': {
+                        _free:['blue'],
                         black: [lg`Liquid/WaterSplashConeLoop_01_01_Regular_Black_600x600.webm`],
                         blue: [lg`Liquid/WaterSplashConeLoop_01_01_Regular_Blue_600x600.webm`],
                         green: [lg`Liquid/WaterSplashConeLoop_01_01_Regular_Green_600x600.webm`],
@@ -29,12 +36,12 @@ export async function db048(path) {
                     }
                 }
             },
-            ray: {
-
-            },
             square: {
+                _free:['entangle'],
                 entangle: {
+                    _free:['02', 'complete'],
                     '02': {
+                        _free:['green'],
                         purplepink: [l1`Entangle/EntangleLoop02_01_Dark_PinkPurple_500x500.webm`],
                         green: [l1`Entangle/EntangleLoop02_02_Regular_Green_500x500.webm`],
                         darkblue: [l1`Entangle/EntangleLoop02_03_Dark_Blue_500x500.webm`],
@@ -42,7 +49,8 @@ export async function db048(path) {
                     complete: {
                         _markers: {
                             loop: { start: 2125, end: 6250 }
-                        },        
+                        },
+                        _free:['green'],
                         purplepink: [l1`Entangle/Entangle02_01_Dark_PinkPurple_500x500.webm`],
                         green: [l1`Entangle/Entangle02_02_Regular_Green_500x500.webm`],
                         darkblue: [l1`Entangle/Entangle02_03_Dark_Blue_500x500.webm`],
@@ -50,11 +58,14 @@ export async function db048(path) {
                 }
             },
             vines: {
+                _free:['complete', 'loop'],
                 complete: {
+                    _free:['nature'],
                     nature: {
                         _markers: {
                             loop: { start: 2125, end: 6250 }
-                            },            
+                            },
+                        _free:['greem'],        
                         green: [
                             lg`Nature/GroupVineNature01_01_Regular_Green_300x300.webm`,
                             lg`Nature/VineNature01_01_Regular_Green_300x300.webm`,
@@ -111,7 +122,9 @@ export async function db048(path) {
                     },
                 },
                 loop: {
+                    _free:['nature'],
                     nature: {
+                        _free:['green'],
                         green: [
                             lg`Nature/GroupVineNatureLoop01_01_Regular_Green_300x300.webm`,
                             lg`Nature/GroupVineNatureLoop02_01_Regular_Green_300x300.webm`,
@@ -163,9 +176,13 @@ export async function db048(path) {
             }
         },
         static: {
+            _free:['generic', 'vines', ],
             generic: {
+                _free:['water'],
                 water: {
+                    _free:['01'],
                     '01': {
+                        _free:['blue'],
                         black: [lg`Liquid/WaterSplashLoop_01_01_Regular_Black_600x600.webm`],
                         blue: [lg`Liquid/WaterSplashLoop_01_01_Regular_Blue_600x600.webm`],
                         green: [lg`Liquid/WaterSplashLoop_01_01_Regular_Green_600x600.webm`],
@@ -199,11 +216,14 @@ export async function db048(path) {
                 }
             },
             vines: {
+                _free:['complete', 'loop'],
                 complete: {
+                    _free:['nature'],
                     nature: {
                         _markers: {
                             loop: { start: 2125, end: 6250 }
-                            },            
+                            },
+                        _free:['green'],
                         green: [
                             lg`Nature/GroupVineNature01_01_Regular_Green_300x300.webm`,
                             lg`Nature/VineNature01_01_Regular_Green_300x300.webm`,
@@ -260,7 +280,9 @@ export async function db048(path) {
                     },
                 },
                 loop: {
+                    _free:['nature'],
                     nature: {
+                        _free:['green'],
                         green: [
                             lg`Nature/GroupVineNatureLoop01_01_Regular_Green_300x300.webm`,
                             lg`Nature/GroupVineNatureLoop02_01_Regular_Green_300x300.webm`,

@@ -14,6 +14,7 @@ export async function db049(path) {
 
     const patreonDB049 = {
         range: {
+            _free: [],
             weapon: {
                 flask: {
                     '01': {
@@ -139,6 +140,7 @@ export async function db049(path) {
             },
         },
         static: {
+            _free:['spell'],
             generic: {
                 fire: {
                     ring: {
@@ -149,8 +151,11 @@ export async function db049(path) {
                 }
             },
             spell: {
+                _free:['divinesmite'],
                 divinesmite: {
+                    _free:['reverse'],
                     reverse: {
+                        _free:['yellowblue'],
                         yellowblue: [l2`Divine_Smite/DivineSmiteReversed_01_Regular_BlueYellow_Caster_400x400.webm`],
                         greenyellow: [l2`Divine_Smite/DivineSmiteReversed_01_Regular_GreenYellow_Caster_400x400.webm`],
                         orange: [l2`Divine_Smite/DivineSmiteReversed_01_Regular_Orange_Caster_400x400.webm`],

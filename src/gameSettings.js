@@ -653,6 +653,20 @@ class AAGameSettings extends TJSGameSettings {
                   config: true,
                }
             });
+
+            settings.push({
+               namespace,
+               key: 'disableGrantedAuraEffects',
+               folder: game.system.title || game.system.name,
+               options: {
+                  name: 'autoanimations.settings.disableGrantedAura',
+                  hint: 'autoanimations.settings.disableGrantedAuraHint',
+                  scope: scope.world,
+                  type: Boolean,
+                  default: false,
+                  config: true,
+               }
+            });
             break;
 
          case 'pf1':

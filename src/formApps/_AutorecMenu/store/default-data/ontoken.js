@@ -10,6 +10,7 @@ export const ontoken = [
          options: {
             addTokenWidth: false,
             anchor: "0.5",
+            contrast: 0,
             delay: 0,
             elevation: 0,
             fadeIn: 250,
@@ -21,8 +22,11 @@ export const ontoken = [
             persistent: false,
             repeat: 1,
             repeatDelay: 500,
+            saturate: 0,
             size: 1.5,
             playOn: "default",
+            tint: false,
+            tintColor: "#FFFFFF",   
             unbindAlpha: false,
             unbindVisibility: false,
             zIndex: 1
@@ -77,6 +81,7 @@ export const ontoken = [
          options: {
             addTokenWidth: false,
             anchor: "0.5",
+            contrast: 0,
             delay: 0,
             elevation: 0,
             fadeIn: 250,
@@ -88,7 +93,10 @@ export const ontoken = [
             persistent: false,
             repeat: 1,
             repeatDelay: 500,
+            saturate: 0,
             size: 1.5,
+            tint: false,
+            tintColor: "#FFFFFF",   
             playOn: "default",
             unbindAlpha: false,
             unbindVisibility: false,
@@ -145,6 +153,7 @@ export const ontoken = [
          options: {
             addTokenWidth: false,
             anchor: "0.5",
+            contrast: 0,
             delay: 0,
             elevation: 1000,
             fadeIn: 250,
@@ -156,8 +165,11 @@ export const ontoken = [
             persistent: false,
             repeat: 1,
             repeatDelay: 500,
+            saturate: 0,
             size: 1,
             playOn: "target",
+            tint: false,
+            tintColor: "#FFFFFF",   
             unbindAlpha: false,
             unbindVisibility: false,
             zIndex: 1
@@ -212,6 +224,7 @@ export const ontoken = [
          options: {
             addTokenWidth: false,
             anchor: "0.5",
+            contrast: 0,
             delay: 0,
             elevation: 1000,
             fadeIn: 250,
@@ -223,8 +236,11 @@ export const ontoken = [
             persistent: false,
             repeat: 1,
             repeatDelay: 500,
+            saturate: 0,
             size: 1,
             playOn: "target",
+            tint: false,
+            tintColor: "#FFFFFF",   
             unbindAlpha: false,
             unbindVisibility: false,
             zIndex: 1
@@ -275,6 +291,7 @@ export const ontoken = [
          options: {
             addTokenWidth: false,
             anchor: "0.5",
+            contrast: 0,
             delay: 0,
             elevation: 1000,
             fadeIn: 250,
@@ -286,8 +303,11 @@ export const ontoken = [
             persistent: false,
             repeat: 1,
             repeatDelay: 500,
+            saturate: 0,
             size: 1,
             playOn: "target",
+            tint: false,
+            tintColor: "#FFFFFF",   
             unbindAlpha: false,
             unbindVisibility: false,
             zIndex: 1

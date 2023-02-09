@@ -22,7 +22,9 @@ export async function handleItem(data) {
     const ammoFlags = ammoItem ? await flagMigrations.handle(ammoItem, {activeEffect: data.activeEffect}) || {isEnabled: true} : null;
     
     let autorecDisabled = game.settings.get("autoanimations", "disableAutoRec");
-    debug("Global Automatic Recognition menu is Disabled from the Module Settings");
+    if (autorecDisabled) {
+        debug("Global Automatic Recognition menu is Disabled from the Module Settings");
+    }
 
     const autorecSettings = {
         melee: game.settings.get("autoanimations", "aaAutorec-melee"),
@@ -62,6 +64,7 @@ export async function handleItem(data) {
             autorecObject = AAAutorecFunctions.allMenuSearch(menus, rinsedItemName, itemName);
             if (!autorecObject && data.extraNames?.length && !data.activeEffect) {
                 for (const name of data.extraNames) {
+                    if (!name) { continue }
                     const rinsedName = AAAutorecFunctions.rinseName(name);
                     autorecObject = AAAutorecFunctions.allMenuSearch(menus, rinsedName, itemName);
                     if (autorecObject) {

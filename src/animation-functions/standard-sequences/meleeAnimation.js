@@ -21,9 +21,9 @@ export async function melee(handler, animationData) {
 
     let range = {};
     if (data.meleeSwitch.options.switchType === "on") {
-        range = aaRangeWeapons.includes(data.video.animation) && !data.video.customPath ? await buildFile(false, data.video.menuType, data.video.animation, "range", data.video.variant, data.video.color, false) : {};
+        range = aaRangeWeapons.includes(data.video.animation) && !data.video.customPath ? await buildFile("range", data.video, false) : {};
     } else if (data.meleeSwitch.options.switchType === "custom") {
-        range = !data.meleeSwitch?.video?.customPath ? await buildFile(false, data.meleeSwitch.video.menuType, data.meleeSwitch.video.animation, "range", data.meleeSwitch.video.variant, data.meleeSwitch.video.color, data.meleeSwitch.video.customPath) : {};
+        range = !data.meleeSwitch?.video?.customPath ? await buildFile("range", data.meleeSwitch.video, data.meleeSwitch.video.customPath) : {};
     }
 
     let switchDistance = 5;
@@ -57,8 +57,7 @@ export async function melee(handler, animationData) {
     let aaSeq = await new Sequence(handler.sequenceData);
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1") {
-        let userData = macro.args;
-        aaSeq.macro(macro.name, handler.workflow, handler, userData)
+        handler.complileMacroSection(aaSeq, macro)
     }
     // Extra Effects => Source Token if active
     if (sourceFX) {
@@ -94,6 +93,10 @@ export async function melee(handler, animationData) {
             meleeSeq.name("spot" + ` ${currentTarget.token.id}`)
             meleeSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
             meleeSeq.zIndex(data.options.zIndex)
+            if (data.options.tint) {
+                meleeSeq.tint(data.options.tintColor)
+                meleeSeq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+            }    
             if (i === meleeArray.length - 1 && data.options.isWait) {
                 meleeSeq.waitUntilFinished(data.options.delay)
             } else if (!data.options.isWait) {
@@ -131,7 +134,10 @@ export async function melee(handler, animationData) {
             rangeSeq.name("spot" + ` ${currentTarget.token.id}`)
             rangeSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
             rangeSeq.playbackRate(data.options.playbackRate)
-
+            if (data.options.tint) {
+                rangeSeq.tint(data.options.tintColor)
+                rangeSeq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+            }    
             if (i === rangeArray.length - 1 && data.options.isWait) {
                 rangeSeq.waitUntilFinished(data.options.delay)
             } else if (!data.options.isWait) {
@@ -152,6 +158,10 @@ export async function melee(handler, animationData) {
                 returnSeq.stretchTo("spot" + ` ${currentTarget.id}`)
                 returnSeq.zIndex(data.options.zIndex)
                 returnSeq.playbackRate(data.options.playbackRate)
+                if (data.options.tint) {
+                    returnSeq.tint(data.options.tintColor)
+                    returnSeq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+                }    
             }
         }
         if (secondary) {
@@ -164,16 +174,12 @@ export async function melee(handler, animationData) {
 
     // Macro if Concurrent
     if (macro && macro.playWhen === "0") {
-        let userData = macro.args;
-        new Sequence()
-            .macro(macro.name, handler.workflow, handler, userData)
-            .play()
+        handler.runMacro(macro)
     }
 
     // Macro if Awaiting Animation. This will respect the Delay/Wait options in the Animation chains
     if (macro && macro.playWhen === "3") {
-        let userData = macro.args;
-        aaSeq.macro(macro.name, handler.workflow, handler, userData)
+        handler.complileMacroSection(aaSeq, macro)
     }
     
     aaSeq.play()

@@ -12,7 +12,7 @@ export async function ontoken(handler, animationData) {
     const sourceSize = handler.getSize(data.options.isRadius, data.options.size, sourceToken, data.options.addTokenWidth)
 
     const aaSeq = await new Sequence(handler.sequenceData)
-    const bottomAnim = data.path.fileData?.replace('Above', 'Below')
+    const bottomAnim = data.path.filePath?.replace('Above', 'Below')
 
     let newTargetArray = [];
     for (let target of handler.allTargets) {
@@ -22,8 +22,7 @@ export async function ontoken(handler, animationData) {
 
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1") {
-        let userData = macro.args;
-        aaSeq.macro(macro.name, handler.workflow, handler, userData)
+        handler.complileMacroSection(aaSeq, macro)
     }
     // Extra Effects => Source Token if active
     if (sourceFX) {
@@ -75,7 +74,7 @@ export async function ontoken(handler, animationData) {
         }
 
         if (secondary) {
-            handler.compileSecondaryEffect(secondary, aaSeq, [sourceToken], false, true)
+            handler.compileSecondaryEffect(secondary, aaSeq, [sourceToken], false, false)
         }    
     }
 
@@ -233,6 +232,10 @@ export async function ontoken(handler, animationData) {
         seq.rotate(180)
         seq.fadeIn(250)
         seq.fadeOut(500)
+        if (data.options.tint) {
+            seq.tint(data.options.tintColor)
+            seq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+        }
         if (!data.options.persistent) {
             seq.atLocation(token)
             seq.repeats(data.options.repeat, data.options.repeatDelay)
@@ -248,7 +251,7 @@ export async function ontoken(handler, animationData) {
         }
     }
     function setTop(token, size, seq) {
-        seq.file(data.path.fileData)
+        seq.file(data.path.filePath)
         seq.opacity(data.options.opacity)
         seq.size(size, { gridUnits: true })
         seq.elevation(token.document?.elevation)
@@ -257,6 +260,10 @@ export async function ontoken(handler, animationData) {
         }
         seq.fadeIn(250)
         seq.fadeOut(500)
+        if (data.options.tint) {
+            seq.tint(data.options.tintColor)
+            seq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+        }
         if (!data.options.persistent) {
             seq.atLocation(token)
             seq.repeats(data.options.repeat, data.options.repeatDelay)
@@ -280,6 +287,10 @@ export async function ontoken(handler, animationData) {
             seq.mask(token)
         }
         seq.zIndex(data.options.zIndex)
+        if (data.options.tint) {
+            seq.tint(data.options.tintColor)
+            seq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+        }
         if (!data.options.persistent) {
             seq.atLocation(token)
             seq.repeats(data.options.repeat, data.options.repeatDelay)
@@ -304,16 +315,12 @@ export async function ontoken(handler, animationData) {
     }
     // Macro if Concurrent
     if (macro && macro.playWhen === "0") {
-        let userData = macro.args;
-        new Sequence()
-            .macro(macro.name, handler.workflow, handler, userData)
-            .play()
+        handler.runMacro(macro)
     }
 
     // Macro if Awaiting Animation. This will respect the Delay/Wait options in the Animation chains
     if (macro && macro.playWhen === "3") {
-        let userData = macro.args;
-        aaSeq.macro(macro.name, handler.workflow, handler, userData)
+        handler.complileMacroSection(aaSeq, macro)
     }
     
     aaSeq.play()

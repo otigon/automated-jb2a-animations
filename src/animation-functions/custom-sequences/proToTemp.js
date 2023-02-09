@@ -1,4 +1,3 @@
-//import { buildFile } from "../file-builder/build-filepath.js";
 import { howToDelete } from "../../constants/constants.js";
 
 // Credit goes to Wasp-Sequencer Guy for the structure of the Fireball Sequence
@@ -22,8 +21,7 @@ export async function proToTemp(handler, animationData, templateDocument) {
     
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1" && !macro?.args?.warpgateTemplate) {
-        let userData = macro.args;
-        aaSeq.macro(macro.name, handler.workflow, handler, userData)
+        handler.complileMacroSection(aaSeq, macro)
     }
 
     // Extra Effects => Source Token if active
@@ -89,18 +87,14 @@ export async function proToTemp(handler, animationData, templateDocument) {
     }
 
     if (macro && macro.playWhen === "0" && !macro?.args?.warpgateTemplate) {
-        let userData = macro.args;
-        new Sequence()
-            .macro(macro.name, handler.workflow, handler, userData)
-            .play()
+        handler.runMacro(macro)
     }
 
     if (data.afterImage.enable && data.afterImage.options.persistent) { howToDelete("sequencerground") }
 
     // Macro if Awaiting Animation. This will respect the Delay/Wait options in the Animation chains
     if (macro && macro.playWhen === "3") {
-        let userData = macro.args;
-        aaSeq.macro(macro.name, handler.workflow, handler, userData)
+        handler.complileMacroSection(aaSeq, macro)
     }
     
     aaSeq.play()

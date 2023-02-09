@@ -8,9 +8,9 @@ export async function teleportation(handler, animationData) {
     //const sourceFX = animationData.sourceFX;
 
 
-    const startFile = await buildFile(false, data.start.menuType, data.start.animation, "static", data.start.variant, data.start.color, data.start.customPath);
-    const endFile = await buildFile(false, data.end.menuType, data.end.animation, "static", data.end.variant, data.end.color, data.end.customPath);
-    const betweenFile = await buildFile(false, data.between.menuType, data.between.animation, "range", data.between.variant, data.between.color, data.between.customPath);
+    const startFile = await buildFile("static", data.start, data.start.customPath);
+    const endFile = await buildFile("static", data.end, data.end.customPath);
+    const betweenFile = await buildFile("range", data.between, data.between.customPath);
 
     let sourceTokenGS = sourceToken.w / canvas.grid.size;
 
@@ -99,8 +99,7 @@ export async function teleportation(handler, animationData) {
 
         // Play Macro if Awaiting
         if (macro && macro.playWhen === "1" && !macro?.args?.warpgateTemplate) {
-            let userData = macro.args;
-            aaSeq.macro(macro.name, handler.workflow, handler, userData)
+            handler.complileMacroSection(aaSeq, macro)
         }
 
         let startX = sourceToken.center?.x;
@@ -189,16 +188,12 @@ export async function teleportation(handler, animationData) {
 
         // Macro if Concurrent
         if (macro && macro.playWhen === "0" && !macro?.args?.warpgateTemplate) {
-            let userData = macro.args;
-            new Sequence()
-                .macro(macro.name, handler.workflow, handler, userData)
-                .play()
+            handler.runMacro(macro)
         }
 
         // Macro if Awaiting Animation. This will respect the Delay/Wait options in the Animation chains
         if (macro && macro.playWhen === "3") {
-            let userData = macro.args;
-            aaSeq.macro(macro.name, handler.workflow, handler, userData)
+            handler.complileMacroSection(aaSeq, macro)
         }
 
         aaSeq.play()

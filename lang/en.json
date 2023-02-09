@@ -90,7 +90,9 @@
             "hoverInTemplate": "Show on any Hover",
             "playAnimations": "When to play Animations",
             "attack": "Attack Rolls",
-            "damage": "Damage Rolls"
+            "damage": "Damage Rolls",
+            "disableGrantedAura": "Disable Granted Aura Effect Animations",
+            "disableGrantedAuraHint": "Disables Animations for Effects granted by Auras"
         },
         "colors": {
             "lightorange": "Light Orange",
@@ -365,7 +367,8 @@
             "towershield": "Tower Shield",
             "smokering": "Smoke Ring",
             "feathers": "Feathers",
-            "plume": "Plume"
+            "plume": "Plume",
+            "energywall": "Energy Wall"
         },
         "variants": {
             "1":"01",
@@ -405,6 +408,7 @@
             "runeintro": "Rune Intro",
             "runeloop": "Rune Loop",
             "runeoutro": "Rune Outro",
+            "runecomplete": "Rune Complete",
             "skullabove": "Skull Above",
             "skullbelow": "Skull Below",
             "starabove": "Star Above",
@@ -473,7 +477,8 @@
             "evocation": "Evocation",
             "illusion": "Illusion",
             "necromancy": "Necromancy",
-            "transmutation": "Transmutation"
+            "transmutation": "Transmutation",
+            "arcana": "Arcana"
         },
         "menuTypes": {
             "creature": "Creature Attack",
@@ -684,7 +689,10 @@
             "features": "Features",
             "checkCollision": "Check for Collision",
             "resetTime": "Reset Time",
-            "rotateTowards": "Rotate Towards"
+            "rotateTowards": "Rotate Towards",
+            "contrast": "Contrast",
+            "saturation": "Saturation",
+            "colorTint": "Color Tint"
         },
         "tokenAnimations": {
             "bow": "Bow",

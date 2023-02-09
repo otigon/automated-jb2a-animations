@@ -87,7 +87,12 @@
 			"hoverInTemplate": "Afficher à tout survol",
 			"hoverInTemplateLayer": "Afficher au survol dans le calque du modèle",
 			"coreonatk_name": "Lancer les animations d'attaque sur les jets d'attaque",
-			"coreonatk_hint": "Par défaut, les animations sont lancées sur les jets d'attaque"
+			"coreonatk_hint": "Par défaut, les animations sont lancées sur les jets d'attaque",
+			"attack": "jets d'attaque",
+			"damage": "Jets de dégâts",
+			"playAnimations": "Quand jouer les animations",
+			"disableGrantedAura": "Désactiver les animations des effets d'auras accordées",
+			"disableGrantedAuraHint": "Désactive les animations pour les effets accordés par les Auras"
 		},
 		"colors": {
 			"lightorange": "Orange clair",
@@ -363,7 +368,8 @@
 			"towershield": "Pavois",
 			"smokering": "Anneau de fumée",
 			"feathers": "Plumes",
-			"plume": "Plume"
+			"plume": "Plume",
+			"energywall": "Mur d'énergie"
 		},
 		"variants": {
 			"1": "01",
@@ -468,7 +474,12 @@
 			"illusion": "Illusion",
 			"necromancy": "Nécromancie",
 			"abjuration": "Abjuration",
-			"transmutation": "Transmutation"
+			"transmutation": "Transmutation",
+			"runeloop": "Rune boucle",
+			"runeoutro": "Rune Outro",
+			"runeintro": "Rune Intro",
+			"runecomplete": "Rune complète",
+			"arcana": "Arcanes"
 		},
 		"menuTypes": {
 			"creature": "Attaque de créature",
@@ -680,7 +691,10 @@
 			"features": "Fonctionnalités",
 			"checkCollision": "Vérifier les collisions",
 			"resetTime": "Remettre le temps à zéro",
-			"rotateTowards": "Faire une rotation vers"
+			"rotateTowards": "Faire une rotation vers",
+			"saturation": "Saturation",
+			"colorTint": "Teinte de couleur",
+			"contrast": "Contraste"
 		},
 		"app": {
 			"aaAutorec-range": {

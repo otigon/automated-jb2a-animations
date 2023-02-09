@@ -288,6 +288,7 @@
 .aa-section-border {
     margin-right: 3%;
     margin-left: 3%;
+    padding-left: 8px;
     border: 1px solid rgba(109, 109, 109, 0.6);
     border-radius: 5px;
     background: rgb(200 200 200);
@@ -297,9 +298,20 @@
 .aa-sound-border {
     margin-right: 3%;
     margin-left: 3%;
+    padding-left: 8px;
     border: 1px solid rgba(109, 109, 109, 0.75);
     border-radius: 5px;
     background: rgba(207, 171, 112, 0.09);
+    margin-bottom: 5px;
+}
+
+.aa-effect-border {
+    margin-right: 3%;
+    margin-left: 3%;
+    border: 1px solid rgba(109, 109, 109, 0.75);
+    border-radius: 5px;
+    background: rgba(207, 171, 112, 0.09);
+    padding: 2px 2px 2px 8px;
     margin-bottom: 5px;
 }
 
@@ -309,7 +321,7 @@
     border: 1px solid rgba(109, 109, 109, 0.75);
     border-radius: 5px;
     background: rgba(207, 171, 112, 0.09);
-    padding: 2px;
+    padding: 2px 2px 2px 8px;
     margin-bottom: 5px;
     input[type="checkbox"] {
         /* Add if not using autoprefixer */

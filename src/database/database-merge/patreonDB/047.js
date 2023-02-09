@@ -7,9 +7,13 @@ export async function db047(path) {
 
     const patreonDB047 = {
         range: {
+            _free:['weapon'],
             weapon: {
+                _free:['missile'],
                 missile: {
+                    _free:['01', '02', '03', '04'],
                     '01': {
+                        _free:['blue'],
                         blue: {
                             '15ft': [lg`Weapon_Attacks/Ranged/Missile01_01_Regular_Blue_15ft_1000x400.webm`],
                             '30ft': [lg`Weapon_Attacks/Ranged/Missile01_01_Regular_Blue_30ft_1600x400.webm`],
@@ -18,6 +22,7 @@ export async function db047(path) {
                         }
                     },
                     '02': {
+                        _free:['white'],
                         white: {
                             '15ft': [lg`Weapon_Attacks/Ranged/Missile02_01_Regular_White_15ft_1000x400.webm`],
                             '30ft': [lg`Weapon_Attacks/Ranged/Missile02_01_Regular_White_30ft_1600x400.webm`],
@@ -26,6 +31,7 @@ export async function db047(path) {
                         }
                     },
                     '03': {
+                        _free:['white'],
                         white: {
                             '15ft': [lg`Weapon_Attacks/Ranged/Missile03_01_Regular_White_15ft_1000x400.webm`],
                             '30ft': [lg`Weapon_Attacks/Ranged/Missile03_01_Regular_White_30ft_1600x400.webm`],
@@ -34,6 +40,7 @@ export async function db047(path) {
                         }
                     },
                     '04': {
+                        _free:['purplepink'],
                         purplepink: {
                             '15ft': [lg`Weapon_Attacks/Ranged/Missile04_01_Regular_PinkPurple_15ft_1000x400.webm`],
                             '30ft': [lg`Weapon_Attacks/Ranged/Missile04_01_Regular_PinkPurple_30ft_1600x400.webm`],
@@ -45,9 +52,13 @@ export async function db047(path) {
             },
         },
         static: {
+            _free:['eyes', 'shrapnel', 'sideImpact'],
             eyes: {
+                _free:['single', 'few', 'many'],
                 single: {
+                    _free:['01', '02', '03'],
                     '01': {
+                        _free:['darkgreen'],
                         darkgreen: [lg`Eyes/Eyes_Single01_01_Dark_Green_300x300.webm`],
                         darkred: [lg`Eyes/Eyes_Single01_01_Dark_Red_300x300.webm`],
                         yellow: [lg`Eyes/Eyes_Single01_01_Dark_Yellow_300x300.webm`],
@@ -56,6 +67,7 @@ export async function db047(path) {
                         orangeyellow: [lg`Eyes/Eyes_Single01_01_Regular_OrangeYellow_300x300.webm`],
                     },
                     '02': {
+                        _free:['darkgreen'],
                         darkgreen: [lg`Eyes/Eyes_Single01_02_Dark_Green_300x300.webm`],
                         darkred: [lg`Eyes/Eyes_Single01_02_Dark_Red_300x300.webm`],
                         yellow: [lg`Eyes/Eyes_Single01_02_Dark_Yellow_300x300.webm`],
@@ -64,6 +76,7 @@ export async function db047(path) {
                         orangeyellow: [lg`Eyes/Eyes_Single01_02_Regular_OrangeYellow_300x300.webm`],
                     },
                     '03': {
+                        _free:['darkgreen'],
                         darkgreen: [lg`Eyes/Eyes_Single01_03_Dark_Green_300x300.webm`],
                         darkred: [lg`Eyes/Eyes_Single01_03_Dark_Red_300x300.webm`],
                         yellow: [lg`Eyes/Eyes_Single01_03_Dark_Yellow_300x300.webm`],
@@ -73,7 +86,9 @@ export async function db047(path) {
                     },
                 },
                 few: {
+                    _free:['01', '02', '03'],
                     '01': {
+                        _free:['darkgreen'],
                         darkgreen: [lg`Eyes/Eyes_Few01_01_Dark_Green_600x600.webm`],
                         darkred: [lg`Eyes/Eyes_Few01_01_Dark_Red_600x600.webm`],
                         yellow: [lg`Eyes/Eyes_Few01_01_Dark_Yellow_600x600.webm`],
@@ -82,6 +97,7 @@ export async function db047(path) {
                         orangeyellow: [lg`Eyes/Eyes_Few01_01_Regular_OrangeYellow_600x600.webm`],
                     },
                     '02': {
+                        _free:['darkgreen'],
                         darkgreen: [lg`Eyes/Eyes_Few01_02_Dark_Green_600x600.webm`],
                         darkred: [lg`Eyes/Eyes_Few01_02_Dark_Red_600x600.webm`],
                         yellow: [lg`Eyes/Eyes_Few01_02_Dark_Yellow_600x600.webm`],
@@ -90,6 +106,7 @@ export async function db047(path) {
                         orangeyellow: [lg`Eyes/Eyes_Few01_02_Regular_OrangeYellow_600x600.webm`],
                     },
                     '03': {
+                        _free:['darkgreen'],
                         darkgreen: [lg`Eyes/Eyes_Few01_03_Dark_Green_600x600.webm`],
                         darkred: [lg`Eyes/Eyes_Few01_03_Dark_Red_600x600.webm`],
                         yellow: [lg`Eyes/Eyes_Few01_03_Dark_Yellow_600x600.webm`],
@@ -99,7 +116,9 @@ export async function db047(path) {
                     },
                 },
                 many: {
+                    _free:['01', '02', '03'],
                     '01': {
+                        _free:['darkgreen'],
                         darkgreen: [lg`Eyes/Eyes_Many01_01_Dark_Green_600x600.webm`],
                         darkred: [lg`Eyes/Eyes_Many01_01_Dark_Red_600x600.webm`],
                         yellow: [lg`Eyes/Eyes_Many01_01_Dark_Yellow_600x600.webm`],
@@ -108,6 +127,7 @@ export async function db047(path) {
                         orangeyellow: [lg`Eyes/Eyes_Many01_01_Regular_OrangeYellow_600x600.webm`],
                     },
                     '02': {
+                        _free:['darkgreen'],
                         darkgreen: [lg`Eyes/Eyes_Many01_02_Dark_Green_600x600.webm`],
                         darkred: [lg`Eyes/Eyes_Many01_02_Dark_Red_600x600.webm`],
                         yellow: [lg`Eyes/Eyes_Many01_02_Dark_Yellow_600x600.webm`],
@@ -116,6 +136,7 @@ export async function db047(path) {
                         orangeyellow: [lg`Eyes/Eyes_Many01_02_Regular_OrangeYellow_600x600.webm`],
                     },
                     '03': {
+                        _free:['darkgreen'],
                         darkgreen: [lg`Eyes/Eyes_Many01_03_Dark_Green_600x600.webm`],
                         darkred: [lg`Eyes/Eyes_Many01_03_Dark_Red_600x600.webm`],
                         yellow: [lg`Eyes/Eyes_Many01_03_Dark_Yellow_600x600.webm`],

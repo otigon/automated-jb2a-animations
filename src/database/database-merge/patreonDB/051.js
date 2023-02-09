@@ -28,6 +28,7 @@ export async function db051(path) {
     const patreonDB051 = {
         range: {
             _template: 'ranged',
+            _free: [],
             weapon: {
                 boomerang: {
                     '01': {
@@ -121,6 +122,7 @@ export async function db051(path) {
             },
         },
         templatefx: {
+            _free: [],
             circle: {
                 fireball: {
                     loop: {
@@ -188,7 +190,9 @@ export async function db051(path) {
             },
         },
         static: {
+            _free:['leaves', 'marker'],
             leaves: {
+                _free:['outburst'],
                 complete: {
                     '01': {
                         orangered: [lg`Nature/SwirlingLeavesComplete01_01_Regular_OrangeRed_400x400.webm`],
@@ -218,7 +222,9 @@ export async function db051(path) {
                     },
                 },
                 outburst: {
+                    _free:['01'],
                     '01': {
+                        _free:['pink'],
                         purpleblue: [lg`Nature/SwirlingLeavesOutburst_01_01_Regular_BluePurple_400x400.webm`],
                         greenorange: [lg`Nature/SwirlingLeavesOutburst_01_01_Regular_GreenOrange_400x400.webm`],
                         orangered: [lg`Nature/SwirlingLeavesOutburst_01_01_Regular_OrangeRed_400x400.webm`],
@@ -341,8 +347,11 @@ export async function db051(path) {
                 },
             },
             marker: {
+                _free:['energystrand'],
                 energystrand: {
+                    _free:['02'],
                     '02': {
+                        _free:['purpleblue'],
                         purpleblue: [lg`Marker/EnergyStrands02_01_Regular_BluePurple_400x400.webm`],
                         green: [lg`Marker/EnergyStrands02_01_Regular_Green_400x400.webm`],
                         greenorange: [lg`Marker/EnergyStrands02_01_Regular_GreenOrange_400x400.webm`],
@@ -416,6 +425,7 @@ export async function db051(path) {
         },
         return: {
             _template: 'ranged',
+            _free: [],
             weapon: {
                 boomerang: {
                     '01': {
