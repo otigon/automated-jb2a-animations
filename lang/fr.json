@@ -368,7 +368,8 @@
 			"towershield": "Pavois",
 			"smokering": "Anneau de fumée",
 			"feathers": "Plumes",
-			"plume": "Plume"
+			"plume": "Plume",
+			"energywall": "Mur d'énergie"
 		},
 		"variants": {
 			"1": "01",
@@ -476,7 +477,9 @@
 			"transmutation": "Transmutation",
 			"runeloop": "Rune boucle",
 			"runeoutro": "Rune Outro",
-			"runeintro": "Rune Intro"
+			"runeintro": "Rune Intro",
+			"runecomplete": "Rune complète",
+			"arcana": "Arcanes"
 		},
 		"menuTypes": {
 			"creature": "Attaque de créature",
