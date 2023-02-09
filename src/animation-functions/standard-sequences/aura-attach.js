@@ -9,7 +9,6 @@ export async function aura(handler, animationData) {
     const macro = animationData.macro;
     const easeArray = ['easeInOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutQuad', 'easeInCirc']
     const sourceToken = handler.sourceToken;
-    //const aura = await buildFile(false, data.video.menuType, data.video.animation, "static", data.video.variant, data.video.color, data.video.customPath);
     
     let newTargetArray = [];
     for (let target of handler.allTargets) {

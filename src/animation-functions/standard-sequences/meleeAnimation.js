@@ -21,9 +21,9 @@ export async function melee(handler, animationData) {
 
     let range = {};
     if (data.meleeSwitch.options.switchType === "on") {
-        range = aaRangeWeapons.includes(data.video.animation) && !data.video.customPath ? await buildFile(false, data.video.menuType, data.video.animation, "range", data.video.variant, data.video.color, false) : {};
+        range = aaRangeWeapons.includes(data.video.animation) && !data.video.customPath ? await buildFile("range", data.video, false) : {};
     } else if (data.meleeSwitch.options.switchType === "custom") {
-        range = !data.meleeSwitch?.video?.customPath ? await buildFile(false, data.meleeSwitch.video.menuType, data.meleeSwitch.video.animation, "range", data.meleeSwitch.video.variant, data.meleeSwitch.video.color, data.meleeSwitch.video.customPath) : {};
+        range = !data.meleeSwitch?.video?.customPath ? await buildFile("range", data.meleeSwitch.video, data.meleeSwitch.video.customPath) : {};
     }
 
     let switchDistance = 5;
