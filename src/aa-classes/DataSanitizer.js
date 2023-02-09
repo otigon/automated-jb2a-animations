@@ -106,8 +106,12 @@ export class DataSanitizer {
         if (menu === "melee") {
             data.meleeSwitch = this.compileMeleeSwitch(topLevel.meleeSwitch)
         }
-        if (data.video.menuType === 'shieldfx' && !video.enableCustom) { data.options.isShieldFX = true}
-        data.path = await buildFile(data.video.dbSection, data.video, data.video.customPath)
+        if (data.video.menuType === 'shieldfx' && !video.enableCustom) { data.options.isShieldFX = true};
+
+        let truePathRequired = ['static', 'templatefx'];
+        let returnable = ['melee', 'range'];
+        console.log(returnable.some(el => el === data.dbSection))
+        data.path = await buildFile(data.video.dbSection, data.video, data.video.customPath, {getTruePath: truePathRequired.some(el => el === data.video.dbSection), isReturnable: returnable.some(el => el === data.video.dbSection)})
         return data;
     }
 
