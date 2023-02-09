@@ -10,16 +10,16 @@
     "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)"
   ],
   "dependencies": {
-    "@typhonjs-fvtt/runtime": "^0.0.22",
-    "@typhonjs-fvtt/svelte-standard": "^0.0.18",
-    "svelte": "^3.55.0"
+    "@typhonjs-fvtt/runtime": "^0.0.20",
+    "@typhonjs-fvtt/svelte-standard": "^0.0.16",
+    "svelte": "^3.52.0"
   },
   "devDependencies": {
     "@typhonjs-config/eslint-config": "^0.3.0",
     "@typhonjs-fvtt/eslint-config-foundry.js": "^0.8.0",
     "eslint": "^8",
-    "svelte-preprocess": "^5",
-    "vite": "^4"
+    "svelte-preprocess": "^4.10.0",
+    "vite": "^3"
   },
   "browserslist": [
     ">5%",

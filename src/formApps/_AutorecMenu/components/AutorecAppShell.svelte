@@ -22,7 +22,7 @@
 
     export let elementRoot;
 
-    const { application } = getContext("#external");
+    const { application } = getContext("external");
 
     // Get a store that is synchronized with session storage.
     const stateStore = aaSessionStorage.getStore(`${constants.moduleId}-autorec-appstate`);

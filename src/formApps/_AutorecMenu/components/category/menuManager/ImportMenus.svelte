@@ -3,7 +3,7 @@
     import { getContext }   from "svelte";
     import { AAAutorecManager } from "./AAAutorecManager.js"
 
-    const { application } = getContext("#external");
+    const { application } = getContext("external");
 
     export let type;
     export let menu;

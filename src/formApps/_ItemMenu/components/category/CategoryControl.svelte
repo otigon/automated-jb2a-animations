@@ -29,7 +29,7 @@
   export let item;
 
   const is5e = game.system.id === "dnd5e";
-  const { application } = getContext("#external");
+  const { application } = getContext("external");
 
   let autorecSettings = {
     melee: game.settings.get("autoanimations", "aaAutorec-melee"),

@@ -5,7 +5,7 @@
     import {TJSIconButton}  from "@typhonjs-fvtt/svelte-standard/component";
     import {ripple}         from "@typhonjs-fvtt/svelte-standard/action";
 
-    const { application } = getContext("#external");
+    const { application } = getContext("external");
 
     export let animation;
 

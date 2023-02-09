@@ -28,7 +28,7 @@
 
     let aaFlags = itemFlags.autoanimations || {};
 
-    const { application } = getContext("#external");
+    const { application } = getContext("external");
     let newFlagData = foundry.utils.deepClone(aaFlags);
 
     if (!newFlagData.hasOwnProperty('menu')) {
