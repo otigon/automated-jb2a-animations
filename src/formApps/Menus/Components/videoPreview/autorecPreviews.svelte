@@ -20,7 +20,7 @@
 
     $: previewType = idx === "item" ? "Item" : "Autorec";
 
-    const { application } = getContext("external");
+    const { application } = getContext("#external");
 
     // Compiling Source data if present
     $: enableSource = animation.source?.enable;
@@ -113,7 +113,7 @@
                     ? daCustomPath
                     : getPreviewFile(daCompiledPath)
 
-    // Teleportation 
+    // Teleportation
     // Start animation
     $: tpsCustom = animation.data?.start?.enableCustom;
     $: tpsCustomPath = animation.data?.start?.customPath;
@@ -165,7 +165,7 @@
                     ? tpeCustomPath
                     : getPreviewFile(tpeCompiledPath)
 
-    // Projectile to Template 
+    // Projectile to Template
     //Projectile
     $: pCustom = animation.data?.projectile?.enableCustom;
     $: pCustomPath = animation.data?.projectile?.customPath;

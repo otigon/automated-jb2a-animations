@@ -3,16 +3,21 @@ import resolve             from '@rollup/plugin-node-resolve'; // This resolves 
 import preprocess          from 'svelte-preprocess';
 import {
    postcssConfig,
-   terserConfig,
-   typhonjsRuntime }       from '@typhonjs-fvtt/runtime/rollup';
+   terserConfig }          from '@typhonjs-fvtt/runtime/rollup';
+
+// ATTENTION!
+// Please modify the below variables: s_PACKAGE_ID and s_SVELTE_HASH_ID appropriately.
+
+// For convenience, you just need to modify the package ID below as it is used to fill in default proxy settings for
+// the dev server.
+const s_PACKAGE_ID = 'modules/autoanimations';
+
+// A short additional string to add to Svelte CSS hash values to make yours unique. This reduces the amount of
+// duplicated framework CSS overlap between many TRL packages enabled on Foundry VTT at the same time.
+const s_SVELTE_HASH_ID = 'auto';
 
 const s_COMPRESS = false;  // Set to true to compress the module bundle.
 const s_SOURCEMAPS = true; // Generate sourcemaps for the bundle (recommended).
-
-// EXPERIMENTAL: Set to true to enable linking against the TyphonJS Runtime Library module.
-// You must add a Foundry module dependency on the `typhonjs` Foundry package or manually install it in Foundry from:
-// https://github.com/typhonjs-fvtt-lib/typhonjs/releases/latest/download/module.json
-const s_TYPHONJS_MODULE_LIB = false;
 
 // Used in bundling.
 const s_RESOLVE_CONFIG = {
@@ -24,16 +29,15 @@ export default () =>
 {
    /** @type {import('vite').UserConfig} */
    return {
-      root: 'src/',                       // Source location / esbuild root.
-      base: '/modules/autoanimations/',   // Base module path that 30001 / served dev directory.
-      publicDir: false,                   // No public resources to copy.
-      cacheDir: '../.vite-cache',         // Relative from root directory.
+      root: 'src/',                 // Source location / esbuild root.
+      base: `/${s_PACKAGE_ID}/`,    // Base module path that 30001 / served dev directory.
+      publicDir: false,             // No public resources to copy.
+      cacheDir: '../.vite-cache',   // Relative from root directory.
 
       resolve: { conditions: ['import', 'browser'] },
 
       esbuild: {
-         target: ['es2022', 'chrome100'],
-         keepNames: true   // Note: doesn't seem to work.
+         target: ['es2022']
       },
 
       css: {
@@ -45,15 +49,22 @@ export default () =>
       // - Set to `open` to boolean `false` to not open a browser window automatically. This is useful if you set up a
       // debugger instance in your IDE and launch it with the URL: 'http://localhost:30001/game'.
       //
-      // - The top proxy entry for `lang` will pull the language resources from the main Foundry / 30000 server. This
-      // is necessary to reference the dev resources as the root is `/src` and there is no public / static resources
-      // served.
+      // - The top proxy entry redirects requests under the module path for `style.css` and following standard static
+      // directories: `assets`, `lang`, and `packs` and will pull those resources from the main Foundry / 30000 server.
+      // This is necessary to reference the dev resources as the root is `/src` and there is no public / static
+      // resources served with this particular Vite configuration. Modify the proxy rule as necessary for your
+      // static resources / project.
       server: {
          port: 30001,
          open: '/game',
          proxy: {
-            '^(/modules/autoanimations/lang)': 'http://localhost:30000',
-            '^(?!/modules/autoanimations/)': 'http://localhost:30000',
+            // Serves static files from main Foundry server.
+            [`^(/${s_PACKAGE_ID}/(assets|lang|packs|style.css))`]: 'http://localhost:30000',
+
+            // All other paths besides package ID path are served from main Foundry server.
+            [`^(?!/${s_PACKAGE_ID}/)`]: 'http://localhost:30000',
+
+            // Enable socket.io from main Foundry server.
             '/socket.io': { target: 'ws://localhost:30000', ws: true }
          }
       },
@@ -64,7 +75,7 @@ export default () =>
          sourcemap: s_SOURCEMAPS,
          brotliSize: true,
          minify: s_COMPRESS ? 'terser' : false,
-         target: ['es2022', 'chrome100'],
+         target: ['es2022'],
          terserOptions: s_COMPRESS ? { ...terserConfig(), ecma: 2022 } : void 0,
          lib: {
             entry: './index.js',
@@ -75,22 +86,17 @@ export default () =>
 
       plugins: [
          svelte({
-            preprocess: preprocess(),
-            onwarn: (warning, handler) =>
-            {
-               // Suppress `a11y-missing-attribute` for missing href in <a> links.
-               // Foundry doesn't follow accessibility rules.
-               if (warning.message.includes(`<a> element should have an href attribute`)) { return; }
-
-               // Let Rollup handle all other warnings normally.
-               handler(warning);
+            compilerOptions: {
+               // Provides a custom hash adding the string defined in `s_SVELTE_HASH_ID` to scoped Svelte styles;
+               // This is reasonable to do as the framework styles in TRL compiled across `n` different packages will
+               // be the same. Slightly modifying the hash ensures that your package has uniquely scoped styles for all
+               // TRL components and makes it easier to review styles in the browser debugger.
+               cssHash: ({ hash, css }) => `svelte-${s_SVELTE_HASH_ID}-${hash(css)}`
             },
+            preprocess: preprocess()
          }),
 
-         resolve(s_RESOLVE_CONFIG),    // Necessary when bundling npm-linked packages.
-
-         // When s_TYPHONJS_MODULE_LIB is true transpile against the Foundry module version of TRL.
-         s_TYPHONJS_MODULE_LIB && typhonjsRuntime()
+         resolve(s_RESOLVE_CONFIG)  // Necessary when bundling npm-linked packages.
       ]
    };
 };
