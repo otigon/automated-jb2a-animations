@@ -12,7 +12,7 @@ export async function ontoken(handler, animationData) {
     const sourceSize = handler.getSize(data.options.isRadius, data.options.size, sourceToken, data.options.addTokenWidth)
 
     const aaSeq = await new Sequence(handler.sequenceData)
-    const bottomAnim = data.path.fileData?.replace('Above', 'Below')
+    const bottomAnim = data.path.filePath?.replace('Above', 'Below')
 
     let newTargetArray = [];
     for (let target of handler.allTargets) {
@@ -251,7 +251,7 @@ export async function ontoken(handler, animationData) {
         }
     }
     function setTop(token, size, seq) {
-        seq.file(data.path.fileData)
+        seq.file(data.path.filePath)
         seq.opacity(data.options.opacity)
         seq.size(size, { gridUnits: true })
         seq.elevation(token.document?.elevation)

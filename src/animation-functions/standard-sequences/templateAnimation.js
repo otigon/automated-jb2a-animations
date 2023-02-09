@@ -215,7 +215,7 @@ export async function templatefx(handler, animationData, templateDocument) {
             alpha: data.options.opacity,
             width: tileWidth,
             height: tileHeight,
-            img: data.path.fileData,
+            img: data.path.filePath,
             overhead: isOverhead, // false sets Tile in canvas.background. true sets Tile to canvas.foreground
             occlusion: {
                 alpha: `${data.options.occlusionAlpha}`,
