@@ -7,7 +7,7 @@
     export let animation;
     export let item;
 
-    const { application } = getContext("external");
+    const { application } = getContext("#external");
 
     const currentLabel = item.name;
     const menu = animation._data.menu;

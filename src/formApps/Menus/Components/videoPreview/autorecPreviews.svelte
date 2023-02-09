@@ -20,7 +20,7 @@
 
     $: previewType = idx === "item" ? "Item" : "Autorec";
 
-    const { application } = getContext("external");
+    const { application } = getContext("#external");
 
     // Compiling Source data if present
     $: enableSource = animation.source?.enable;
