@@ -11,7 +11,7 @@
 
     const bottomLabel = game.i18n.localize("autoanimations.menus.menuManager")
 
-    const { application } = getContext("#external");
+    const { application } = getContext("external");
 </script>
 
 <header>

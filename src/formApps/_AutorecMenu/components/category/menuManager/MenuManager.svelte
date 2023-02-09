@@ -5,7 +5,7 @@
     import { AAAutorecManager } from "./AAAutorecManager";
     import ImportMenus from "./ImportMenus.svelte";
 
-    const { application } = getContext("#external");
+    const { application } = getContext("external");
 
     async function restoreDefault() {
         let d = TJSDialog.confirm({
