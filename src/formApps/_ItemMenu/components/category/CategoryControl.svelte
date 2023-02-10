@@ -29,7 +29,7 @@
   export let item;
 
   const is5e = game.system.id === "dnd5e";
-  const { application } = getContext("#external");
+  const { application } = getContext("external");
 
   let autorecSettings = {
     melee: game.settings.get("autoanimations", "aaAutorec-melee"),
@@ -80,7 +80,7 @@
     styles: { "margin-left": "0.5em" },
     onClickPropagate: false, // Necessary to capture click for Firefox.
   };
-
+  
   const subMenu = {
     items: copyToFrom(animation, item, autorecSettings),
   };

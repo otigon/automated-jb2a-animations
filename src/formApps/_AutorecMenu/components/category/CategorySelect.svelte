@@ -2,6 +2,7 @@
     import CategoryControl      from "./CategoryControl.svelte";
     import CategoryList         from "./CategoryList.svelte";
     import { getContext } from "svelte";
+    import { TJSIconButton, TJSToggleIconButton } from "@typhonjs-fvtt/svelte-standard/component";
 
     import MenuManager from "./menuManager/MenuManagerApp.js"
     import { autoRecStores }    from "../../store/AutoRecStores.js";
@@ -10,7 +11,7 @@
 
     const bottomLabel = game.i18n.localize("autoanimations.menus.menuManager")
 
-    const { application } = getContext("#external");
+    const { application } = getContext("external");
 </script>
 
 <header>

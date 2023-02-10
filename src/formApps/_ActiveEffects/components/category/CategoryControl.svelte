@@ -51,7 +51,7 @@
 
   export let item;
 
-  const { application } = getContext("#external");
+  const { application } = getContext("external");
 
   let aefxMenu = game.settings.get("autoanimations", "aaAutorec-aefx");
 
