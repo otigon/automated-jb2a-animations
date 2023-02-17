@@ -56,7 +56,7 @@ export class DataSanitizer {
 
     }
 
-    static setSound(data, addDelay = 0, overrideRepeat = false) {
+    static setSound(data, addDelay = 0, repeat = false) {
 
         const input = {
             enable: data.enable ?? false,
@@ -64,7 +64,7 @@ export class DataSanitizer {
             delay: data.delay ?? 0,
             startTime: data.startTime ?? 0,
             volume: data.volume ?? 1,
-            repeat: overrideRepeat || data.repeat || 1,
+            repeat: repeat || data.repeat || 1,
             repeatDelay: data.repeatDelay ?? 250,
         }
         if (!input.enable || !input.file) { return false }
@@ -102,7 +102,7 @@ export class DataSanitizer {
         if (!data.options.isWait) {
             addSoundDelay = data.options.delay;
         }
-        data.sound = this.setSound(sound, addSoundDelay, handler.systemData.overrideRepeat)
+        data.sound = this.setSound(sound, addSoundDelay, handler.systemData.repeat)
         if (menu === "melee") {
             data.meleeSwitch = this.compileMeleeSwitch(topLevel.meleeSwitch)
         }
@@ -143,6 +143,7 @@ export class DataSanitizer {
     }
 
     static setPrimaryOptions(data, type, handler) {
+        let modifiedData = handler.systemData;
         switch (type) {
             case "melee":
                 return {
@@ -175,7 +176,7 @@ export class DataSanitizer {
                     opacity: data.opacity ?? 1,
                     playbackRate: data.playbackRate || 1,
                     randomOffset: data.randomOffset ?? false,
-                    repeat: handler.systemData.overrideRepeat || data.repeat || 1,
+                    repeat: handler.systemData.repeat || data.repeat || 1,
                     repeatDelay: data.repeatDelay ?? 1,
                     reverse: data.reverse ?? false,
                     saturation: data.saturation ?? 0,
@@ -318,7 +319,7 @@ export class DataSanitizer {
                 isWait: options.isWait ?? false,
                 opacity: options.opacity || 1,
                 playbackRate: options.playbackRate || 1,
-                repeat: handler.systemData.overrideRepeat || options.repeat || 1,
+                repeat: handler.systemData.repeat || options.repeat || 1,
                 repeatDelay: options.repeatDelay ?? 250,
                 rotateSource: options.rotateSource ?? false,
                 saturation: options.saturation ?? 0,
@@ -333,7 +334,7 @@ export class DataSanitizer {
         if (!data.options.isWait) {
             addSoundDelay = data.options.delay;
         }
-        data.sound = this.setSound(sound, addSoundDelay, handler.systemData.overrideRepeat)
+        data.sound = this.setSound(sound, addSoundDelay, handler.systemData.repeat)
         data.path = secondary.enable ? await buildFile("static", data.video, data.video.customPath) : "";
 
         return data;

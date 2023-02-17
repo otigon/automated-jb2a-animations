@@ -70,7 +70,7 @@ export async function range(handler, animationData) {
         nextSeq.randomizeMirrorY()
         nextSeq.repeats(data.options.repeat, data.options.repeatDelay)
         nextSeq.opacity(data.options.opacity)
-        nextSeq.missed(!hit || handler.systemData.forceMiss || false)
+        nextSeq.missed(!hit || handler.systemData.miss || false)
         nextSeq.name("spot" + ` ${currentTarget.id}`)
         nextSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
         nextSeq.zIndex(data.options.zIndex)

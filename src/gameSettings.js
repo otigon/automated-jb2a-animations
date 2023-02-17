@@ -1,6 +1,7 @@
-import AutorecShim from "./formApps/_AutorecMenu/appShim.js";
-import { aaAutorec } from "./mergeScripts/autorec/aaAutoRecList.js";
-import { AnimationState } from "./AnimationState.js";
+import AutorecShim         from "./formApps/_AutorecMenu/appShim.js";
+import { aaAutorec }       from "./mergeScripts/autorec/aaAutoRecList.js";
+import { AnimationState }  from "./AnimationState.js";
+import { custom_error }  from "./constants/constants.js";
 
 import { TJSGameSettings } from '@typhonjs-fvtt/svelte-standard/store';
 
@@ -9,7 +10,7 @@ class AAGameSettings extends TJSGameSettings {
       super('autoanimations');
    }
 
-   initialize() {
+   async initialize() {
       const namespace = this.namespace;
 
       /**
@@ -227,226 +228,19 @@ class AAGameSettings extends TJSGameSettings {
             type: Boolean
          }
       });
-      /*
-      switch (game.system.id) {
-         case "cyphersystem":
-            settings.push({
-               namespace,
-               key: 'EnableCritical',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.cypherCrit_name',
-                  hint: 'autoanimations.settings.cypherCrit_hint',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: false,
-                  config: true,
-               }
-            });
-
-            settings.push({
-               namespace,
-               key: 'CriticalAnimation',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.CriticalAnimation',
-                  scope: scope.world,
-                  type: String,
-                  config: true,
-                  default: "",
-                  filePicker: "imagevideo"
-               }
-            });
-
-            settings.push({
-               namespace,
-               key: 'EnableFumble',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.cypherFumble_name',
-                  hint: 'autoanimations.settings.cypherFumble_hint',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: false,
-                  config: true,
-               }
-            });
-
-            settings.push({
-               namespace,
-               key: 'FumbleAnimation',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.cypherFumbleAnim_name',
-                  scope: scope.world,
-                  type: String,
-                  config: true,
-                  default: "",
-                  filePicker: "imagevideo"
-               }
-            });
-
-            settings.push({
-               namespace,
-               key: 'EnableOnRecoveryRoll',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.recovery_name',
-                  hint: 'autoanimations.settings.recovery_hint',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: false,
-                  config: true,
-               }
-            });
-
-            settings.push({
-               namespace,
-               key: 'RecoveryRollAnimation',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.recoveryAnim_name',
-                  scope: scope.world,
-                  type: String,
-                  config: true,
-                  default: "",
-                  filePicker: "imagevideo"
-               }
-            });
-
-            settings.push({
-               namespace,
-               key: 'EnableOnMightRoll',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.mightroll_name',
-                  hint: 'autoanimations.settings.mightroll_hint',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: false,
-                  config: true,
-               }
-            });
-
-            settings.push({
-               namespace,
-               key: 'MightRollAnimation',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.mightRollAnim_name',
-                  scope: scope.world,
-                  type: String,
-                  config: true,
-                  default: "",
-                  filePicker: "imagevideo"
-               }
-            });
-
-            settings.push({
-               namespace,
-               key: 'EnableOnSpeedRoll',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.speedroll_name',
-                  hint: 'autoanimations.settings.speedroll_hint',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: false,
-                  config: true,
-               }
-            });
-
-            settings.push({
-               namespace,
-               key: 'SpeedRollAnimation',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.speedRollAnim_name',
-                  scope: scope.world,
-                  type: String,
-                  config: true,
-                  default: "",
-                  filePicker: "imagevideo"
-               }
-            });
-
-            settings.push({
-               namespace,
-               key: 'EnableOnIntellecRoll',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.intellectroll_name',
-                  hint: 'autoanimations.settings.intellectroll_hint',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: false,
-                  config: true,
-               }
-            });
-
-            settings.push({
-               namespace,
-               key: 'IntellectRollAnimation',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.intellectRollAnim_name',
-                  scope: scope.world,
-                  type: String,
-                  config: true,
-                  default: "",
-                  filePicker: "imagevideo"
-               }
-            });
-            break;
-         case 'demonlord':
-            settings.push({
-               namespace,
-               key: 'playtrigger',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.demonlordtrigger_name',
-                  hint: 'autoanimations.settings.demonlordtrigger_hint',
-                  scope: scope.world,
-                  type: String,
-                  choices: {
-                     rollattack: 'autoanimations.settings.demonlordtrigger_rollattack',
-                     hits: 'autoanimations.settings.demonlordtrigger_hits',
-                     misses: 'autoanimations.settings.demonlordtrigger_misses',
-                     rolldamage: 'autoanimations.settings.demonlordtrigger_rolldamage',
-                     applydamage: 'autoanimations.settings.demonlordtrigger_applydamage',
-                  },
-                  default: 'rollattack',
-                  config: true
-               }
-            });
-            break
-
-         case 'sfrpg':
-            settings.push({
-               namespace,
-               key: 'playonDamage',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.midiondmg_name',
-                  hint: 'autoanimations.settings.midiondmg_hint',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: false,
-                  config: true
-               }
-            });
-            break;
-
-         case 'dnd5e':
-         case 'sw5e':
-            if (game.modules.get('midi-qol')?.active) {
+      if (!game.modules.get("autoanimationsAdapter")?.active) {
+         if (game.user.isGM) {
+            custom_error("The Automated-Animations Adapter module is now a required Dependency. Please install and activate the module", true)
+         }
+         switch (game.system.id) {
+            case "cyphersystem":
                settings.push({
                   namespace,
-                  key: 'playonhit',
-                  folder: 'Midi-QOL',
+                  key: 'EnableCritical',
+                  folder: game.system.title || game.system.name,
                   options: {
-                     name: 'autoanimations.settings.midionhit_name',
-                     hint: 'autoanimations.settings.midionhit_hint',
+                     name: 'autoanimations.settings.cypherCrit_name',
+                     hint: 'autoanimations.settings.cypherCrit_hint',
                      scope: scope.world,
                      type: Boolean,
                      default: false,
@@ -456,11 +250,25 @@ class AAGameSettings extends TJSGameSettings {
 
                settings.push({
                   namespace,
-                  key: 'playonmiss',
-                  folder: 'Midi-QOL',
+                  key: 'CriticalAnimation',
+                  folder: game.system.title || game.system.name,
                   options: {
-                     name: 'autoanimations.settings.midionmiss_name',
-                     hint: 'autoanimations.settings.midionmiss_hint',
+                     name: 'autoanimations.settings.CriticalAnimation',
+                     scope: scope.world,
+                     type: String,
+                     config: true,
+                     default: "",
+                     filePicker: "imagevideo"
+                  }
+               });
+
+               settings.push({
+                  namespace,
+                  key: 'EnableFumble',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.cypherFumble_name',
+                     hint: 'autoanimations.settings.cypherFumble_hint',
                      scope: scope.world,
                      type: Boolean,
                      default: false,
@@ -468,10 +276,160 @@ class AAGameSettings extends TJSGameSettings {
                   }
                });
 
+               settings.push({
+                  namespace,
+                  key: 'FumbleAnimation',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.cypherFumbleAnim_name',
+                     scope: scope.world,
+                     type: String,
+                     config: true,
+                     default: "",
+                     filePicker: "imagevideo"
+                  }
+               });
+
+               settings.push({
+                  namespace,
+                  key: 'EnableOnRecoveryRoll',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.recovery_name',
+                     hint: 'autoanimations.settings.recovery_hint',
+                     scope: scope.world,
+                     type: Boolean,
+                     default: false,
+                     config: true,
+                  }
+               });
+
+               settings.push({
+                  namespace,
+                  key: 'RecoveryRollAnimation',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.recoveryAnim_name',
+                     scope: scope.world,
+                     type: String,
+                     config: true,
+                     default: "",
+                     filePicker: "imagevideo"
+                  }
+               });
+
+               settings.push({
+                  namespace,
+                  key: 'EnableOnMightRoll',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.mightroll_name',
+                     hint: 'autoanimations.settings.mightroll_hint',
+                     scope: scope.world,
+                     type: Boolean,
+                     default: false,
+                     config: true,
+                  }
+               });
+
+               settings.push({
+                  namespace,
+                  key: 'MightRollAnimation',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.mightRollAnim_name',
+                     scope: scope.world,
+                     type: String,
+                     config: true,
+                     default: "",
+                     filePicker: "imagevideo"
+                  }
+               });
+
+               settings.push({
+                  namespace,
+                  key: 'EnableOnSpeedRoll',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.speedroll_name',
+                     hint: 'autoanimations.settings.speedroll_hint',
+                     scope: scope.world,
+                     type: Boolean,
+                     default: false,
+                     config: true,
+                  }
+               });
+
+               settings.push({
+                  namespace,
+                  key: 'SpeedRollAnimation',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.speedRollAnim_name',
+                     scope: scope.world,
+                     type: String,
+                     config: true,
+                     default: "",
+                     filePicker: "imagevideo"
+                  }
+               });
+
+               settings.push({
+                  namespace,
+                  key: 'EnableOnIntellecRoll',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.intellectroll_name',
+                     hint: 'autoanimations.settings.intellectroll_hint',
+                     scope: scope.world,
+                     type: Boolean,
+                     default: false,
+                     config: true,
+                  }
+               });
+
+               settings.push({
+                  namespace,
+                  key: 'IntellectRollAnimation',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.intellectRollAnim_name',
+                     scope: scope.world,
+                     type: String,
+                     config: true,
+                     default: "",
+                     filePicker: "imagevideo"
+                  }
+               });
+               break;
+            case 'demonlord':
+               settings.push({
+                  namespace,
+                  key: 'playtrigger',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.demonlordtrigger_name',
+                     hint: 'autoanimations.settings.demonlordtrigger_hint',
+                     scope: scope.world,
+                     type: String,
+                     choices: {
+                        rollattack: 'autoanimations.settings.demonlordtrigger_rollattack',
+                        hits: 'autoanimations.settings.demonlordtrigger_hits',
+                        misses: 'autoanimations.settings.demonlordtrigger_misses',
+                        rolldamage: 'autoanimations.settings.demonlordtrigger_rolldamage',
+                        applydamage: 'autoanimations.settings.demonlordtrigger_applydamage',
+                     },
+                     default: 'rollattack',
+                     config: true
+                  }
+               });
+               break
+
+            case 'sfrpg':
                settings.push({
                   namespace,
                   key: 'playonDamage',
-                  folder: 'Midi-QOL',
+                  folder: game.system.title || game.system.name,
                   options: {
                      name: 'autoanimations.settings.midiondmg_name',
                      hint: 'autoanimations.settings.midiondmg_hint',
@@ -481,64 +439,183 @@ class AAGameSettings extends TJSGameSettings {
                      config: true
                   }
                });
+               break;
 
-               settings.push({
-                  namespace,
-                  key: 'EnableCritical',
-                  folder: 'Midi-QOL',
-                  options: {
-                     name: 'autoanimations.settings.crithit_name',
-                     hint: 'autoanimations.settings.crithit_hint',
-                     scope: scope.world,
-                     type: Boolean,
-                     default: false,
-                     config: true
-                  }
-               });
+            case 'dnd5e':
+            case 'sw5e':
+               if (game.modules.get('midi-qol')?.active) {
+                  settings.push({
+                     namespace,
+                     key: 'playonhit',
+                     folder: 'Midi-QOL',
+                     options: {
+                        name: 'autoanimations.settings.midionhit_name',
+                        hint: 'autoanimations.settings.midionhit_hint',
+                        scope: scope.world,
+                        type: Boolean,
+                        default: false,
+                        config: true,
+                     }
+                  });
 
-               settings.push({
-                  namespace,
-                  key: 'CriticalAnimation',
-                  folder: 'Midi-QOL',
-                  options: {
-                     name: 'autoanimations.settings.crithitAnim_name',
-                     //name: 'Choose A File',
-                     scope: scope.world,
-                     config: true,
-                     type: String,
-                     default: "",
-                     filePicker: 'imagevideo'
-                  }
-               });
+                  settings.push({
+                     namespace,
+                     key: 'playonmiss',
+                     folder: 'Midi-QOL',
+                     options: {
+                        name: 'autoanimations.settings.midionmiss_name',
+                        hint: 'autoanimations.settings.midionmiss_hint',
+                        scope: scope.world,
+                        type: Boolean,
+                        default: false,
+                        config: true,
+                     }
+                  });
 
-               settings.push({
-                  namespace,
-                  key: 'EnableCriticalMiss',
-                  folder: 'Midi-QOL',
-                  options: {
-                     name: 'autoanimations.settings.critmiss_name',
-                     hint: 'autoanimations.settings.critmiss_hint',
-                     scope: scope.world,
-                     type: Boolean,
-                     default: false,
-                     config: true
-                  }
-               });
+                  settings.push({
+                     namespace,
+                     key: 'playonDamage',
+                     folder: 'Midi-QOL',
+                     options: {
+                        name: 'autoanimations.settings.midiondmg_name',
+                        hint: 'autoanimations.settings.midiondmg_hint',
+                        scope: scope.world,
+                        type: Boolean,
+                        default: false,
+                        config: true
+                     }
+                  });
 
-               settings.push({
-                  namespace,
-                  key: 'CriticalMissAnimation',
-                  folder: 'Midi-QOL',
-                  options: {
-                     name: 'autoanimations.settings.critmissAnim_name',
-                     scope: scope.world,
-                     config: true,
-                     type: String,
-                     default: "",
-                     filePicker: 'imagevideo'
-                  }
-               });
-            } else {
+                  settings.push({
+                     namespace,
+                     key: 'EnableCritical',
+                     folder: 'Midi-QOL',
+                     options: {
+                        name: 'autoanimations.settings.crithit_name',
+                        hint: 'autoanimations.settings.crithit_hint',
+                        scope: scope.world,
+                        type: Boolean,
+                        default: false,
+                        config: true
+                     }
+                  });
+
+                  settings.push({
+                     namespace,
+                     key: 'CriticalAnimation',
+                     folder: 'Midi-QOL',
+                     options: {
+                        name: 'autoanimations.settings.crithitAnim_name',
+                        //name: 'Choose A File',
+                        scope: scope.world,
+                        config: true,
+                        type: String,
+                        default: "",
+                        filePicker: 'imagevideo'
+                     }
+                  });
+
+                  settings.push({
+                     namespace,
+                     key: 'EnableCriticalMiss',
+                     folder: 'Midi-QOL',
+                     options: {
+                        name: 'autoanimations.settings.critmiss_name',
+                        hint: 'autoanimations.settings.critmiss_hint',
+                        scope: scope.world,
+                        type: Boolean,
+                        default: false,
+                        config: true
+                     }
+                  });
+
+                  settings.push({
+                     namespace,
+                     key: 'CriticalMissAnimation',
+                     folder: 'Midi-QOL',
+                     options: {
+                        name: 'autoanimations.settings.critmissAnim_name',
+                        scope: scope.world,
+                        config: true,
+                        type: String,
+                        default: "",
+                        filePicker: 'imagevideo'
+                     }
+                  });
+               } else {
+                  settings.push({
+                     namespace,
+                     key: 'playonDamageCore',
+                     folder: game.system.title || game.system.name,
+                     options: {
+                        name: 'autoanimations.settings.coreondmg_name',
+                        hint: 'autoanimations.settings.coreondmg_hint',
+                        scope: scope.world,
+                        type: Boolean,
+                        default: false,
+                        config: true,
+                     }
+                  });
+                  settings.push({
+                     namespace,
+                     key: 'EnableCritical',
+                     folder: game.system.title || game.system.name,
+                     options: {
+                        name: 'autoanimations.settings.crithit_name',
+                        hint: 'autoanimations.settings.crithit_hint',
+                        scope: scope.world,
+                        type: Boolean,
+                        default: false,
+                        config: true
+                     }
+                  });
+
+                  settings.push({
+                     namespace,
+                     key: 'CriticalAnimation',
+                     folder: game.system.title || game.system.name,
+                     options: {
+                        name: 'autoanimations.settings.crithitAnim_name',
+                        //name: 'Choose A File',
+                        scope: scope.world,
+                        config: true,
+                        type: String,
+                        default: "",
+                        filePicker: 'imagevideo'
+                     }
+                  });
+
+                  settings.push({
+                     namespace,
+                     key: 'EnableCriticalMiss',
+                     folder: game.system.title || game.system.name,
+                     options: {
+                        name: 'autoanimations.settings.critmiss_name',
+                        hint: 'autoanimations.settings.critmiss_hint',
+                        scope: scope.world,
+                        type: Boolean,
+                        default: false,
+                        config: true
+                     }
+                  });
+
+                  settings.push({
+                     namespace,
+                     key: 'CriticalMissAnimation',
+                     folder: game.system.title || game.system.name,
+                     options: {
+                        name: 'autoanimations.settings.critmissAnim_name',
+                        scope: scope.world,
+                        config: true,
+                        type: String,
+                        default: "",
+                        filePicker: 'imagevideo'
+                     }
+                  });
+               }
+               break;
+
+            case 'pf2e':
                settings.push({
                   namespace,
                   key: 'playonDamageCore',
@@ -552,232 +629,159 @@ class AAGameSettings extends TJSGameSettings {
                      config: true,
                   }
                });
+
                settings.push({
                   namespace,
-                  key: 'EnableCritical',
+                  key: 'playonmiss',
                   folder: game.system.title || game.system.name,
                   options: {
-                     name: 'autoanimations.settings.crithit_name',
-                     hint: 'autoanimations.settings.crithit_hint',
+                     name: 'autoanimations.settings.midionmiss_name',
+                     hint: 'Requires Animations to be played on Attack rolls',
                      scope: scope.world,
                      type: Boolean,
                      default: false,
-                     config: true
-                  }
-               });
-
-               settings.push({
-                  namespace,
-                  key: 'CriticalAnimation',
-                  folder: game.system.title || game.system.name,
-                  options: {
-                     name: 'autoanimations.settings.crithitAnim_name',
-                     //name: 'Choose A File',
-                     scope: scope.world,
                      config: true,
-                     type: String,
-                     default: "",
-                     filePicker: 'imagevideo'
                   }
                });
 
                settings.push({
                   namespace,
-                  key: 'EnableCriticalMiss',
+                  key: 'disableNestedEffects',
                   folder: game.system.title || game.system.name,
                   options: {
-                     name: 'autoanimations.settings.critmiss_name',
-                     hint: 'autoanimations.settings.critmiss_hint',
+                     name: 'autoanimations.settings.disableNested',
+                     hint: 'autoanimations.settings.disableNestedHint',
                      scope: scope.world,
                      type: Boolean,
                      default: false,
-                     config: true
+                     config: true,
                   }
                });
 
                settings.push({
                   namespace,
-                  key: 'CriticalMissAnimation',
+                  key: 'disableGrantedAuraEffects',
                   folder: game.system.title || game.system.name,
                   options: {
-                     name: 'autoanimations.settings.critmissAnim_name',
+                     name: 'autoanimations.settings.disableGrantedAura',
+                     hint: 'autoanimations.settings.disableGrantedAuraHint',
                      scope: scope.world,
+                     type: Boolean,
+                     default: false,
                      config: true,
-                     type: String,
-                     default: "",
-                     filePicker: 'imagevideo'
                   }
                });
-            }
-            break;
+               break;
 
-         case 'pf2e':
-            settings.push({
-               namespace,
-               key: 'playonDamageCore',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.coreondmg_name',
-                  hint: 'autoanimations.settings.coreondmg_hint',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: false,
-                  config: true,
-               }
-            });
-
-            settings.push({
-               namespace,
-               key: 'playonmiss',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.midionmiss_name',
-                  hint: 'Requires Animations to be played on Attack rolls',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: false,
-                  config: true,
-               }
-            });
-
-            settings.push({
-               namespace,
-               key: 'disableNestedEffects',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.disableNested',
-                  hint: 'autoanimations.settings.disableNestedHint',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: false,
-                  config: true,
-               }
-            });
-
-            settings.push({
-               namespace,
-               key: 'disableGrantedAuraEffects',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.disableGrantedAura',
-                  hint: 'autoanimations.settings.disableGrantedAuraHint',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: false,
-                  config: true,
-               }
-            });
-            break;
-
-         case 'pf1':
-            settings.push({
-               namespace,
-               key: 'disableAEAnimations',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.disableAEAnimations',
-                  hint: 'autoanimations.settings.disableAEAnimationsHint',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: false,
-                  config: true,
-               }
-            });
-            break;
-         case "wfrp4e":
-            settings.push({
-               namespace,
-               key: 'castOnlyOnSuccess',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.wfrp4eCastOnlyOnSuccess',
-                  hint: 'autoanimations.settings.wfrp4eCastOnlyOnSuccessHint',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: false,
-                  config: true,
-               }
-            });
-            break;
-         case "cyberpunk-red-core":
-            settings.push({
-               namespace,
-               key: 'autofire',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'Enable Automatic Repeats',
-                  hint: 'Override repeats for the Primary animation when Automatic or Suppressive fire is enabled for weapon',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: true,
-                  config: true,
-               }
-            });
-            break;
-         case "TheWitcherTRPG":
-            settings.push({
-               namespace,
-               key: "attackSkill",
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.coreonatk_name',
-                  hint: 'autoanimations.settings.coreonatk_hint',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: true,
-                  config: true,
-               }
-            });
-            settings.push({
-               namespace,
-               key: "damage",
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.coreondmg_name',
-                  hint: 'autoanimations.settings.coreondmg_hint',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: true,
-                  config: true,
-               }
-            });
-            settings.push({
-               namespace,
-               key: "spell",
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.coreonatk_name',
-                  hint: 'autoanimations.settings.coreonatk_hint',
-                  scope: scope.world,
-                  type: Boolean,
-                  default: true,
-                  config: true,
-               }
-            });
-            break;
-         case "twodsix":
-            settings.push({
-               namespace,
-               key: 'playtrigger',
-               folder: game.system.title || game.system.name,
-               options: {
-                  name: 'autoanimations.settings.playAnimations',
-                  scope: scope.world,
-                  type: String,
-                  choices: {
-                     onAttack: 'autoanimations.settings.attack',
-                     onDamage: 'autoanimations.settings.damage',
-                  },
-                  default: 'onAttack',
-                  config: true
-               }
-            });
-            */
-      //}
-      Hooks.callAll('aa.registerSettings', settings, namespace, scope)
-
-      // Selectively register settings w/ core Foundry based on whether the user is GM.
-      this.registerAll(settings, !game.user.isGM);
+            case 'pf1':
+               settings.push({
+                  namespace,
+                  key: 'disableAEAnimations',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.disableAEAnimations',
+                     hint: 'autoanimations.settings.disableAEAnimationsHint',
+                     scope: scope.world,
+                     type: Boolean,
+                     default: false,
+                     config: true,
+                  }
+               });
+               break;
+            case "wfrp4e":
+               settings.push({
+                  namespace,
+                  key: 'castOnlyOnSuccess',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.wfrp4eCastOnlyOnSuccess',
+                     hint: 'autoanimations.settings.wfrp4eCastOnlyOnSuccessHint',
+                     scope: scope.world,
+                     type: Boolean,
+                     default: false,
+                     config: true,
+                  }
+               });
+               break;
+            case "cyberpunk-red-core":
+               settings.push({
+                  namespace,
+                  key: 'autofire',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'Enable Automatic Repeats',
+                     hint: 'Override repeats for the Primary animation when Automatic or Suppressive fire is enabled for weapon',
+                     scope: scope.world,
+                     type: Boolean,
+                     default: true,
+                     config: true,
+                  }
+               });
+               break;
+            case "TheWitcherTRPG":
+               settings.push({
+                  namespace,
+                  key: "attackSkill",
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.coreonatk_name',
+                     hint: 'autoanimations.settings.coreonatk_hint',
+                     scope: scope.world,
+                     type: Boolean,
+                     default: true,
+                     config: true,
+                  }
+               });
+               settings.push({
+                  namespace,
+                  key: "damage",
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.coreondmg_name',
+                     hint: 'autoanimations.settings.coreondmg_hint',
+                     scope: scope.world,
+                     type: Boolean,
+                     default: true,
+                     config: true,
+                  }
+               });
+               settings.push({
+                  namespace,
+                  key: "spell",
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.coreonatk_name',
+                     hint: 'autoanimations.settings.coreonatk_hint',
+                     scope: scope.world,
+                     type: Boolean,
+                     default: true,
+                     config: true,
+                  }
+               });
+               break;
+            case "twodsix":
+               settings.push({
+                  namespace,
+                  key: 'playtrigger',
+                  folder: game.system.title || game.system.name,
+                  options: {
+                     name: 'autoanimations.settings.playAnimations',
+                     scope: scope.world,
+                     type: String,
+                     choices: {
+                        onAttack: 'autoanimations.settings.attack',
+                        onDamage: 'autoanimations.settings.damage',
+                     },
+                     default: 'onAttack',
+                     config: true
+                  }
+               });
+         }
+         // Selectively register settings w/ core Foundry based on whether the user is GM.
+         this.registerAll(settings, !game.user.isGM);
+      } else {
+         Hooks.callAll('aa.registerSettings', settings, namespace, scope, this)
+      }
    }
 }
 

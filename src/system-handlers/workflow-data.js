@@ -82,9 +82,10 @@ export default class AAHandler {
         this.systemData = data;
         /**
          * Optional parameters passed from System Specific Settings thru this.systemData:
-         * @param {Number} overrideRepeat // override the Repeat parameter for Primary and Secondary animations
-         * @param {Boolean} forceMiss // force a Ranged animation to use the .missed() method
+         * @param {Number} repeat // override the Repeat parameter for Primary and Secondary animations
+         * @param {Boolean} miss // force a Ranged animation to use the .missed() method
          * @param {Boolean} tieToDocuments // sets the Sequencer method for .tieToDocument()
+         * others can be passed that will directly modify animation parameters. See DataSanitizer for full list
          */
     }
 

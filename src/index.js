@@ -7,7 +7,7 @@ import { AAAutorecManager }             from "./formApps/_AutorecMenu/components
 import { playAnimation }                from "./system-support/external.js";
 
 // Register all active effect Hooks
-//import { registerActiveEffectHooks }    from "./active-effects/handleActiveEffectHooks";
+import { registerActiveEffectHooks }    from "./active-effects/handleActiveEffectHooks";
 
 // Animation Menus for Items and Active Effects
 import AEMenuApp                        from "./formApps/_ActiveEffects/AEMenuApp.js";
@@ -32,7 +32,8 @@ import { gameSettings }                 from "./gameSettings.js";
 import { autoRecStores }                from "./formApps/_AutorecMenu/store/AutoRecStores.js";
 
 // Routing for registering Hooks to run animations
-//import * as systemSupport               from "./system-support/index.js"
+import * as systemSupport               from "./system-support/index.js"
+import { TJSDialog } from '@typhonjs-fvtt/runtime/svelte/application';
 
 import "../styles/newMenuCss.scss";
 
@@ -113,28 +114,8 @@ Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
     aaBtn.insertAfter(titleElement);
 });
 
-Hooks.on('aa.initialize', async () => {
-    //const patreonPath = "modules/jb2a_patreon";
-    //const freePath = "modules/JB2A_DnD5e";
-
-    const s3Location = game.settings.get('autoanimations', 'jb2aLocation');
-    const jb2aPatreonFound = game.modules.get("jb2a_patreon");
-    const jb2aFreeFound = game.modules.get("JB2A_DnD5e");
-
-    if (game.user.isGM && (!jb2aFreeFound && !jb2aPatreonFound)) {
-        if (s3Location && (s3Location.includes('jb2a_patreon') || s3Location.includes('JB2A_DnD5e'))) { } else {
-            ui.notifications.error(game.i18n.format("autoanimations.settings.error"));
-        }
-    }
-    initializeAADB()
-
-    if (game.settings.get("autoanimations", "killAllAnim") === "off") {
-        AnimationState.enabled = false;
-    }
-})
-
 Hooks.once('ready', async function () {
-    gameSettings.initialize();
+    await gameSettings.initialize();
 
     // Initializes all AutoRecStores backed by individual game settings.
     autoRecStores.initialize();
@@ -168,16 +149,48 @@ Hooks.once('ready', async function () {
      * TwoDSix
     */
 
-    // Register Hooks by system
-    //const systemIdClean = game.system.id.replace(/\-/g, '');
-    //systemSupport[systemIdClean] ? systemSupport[systemIdClean].systemHooks() : systemSupport.standard.systemHooks();
+    if (!game.modules.get("autoanimationsAdapter")?.active) {
+        if (game.user.isGM) {
+            let d = TJSDialog.prompt({
+                modal: false,
+                title: "WARNING!!",
+                content: `<p style="font-weight: bold; text-align: center; font-size: medium;">Automated Animations has a new Module Dependency that you have not activated. Please install and activate Automated Animations - System Adapter</p>
+                        <br>
+                        <p style="text-align: center; font-size: small;">Automated Animations will continue to function until version 4.5.0, at which time you MUST have the new dependency installed</p> `,
+                defaultYes: 'ok',
+            });
+        }
 
-    //registerActiveEffectHooks();
-    
+        //Register Hooks by system
+        const systemIdClean = game.system.id.replace(/\-/g, '');
+        systemSupport[systemIdClean] ? systemSupport[systemIdClean].systemHooks() : systemSupport.standard.systemHooks();
+        registerActiveEffectHooks();
+    }
+
     handleTemplates();
 
     Hooks.callAll("aa.initialize")
 });
+
+Hooks.on('aa.initialize', async () => {
+    //const patreonPath = "modules/jb2a_patreon";
+    //const freePath = "modules/JB2A_DnD5e";
+
+    const s3Location = game.settings.get('autoanimations', 'jb2aLocation');
+    const jb2aPatreonFound = game.modules.get("jb2a_patreon");
+    const jb2aFreeFound = game.modules.get("JB2A_DnD5e");
+
+    if (game.user.isGM && (!jb2aFreeFound && !jb2aPatreonFound)) {
+        if (s3Location && (s3Location.includes('jb2a_patreon') || s3Location.includes('JB2A_DnD5e'))) { } else {
+            ui.notifications.error(game.i18n.format("autoanimations.settings.error"));
+        }
+    }
+    initializeAADB()
+
+    if (game.settings.get("autoanimations", "killAllAnim") === "off") {
+        AnimationState.enabled = false;
+    }
+})
 
 function storeDeletedItems(item) {
     aaDeletedItems.set(item.id, item)
