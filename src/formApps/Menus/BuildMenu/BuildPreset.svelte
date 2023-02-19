@@ -18,7 +18,7 @@
     export let fromMenu = 'autorec';
     let { animation } = getContext('animation-data');
 
-    $: presetType = $animation.presetType;
+    let presetType = $animation.presetType || "proToTemp";
 
     let presetContent = {
         dualattach: {
@@ -45,21 +45,25 @@
                 $animation.data = newData.data;
                 delete $animation.secondary;
                 delete $animation.target;
+                presetRoute = presetContent.dualattach.component;
                 break;
             case "teleportation":
                 $animation.data = newData.data;
                 delete $animation.secondary;
                 delete $animation.target;
+                presetRoute = presetContent.teleportation.component;
                 break;
             case "thunderwave":
                 $animation.data = newData.data;
                 delete $animation.secondary;
                 delete $animation.target;
+                presetRoute = presetContent.thunderwave.component;
                 break;
             case "proToTemp":
                 $animation.data = newData.data;
                 $animation.secondary = newData.secondary;
                 $animation.target = newData.target;
+                presetRoute = presetContent.proToTemp.component;
                 break;
         }
     }

@@ -24,10 +24,6 @@ export function copyToFrom(animation, item, autorecSettings, isAE) {
       icon: "far fa-clone",
       onclick: async () => {
          if (!animation._data.isEnabled) { return; }
-         if (!game.user.isGM) {
-            custom_notify("NON-GM users cannot copy items to the Global Automatic Recognition Menu");
-            return;
-         }
 
          let name = isAE ? item.label : item.name;
 
