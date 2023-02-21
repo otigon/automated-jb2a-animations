@@ -1,627 +1,98 @@
 {
-  "autoanimations": {
-    "settings": {
-      "initpopup_name":"Desativar o pop-up da janela de inicialização",
-      "initpopup_hint":"Marcar esta caixa impedirá que a janela pop-up seja exibida",
-      "animtab_name": "Ocultar a guia Animação dos jogadores",
-      "animtab_hint": "Marcar esta caixa impedirá que a aba de animação seja vista por jogadores",
-      "midionhit_name":"Tocar animações apenas em acertos",
-      "midionhit_hint":"Requer a configuração Midi-QOL Workflow para checar os acertos",
-      "midionmiss_name": "Executar animações em acertos e falhas",
-      "midionmiss_hint": "Em uma falha, a animação irá desviar o alvo. Requer MIDI Workflow para checar os acertos",
-      "midiondmg_name":"Executar animações apenas em rolagem de dano",
-      "midiondmg_hint":"REQUER RECARREGAMENTO. Quando Ativado, isso vai tocar APENAS animações em Rolagens de Dano",
-      "coreondmg_name":"Executar Animações de Ataque apenas em Jogadas de Dano",
-      "coreondmg_hint":"Por padrão, Animações só são executadas em Jogadas de Ataque",
-      
-      
-      
-      
-      
-      
-      
-      "error":"Um módulo JB2A (Free OU Patreon) é OBRIGATÓRIO para que Automated Animations funcione"
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-
-    },
-    "colors": {
-
-
-      "palegreen": "Pale Green",
-      "blue":"Azul",
-      "green":"Verde",
-      "orange":"laranja",
-      "pink":"Tosa",
-      "purple":"Roxo",
-      "red":"Vermelho",
-      "regular":"Padrão",
-      "yellow":"Amarelo",
-      "darkred":"Vermelho Escuro",
-      "darkgreen":"Verde Escuro",
-      "darkpurple":"Roxo Escuro",
-      "orangepink":"Rosa Alaranjado",
-      "purpleblue":"Roxo Azulado",
-      "purpleteal":"Roxo com Azul",
-      "yellowblue":"Azul com Amarelo",
-      "random":"Alatório"
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    },
-    "animations": {
-
-      
-
-
-
-
-
-
-
-
-
-      "curewounds": "Curar Ferimentos",
-      "generichealing": "Cura genérica",
-      "itemHealingWord": "Palavra Curativa",
-      "disintegrate":"Desintegrar",
-      "eldritchblast":"Raio Místico",
-      "firebolt":"Raio de Fogo",
-      "magicmissile":"Mísseis Mágicos",
-      "rayoffrost":"Raio de Gelo",
-      "scorchingray":"Raio Ardente",
-      "witchbolt":"Raio de Bruxa",
-      "thunderwave":"Onda Trovejante",
-      "shatter":"Despedaçar",
-      "shieldspell":"Égide",
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      "dagger":"Adaga",
-      "greataxe":"Machado",
-      "greatclub":"Clava Grande",
-      "greatsword":"Espada Bastarda",
-      "handaxe":"Machadinha",
-      "lasersword":"Espada Laser",
-      "mace":"Maça",
-      "maul":"Malho",
-      "rapier":"Rapieira",
-      "spear":"Lança",
-      "sword":"Espada",
-      "itemLongsword": "Espada Longa",
-      "shortsword": "Espada Curta",
-      "scimitar": "Cimitarra",
-      "arrow":"Flecha",
-      "boulder":"Pedregulho",
-      "javelin":"Azagaia",
-      "lasershot":"Laser Blast",
-      "siegeboulder":"Siege Boulder",
-
-      "unarmedstrike":"Ataque desarmado",
-
-
-
-
-
-
-      "claw":"Garra",
-      "bite":"Mordida"
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    },
-    "variants": {
-            "1":"01",
-            "2":"02",
-            "3":"03",
-            "01":"01",
-            "02":"02",
-            "03":"03",
-            "04":"04",
-            "05":"05",
-            "06":"06",
-            "07":"07",
-            "08":"08",
-            "09":"09",
-            "10":"10",
-            "11":"11",
-            "12":"12",
-            "13":"13",
-            "magical": "Magical",
-            "physical": "Physical"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          
-    },
-    "menuTypes": {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-
-
-
-
-    },
-    "animTypes": {
-
-
-
-
-
-
-    },
-    "presetTypes": {
-
-
-
-
-
-
-
-
-
-
-    },
-    "menus": {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-      
-    },
-    "optionsInfo": {
-
-    }
-  }
+	"autoanimations": {
+		"settings": {
+			"initpopup_name": "Desativar o pop-up da janela de inicialização",
+			"initpopup_hint": "Marcar esta caixa impedirá que a janela pop-up seja exibida",
+			"animtab_name": "Ocultar a guia Animação dos jogadores",
+			"animtab_hint": "Marcar esta caixa impedirá que a aba de animação seja vista por jogadores",
+			"midionhit_name": "Tocar animações apenas em acertos",
+			"midionhit_hint": "Requer a configuração Midi-QOL Workflow para checar os acertos",
+			"midionmiss_name": "Executar animações em acertos e falhas",
+			"midionmiss_hint": "Em uma falha, a animação irá desviar o alvo. Requer MIDI Workflow para checar os acertos",
+			"midiondmg_name": "Executar animações apenas em rolagem de dano",
+			"midiondmg_hint": "Quando ativada, executará as animações APENAS na Rolagem de Dano, caso exista uma no item",
+			"coreondmg_name": "Executar Animações de Ataque apenas em Jogadas de Dano",
+			"coreondmg_hint": "Por padrão, Animações só são executadas em Jogadas de Ataque",
+			"error": "Um módulo JB2A (Free OU Patreon) é OBRIGATÓRIO para que Automated Animations funcione",
+			"demonlordtrigger_hint": "Escolha a condição para executar animações",
+			"demonlordtrigger_rollattack": "Executar animações na rolagem de ataque",
+			"demonlordtrigger_name": "Gatilho para executar animações"
+		},
+		"colors": {
+			"palegreen": "Pale Green",
+			"blue": "Azul",
+			"green": "Verde",
+			"orange": "laranja",
+			"pink": "Tosa",
+			"purple": "Roxo",
+			"red": "Vermelho",
+			"regular": "Padrão",
+			"yellow": "Amarelo",
+			"darkred": "Vermelho Escuro",
+			"darkgreen": "Verde Escuro",
+			"darkpurple": "Roxo Escuro",
+			"orangepink": "Rosa Alaranjado",
+			"purpleblue": "Roxo Azulado",
+			"purpleteal": "Roxo com Azul",
+			"yellowblue": "Azul com Amarelo",
+			"random": "Alatório"
+		},
+		"animations": {
+			"curewounds": "Curar Ferimentos",
+			"generichealing": "Cura genérica",
+			"itemHealingWord": "Palavra Curativa",
+			"disintegrate": "Desintegrar",
+			"eldritchblast": "Raio Místico",
+			"firebolt": "Raio de Fogo",
+			"magicmissile": "Mísseis Mágicos",
+			"rayoffrost": "Raio de Gelo",
+			"scorchingray": "Raio Ardente",
+			"witchbolt": "Raio de Bruxa",
+			"thunderwave": "Onda Trovejante",
+			"shatter": "Despedaçar",
+			"shieldspell": "Égide",
+			"dagger": "Adaga",
+			"greataxe": "Machado",
+			"greatclub": "Clava Grande",
+			"greatsword": "Espada Bastarda",
+			"handaxe": "Machadinha",
+			"lasersword": "Espada Laser",
+			"mace": "Maça",
+			"maul": "Malho",
+			"rapier": "Rapieira",
+			"spear": "Lança",
+			"sword": "Espada",
+			"itemLongsword": "Espada Longa",
+			"shortsword": "Espada Curta",
+			"scimitar": "Cimitarra",
+			"arrow": "Flecha",
+			"boulder": "Pedregulho",
+			"javelin": "Azagaia",
+			"lasershot": "Laser Blast",
+			"siegeboulder": "Siege Boulder",
+			"unarmedstrike": "Ataque desarmado",
+			"claw": "Garra",
+			"bite": "Mordida"
+		},
+		"variants": {
+			"1": "01",
+			"2": "02",
+			"3": "03",
+			"01": "01",
+			"02": "02",
+			"03": "03",
+			"04": "04",
+			"05": "05",
+			"06": "06",
+			"07": "07",
+			"08": "08",
+			"09": "09",
+			"10": "10",
+			"11": "11",
+			"12": "12",
+			"13": "13",
+			"magical": "Magical",
+			"physical": "Physical"
+		}
+	}
 }
