@@ -1,83 +1,90 @@
 {
-  "id": "autoanimations",
-  "title": "Automated Animations",
-  "description": "This will automatically run most JB2A Animations such as Melee/Ranged Attacks, Spell Attacks, and Instant Spells",
-  "authors": [
-    {
-      "name": "Otigon (Otigon#2010)",
-      "discord": "Otigon#2010"
-    }
-  ],
-  "url": "https://github.com/otigon/automated-jb2a-animations",
-  "version": "4.0.15",
-  "compatibility": {
-    "minimum": "10",
-    "verified": "10",
-    "maximum": "10"
-  },
-  "minimumCoreVersion": "10",
-  "compatibleCoreVersion": "10",
-  "scripts": [],
-  "esmodules": [
-    "index.js"
-  ],
-  "styles": [
-    "style.css"
-  ],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
-    },
-    {
-      "lang": "es",
-      "name": "Español",
-      "path": "lang/es.json"
-    },
-    {
-      "lang": "ko",
-      "name": "Korean",
-      "path": "lang/ko.json"
-    },
-    {
-      "lang": "ja",
-      "name": "日本語",
-      "path": "lang/ja.json"
-    },
-    {
-      "lang": "fr",
-      "name": "Français",
-      "path": "lang/fr.json"
-    },
-    {
-      "lang": "pt-BR",
-      "name": "Português (Brasil)",
-      "path": "lang/pt-br.json"
-    },
-    {
-      "lang": "de",
-      "name": "Deutsch",
-      "path": "lang/de.json"
-    },
-    {
-      "lang": "zh-tw",
-      "name": "正體中文",
-      "path": "lang/zh-tw.json"
-    }
-  ],
-  "relationships": {
-    "requires": [{
-      "id": "sequencer",
-      "type": "module",
-      "manifest": "https://github.com/fantasycalendar/FoundryVTT-Sequencer/releases/latest/download/module.json"
-    },
-    {
-      "id": "socketlib",
-      "type": "module"
-    }]
-  },
-  "socket": true,
-  "manifest": "https://github.com/otigon/automated-jb2a-animations/releases/latest/download/module.json",
-  "download": "https://github.com/otigon/automated-jb2a-animations/releases/download/0.6.71/module.zip"
+	"id": "autoanimations",
+	"title": "Automated Animations",
+	"description": "This will automatically run most JB2A Animations such as Melee/Ranged Attacks, Spell Attacks, and Instant Spells",
+	"authors": [
+		{
+			"name": "Otigon (Otigon#2010)",
+			"discord": "Otigon#2010"
+		}
+	],
+	"url": "https://github.com/otigon/automated-jb2a-animations",
+	"version": "4.0.15",
+	"compatibility": {
+		"minimum": "10",
+		"verified": "10",
+		"maximum": "10"
+	},
+	"minimumCoreVersion": "10",
+	"compatibleCoreVersion": "10",
+	"scripts": [],
+	"esmodules": [
+		"index.js"
+	],
+	"styles": [
+		"style.css"
+	],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "lang/en.json"
+		},
+		{
+			"lang": "es",
+			"name": "Español",
+			"path": "lang/es.json"
+		},
+		{
+			"lang": "ko",
+			"name": "Korean",
+			"path": "lang/ko.json"
+		},
+		{
+			"lang": "ja",
+			"name": "日本語",
+			"path": "lang/ja.json"
+		},
+		{
+			"lang": "fr",
+			"name": "Français",
+			"path": "lang/fr.json"
+		},
+		{
+			"lang": "pt-BR",
+			"name": "Português (Brasil)",
+			"path": "lang/pt-br.json"
+		},
+		{
+			"lang": "de",
+			"name": "Deutsch",
+			"path": "lang/de.json"
+		},
+		{
+			"lang": "zh-tw",
+			"name": "正體中文",
+			"path": "lang/zh-tw.json"
+		},
+		{
+			"lang": "zh-Hans",
+			"name": "中文（简体）",
+			"path": "lang/zh_Hans.json"
+		}
+	],
+	"relationships": {
+		"requires": [
+			{
+				"id": "sequencer",
+				"type": "module",
+				"manifest": "https://github.com/fantasycalendar/FoundryVTT-Sequencer/releases/latest/download/module.json"
+			},
+			{
+				"id": "socketlib",
+				"type": "module"
+			}
+		]
+	},
+	"socket": true,
+	"manifest": "https://github.com/otigon/automated-jb2a-animations/releases/latest/download/module.json",
+	"download": "https://github.com/otigon/automated-jb2a-animations/releases/download/0.6.71/module.zip"
 }
