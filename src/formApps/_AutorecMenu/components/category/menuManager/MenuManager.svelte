@@ -63,19 +63,19 @@
     }
 
     function selectMenus(json, option) {
-            new TJSDialog({
-                modal: true,
-                title: "IMPORT SETTINGS",
-                content: {
-                    class: ImportMenus,
-                    props: {
-                        type: option,
-                        menu: json,
-                    },
+        new TJSDialog({
+            modal: true,
+            title: "IMPORT SETTINGS",
+            content: {
+                class: ImportMenus,
+                props: {
+                    type: option,
+                    menu: json,
                 },
-                defaultYes: false,
-            }).render(true);
-        }
+            },
+            defaultYes: false,
+        }).render(true);
+    }
 
     async function overwriteMenu() {
         TJSDialog.confirm({
@@ -96,19 +96,18 @@
                 title: "Overwrite Menu",
                 content: content,
                 modal: true,
-                callback: (app) => {
+                onOk: (app) => {
                     const form = app.element.find("form")[0];
                     if (!form.data.files.length)
                         return ui.notifications?.error(
                             "You did not upload a data file!"
                         );
                     readTextFromFile(form.data.files[0]).then(async (json) => {
-                        await application.close();
                         selectMenus(json, "overwrite");
+                        await application.close();
                     });
                 },
             });
-            await d;
         }
     }
 

@@ -68,7 +68,7 @@ export default class AutorecMenuApp extends SvelteApplication {
             icon: showSettings ? "fa-regular fa-square-list" : "fa-regular fa-gear",
             label: showSettings ? "Main Menu" : "Settings",
 
-            onclick: function()
+            onPress: function()
             {
                 const newShowSettings = gameSettings.uiControl.swapShowSettings();
 

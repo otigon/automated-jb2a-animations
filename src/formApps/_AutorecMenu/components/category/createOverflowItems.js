@@ -13,7 +13,7 @@ export function createOverflowItems(category)
       {
          label: "Delete All", // TODO: localize,
          icon: "far fa-trash-alt",
-         onclick: async () => {
+         onPress: async () => {
             const result = await TJSDialog.confirm({
                title: "Delete All Animations?",
                content: `Are you sure you want to delete all animations from '${category.label}'?`,
