@@ -8,19 +8,9 @@
     export let type;
     export let menu;
 
-    $: allMenus = false;
-    $: melee = false;
-    $: range = false;
-    $: ontoken = false;
-    $: templatefx = false;
-    $: aura = false;
-    $: preset = false;
-    $: aefx = false;
+    let allMenus = false, melee, range, ontoken, templatefx, aura, preset, aefx;
 
-    function switchAll() {
-        let state = allMenus;
-        melee = range = ontoken = templatefx = aura = preset = aefx = state;
-    }
+    $: melee = range = ontoken = templatefx = aura = preset = aefx = allMenus;
 
     function importSelected() {
         let selectedMenus = {
@@ -76,7 +66,6 @@
                 <input
                     type="checkbox"
                     bind:checked={allMenus}
-                    on:change={() => switchAll()}
                 />
                 <label for="">Check / Uncheck All</label>
             </div>
