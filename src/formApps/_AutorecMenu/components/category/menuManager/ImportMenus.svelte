@@ -8,22 +8,14 @@
     export let type;
     export let menu;
 
-    let melee = false;
-    let range = false;
-    let ontoken = false;
-    let templatefx = false;
-    let aura = false;
-    let preset = false;
-    let aefx = false;
-
     $: allMenus = false;
-    $: melee;
-    $: range;
-    $: ontoken;
-    $: templatefx;
-    $: aura;
-    $: preset;
-    $: aefx;
+    $: melee = false;
+    $: range = false;
+    $: ontoken = false;
+    $: templatefx = false;
+    $: aura = false;
+    $: preset = false;
+    $: aefx = false;
 
     function switchAll() {
         let state = allMenus;
