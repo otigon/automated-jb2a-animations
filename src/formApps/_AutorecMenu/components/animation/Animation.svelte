@@ -12,6 +12,8 @@
 
    import AdvancedQuickView from "./advancedSearch/AdvancedQuickView.svelte";
 
+   import OverflowSlot from "./OverflowSlot.svelte";
+
    import { createOverflowItems }   from "./createOverflowItems.js";
 
    import TJSSvgCustomFolder from "./TJSSvgCustomFolder.svelte";
@@ -65,14 +67,11 @@
 </script>
 
 <div class=animation>
-   <TJSSvgCustomFolder {folder}>
-        <AdvancedQuickView info={exactMatchButton} slot=prepend/>
-        <TJSInput {input} slot=label />
-        <TJSToggleIconButton button={buttonOverflow} slot=summary-end>
-            <TJSMenu {menu} />
-        </TJSToggleIconButton>
-        <svelte:component this={selectBuildMenu(category.key)} {animation} {idx} {category}/>
-   </TJSSvgCustomFolder>
+   <TJSSvgFolder {folder}>
+         <TJSInput {input} slot=label />
+         <OverflowSlot info={exactMatchButton} {menu} slot=summary-end/>
+         <svelte:component this={selectBuildMenu(category.key)} {animation} {idx} {category}/>
+   </TJSSvgFolder>
 </div>
 
 <style lang=scss>
