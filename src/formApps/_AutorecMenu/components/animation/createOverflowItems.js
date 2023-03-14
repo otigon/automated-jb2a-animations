@@ -1,5 +1,6 @@
 import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
-import AdvancedAutorec from "./advancedSearch/AdvancedAutorec.svelte"
+import AdvancedAutorec from "./advancedSearch/AdvancedAutorec.svelte";
+import ImportMenus from "../category/menuManager/ImportMenus.svelte";
 
 /**
  * Creates the items for the overflow menu.
@@ -45,6 +46,19 @@ export function createOverflowItems(animation, category)
          onPress: async () => {
             new TJSDialog({
                modal: true,
+               title: "IMPORT SETTINGS",
+               content: {
+                   class: ImportMenus,
+                   props: {
+                       type: "option",
+                       menu: "testing",
+                   },
+               },
+               defaultYes: false,
+           }).render(true);   
+            /*
+            new TJSDialog({
+               modal: true,
                title: "Advanced Features: " + `${animation._data.label}`,
                content: {
                    class: AdvancedAutorec,
@@ -54,6 +68,7 @@ export function createOverflowItems(animation, category)
                },
                defaultYes: false,
            }).render(true);
+           */
         }
       }
    ];
