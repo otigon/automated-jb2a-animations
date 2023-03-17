@@ -5,18 +5,11 @@
 
    import {
       TJSInput,
-      TJSMenu,
-      TJSSvgFolder,
-      TJSIconButton,
-      TJSToggleIconButton }         from "@typhonjs-fvtt/svelte-standard/component";
-
-   import AdvancedQuickView from "./advancedSearch/AdvancedQuickView.svelte";
+      TJSSvgFolder }                from "@typhonjs-fvtt/svelte-standard/component";
 
    import OverflowSlot from "./OverflowSlot.svelte";
 
    import { createOverflowItems }   from "./createOverflowItems.js";
-
-   import TJSSvgCustomFolder from "./TJSSvgCustomFolder.svelte";
 
    import { selectBuildMenu }       from "../../../Menus/BuildMenu/selectBuildMenu.js";
    import { setContext } from "svelte";
