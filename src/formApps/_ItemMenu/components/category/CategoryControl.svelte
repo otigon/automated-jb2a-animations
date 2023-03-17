@@ -85,6 +85,8 @@
     items: copyToFrom(animation, item, autorecSettings),
   };
 
+  let chosenMenu = $animation.menu;
+  $: chosenMenu;
 </script>
 
 <header class="animation">
@@ -133,7 +135,11 @@
         >{localize("autoanimations.menus.animation")}
         {localize("autoanimations.menus.type")}</label
       >
-      <select bind:value={$animation.menu} on:change={async () => await animation.switchVideo()}>
+      <select bind:value={$animation.menu} on:change={async () => {
+            await animation.switchVideo();
+            chosenMenu = $animation.menu;
+          }
+        }>
         <option value="melee"
           >{localize("autoanimations.animTypes.melee")}</option
         >
@@ -162,7 +168,7 @@
       <svelte:component this={NoneChosen} {isEnabled} {isCustomized} {isInAutorec} />
     </div>
   {:else}
-    <CategoryList />
+    <CategoryList  {chosenMenu} />
   {/if}
 </main>
 
