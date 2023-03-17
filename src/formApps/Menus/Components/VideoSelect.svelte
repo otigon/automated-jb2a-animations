@@ -19,22 +19,6 @@
     $: anim = $animation[section][section02].animation;
     $: variant = $animation[section][section02].variant;
 
-/*
-                <label
-                for=""
-                on:click={() => category.databaseToClipboard(section, idx, section02, dbSection)}
-                style="align-self: center; position:relative; bottom: -10px;font-size:large;"
-                title="Copy Database Path"
-                >{localize("autoanimations.menus.copy")} DB {localize(
-                    "autoanimations.menus.path"
-                )}
-                <i
-                    class="fas fa-database aa-zoom aa-blue aa-disableOpacity"
-                /></label
-                >
-                <div id="clipboard" />
-
-*/
 </script>
 
 <SectionHeader {title} />

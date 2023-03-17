@@ -36,7 +36,7 @@
     * @type {object} Defines folder data for TJSIconFolder.
     */
    const folder = {
-      options: { chevronOnly: true, noKeys: true },
+      options: { chevronOnly: true },
       store: animation.stores.folderOpen
    };
 
