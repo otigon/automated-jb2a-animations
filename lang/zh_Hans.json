@@ -78,7 +78,9 @@
 			"cypherFumble_hint": "启用时允许在来源指示物上播放大失败（自然1）动画",
 			"wfrp4eCastOnlyOnSuccess": "成功施法时播放动画",
 			"wfrp4eCastOnlyOnSuccessHint": "勾选时仅在法术成功施放时播放法术动画（已通过测试，达到CN数值）",
-			"menuHint": "打开全局自动识别菜单，这里也包含A-A本身设置"
+			"menuHint": "打开全局自动识别菜单，这里也包含A-A本身设置",
+			"disableNestedHint": "其他状态附加的状态（规则书）不播放动画",
+			"speedroll_name": ""
 		},
 		"colors": {
 			"lightorange": "淡橙",
