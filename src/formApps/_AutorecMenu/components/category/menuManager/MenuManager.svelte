@@ -45,7 +45,7 @@
                 title: "Merge Menus",
                 content: content,
                 modal: true,
-                callback: (app) => {
+                onOk: (app) => {
                     //@ts-ignore
                     const form = app.element.find("form")[0];
                     if (!form.data.files.length)
@@ -53,12 +53,11 @@
                             "You did not upload a data file!"
                         );
                     readTextFromFile(form.data.files[0]).then(async (json) => {
-                        await application.close();
                         selectMenus(json, "merge");
+                        await application.close();
                     });
                 },
             });
-            return await d;
         }
     }
 
