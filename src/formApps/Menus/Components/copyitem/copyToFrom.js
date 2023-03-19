@@ -22,7 +22,7 @@ export function copyToFrom(animation, item, autorecSettings, isAE) {
    let copyFrom = {
       label: "Copy From Autorec",
       icon: "far fa-clone",
-      onclick: async () => {
+      onPress: async () => {
          if (!animation._data.isEnabled) { return; }
 
          let name = isAE ? item.label : item.name;
@@ -52,7 +52,7 @@ export function copyToFrom(animation, item, autorecSettings, isAE) {
       label: "Copy To Autorec", // TODO: localize,
       icon: "far fa-clone",
 
-      onclick: async () => {
+      onPress: async () => {
          if (!animation._data.isEnabled) { return; }
          if (!game.user.isGM) {
             console.error("Automated Animations | NON-GM users cannot copy items to the Global Automatic Recognition Menu");

@@ -11,7 +11,6 @@ export function custom_notify(message, consoleLog = false) {
         console.log(`%c${message.replace("<br>", "\n")}`, 'color: orange');
     } else {
         ui.notifications.notify(message);
-        console.log(message.replace("<br>", "\n"));
     }
 }
 

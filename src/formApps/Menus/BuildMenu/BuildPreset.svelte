@@ -36,10 +36,11 @@
         "": {},
     };
 
-    $: presetRoute = presetContent[presetType].component;
+    let presetRoute = presetContent[presetType].component
+    $: presetRoute;
 
     function changePreset() {
-        let newData = preset({}, animation._data.presetType)
+        let newData = preset({}, $animation.presetType)
         switch (animation._data.presetType) {
             case "dualattach":
                 $animation.data = newData.data;
