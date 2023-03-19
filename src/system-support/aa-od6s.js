@@ -1,3 +1,7 @@
+/**
+ * Support added by Madseumas
+ */
+
 import { trafficCop }       from "../router/traffic-cop.js"
 import AAHandler            from "../system-handlers/workflow-data.js";
 import { AnimationState }   from "../AnimationState.js";
