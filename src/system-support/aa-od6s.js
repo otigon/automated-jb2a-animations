@@ -12,10 +12,9 @@ export function systemHooks() {
         let actorId = '';
         if(msg.getFlag('od6s', 'vehicle') !== '') {
             const document = await fromUuid(msg.getFlag('od6s', 'vehicle'));
-            let actor;
             if (document.documentName === 'Token') {
                 tokenId = document.id;
-                actor = game.scenes.viewed.tokens.filter(t => t.id === document.id)[0].actor;
+                const actor = game.scenes.viewed.tokens.filter(t => t.id === document.id)[0].actor;
                 actorId = actor.id;
             } else {
                 /* Clean up later when both token and actor are embedded in the message flags */
