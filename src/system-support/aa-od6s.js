@@ -10,7 +10,7 @@ export function systemHooks() {
         // Was this from an actor-controlled vehicle?
         let tokenId = '';
         let actorId = '';
-        if(msg.getFlag('od6s', 'vehicle') !== '') {
+        if(msg.getFlag('od6s', 'vehicle') && msg.getFlag('od6s', 'vehicle') !== '') {
             const document = await fromUuid(msg.getFlag('od6s', 'vehicle'));
             if (document.documentName === 'Token') {
                 tokenId = document.id;
