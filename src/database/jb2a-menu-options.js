@@ -1,3 +1,5 @@
+import { debug } from "../constants/constants.js";
+
 Hooks.once('aa.ready', async (jb2a) => { await menuOptions(jb2a) });
 //const aaTypeMenu = {};
 //const aaNameMenu = {};
@@ -22,12 +24,19 @@ async function menuOptions(database) {
     /** Build new TYPE menu choices ending in Array */
     for (let section of menuSets) {
         newTypeMenu[section] = [];
+        let currentTypeArray = [];
+
         Object.keys(jb2a[section]).forEach(
             function (a) {
-                //if (!newTypeMenu[section][a]) { newTypeMenu[section][a] = []};
-                newTypeMenu[section].push([ a, game.i18n.localize(`autoanimations.menuTypes.${a}`) ])
+                currentTypeArray.push(a)
             }
         )
+        currentTypeArray.sort((a, b) => a.localeCompare(b))
+        currentTypeArray.forEach(function (d) {
+            if (!newTypeMenu[section]) { newTypeMenu[section] = [] };
+            newTypeMenu[section].push([ d, game.i18n.localize(`autoanimations.menuTypes.${d}`) ])
+        })
+
     }
 
     /** Build new ANIMATION menu choices ending in Array */
@@ -117,17 +126,7 @@ async function menuOptions(database) {
     delete newVariantMenu.range._template
     delete newVariantMenu.return._template
 
-    /*
-    for (let section of menuSets) {
-        aaTypeMenu[section] = Object.keys(jb2a[section]).reduce((o, type) => ({ ...o, [type]: game.i18n.localize(`autoanimations.menuTypes.${type}`) }), {});
-        aaNameMenu[section] = Object.keys(jb2a[section]).reduce((o, type) => ({ ...o, [type]: Object.keys(jb2a[section][type]).reduce((o, name) => ({ ...o, [name]: game.i18n.localize(`autoanimations.animations.${name}`) }), {}) }), {});
-        aaVariantMenu[section] = Object.keys(jb2a[section]).reduce((o, type) => ({ ...o, [type]: Object.keys(jb2a[section][type]).reduce((o, name) => ({ ...o, [name]: Object.keys(jb2a[section][type][name]).reduce((o, variant) => ({ ...o, [variant]: game.i18n.localize(`autoanimations.variants.${variant}`) }), {}) }), {}) }), {});
-        aaColorMenu[section] = Object.keys(jb2a[section]).reduce((o, type) => ({ ...o, [type]: Object.keys(jb2a[section][type]).reduce((o, name) => ({ ...o, [name]: Object.keys(jb2a[section][type][name]).reduce((o, variant) => ({ ...o, [variant]: Object.keys(jb2a[section][type][name][variant]).reduce((o, color) => ({ ...o, [color]: game.i18n.localize(`autoanimations.colors.${color}`) }), {}) }), {}) }), {}) }), {});
-    }
-    */
-    //await addRandom(aaColorMenu)
-    //await remove_Template(aaTypeMenu)
-    console.log( {newTypeMenu, newNameMenu, newVariantMenu, newColorMenu} )
+    debug( "Compiled Select Menus", {newTypeMenu, newNameMenu, newVariantMenu, newColorMenu} )
 }
 
 export { aaReturnWeapons, newTypeMenu, newNameMenu, newVariantMenu, newColorMenu, aaRangeWeapons }

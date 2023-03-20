@@ -5,33 +5,34 @@
     import { AAAutorecManager } from "./AAAutorecManager";
     import ImportMenus from "./ImportMenus.svelte";
 
-    const { application } = getContext("external");
+    const { application } = getContext("#external");
 
     async function restoreDefault() {
-        let d = TJSDialog.confirm({
+        TJSDialog.confirm({
             modal: true,
             title: "WARNING!!",
             content: `<p style="font-weight: bold; text-align: center; font-size: medium;">This will ERASE your current Menu. ARE YOU SURE?</p>
                     <br>
                     <p style="text-align: center; font-size: small;">A Backup will be Exported for Insurance</p> `,
-            yes: () => setDefault(),
-            no: () => console.log("Exiting without default restore"),
+            onYes: () => setDefault(),
+            onNo: () => console.log("Exiting without default restore"),
             defaultYes: false,
         });
 
         async function setDefault() {
+            AAAutorecManager.exportMenu("-backup")
             Hooks.call("AutomaticAnimations.Clear.Data");
             application.close();
         }
     }
 
     async function mergeMenu() {
-        let d = TJSDialog.confirm({
+        TJSDialog.confirm({
             title: "WARNING!!",
             modal: true,
             content: `<p style="text-align:center">This will <strong>Merge</strong> menus and is <strong>IRREVERSIBLE. Continue?</strong></p>`,
-            yes: () => getFiles(),
-            no: () => console.log("Exiting without default restore"),
+            onYes: () => getFiles(),
+            onNo: () => console.log("Exiting without default restore"),
             defaultYes: false,
         });
 
@@ -40,49 +41,48 @@
                 "modules/autoanimations/htmlTemplate/import-data.html",
                 { entity: "autoanimations", name: "aaAutorec" }
             );
-            let d = TJSDialog.prompt({
+            TJSDialog.prompt({
                 title: "Merge Menus",
                 content: content,
                 modal: true,
-                callback: (html) => {
+                onOk: (app) => {
                     //@ts-ignore
-                    const form = html.find("form")[0];
+                    const form = app.element.find("form")[0];
                     if (!form.data.files.length)
                         return ui.notifications?.error(
                             "You did not upload a data file!"
                         );
                     readTextFromFile(form.data.files[0]).then(async (json) => {
-                        await application.close();
                         selectMenus(json, "merge");
+                        await application.close();
                     });
                 },
             });
-            return await d;
         }
     }
 
     function selectMenus(json, option) {
-            new TJSDialog({
-                modal: true,
-                title: "IMPORT SETTINGS",
-                content: {
-                    class: ImportMenus,
-                    props: {
-                        type: option,
-                        menu: json,
-                    },
+        new TJSDialog({
+            modal: true,
+            title: "IMPORT SETTINGS",
+            content: {
+                class: ImportMenus,
+                props: {
+                    type: option,
+                    menu: json,
                 },
-                defaultYes: false,
-            }).render(true);
-        }
+            },
+            defaultYes: false,
+        }).render(true);
+    }
 
     async function overwriteMenu() {
-        let c = TJSDialog.confirm({
+        TJSDialog.confirm({
             title: "WARNING!!",
             modal: true,
             content: `<p style="text-align:center">This will <strong>ERASE</strong> your current menu and is <strong>IRREVERSIBLE. Continue?</strong></p>`,
-            yes: () => getFiles(),
-            no: () => console.log("Exiting without overwrite"),
+            onYes: () => getFiles(),
+            onNo: () => console.log("Exiting without overwrite"),
             defaultYes: false,
         });
 
@@ -91,28 +91,27 @@
                 "modules/autoanimations/htmlTemplate/import-data.html",
                 { entity: "autoanimations", name: "aaAutorec" }
             );
-            let d = TJSDialog.prompt({
+            TJSDialog.prompt({
                 title: "Overwrite Menu",
                 content: content,
                 modal: true,
-                callback: (html) => {
-                    const form = html.find("form")[0];
+                onOk: (app) => {
+                    const form = app.element.find("form")[0];
                     if (!form.data.files.length)
                         return ui.notifications?.error(
                             "You did not upload a data file!"
                         );
                     readTextFromFile(form.data.files[0]).then(async (json) => {
-                        await application.close();
                         selectMenus(json, "overwrite");
+                        await application.close();
                     });
                 },
             });
-            await d;
         }
     }
 
     async function exportMenu() {
-        AAAutorecManager.exportMenu()
+        AAAutorecManager.exportMenu(`-${game.system.id}`)
         application.close();
     }
 </script>

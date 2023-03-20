@@ -28,7 +28,8 @@
           left: "10px",
           bottom: "-2px",
           color: "rgba(50, 79, 245, 0.5)"
-       }
+       },
+        onClickPropagate: false
     }
     const folderOptions = {
         styles: {
@@ -39,11 +40,26 @@
         },
     };
 
+    async function selectCustom() {
+        const current = animation._data.levels3d.secondary.data.spritePath;
+        const picker = new FilePicker({
+            type: "any",
+            current,
+            callback: (path) => {
+                $animation.levels3d.secondary.data.spritePath = path;
+            },
+        });
+        setTimeout(() => {
+            picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
+        }, 100);
+        await picker.browse(current);
+    }
+
     $: isEnabled = $animation.levels3d.secondary.enable
 </script>
 <TJSSvgFolder
     folder={folderOptions}
-    label={localize("autoanimations.variants.secondary")}
+    label={localize("autoanimations.animations.explosion")}
 >
     <div slot="summary-end">
         <input
@@ -53,6 +69,30 @@
             bind:checked={$animation.levels3d.secondary.enable}
         />
     </div>
+    <table class="c">
+        <tr>
+            <td style="width: 6em; border: none;">
+                <div class="flexrow">
+                    <label for="" class="aa-customFont">{localize('autoanimations.menus.sprite')}</label>
+                </div>
+            </td>
+            <td style=" border: none">
+                <input
+                type="text"
+                bind:value={$animation.levels3d.secondary.data.spritePath}
+                style="font-weight:normal; font-size:small; border-radius: 5px;text-align:left; width: 100%"
+                />
+            </td>
+            <td style="width: 4em;border: none">
+                <i class="fas fa-file-import"
+                title="File Picker"
+                style="font-size:1.5em"
+                on:click|preventDefault={() => selectCustom()}
+                role=presentation
+                />
+            </td>
+        </tr>
+    </table>
     <div class="{isEnabled ? "" : "aa-disableOpacity"}">
         <div class="aa-options-border" style="margin-top: .5em;">
             <h1>Colors</h1>

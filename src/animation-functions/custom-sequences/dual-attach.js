@@ -6,7 +6,7 @@ export async function dualattach(handler, animationData) {
     const sourceFX = animationData.sourceFX;
     const macro = animationData.macro;
 
-    const animFile = await buildFile(false, data.video.menuType, data.video.animation, "range", data.video.variant, data.video.color, data.video.customPath)
+    const animFile = await buildFile("range", data.video, data.video.customPath)
 
     const onlyX = data.video.customPath ? data.options.onlyX : false;
 
@@ -15,15 +15,14 @@ export async function dualattach(handler, animationData) {
 
     async function cast() {
 
-        let aaSeq = await new Sequence();
+        let aaSeq = await new Sequence(handler.sequenceData);
         // Play Macro if Awaiting
         if (macro && macro.playWhen === "1" && !macro?.args?.warpgateTemplate) {
-            let userData = macro.args;
-            aaSeq.macro(macro.name, handler.workflow, handler, userData)
+            handler.complileMacroSection(aaSeq, macro)
         }
         // Extra Effects => Source Token if active
-        if (sourceFX.enabled) {
-            aaSeq.addSequence(sourceFX.sourceSeq)
+        if (sourceFX) {
+            handler.compileSourceEffect(sourceFX, aaSeq)
         }
         // Primary Sound
         if (data.sound) {
@@ -48,20 +47,15 @@ export async function dualattach(handler, animationData) {
         }
         // Macro if Concurrent
         if (macro && macro.playWhen === "0" && !macro?.args?.warpgateTemplate) {
-            let userData = macro.args;
-            new Sequence()
-                .macro(macro.name, handler.workflow, handler, userData)
-                .play()
+            handler.runMacro(macro)
         }
-        aaSeq.play()
 
-        // Macro if Awaiting Animation
+        // Macro if Awaiting Animation. This will respect the Delay/Wait options in the Animation chains
         if (macro && macro.playWhen === "3") {
-            let userData = macro.args;
-            new Sequence()
-                .macro(macro.name, handler.workflow, handler, userData)
-                .play()
+            handler.complileMacroSection(aaSeq, macro)
         }
+
+        aaSeq.play()
 
         //Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
     }

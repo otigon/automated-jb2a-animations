@@ -5,9 +5,9 @@
 
    import {
       TJSInput,
-      TJSMenu,
-      TJSSvgFolder,
-      TJSToggleIconButton }         from "@typhonjs-fvtt/svelte-standard/component";
+      TJSSvgFolder }                from "@typhonjs-fvtt/svelte-standard/component";
+
+   import OverflowSlot from "./OverflowSlot.svelte";
 
    import { createOverflowItems }   from "./createOverflowItems.js";
 
@@ -29,7 +29,7 @@
     * @type {object} Defines folder data for TJSIconFolder.
     */
    const folder = {
-      options: { chevronOnly: true, noKeys: true },
+      options: { chevronOnly: true },
       store: animation.stores.folderOpen
    };
 
@@ -50,15 +50,20 @@
    const menu = {
       items: createOverflowItems(animation, category),
    };
+
+   $: isExactMatch = $animation.advanced?.exactMatch;
+   $: excludedTerms = $animation.advanced?.excludedTerms;
+   $: exactMatchButton = {
+       icon: isExactMatch ? "fas fa-equals" : excludedTerms?.length ? "fas fa-not-equal" : "",
+       title: isExactMatch ? "Exact Match" : excludedTerms?.length ? "Has Excluded Terms" : "",
+    };
 </script>
 
 <div class=animation>
    <TJSSvgFolder {folder}>
-        <TJSInput {input} slot=label />
-        <TJSToggleIconButton button={buttonOverflow} slot=summary-end>
-            <TJSMenu {menu} />
-        </TJSToggleIconButton>
-        <svelte:component this={selectBuildMenu(category.key)} {animation} {idx} {category}/>
+         <TJSInput {input} slot=label />
+         <OverflowSlot info={exactMatchButton} {menu} slot=summary-end/>
+         <svelte:component this={selectBuildMenu(category.key)} {animation} {idx} {category}/>
    </TJSSvgFolder>
 </div>
 

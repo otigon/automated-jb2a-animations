@@ -36,6 +36,7 @@
         <div class="aa-primary-border">
             <svelte:component this={settings.Video} {title} section="primary"/>
             <svelte:component this={options.OnToken} />
+            <svelte:component this={options.EffectColor} />
             <svelte:component this={settings.Sound} section="primary" />
         </div>
         <svelte:component this={settings.Secondary} />

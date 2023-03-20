@@ -1,24 +1,19 @@
 import { DataSanitizer } from "../aa-classes/DataSanitizer.js";
 import { debug } from "../constants/constants.js";
+import { AAAutorecFunctions } from "../aa-classes/aaAutorecFunctions.js";
 
 import * as animate from "../animation-functions"
 
 const wait = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export async function trafficCop(handler) {
-    const autorecDisabled = game.settings.get("autoanimations", "disableAutoRec")
-    /* Removing this. Workflow should no longer reach this point if no Animation is matched
-    if (!handler.isEnabled) { 
-        debug("Item is disabled, exiting workflow", handler.item)
-        return; 
-    }
-    if (!handler.isCustomized && !handler.autorecObject || (handler.autorecObject && autorecDisabled)) { 
-        debug("No animation found for Item", handler.item)
-        return; 
-    }
-    */
-    //const data = handler.isCustomized ? foundry.utils.deepClone(handler.flags) : foundry.utils.deepClone(handler.autorecObject);
+    if (!handler) { return; }
     const data = foundry.utils.deepClone(handler.animationData);
+    if (data.advanced?.excludedType?.enabled && data.advanced?.excludedType?.path && data.advanced?.excludedType?.property) {
+        if (AAAutorecFunctions.checkExcludedProperty(handler.item, data.advanced?.excludedType?.property, data.advanced?.excludedType?.path)) {
+            return;
+        }
+    } 
     Hooks.callAll("aa.preDataSanitize", handler, data);
 
     const sanitizedData = await DataSanitizer._getAnimationData(handler, data);
@@ -31,7 +26,7 @@ export async function trafficCop(handler) {
 
     if (sanitizedData.macro && sanitizedData.macro.enable && sanitizedData.macro.playWhen === "2") {
 
-        if (handler.isTemplateItem) {
+        if (handler.isTemplateAnimation) {
             switch (game.system.id) {
                 case "a5e":
                 case "sw5e":
@@ -50,14 +45,15 @@ export async function trafficCop(handler) {
                     await wait(500)
                     handler.templateData = canvas.templates?.placeables?.[canvas.templates.placeables.length - 1]?.document;
                     playMacro()
-                }    
+                }
         } else {
             playMacro()
         }
         function playMacro() {
-            new Sequence()
-            .macro(sanitizedData.macro.name, handler.workflow, handler, sanitizedData.macro.args)
-            .play()
+            handler.runMacro(sanitizedData.macro)
+            //new Sequence()
+            //.macro(sanitizedData.macro.name, handler.workflow, handler, sanitizedData.macro.args)
+            //.play()
         }
         return;
     }
@@ -71,7 +67,7 @@ export async function trafficCop(handler) {
             repeat: data.soundOnly?.sound?.repeat ?? 1,
             repeatDelay: data.soundOnly?.sound?.repeatDelay ?? 250,
         }
-        new Sequence()
+        new Sequence(handler.sequenceData)
             .sound()
                 .file(sound.file)
                 .volume(sound.volume)
@@ -97,6 +93,7 @@ export async function trafficCop(handler) {
         }
         debug(`${animationType} Animation Start"`, handler, sanitizedData)
         if (handler.templateData) {
+            await wait(500)
             animate[animationType](handler, sanitizedData);
             return;
         }
@@ -113,7 +110,7 @@ export async function trafficCop(handler) {
             setTimeout(killHook, 30000)
             return;
         }
-        //sections for Template Hooks.once or straight to function
+        //sections for Template Hooks.once or straight to function. Systems running the createMeasuredTemplate hook, or those whose workflow runs after template placement, will skip Hooks.once
         switch (game.system.id) {
             case "a5e":
             case "pf2e":

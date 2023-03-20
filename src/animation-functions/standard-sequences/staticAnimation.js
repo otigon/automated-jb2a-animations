@@ -11,17 +11,22 @@ export async function ontoken(handler, animationData) {
     const macro = animationData.macro;
     const sourceSize = handler.getSize(data.options.isRadius, data.options.size, sourceToken, data.options.addTokenWidth)
 
-    const aaSeq = await new Sequence("Automated Animations")
-    const bottomAnim = data.path.fileData?.replace('Above', 'Below')
+    const aaSeq = await new Sequence(handler.sequenceData)
+    const bottomAnim = data.path.filePath?.replace('Above', 'Below')
+
+    let newTargetArray = [];
+    for (let target of handler.allTargets) {
+        let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0;
+        if (!checkAnim) { newTargetArray.push(target) }
+    }
 
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1") {
-        let userData = macro.args;
-        aaSeq.macro(macro.name, handler.workflow, handler, userData)
+        handler.complileMacroSection(aaSeq, macro)
     }
     // Extra Effects => Source Token if active
-    if (sourceFX.enable) {
-        aaSeq.addSequence(sourceFX.sourceSeq)
+    if (sourceFX) {
+        handler.compileSourceEffect(sourceFX, aaSeq)
     }
     // Primary Sound
     if (data.sound) {
@@ -69,23 +74,13 @@ export async function ontoken(handler, animationData) {
         }
 
         if (secondary) {
-            if (secondary.sound) {
-                aaSeq.addSequence(secondary.sound)
-            }
-            let secondarySeq = aaSeq.effect()
-            setSecondary(sourceToken, secondarySeq)
-            secondarySeq.delay(secondary.options.delay)
-        }
+            handler.compileSecondaryEffect(secondary, aaSeq, [sourceToken], false, false)
+        }    
     }
 
     // Target Effect sections
     if ((data.options.playOn === 'target' || data.options.playOn === 'default') && handler.allTargets.length > 0) {
 
-        let newTargetArray = [];
-        for (let target of handler.allTargets) {
-            let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0;
-            if (!checkAnim) { newTargetArray.push(target) }
-        }
         if (newTargetArray.length < 1) { return; }
 
         for (let i = 0; i < newTargetArray.length; i++) {
@@ -128,38 +123,10 @@ export async function ontoken(handler, animationData) {
         }
 
         if (secondary) {
-            if (secondary.sound) {
-                aaSeq.addSequence(secondary.sound)
-            }
-            for (let i = 0; i < newTargetArray.length; i++) {
-                let currentTarget = newTargetArray[i]
-                let secondarySeq = aaSeq.effect()
-                setSecondary(currentTarget, secondarySeq)
-
-                if (i === newTargetArray.length - 1 && secondary.options.isWait && targetFX.enable) {
-                    secondarySeq.waitUntilFinished(secondary.options.delay)
-                } else if (!secondary.options.isWait) {
-                    secondarySeq.delay(secondary.options.delay)
-                }
-            }
-        }
-
-        if (targetFX.enable) {
-            if (targetFX.sound) {
-                aaSeq.addSequence(targetFX.sound)
-            }
-            for (let currentTarget of newTargetArray) {
-                let hit;
-                if (handler.playOnMiss) {
-                    hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
-                } else {
-                    hit = true;
-                }
-                if (hit) {
-                    let targetSequence = handler.buildTargetSeq(targetFX, currentTarget);
-                    aaSeq.addSequence(targetSequence.targetSeq)
-                }
-            }
+            handler.compileSecondaryEffect(secondary, aaSeq, newTargetArray, targetFX.enable, true)
+        }    
+        if (targetFX) {
+            handler.compileTargetEffect(targetFX, aaSeq, handler.allTargets, true)
         }
     }
 
@@ -201,7 +168,7 @@ export async function ontoken(handler, animationData) {
             }
         }
 
-        if (newTargetArray.length > 0) {
+        if (newTargetArray.length) {
             for (let i = 0; i < newTargetArray.length; i++) {
                 let currentTarget = newTargetArray[i]
                 let targetSize = handler.getSize(data.options.isRadius, data.options.size, currentTarget, data.options.addTokenWidth);
@@ -241,55 +208,15 @@ export async function ontoken(handler, animationData) {
             }
         }
 
-        if (secondary && secondary.sound) {
-            aaSeq.addSequence(secondary.sound)
-        }
-
         if (secondary && !sourceCheckAnim) {
-            let sourceSecondarySeq = aaSeq.effect()
-            setSecondary(sourceToken, sourceSecondarySeq)
-
-            if (newTargetArray.length < 1 && secondary.options.isWait) {
-                sourceSecondarySeq.waitUntilFinished(secondary.options.delay)
-            } else if (!secondary.options.isWait) {
-                sourceSecondarySeq.delay(secondary.options.delay)
+            handler.compileSecondaryEffect(secondary, aaSeq, [sourceToken], false, false)
+        }    
+        if (newTargetArray.length) {
+            if (secondary) {
+                handler.compileSecondaryEffect(secondary, aaSeq, newTargetArray, targetFX.enable, true)
             }
-        }
-
-        if (newTargetArray.length > 0) {
-            if (secondary && newTargetArray.length > 0) {
-                //if (secondary.sound) {
-                    //aaSeq.addSequence(secondary.sound)
-                //}
-                for (let i = 0; i < newTargetArray.length; i++) {
-                    let currentTarget = newTargetArray[i];
-                    let secondarySeq = aaSeq.effect()
-                    setSecondary(currentTarget, secondarySeq)
-
-                    if (i === newTargetArray.length - 1 && secondary.options.isWait && targetFX.enable) {
-                        secondarySeq.waitUntilFinished(secondary.options.delay)
-                    } else if (!secondary.options.isWait) {
-                        secondarySeq.delay(secondary.options.delay)
-                    }
-                }
-            }
-
-            if (targetFX.enable && newTargetArray.length > 0) {
-                if (targetFX.sound) {
-                    aaSeq.addSequence(targetFX.sound)
-                }
-                for (let currentTarget of newTargetArray) {
-                    let hit;
-                    if (handler.playOnMiss) {
-                        hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
-                    } else {
-                        hit = true;
-                    }
-                    if (hit) {
-                        let targetSequence = handler.buildTargetSeq(targetFX, currentTarget);
-                        aaSeq.addSequence(targetSequence.targetSeq)
-                    }
-                }
+            if (targetFX) {
+                handler.compileTargetEffect(targetFX, aaSeq, handler.allTargets, true)
             }
         }
     }  
@@ -305,6 +232,10 @@ export async function ontoken(handler, animationData) {
         seq.rotate(180)
         seq.fadeIn(250)
         seq.fadeOut(500)
+        if (data.options.tint) {
+            seq.tint(data.options.tintColor)
+            seq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+        }
         if (!data.options.persistent) {
             seq.atLocation(token)
             seq.repeats(data.options.repeat, data.options.repeatDelay)
@@ -315,9 +246,12 @@ export async function ontoken(handler, animationData) {
             seq.origin(handler.itemUuid)
         }
         seq.playbackRate(data.options.playbackRate)
+        if (handler.systemData.tieToDocuments) {
+            seq.tieToDocuments(handler.item)
+        }
     }
     function setTop(token, size, seq) {
-        seq.file(data.path.fileData)
+        seq.file(data.path.filePath)
         seq.opacity(data.options.opacity)
         seq.size(size, { gridUnits: true })
         seq.elevation(token.document?.elevation)
@@ -326,6 +260,10 @@ export async function ontoken(handler, animationData) {
         }
         seq.fadeIn(250)
         seq.fadeOut(500)
+        if (data.options.tint) {
+            seq.tint(data.options.tintColor)
+            seq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+        }
         if (!data.options.persistent) {
             seq.atLocation(token)
             seq.repeats(data.options.repeat, data.options.repeatDelay)
@@ -336,6 +274,9 @@ export async function ontoken(handler, animationData) {
             seq.origin(handler.itemUuid)
         }
         seq.playbackRate(data.options.playbackRate)
+        if (handler.systemData.tieToDocuments) {
+            seq.tieToDocuments(handler.item)
+        }
     }
     function setPrimary(token, size, seq) {
         seq.file(data.path.file)
@@ -346,6 +287,10 @@ export async function ontoken(handler, animationData) {
             seq.mask(token)
         }
         seq.zIndex(data.options.zIndex)
+        if (data.options.tint) {
+            seq.tint(data.options.tintColor)
+            seq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+        }
         if (!data.options.persistent) {
             seq.atLocation(token)
             seq.repeats(data.options.repeat, data.options.repeatDelay)
@@ -364,45 +309,21 @@ export async function ontoken(handler, animationData) {
         }
         seq.anchor({x: data.options.anchor.x, y: data.options.anchor.y})
         seq.playbackRate(data.options.playbackRate)
-    }
-    function setSecondary(token, seq) {
-        let size = handler.getSize(secondary.options.isRadius, secondary.options.size, token, secondary.options.addTokenWidth)
-
-        seq.atLocation(token)
-        seq.file(secondary.path?.file, true)
-        seq.size(size, { gridUnits: true })
-        seq.elevation(handler.elevation(token, secondary.options.isAbsolute, secondary.options.elevation), {absolute: secondary.options.isAbsolute})
-        seq.zIndex(secondary.options.zIndex)
-        seq.opacity(secondary.options.opacity)
-        seq.fadeIn(secondary.options.fadeIn)
-        seq.fadeOut(secondary.options.fadeOut)
-        if (secondary.options.rotateSource) {
-            seq.rotateTowards(sourceToken)
-            seq.rotate(180)    
+        if (handler.systemData.tieToDocuments) {
+            seq.tieToDocuments(handler.item)
         }
-        if (secondary.options.isMasked) {
-            seq.mask(token)
-        }
-        seq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
-        seq.playbackRate(secondary.options.playbackRate)
     }
-
     // Macro if Concurrent
     if (macro && macro.playWhen === "0") {
-        let userData = macro.args;
-        new Sequence()
-            .macro(macro.name, handler.workflow, handler, userData)
-            .play()
+        handler.runMacro(macro)
     }
-    aaSeq.play()
 
-    // Macro if Awaiting Animation
+    // Macro if Awaiting Animation. This will respect the Delay/Wait options in the Animation chains
     if (macro && macro.playWhen === "3") {
-        let userData = macro.args;
-        new Sequence()
-            .macro(macro.name, handler.workflow, handler, userData)
-            .play()
+        handler.complileMacroSection(aaSeq, macro)
     }
+    
+    aaSeq.play()
     
     Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
     if (data.options.persistent) { howToDelete("sequencerground") }

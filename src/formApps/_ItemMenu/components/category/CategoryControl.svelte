@@ -29,7 +29,7 @@
   export let item;
 
   const is5e = game.system.id === "dnd5e";
-  const { application } = getContext("external");
+  const { application } = getContext("#external");
 
   let autorecSettings = {
     melee: game.settings.get("autoanimations", "aaAutorec-melee"),
@@ -54,7 +54,8 @@
   }
 
   //Check the Autorec Menu for a matching Section
-  $: isInAutorec = AAAutorecFunctions.allMenuSearch(autorecSettings, AAAutorecFunctions.rinseName($animation.label));
+  let filteredSettings = AAAutorecFunctions.sortAndFilterMenus(autorecSettings)
+  $: isInAutorec = AAAutorecFunctions.allMenuSearch(filteredSettings, AAAutorecFunctions.rinseName($animation.label));
 
   let menu = isInAutorec
     ? game.i18n.localize(`autoanimations.animTypes.${isInAutorec.menu}`)
@@ -84,6 +85,8 @@
     items: copyToFrom(animation, item, autorecSettings),
   };
 
+  let chosenMenu = $animation.menu;
+  $: chosenMenu;
 </script>
 
 <header class="animation">
@@ -132,7 +135,11 @@
         >{localize("autoanimations.menus.animation")}
         {localize("autoanimations.menus.type")}</label
       >
-      <select bind:value={$animation.menu} on:change={async () => await animation.switchVideo()}>
+      <select bind:value={$animation.menu} on:change={async () => {
+            await animation.switchVideo();
+            chosenMenu = $animation.menu;
+          }
+        }>
         <option value="melee"
           >{localize("autoanimations.animTypes.melee")}</option
         >
@@ -161,7 +168,7 @@
       <svelte:component this={NoneChosen} {isEnabled} {isCustomized} {isInAutorec} />
     </div>
   {:else}
-    <CategoryList />
+    <CategoryList  {chosenMenu} />
   {/if}
 </main>
 

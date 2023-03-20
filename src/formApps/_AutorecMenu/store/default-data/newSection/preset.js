@@ -175,6 +175,7 @@ export function preset(current = {}, type) {
                         alpha: 0,
                         delayFade: 750,
                         delayReturn: 250,
+                        checkCollision: true,
                     },
                     sound: {enable: false}                
                 },

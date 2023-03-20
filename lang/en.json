@@ -18,6 +18,8 @@
             "demonlordtrigger_misses": "Play animations on hits and misses",
             "demonlordtrigger_rolldamage":"Play animations on roll damage",
             "demonlordtrigger_applydamage":"Play animations on apply damage",
+            "coreonatk_name":"Play Attack Animations on Attack Rolls",
+            "coreonatk_hint":"By Default, Animations play on Attack Rolls",
             "coreondmg_name":"Play Attack Animations on Damage Rolls Only",
             "coreondmg_hint":"By Default, Animations play on Attack Rolls",
             "error":"A JB2A Module (Free OR Patreon) is REQUIRED for Automated Animations to Work",
@@ -81,7 +83,16 @@
             "overwriteWarn": "Overwrite will delete your existing Menu",
             "launchMenu": "Launch Menu",
             "menuName": "Global Automatic Recognition Menu",
-            "menuHint": "Launch the Global Autorec menu. This also houses the Settings menu for Automated Animations"
+            "menuHint": "Launch the Global Autorec menu. This also houses the Settings menu for Automated Animations",
+            "hideTemplate_name": "Template Grids on Hover",
+            "hideTemplate_hint": "Removes the Template Grid Highlighting unless Hovered over. TOKEN MAGIC FX SETTINGS FOR HOVER MUST BE DISABLED",
+            "hoverInTemplateLayer": "Show on Hover in Template Layer",
+            "hoverInTemplate": "Show on any Hover",
+            "playAnimations": "When to play Animations",
+            "attack": "Attack Rolls",
+            "damage": "Damage Rolls",
+            "disableGrantedAura": "Disable Granted Aura Effect Animations",
+            "disableGrantedAuraHint": "Disables Animations for Effects granted by Auras"
         },
         "colors": {
             "lightorange": "Light Orange",
@@ -89,6 +100,7 @@
             "palegreen": "Pale Green",
             "blue":"Blue",
             "green":"Green",
+            "green02": "Green 02",
             "orange":"Orange",
             "pink":"Pink",
             "purple":"Purple",
@@ -122,7 +134,7 @@
             "lightblue": "Light Blue",
             "rainbow": "Rainbow",
             "white": "White",
-            "yellowwhite": "White",
+            "yellowwhite": "Yellow White",
             "darkorangepurple": "Dark Orange Purple",
             "darkgreenpurple": "Dark Green Purple",
             "darkteal": "Dark Teal",
@@ -143,7 +155,10 @@
             "blue03": "Blue 03" ,
             "ring02": "Ring 02",
             "ring03": "Ring 03",
-            "orangered": "Orange Red"
+            "orangered": "Orange Red",
+            "darkpink": "Dark Pink",
+            "darkyellow": "Dark Yellow",
+            "textured": "Textured"
         },
         "animations": {
             "coneofcold": "Cone of Cold",
@@ -344,7 +359,16 @@
             "ring": "Ring",
             "outburst": "Outburst",
             "boomerang": "Boomerang",
-            "triboomerang": "Tri Boomerang"
+            "triboomerang": "Tri Boomerang",
+            "slashing": "Slashing",
+            "frost": "Frost",
+            "boneshield": "Bone Shield",
+            "roundshield": "Round Shield",
+            "towershield": "Tower Shield",
+            "smokering": "Smoke Ring",
+            "feathers": "Feathers",
+            "plume": "Plume",
+            "energywall": "Energy Wall"
         },
         "variants": {
             "1":"01",
@@ -381,6 +405,10 @@
             "rolled": "Rolled",
             "runeabove": "Rune Above",
             "runebelow": "Rune Below",
+            "runeintro": "Rune Intro",
+            "runeloop": "Rune Loop",
+            "runeoutro": "Rune Outro",
+            "runecomplete": "Rune Complete",
             "skullabove": "Skull Above",
             "skullbelow": "Skull Below",
             "starabove": "Star Above",
@@ -437,7 +465,20 @@
             "nature": "Nature",
             "void": "Void",
             "above": "Above",
-            "liquid": "Liquid"
+            "liquid": "Liquid",
+            "frost": "Frost",
+            "ring02": "Ring 02",
+            "ring03": "Ring 03",
+            "outburst": "Outburst",
+            "abjuration": "Abjuration",
+            "conjuration": "Conjuration",
+            "divination": "Divination",
+            "enchantment": "Enchantment",
+            "evocation": "Evocation",
+            "illusion": "Illusion",
+            "necromancy": "Necromancy",
+            "transmutation": "Transmutation",
+            "arcana": "Arcana"
         },
         "menuTypes": {
             "creature": "Creature Attack",
@@ -468,7 +509,10 @@
             "eyes": "Eyes",
             "sideImpact": "Side Impact",
             "plants": "Plants",
-            "vines": "Vines"
+            "vines": "Vines",
+            "impact": "Impact",
+            "nature": "Nature",
+            "smoke": "Smoke"
         },
         "animTypes": {
             "melee": "Melee",
@@ -634,7 +678,33 @@
             "insertMacro": "Insert Macro Name",
             "damage": "damage",
             "randomOffset": "Random Offset",
-            "await": "Await"
+            "await": "Await",
+            "bind": "Bind",
+            "property": "Property",
+            "exclude": "Exclude",
+            "excludedSearchWords": "Excluded Search Words",
+            "forceExact": "Force Exact Match",
+            "advanced": "Advanced",
+            "recognition": "Recognition",
+            "features": "Features",
+            "checkCollision": "Check for Collision",
+            "resetTime": "Reset Time",
+            "rotateTowards": "Rotate Towards",
+            "contrast": "Contrast",
+            "saturation": "Saturation",
+            "colorTint": "Color Tint"
+        },
+        "tokenAnimations": {
+            "bow": "Bow",
+            "breath": "Breath",
+            "buff": "Buff",
+            "charge": "Charge",
+            "debuff": "Debuff",
+            "knockback": "Knockback",
+            "shake": "Shake",
+            "slash": "Slash",
+            "swipe": "Swipe",
+            "twirl": "Twirl"
         },
         "optionsInfo": {
 

@@ -32,7 +32,8 @@
             left: "10px",
             bottom: "-2px",
             color: "rgba(50, 79, 245, 0.5)"
-        }
+        },
+        onClickPropagate: false
     }
 
     $: persistent = $animation.target.options.persistent;
@@ -96,7 +97,7 @@
                             : 'aa-disableOpacity'}"
                     >
                         <label for="TVis {animation._data.id}"
-                            >{localize("autoanimations.menus.unbind")}
+                            >{localize("autoanimations.menus.bind")}
                             {localize("autoanimations.menus.visibility")}
                         </label>
                         <input
@@ -115,7 +116,7 @@
                             : 'aa-disableOpacity'}"
                     >
                         <label for="TAlpha {animation._data.id}"
-                            >{localize("autoanimations.menus.unbind")}
+                            >{localize("autoanimations.menus.bind")}
                             {localize("autoanimations.menus.alpha")}
                         </label>
                         <input

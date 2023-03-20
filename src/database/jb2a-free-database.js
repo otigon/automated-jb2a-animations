@@ -190,12 +190,14 @@ export async function initializeJB2AFreeDB(path) {
                 }
             },
             snipe: {
-                blue: {
-                    '05ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_05ft_600x400.webm`],
-                    '15ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_15ft_1000x400.webm`],
-                    '30ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_30ft_1600x400.webm`],
-                    '60ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_60ft_2800x400.webm`],
-                    '90ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_90ft_4000x400.webm`]
+                '01': {
+                    blue: {
+                        '05ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_05ft_600x400.webm`],
+                        '15ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_15ft_1000x400.webm`],
+                        '30ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_30ft_1600x400.webm`],
+                        '60ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_60ft_2800x400.webm`],
+                        '90ft': [lg`Weapon_Attacks/Ranged/Snipe_01_Regular_Blue_90ft_4000x400.webm`]
+                    }
                 }
             },
             snowball: {
@@ -277,7 +279,7 @@ export async function initializeJB2AFreeDB(path) {
             },
             guidingbolt: {
                 '01': {
-                    blueyellow: {
+                    yellowblue: {
                         '05ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_05ft_600x400.webm`],
                         '15ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_15ft_1000x400.webm`],
                         '30ft': [l1`Guiding_Bolt/GuidingBolt_01_Regular_BlueYellow_30ft_1600x400.webm`],
@@ -459,7 +461,7 @@ export async function initializeJB2AFreeDB(path) {
     /**
      * Melee Types:
      *
-     * Weapon 
+     * Weapon
      * Creature
      * 
      */
@@ -787,7 +789,7 @@ export async function initializeJB2AFreeDB(path) {
                     ],
                     orange: [
                         lg`Explosion/Explosion_01_Orange_400x400.webm`,
-                        lg`Explosion/Explosion_08_Regular_Orange_400x400.webm`,
+                        lg`Explosion/Explosion_05_Regular_Orange_400x400.webm`,
                     ],
                     yellowblue: [
                         lg`Explosion/Explosion_03_Regular_BlueYellow_400x400.webm`
@@ -1562,6 +1564,15 @@ export async function initializeJB2AFreeDB(path) {
                 },
                 '02': {
                     blue: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Blue_800x800.webm`],
+                },
+                "runeintro": {
+                  blue: [lg`Magic_Signs/Runes/AbjurationRuneIntro_01_Regular_Blue_400x400.webm`],
+                },
+                "runeloop": {
+                  blue: [lg`Magic_Signs/Runes/AbjurationRuneLoop_01_Regular_Blue_400x400.webm`],
+                },
+                "runeoutro": {
+                  blue: [lg`Magic_Signs/Runes/AbjurationRuneOutro_01_Regular_Blue_400x400.webm`],
                 }
             },
             conjuration: {
@@ -1570,6 +1581,15 @@ export async function initializeJB2AFreeDB(path) {
                 },
                 '02': {
                     yellow: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Yellow_800x800.webm`],
+                },
+                "runeintro": {
+                  yellow: [lg`Magic_Signs/Runes/,ConjurationRuneIntro_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeloop": {
+                  yellow: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeoutro": {
+                  yellow: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Yellow_400x400.webm`]
                 }
             },
             divination: {
@@ -1578,31 +1598,85 @@ export async function initializeJB2AFreeDB(path) {
                 },
                 '02': {
                     blue: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Blue_800x800.webm`],
+                },
+                "runeintro": {
+                  blue: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Blue_400x400.webm`],
+                },
+                "runeloop": {
+                  blue: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Blue_400x400.webm`],
+                },
+                "runeoutro": {
+                  blue: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Blue_400x400.webm`],
                 }
             },
             enchantment: {
                 '02': {
                     pink: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Pink_800x800.webm`],
+                },
+                "runeintro": {
+                  pink: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Pink_400x400.webm`],
+                },
+                "runeloop": {
+                  pink: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Pink_400x400.webm`],
+                },
+                "runeoutro": {
+                  pink: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Pink_400x400.webm`],
                 }
             },
             evocation: {
                 '02': {
                     red: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Red_800x800.webm`],
+                },
+                "runeintro": {
+                  red: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Red_400x400.webm`],
+                },
+                "runeloop": {
+                  red: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Red_400x400.webm`],
+                },
+                "runeoutro": {
+                  red: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Red_400x400.webm`],
                 }
             },
             illusion: {
                 '02': {
                     purple: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Purple_800x800.webm`],
+                },
+                "runeintro": {
+                  purple: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Purple_400x400.webm`],
+                },
+                "runeloop": {
+                  purple: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Purple_400x400.webm`],
+                },
+                "runeoutro": {
+                  purple: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Purple_400x400.webm`],
                 }
             },
             necromancy: {
                 '02': {
                     green: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Green_800x800.webm`],
+                },
+                "runeintro": {
+                  green: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Green_400x400.webm`],
+                },
+                "runeloop": {
+                  green: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Green_400x400.webm`],
+                },
+                "runeoutro": {
+                  green: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Green_400x400.webm`],
                 }
             },
             transmutation: {
                 '02': {
                     yellow: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Yellow_800x800.webm`],
+                },
+                "runeintro": {
+                  yellow: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeloop": {
+                  yellow: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeoutro": {
+                  yellow: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Yellow_400x400.webm`]
                 }
             },
         },
@@ -1630,7 +1704,7 @@ export async function initializeJB2AFreeDB(path) {
             standard: {
                 '01': {
                     marker01: {
-                        "blueyellow": [lg`Marker/Marker_01_Regular_BlueYellow_400x400.webm`],
+                        "yellowblue": [lg`Marker/Marker_01_Regular_BlueYellow_400x400.webm`],
                     },
                     musicMarker: {
                         "greenorange": [lg`Marker/MusicMarker_01_Regular_GreenOrange_400x400.webm`],
@@ -2017,7 +2091,7 @@ export async function initializeJB2AFreeDB(path) {
             },
             sneakattack: {
                 '01': {
-                    'dark green': [l1`Sneak_Attack/Sneak_Attack_Dark_Green_300x300.webm`],
+                    'darkgreen': [l1`Sneak_Attack/Sneak_Attack_Dark_Green_300x300.webm`],
                 }
             },
             thunderwave: {

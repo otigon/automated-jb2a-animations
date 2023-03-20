@@ -11,7 +11,7 @@ export async function thunderwave(handler, animationData, config) {
 
     const template = config ? config : canvas.templates.placeables[canvas.templates.placeables.length - 1];
     const templateData = config ? config || {} : template.document || {};
-    const trueSize = Math.sqrt(Math.pow(templateData.distance, 2)/2)
+    const trueSize = Math.sqrt(Math.pow(templateData.distance, 2) / 2)
 
     const getPosition = getRelativePosition(sourceToken, templateData)
     const angle = getPosition.angle;
@@ -21,16 +21,15 @@ export async function thunderwave(handler, animationData, config) {
 
     const gridSize = canvas.scene.data.grid.size;
 
-    let aaSeq = await new Sequence("Automated Animations")
+    let aaSeq = await new Sequence(handler.sequenceData)
 
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1") {
-        let userData = macro.args;
-        aaSeq.macro(macro.name, handler.workflow, handler, userData)
+        handler.complileMacroSection(aaSeq, macro)
     }
     // Extra Effects => Source Token if active
-    if (sourceFX.enable) {
-        aaSeq.addSequence(sourceFX.sourceSeq)
+    if (sourceFX) {
+        handler.compileSourceEffect(sourceFX, aaSeq)
     }
     // Primary Sound
     if (data.sound) {
@@ -48,29 +47,24 @@ export async function thunderwave(handler, animationData, config) {
         .rotate(angle)
         .opacity(data.options.opacity)
         .size(3, { gridUnits: true })
-        .elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
+        .elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), { absolute: data.options.isAbsolute })
         .repeats(data.options.repeat, data.options.repeatDelay)
 
     if (macro && macro.playWhen === "0") {
-        let userData = macro.args;
-        new Sequence()
-            .macro(macro.name, handler.workflow, handler, userData)
-            .play()
+        handler.runMacro(macro)
     }
 
     if (data.options.removeTemplate) {
         canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [template.id])
     }
+
+    // Macro if Awaiting Animation. This will respect the Delay/Wait options in the Animation chains
+    if (macro && macro.playWhen === "3") {
+        handler.complileMacroSection(aaSeq, macro)
+    }
+
     aaSeq.play()
 
-    // Macro if Awaiting Animation
-    if (macro && macro.playWhen === "3") {
-        let userData = macro.args;
-        new Sequence()
-            .macro(macro.name, handler.workflow, handler, userData)
-            .play()
-    }
-    
     await wait(500)
     Hooks.callAll("aa.animationEnd", sourceToken, "no-target")
 

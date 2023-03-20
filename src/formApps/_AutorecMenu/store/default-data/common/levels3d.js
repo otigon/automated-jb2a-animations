@@ -20,7 +20,7 @@ export function levels3d() {
          repeat: void 0,
          scale: void 0,
          speed: void 0,
-         sprite: void 0
+         spritePath: "modules/levels-3d-preview/assets/particles/dust.png",
       },
       sound: {enable: false},
       secondary: {
@@ -36,7 +36,7 @@ export function levels3d() {
             rate: void 0,
             scale: void 0,
             speed: void 0,
-            sprite: void 0   
+            spritePath: "modules/levels-3d-preview/assets/particles/dust.png",
          }
       }
    }

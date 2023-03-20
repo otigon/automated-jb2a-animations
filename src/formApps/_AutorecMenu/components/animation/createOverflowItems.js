@@ -1,4 +1,5 @@
 import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
+import AdvancedAutorec from "./advancedSearch/AdvancedAutorec.svelte";
 
 /**
  * Creates the items for the overflow menu.
@@ -15,12 +16,12 @@ export function createOverflowItems(animation, category)
       {
          label: "autoanimations.menus.duplicate",
          icon: "far fa-clone",
-         onclick: () => category.duplicateEntry(animation.id)
+         onPress: () => category.duplicateEntry(animation.id)
       },
       {
          label: "Delete", // TODO: localize,
          icon: "far fa-trash-alt",
-         onclick: async () => {
+         onPress: async () => {
             const label = animation.label !== "" ? `'${animation.label}'` : "'No Item Name'";
 
             const result = await TJSDialog.confirm({
@@ -36,7 +37,24 @@ export function createOverflowItems(animation, category)
       {
          label: "Metadata",
          icon: "fas fa-heart-pulse",
-         onclick: () => animation.getSource()
+         onPress: () => animation.getSource()
+      },
+      {
+         label: "Advanced",
+         icon: "fab fa-searchengin",
+         onPress: async () => {
+            new TJSDialog({
+               modal: true,
+               title: "Advanced Features: " + `${animation._data.label}`,
+               content: {
+                   class: AdvancedAutorec,
+                   props: {
+                       animation
+                   },
+               },
+               defaultYes: false,
+           }).render(true);
+        }
       }
    ];
 }

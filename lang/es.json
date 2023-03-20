@@ -73,7 +73,15 @@
 			"wfrp4eCastOnlyOnSuccessHint": "Seleccionar esta opción reproducirá la animación del hechizo/plegaria/habilidad sólo si el hechizo/plegaria/habilidad tuvo éxito al lanzarse (chequeo pasado y NL alcanzado)",
 			"teleport": "Ha seleccionado un punto fuera del alcance. Elija de nuevo",
 			"extraexplain": "Requiere una Animación Primaria, ya sea Personalizada o por Reconocimiento Automático",
-			"restoreDefault": "Restablece el menú por defecto"
+			"restoreDefault": "Restablece el menú por defecto",
+			"launchMenu": "Ejecutar Menú",
+			"menuName": "Menú de Reconocimiento Global Automático",
+			"menuHint": "Ejecutar Menú Global de Autograbación. Esto también aloja la configuración del menú de Animaciones Automáticas",
+			"restoreHint": "Borra el Menú actual y restaura la configuración por defecto",
+			"mergeHint": "Unir un nuevo Menú al Menú existente",
+			"overwriteHint": "Borra el Menú actual e importa un Menú nuevo",
+			"exportHint": "Exporta tu Menú a un archivo JSON",
+			"overwriteWarn": "Sobreescribir borrará tu Menú existente"
 		},
 		"colors": {
 			"lightorange": "Naranja Claro",
@@ -128,7 +136,14 @@
 			"brightblue": "Azul Brillante",
 			"purplegreen": "Verde Morado",
 			"greenred": "Rojo Verdoso",
-			"orangeyellow": "Amarillo Anaranjado"
+			"orangeyellow": "Amarillo Anaranjado",
+			"blue02": "Azul 02",
+			"blackyellow": "Negro Amarillo",
+			"blackblue": "Negro Azul",
+			"blue03": "Azul 03",
+			"ring02": "Anillo 02",
+			"ring03": "Anillo 03",
+			"orangered": "Naranja Rojo"
 		},
 		"animations": {
 			"coneofcold": "Cono de frío",
@@ -301,7 +316,35 @@
 			"halberd": "Alabarda",
 			"quarterstaff": "Bastón",
 			"crossbow": "Ballesta",
-			"bow": "Arco"
+			"bow": "Arco",
+			"circle": "Círculo",
+			"triboomerang": "Triple Búmeran",
+			"bone": "Hueso",
+			"inwarddots": "Puntos hacia adentro",
+			"frightened": "Asustado",
+			"inwardstars": "Estrellas hacia adentro",
+			"bomb": "Bomba",
+			"cannonball": "Bala de Cañon",
+			"flask": "Matraz",
+			"grenade": "Granada",
+			"grenadelaunch": "Lanzamiento de Granada",
+			"leaves": "Hojas",
+			"diamond": "Diamante",
+			"spike": "Pico",
+			"square": "Cuadrado",
+			"blob": "Gota",
+			"intro": "Introducción",
+			"outro_explode": "Explosion Final",
+			"outro_fade": "Desvanecer Final",
+			"missile": "Misil",
+			"single": "Simple",
+			"few": "Poco",
+			"many": "Mucho",
+			"water": "Agua",
+			"reverse": "Revertir",
+			"ring": "Anillo",
+			"outburst": "Explosión",
+			"boomerang": "Búmeran"
 		},
 		"variants": {
 			"1": "01",
@@ -385,7 +428,16 @@
 			"burst": "Explosión",
 			"acid": "Ácido",
 			"slow": "Lento",
-			"fast": "Rápido"
+			"fast": "Rápido",
+			"liquid": "Líquido",
+			"eyeloop": "Bucle de Ojo",
+			"stick": "Palo",
+			"nature": "Naturaleza",
+			"pawloop": "Bucle de Pata",
+			"symbol": "Simbolo",
+			"elemental": "Elemental",
+			"void": "Vacío",
+			"above": "Arriba"
 		},
 		"menuTypes": {
 			"creature": "Ataque de Criatura",
@@ -408,7 +460,15 @@
 			"cone": "Cono",
 			"square": "Cuadrado",
 			"circle": "Círculo",
-			"ray": "Rayo"
+			"ray": "Rayo",
+			"shieldspell": "Escudo",
+			"sideImpact": "Impacto Lateral",
+			"eyes": "Ojos",
+			"plants": "Plantas",
+			"vines": "Vides",
+			"leaves": "Hojas",
+			"chains": "Cadenas",
+			"shrapnel": "Metralla"
 		},
 		"animTypes": {
 			"melee": "Melé",
@@ -416,7 +476,8 @@
 			"ontoken": "En Ficha",
 			"preset": "Preajustes",
 			"templatefx": "Plantillas",
-			"aura": "Aura"
+			"aura": "Aura",
+			"aefx": "Efectos Activos"
 		},
 		"presetTypes": {
 			"bardicinspiration": "Inspiración Bárdica",
@@ -428,7 +489,8 @@
 			"sneakattack": "Ataque Furtivo",
 			"animTeleportation": "Teletransporte",
 			"thunderwave": "Ola Atronadora",
-			"prototemp": "Proyectil a Plantilla"
+			"prototemp": "Proyectil a Plantilla",
+			"proToTemp": "Proyectil a Modelo"
 		},
 		"menus": {
 			"primary": "Primario",
@@ -499,7 +561,7 @@
 			"life": "Vida",
 			"emiterSize": "Tamaño del Emisor",
 			"rate": "Ritmo",
-			"sprite": "Sprite",
+			"sprite": "Duende",
 			"projectile": "Proyectil",
 			"ignoreTargets": "Ignorar Objetivos",
 			"options": "Opciones",
@@ -522,7 +584,88 @@
 			"no": "No",
 			"token": "Ficha",
 			"export": "Exportar Ajustes",
-			"musicnote": "Notas Musicales"
+			"musicnote": "Notas Musicales",
+			"above": "Arriba de la Ficha",
+			"preview": "Vista Previa",
+			"elevation": "Elevación",
+			"sideImpact": "Impacto Lateral",
+			"video": "Video",
+			"between": "Entre",
+			"automatic": "Automático",
+			"width": "Ancho",
+			"section": "Sección",
+			"menu": "Menú",
+			"copy": "Copia",
+			"path": "Ruta",
+			"quickReference": "Referencia Rápida",
+			"unbound": "Desvinculado",
+			"manual": "Manual",
+			"label": "Etiqueta",
+			"end": "Fin",
+			"movement": "Movimiento",
+			"teleport": "Teleportación",
+			"rotation": "Rotación",
+			"damage": "daño",
+			"randomOffset": "Desplazamiento Aleatorio",
+			"level": "Nivel",
+			"only": "Solo",
+			"insertMacro": "Ingrese el nombre de la Macro",
+			"mask": "Mascara",
+			"persistence": "Persistencia",
+			"not": "No",
+			"z-index": "Indice-Z",
+			"visibility": "Visibilidad",
+			"bound": "Vinculado",
+			"pre": "Previo",
+			"menuManager": "Administrador de Menú",
+			"ammunition": "Munición",
+			"duplicate": "Duplicar",
+			"3dcanvas": "Lienzo 3d",
+			"all": "Todo",
+			"unbind": "Desvincular",
+			"effect": "Efecto",
+			"fadeIn": "Fundirse",
+			"fadeOut": "Desaparecer",
+			"select": "Elegir",
+			"useammo": "Usar Munición",
+			"item": "artículo",
+			"globalFound": "Coincidencia Global encontrada",
+			"globalNotFound": "Coincidencia Global no encontrada",
+			"tint": "Tinte",
+			"activate": "Activar",
+			"saturate": "Saturar",
+			"anchor": "Ancla",
+			"await": "Esperar"
+		},
+		"app": {
+			"aaAutorec-melee": {
+				"label": "Cuerpo a cuerpo",
+				"icon": "fas fa-escudo-alt"
+			},
+			"aaAutorec-range": {
+				"label": "Rango",
+				"icon": "fas fa-gente-flechas"
+			},
+			"aaAutorec-templatefx": {
+				"icon": "fas fa-formas",
+				"label": "Modelos"
+			},
+			"aaAutorec-ontoken": {
+				"label": "En la Ficha",
+				"icon": "fas fa-hijo"
+			},
+			"aaAutorec-aura": {
+				"label": "Aura",
+				"icon": "fab fa-creativos-comunes-por"
+			},
+			"aaAutorec-preset": {
+				"label": "Preestablecido",
+				"icon": "fas fa-regalo"
+			},
+			"aaAutorec-aefx": {
+				"label": "Efectos Activos",
+				"icon": "fas fa-átomo"
+			}
 		}
 	}
 }

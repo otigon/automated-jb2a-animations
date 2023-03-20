@@ -5,6 +5,7 @@
     import SoundSettings from "./SoundSettings.svelte";
     import VideoSelect from "./VideoSelect.svelte";
     import TargetFxOptions from "./options/TargetFXOptions.svelte";
+    import EffectColor from "./options/EffectColor.svelte";
     import { getContext }   from "svelte";
 
     //export let animation;
@@ -42,9 +43,10 @@
                 on:change={() => checkMeta()}
             />
         </div>
-        <div class={!$animation.target.enable ? "aa-isDisabled" : ""}>
+        <div class={!$animation.target?.enable ? "aa-isDisabled" : ""}>
             <VideoSelect {animation} section="target" {title} {idx} {category}/>
             <TargetFxOptions {animation} />
+            <svelte:component this={EffectColor} section="target" />
             <SoundSettings {animation} {category} {idx} section="target" />
         </div>
     </TJSSvgFolder>

@@ -1,14 +1,21 @@
 import { trafficCop }       from "../router/traffic-cop.js"
 import AAHandler            from "../system-handlers/workflow-data.js";
-import { AnimationState }   from "../AnimationState.js";
 import { debug }            from "../constants/constants.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
+const PF2E_SIZE_TO_REACH = {
+    tiny: 0,
+    sm: 5,
+    med: 5,
+    lg: 5,
+    huge: 10,
+    grg: 15,
+};
+
 export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => {
-        if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
+        if (msg.user.id !== game.user.id) { return };
         const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
-
         let compiledData = await getRequiredData({
             item: msg.item,
             itemId: msg.flags.pf2e?.origin?.uuid,
@@ -17,6 +24,7 @@ export function systemHooks() {
             actorId: msg.speaker?.actor,
             workflow: msg,
             playOnDamage: playOnDmg,
+            bypassTemplates: true,
         })
         if (compiledData.item?.type === "effect" || compiledData.item?.type === "condition") {
             debug ("This is a Condition or Effect, exiting main workflow")
@@ -30,9 +38,14 @@ export function systemHooks() {
         runPF2e(compiledData)
     });
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
-        if (userId !== game.user.id || !AnimationState.enabled) { return };
-        templateAnimation(await getRequiredData({itemUuid: template.flags?.pf2e?.origin?.uuid, templateData: template, workflow: template, isTemplate: true}))
-    })    
+        if (userId !== game.user.id) { return };
+        templateAnimation(await getRequiredData({
+            itemUuid: template.flags?.pf2e?.origin?.uuid,
+            templateData: template,
+            workflow: template,
+            isTemplate: true
+        }))
+    })
 }
 
 async function templateAnimation(input) {
@@ -41,8 +54,20 @@ async function templateAnimation(input) {
         debug("No Item could be found")
         return;
     }
+    // Spell variants can be identified by the template name
+    const templateName = input.templateData.flags?.pf2e?.origin?.name
+    // If item and template name differ, the variant spell can be created by applying the variants overlay
+    if (templateName && input.item.name !== templateName) {
+        // Search for the variant overlay by name
+        const overlayId = input.item.overlays.find(o => o.name == templateName)?._id
+        if (overlayId) {
+            input.item = input.item.loadVariant({ overlayIds: [overlayId] })
+            input.isVariant = true;
+            input.originalItem = input.item?.original;
+        }
+    }
+    
     const handler = await AAHandler.make(input)
-    if (!handler) { return;}
     trafficCop(handler)
 }
 
@@ -74,9 +99,13 @@ async function runPF2e(data) {
                     return;
                 }
             }
-            if (itemHasDamage(data.item) && data.playOnDamage && data.workflow.isDamageRoll) {
+            let hasDamage = itemHasDamage(data.item)
+            //hasDamage && data.playOnDamage && data.workflow.isDamageRoll ? playPF2e(data) : !hasDamage && !data.workflow.isDamageRoll ? playPF2e(data) : playPF2e(data)
+            if (hasDamage && data.playOnDamage && data.workflow.isDamageRoll) {
                 playPF2e(data)
-            } else if (!itemHasDamage(data.item) && !data.workflow.isDamageRoll) {
+            } else if (!hasDamage && !data.workflow.isDamageRoll) {
+                playPF2e(data)
+            } else if (hasDamage && !data.playOnDamage && !data.workflow.isDamageRoll) {
                 playPF2e(data)
             }
     }
@@ -118,9 +147,7 @@ async function runPF2eSpells(data) {
         case "utility":
         case "save":
             if (spellHasAOE(item)) { return; }
-            if (itemHasDamage(item) && playOnDamage && msg.isDamageRoll) {
-                playPF2e(data)
-            } else if (!playOnDamage && !msg.isRoll) {
+            if (itemHasDamage(item) && msg.isDamageRoll) {
                 playPF2e(data)
             } else if (!itemHasDamage(item)) {
                 playPF2e(data)
@@ -148,8 +175,18 @@ async function playPF2e(input) {
         debug("No Item could be found")
         return;
     }
+
+    if (input.item.traits) {
+        const reachTrait = input.item.traits.find((t) => /^reach-\d+$/.test(t));
+        let reachValue = reachTrait ? Number(reachTrait.replace("reach-", "")) : PF2E_SIZE_TO_REACH[input.item.actor?.size ?? "med"];
+        if (!reachTrait && input.item.traits.has("reach")) {
+            reachValue += 5;
+        }
+
+        input.reach = Math.round(reachValue / 5) - 1;
+    }
+
     const handler = await AAHandler.make(input)
-    if (!handler) { return; }
     trafficCop(handler);
 }
 /**
@@ -172,7 +209,7 @@ function spellHasAttack(item) {
     return getSpellType(item) === "attack"
 }
 function spellHasAOE(item) {
-    return item.system.area?.value && item.system.area?.areaType;
+    return item.system.area?.value && item.system.area?.type;
 }
 
 function findAttackOnItem(item) {
@@ -198,7 +235,7 @@ function findDamageOnItem(item) {
 }
 
 function itemHasDamage(item) {
-    let damage = item.system?.damage?.value || {};
+    let damage = item.system?.damage?.value || item.system?.damageRolls || {};
     return Object.keys(damage).length
 }
 
@@ -226,4 +263,3 @@ function checkOutcome(input) {
     }
     return hitTargets;
 }
-

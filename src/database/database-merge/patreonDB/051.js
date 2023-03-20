@@ -28,6 +28,7 @@ export async function db051(path) {
     const patreonDB051 = {
         range: {
             _template: 'ranged',
+            _free: [],
             weapon: {
                 boomerang: {
                     '01': {
@@ -45,7 +46,7 @@ export async function db051(path) {
                             '60ft': [lg`Weapon_Attacks/Ranged/Boomerang01_02_Regular_White_60ft_2800x400.webm`],
                             '90ft': [lg`Weapon_Attacks/Ranged/Boomerang01_02_Regular_White_90ft_4000x400.webm`]
                         }
-                    }    
+                    }
                 },
                 bullet: {
                     '1': {
@@ -103,7 +104,7 @@ export async function db051(path) {
                             '60ft': [lg`Weapon_Attacks/Ranged/Boomerang02_02_Regular_White_60ft_2800x400.webm`],
                             '90ft': [lg`Weapon_Attacks/Ranged/Boomerang02_02_Regular_White_90ft_4000x400.webm`]
                         }
-                    }    
+                    }
                 },
             },
             spell: {
@@ -117,10 +118,11 @@ export async function db051(path) {
                             '90ft': [l3`Fireball/FireballBeam_01_Dark_Green_90ft_4000x400.webm`]
                         }
                     },
-                },    
+                },
             },
         },
         templatefx: {
+            _free: [],
             circle: {
                 fireball: {
                     loop: {
@@ -132,7 +134,7 @@ export async function db051(path) {
                     nodebris: {
                         darkgreen: [l3`Fireball/FireballLoopNoDebris_01_Dark_Green_800x800.webm`],
                     },
-                },    
+                },
             },
             square: {
                 entangle: {
@@ -149,7 +151,7 @@ export async function db051(path) {
                     liquid: {
                         _markers: {
                             loop: { start: 2125, end: 6250 }
-                            },            
+                            },
                         grey: [
                             lg`Nature/GroupVineLiquid01_01_Regular_Grey_300x300.webm`,
                             lg`Nature/VineLiquid01_01_Regular_Grey_300x300.webm`,
@@ -188,7 +190,9 @@ export async function db051(path) {
             },
         },
         static: {
+            _free:['leaves', 'marker'],
             leaves: {
+                _free:['outburst'],
                 complete: {
                     '01': {
                         orangered: [lg`Nature/SwirlingLeavesComplete01_01_Regular_OrangeRed_400x400.webm`],
@@ -216,16 +220,18 @@ export async function db051(path) {
                         orangered: [lg`Nature/SwirlingLeavesLoop02_01_Regular_OrangeRed_400x400.webm`],
                         pink: [lg`Nature/SwirlingLeavesLoop02_01_Regular_Pink_400x400.webm`],
                     },
-                },    
+                },
                 outburst: {
+                    _free:['01'],
                     '01': {
+                        _free:['pink'],
                         purpleblue: [lg`Nature/SwirlingLeavesOutburst_01_01_Regular_BluePurple_400x400.webm`],
                         greenorange: [lg`Nature/SwirlingLeavesOutburst_01_01_Regular_GreenOrange_400x400.webm`],
                         orangered: [lg`Nature/SwirlingLeavesOutburst_01_01_Regular_OrangeRed_400x400.webm`],
                         pink: [lg`Nature/SwirlingLeavesOutburst_01_01_Regular_Pink_400x400.webm`],
                     }
                 },
-            },    
+            },
             magicsign: {
                 abjuration: {
                     complete: {
@@ -338,17 +344,20 @@ export async function db051(path) {
                         red: [lg`Magic_Signs/TransmutationCircleComplete_02_Regular_Red_800x800.webm`],
                         yellow: [lg`Magic_Signs/TransmutationCircleComplete_02_Regular_Yellow_800x800.webm`],
                     }
-                },    
+                },
             },
             marker: {
+                _free:['energystrand'],
                 energystrand: {
+                    _free:['02'],
                     '02': {
+                        _free:['purpleblue'],
                         purpleblue: [lg`Marker/EnergyStrands02_01_Regular_BluePurple_400x400.webm`],
                         green: [lg`Marker/EnergyStrands02_01_Regular_Green_400x400.webm`],
                         greenorange: [lg`Marker/EnergyStrands02_01_Regular_GreenOrange_400x400.webm`],
                         orangered: [lg`Marker/EnergyStrands02_01_Regular_OrangeRed_400x400.webm`],
                     }
-                },    
+                },
             },
             spell: {
                 entangle: {
@@ -369,14 +378,14 @@ export async function db051(path) {
                     nodebris: {
                         darkgreen: [l3`Fireball/FireballLoopNoDebris_01_Dark_Green_800x800.webm`],
                     },
-                },    
+                },
             },
             vines: {
                 complete: {
                     liquid: {
                         _markers: {
                             loop: { start: 2125, end: 6250 }
-                            },            
+                            },
                         grey: [
                             lg`Nature/GroupVineLiquid01_01_Regular_Grey_300x300.webm`,
                             lg`Nature/VineLiquid01_01_Regular_Grey_300x300.webm`,
@@ -416,6 +425,7 @@ export async function db051(path) {
         },
         return: {
             _template: 'ranged',
+            _free: [],
             weapon: {
                 boomerang: {
                     '01': {

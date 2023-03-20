@@ -18,7 +18,7 @@ export async function templatefx(handler, animationData, templateDocument) {
 
     const templateTypes = ['sphere', 'cylinder', 'radius']
 
-    let aaSeq = await new Sequence("Automated Animations")
+    let aaSeq = await new Sequence(handler.sequenceData)
 
     if ((data.options.persistent && data.options.persistType !== "attachtemplate") || !data.options.persistent) {
         aaSeq.thenDo(function () {
@@ -30,12 +30,11 @@ export async function templatefx(handler, animationData, templateDocument) {
 
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1" && !macro?.args?.warpgateTemplate) {
-        let userData = macro.args;
-        aaSeq.macro(macro.name, handler.workflow, handler, userData)
+        handler.complileMacroSection(aaSeq, macro)
     }
     // Extra Effects => Source Token if active
-    if (sourceFX.enable) {
-        aaSeq.addSequence(sourceFX.sourceSeq)
+    if (sourceFX) {
+        handler.compileSourceEffect(sourceFX, aaSeq)
     }
     // Primary Sound
     if (data.sound) {
@@ -137,68 +136,23 @@ export async function templatefx(handler, animationData, templateDocument) {
         aaSeq.wait(data.options.delay || 250)
     }
 
-    if (secondary && handler.allTargets.length) {
-        if (secondary.sound) {
-            aaSeq.addSequence(secondary.sound)
-        }
-        for (let i = 0; i < handler.allTargets.length; i++) {
-            let currentTarget = handler.allTargets[i]
-            let hit;
-            if (handler.playOnMiss) {
-                hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
-            } else {
-                hit = true;
-            }
-            let secondarySeq = aaSeq.effect()
-            secondarySeq.atLocation(currentTarget)
-            secondarySeq.file(secondary.path?.file, true)
-            secondarySeq.size(secondary.options.size * 2, { gridUnits: true })
-            secondarySeq.repeats(secondary.options.repeat, secondary.options.repeatDelay)
-            if (i === handler.allTargets.length - 1 && secondary.options.isWait && targetFX.enable) {
-                secondarySeq.waitUntilFinished(secondary.options.delay)
-            } else if (!secondary.options.isWait) {
-                secondarySeq.delay(secondary.options.delay)
-            }
-            secondarySeq.elevation(handler.elevation(currentTarget, secondary.options.isAbsolute, secondary.options.elevation), {absolute: secondary.options.isAbsolute})
-            secondarySeq.zIndex(secondary.options.zIndex)
-            secondarySeq.opacity(secondary.options.opacity)
-            secondarySeq.fadeIn(secondary.options.fadeIn)
-            secondarySeq.fadeOut(secondary.options.fadeOut)
-            if (secondary.options.rotateSource && sourceToken) {
-                secondarySeq.rotateTowards(sourceToken)
-                secondarySeq.rotate(180)    
-            }    
-            if (secondary.options.isMasked) {
-                secondarySeq.mask(currentTarget)
-            }
-            secondarySeq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
-            secondarySeq.playbackRate(secondary.options.playbackRate)
-        }
-    }
-
-    if (handler.allTargets.length && targetFX.enable) {
-        for (let target of handler.allTargets) {
-            let targetSequence = handler.buildTargetSeq(targetFX, target);
-            aaSeq.addSequence(targetSequence.targetSeq)
-        }
+    if (secondary) {
+        handler.compileSecondaryEffect(secondary, aaSeq, handler.allTargets, targetFX.enable, false)
+    }    
+    if (targetFX) {
+        handler.compileTargetEffect(targetFX, aaSeq, handler.allTargets, false)
     }
 
     if (macro && macro.playWhen === "0" && !macro?.args?.warpgateTemplate) {
-        let userData = macro.args;
-        new Sequence()
-            .macro(macro.name, handler.workflow, handler, userData)
-            .play()
+        handler.runMacro(macro)
     }
 
-    aaSeq.play()
-
-    // Macro if Awaiting Animation
+    // Macro if Awaiting Animation. This will respect the Delay/Wait options in the Animation chains
     if (macro && macro.playWhen === "3") {
-        let userData = macro.args;
-        new Sequence()
-            .macro(macro.name, handler.workflow, handler, userData)
-            .play()
+        handler.complileMacroSection(aaSeq, macro)
     }
+    
+    aaSeq.play()
     
     if (data.options.persistent) {
         switch (data.options.persistType) {
@@ -232,6 +186,10 @@ export async function templatefx(handler, animationData, templateDocument) {
         seq.playbackRate(data.options.playbackRate)
         seq.name(handler.rinsedName)
         seq.aboveLighting(data.options.aboveTemplate)
+        if (data.options.tint) {
+            seq.tint(data.options.tintColor)
+            seq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+        }
         function convertToXY(input) {
             let menuType = data.video.menuType;
             let templateType = template.t;
@@ -257,7 +215,7 @@ export async function templatefx(handler, animationData, templateDocument) {
             alpha: data.options.opacity,
             width: tileWidth,
             height: tileHeight,
-            img: data.path.fileData,
+            img: data.path.filePath,
             overhead: isOverhead, // false sets Tile in canvas.background. true sets Tile to canvas.foreground
             occlusion: {
                 alpha: `${data.options.occlusionAlpha}`,

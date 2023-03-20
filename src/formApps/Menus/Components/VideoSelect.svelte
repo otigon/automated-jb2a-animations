@@ -14,27 +14,24 @@
  
     let { animation, category, idx } = getContext('animation-data');
 
+    function typeUpdate() {
+        $animation[section][section02].animation = category.animationMenu[$animation[section][section02].dbSection][$animation[section][section02].menuType][0][0];
+        $animation[section][section02].variant = category.variantMenu[$animation[section][section02].dbSection][$animation[section][section02].menuType][$animation[section][section02].animation][0][0];
+        $animation[section][section02].color = category.colorMenu[$animation[section][section02].dbSection][$animation[section][section02].menuType][$animation[section][section02].animation][$animation[section][section02].variant][0][0];
+    }
+    function animationUpdate() {
+        $animation[section][section02].variant = category.variantMenu[$animation[section][section02].dbSection][$animation[section][section02].menuType][$animation[section][section02].animation][0][0];
+        $animation[section][section02].color = category.colorMenu[$animation[section][section02].dbSection][$animation[section][section02].menuType][$animation[section][section02].animation][$animation[section][section02].variant][0][0];
+    }
+    function variantUpdate() {
+        $animation[section][section02].color = category.colorMenu[$animation[section][section02].dbSection][$animation[section][section02].menuType][$animation[section][section02].animation][$animation[section][section02].variant][0][0];
+    }
+
     $: dbSection = $animation[section][section02].dbSection;
     $: menuType = $animation[section][section02].menuType;
     $: anim = $animation[section][section02].animation;
     $: variant = $animation[section][section02].variant;
 
-/*
-                <label
-                for=""
-                on:click={() => category.databaseToClipboard(section, idx, section02, dbSection)}
-                style="align-self: center; position:relative; bottom: -10px;font-size:large;"
-                title="Copy Database Path"
-                >{localize("autoanimations.menus.copy")} DB {localize(
-                    "autoanimations.menus.path"
-                )}
-                <i
-                    class="fas fa-database aa-zoom aa-blue aa-disableOpacity"
-                /></label
-                >
-                <div id="clipboard" />
-
-*/
 </script>
 
 <SectionHeader {title} />
@@ -52,7 +49,9 @@
                     <select
                         bind:value={$animation[section][section02].menuType}
                         on:change={async () =>
-                            await category.menuTypeChange(section, idx, section02, dbSection)}
+                            //await category.menuTypeChange(section, idx, section02, dbSection)
+                            typeUpdate()
+                        }       
                     >
                         {#each category.typeMenu[$animation[section][section02].dbSection] ?? [] as [key, name]}
                             <option value={key}>{name}</option>
@@ -73,7 +72,9 @@
                     <select
                         bind:value={$animation[section][section02].animation}
                         on:change={async () =>
-                            await category.animationChange(section, idx, section02, dbSection)}
+                                //await category.animationChange(section, idx, section02, dbSection)
+                                animationUpdate()
+                            }
                     >
                         {#each category.animationMenu[dbSection]?.[menuType] ?? [] as [key, name]}
                             <option value={key}>{name}</option>
@@ -90,7 +91,9 @@
                     <select
                         bind:value={$animation[section][section02].variant}
                         on:change={async () =>
-                            await category.variantChange(section, idx, section02, dbSection)}
+                                //await category.variantChange(section, idx, section02, dbSection)
+                                variantUpdate()
+                            }
                     >
                         {#each category.variantMenu[dbSection]?.[menuType]?.[anim] ?? [] as [key, name]}
                             <option value={key}>{name}</option>

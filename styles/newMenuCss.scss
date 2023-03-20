@@ -18,7 +18,8 @@
         --tjs-icon-button-background: rgba(0, 0, 0, 0.1);
         --tjs-icon-button-background-hover: rgba(0, 0, 0, 0.15);
         --tjs-icon-button-background-selected: rgba(0, 0, 0, 0.2);
-
+        --tjs-folder-summary-margin: 0 0 0 0.2em;
+        --tjs-folder-summary-width: 98%;
         // This is how you style the action ripple background!
         //--tjs-action-ripple-background: linear-gradient(64.5deg, rgba(245, 116, 185, 1) 40%, rgba(89, 97, 223, 1) 60% );
     }
@@ -288,6 +289,7 @@
 .aa-section-border {
     margin-right: 3%;
     margin-left: 3%;
+    //padding-left: 8px;
     border: 1px solid rgba(109, 109, 109, 0.6);
     border-radius: 5px;
     background: rgb(200 200 200);
@@ -297,9 +299,20 @@
 .aa-sound-border {
     margin-right: 3%;
     margin-left: 3%;
+    //padding-left: 8px;
     border: 1px solid rgba(109, 109, 109, 0.75);
     border-radius: 5px;
     background: rgba(207, 171, 112, 0.09);
+    margin-bottom: 5px;
+}
+
+.aa-effect-border {
+    margin-right: 3%;
+    margin-left: 3%;
+    border: 1px solid rgba(109, 109, 109, 0.75);
+    border-radius: 5px;
+    background: rgba(207, 171, 112, 0.09);
+    padding: 2px;
     margin-bottom: 5px;
 }
 

@@ -8,9 +8,9 @@ export async function teleportation(handler, animationData) {
     //const sourceFX = animationData.sourceFX;
 
 
-    const startFile = await buildFile(true, data.start.menuType, data.start.animation, "static", data.start.variant, data.start.color, data.start.customPath);
-    const endFile = await buildFile(true, data.end.menuType, data.end.animation, "static", data.end.variant, data.end.color, data.end.customPath);
-    const betweenFile = await buildFile(false, data.between.menuType, data.between.animation, "range", data.between.variant, data.between.color, data.between.customPath);
+    const startFile = await buildFile("static", data.start, data.start.customPath);
+    const endFile = await buildFile("static", data.end, data.end.customPath);
+    const betweenFile = await buildFile("range", data.between, data.between.customPath);
 
     let sourceTokenGS = (sourceToken.w ? (sourceToken.w / canvas.grid.size ) : sourceToken.width;
 
@@ -18,33 +18,42 @@ export async function teleportation(handler, animationData) {
     let gmIDs = Array.from(game.users).filter(i => i.isGM).map(user => user.id)
 
     const hideBorder = data.options.hideFromPlayers ? gmIDs : userIDs;
-    const userColor = game.user?.color ? "0x" + game.user.color.replace(/^#/, '') : 0x0D26FF;
-    const filePath = data.options.measureType === 'equidistant' ? "modules/autoanimations/animationPNG/teleportSquare.png" : "modules/autoanimations/animationPNG/teleportCircle.png"
+    //const userColor = game.user?.color ? "0x" + game.user.color.replace(/^#/, '') : 0x0D26FF;
+    //const filePath = data.options.measureType === 'equidistant' ? "modules/autoanimations/animationPNG/teleportSquare.png" : "modules/autoanimations/animationPNG/teleportCircle.png"
 
     const delayFade = data.options.delayFade || 0;
     const delayReturn = data.options.delayReturn || 0;
+    
+    const borderSize = (sourceTokenGS / canvas.grid.size) + 0.5 + (data.options.range / canvas.dimensions.distance);
 
-    let aaSeq01 = await new Sequence()
-    aaSeq01.effect()
-        .file(filePath)
-        .atLocation(sourceToken)
-        .size(((sourceTokenGS / canvas.grid.size) + 0.5 + (data.options.range / canvas.dimensions.distance)) * 2, { gridUnits: true })
+    const borderType = data.options.measureType === "equidistant" ? "roundedRect" : "circle";
+    const borderLocation = borderType === "circle" ? {} : {offset: {x: -borderSize, y: -borderSize}, gridUnits: true};
+    const borderData = {
+        lineSize: 4,
+        lineColor: game.user.color,
+        radius: borderType === "circle" ? borderSize : .25,
+        width: borderSize * 2,
+        height: borderSize * 2,
+        gridUnits: true,
+        name: "teleBorder"
+    }
+
+    let borderSeq = await new Sequence(handler.sequenceData)
+    let borderEffect = borderSeq.effect()
         .fadeIn(500)
-        .scaleIn(0, 500)
+        .persist()
         .fadeOut(500)
-        .name("teleportation")
+        .atLocation(sourceToken, borderLocation)
+        .shape(borderType, borderData)
         .elevation(sourceToken?.document?.elevation - 1)
-        .persist(true)
-        .opacity(0.5)
-        .filter("Glow", {
-            distance: 10,
-            outerStrength: 5,
-            innerStrength: 5,
-            color: userColor,
-            quality: 0.2,
-        })
         .forUsers(hideBorder)
-    aaSeq01.play()
+        .name("teleportation")
+        .opacity(0.75)
+    if (borderType === "circle") {
+        borderEffect.loopProperty("shapes.teleBorder", "scale.x", { from: 0.98, to: 1.02, duration: 1500, pingPong: true, ease: "easeInOutSine" })
+        borderEffect.loopProperty("shapes.teleBorder", "scale.y", { from: 0.98, to: 1.02, duration: 1500, pingPong: true, ease: "easeInOutSine" })    
+    }
+    borderSeq.play()
 
     let pos;
     canvas.app.stage.addListener('pointerdown', event => {
@@ -55,12 +64,24 @@ export async function teleportation(handler, animationData) {
 
         if (canvas.grid.measureDistance(sourceToken, { x: topLeft[0], y: topLeft[1] }, { gridSpaces: true }) <= data.options.range) {
             //console.log(canvas.grid.measureDistance(sourceToken, { x: topLeft[0], y: topLeft[1] }, {gridSpaces: true}))
-            deleteTemplatesAndMove();
-            canvas.app.stage.removeListener('pointerdown');
+            if (data.options.checkCollision && testCollision(pos)) {
+                ui.notifications.error("Your Path is Blocked!! Try Again")
+            } else {
+                deleteTemplatesAndMove();
+                canvas.app.stage.removeListener('pointerdown');    
+            }
         } else {
             ui.notifications.error(game.i18n.format("autoanimations.settings.teleport"))
         }
     });
+
+    function testCollision(pos) {
+        let pointerCenter = {
+            x: canvas.grid.getCenter(pos.x, pos.y)[0],
+            y: canvas.grid.getCenter(pos.x, pos.y)[1],
+        };
+        return sourceToken.checkCollision(pointerCenter)
+    }
 
     async function deleteTemplatesAndMove() {
 
@@ -74,12 +95,11 @@ export async function teleportation(handler, animationData) {
 
         Sequencer.EffectManager.endEffects({ name: "teleportation" })
 
-        let aaSeq = new Sequence();
+        let aaSeq = new Sequence(handler.sequenceData);
 
         // Play Macro if Awaiting
         if (macro && macro.playWhen === "1" && !macro?.args?.warpgateTemplate) {
-            let userData = macro.args;
-            aaSeq.macro(macro.name, handler.workflow, handler, userData)
+            handler.complileMacroSection(aaSeq, macro)
         }
 
         let startX = sourceToken.center?.x;
@@ -168,21 +188,15 @@ export async function teleportation(handler, animationData) {
 
         // Macro if Concurrent
         if (macro && macro.playWhen === "0" && !macro?.args?.warpgateTemplate) {
-            let userData = macro.args;
-            new Sequence()
-                .macro(macro.name, handler.workflow, handler, userData)
-                .play()
+            handler.runMacro(macro)
+        }
+
+        // Macro if Awaiting Animation. This will respect the Delay/Wait options in the Animation chains
+        if (macro && macro.playWhen === "3") {
+            handler.complileMacroSection(aaSeq, macro)
         }
 
         aaSeq.play()
-
-        // Macro if Awaiting Animation
-        if (macro && macro.playWhen === "3") {
-            let userData = macro.args;
-            new Sequence()
-                .macro(macro.name, handler.workflow, handler, userData)
-                .play()
-        }
 
     };
 }

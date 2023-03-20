@@ -1,35 +1,32 @@
 import { flagMigrations } from "../mergeScripts/items/itemFlagMerge.js";
 import { AAAutorecFunctions } from "../aa-classes/aaAutorecFunctions.js";
+import { debug } from "../constants/constants.js";
 
 export async function handleItem(data) {
+
     // GTFO if no Item was sent
     if (!data.item) { return; };
 
-    // Check item Flags
-    let itemCheck = await checkItem(data);
+    const item = data.item;
+    const itemName = !data.activeEffect || game.system.id === "pf2e" ? item.name : item.label;
+    const rinsedItemName = itemName ? AAAutorecFunctions.rinseName(itemName) : "noitem";
 
-    // If Item is Disabled return false
-    // If Item is customized return those flags
-    if (!itemCheck.isEnabled) {
-        return false;
-    } else if (itemCheck.isEnabled && itemCheck.isCustomized) {
-        return itemCheck.itemFlags
-    }
-
-    // Check Global Automatic Recognition menus for a match
-    // If no match, return false
-    let autorecCheck = checkAutorec(data)
-    if (!autorecCheck) {
-        return false;
-    } else {
-        return autorecCheck
-    }
-}
-
-function checkAutorec(data) {
-    const item = data.item
     const ammoItem = data.ammoItem;
-    let autorecSettings = {
+    const rinsedAmmoName = ammoItem?.name ? AAAutorecFunctions.rinseName(ammoItem.name) : "";
+
+    // Send Item thru Flag Merge
+    const itemFlags = await flagMigrations.handle(data.item, {activeEffect: data.activeEffect}) || {};
+    const itemIsEnabled = !!itemFlags.killAnim ? false : itemFlags.isEnabled ?? true;
+    if (!itemIsEnabled) { return false}
+    // If Item has Ammunition send it thru the Flag Merge
+    const ammoFlags = ammoItem ? await flagMigrations.handle(ammoItem, {activeEffect: data.activeEffect}) || {isEnabled: true} : null;
+    
+    let autorecDisabled = game.settings.get("autoanimations", "disableAutoRec");
+    if (autorecDisabled) {
+        debug("Global Automatic Recognition menu is Disabled from the Module Settings");
+    }
+
+    const autorecSettings = {
         melee: game.settings.get("autoanimations", "aaAutorec-melee"),
         range: game.settings.get("autoanimations", "aaAutorec-range"),
         ontoken: game.settings.get("autoanimations", "aaAutorec-ontoken"),
@@ -39,62 +36,56 @@ function checkAutorec(data) {
         aefx: game.settings.get("autoanimations", "aaAutorec-aefx"),
     }
 
-    // Get the Item name, remove special characters and toLowerCase 
-    let itemName = !data.activeEffect || game.system.id === "pf2e" ? item.name : item.label;
+    let menus = AAAutorecFunctions.sortAndFilterMenus(autorecSettings);
 
-    let rinsedAmmoName = ammoItem?.name ? AAAutorecFunctions.rinseName(ammoItem.name) : "";
-    let rinsedName = itemName ? AAAutorecFunctions.rinseName(itemName) : "noitem";
-
-    // Check certain menus based on inputs
     let autorecObject;
+
+    // If Item has Ammo, search for matching animations. If found, return it, otherwise keep going
+    if (ammoItem && ammoFlags.isEnabled) {
+        if (ammoFlags.isCustomized) {
+            return ammoFlags;
+        } else if (!autorecDisabled) {
+            autorecObject = AAAutorecFunctions.allMenuSearch(menus, rinsedAmmoName, ammoItem?.name || "");
+        }
+        if (autorecObject) { return autorecObject }
+    } 
+    
     if (data.activeEffect) {
-        autorecObject = AAAutorecFunctions.singleMenuSearch(autorecSettings.aefx, rinsedName);
+        if (itemFlags.isCustomized) {
+            return itemFlags
+        } else if (!autorecDisabled) {
+            autorecObject = AAAutorecFunctions.singleMenuSearch(autorecSettings.aefx, rinsedItemName, itemName);
+            return autorecObject;
+        }
     } else {
-        if (rinsedAmmoName) {
-            autorecObject = AAAutorecFunctions.allMenuSearch(autorecSettings, rinsedAmmoName);
-            if (!autorecObject) {
-                autorecObject = AAAutorecFunctions.allMenuSearch(autorecSettings, rinsedName);
-            }
-        } else {
-            autorecObject = AAAutorecFunctions.allMenuSearch(autorecSettings, rinsedName);
+        if (itemFlags.isCustomized) {
+            return itemFlags;
+        } else if (!autorecDisabled) {
+            autorecObject = AAAutorecFunctions.allMenuSearch(menus, rinsedItemName, itemName);
             if (!autorecObject && data.extraNames?.length && !data.activeEffect) {
                 for (const name of data.extraNames) {
+                    if (!name) { continue }
                     const rinsedName = AAAutorecFunctions.rinseName(name);
-                    autorecObject = AAAutorecFunctions.allMenuSearch(autorecSettings, rinsedName);
+                    autorecObject = AAAutorecFunctions.allMenuSearch(menus, rinsedName, itemName);
                     if (autorecObject) {
                         data.rinsedName = rinsedName;
                         break;
                     }
                 }
             }
-        }
+        }    
     }
-    if (autorecObject && data.isTemplate) {
+    
+    if (autorecObject && data.isTemplate && !autorecDisabled) {
         let data = autorecObject;
         if (data.menu === "range" || data.menu === "melee" || data.menu === "ontoken") {
-            autorecObject = AAAutorecFunctions.singleMenuSearch(autorecSettings.templatefx, rinsedName);
+            autorecObject = AAAutorecFunctions.singleMenuSearch(autorecSettings.templatefx, rinsedItemName, itemName);
         }
+    } else if ( data.isVariant && !autorecObject && data.isTemplate && !autorecDisabled) {
+        // For use with Variant spell casting, based off PF2e. If the variant name is not found in the Global menu, it looks for one matching the original name
+        let newItemName = input.originalItem?.name;
+        let newRinsedName = newItemName ? AAAutorecFunctions.rinseName(newItemName) : "noitem";
+        autorecObject = AAAutorecFunctions.allMenuSearch(menus, newRinsedName, newItemName);
     }
     return autorecObject;
-}
-
-async function checkItem(data) {
-    // Send the Item thru the flag migrations if necessary. Returns early if no A-A flags
-    const itemFlags = await flagMigrations.handle(data.item, {activeEffect: data.activeEffect}) || {};
-
-    let isEnabled = itemFlags.isEnabled ?? true;
-    // If Item is disabled, return false
-    if (!isEnabled) { return false }
-
-    // Check if the item is customized
-    let isCustomized = data.activeEffect
-        ? itemFlags.isCustomized && itemFlags.activeEffectType ? true : false
-        : itemFlags.isCustomized && itemFlags.menu ? true : false;
-    
-    // Return the Item Flags, Enabled and Customized
-    return {
-        isEnabled,
-        isCustomized,
-        itemFlags,
-    }
 }

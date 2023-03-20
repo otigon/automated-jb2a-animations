@@ -1,7 +1,4 @@
-
-export function parseChatMessage(msg) {
-
-}
+import { aaDeletedItems } from "../deletedItems";
 
 export async function getRequiredData(data) {
     //let {item, itemId, itemUuid, itemName, token, tokenId, tokenUuid, targets, actorId, actor} = data;
@@ -50,16 +47,20 @@ async function getItem(data) {
             : itemId && (actorId || actor)
             ? await getItemFromCompiledUuid(itemId, actor, actorId)
             : itemId
-            ? getItemFromIdBlind(itemId)
+            ? checkDeletedItems(itemId) || getItemFromIdBlind(itemId)
             : null
 }
 async function getItemFromUuid(uuid) {
-    return fromUuid(uuid);
+    return await fromUuid(uuid) || checkDeletedItems(uuid)
+}
+function checkDeletedItems(id) {
+    let idSplit = id.split('.');
+    return aaDeletedItems.get(idSplit[idSplit.length - 1]) || false;
 }
 // TO-DO: This can return null in some instances, follow up 
 async function getItemFromCompiledUuid(itemId, actor, actorId) {
     const idActor = actor ? actor.id : actorId;
-    return fromUuid(`Actor.${idActor}.Item.${itemId}`);
+    return await fromUuid(`Actor.${idActor}.Item.${itemId}`);
 }
 function getItemFromToken(token, itemId) {
     return token.actor?.items?.get(itemId)
@@ -82,7 +83,7 @@ function getItemFromIdBlind(id) {
     for (let token of canvas.tokens.placeables) {
         let items = Array.from(token.actor.items);
         let foundItem = items.find(c => c.id === id);
-        if (foundItem) { return foundItem}
+        if (foundItem) { return foundItem || false}
     }
 }
 
@@ -119,6 +120,7 @@ function getTokenFromCompiledUuid(id) {
 function getTokenFromActor(actor, actorId) {
     let idActor = actor ? actor.id : actorId;
     let foundActor = fromUuidSync(idActor);
+    if (!foundActor) { return null }
     let token = foundActor.getActiveTokens();
     return Array.isArray(token) ? token[0] : token;
 }

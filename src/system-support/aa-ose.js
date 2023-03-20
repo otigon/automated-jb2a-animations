@@ -1,11 +1,10 @@
 import { trafficCop }       from "../router/traffic-cop.js"
 import AAHandler            from "../system-handlers/workflow-data.js";
-import { AnimationState }   from "../AnimationState.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
 export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => {
-        if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
+        if (msg.user.id !== game.user.id) { return };
 
         let compiledData = await getRequiredData({
             itemId: msg.flags?.ose?.itemId,
@@ -19,9 +18,6 @@ export function systemHooks() {
 
 async function runOse(input) {
     const handler = await AAHandler.make(input);
-    if (!handler) { return; }
-    if (!handler.item) {
-        return;
-    }
+    if (!handler?.item) { return; }
     trafficCop(handler);
 }

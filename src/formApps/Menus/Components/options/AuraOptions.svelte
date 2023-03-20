@@ -32,7 +32,8 @@
             left: "10px",
             bottom: "-2px",
             color: "rgba(50, 79, 245, 0.5)"
-        }
+        },
+        onClickPropagate: false
     }
 
 </script>
@@ -52,7 +53,7 @@
                     <!--Set Visibility Binding-->
                     <div>
                         <label for="Vis {animation._data.id}"
-                            >{localize("autoanimations.menus.unbind")} {localize("autoanimations.menus.visibility")}
+                            >{localize("autoanimations.menus.bind")} {localize("autoanimations.menus.visibility")}
                         </label>
                         <input
                             type="checkbox"
@@ -65,7 +66,7 @@
                     <!--Set Alpha Binding-->
                     <div>
                         <label for="Alpha {animation._data.id}"
-                            >{localize("autoanimations.menus.unbind")} {localize("autoanimations.menus.alpha")}
+                            >{localize("autoanimations.menus.bind")} {localize("autoanimations.menus.alpha")}
                         </label>
                         <input
                             type="checkbox"

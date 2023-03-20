@@ -23,16 +23,15 @@ export async function range(handler, animationData) {
             returnDelay = 1500;
     }
 
-    let aaSeq = await new Sequence("Automated Animations")
+    let aaSeq = await new Sequence(handler.sequenceData)
 
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1") {
-        let userData = macro.args;
-        aaSeq.macro(macro.name, handler.workflow, handler, userData)
+        handler.complileMacroSection(aaSeq, macro)
     }
     // Extra Effects => Source Token if active
-    if (sourceFX.enable) {
-        aaSeq.addSequence(sourceFX.sourceSeq)
+    if (sourceFX) {
+        handler.compileSourceEffect(sourceFX, aaSeq)
     }
     // Primary Sound
     if (data.sound) {
@@ -75,7 +74,10 @@ export async function range(handler, animationData) {
         nextSeq.name("spot" + ` ${currentTarget.id}`)
         nextSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
         nextSeq.zIndex(data.options.zIndex)
-
+        if (data.options.tint) {
+            nextSeq.tint(data.options.tintColor)
+            nextSeq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+        }    
         if (i === handler.allTargets.length - 1 && data.options.isWait) {
             nextSeq.waitUntilFinished(data.options.delay)
         } else if (!data.options.isWait) {
@@ -90,90 +92,40 @@ export async function range(handler, animationData) {
             let currentTarget = handler.allTargets[i]
 
             let returnSeq = aaSeq.effect()
-            returnSeq.file(data.path.returnFile, true)
+            returnSeq.file(data.path.returnFile)
             returnSeq.opacity(data.options.opacity)
             returnSeq.atLocation(sourceToken)
             returnSeq.repeats(data.options.repeat, data.options.repeatDelay)
             returnSeq.stretchTo("spot" + ` ${currentTarget.id}`)
             returnSeq.zIndex(data.options.zIndex)
             returnSeq.playbackRate(data.options.playbackRate)
+            if (data.options.tint) {
+                returnSeq.tint(data.options.tintColor)
+                returnSeq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+            }
         }
     }
 
     // secondary animation and sound
     if (secondary) {
-        if (secondary.sound) {
-            aaSeq.addSequence(secondary.sound)
-        }
-        for (let i = 0; i < handler.allTargets.length; i++) {
-            let currentTarget = handler.allTargets[i]
-            let hit;
-            if (handler.playOnMiss) {
-                hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
-            } else {
-                hit = true;
-            }
-            let secondarySeq = aaSeq.effect()
-            secondarySeq.atLocation("spot" + ` ${currentTarget.id}`)
-            secondarySeq.file(secondary.path?.file, true)
-            secondarySeq.size(secondary.options.size * 2, { gridUnits: true })
-            secondarySeq.repeats(secondary.options.repeat, secondary.options.repeatDelay)
-            if (i === handler.allTargets.length - 1 && secondary.options.isWait && targetFX.enable) {
-                secondarySeq.waitUntilFinished(secondary.options.delay)
-            } else if (!secondary.options.isWait) {
-                secondarySeq.delay(secondary.options.delay)
-            }
-            secondarySeq.elevation(handler.elevation(currentTarget, secondary.options.isAbsolute, secondary.options.elevation), {absolute: secondary.options.isAbsolute})
-            secondarySeq.zIndex(secondary.options.zIndex)
-            secondarySeq.opacity(secondary.options.opacity)
-            secondarySeq.fadeIn(secondary.options.fadeIn)
-            secondarySeq.fadeOut(secondary.options.fadeOut)
-            if (secondary.options.rotateSource) {
-                secondarySeq.rotateTowards(sourceToken)
-                secondarySeq.rotate(180)    
-            }
-            if (secondary.options.isMasked) {
-                secondarySeq.mask(currentTarget)
-            }
-            secondarySeq.anchor({x: secondary.options.anchor.x, y: secondary.options.anchor.y})
-            secondarySeq.playbackRate(secondary.options.playbackRate)
-        }
+        handler.compileSecondaryEffect(secondary, aaSeq, handler.allTargets, targetFX.enable, true)
     }
-    // Target animation and sound
-    if (targetFX.enable) {
-        if (targetFX.sound) {
-            aaSeq.addSequence(targetFX.sound)
-        }
-        for (let currentTarget of handler.allTargets) {
-            let hit;
-            if (handler.playOnMiss) {
-                hit = handler.hitTargetsId.includes(currentTarget.id) ? true : false;
-            } else {
-                hit = true;
-            }
-            if (hit) {
-                let targetSequence = handler.buildTargetSeq(targetFX, currentTarget);
-                aaSeq.addSequence(targetSequence.targetSeq)
-            }
-        }
+    if (targetFX) {
+        handler.compileTargetEffect(targetFX, aaSeq, handler.allTargets, true)
     }
+
     // Macro if Concurrent
     if (macro && macro.playWhen === "0") {
-        let userData = macro.args;
-        new Sequence()
-            .macro(macro.name, handler.workflow, handler, userData)
-            .play()
+        handler.runMacro(macro)
     }
+
+    // Macro if Awaiting Animation. This will respect the Delay/Wait options in the Animation chains
+    if (macro && macro.playWhen === "3") {
+        handler.complileMacroSection(aaSeq, macro)
+    }
+    
     aaSeq.play()
     await wait(handler.animEnd)
-
-    // Macro if Awaiting Animation
-    if (macro && macro.playWhen === "3") {
-        let userData = macro.args;
-        new Sequence()
-            .macro(macro.name, handler.workflow, handler, userData)
-            .play()
-    }
 
     // Animation End Hook
     Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)

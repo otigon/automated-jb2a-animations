@@ -2226,11 +2226,11 @@ export async function initializeJB2APatreonDB(path) {
                         '90ft': [lg`Energy/EnergyConduitCircle_01_Regular_BluePurple_90ft_4000x400.webm`],
                     },
                     greenyellow: {
-                        '05ft': [lg`Energy/EnergyConduitSquare_01_Regular_GreenYellow_05ft_600x400.webm`],
-                        '15ft': [lg`Energy/EnergyConduitSquare_01_Regular_GreenYellow_15ft_1000x400.webm`],
-                        '30ft': [lg`Energy/EnergyConduitSquare_01_Regular_GreenYellow_30ft_1600x400.webm`],
-                        '60ft': [lg`Energy/EnergyConduitSquare_01_Regular_GreenYellow_60ft_2800x400.webm`],
-                        '90ft': [lg`Energy/EnergyConduitSquare_01_Regular_GreenYellow_90ft_4000x400.webm`],
+                        '05ft': [lg`Energy/EnergyConduitCircle_01_Regular_GreenYellow_05ft_600x400.webm`],
+                        '15ft': [lg`Energy/EnergyConduitCircle_01_Regular_GreenYellow_15ft_1000x400.webm`],
+                        '30ft': [lg`Energy/EnergyConduitCircle_01_Regular_GreenYellow_30ft_1600x400.webm`],
+                        '60ft': [lg`Energy/EnergyConduitCircle_01_Regular_GreenYellow_60ft_2800x400.webm`],
+                        '90ft': [lg`Energy/EnergyConduitCircle_01_Regular_GreenYellow_90ft_4000x400.webm`],
                     },
                 },
             },
@@ -5472,16 +5472,19 @@ export async function initializeJB2APatreonDB(path) {
             },
             vortex: {
                 loop: {
+                    black: [lg`Template/Circle/Vortex_01_Dark_Black_600x600.webm`],
                     blue: [lg`Template/Circle/Vortex_01_Regular_Blue_600x600.webm`],
                     green: [lg`Template/Circle/Vortex_01_Regular_Green_600x600.webm`],
                     purple: [lg`Template/Circle/Vortex_01_Regular_Purple_600x600.webm`]
                 },
                 intro: {
+                    black: [lg`Template/Circle/VortexIntro_01_Dark_Black_600x600.webm`],
                     blue: [lg`Template/Circle/VortexIntro_01_Regular_Blue_600x600.webm`],
                     green: [lg`Template/Circle/VortexIntro_01_Regular_Green_600x600.webm`],
                     purple: [lg`Template/Circle/VortexIntro_01_Regular_Purple_600x600.webm`]
                 },
                 outro: {
+                    black: [lg`Template/Circle/VortexOutro_01_Dark_Black_600x600.webm`],
                     blue: [lg`Template/Circle/VortexOutro_01_Regular_Blue_600x600.webm`],
                     green: [lg`Template/Circle/VortexOutro_01_Regular_Green_600x600.webm`],
                     purple: [lg`Template/Circle/VortexOutro_01_Regular_Purple_600x600.webm`]
@@ -5672,6 +5675,30 @@ export async function initializeJB2APatreonDB(path) {
                     purple: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Purple_800x800.webm`],
                     red: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Red_800x800.webm`],
                     yellow: [lg`Magic_Signs/AbjurationCircleLoop_02_Regular_Yellow_800x800.webm`],
+                },
+                "runeintro": {
+                  blue: [lg`Magic_Signs/Runes/AbjurationRuneIntro_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/AbjurationRuneIntro_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/AbjurationRuneIntro_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/AbjurationRuneIntro_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/AbjurationRuneIntro_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/AbjurationRuneIntro_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeloop": {
+                  blue: [lg`Magic_Signs/Runes/AbjurationRuneLoop_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/AbjurationRuneLoop_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/AbjurationRuneLoop_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/AbjurationRuneLoop_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/AbjurationRuneLoop_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/AbjurationRuneLoop_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeoutro": {
+                  blue: [lg`Magic_Signs/Runes/AbjurationRuneOutro_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/AbjurationRuneOutro_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/AbjurationRuneOutro_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/AbjurationRuneOutro_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/AbjurationRuneOutro_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/AbjurationRuneOutro_01_Regular_Yellow_400x400.webm`]
                 }
             },
             conjuration: {
@@ -5685,6 +5712,30 @@ export async function initializeJB2APatreonDB(path) {
                     purple: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Purple_800x800.webm`],
                     red: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Red_800x800.webm`],
                     yellow: [lg`Magic_Signs/ConjurationCircleLoop_02_Regular_Yellow_800x800.webm`],
+                },
+                "runeintro": {
+                  blue: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/ConjurationRuneIntro_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeloop": {
+                  blue: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/ConjurationRuneLoop_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeoutro": {
+                  blue: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/ConjurationRuneOutro_01_Regular_Yellow_400x400.webm`]
                 }
             },
             divination: {
@@ -5698,6 +5749,30 @@ export async function initializeJB2APatreonDB(path) {
                     purple: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Purple_800x800.webm`],
                     red: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Red_800x800.webm`],
                     yellow: [lg`Magic_Signs/DivinationCircleLoop_02_Regular_Yellow_800x800.webm`],
+                },
+                "runeintro": {
+                  blue: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/DivinationRuneIntro_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeloop": {
+                  blue: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/DivinationRuneLoop_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeoutro": {
+                  blue: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/DivinationRuneOutro_01_Regular_Yellow_400x400.webm`]
                 }
             },
             enchantment: {
@@ -5708,6 +5783,30 @@ export async function initializeJB2APatreonDB(path) {
                     purple: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Purple_800x800.webm`],
                     red: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Red_800x800.webm`],
                     yellow: [lg`Magic_Signs/EnchantmentCircleLoop_02_Regular_Yellow_800x800.webm`],
+                },
+                "runeintro": {
+                  blue: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/EnchantmentRuneIntro_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeloop": {
+                  blue: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/EnchantmentRuneLoop_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeoutro": {
+                  blue: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/EnchantmentRuneOutro_01_Regular_Yellow_400x400.webm`]
                 }
             },
             evocation: {
@@ -5718,6 +5817,30 @@ export async function initializeJB2APatreonDB(path) {
                     purple: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Purple_800x800.webm`],
                     red: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Red_800x800.webm`],
                     yellow: [lg`Magic_Signs/EvocationCircleLoop_02_Regular_Yellow_800x800.webm`],
+                },
+                "runeintro": {
+                  blue: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/EvocationRuneIntro_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeloop": {
+                  blue: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/EvocationRuneLoop_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeoutro": {
+                  blue: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/EvocationRuneOutro_01_Regular_Yellow_400x400.webm`]
                 }
             },
             illusion: {
@@ -5728,6 +5851,30 @@ export async function initializeJB2APatreonDB(path) {
                     purple: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Purple_800x800.webm`],
                     red: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Red_800x800.webm`],
                     yellow: [lg`Magic_Signs/IllusionCircleLoop_02_Regular_Yellow_800x800.webm`],
+                },
+                "runeintro": {
+                  blue: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/IllusionRuneIntro_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeloop": {
+                  blue: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/IllusionRuneLoop_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeoutro": {
+                  blue: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/IllusionRuneOutro_01_Regular_Yellow_400x400.webm`]
                 }
             },
             necromancy: {
@@ -5738,6 +5885,30 @@ export async function initializeJB2APatreonDB(path) {
                     purple: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Purple_800x800.webm`],
                     red: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Red_800x800.webm`],
                     yellow: [lg`Magic_Signs/NecromancyCircleLoop_02_Regular_Yellow_800x800.webm`],
+                },
+                "runeintro": {
+                  blue: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/NecromancyRuneIntro_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeloop": {
+                  blue: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/NecromancyRuneLoop_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeoutro": {
+                  blue: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/NecromancyRuneOutro_01_Regular_Yellow_400x400.webm`]
                 }
             },
             transmutation: {
@@ -5748,6 +5919,30 @@ export async function initializeJB2APatreonDB(path) {
                     purple: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Purple_800x800.webm`],
                     red: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Red_800x800.webm`],
                     yellow: [lg`Magic_Signs/TransmutationCircleLoop_02_Regular_Yellow_800x800.webm`],
+                },
+                "runeintro": {
+                  blue: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/TransmutationRuneIntro_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeloop": {
+                  blue: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/TransmutationRuneLoop_01_Regular_Yellow_400x400.webm`]
+                },
+                "runeoutro": {
+                  blue: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Blue_400x400.webm`],
+                  green: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Green_400x400.webm`],
+                  pink: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Pink_400x400.webm`],
+                  purple: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Purple_400x400.webm`],
+                  red: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Red_400x400.webm`],
+                  yellow: [lg`Magic_Signs/Runes/TransmutationRuneOutro_01_Regular_Yellow_400x400.webm`]
                 }
             },
         },
@@ -6125,12 +6320,12 @@ export async function initializeJB2APatreonDB(path) {
                     green: [l1`Shield/Shield_02_Regular_Green_Intro_400x400.webm`],
                     purple: [l1`Shield/Shield_02_Regular_Purple_Intro_400x400.webm`],
                     red: [l1`Shield/Shield_02_Regular_Red_Intro_400x400.webm`],
-                    yellow: [l1`Shield/Shield_01_Regular_Yellow_Intro_400x400.webm`],
+                    yellow: [l1`Shield/Shield_02_Regular_Yellow_Intro_400x400.webm`],
                 },
                 '03': {
                     blue: [l1`Shield/Shield_03_Regular_Blue_Intro_400x400.webm`],
                     green: [l1`Shield/Shield_03_Regular_Green_Intro_400x400.webm`],
-                    purple: [l1`Shield/Shield_02_Regular_Purple_Intro_400x400.webm`],
+                    purple: [l1`Shield/Shield_03_Regular_Purple_Intro_400x400.webm`],
                     red: [l1`Shield/Shield_03_Regular_Red_Intro_400x400.webm`],
                     yellow: [l1`Shield/Shield_03_Regular_Yellow_Intro_400x400.webm`],
                 },
@@ -6164,7 +6359,7 @@ export async function initializeJB2APatreonDB(path) {
                     green: [l1`Shield/Shield_01_Regular_Green_OutroExplode_400x400.webm`],
                     purple: [l1`Shield/Shield_01_Regular_Purple_OutroExplode_400x400.webm`],
                     red: [l1`Shield/Shield_01_Regular_Red_OutroExplode_400x400.webm`],
-                    yellow: [l1`Shield/Shield_01_Regular_Red_OutroFade_400x400.webm`],
+                    yellow: [l1`Shield/Shield_01_Regular_Yellow_OutroExplode_400x400.webm`],
                 },
                 '02': {
                     blue: [l1`Shield/Shield_02_Regular_Blue_OutroExplode_400x400.webm`],

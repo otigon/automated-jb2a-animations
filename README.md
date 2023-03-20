@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://github.com/otigon/automated-jb2a-animations/blob/main/pictures/slavaukraine.jpg">
-</p>  
-  
 MIT License provided:   
 - Honeybadger (Trioderigon) and Wasp provided the framework for the Teleportation Preset  
 - The SEQUENCER module is now a dependancy of Automated Animations.  
@@ -44,6 +40,7 @@ Current System Compatibility:
 - Forbidden Lands
 - Star Wars FFG
 - Cyberpunk Red
+- TheWitcherTRPG
 
 Systems in Process for Compatibility:   
 - Please log a GitHub request for other systems  

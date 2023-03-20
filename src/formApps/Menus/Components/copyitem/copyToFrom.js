@@ -22,18 +22,14 @@ export function copyToFrom(animation, item, autorecSettings, isAE) {
    let copyFrom = {
       label: "Copy From Autorec",
       icon: "far fa-clone",
-      onclick: async () => {
+      onPress: async () => {
          if (!animation._data.isEnabled) { return; }
-         if (!game.user.isGM) {
-            custom_notify("NON-GM users cannot copy items to the Global Automatic Recognition Menu");
-            return;
-         }
 
          let name = isAE ? item.label : item.name;
 
          const isInAutorec = isAE
-            ? AAAutorecFunctions.singleMenuSearch(autorecSettings, AAAutorecFunctions.rinseName(name))
-            : AAAutorecFunctions.allMenuSearch(autorecSettings, AAAutorecFunctions.rinseName(name));
+            ? AAAutorecFunctions.singleMenuSearch(AAAutorecFunctions.sortAndFilterMenus(autorecSettings), AAAutorecFunctions.rinseName(name))
+            : AAAutorecFunctions.allMenuSearch(AAAutorecFunctions.sortAndFilterMenus(autorecSettings), AAAutorecFunctions.rinseName(name));
          if (!isInAutorec) {
             custom_notify("There is no matching Global entry to copy from");
             return;
@@ -56,7 +52,7 @@ export function copyToFrom(animation, item, autorecSettings, isAE) {
       label: "Copy To Autorec", // TODO: localize,
       icon: "far fa-clone",
 
-      onclick: async () => {
+      onPress: async () => {
          if (!animation._data.isEnabled) { return; }
          if (!game.user.isGM) {
             console.error("Automated Animations | NON-GM users cannot copy items to the Global Automatic Recognition Menu");

@@ -51,7 +51,7 @@
 
   export let item;
 
-  const { application } = getContext("external");
+  const { application } = getContext("#external");
 
   let aefxMenu = game.settings.get("autoanimations", "aaAutorec-aefx");
 
@@ -70,7 +70,7 @@
 
   //let itemName = item.label;
   //Check the Autorec Menu for a matching Section
-  $: isInAutorec = AAAutorecFunctions.singleMenuSearch(aefxMenu, AAAutorecFunctions.rinseName($animation.label));
+  $: isInAutorec = AAAutorecFunctions.singleMenuSearch(aefxMenu, AAAutorecFunctions.rinseName($animation.label), $animation.label);
 
   let menu = isInAutorec
     ? game.i18n.localize(`autoanimations.animTypes.${isInAutorec.menu}`)

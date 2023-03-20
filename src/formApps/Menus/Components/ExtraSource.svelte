@@ -5,6 +5,7 @@
     import SoundSettings from "./SoundSettings.svelte";
     import VideoSelect from "./VideoSelect.svelte";
     import SourceFxOptions from "./options/SourceFXOptions.svelte";
+    import EffectColor from "./options/EffectColor.svelte";
     import { getContext }   from "svelte";
 
     //export let animation;
@@ -45,6 +46,7 @@
         <div class={!$animation.source.enable ? "aa-isDisabled" : ""}>
             <VideoSelect {animation} section="source" {title} {idx} {category}/>
             <SourceFxOptions {animation} />
+            <svelte:component this={EffectColor} section="source" />
             <SoundSettings {animation} {category} {idx} section="source" />
         </div>
     </TJSSvgFolder>
