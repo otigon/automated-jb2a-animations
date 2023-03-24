@@ -3,21 +3,22 @@ import AAHandler            from "../system-handlers/workflow-data.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
 export function systemHooks() {
-    Hooks.on("createChatMessage", async (msg, html) => {
+    Hooks.on("createChatMessage", async (msg) => {
         if (msg.user.id !== game.user.id) { return };
-        const actionName = message.getFlag("pf1", "metadata")?.action?.name ?? '';
-        const chatName = html.find('.item-name')?.text() ?? '';
+        const actionId = msg.getFlag("pf1", "metadata")?.action;
+        const chatName = $(msg.content).find('.item-name')?.text() ?? '';
         const item = msg.itemSource;
-        if (actionName) {
+        if (item && actionId) {
+            item.actions?.get(actionId)?.name ?? '';
             item.name = `${item.name} ${actionName}`;
         }
-        else if (chatName && chatName.includes(item.name)) {
+        else if (item && chatName && chatName.includes(item.name)) {
             // chat card name should alwyays be either "Item Name" or "Item Name (Action Name)" so this replacement should always be safe
             item.name = chatName;
         }
         const tokenId = msg.speaker?.token;
         const actorId = msg.speaker?.actor;
-        runPF1({item, tokenId, actorId, workflow: msg})
+        runPF1({ item, tokenId, actorId, workflow: msg });
     });
 }
 
