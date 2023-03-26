@@ -44,7 +44,7 @@ export default class AutorecMenuApp extends SvelteApplication {
      */
     async close(options) {
         Object.values(ui.windows).filter(app => app.id === "Options-Information" ||
-         app.id === "AA-Video-Preview" || app.id === "Autorec-Menu-Manager").forEach(app => app.close());
+         app.id === "AA-Video-Preview" || app.id === "Autorec-Menu-Manager" || app.id === "AutomatedAnimations-Diagnostics").forEach(app => app.close());
 
         return super.close(options);
     }

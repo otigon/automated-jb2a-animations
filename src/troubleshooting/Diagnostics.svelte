@@ -1,33 +1,39 @@
 <script>
+    import { socketlibSocket } from "../socketset.js";
+    import { custom_error } from "../constants/constants.js";
 
-    const permissionLevels = [
+    const permissionLevels = game.modules.get("sequencer")?.active ? [
         game.i18n.localize("SEQUENCER.Permission.Player"),
         game.i18n.localize("SEQUENCER.Permission.Trusted"),
         game.i18n.localize("SEQUENCER.Permission.Assistant"),
         game.i18n.localize("SEQUENCER.Permission.GM"),
-    ];
+    ] : custom_error("Sequencer is not active!!!! You must enable Sequencer!!!!");
 
-    let photoSensitive = game.settings.get("core", "photosensitiveMode");
-    let sequencerPermissions = game.settings.get(
-        "sequencer",
-        "permissions-effect-create"
-    );
-    let sequencerEffectsEnabled = game.settings.get(
-        "sequencer",
-        "effectsEnabled"
-    );
-    let sequencerSoundsEnabled = game.settings.get(
-        "sequencer",
-        "soundsEnabled"
-    );
-    let aaEffectsEnabled =
-        game.settings.get("autoanimations", "killAllAnim") === "off"
-            ? false
-            : true;
-    let aaAutorecDisabled = game.settings.get(
-        "autoanimations",
-        "disableAutoRec"
-    );
+    let connectedClients = Array.from(game.users).filter(c => c.active).map(x => [x.id, x.name]);
+    let currentUserId = connectedClients[0][0];
+    $: currentUserId;
+
+    async function settingsGetter() {
+        let currentSetting = await socketlibSocket.executeAsUser("checkSettings", currentUserId);
+        updateSettings(currentSetting)
+    }
+    settingsGetter()
+
+    function updateSettings(currentSetting) {
+        photoSensitive = currentSetting.coreSettings.photoSensitive;
+        sequencerPermissions = currentSetting.sequencerSettings.permission;
+        sequencerEffectsEnabled = currentSetting.sequencerSettings.effects;
+        sequencerSoundsEnabled = currentSetting.sequencerSettings.sounds;
+        aaEffectsEnabled = currentSetting.aaSettings.effects;
+        aaAutorecDisabled = currentSetting.aaSettings.autorec;
+    }
+
+    let photoSensitive;
+    let sequencerPermissions;
+    let sequencerEffectsEnabled;
+    let sequencerSoundsEnabled;
+    let aaEffectsEnabled;
+    let aaAutorecDisabled;
 
     $: photoSensitive;
     $: sequencerPermissions;
@@ -36,35 +42,23 @@
     $: aaEffectsEnabled;
     $: aaAutorecDisabled;
 
-    function runDiagnostics() {
-        console.log("Rerunning Diagnostics");
-        photoSensitive = game.settings.get("core", "photosensitiveMode");
-        sequencerPermissions = game.settings.get(
-            "sequencer",
-            "permissions-effect-create"
-        );
-        sequencerEffectsEnabled = game.settings.get(
-            "sequencer",
-            "effectsEnabled"
-        );
-        sequencerSoundsEnabled = game.settings.get(
-            "sequencer",
-            "soundsEnabled"
-        );
-        aaEffectsEnabled =
-            game.settings.get("autoanimations", "killAllAnim") === "off"
-                ? false
-                : true;
-        aaAutorecDisabled = game.settings.get(
-            "autoanimations",
-            "disableAutoRec"
-        );
+    async function runDiagnostics() {
+        await settingsGetter()
     }
+
 </script>
 
 <div style="font-size: 1.1em">
     <div style="text-align: center">
         <label for="" style="font-weight:bold; font-size: 1.2em">This Diagnostics menu will check common settings that may cause Animations to stop working</label>
+    </div>
+    <div style="text-align: center; padding-top: 1.5em">
+        <label for="" style="font-weight:bold; font-size: 1.2em">Showing settings for user: </label>
+    <select bind:value={currentUserId} on:change={() => runDiagnostics()} name="" id="">
+        {#each connectedClients as [key, name]}
+            <option value={key}>{name}</option>
+        {/each}
+    </select>
     </div>
     <table cellpadding="0" cellspacing="0" border="1">
         <tr>
@@ -121,7 +115,7 @@
             <td>
                 Sequencer Effects permissions are set to <strong
                     >{permissionLevels[sequencerPermissions]}</strong
-                >
+                > (GM Only Setting)
             </td>
         </tr>
     </table>
@@ -147,20 +141,97 @@
                 <td>
                     <i class="fas fa-exclamation isRed" />
                 </td>
-                <td> Global Automatic Recognition Menu is Disabled!! </td>
+                <td> Global Automatic Recognition Menu is Disabled!! (GM Only Setting) </td>
             {:else}
                 <td>
                     <i class="fas fa-check isGreen" />
                 </td>
-                <td> Global Automatic Recognition Menu is Enabled </td>
+                <td> Global Automatic Recognition Menu is Enabled (GM Only Setting) </td>
             {/if}
+        </tr>
+    </table>
+    <table cellpadding="0" cellspacing="0" border="1">
+        <tr>
+            <th colspan="2" class="AAheader02">Legend</th>
+        </tr>
+        <tr>
+            <td>
+                <i class="fas fa-exclamation isRed" />
+            </td>
+            <td>
+                Will cause issues
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <i class="fas fa-check isGreen" />
+            </td>
+            <td>
+                No issues
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <i class="fas fa-circle-info isBlue" />
+            </td>
+            <td>
+                May cause issues depending on Player trusted level
+            </td>
+        </tr>
+    </table>
+</div>
+<div style="margin: 2em, font-size: 1.3em">
+    <button on:click={() => runDiagnostics()}>Re-Run Diagnostics</button>
+</div>
+
+
+<div style="font-size: 1.1em; margin-top: 2em">
+    <div style="text-align: center">
+        <label for="" style="font-weight:bold; font-size: 1.2em">Below you can find general troubleshooting tips</label>
+    </div>
+    <table cellpadding="0" cellspacing="0" border="1">
+        <tr>
+            <th colspan="2" class="AAheader02">
+                General Troubleshooting
+            </th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>
+                Melee, Range, On Token, and some Preset animations REQUIRE use of the Foundry Targetting System
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>
+                Enable Debugging inside the Automated Animations module settings. Then open the console (F12) and check for any error messages when you expect an animation
+            </td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>
+                Check the menu where the animation is defined, and make sure everything is filled out correctly
+            </td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>
+                Use the Find the Culprit module to test with ONLY Automated Animations, Sequencer Socketlib active
+            </td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Make sure your Game System is supported</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>
+                Still not working? File an Issue on the Automated Animations GitHub repository.
+            </td>
         </tr>
     </table>
 </div>
 
-<div style="margin: 2em, font-size: 1.3em">
-    <button on:click={() => runDiagnostics()}>Re-Run Diagnostics</button>
-</div>
 
 <style lang="scss">
     .isGreen {
@@ -174,6 +245,10 @@
     }
     .AAheader {
         font-size: 1.5em;
+        font-weight: bold;
+    }
+    .AAheader02 {
+        font-size: 1.2em;
         font-weight: bold;
     }
     table {
