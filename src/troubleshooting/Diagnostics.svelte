@@ -64,14 +64,14 @@
         <tr>
             <th colspan="2" class="AAheader">Foundry Core Settings</th>
         </tr>
-        <tr>
+        <tr class={!photoSensitive ? "isGood" : "isBad"}>
             {#if photoSensitive}
-                <td class={!photoSensitive ? "isGood" : "isBad"}>
+                <td>
                     <i class="fas fa-exclamation isRed" />
                 </td>
                 <td> Photosensitive mode is enabled </td>
             {:else}
-                <td class={!photoSensitive ? "isGood" : "isBad"}>
+                <td>
                     <i class="fas fa-check isGreen" />
                 </td>
                 <td> Photosensitive mode is disabled </td>
@@ -82,34 +82,34 @@
         <tr>
             <th colspan="2" class="AAheader">Sequencer Settings</th>
         </tr>
-        <tr>
+        <tr class={sequencerEffectsEnabled ? "isGood" : "isBad"}>
             {#if !sequencerEffectsEnabled}
-                <td class={sequencerEffectsEnabled ? "isGood" : "isBad"}>
+                <td>
                     <i class="fas fa-exclamation isRed" />
                 </td>
                 <td> Effects are Disabled!! </td>
             {:else}
-                <td class={sequencerEffectsEnabled ? "isGood" : "isBad"}>
+                <td>
                     <i class="fas fa-check isGreen" />
                 </td>
                 <td> Effects are Enabled </td>
             {/if}
         </tr>
-        <tr>
+        <tr class={sequencerSoundsEnabled ? "isGood" : "isBad"}>
             {#if !sequencerSoundsEnabled}
-                <td class={sequencerSoundsEnabled ? "isGood" : "isBad"}>
+                <td>
                     <i class="fas fa-exclamation isRed" />
                 </td>
                 <td> Sounds are Disabled!! </td>
             {:else}
-                <td class={sequencerSoundsEnabled ? "isGood" : "isBad"}>
+                <td>
                     <i class="fas fa-check isGreen" />
                 </td>
                 <td> Sounds are Enabled </td>
             {/if}
         </tr>
-        <tr>
-            <td class="isOk">
+        <tr class="isOk" >
+            <td>
                 <i class="fas fa-circle-info isBlue" />
             </td>
             <td>
@@ -123,27 +123,27 @@
         <tr>
             <th colspan="2" class="AAheader">Automated Animations Settings</th>
         </tr>
-        <tr>
+        <tr class={aaEffectsEnabled ? "isGood" : "isBad"}>
             {#if !aaEffectsEnabled}
-                <td class={aaEffectsEnabled ? "isGood" : "isBad"}>
+                <td>
                     <i class="fas fa-exclamation isRed" />
                 </td>
                 <td> Effects are Disabled!! </td>
             {:else}
-                <td class={aaEffectsEnabled ? "isGood" : "isBad"}>
+                <td>
                     <i class="fas fa-check isGreen" />
                 </td>
                 <td> Effects are Enabled </td>
             {/if}
         </tr>
-        <tr>
+        <tr class={!aaAutorecDisabled ? "isGood" : "isBad"}>
             {#if aaAutorecDisabled}
-                <td class={!aaAutorecDisabled ? "isGood" : "isBad"}>
+                <td>
                     <i class="fas fa-exclamation isRed" />
                 </td>
                 <td> Global Automatic Recognition Menu is Disabled!! (GM Only Setting) </td>
             {:else}
-                <td class={!aaAutorecDisabled ? "isGood" : "isBad"}>
+                <td>
                     <i class="fas fa-check isGreen" />
                 </td>
                 <td> Global Automatic Recognition Menu is Enabled (GM Only Setting) </td>
@@ -181,7 +181,7 @@
     </table>
 </div>
 <div style="margin: 2em, font-size: 1.3em">
-    <button on:click={() => runDiagnostics()}>Re-Run Diagnostics</button>
+    <button on:click={() => runDiagnostics()}><strong>Re-Run Diagnostics</strong></button>
 </div>
 
 
@@ -247,7 +247,7 @@
         background-color: rgba(255, 0, 0, 0.2);
     }
     .isOk {
-        background-color: rgba(0, 0, 255, 0.2);
+        background-color: rgba(0, 210, 255, 0.2);
     }
     .isBlue {
         color: rgb(65, 65, 242);
