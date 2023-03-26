@@ -66,12 +66,12 @@
         </tr>
         <tr>
             {#if photoSensitive}
-                <td>
+                <td class={!photoSensitive ? "isGood" : "isBad"}>
                     <i class="fas fa-exclamation isRed" />
                 </td>
                 <td> Photosensitive mode is enabled </td>
             {:else}
-                <td>
+                <td class={!photoSensitive ? "isGood" : "isBad"}>
                     <i class="fas fa-check isGreen" />
                 </td>
                 <td> Photosensitive mode is disabled </td>
@@ -84,12 +84,12 @@
         </tr>
         <tr>
             {#if !sequencerEffectsEnabled}
-                <td>
+                <td class={sequencerEffectsEnabled ? "isGood" : "isBad"}>
                     <i class="fas fa-exclamation isRed" />
                 </td>
                 <td> Effects are Disabled!! </td>
             {:else}
-                <td>
+                <td class={sequencerEffectsEnabled ? "isGood" : "isBad"}>
                     <i class="fas fa-check isGreen" />
                 </td>
                 <td> Effects are Enabled </td>
@@ -97,19 +97,19 @@
         </tr>
         <tr>
             {#if !sequencerSoundsEnabled}
-                <td>
+                <td class={sequencerSoundsEnabled ? "isGood" : "isBad"}>
                     <i class="fas fa-exclamation isRed" />
                 </td>
                 <td> Sounds are Disabled!! </td>
             {:else}
-                <td>
+                <td class={sequencerSoundsEnabled ? "isGood" : "isBad"}>
                     <i class="fas fa-check isGreen" />
                 </td>
                 <td> Sounds are Enabled </td>
             {/if}
         </tr>
         <tr>
-            <td>
+            <td class="isOk">
                 <i class="fas fa-circle-info isBlue" />
             </td>
             <td>
@@ -125,12 +125,12 @@
         </tr>
         <tr>
             {#if !aaEffectsEnabled}
-                <td>
+                <td class={aaEffectsEnabled ? "isGood" : "isBad"}>
                     <i class="fas fa-exclamation isRed" />
                 </td>
                 <td> Effects are Disabled!! </td>
             {:else}
-                <td>
+                <td class={aaEffectsEnabled ? "isGood" : "isBad"}>
                     <i class="fas fa-check isGreen" />
                 </td>
                 <td> Effects are Enabled </td>
@@ -138,12 +138,12 @@
         </tr>
         <tr>
             {#if aaAutorecDisabled}
-                <td>
+                <td class={!aaAutorecDisabled ? "isGood" : "isBad"}>
                     <i class="fas fa-exclamation isRed" />
                 </td>
                 <td> Global Automatic Recognition Menu is Disabled!! (GM Only Setting) </td>
             {:else}
-                <td>
+                <td class={!aaAutorecDisabled ? "isGood" : "isBad"}>
                     <i class="fas fa-check isGreen" />
                 </td>
                 <td> Global Automatic Recognition Menu is Enabled (GM Only Setting) </td>
@@ -152,10 +152,10 @@
     </table>
     <table cellpadding="0" cellspacing="0" border="1">
         <tr>
-            <th colspan="2" class="AAheader02">Legend</th>
+            <th colspan="2" class="AAheader02" style="background-color: rgba(0, 0, 0, 0.2)">Legend</th>
         </tr>
         <tr>
-            <td>
+            <td class="isBad">
                 <i class="fas fa-exclamation isRed" />
             </td>
             <td>
@@ -163,7 +163,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="isGood">
                 <i class="fas fa-check isGreen" />
             </td>
             <td>
@@ -171,7 +171,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="isOk">
                 <i class="fas fa-circle-info isBlue" />
             </td>
             <td>
@@ -237,8 +237,17 @@
     .isGreen {
         color: green;
     }
+    .isGood {
+        background-color: rgba(0, 255, 0, 0.2);
+    }
     .isRed {
         color: red;
+    }
+    .isBad {
+        background-color: rgba(255, 0, 0, 0.2);
+    }
+    .isOk {
+        background-color: rgba(0, 0, 255, 0.2);
     }
     .isBlue {
         color: rgb(65, 65, 242);
