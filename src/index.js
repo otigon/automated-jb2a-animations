@@ -162,6 +162,7 @@ Hooks.once('ready', async function () {
      * Cyberpunk Red (Only for Attacks)
      * The Witcher RPG
      * TwoDSix
+     * Dark Heresy 2e
     */
 
     // Register Hooks by system
