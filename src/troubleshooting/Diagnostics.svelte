@@ -12,6 +12,8 @@
     let connectedClients = Array.from(game.users).filter(c => c.active).map(x => [x.id, x.name]);
     let currentUserId = connectedClients[0][0];
     $: currentUserId;
+    let midiActive = game.modules.get("midi-qol")?.active;
+    let midiWorkflow = midiActive ? game.settings.get('midi-qol', 'EnableWorkflow') : false;
 
     async function settingsGetter() {
         let currentSetting = await socketlibSocket.executeAsUser("checkSettings", currentUserId);
@@ -50,7 +52,7 @@
 
 <div style="font-size: 1.1em">
     <div style="text-align: center">
-        <label for="" style="font-weight:bold; font-size: 1.2em">This Diagnostics menu will check common settings that may cause Animations to stop working</label>
+        <label for="" style="font-weight:bold; font-size: 1.2em; text-decoration:underline">This Diagnostics menu will check common settings that may cause Animations to stop working</label>
     </div>
     <div style="text-align: center; padding-top: 1.5em">
         <label for="" style="font-weight:bold; font-size: 1.2em">Showing settings for user: </label>
@@ -150,6 +152,26 @@
             {/if}
         </tr>
     </table>
+    {#if midiActive}
+    <table cellpadding="0" cellspacing="0" border="1">
+        <tr>
+            <th colspan="2" class="AAheader">Midi-QOL Settings</th>
+        </tr>
+        <tr class={midiWorkflow ? "isGood" : "isBad"}>
+            {#if !midiWorkflow}
+                <td>
+                    <i class="fas fa-exclamation isRed" />
+                </td>
+                <td> Midi-QOL Roll Automation is disabled!! </td>
+            {:else}
+                <td>
+                    <i class="fas fa-check isGreen" />
+                </td>
+                <td> Midi-QOL Roll Automation is Enabled </td>
+            {/if}
+        </tr>
+    </table>
+    {/if}
     <table cellpadding="0" cellspacing="0" border="1">
         <tr>
             <th colspan="2" class="AAheader02" style="background-color: rgba(0, 0, 0, 0.2)">Legend</th>
@@ -187,7 +209,7 @@
 
 <div style="font-size: 1.1em; margin-top: 2em">
     <div style="text-align: center">
-        <label for="" style="font-weight:bold; font-size: 1.2em">Below you can find general troubleshooting tips</label>
+        <label for="" style="font-weight:bold; font-size: 1.2em; text-decoration:underline">Below you can find general troubleshooting tips</label>
     </div>
     <table cellpadding="0" cellspacing="0" border="1">
         <tr>
