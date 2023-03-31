@@ -15,6 +15,7 @@ const TEST = {
     Defense: 'PhysicalDefenseTest',
     Spell: 'SpellCastingTest',
     Drain: 'DrainTest',
+    Skill: 'SkillTest',
 }
 
 /* 
@@ -67,6 +68,10 @@ async function checkChatMessage(msg) {
 
 async function computeCompiledData(msg, test)
 {
+    if (test.type === TEST.Skill) {
+        return computeCompiledDataForSkillTest(msg, test);
+    }
+
     let itemUuid = test.data.sourceItemUuid;
     let tokenUuid = test.data.sourceActorUuid;
 
@@ -115,6 +120,24 @@ async function computeCompiledData(msg, test)
     }
 
     return compiledData;
+}
+
+async function computeCompiledDataForSkillTest(msg, test) {
+    let tokenUuid = test.data.sourceActorUuid;
+
+    if (!tokenUuid) {
+        return;
+    }
+
+    let token = await fromUuid(tokenUuid);
+
+    return await getRequiredData({
+        item: {
+            name: test.data.action.skill
+        },
+        token: token,
+        workflow: msg,
+    });
 }
 
 async function tryAnnimationWith(compiledData, itemNameOverride) {
