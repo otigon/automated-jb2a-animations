@@ -41,6 +41,7 @@ Current System Compatibility:
 - Star Wars FFG
 - Cyberpunk Red
 - TheWitcherTRPG
+- [ShadowRun5e](https://foundryvtt.com/packages/shadowrun5e/)
 - Level Up A5E
 
 Systems in Process for Compatibility:   
