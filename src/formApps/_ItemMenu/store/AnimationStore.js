@@ -370,11 +370,6 @@ export class AnimationStore extends ObjectEntryStore {
             this._data.secondary = newData.secondary;
             this._data.target = newData.target;
             this._data.data = newData.data;
-            delete this._data.primary;
-            delete this._data.levels3d;
-            delete this._data.meleeSwitch;
-            delete this._data.primary;
-            delete this._data.source;
             break;
          case "melee":
             this._data.levels3d = newData.levels3d;
@@ -385,8 +380,6 @@ export class AnimationStore extends ObjectEntryStore {
             this._data.soundOnly = newData.soundOnly;
             this._data.source = newData.source;
             this._data.target = newData.target;
-            delete this._data.presetType;
-            delete this._data.data;
             break;
          case "range":
          case "ontoken":
@@ -397,9 +390,6 @@ export class AnimationStore extends ObjectEntryStore {
             this._data.soundOnly = newData.soundOnly;
             this._data.source = newData.source;
             this._data.target = newData.target;
-            delete this._data.meleeSwitch;
-            delete this._data.presetType;
-            delete this._data.data;
             break;
          default:
             this._data.macro = newData.macro;
@@ -408,6 +398,33 @@ export class AnimationStore extends ObjectEntryStore {
             this._data.soundOnly = newData.soundOnly;
             this._data.source = newData.source;
             this._data.target = newData.target;
+            break;
+      }
+   }
+
+   deleteOld() {
+      let newMenu = this._data.menu;
+      if (!newMenu) { return; }
+
+      switch (newMenu) {
+         case "preset":
+            delete this._data.primary;
+            delete this._data.levels3d;
+            delete this._data.meleeSwitch;
+            delete this._data.primary;
+            delete this._data.source;
+            break;
+         case "melee":
+            delete this._data.presetType;
+            delete this._data.data;
+            break;
+         case "range":
+         case "ontoken":
+            delete this._data.meleeSwitch;
+            delete this._data.presetType;
+            delete this._data.data;
+            break;
+         default:
             delete this._data.levels3d;
             delete this._data.meleeSwitch;
             delete this._data.presetType;

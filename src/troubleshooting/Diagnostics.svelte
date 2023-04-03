@@ -62,6 +62,9 @@
         {/each}
     </select>
     </div>
+    <div style="text-align: center">
+        <label for="" style="font-size: 0.9em; font-style: italic">Only shows <strong>active</strong> users</label>
+    </div>
     <table cellpadding="0" cellspacing="0" border="1">
         <tr>
             <th colspan="2" class="AAheader">Foundry Core Settings</th>
