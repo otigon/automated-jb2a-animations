@@ -41,6 +41,7 @@ Current System Compatibility:
 - Star Wars FFG
 - Cyberpunk Red
 - TheWitcherTRPG
+- Level Up A5E
 
 Systems in Process for Compatibility:   
 - Please log a GitHub request for other systems  
