@@ -138,6 +138,7 @@
       <select bind:value={$animation.menu} on:change={async () => {
             await animation.switchVideo();
             chosenMenu = $animation.menu;
+            animation.deleteOld();
           }
         }>
         <option value="melee"

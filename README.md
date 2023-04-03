@@ -42,6 +42,7 @@ Current System Compatibility:
 - Cyberpunk Red
 - TheWitcherTRPG
 - [ShadowRun5e](https://foundryvtt.com/packages/shadowrun5e/)
+- Level Up A5E
 
 Systems in Process for Compatibility:   
 - Please log a GitHub request for other systems  
