@@ -65,7 +65,8 @@ function registerAAItemHooks() {
                 class: "aaItemSettings",
                 icon: "fas fa-biohazard",
                 label: "A-A",
-                onclick: () => {
+                onclick: async () => {
+                    await flagMigrations.handle(itemSheet.item);
                     new ItemMenuApp(itemSheet.item, {}).render(true, { focus: true });
                 }
             }
