@@ -35,7 +35,7 @@ async function checkChatMessage(msg) {
     }
 
     // #1 Let's create the compiledData based on the test type
-    let compiledData = await computeCompiledData(msg, test);
+    const compiledData = await computeCompiledData(msg, test);
     if (!compiledData) { 
         return;
     }
@@ -49,8 +49,8 @@ async function checkChatMessage(msg) {
     switch (test.type) {
         case TEST.Spell:
             // For spells, the category (health / combat / illusion /...) is a good fallback
-            let category = compiledData.item.system.category;
-            if (await tryAnnimationWith(compiledData, category)) {
+            const category = compiledData.item?.system?.category;
+            if (category && await tryAnnimationWith(compiledData, category)) {
                 return;
             }
             break;
@@ -60,7 +60,7 @@ async function checkChatMessage(msg) {
     //  - when doing perception tests
     //  - when going sneaking tests
     //  - ...
-    let skill = compiledData.item?.getActionSkill()
+    const skill = compiledData.item?.getActionSkill()
     if (skill && await tryAnnimationWith(compiledData, skill)) {
         return;
     }
@@ -68,48 +68,17 @@ async function checkChatMessage(msg) {
 
 async function computeCompiledData(msg, test)
 {
-    if (test.type === TEST.Skill) {
-        return computeCompiledDataForSkillTest(msg, test);
-    }
-
-    let itemUuid = test.data.sourceItemUuid;
-    let tokenUuid = test.data.sourceActorUuid;
-
-    if (!itemUuid || !tokenUuid) {
-        return;
-    }
-
-    let item = await fromUuid(itemUuid) 
-    let token = await fromUuid(tokenUuid);
-
-    let compiledData = await getRequiredData({
-        item: item,
-        token: token,
-        workflow: msg,
-    });
-
-    if (!compiledData) {
-        return;
-    }
-    
+    let item;
     switch (test.type) {
-        // In case of range, depending on the firing mode, multiple bullets might be fired.
-        // Let's override the repeat with that information.
-        case TEST.Range:
-            // TODO: use test data once SR5 System has fixed the missing information
-            // let bulletCount = test.data.fireMode.value;
-            const message = game.messages.get(msg.id);
-            let bulletCount = message.flags.shadowrun5e.TestData.data.fireMode.value;
-            if (bulletCount)
-            {
-                compiledData.overrideRepeat = bulletCount;
-            }
+        case TEST.Skill:
+            item =  {
+                name: test.data?.action?.skill
+            };
             break;
-        
+
         // In case of drain test, the item is the same as the Spell casting test, it's wrong
         case TEST.Drain:
-            compiledData.item = {
-                ...item,
+            item = {
                 name: 'drain',
             }
             break;
@@ -117,38 +86,51 @@ async function computeCompiledData(msg, test)
         // In case of defense test, the item is the attacker's one. Not good.
         case TEST.Defense:
             return;
+
+        default:
+            const itemUuid = test.data.sourceItemUuid;
+            item = await fromUuid(itemUuid);
+            if (!item) {
+                return;
+            }
+    }
+
+    const compiledData = await getRequiredData({
+        item: item,
+        actorId: msg.speaker?.actor,
+        tokenId: msg.speaker?.token,
+        workflow: msg,
+    });
+
+    if (!compiledData) {
+        return;
+    }
+    
+    if (test.type == TEST.Range) {
+        // In case of range, depending on the firing mode, multiple bullets might be fired.
+        // Let's override the repeat with that information.
+
+        // TODO: use test data once SR5 System has fixed the missing information
+        // let bulletCount = test.data.fireMode.value;
+        const message = game.messages.get(msg.id);
+        const bulletCount = message.flags?.shadowrun5e?.TestData?.data?.fireMode?.value;
+        if (bulletCount && bulletCount > 1)
+        {
+            compiledData.overrideRepeat = bulletCount;
+        }
     }
 
     return compiledData;
 }
 
-async function computeCompiledDataForSkillTest(msg, test) {
-    let tokenUuid = test.data.sourceActorUuid;
-
-    if (!tokenUuid) {
-        return;
-    }
-
-    let token = await fromUuid(tokenUuid);
-
-    return await getRequiredData({
-        item: {
-            name: test.data.action.skill
-        },
-        token: token,
-        workflow: msg,
-    });
-}
-
 async function tryAnnimationWith(compiledData, itemNameOverride) {
     if (itemNameOverride) {
         compiledData.item = {
-            ...compiledData.item,
             name: itemNameOverride
         }
     }
 
-    let handler = await AAHandler.make(compiledData)
+    const handler = await AAHandler.make(compiledData)
     if (handler?.item && handler.sourceToken) { 
         trafficCop(handler);
         return true;
