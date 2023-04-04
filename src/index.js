@@ -52,28 +52,64 @@ Hooks.on('AutomaticAnimations.Clear.Data', async () => {
     AAAutorecManager.restoreDefault()
 });
 
-// Places the A-A button on Item sheet header
-Hooks.on(`renderItemSheet`, async (app, html, data) => {
-    if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
-        return;
+function registerAAItemHooks() {
+    // getItemSheetHeaderButtons Hook is used for A5e, which uses Svelte/TRL.
+    // TO-DO: Test this method with core Foundry Item sheets so perhaps reduce complexity
+    if (game.system.id === 'a5e') {
+        // Using Item Sheet header buttons to inject A-A button
+        Hooks.on('getItemSheetHeaderButtons', async (itemSheet, buttons) => {
+            if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
+                return;
+            }
+            let buttonOptions = {
+                class: "aaItemSettings",
+                icon: "fas fa-biohazard",
+                label: "A-A",
+                onclick: () => {
+                    new ItemMenuApp(itemSheet.item, {}).render(true, { focus: true });
+                }
+            }
+            buttons.splice(0, 0, buttonOptions)
+        })
+    } else {
+        // Places the A-A button on Item sheet header
+        Hooks.on(`renderItemSheet`, async (app, html, data) => {
+            if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
+                return;
+            }
+            const pf2eRuleTypes = ['condition', 'effect'];
+            const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
+            aaBtn.click(async ev => {
+                await flagMigrations.handle(app.document);
+                // if this is a PF1 "Buff" effect or PF2e Ruleset Item (Active Effects) spawn the Active Effect menu. Otherwise continue as normal
+                if ((game.system.id === 'pf1' && app.item?.type === 'buff') || (game.system.id === 'pf2e' && pf2eRuleTypes.includes(app.item?.type))) {
+                    new AEMenuApp(app.document, {}).render(true, { focus: true });
+                } else {
+                    new ItemMenuApp(app.document, {}).render(true, { focus: true });
+                }
+            });
+
+            html.closest('.app').find('.aa-item-settings').remove();
+            let titleElement = html.closest('.app').find('.window-title');
+            aaBtn.insertAfter(titleElement);
+
+        });
     }
-    const pf2eRuleTypes = ['condition', 'effect'];
-    const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
-    aaBtn.click(async ev => {
-        await flagMigrations.handle(app.document);
-        // if this is a PF1 "Buff" effect or PF2e Ruleset Item (Active Effects) spawn the Active Effect menu. Otherwise continue as normal
-        if ((game.system.id === 'pf1' && app.item?.type === 'buff') || (game.system.id === 'pf2e' && pf2eRuleTypes.includes(app.item?.type))) {
-            new AEMenuApp(app.document, {}).render(true, { focus: true });
-        } else {
-            new ItemMenuApp(app.document, {}).render(true, { focus: true });
+    // Places the A-A button on Active Effect sheet header
+    Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
+        if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
+            return;
         }
+        const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
+        aaBtn.click(async ev => {
+            await flagMigrations.handle(app.document, { isActiveEffect: true });
+            new AEMenuApp(app.document, {}).render(true, { focus: true });
+        });
+        html.closest('.app').find('.aa-item-settings').remove();
+        let titleElement = html.closest('.app').find('.window-title');
+        aaBtn.insertAfter(titleElement);
     });
-
-    html.closest('.app').find('.aa-item-settings').remove();
-    let titleElement = html.closest('.app').find('.window-title');
-    aaBtn.insertAfter(titleElement);
-
-});
+}
 
 /**
  * WORK IN PROGRESS - NOT READY FOR WIDE USE
@@ -93,21 +129,6 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
 Hooks.on("aa.workflow", async (token, item, options) => {
     playAnimation(token, item, options)
 })
-
-// Places the A-A button on Active Effect sheet header
-Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
-    if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
-        return;
-    }
-    const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
-    aaBtn.click(async ev => {
-        await flagMigrations.handle(app.document, {isActiveEffect: true});
-        new AEMenuApp(app.document, {}).render(true, { focus: true });
-    });
-    html.closest('.app').find('.aa-item-settings').remove();
-    let titleElement = html.closest('.app').find('.window-title');
-    aaBtn.insertAfter(titleElement);
-});
 
 Hooks.on('aa.initialize', async () => {
     //const patreonPath = "modules/jb2a_patreon";
@@ -130,6 +151,7 @@ Hooks.on('aa.initialize', async () => {
 })
 
 Hooks.once('ready', async function () {
+    registerAAItemHooks();
     gameSettings.initialize();
 
     // Initializes all AutoRecStores backed by individual game settings.
