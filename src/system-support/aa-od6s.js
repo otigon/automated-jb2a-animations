@@ -26,7 +26,7 @@ export function systemHooks() {
                 actorId = msg.speaker?.actor;
             }
         } else {
-            tokenId = msg.speaker?.token;
+            tokenId = msg.speaker?.token === null ? "" : msg.speaker?.token;
             actorId = msg.speaker?.actor;
         }
 
