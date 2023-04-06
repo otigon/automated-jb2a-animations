@@ -43,7 +43,7 @@ Current System Compatibility:
 - TheWitcherTRPG
 - [ShadowRun5e](https://foundryvtt.com/packages/shadowrun5e/)
 - Level Up A5E
-- Dungeonslayers 4
+- [Dungeonslayers 4](https://foundryvtt.com/packages/ds4)
 
 Systems in Process for Compatibility:   
 - Please log a GitHub request for other systems  
