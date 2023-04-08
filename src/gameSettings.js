@@ -701,6 +701,18 @@ class AAGameSettings extends TJSGameSettings {
                   default: true,
                   config: true,
                }
+            }, {
+               namespace,
+               key: 'canMissTarget',
+               folder: game.system.title || game.system.name,
+               options: {
+                  name: 'Bullets do not hit targtet on miss',
+                  hint: 'Shows the bullet miss the targeted token if the DV has not been beat. If a DV table cannot be found it will treat the animation as a hit as fallback',
+                  scope: scope.world,
+                  type: Boolean,
+                  default: true,
+                  config: true,
+               }
             });
             break;
          case "TheWitcherTRPG":
