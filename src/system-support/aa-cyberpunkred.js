@@ -55,9 +55,11 @@ function getFireMode(data) {
      * suppressive
      */
 
-    return (
-        parent?.flags?.["cyberpunk-red-core"]?.[`firetype-${id}`] ?? "single"
-    );
+    let fireMode =
+        parent?.flags?.["cyberpunk-red-core"]?.[`firetype-${id}`] ?? "single";
+    data.fireMode = fireMode;
+
+    return fireMode;
 }
 
 async function setFireModeOptions(data) {
@@ -79,7 +81,7 @@ async function setFireModeOptions(data) {
 function checkAmmo(data) {
     let item = data.item || {};
     let token = data.token;
-    let ammoId = item.system?.magazine?.ammoId?.split(".") ?? ""; // ammoID in object can be empty string
+    let ammoId = item.system?.magazine?.ammoId?.split(".") ?? ""; // ammoId in object can be empty string
     if (ammoId === "" || (ammoId.length === 1 && ammoId[0] === ""))
         ammoId = item.system?.magazine?.ammoData?.uuid?.split(".");
 
@@ -147,7 +149,17 @@ async function getDV(dvTable, dist) {
 async function isHit(data) {
     let distance = getDistance(data.token, data.targets[0]);
     let dvTable = data.item?.system?.dvTable ?? "";
-    let dv = await getDV(dvTable, distance);
+    let dv;
+    if (data.fireMode === "autofire") {
+        dv = await getDV(dvTable + " (Autofire)", distance);
+        if (!dv || dv < 0) {
+            // fallback to none autofire DV table in case it does not exist
+            // e.g. useful for pistols with auto fire
+            dv = await getDV(dvTable, distance);
+        }
+    } else {
+        dv = await getDV(dvTable, distance);
+    }
     if (!dv || dv < 0) return true;
     debug(`Was this roll a hit: ${data.attackRoll > dv}`);
     return data.attackRoll > dv;
