@@ -80,7 +80,7 @@ function checkAmmo(data) {
     let item = data.item || {};
     let token = data.token;
     let ammoId = item.system?.magazine?.ammoId?.split(".") ?? ""; // ammoID in object can be empty string
-    if (ammoId === "")
+    if (ammoId === "" || (ammoId.length === 1 && ammoId[0] === ""))
         ammoId = item.system?.magazine?.ammoData?.uuid?.split(".");
 
     let ammoItem;
@@ -114,6 +114,8 @@ function getDistance(token, target) {
     const a = canvas.grid.measureDistance(token, target, {
         gridSpaces: true,
     });
+
+    if (!game.settings.get("autoanimations", "useElevation")) return a;
     const b = token.elevation - target.document.elevation;
     return Math.round(Math.sqrt(a * a + b * b));
 }
@@ -122,19 +124,21 @@ async function getDV(dvTable, dist) {
     const pack = game.packs.get("cyberpunk-red-core.dvTables");
     const tableId = pack.index.getName(dvTable)?._id;
     if (!tableId) {
-        debug("Could not get table it from compendium");
-        return -1;
+        debug(`Could not get table with name "${dvTable}" from compendium`);
+        return -100;
     }
     const table = await pack.getDocument(tableId);
     if (!table) {
-        debug("Could not get table object from compendium");
-        return -1;
+        debug(
+            `Could not get table with id "${tableId}" and name "${dvTable}" from compendium`
+        );
+        return -100;
     }
 
     const draw = await table.getResultsForRoll(dist);
     if (!draw || draw.length === 0) {
-        debug("Could not roll DV from table");
-        return -1;
+        debug(`Could not roll DV from table "${dvTable}"`);
+        return -100;
     }
 
     return parseInt(draw[0].text);
@@ -144,7 +148,7 @@ async function isHit(data) {
     let distance = getDistance(data.token, data.targets[0]);
     let dvTable = data.item?.system?.dvTable ?? "";
     let dv = await getDV(dvTable, distance);
-    if (!dv || dv == -1) return true;
+    if (!dv || dv < 0) return true;
     debug(`Was this roll a hit: ${data.attackRoll > dv}`);
     return data.attackRoll > dv;
 }
