@@ -719,7 +719,7 @@ class AAGameSettings extends TJSGameSettings {
                 folder: game.system.title || game.system.name,
                 options: {
                    name: 'Use elevation for hit calculation',
-                   hint: 'Uses the elevation between the token as additional distance when enabled',
+                   hint: 'Uses the elevation between the tokens as additional distance when enabled',
                    scope: scope.world,
                    type: Boolean,
                    default: true,
