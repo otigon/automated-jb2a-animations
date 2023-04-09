@@ -57,7 +57,7 @@ export default class AEMenuApp extends SvelteApplication {
             label: "Info",
             styles: { color: 'lightblue', position: "relative", right: "5px" },
    
-            onclick: function()
+            onPress: function()
             {
                 if (
                     Object.values(ui.windows).find(
@@ -75,7 +75,7 @@ export default class AEMenuApp extends SvelteApplication {
             label: "Global Automatic Recognition Menu",
             styles: { color: 'lightblue', position: "relative", right: "30px" },
    
-            onclick: function()
+            onPress: function()
             {
                 if (game.user.isGM) {
                     new showAutorecMenu()

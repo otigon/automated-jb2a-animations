@@ -130,7 +130,7 @@ export async function checkConcentration(effect) {
     }
 
     // Get arrays of Background and Foreground Tiles with the A-A Origin flag UUID matching the Effect Origin
-    const tiles = canvas.tiles.placeables.filter(i => i.data.flags?.autoanimations?.origin === origin)
+    const tiles = canvas.tiles.placeables.filter(i => i.document.flags?.autoanimations?.origin === origin)
     if (tiles.length < 1) {
         debug("Failed to find any Tiles tied to Concentration")
         return;

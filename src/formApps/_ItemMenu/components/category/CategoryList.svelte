@@ -11,6 +11,8 @@
    //export let animation;
    let { animation } = getContext('animation-data');
 
+   export let chosenMenu;
+
    let newContentOptions = {
       melee: {
          component: BuildMelee,
@@ -32,7 +34,7 @@
       },
    };
 
-   $: menuRoute = newContentOptions[$animation.menu].component;
+   $: menuRoute = newContentOptions[chosenMenu].component;
 
    $: isEnabled = $animation.isEnabled;
    $: isCustomized = $animation.isCustomized;

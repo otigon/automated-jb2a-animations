@@ -1,627 +1,174 @@
 {
-  "autoanimations": {
-    "settings": {
-      "initpopup_name":"Desativar o pop-up da janela de inicialização",
-      "initpopup_hint":"Marcar esta caixa impedirá que a janela pop-up seja exibida",
-      "animtab_name": "Ocultar a guia Animação dos jogadores",
-      "animtab_hint": "Marcar esta caixa impedirá que a aba de animação seja vista por jogadores",
-      "midionhit_name":"Tocar animações apenas em acertos",
-      "midionhit_hint":"Requer a configuração Midi-QOL Workflow para checar os acertos",
-      "midionmiss_name": "Executar animações em acertos e falhas",
-      "midionmiss_hint": "Em uma falha, a animação irá desviar o alvo. Requer MIDI Workflow para checar os acertos",
-      "midiondmg_name":"Executar animações apenas em rolagem de dano",
-      "midiondmg_hint":"REQUER RECARREGAMENTO. Quando Ativado, isso vai tocar APENAS animações em Rolagens de Dano",
-      "coreondmg_name":"Executar Animações de Ataque apenas em Jogadas de Dano",
-      "coreondmg_hint":"Por padrão, Animações só são executadas em Jogadas de Ataque",
-      
-      
-      
-      
-      
-      
-      
-      "error":"Um módulo JB2A (Free OU Patreon) é OBRIGATÓRIO para que Automated Animations funcione"
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-
-    },
-    "colors": {
-
-
-      "palegreen": "Pale Green",
-      "blue":"Azul",
-      "green":"Verde",
-      "orange":"laranja",
-      "pink":"Tosa",
-      "purple":"Roxo",
-      "red":"Vermelho",
-      "regular":"Padrão",
-      "yellow":"Amarelo",
-      "darkred":"Vermelho Escuro",
-      "darkgreen":"Verde Escuro",
-      "darkpurple":"Roxo Escuro",
-      "orangepink":"Rosa Alaranjado",
-      "purpleblue":"Roxo Azulado",
-      "purpleteal":"Roxo com Azul",
-      "yellowblue":"Azul com Amarelo",
-      "random":"Alatório"
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    },
-    "animations": {
-
-      
-
-
-
-
-
-
-
-
-
-      "curewounds": "Curar Ferimentos",
-      "generichealing": "Cura genérica",
-      "itemHealingWord": "Palavra Curativa",
-      "disintegrate":"Desintegrar",
-      "eldritchblast":"Raio Místico",
-      "firebolt":"Raio de Fogo",
-      "magicmissile":"Mísseis Mágicos",
-      "rayoffrost":"Raio de Gelo",
-      "scorchingray":"Raio Ardente",
-      "witchbolt":"Raio de Bruxa",
-      "thunderwave":"Onda Trovejante",
-      "shatter":"Despedaçar",
-      "shieldspell":"Égide",
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      "dagger":"Adaga",
-      "greataxe":"Machado",
-      "greatclub":"Clava Grande",
-      "greatsword":"Espada Bastarda",
-      "handaxe":"Machadinha",
-      "lasersword":"Espada Laser",
-      "mace":"Maça",
-      "maul":"Malho",
-      "rapier":"Rapieira",
-      "spear":"Lança",
-      "sword":"Espada",
-      "itemLongsword": "Espada Longa",
-      "shortsword": "Espada Curta",
-      "scimitar": "Cimitarra",
-      "arrow":"Flecha",
-      "boulder":"Pedregulho",
-      "javelin":"Azagaia",
-      "lasershot":"Laser Blast",
-      "siegeboulder":"Siege Boulder",
-
-      "unarmedstrike":"Ataque desarmado",
-
-
-
-
-
-
-      "claw":"Garra",
-      "bite":"Mordida"
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    },
-    "variants": {
-            "1":"01",
-            "2":"02",
-            "3":"03",
-            "01":"01",
-            "02":"02",
-            "03":"03",
-            "04":"04",
-            "05":"05",
-            "06":"06",
-            "07":"07",
-            "08":"08",
-            "09":"09",
-            "10":"10",
-            "11":"11",
-            "12":"12",
-            "13":"13",
-            "magical": "Magical",
-            "physical": "Physical"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          
-    },
-    "menuTypes": {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-
-
-
-
-    },
-    "animTypes": {
-
-
-
-
-
-
-    },
-    "presetTypes": {
-
-
-
-
-
-
-
-
-
-
-    },
-    "menus": {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-      
-    },
-    "optionsInfo": {
-
-    }
-  }
+	"autoanimations": {
+		"settings": {
+			"initpopup_name": "Desativar o Popup da Janela de Início",
+			"initpopup_hint": "Marcar esta caixa impedirá que a Janela Popup seja exibida",
+			"animtab_name": "Oculta a Aba de Animação dos Jogadores",
+			"animtab_hint": "Marcar esta caixa impedirá que a Aba de Animação seja vista por jogadores",
+			"midionhit_name": "Reproduzir Animações Somente nos Acertos",
+			"midionhit_hint": "Requer o Workflow do Midi-QoL configurado para checar se os ataques acertam",
+			"midionmiss_name": "Reproduzir Animações nos Acertos e Erros",
+			"midionmiss_hint": "Em um erro, a animação desviará do alvo. Requer que o Workflow do Midi cheque os acertos",
+			"midiondmg_name": "Reproduz Animações Somente nas Jogadas de Dano",
+			"midiondmg_hint": "Quando ativada, reproduzirá as animações SOMENTE na jogada de dano, caso exista uma no item",
+			"coreondmg_name": "Reproduzir Animações de Ataque Somente nas Jogadas de Dano",
+			"coreondmg_hint": "Por padrão, animações são reproduzidas nas jogadas de ataque",
+			"error": "Um módulo JB2A (grátis ou Patreon) é EXIGIDO para que o Automated Animations funcione",
+			"demonlordtrigger_hint": "Escolha a condição para reproduzir animações",
+			"demonlordtrigger_rollattack": "Reproduzir Animações na Jogada de Ataque",
+			"demonlordtrigger_name": "Gatilho para Reproduzir Animações",
+			"ON": "Ligado",
+			"noTipsHint": "Desativa a dica de contexto sobre como deletar efeitos persistentes",
+			"decoupleSounds_hint": "Impede que sons se repitam com as animações",
+			"disableNestedHint": "Impede animações para condições (Conjuntos de Regras) criadas por outras condições",
+			"autoRecSetting": "Abrir Menu",
+			"toggleAnimations": "Animações Automatizadas",
+			"crithit_hint": "Habilite para que animações de acerto crítico sejam reproduzidas no Token de origem",
+			"cypherCrit_hint": "Habilite para que animações de acerto crítico (rolagem de 20) sejam reproduzidas no Token de origem",
+			"mightroll_hint": "Habilite para que animações de jogada de poder sejam reproduzidas no Token de origem",
+			"speedroll_hint": "Habilite para que animações de jogada de velocidade sejam reproduzidas no Token de origem",
+			"intellectroll_hint": "Habilite para que animações de jogada de intelecto sejam reproduzidas no Token de origem",
+			"wfrp4eCastOnlyOnSuccessHint": "Selecionando esta opção, animação de magia somente será reproduzida quando a magia for conjurada com sucesso (passar no teste e alcançar o NC)",
+			"demonlordtrigger_hits": "Reproduzir Animações nos Acertos",
+			"demonlordtrigger_misses": "Reproduzir Animações nos Acertos e Erros",
+			"demonlordtrigger_rolldamage": "Reproduzir Animações na Jogada de Dano",
+			"demonlordtrigger_applydamage": "Reproduzir Animações ao Aplicar Dano",
+			"OFF": "Desligado",
+			"coreonatk_name": "Reproduzir Animações de Ataque nas Jogadas de Ataque",
+			"animPreview": "Pré-visualização da Animação",
+			"coreonatk_hint": "Por padrão, animações são reproduzidas nas jogadas de ataque",
+			"animPreviewHint": "Pré-visualização de vídeo na aba A-A",
+			"settingDisableAutoRec": "Desativar o Reconhecimento Automático",
+			"toggleAnimations_hint": "Desabilita o módulo a nível de cliente. Desativa todas as animações das configurações do módulo Sequencer",
+			"settingDisableAutoRecHint": "Somente itens com configurações customizadas reproduzirão animações",
+			"globaldelay_name": "Atraso Global",
+			"s3Hint": "REQUER UMA ATUALIZAÇÃO: altere SOMENTE se seu módulo JB2A for hospedado externamente em um S3 Bucket ou similar. Caso contrário, deixe em branco. Exemplo: S3Bucket/jb2a_patreon ou S3Bucket/JB2A_DnD5e (sem barra no final)",
+			"decoupleSounds": "Desacoplar Sons",
+			"settingRangeSwitchhint": "Impede a transição de animação corpo-a-corpo para animação de alcance",
+			"globaldelay_hint": "Atrasa o início de todas as animações em milissegundos",
+			"s3Name": "Localização dos Recursos JB2A",
+			"settingRangeSwitch": "Desativar Transição de Corpo-a-Corpo para Alcance",
+			"noTips": "Desativar Dicas de Efeito Persistente",
+			"disableAEAnimationsHint": "Desativa todas as animações de Efeitos Ativos",
+			"disableAEAnimations": "Desativar Animações de Efeito Ativo",
+			"crithit_name": "Acertos Críticos",
+			"crithitAnim_name": "Animação de Acerto Crítico",
+			"critmiss_name": "Falhas Críticas",
+			"critmissAnim_name": "Animação de Falha Crítica",
+			"disableNested": "Desativar Animações Aninhadas",
+			"debugging": "Habilitar Depuração",
+			"recovery_name": "Jogadas de Recuperação",
+			"critmiss_hint": "Habilite para que animações de falha crítica sejam reproduzidas no Token de origem",
+			"recovery_hint": "Habilite para que Jogadas de Recuperação sejam reproduzidas no Token de origem",
+			"recoveryAnim_name": "Animação de Jogada de Recuperação",
+			"cypherFumble_name": "Falhas Críticas",
+			"cypherCrit_name": "Acertos Críticos",
+			"cypherCritAnim_name": "Animação de Acerto Crítico",
+			"cypherFumble_hint": "Habilite para que animações de falha crítica (rolagem de 1) sejam executadas no Token de origem",
+			"cypherFumbleAnim_name": "Animação de Falha Crítica",
+			"mightroll_name": "Jogada de Poder",
+			"mightRollAnim_name": "Animação de Poder",
+			"speedroll_name": "Jogada de Velocidade",
+			"speedRollAnim_name": "Animação de Velocidade",
+			"intellectroll_name": "Jogada de Intelecto",
+			"intellectRollAnim_name": "Animação de Intelecto",
+			"wfrp4eCastOnlyOnSuccess": "Animação de Magia em Conjuração Bem-sucedida",
+			"hoverInTemplateLayer": "Mostrar ao Pairar na Camada de Gabarito",
+			"playAnimations": "Quando reproduzir animações",
+			"attack": "Jogadas de Ataque",
+			"damage": "Jogadas de Dano",
+			"extraexplain": "Requer uma animação primária, seja personalizada ou de reconhecimento automático",
+			"restoreDefault": "Restaurar Menu Padrão",
+			"mergeHint": "Mescla um novo menu com seu menu existente",
+			"overwriteHint": "Apaga o menu atual e importa um novo menu",
+			"exportHint": "Exporta seu menu para um arquivo JSON",
+			"overwriteWarn": "Sobrescrever irá apagar seu menu existente",
+			"launchMenu": "Abrir Menu",
+			"menuName": "Menu de Reconhecimento Automático Global",
+			"hoverInTemplate": "Mostrar ao Pairar",
+			"disableGrantedAuraHint": "Desativa animações de efeitos concedidos por auras",
+			"hideTemplate_hint": "Remove o realce da grade do gabarito de medição, a menos que paire o mouse sobre ele. AS CONFIGURAÇÕES DE PAIRAR DO TOKEN MAGIC FX DEVEM SER DESATIVADAS",
+			"hideTemplate_name": "Grade de Gabarito ao Pairar",
+			"teleport": "Você selecionou um ponto fora de alcance. Escolha novamente",
+			"disableGrantedAura": "Desativar Animações Concedidas por Efeito de Aura",
+			"restoreHint": "Apaga o menu atual e restaura a configuração padrão",
+			"menuHint": "Abre o menu Autorrec Global. Também abriga o menu de configuração do Automated Animations"
+		},
+		"colors": {
+			"palegreen": "Verde Pálido",
+			"blue": "Azul",
+			"green": "Verde",
+			"orange": "Laranja",
+			"pink": "Rosa",
+			"purple": "Roxo",
+			"red": "Vermelho",
+			"regular": "Normal",
+			"yellow": "Amarelo",
+			"darkred": "Vermelho Escuro",
+			"darkgreen": "Verde Escuro",
+			"darkpurple": "Roxo Escuro",
+			"orangepink": "Rosa Alaranjado",
+			"purpleblue": "Roxo Azulado",
+			"purpleteal": "Roxo com Azul",
+			"yellowblue": "Amarelo com Azul",
+			"random": "Aleatório"
+		},
+		"animations": {
+			"curewounds": "Curar Ferimentos",
+			"generichealing": "Cura Genérica",
+			"itemHealingWord": "Palavra Curativa",
+			"disintegrate": "Desintegrar",
+			"eldritchblast": "Raio Místico",
+			"firebolt": "Raio de Fogo",
+			"magicmissile": "Mísseis Mágicos",
+			"rayoffrost": "Raio de Gelo",
+			"scorchingray": "Raio Ardente",
+			"witchbolt": "Raio de Bruxa",
+			"thunderwave": "Onda Trovejante",
+			"shatter": "Despedaçar",
+			"shieldspell": "Égide",
+			"dagger": "Adaga",
+			"greataxe": "Machado Grande",
+			"greatclub": "Clava Grande",
+			"greatsword": "Espada Grande",
+			"handaxe": "Machadinha",
+			"lasersword": "Espada Laser",
+			"mace": "Maça",
+			"maul": "Malho",
+			"rapier": "Rapieira",
+			"spear": "Lança",
+			"sword": "Espada",
+			"itemLongsword": "Espada Longa",
+			"shortsword": "Espada Curta",
+			"scimitar": "Cimitarra",
+			"arrow": "Flecha",
+			"boulder": "Pedregulho",
+			"javelin": "Azagaia",
+			"lasershot": "Rajada Laser",
+			"siegeboulder": "Pedregulho de Cerco",
+			"unarmedstrike": "Ataque Desarmado",
+			"claw": "Garra",
+			"bite": "Mordida"
+		},
+		"variants": {
+			"1": "01",
+			"2": "02",
+			"3": "03",
+			"01": "01",
+			"02": "02",
+			"03": "03",
+			"04": "04",
+			"05": "05",
+			"06": "06",
+			"07": "07",
+			"08": "08",
+			"09": "09",
+			"10": "10",
+			"11": "11",
+			"12": "12",
+			"13": "13",
+			"magical": "Mágico",
+			"physical": "Físico"
+		}
+	}
 }

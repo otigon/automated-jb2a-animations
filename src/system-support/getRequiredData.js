@@ -120,6 +120,7 @@ function getTokenFromCompiledUuid(id) {
 function getTokenFromActor(actor, actorId) {
     let idActor = actor ? actor.id : actorId;
     let foundActor = fromUuidSync(idActor);
+    if (!foundActor) { return null }
     let token = foundActor.getActiveTokens();
     return Array.isArray(token) ? token[0] : token;
 }

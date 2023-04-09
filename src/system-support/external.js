@@ -77,4 +77,5 @@ export async function playAnimation(sourceToken, item, options = {}) {
 
     const handler = await AAHandler.make(data)
     trafficCop(handler);
+    return handler;
 }
