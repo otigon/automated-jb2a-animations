@@ -118,22 +118,8 @@ Hooks.on("aa.workflow", async (token, item, options) => {
     playAnimation(token, item, options)
 })
 
-// Places the A-A button on Active Effect sheet header
-Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
-    if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
-        return;
-    }
-    const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
-    aaBtn.click(async ev => {
-        await flagMigrations.handle(app.document, {isActiveEffect: true});
-        new AEMenuApp(app.document, {}).render(true, { focus: true });
-    });
-    html.closest('.app').find('.aa-item-settings').remove();
-    let titleElement = html.closest('.app').find('.window-title');
-    aaBtn.insertAfter(titleElement);
-});
-
 Hooks.once('ready', async function () {
+    registerAAItemHooks()
     await gameSettings.initialize();
 
     // Initializes all AutoRecStores backed by individual game settings.
