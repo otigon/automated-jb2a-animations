@@ -92,7 +92,13 @@
 			"damage": "Jets de dégâts",
 			"playAnimations": "Quand jouer les animations",
 			"disableGrantedAura": "Désactiver les animations des effets d'auras accordées",
-			"disableGrantedAuraHint": "Désactive les animations pour les effets accordés par les Auras"
+			"disableGrantedAuraHint": "Désactive les animations pour les effets accordés par les Auras",
+			"cyberPunkCanMiss_hint": "Montre que la balle manque le jeton ciblé si le DV n'a pas été battu. Si une table de DV ne peut être trouvée, l'animation considèrera que çà touche en guise de solution de repli",
+			"cyberPunkElevation": "Utiliser l'élévation calculer si çà touche",
+			"cyberPunkElevation_hint": "Utilise l'élévation entre les jetons comme distance supplémentaire lorsque cette option est activée",
+			"cyberPunkAutoFire": "Activer la répétition automatique",
+			"cyberPunkAutoFire_hint": "Passer outre la répétition pour l'animation primaire lorsque le feu automatique ou suppressif est activé pour l'arme",
+			"cyberPunkCanMiss": "Utiliser forceMiss en cas d'échec"
 		},
 		"colors": {
 			"lightorange": "Orange clair",
