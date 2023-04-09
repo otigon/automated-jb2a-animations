@@ -694,8 +694,8 @@ class AAGameSettings extends TJSGameSettings {
                key: 'autofire',
                folder: game.system.title || game.system.name,
                options: {
-                  name: 'Enable Automatic Repeats',
-                  hint: 'Override repeats for the Primary animation when Automatic or Suppressive fire is enabled for weapon',
+                  name: 'autoanimations.settings.cyberPunkAutoFire',
+                  hint: 'autoanimations.settings.cyberPunkAutoFire_hint',
                   scope: scope.world,
                   type: Boolean,
                   default: true,
@@ -706,8 +706,8 @@ class AAGameSettings extends TJSGameSettings {
                key: 'canMissTarget',
                folder: game.system.title || game.system.name,
                options: {
-                  name: 'Use forceMiss on miss',
-                  hint: 'Shows the bullet miss the targeted token if the DV has not been beat. If a DV table cannot be found it will treat the animation as a hit as fallback',
+                  name: 'autoanimations.settings.cyberPunkCanMiss',
+                  hint: 'autoanimations.settings.cyberPunkCanMiss_hint',
                   scope: scope.world,
                   type: Boolean,
                   default: true,
@@ -718,8 +718,8 @@ class AAGameSettings extends TJSGameSettings {
                 key: 'useElevation',
                 folder: game.system.title || game.system.name,
                 options: {
-                   name: 'Use elevation for hit calculation',
-                   hint: 'Uses the elevation between the tokens as additional distance when enabled',
+                   name: 'autoanimations.settings.cyberPunkElevation',
+                   hint: 'autoanimations.settings.cyberPunkElevation_hint',
                    scope: scope.world,
                    type: Boolean,
                    default: true,
