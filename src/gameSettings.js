@@ -701,7 +701,31 @@ class AAGameSettings extends TJSGameSettings {
                   default: true,
                   config: true,
                }
-            });
+            }, {
+               namespace,
+               key: 'canMissTarget',
+               folder: game.system.title || game.system.name,
+               options: {
+                  name: 'Use forceMiss on miss',
+                  hint: 'Shows the bullet miss the targeted token if the DV has not been beat. If a DV table cannot be found it will treat the animation as a hit as fallback',
+                  scope: scope.world,
+                  type: Boolean,
+                  default: true,
+                  config: true,
+               }
+            },{
+                namespace,
+                key: 'useElevation',
+                folder: game.system.title || game.system.name,
+                options: {
+                   name: 'Use elevation for hit calculation',
+                   hint: 'Uses the elevation between the tokens as additional distance when enabled',
+                   scope: scope.world,
+                   type: Boolean,
+                   default: true,
+                   config: true,
+                }
+             });
             break;
          case "TheWitcherTRPG":
             settings.push({
