@@ -160,9 +160,11 @@ Hooks.once('ready', async function () {
             let d = TJSDialog.prompt({
                 modal: false,
                 title: "WARNING!!",
-                content: `<p style="font-weight: bold; text-align: center; font-size: medium;">Automated Animations has a new Module Dependency that you have not activated. Please install and activate Automated Animations - System Adapter</p>
+                content: `<p style="font-weight: bold; text-align: center; font-size: medium;">Automated Animations has a 
+                            new Module Dependency that you have not activated. Please install and activate Automated Animations - System Adapter</p>
                         <br>
-                        <p style="text-align: center; font-size: small;">Automated Animations will continue to function until version 4.5.0, at which time you MUST have the new dependency installed</p> `,
+                        <p style="text-align: center; font-size: small;">Automated Animations will continue to function until version 4.5.0, 
+                            at which time you MUST have the new dependency installed</p> `,
                 defaultYes: 'ok',
             });
         }
