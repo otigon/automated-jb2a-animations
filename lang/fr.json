@@ -700,7 +700,9 @@
 			"rotateTowards": "Faire une rotation vers",
 			"saturation": "Saturation",
 			"colorTint": "Teinte de couleur",
-			"contrast": "Contraste"
+			"contrast": "Contraste",
+			"matchFound": "Correspondance trouvée",
+			"activeEffect": "Effet actif"
 		},
 		"app": {
 			"aaAutorec-range": {
