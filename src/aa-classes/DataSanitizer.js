@@ -110,7 +110,7 @@ export class DataSanitizer {
 
         let truePathRequired = ['static', 'templatefx'];
         let returnable = ['melee', 'range'];
-        console.log(returnable.some(el => el === data.dbSection))
+
         data.path = await buildFile(data.video.dbSection, data.video, data.video.customPath, {getTruePath: truePathRequired.some(el => el === data.video.dbSection), isReturnable: returnable.some(el => el === data.video.dbSection)})
         return data;
     }

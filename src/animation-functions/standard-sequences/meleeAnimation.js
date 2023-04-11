@@ -7,7 +7,7 @@ export async function melee(handler, animationData) {
     const sourceFX = animationData.sourceFX;
     const targetFX = animationData.targetFX;
     const macro = animationData.macro;
-    console.log(data)
+
     const sourceToken = handler.sourceToken;
     const sourceTokenGS = (sourceToken.w / canvas.grid.size) * 5;
 
@@ -35,13 +35,13 @@ export async function melee(handler, animationData) {
 
     // Compile separate Range and Melee arrays where applicable, with Hit determination for Sequencer Miss effect
     for (let target of handler.allTargets) {
-        console.log(switchDistance, handler.reachCheck)
+
         let distanceTo = handler.getDistance(target);
         let rangeDistance = data.meleeSwitch.options.detect === "manual"
             ? data.meleeSwitch.options.range
             : (switchDistance / canvas.dimensions.distance) + handler.reachCheck;
-        console.log(rangeDistance)
-        let hit = !handler.playOnMiss ? true : handler.hitTargetsId.includes(target.id) ? true : false;
+
+            let hit = !handler.playOnMiss ? true : handler.hitTargetsId.includes(target.id) ? true : false;
 
         if ((distanceTo > rangeDistance) && range.file && !switchDisabled) {
             rangeArray.push({
