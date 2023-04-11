@@ -2,14 +2,16 @@
     export let isEnabled;
     export let isCustomized;
     export let isInAutorec;
+    export let isInAEAutorec;
 
     $: autorecLabel = isInAutorec
         ? game.i18n.localize(`autoanimations.animTypes.${isInAutorec.menu}`)
         : "";
+    let aeLabel = game.i18n.localize(`autoanimations.animTypes.aefx`);
 </script>
 
 <div class="aa-Info">
-    {#if isEnabled && !isCustomized && isInAutorec}
+    {#if isEnabled && !isCustomized && (isInAutorec || isInAEAutorec)}
         <ul>
             <li>
                 <strong>Item Animation is enabled but not customized</strong>  <i class="fas fa-check aa-green"></i>
@@ -21,9 +23,16 @@
             </li>
         </ul>
         <ul>
-            <li>
-                <strong>Menu: {autorecLabel} - Label: {isInAutorec.label}</strong>  <i class="fas fa-check aa-green"></i>
-            </li>
+            {#if isInAutorec}
+                <li>
+                    <strong>Menu: {autorecLabel} - Label: {isInAutorec.label}</strong>  <i class="fas fa-check aa-green"></i>
+                </li>
+            {/if}
+            {#if isInAEAutorec}
+                <li>
+                    <strong>Menu: {aeLabel} - Label: {isInAEAutorec.label}</strong>  <i class="fas fa-check aa-green"></i>
+                </li>
+            {/if}
         </ul>
     {:else if isEnabled && !isCustomized && !isInAutorec}
         <ul>

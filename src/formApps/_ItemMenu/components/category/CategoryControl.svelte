@@ -38,6 +38,7 @@
     templatefx: game.settings.get("autoanimations", "aaAutorec-templatefx"),
     aura: game.settings.get("autoanimations", "aaAutorec-aura"),
     preset: game.settings.get("autoanimations", "aaAutorec-preset"),
+    aefx: game.settings.get("autoanimations", "aaAutorec-aefx"),
   };
 
   // Applies flags on Item Update wihtout Closing APP
@@ -56,6 +57,8 @@
   //Check the Autorec Menu for a matching Section
   let filteredSettings = AAAutorecFunctions.sortAndFilterMenus(autorecSettings)
   $: isInAutorec = AAAutorecFunctions.allMenuSearch(filteredSettings, AAAutorecFunctions.rinseName($animation.label));
+  //let filteredSettings = AAAutorecFunctions.sortAndFilterAllMenus(autorecSettings)
+  $: isInAEAutorec =  AAAutorecFunctions.singleMenuSearch(autorecSettings.aefx, AAAutorecFunctions.rinseName($animation.label));
 
   let menu = isInAutorec
     ? game.i18n.localize(`autoanimations.animTypes.${isInAutorec.menu}`)
@@ -105,13 +108,21 @@
     </div>
     <div
       style="grid-row: 1 / 2; grid-column: 2/3;"
-      class="autorecLabel {isInAutorec ? 'aa-bgGreen' : 'aa-bgRed'} {!isEnabled
+      class="autorecLabel {isInAutorec || isInAEAutorec ? 'aa-bgGreen' : 'aa-bgRed'} {!isEnabled
         ? 'aa-disableOpacity'
         : ''}"
     >
-      {#if isInAutorec}
+      {#if isInAutorec && isInAEAutorec}
+        <label for="" style="font-size: 15px; font-weight:bold">
+          {localize('autoanimations.menus.globalFound')} + {localize('autoanimations.menus.activeEffect')} <br />
+        </label>
+      {:else if isInAutorec}
         <label for="" style="font-size: 15px; font-weight:bold">
           {localize('autoanimations.menus.globalFound')} <br />
+        </label>
+      {:else if isInAEAutorec}
+        <label for="" style="font-size: 15px; font-weight:bold">
+          {localize('autoanimations.menus.activeEffect')} {localize('autoanimations.menus.matchFound')} <br />
         </label>
       {:else}
         <label for="" style="font-size: 15px; font-weight:bold">
@@ -166,7 +177,7 @@
 <main>
   {#if !menuType || !isEnabled || !isCustomized}
     <div class="sectionBorder">
-      <svelte:component this={NoneChosen} {isEnabled} {isCustomized} {isInAutorec} />
+      <svelte:component this={NoneChosen} {isEnabled} {isCustomized} {isInAutorec} {isInAEAutorec}/>
     </div>
   {:else}
     <CategoryList  {chosenMenu} />

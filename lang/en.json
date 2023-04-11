@@ -698,7 +698,9 @@
             "rotateTowards": "Rotate Towards",
             "contrast": "Contrast",
             "saturation": "Saturation",
-            "colorTint": "Color Tint"
+            "colorTint": "Color Tint",
+            "activeEffect": "Active Effect",
+            "matchFound": "Match Found"
         },
         "tokenAnimations": {
             "bow": "Bow",
