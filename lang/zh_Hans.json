@@ -643,7 +643,9 @@
 			"musicnote": "音乐笔记",
 			"only": "仅",
 			"property": "性能",
-			"rotateTowards": "旋转方向"
+			"rotateTowards": "旋转方向",
+			"activeEffect": "主动效果",
+			"matchFound": "已找到匹配项"
 		},
 		"menuTypes": {
 			"creature": "生物攻击",
