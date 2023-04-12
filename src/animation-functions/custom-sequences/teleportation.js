@@ -56,6 +56,40 @@ export async function teleportation(handler, animationData) {
     borderSeq.play()
 
     let pos;
+    
+    if (game.Levels3DPreview?._active) { 
+        const circle3d = data.options.range ? new game.Levels3DPreview.CONFIG.entityClass.RangeRingEffect(sourceToken, data.options.range, game.user.color) : null;
+        const templateData = { t: "circle", user: game.user.id, distance: 5, x: 0, y: 0, fillColor: "#ffffff", width: 1, texture: "", direction: 0,}
+        getPositionFrom3D();
+        function getPositionFrom3D() { 
+            game.Levels3DPreview.CONFIG.entityClass.Template3D.drawPreview(new MeasuredTemplateDocument(templateData), false).then((response) => {
+                if(!response) return getPositionFrom3D();
+                pos = {
+                    x: response.x,
+                    y: response.y,
+                    elevation: parseFloat(response.flags.levels.elevation),
+                }
+    
+                let topLeft = canvas.grid.getTopLeft(pos.x, pos.y);
+    
+                if (canvas.grid.measureDistance(sourceToken, { x: topLeft[0], y: topLeft[1] }, { gridSpaces: true }) <= data.options.range) {
+                    //console.log(canvas.grid.measureDistance(sourceToken, { x: topLeft[0], y: topLeft[1] }, {gridSpaces: true}))
+                    if (data.options.checkCollision && testCollision(pos)) {
+                        ui.notifications.error("Your Path is Blocked!! Try Again")
+                        return getPositionFrom3D();
+                    } else {
+                        circle3d?.remove();
+                        deleteTemplatesAndMove();
+                    }
+                } else {
+                    ui.notifications.error(game.i18n.format("autoanimations.settings.teleport"))
+                    return getPositionFrom3D();
+                }
+            });
+        }
+    }
+        
+
     canvas.app.stage.addListener('pointerdown', event => {
         if (event.data.button !== 0) { return }
         pos = event.data.getLocalPosition(canvas.app.stage);
@@ -171,9 +205,9 @@ export async function teleportation(handler, animationData) {
         animSeq.delay(data.options.delayMove)
         //animSeq.fadeOut(data.start.options.tokenOut)
         if (data.options.teleport) {
-            animSeq.teleportTo({ x: gridPos[0], y: gridPos[1] })
+            animSeq.teleportTo({ x: gridPos[0], y: gridPos[1], elevation: pos.elevation })
         } else {
-            animSeq.moveTowards({ x: gridPos[0], y: gridPos[1] })
+            animSeq.moveTowards({ x: gridPos[0], y: gridPos[1], elevation: pos.elevation })
             animSeq.moveSpeed(data.options.speed)
         }
         
