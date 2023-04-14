@@ -7,7 +7,9 @@ export function systemHooks() {
         if (msg.user.id !== game.user.id) { return };
         const actionId = msg.getFlag("pf1", "metadata")?.action;
         const chatName = $(msg.content).find('.item-name')?.text() ?? '';
-        const item = msg.itemSource;
+        const itemFromChat = msg.itemSource;
+        if (!itemFromChat) { return; };
+        const item = foundry.utils.deepClone(itemFromChat);
         if (item && actionId) {
             item.actions?.get(actionId)?.name ?? '';
             item.name = `${item.name} ${actionName}`;
