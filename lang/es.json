@@ -81,7 +81,9 @@
 			"mergeHint": "Unir un nuevo Menú al Menú existente",
 			"overwriteHint": "Borra el Menú actual e importa un Menú nuevo",
 			"exportHint": "Exporta tu Menú a un archivo JSON",
-			"overwriteWarn": "Sobreescribir borrará tu Menú existente"
+			"overwriteWarn": "Sobreescribir borrará tu Menú existente",
+			"coreonatk_hint": "Por defecto, reproducir animaciones en las tiradas de ataque",
+			"coreonatk_name": "Reproducir animaciones de ataque en las tiradas de ataque"
 		},
 		"colors": {
 			"lightorange": "Naranja Claro",
@@ -122,7 +124,7 @@
 			"lightblue": "Azul claro",
 			"rainbow": "Arcoíris",
 			"white": "Blanco",
-			"yellowwhite": "Blanco",
+			"yellowwhite": "Amarillento",
 			"darkorangepurple": "Morado Anaranjado Oscuro",
 			"darkgreenpurple": "Morado Verdoso Oscuro",
 			"darkteal": "Turquesa Oscuro",
