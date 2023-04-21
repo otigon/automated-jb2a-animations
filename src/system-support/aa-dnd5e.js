@@ -27,9 +27,13 @@ export function systemHooks() {
             criticalCheck(roll, item);
         })
         Hooks.on("dnd5e.preRollAttack", async (item, options) => {
-            let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
-            if (item.hasAreaTarget || (item.hasDamage && playOnDamage)) { return; }   
-            attack(await getRequiredData({item, actor: item.actor, workflow: item, rollAttackHook: {item, options}, spellLevel: options.spellLevel ?? void 0}))
+            let spellLevel = options.spellLevel ?? void 0;
+            Hooks.once("dnd5e.rollAttack", async (item, roll) => {
+                criticalCheck(roll, item);
+                let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
+                if (item.hasAreaTarget || (item.hasDamage && playOnDamage)) { return; }   
+                attack(await getRequiredData({item, actor: item.actor, workflow: item, rollAttackHook: {item, roll}, spellLevel}))    
+            })
         })
         Hooks.on("dnd5e.rollDamage", async (item, roll) => {
             let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
