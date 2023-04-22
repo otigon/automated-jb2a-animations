@@ -23,9 +23,6 @@ export function systemHooks() {
         });
     
     } else {
-        Hooks.on("dnd5e.rollAttack", async (item, roll) => { 
-            criticalCheck(roll, item);
-        })
         Hooks.on("dnd5e.preRollAttack", async (item, options) => {
             let spellLevel = options.spellLevel ?? void 0;
             Hooks.once("dnd5e.rollAttack", async (item, roll) => {
