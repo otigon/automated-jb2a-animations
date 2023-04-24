@@ -27,6 +27,26 @@ export async function trafficCop(handler) {
     if (sanitizedData.macro && sanitizedData.macro.enable && sanitizedData.macro.playWhen === "2") {
 
         if (handler.isTemplateAnimation) {
+            if (handler.waitForTemplate) {
+                // For systems running on createChatMessage hook and Chat happens before template placement
+                aaTemplateHook = Hooks.once("createMeasuredTemplate", async (template) => {
+                    //Hooks.callAll("aa.preAnimationStart", sanitizedData, data);
+                    await wait(500)
+                    handler.templateData = template;
+                    playMacro()
+                });
+                setTimeout(killHook, 30000)
+            } else {
+                // For systems running on createChatMessage hook and Template is place before chat message populates
+                await wait(500)
+                handler.templateData = canvas.templates?.placeables?.[canvas.templates.placeables.length - 1]?.document;
+                if (!handler.templateData) { 
+                    debug("No template found for the Template animaiton, existing early")
+                    return;
+                }    
+                playMacro()
+            }
+            /*
             switch (game.system.id) {
                 case "a5e":
                 case "sw5e":
@@ -45,7 +65,8 @@ export async function trafficCop(handler) {
                     await wait(500)
                     handler.templateData = canvas.templates?.placeables?.[canvas.templates.placeables.length - 1]?.document;
                     playMacro()
-                }
+            }
+            */
         } else {
             playMacro()
         }
@@ -110,6 +131,26 @@ export async function trafficCop(handler) {
             setTimeout(killHook, 30000)
             return;
         }
+        if (handler.waitForTemplate) {
+            // For systems running on createChatMessage hook and Chat happens before template placement
+            aaTemplateHook = Hooks.once("createMeasuredTemplate", async (template) => {
+                //Hooks.callAll("aa.preAnimationStart", sanitizedData, data);
+                await wait(500)
+                handler.templateData = template;
+                playMacro()
+            });
+            setTimeout(killHook, 30000)
+        } else {
+            // For systems running on createChatMessage hook and Template is place before chat message populates
+            await wait(500)
+            handler.templateData = canvas.templates?.placeables?.[canvas.templates.placeables.length - 1]?.document;
+            if (!handler.templateData) { 
+                debug("No template found for the Template animaiton, existing early")
+                return;
+            }
+            playMacro()
+        }
+        /*
         //sections for Template Hooks.once or straight to function. Systems running the createMeasuredTemplate hook, or those whose workflow runs after template placement, will skip Hooks.once
         switch (game.system.id) {
             case "a5e":
@@ -134,6 +175,7 @@ export async function trafficCop(handler) {
                 }
                 animate[animationType](handler, sanitizedData, template);
         }
+        */
         return;
     } else {
         if (!handler.sourceToken || targets < 1 && (animationType === "melee" || animationType === "range")) {

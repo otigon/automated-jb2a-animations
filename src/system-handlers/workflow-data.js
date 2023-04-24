@@ -75,6 +75,7 @@ export default class AAHandler {
 
         this.menu = this.animationData.menu;
 
+        this.waitForTemplate = data.waitForTemplate ?? false;
         this.templateData = data.templateData;
 
         this.sequenceData = {moduleName: "Automated Animations", softFail: !game.settings.get("autoanimations", "debug")}

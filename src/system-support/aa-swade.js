@@ -54,7 +54,7 @@ export function systemHooks() {
 
 // TO-DO, CHECK SWADE
 async function runSwade(token, actor, item) {
-    let data = await getRequiredData({token, actor, item })
+    let data = await getRequiredData({token, actor, item, waitForTemplate: true })
     if (!data.item) { return; }
     const handler = await AAHandler.make(data)
     trafficCop(handler);
