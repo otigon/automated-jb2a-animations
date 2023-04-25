@@ -12,7 +12,7 @@ export async function teleportation(handler, animationData) {
     const endFile = await buildFile("static", data.end, data.end.customPath);
     const betweenFile = await buildFile("range", data.between, data.between.customPath);
 
-    let sourceTokenGS = (sourceToken.w ? (sourceToken.w / canvas.grid.size ) : sourceToken.width;
+    let sourceTokenGS = (sourceToken.w ? (sourceToken.w / canvas.grid.size) : sourceToken.width);
 
     let userIDs = Array.from(game.users).map(user => user.id);
     let gmIDs = Array.from(game.users).filter(i => i.isGM).map(user => user.id)

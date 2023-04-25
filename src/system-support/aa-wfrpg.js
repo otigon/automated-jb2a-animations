@@ -2,6 +2,7 @@ import { trafficCop }       from "../router/traffic-cop.js"
 import AAHandler            from "../system-handlers/workflow-data.js";
 import { debug }            from "../constants/constants.js";
 import { getRequiredData }  from "./getRequiredData.js";
+import { AnimationState }   from "../AnimationState.js";
 
 export function systemHooks() {
     Hooks.on("wfrp4e:rollWeaponTest", async (data, info) => {
