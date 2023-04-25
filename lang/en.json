@@ -92,7 +92,13 @@
             "attack": "Attack Rolls",
             "damage": "Damage Rolls",
             "disableGrantedAura": "Disable Granted Aura Effect Animations",
-            "disableGrantedAuraHint": "Disables Animations for Effects granted by Auras"
+            "disableGrantedAuraHint": "Disables Animations for Effects granted by Auras",
+            "cyberPunkAutoFire": "Enable Automatic Repeats",
+            "cyberPunkAutoFire_hint": "Override repeats for the Primary animation when Automatic or Suppressive fire is enabled for weapon",
+            "cyberPunkCanMiss": "Use forceMiss on miss",
+            "cyberPunkCanMiss_hint": "Shows the bullet miss the targeted token if the DV has not been beat. If a DV table cannot be found it will treat the animation as a hit as fallback",
+            "cyberPunkElevation": "Use elevation for hit calculation",
+            "cyberPunkElevation_hint": "Uses the elevation between the tokens as additional distance when enabled"
         },
         "colors": {
             "lightorange": "Light Orange",
@@ -692,7 +698,9 @@
             "rotateTowards": "Rotate Towards",
             "contrast": "Contrast",
             "saturation": "Saturation",
-            "colorTint": "Color Tint"
+            "colorTint": "Color Tint",
+            "activeEffect": "Active Effect",
+            "matchFound": "Match Found"
         },
         "tokenAnimations": {
             "bow": "Bow",

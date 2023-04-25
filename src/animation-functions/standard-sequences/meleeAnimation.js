@@ -9,7 +9,10 @@ export async function melee(handler, animationData) {
     const macro = animationData.macro;
 
     const sourceToken = handler.sourceToken;
-    const sourceTokenGS = ((sourceToken.w  / canvas.grid.size) ?? sourceToken.width) * 5;
+    let sourceTokenGS = (sourceToken.w / canvas.grid.size) * 5;
+    if (data.video?.animation === "claw" || data.video?.animation === "bite") {
+        sourceTokenGS = sourceToken.w / canvas.grid.size;
+    }
 
     const switchDisabled = game.settings.get("autoanimations", "rangeSwitch")
 
@@ -35,11 +38,13 @@ export async function melee(handler, animationData) {
 
     // Compile separate Range and Melee arrays where applicable, with Hit determination for Sequencer Miss effect
     for (let target of handler.allTargets) {
+
         let distanceTo = handler.getDistance(target);
-        let rangeDistance = data.meleeSwitch.detect === "manual"
-            ? data.meleeSwitch.range
+        let rangeDistance = data.meleeSwitch.options.detect === "manual"
+            ? data.meleeSwitch.options.range
             : (switchDistance / canvas.dimensions.distance) + handler.reachCheck;
-        let hit = !handler.playOnMiss ? true : handler.hitTargetsId.includes(target.id) ? true : false;
+
+            let hit = !handler.playOnMiss ? true : handler.hitTargetsId.includes(target.id) ? true : false;
 
         if ((distanceTo > rangeDistance) && range.file && !switchDisabled) {
             rangeArray.push({

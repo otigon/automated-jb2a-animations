@@ -44,6 +44,31 @@ export class AAAutorecFunctions {
         return sortedMenus.find(x => x.label && name.includes(this.rinseName(x.label))) || false;
     }
     */
+
+    static allMenuTrueSearch(menus, rinsedName, trueName) {
+        return menus.exactMatchMenus.find(x => x.label && x.label === trueName)
+        || 
+        menus.bestMatchMenus.find(x => 
+            x.advanced?.excludedTerms?.length ? 
+            x.label && rinsedName.includes(this.rinseName(x.label)) && !x.advanced.excludedTerms.some(el => rinsedName.includes(this.rinseName(el)))
+            :
+            x.label && rinsedName.includes(this.rinseName(x.label))
+        ) 
+        || false;
+    }
+
+    static sortAndFilterAllMenus(menus) {
+
+        let combinedMenus = [...menus.melee, ...menus.range, ...menus.ontoken,
+            ...menus.templatefx, ...menus.aura, ...menus.preset, ...menus.aefx];
+
+        let sortedMenus = combinedMenus.sort((a, b) => b.label?.replace(/\s+/g, '').length - a.label?.replace(/\s+/g, '').length);
+        return {
+            exactMatchMenus: sortedMenus.filter(x => x.advanced?.exactMatch),
+            bestMatchMenus: sortedMenus.filter(x => !x.advanced?.exactMatch),
+        }
+    }
+
     static singleMenuSearch(menu, rinsedName, trueName) {
 
         if (!rinsedName) { 

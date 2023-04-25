@@ -88,7 +88,7 @@
 			"hoverInTemplate": "Mostrar ao Pairar",
 			"disableGrantedAuraHint": "Desativa animações de efeitos concedidos por auras",
 			"hideTemplate_hint": "Remove o realce da grade do gabarito de medição, a menos que paire o mouse sobre ele. AS CONFIGURAÇÕES DE PAIRAR DO TOKEN MAGIC FX DEVEM SER DESATIVADAS",
-			"hideTemplate_name": "Grade de Gabarito ao Pairar",
+			"hideTemplate_name": "Grades de Gabarito ao Pairar",
 			"teleport": "Você selecionou um ponto fora de alcance. Escolha novamente",
 			"disableGrantedAura": "Desativar Animações Concedidas por Efeito de Aura",
 			"restoreHint": "Apaga o menu atual e restaura a configuração padrão",
@@ -111,7 +111,54 @@
 			"purpleblue": "Roxo Azulado",
 			"purpleteal": "Roxo com Azul",
 			"yellowblue": "Amarelo com Azul",
-			"random": "Aleatório"
+			"random": "Aleatório",
+			"green02": "Verde 02",
+			"purplepink": "Roxo Rosado",
+			"lightblue": "Azul Claro",
+			"rainbow": "Arco-Íris",
+			"orangepurple": "Roxo Alaranjado",
+			"grey": "Cinza",
+			"greenorange": "Laranja Esverdeado",
+			"purplegreen": "Verde Pálido",
+			"blue02": "Azul 02",
+			"blue03": "Azul 03",
+			"ring02": "Anel 02",
+			"darkteal": "Verde-Azulado Escuro",
+			"lightorange": "Laranja Claro",
+			"bluegreen": "Verde Azulado",
+			"bluegrey": "Cinza Azulado",
+			"darkblue": "Azul Escuro",
+			"tealyellow": "Amarelo Verde-Azulado",
+			"pinkyellow": "Amarelo Rosado",
+			"blueorange": "Laranja Azulado",
+			"black": "Preto",
+			"darkwhiteblue": "Azul Escuro Branco",
+			"whiteblue": "Azul Branco",
+			"rainbow01": "Arco-íris01",
+			"rainbow02": "Arco-íris02",
+			"lightgreen": "Verde Claro",
+			"greenyellow": "Amarelo Verde",
+			"brown": "Marrom",
+			"white": "Branco",
+			"yellowwhite": "Branco Amarelado",
+			"darkorangepurple": "Roxo Escuro Alaranjado",
+			"darkgreenpurple": "Roxo Escuro Esverdeado",
+			"darkorange": "Laranja Escuro",
+			"teal": "Verde-Azulado",
+			"bluepink": "Rosa Azulado",
+			"darkwhite": "Branco Escuro",
+			"darkpurplered": "Vermelho Escuro Roxo",
+			"brightgreen": "Verde Claro",
+			"brightblue": "Azul Claro",
+			"greenred": "Vermelho Esverdeado",
+			"orangeyellow": "Amarelo Alaranjado",
+			"blackyellow": "Amarelo Preto",
+			"blackblue": "Azul Preto",
+			"ring03": "Anel 03",
+			"orangered": "Vermelho Alaranjado",
+			"darkpink": "Rosa Escuro",
+			"darkyellow": "Amarelo Escuro",
+			"textured": "Texturizado"
 		},
 		"animations": {
 			"curewounds": "Curar Ferimentos",
@@ -148,7 +195,15 @@
 			"siegeboulder": "Pedregulho de Cerco",
 			"unarmedstrike": "Ataque Desarmado",
 			"claw": "Garra",
-			"bite": "Mordida"
+			"bite": "Mordida",
+			"loop": "Loop",
+			"complete": "Completo",
+			"sacredflame": "Chama Sagrada",
+			"bone": "Osso",
+			"dart": "Dardo",
+			"coneofcold": "Cone de Frio",
+			"breathweaponspray01": "Spray de Arma de Sopro 01",
+			"breathweaponspray02": "Spray de Arma de Sopro 02"
 		},
 		"variants": {
 			"1": "01",
@@ -169,6 +224,24 @@
 			"13": "13",
 			"magical": "Mágico",
 			"physical": "Físico"
+		},
+		"animTypes": {
+			"melee": "Corpo-a-Corpo",
+			"range": "Alcance"
+		},
+		"app": {
+			"aaAutorec-melee": {
+				"label": "Corpo-a-Corpo"
+			},
+			"aaAutorec-range": {
+				"label": "Alcance"
+			}
+		},
+		"menus": {
+			"melee": "Corpo-a-Corpo",
+			"ranged": "Alcance",
+			"rangeDetect": "Detecção de Alcance",
+			"gridSquares": "Quadros de Grade para Transição para Alcance"
 		}
 	}
 }

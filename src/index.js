@@ -52,28 +52,47 @@ Hooks.on('AutomaticAnimations.Clear.Data', async () => {
     AAAutorecManager.restoreDefault()
 });
 
-// Places the A-A button on Item sheet header
-Hooks.on(`renderItemSheet`, async (app, html, data) => {
-    if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
-        return;
-    }
-    const pf2eRuleTypes = ['condition', 'effect'];
-    const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
-    aaBtn.click(async ev => {
-        await flagMigrations.handle(app.document);
-        // if this is a PF1 "Buff" effect or PF2e Ruleset Item (Active Effects) spawn the Active Effect menu. Otherwise continue as normal
-        if ((game.system.id === 'pf1' && app.item?.type === 'buff') || (game.system.id === 'pf2e' && pf2eRuleTypes.includes(app.item?.type))) {
-            new AEMenuApp(app.document, {}).render(true, { focus: true });
-        } else {
-            new ItemMenuApp(app.document, {}).render(true, { focus: true });
+function registerAAItemHooks() {
+    // Using Item Sheet header buttons Hook to inject A-A button
+    Hooks.on('getItemSheetHeaderButtons', async (itemSheet, buttons) => {
+        if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
+            return;
         }
-    });
+        let buttonOptions = {
+            class: "aaItemSettings",
+            icon: "fas fa-biohazard",
+            label: "A-A",
+            onclick: async () => {
+                await flagMigrations.handle(itemSheet.item);
+                const pf2eRuleTypes = ['condition', 'effect'];
+                // if this is a PF1 "Buff" effect or PF2e Ruleset Item (Active Effects) launch the Active Effect menu. Otherwise continue as normal
+                if ((game.system.id === 'pf1' && itemSheet.item?.type === 'buff') || (game.system.id === 'pf2e' && pf2eRuleTypes.includes(itemSheet.item?.type))) {
+                    new AEMenuApp(itemSheet.item, {}).render(true, { focus: true });
+                } else {
+                    new ItemMenuApp(itemSheet.item, {}).render(true, { focus: true });
+                }
+            }
+        }
+        buttons.splice(0, 0, buttonOptions)
+    })
 
-    html.closest('.app').find('.aa-item-settings').remove();
-    let titleElement = html.closest('.app').find('.window-title');
-    aaBtn.insertAfter(titleElement);
-
-});
+    // Using AE Config header buttons Hook to inject A-A button
+    Hooks.on('getActiveEffectConfigHeaderButtons', async (aeSheet, buttons) => {
+        if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
+            return;
+        }
+        let buttonOptions = {
+            class: "aaItemSettings",
+            icon: "fas fa-biohazard",
+            label: "A-A",
+            onclick: async () => {
+                await flagMigrations.handle(aeSheet.document);
+                new AEMenuApp(aeSheet.document, {}).render(true, { focus: true });
+            }
+        }
+        buttons.splice(0, 0, buttonOptions)
+    })
+}
 
 /**
  * WORK IN PROGRESS - NOT READY FOR WIDE USE
@@ -93,21 +112,6 @@ Hooks.on(`renderItemSheet`, async (app, html, data) => {
 Hooks.on("aa.workflow", async (token, item, options) => {
     playAnimation(token, item, options)
 })
-
-// Places the A-A button on Active Effect sheet header
-Hooks.on(`renderActiveEffectConfig`, async (app, html, data) => {
-    if (!game.user.isGM && game.settings.get("autoanimations", "hideFromPlayers")) {
-        return;
-    }
-    const aaBtn = $(`<a class="aa-item-settings" title="A-A"><i class="fas fa-biohazard"></i>A-A</a>`);
-    aaBtn.click(async ev => {
-        await flagMigrations.handle(app.document, {isActiveEffect: true});
-        new AEMenuApp(app.document, {}).render(true, { focus: true });
-    });
-    html.closest('.app').find('.aa-item-settings').remove();
-    let titleElement = html.closest('.app').find('.window-title');
-    aaBtn.insertAfter(titleElement);
-});
 
 Hooks.on('aa.initialize', async () => {
     //const patreonPath = "modules/jb2a_patreon";
@@ -130,6 +134,7 @@ Hooks.on('aa.initialize', async () => {
 })
 
 Hooks.once('ready', async function () {
+    registerAAItemHooks();
     gameSettings.initialize();
 
     // Initializes all AutoRecStores backed by individual game settings.
@@ -162,6 +167,7 @@ Hooks.once('ready', async function () {
      * Cyberpunk Red (Only for Attacks)
      * The Witcher RPG
      * TwoDSix
+     * Dark Heresy 2e
     */
 
     // Register Hooks by system
@@ -224,7 +230,7 @@ function handleTemplates() {
             removeGridHighlightsOnLoad();
             canvasMouseEvent()
             Hooks.on("createMeasuredTemplate", (template) => {
-                canvas.grid.getHighlightLayer(`MeasuredTemplate.${template.id}`).visible = false;
+                canvas.grid.getHighlightLayer(`MeasuredTemplate.${template.id}`) ? canvas.grid.getHighlightLayer(`MeasuredTemplate.${template.id}`).visible = false : "";
             });
             Hooks.on("canvasReady", async () => {
                 removeGridHighlightsOnLoad()

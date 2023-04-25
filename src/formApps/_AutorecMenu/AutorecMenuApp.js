@@ -2,6 +2,7 @@ import { SvelteApplication }    from "@typhonjs-fvtt/runtime/svelte/application"
 
 import { AutorecAppShell }      from "./components";
 import { gameSettings }         from "../../gameSettings.js";
+import AADiagnostics         from "../../troubleshooting/diagnosticsMenu.js"
 import { constants }            from "../../constants.js";
 
 export default class AutorecMenuApp extends SvelteApplication {
@@ -43,7 +44,7 @@ export default class AutorecMenuApp extends SvelteApplication {
      */
     async close(options) {
         Object.values(ui.windows).filter(app => app.id === "Options-Information" ||
-         app.id === "AA-Video-Preview" || app.id === "Autorec-Menu-Manager").forEach(app => app.close());
+         app.id === "AA-Video-Preview" || app.id === "Autorec-Menu-Manager" || app.id === "AutomatedAnimations-Diagnostics").forEach(app => app.close());
 
         return super.close(options);
     }
@@ -74,6 +75,15 @@ export default class AutorecMenuApp extends SvelteApplication {
 
                 this.icon = newShowSettings ? "fa-regular fa-square-list" : "fa-regular fa-gear";
                 this.label = newShowSettings ? "Main Menu" : "Settings";
+            }
+        },
+        {
+            icon: "fas fa-stethoscope",
+            label: "Diagnostics",
+            
+            onPress: function() {
+                let diagnosticApp = new AADiagnostics();
+                diagnosticApp.render(true, { focus: true });
             }
         });
 
