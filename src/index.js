@@ -230,7 +230,7 @@ function handleTemplates() {
             removeGridHighlightsOnLoad();
             canvasMouseEvent()
             Hooks.on("createMeasuredTemplate", (template) => {
-                canvas.grid.getHighlightLayer(`MeasuredTemplate.${template.id}`).visible = false;
+                canvas.grid.getHighlightLayer(`MeasuredTemplate.${template.id}`) ? canvas.grid.getHighlightLayer(`MeasuredTemplate.${template.id}`).visible = false : "";
             });
             Hooks.on("canvasReady", async () => {
                 removeGridHighlightsOnLoad()
