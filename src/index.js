@@ -39,6 +39,9 @@ import "../styles/newMenuCss.scss";
 // MAP for caching Deleted items. Specifically for items that delete themselves on final usage so Animations can still play
 import { aaDeletedItems }               from "./deletedItems.js";
 
+import { matchTemplateAnimation }       from "./animation-matching/matchAnimation.js";
+import { matchAnimation }               from "./animation-matching/matchAnimation.js";
+
 Hooks.once('socketlib.ready', function () {
     setupSocket();
 });
@@ -203,6 +206,8 @@ window.AutoAnimations = AutoAnimations;
 window.AutomatedAnimations = {
     AutorecManager: AAAutorecManager,
     playAnimation: (sourceToken, item, options = {}) => playAnimation(sourceToken, item, options),
+    checkTemplateAnimations: async (itemOrName) => await matchTemplateAnimation(itemOrName),
+    findAnimation: async (itemOrName, omitMenus = []) => await matchAnimation(itemOrName, omitMenus)
 }
 
 

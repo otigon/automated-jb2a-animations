@@ -2,6 +2,7 @@ import { debug }            from "../constants/constants.js";
 import { trafficCop }       from "../router/traffic-cop.js";
 import AAHandler            from "../system-handlers/workflow-data.js";
 import { getRequiredData }  from "./getRequiredData.js";
+import { matchAnimation }   from "../animation-matching/matchAnimation.js";
 
 // DnD5e System hooks provided to run animations
 export function systemHooks() {
@@ -27,19 +28,63 @@ export function systemHooks() {
             let spellLevel = options.spellLevel ?? void 0;
             Hooks.once("dnd5e.rollAttack", async (item, roll) => {
                 criticalCheck(roll, item);
+                // Compile Data
+                let requiredData = await getRequiredData({item, actor: item.actor, workflow: item, rollAttackHook: {item, roll}, spellLevel});
+                // Check Ammo and Reach
+                checkAmmo(requiredData)
+                checkReach(requiredData)
+
+                // Check for matching Animation
+                let animationFound = await findAnimation(item);
+
+                // Check for play conditions. If it should play then continue, otherwise exit
                 let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
-                if (item.hasAreaTarget || (item.hasDamage && playOnDamage)) { return; }   
-                attack(await getRequiredData({item, actor: item.actor, workflow: item, rollAttackHook: {item, roll}, spellLevel}))    
+                if (item.hasAreaTarget || (item.hasDamage && playOnDamage)) { return; }
+                
+                // If no Animation matched, exit
+                //if (!animationFound.length) {return;}
+
+                // Add Animation fields
+                requiredData.animations = animationFound;
+                // Start Animation
+                attack(requiredData)    
             })
         })
         Hooks.on("dnd5e.rollDamage", async (item, roll) => {
+            // Check for matching Animation
+            let animationFound = await findAnimation(item);
+            // If no Animation matched, exit
+            if (!animationFound.length) {return;}
+
+            // Check for play conditions. If it should play then continue, otherwise exit
             let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
             if (item.hasAreaTarget || (item.hasAttack && !playOnDamage)) { return; }
-            damage(await getRequiredData({item, actor: item.actor, workflow: item, rollDamageHook: {item, roll}, spellLevel: roll?.data?.item?.level ?? void 0}))
+
+            // Compile Data
+            let requiredData = await getRequiredData({item, actor: item.actor, workflow: item, rollDamageHook: {item, roll}, spellLevel: roll?.data?.item?.level ?? void 0});
+            // Check Ammo and Reach
+            checkAmmo(requiredData)
+            checkReach(requiredData)            
+            // Add Animation fields
+            requiredData.animations = animationFound;
+            // Start Animation            
+            damage(requiredData)
         })
         Hooks.on('dnd5e.useItem', async (item, config, options) => {
+            // Check for matching Animation
+            let animationFound = await findAnimation(item);
+            // If no Animation matched, exit
+            if (!animationFound.length) {return;}
+
+            // Check for play conditions. If it should play then continue, otherwise exit
             if (item?.hasAreaTarget || item.hasAttack || item.hasDamage) { return; }
-            useItem(await getRequiredData({item, actor: item.actor, workflow: item, useItemHook: {item, config, options}, spellLevel: options?.flags?.dnd5e?.use?.spellLevel || void 0}))
+
+            // Compile Data
+            let requiredData = await getRequiredData({item, actor: item.actor, workflow: item, useItemHook: {item, config, options}, spellLevel: options?.flags?.dnd5e?.use?.spellLevel || void 0});
+            // Add Animation fields
+            requiredData.animations = animationFound;
+            // Start Animation            
+            useItem(requiredData)
         })
     }
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
@@ -50,6 +95,43 @@ export function systemHooks() {
             templateAnimation(await getRequiredData({itemUuid: template.flags?.dnd5e?.origin, templateData: template, workflow: template, isTemplate: true, spellLevel}))
         })
     })
+}
+
+async function startWorkflow() {
+    // Hook to signify the start of the A-A workflow;
+    Hooks.callAll("AutomatedAnimations-WorkflowStart", clonedData, animationData);
+
+    // Can be added from the above Hook to stop the A-A workflow    
+    if (clonedData.stopWorkflow) { 
+        debug(`Animation Workflow was interrupted by an External Source`, clonedData )
+        return;
+    }
+
+    // recheckAnimation can be passed as a Boolean to let A-A know it needs to recheck for Animations.
+    // Useful for changing out the Item to be processed mid-stream
+    let newAnimationData;
+    if (clonedData.recheckAnimation) {
+        newAnimationData = await handleItem(clonedData);
+        // If no Animation data is found for the newly passed Item, resets to the Original Item
+        if (!newAnimationData) {
+            clonedData.item = data.item
+        }
+    }
+
+    // If no Animation data is matched, returns False and stops workflow
+    if (!animationData && !newAnimationData) { 
+        debug(`No Animation matched for Item`, clonedData )
+        return false;
+    }
+
+    // Determines the animation data to be used, either original or new.
+    let finalAnimationData = newAnimationData ? newAnimationData : animationData
+    return new AAHandler({...clonedData, finalAnimationData});
+}
+async function findAnimation(item) {
+    let animationMatched = await matchAnimation(item);
+    console.log(animationMatched)
+    return animationMatched;
 }
 
 /**
@@ -68,12 +150,21 @@ async function useItem(input) {
 }
 
 async function attack(input) {
+    /*
     checkAmmo(input)
     checkReach(input)
     debug("Attack rolled, checking for animations");
     const handler = await AAHandler.make(input)
     if (!handler?.item || !handler?.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler); return;}
     trafficCop(handler)
+    */
+
+    let animations = input.animations;
+
+    for (let animation of animations) {
+        input.finalAnimationData = animation;
+        trafficCop(new AAHandler(input))
+    }
 }
 
 async function damage(input) {
