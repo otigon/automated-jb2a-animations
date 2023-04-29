@@ -68,7 +68,7 @@ export class DataSanitizer {
             repeatDelay: data.repeatDelay ?? 250,
         }
         if (!input.enable || !input.file) { return false }
-        let soundSeq = new Sequence()
+        let soundSeq = new Sequence({moduleName: "Automated Animations", softFail: !game.settings.get("autoanimations", "debug")})
         let section = soundSeq.sound()
         section.file(input.file)
         section.delay(input.delay + addDelay)
