@@ -216,7 +216,7 @@ function criticalCheck(workflow, item = {}) {
     debug("Checking for Crit or Fumble")
     let critical = workflow.isCritical;
     let fumble = workflow.isFumble;
-    let token = canvas.tokens.get(workflow.tokenId) || getTokenFromItem(item.id);;
+    let token = canvas.tokens.get(workflow.tokenId) || getTokenFromItem(item);;
 
     let critAnim = game.settings.get("autoanimations", "CriticalAnimation");
     let critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
