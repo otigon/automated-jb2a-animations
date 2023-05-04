@@ -207,11 +207,11 @@ export default class AAHandler {
     runMacro(macro, handler = this) {
         let userData = macro.args
         if (game.modules.get("advanced-macros")?.active) {
-            new Sequence()
+            new Sequence(handler.sequenceData)
                 .macro(macro.name, handler.workflow, handler, userData)
                 .play()
         } else {
-            new Sequence()
+            new Sequence(handler.sequenceData)
                 .macro(macro.name)
                 .play()
         }    
