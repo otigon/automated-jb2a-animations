@@ -299,7 +299,7 @@ export class CategoryStore extends WorldSettingArrayStore {
    }
 
    openSequencerViewer() {
-      Sequencer.DatabaseViewer.show(true)
+      Sequencer.DatabaseViewer.show()
    }
 
 }
