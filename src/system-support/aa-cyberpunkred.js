@@ -123,7 +123,11 @@ function getDistance(token, target) {
 }
 
 async function getDV(dvTable, dist) {
-    const pack = game.packs.get("cyberpunk-red-core.dvTables");
+    let pack = game.packs.get("cyberpunk-red-core.dv-tables");
+    if (!pack) {
+        // fallback for older version
+        pack = game.packs.get("cyberpunk-red-core.dvTables");
+    }
     const tableId = pack.index.getName(dvTable)?._id;
     if (!tableId) {
         debug(`Could not get table with name "${dvTable}" from compendium`);

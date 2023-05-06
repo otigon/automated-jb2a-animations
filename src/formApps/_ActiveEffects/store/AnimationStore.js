@@ -253,7 +253,7 @@ export class AnimationStore extends ObjectEntryStore {
    }
 
    openSequencerViewer() {
-      Sequencer.DatabaseViewer.show(true)
+      Sequencer.DatabaseViewer.show()
    }
 
    async copyFromAutorec(autorec) {

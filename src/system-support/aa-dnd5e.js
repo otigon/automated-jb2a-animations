@@ -44,12 +44,18 @@ export function systemHooks() {
     }
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
         if (userId !== game.user.id) { return };
+        templateAnimation(await getRequiredData({itemUuid: template.flags?.dnd5e?.origin, templateData: template, workflow: template, isTemplate: true}))
+    })
+    /*
+    Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
+        if (userId !== game.user.id) { return };
         let spellLevel = void 0;
         Hooks.once("dnd5e.useItem", async (item, data, config) => {
             spellLevel = config?.flags?.dnd5e?.use?.spellLevel ?? void 0;
             templateAnimation(await getRequiredData({itemUuid: template.flags?.dnd5e?.origin, templateData: template, workflow: template, isTemplate: true, spellLevel}))
         })
     })
+    */
 }
 
 /**
