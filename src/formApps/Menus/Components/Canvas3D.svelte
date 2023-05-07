@@ -13,6 +13,8 @@
     //export let idx
     let { animation, category, idx } = getContext('animation-data');
 
+    let pEffects = game.Levels3DPreview.CONFIG.PARTICLE_SYSTEMS.ALL_PARTICLE_SYSTEMS;
+
     function setSprite(type) {
         let spritePath;
         switch (type) {
@@ -20,7 +22,7 @@
                 spritePath =
                     "modules/levels-3d-preview/assets/particles/dust.png";
                 break;
-            case "sprit":
+            case "sprite":
                 spritePath = "modules/canvas3dcompendium/assets/Tiles/RPG%20Items/Arrow_Golden.glb";
                 break;
             default:
@@ -70,12 +72,14 @@
                 bind:value={$animation.levels3d.type}
                 on:change={() => setSprite(animation._data.levels3d.type)}
             >
-                <option value="projectile">{localize("autoanimations.menus.projectile")}</option>
-                <option value="sprite">3D Object</option>
-                <option value="ray">{localize("autoanimations.menuTypes.ray")}</option>
-                <option value="explosion">{localize("autoanimations.menus.explosion")}</option >
-                <option value="token">{localize("autoanimations.menus.token")}</option>
-            </select>
+            {#each Object.keys(pEffects) as effect}
+            <option value={effect}
+                >{localize(
+                    `levels3dpreview.particleSystems.${effect}`
+                )}</option
+            >
+        {/each}
+         </select>
         </div>
     </td>
     <td style="width: 20%; border:none"></td>

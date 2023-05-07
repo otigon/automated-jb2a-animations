@@ -56,10 +56,8 @@ export async function particleEffects(handler, animationData = {}) {
     }
 
     class ParticleFunctions {
-        static projectile(data, sourceToken, targets) {
-            if (secondary.enable) {
-                let spriteData = new Particle3D(data.type)
-                //new Particle3D(data.type)
+        static particle(data, sourceToken, targets) {
+                const spriteData = new Particle3D(data.type)
                 spriteData.from(sourceToken)
                 spriteData.to(targets)
                 spriteData.speed(data.speed)
@@ -74,12 +72,17 @@ export async function particleEffects(handler, animationData = {}) {
                 spriteData.alpha(data.alpha)
                 spriteData.mass(data.mass)
                 spriteData.gravity(data.gravity)
+            spriteData.duration(data.duration)
+            spriteData.onCenter(data.onCenter)
+            spriteData.autoSize(data.autoSize)
                 spriteData.rate(data.rate, 1)
+                spriteData.presetIntensity(data.rate)
                 if (tokenAnim.enable && (tokenAnim.source || tokenAnim.target)) {
                     spriteData.playAnimation(compileTokenAnimationData())
                 }
-                spriteData.onEnd(
-                        new Particle3D("e")
+            if (secondary.enable) {
+                    spriteData.onEnd(
+                        new Particle3D(secondary.type ?? "e")
                             .sprite(secondary.sprite)
                             .speed(secondary.speed)
                             .color(secondary.color01, secondary.color02)
@@ -87,169 +90,16 @@ export async function particleEffects(handler, animationData = {}) {
                             .gravity(secondary.gravity)
                             .life(secondary.life)
                             .rate(secondary.rate, 1)
+                            .presetIntensity(secondary.rate)
                             .emitterSize(secondary.emittersize)
+                            .duration(secondary.duration)
+                            .onCenter(secondary.onCenter)
+                            .autoSize(secondary.autoSize)
                             .alpha(secondary.alpha)
                             .mass(secondary.mass)
                     )
-                spriteData.start()
-            } else {
-                let spriteData = new Particle3D(data.type)
-                //new Particle3D(data.type)
-                spriteData.from(sourceToken)
-                spriteData.to(targets)
-                spriteData.speed(data.speed)
-                spriteData.repeat(data.repeat)
-                spriteData.arc(data.arc)
-                spriteData.delay(data.delay)
-                spriteData.color(data.color01, data.color02)
-                spriteData.scale(data.scale)
-                spriteData.sprite(data.sprite)
-                spriteData.life(data.life)
-                spriteData.emitterSize(data.emittersize)
-                spriteData.alpha(data.alpha)
-                spriteData.mass(data.mass)
-                spriteData.gravity(data.gravity)
-                spriteData.rate(data.rate, 1)
-                if (tokenAnim.enable && (tokenAnim.source || tokenAnim.target)) {
-                    spriteData.playAnimation(compileTokenAnimationData())
                 }
                 spriteData.start()
-            }
-        }
-
-        static ray(data, sourceToken, targets) {
-            if (secondary.enable) {
-                let spriteData = new Particle3D(data.type)
-                //new Particle3D(data.type)
-                spriteData.from(sourceToken)
-                spriteData.to(targets)
-                spriteData.speed(data.speed)
-                spriteData.repeat(data.repeat)
-                spriteData.arc(data.arc)
-                spriteData.delay(data.delay)
-                spriteData.color(data.color01, data.color02)
-                spriteData.scale(data.scale)
-                spriteData.sprite(data.sprite)
-                spriteData.life(data.life)
-                spriteData.emitterSize(data.emittersize)
-                spriteData.alpha(data.alpha)
-                spriteData.mass(data.mass)
-                spriteData.gravity(data.gravity)
-                spriteData.rate(data.rate, 1)
-                if (tokenAnim.enable && (tokenAnim.source || tokenAnim.target)) {
-                    spriteData.playAnimation(compileTokenAnimationData())
-                }
-                spriteData.onEnd(
-                        new Particle3D("e")
-                            .sprite(secondary.sprite)
-                            .speed(secondary.speed)
-                            .color(secondary.color01, secondary.color02)
-                            .scale(secondary.scale)
-                            .gravity(secondary.gravity)
-                            .life(secondary.life)
-                            .rate(secondary.rate, 1)
-                            .emitterSize(secondary.emittersize)
-                            .alpha(secondary.alpha)
-                            .mass(secondary.mass)
-                    )
-                spriteData.start()
-            } else {
-                let spriteData = new Particle3D(data.type)
-                //new Particle3D(data.type)
-                spriteData.from(sourceToken)
-                spriteData.to(targets)
-                spriteData.speed(data.speed)
-                spriteData.repeat(data.repeat)
-                spriteData.arc(data.arc)
-                spriteData.delay(data.delay)
-                spriteData.color(data.color01, data.color02)
-                spriteData.scale(data.scale)
-                spriteData.sprite(data.sprite)
-                spriteData.life(data.life)
-                spriteData.emitterSize(data.emittersize)
-                spriteData.alpha(data.alpha)
-                spriteData.mass(data.mass)
-                spriteData.gravity(data.gravity)
-                spriteData.rate(data.rate, 1)
-                if (tokenAnim.enable && (tokenAnim.source || tokenAnim.target)) {
-                    spriteData.playAnimation(compileTokenAnimationData())
-                }
-                spriteData.start()
-            }
-        }
-
-        static explosion(data, sourceToken, targets) {
-            let spriteData = new Particle3D(data.type)
-            //new Particle3D("e")
-            spriteData.to(targets)
-            spriteData.sprite(data.sprite)
-            spriteData.speed(data.speed)
-            spriteData.repeat(data.repeat)
-            spriteData.delay(data.delay)
-            spriteData.color(data.color01, data.color02)
-            spriteData.scale(data.scale, 2)
-            spriteData.gravity(data.gravity)
-            spriteData.life(data.life)
-            spriteData.rate(data.rate, 1)
-            spriteData.emitterSize(data.emittersize)
-            spriteData.alpha(data.alpha, 0)
-            spriteData.mass(data.mass)
-            if (tokenAnim.enable && (tokenAnim.source || tokenAnim.target)) {
-                spriteData.playAnimation(compileTokenAnimationData())
-            }
-            spriteData.start()
-        }
-
-        static sprite(data, sourceToken, targets) {
-            //let spriteData = new Particle3d(data.type)
-            if (secondary.enable) {
-                let spriteData = new Particle3D(data.type)
-                spriteData.from(sourceToken)
-                spriteData.to(targets)
-                spriteData.speed(data.speed)
-                spriteData.repeat(data.repeat)
-                spriteData.delay(data.delay)
-                spriteData.color(data.color01)
-                spriteData.scale(data.scale)
-                spriteData.sprite(data.sprite)
-                spriteData.alpha(data.alpha)
-                spriteData.rotateTowards(data.rotateTowards)
-                spriteData.rotation(data.rotationX, data.rotationY, data.rotationZ)
-                if (tokenAnim.enable && (tokenAnim.source || tokenAnim.target)) {
-                    spriteData.playAnimation(compileTokenAnimationData())
-                }
-                spriteData.onEnd(
-                    new Particle3D("e")
-                        .sprite(secondary.sprite)
-                        .speed(secondary.speed)
-                        .color(secondary.color01, secondary.color02)
-                        .scale(secondary.scale)
-                        .gravity(secondary.gravity)
-                        .life(secondary.life)
-                        .rate(secondary.rate, 1)
-                        .emitterSize(secondary.emittersize)
-                        .alpha(secondary.alpha)
-                        .mass(secondary.mass)
-                )
-                spriteData.start()
-            } else {
-                let spriteData = new Particle3D(data.type)
-                spriteData.from(sourceToken)
-                spriteData.to(targets)
-                spriteData.speed(data.speed)
-                spriteData.repeat(data.repeat)
-                spriteData.delay(data.delay)
-                spriteData.color(data.color01)
-                spriteData.scale(data.scale)
-                spriteData.sprite(data.sprite)
-                spriteData.alpha(data.alpha)
-                spriteData.rotateTowards(data.rotateTowards)
-                spriteData.rotation(data.rotationX, data.rotationY, data.rotationZ)
-                if (tokenAnim.enable && (tokenAnim.source || tokenAnim.target)) {
-                    spriteData.playAnimation(compileTokenAnimationData())
-                }
-                spriteData.start()
-            }
         }
 
         static token() {
@@ -284,5 +134,5 @@ export async function particleEffects(handler, animationData = {}) {
 
     }
 
-    ParticleFunctions[data.type](data, sourceToken, targets)
+    data.type == "token" ? ParticleFunctions.token(data, sourceToken, targets) : ParticleFunctions.particle(data, sourceToken, targets)
 }

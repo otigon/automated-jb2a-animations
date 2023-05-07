@@ -700,7 +700,10 @@
             "saturation": "Saturation",
             "colorTint": "Color Tint",
             "activeEffect": "Active Effect",
-            "matchFound": "Match Found"
+            "matchFound": "Match Found",
+            "onCenter": "On Center",
+            "autoSize": "Auto Size",
+            "duration": "Duration"
         },
         "tokenAnimations": {
             "bow": "Bow",
