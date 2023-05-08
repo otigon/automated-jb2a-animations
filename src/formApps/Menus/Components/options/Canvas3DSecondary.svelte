@@ -13,6 +13,10 @@
         $animation.levels3d.secondary.data.autoSize = true;
 }
 
+if(!$animation.levels3d.secondary.data.spritePath) {
+    $animation.levels3d.secondary.data.spritePath = "modules/levels-3d-preview/assets/particles/dust.png";
+}
+
     let pEffects = game.Levels3DPreview.CONFIG.PARTICLE_SYSTEMS.TARGET_ONLY_PARTICLE_SYSTEMS;
 
     const folder = {
