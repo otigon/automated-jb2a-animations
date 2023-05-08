@@ -13,7 +13,7 @@
     //export let idx
     let { animation, category, idx } = getContext('animation-data');
 
-    let pEffects = game.Levels3DPreview.CONFIG.PARTICLE_SYSTEMS.ALL_PARTICLE_SYSTEMS;
+    let pEffects = game.Levels3DPreview.CONFIG.PARTICLE_SYSTEMS.ALL_PARTICLE_SYSTEMS_WITHOPTS;
 
     function setSprite(type) {
         let spritePath;
@@ -73,11 +73,17 @@
                 on:change={() => setSprite(animation._data.levels3d.type)}
             >
             {#each Object.keys(pEffects) as effect}
+                {#if effect.includes("optgroup")}
+                    <optgroup label={localize(
+                        `levels3dpreview.particleSystems.${effect}`
+                    )}> </optgroup>
+                {:else}
             <option value={effect}
                 >{localize(
                     `levels3dpreview.particleSystems.${effect}`
                 )}</option
             >
+            {/if}
         {/each}
          </select>
         </div>
