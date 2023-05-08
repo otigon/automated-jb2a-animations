@@ -21,6 +21,9 @@
 
     //export let animation;
     let { animation} = getContext('animation-data');
+    if (typeof $animation.levels3d.data.autoSize !== "boolean") {
+  $animation.levels3d.data.autoSize = true;
+}
 
     const folder = {
         label: game.i18n.localize("autoanimations.menus.options"),

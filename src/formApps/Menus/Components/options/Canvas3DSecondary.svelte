@@ -9,6 +9,10 @@
     //export let animation;
     let { animation} = getContext('animation-data');
 
+    if (typeof $animation.levels3d.secondary.data.autoSize !== "boolean") {
+        $animation.levels3d.secondary.data.autoSize = true;
+}
+
     let pEffects = game.Levels3DPreview.CONFIG.PARTICLE_SYSTEMS.TARGET_ONLY_PARTICLE_SYSTEMS;
 
     const folder = {
