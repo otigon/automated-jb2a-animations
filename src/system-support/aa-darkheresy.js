@@ -15,6 +15,10 @@ export function systemHooks() {
         routeMessage({itemId, tokenId, actorId, workflow: msg, rollClass})
     });
     Hooks.on("AutomatedAnimations-WorkflowStart", onWorkflowStart);
+    Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
+        if (userId !== game.user.id) { return };
+        templateAnimation(await getRequiredData({itemUuid: template.flags?.["dark-heresy"]?.origin, templateData: template, workflow: template, isTemplate: true}))
+    })
 }
 
 async function routeMessage(input) {
@@ -33,4 +37,12 @@ function onWorkflowStart(clonedData, animationData) {
     if (animationData.primary != null && clonedData.workflow.flags["dark-heresy"].rollData.maxAdditionalHit != null) {
         animationData.primary.options.repeat = (1 + clonedData.workflow.flags["dark-heresy"].rollData.maxAdditionalHit);
     }
+}
+
+async function templateAnimation(input) {
+    if (!input.item) { 
+        return;
+    }
+    const handler = await AAHandler.make(input)
+    trafficCop(handler)
 }
