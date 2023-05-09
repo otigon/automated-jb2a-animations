@@ -17,7 +17,7 @@ if(!$animation.levels3d.secondary.data.spritePath) {
     $animation.levels3d.secondary.data.spritePath = "modules/levels-3d-preview/assets/particles/dust.png";
 }
 
-    let pEffects = game.Levels3DPreview.CONFIG.PARTICLE_SYSTEMS.TARGET_ONLY_PARTICLE_SYSTEMS;
+    let pEffects = game.Levels3DPreview?.CONFIG.PARTICLE_SYSTEMS?.TARGET_ONLY_PARTICLE_SYSTEMS || {};
 
     const folder = {
         label: game.i18n.localize("autoanimations.menus.options"),

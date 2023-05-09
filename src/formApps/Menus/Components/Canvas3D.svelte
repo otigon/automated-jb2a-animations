@@ -13,7 +13,7 @@
     //export let idx
     let { animation, category, idx } = getContext("animation-data");
 
-    let pEffects = game.Levels3DPreview.CONFIG.PARTICLE_SYSTEMS.ALL_PARTICLE_SYSTEMS_WITHOPTS;
+    let pEffects = game.Levels3DPreview?.CONFIG.PARTICLE_SYSTEMS?.ALL_PARTICLE_SYSTEMS_WITHOPTS || {};
 
     function setSprite(type) {
         let spritePath;
