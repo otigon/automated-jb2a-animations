@@ -21,6 +21,9 @@
 
     //export let animation;
     let { animation} = getContext('animation-data');
+    if (typeof $animation.levels3d.data.autoSize !== "boolean") {
+  $animation.levels3d.data.autoSize = true;
+}
 
     const folder = {
         label: game.i18n.localize("autoanimations.menus.options"),
@@ -237,14 +240,14 @@
                         <div class="flex-row">
                             <div>
                                 <label for=""
-                                    >{localize("autoanimations.menus.mass")}</label
+                                    >{localize("autoanimations.menus.duration")}</label
                                 >
                             </div>
                             <div>
                                 <input
                                     type="number"
-                                    bind:value={$animation.levels3d.data.mass}
-                                    placeholder="100"
+                                    bind:value={$animation.levels3d.data.duration}
+                                    placeholder="3000"
                                     step=".01"
                                 />
                             </div>
@@ -316,6 +319,28 @@
                                 bind:checked={$animation.levels3d.data.rotateTowards}
                             />
                     </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="3dautoSize {animation._data.id}"
+                            >{localize("autoanimations.menus.autoSize")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="3dautoSize {animation._data.id}"
+                            bind:checked={$animation.levels3d.data.autoSize}
+                        />
+                </td>
+                <td>
+                    <label for="3donCenter {animation._data.id}"
+                        >{localize("autoanimations.menus.onCenter")}
+                    </label>
+                    <input
+                        type="checkbox"
+                        id="3donCenter {animation._data.id}"
+                        bind:checked={$animation.levels3d.data.onCenter}
+                    />
+            </td>
                 </tr>
                 {#if $animation.levels3d.type === "sprite"}
                 <tr>

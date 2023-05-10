@@ -9,6 +9,16 @@
     //export let animation;
     let { animation} = getContext('animation-data');
 
+    if (typeof $animation.levels3d.secondary.data.autoSize !== "boolean") {
+        $animation.levels3d.secondary.data.autoSize = true;
+}
+
+if(!$animation.levels3d.secondary.data.spritePath) {
+    $animation.levels3d.secondary.data.spritePath = "modules/levels-3d-preview/assets/particles/dust.png";
+}
+
+    let pEffects = game.Levels3DPreview?.CONFIG.PARTICLE_SYSTEMS?.TARGET_ONLY_PARTICLE_SYSTEMS || {};
+
     const folder = {
         label: game.i18n.localize("autoanimations.menus.options"),
         styles: {
@@ -68,6 +78,22 @@
             title="Toggle Secondary On/Off"
             bind:checked={$animation.levels3d.secondary.enable}
         />
+    </div>
+    <div class="flexcol" style="align-items: center;">
+        <label for=""
+            >{localize("autoanimations.menus.type")}</label
+        >
+        <select
+            bind:value={$animation.levels3d.secondary.data.type}
+        >
+        {#each Object.keys(pEffects) as effect}
+        <option value={effect}
+            >{localize(
+                `levels3dpreview.particleSystems.${effect}`
+            )}</option
+        >
+    {/each}
+     </select>
     </div>
     <table class="c">
         <tr>
@@ -148,6 +174,15 @@
                 <div slot="summary-end">
                     <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("canvas3d")}/>
                 </div>
+
+
+
+
+
+
+
+
+
                 <table class="d">
                     <tr>
                         <td>
@@ -168,12 +203,6 @@
                             </div>
                         </td>
                         <td>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
                             <div class="flex-row">
                                 <div>
                                     <label for=""
@@ -189,8 +218,6 @@
                                     />
                                 </div>
                             </div>
-                        </td>
-                        <td>
                         </td>
                         <td>
                             <div class="flex-row">
@@ -234,14 +261,14 @@
                             <div class="flex-row">
                                 <div>
                                     <label for=""
-                                        >{localize("autoanimations.menus.mass")}</label
+                                        >{localize("autoanimations.menus.duration")}</label
                                     >
                                 </div>
                                 <div>
                                     <input
                                         type="number"
-                                        bind:value={$animation.levels3d.secondary.data.mass}
-                                        placeholder="100"
+                                        bind:value={$animation.levels3d.secondary.data.duration}
+                                        placeholder="3000"
                                         step=".01"
                                     />
                                 </div>
@@ -301,8 +328,30 @@
                                     />
                                 </div>
                             </div>
+                            <td>
+                                <label for="3dautoSize {animation._data.id}"
+                                    >{localize("autoanimations.menus.autoSize")}
+                                </label>
+                                <input
+                                    type="checkbox"
+                                    id="3dautoSize {animation._data.id}"
+                                    bind:checked={$animation.levels3d.secondary.data.autoSize}
+                                />
                         </td>
-                        <td />
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="3donCenter {animation._data.id}"
+                                >{localize("autoanimations.menus.onCenter")}
+                            </label>
+                            <input
+                                type="checkbox"
+                                id="3donCenter {animation._data.id}"
+                                bind:checked={$animation.levels3d.secondary.data.onCenter}
+                            />
+                    </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </table>
             </TJSSvgFolder>

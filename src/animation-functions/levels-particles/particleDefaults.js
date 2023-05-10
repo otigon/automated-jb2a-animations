@@ -14,7 +14,9 @@ export const particleDefaultValues = {
         mass: 400,
         gravity: 2,
         rate: 10,
-        explosion: {}
+        explosion: {},
+        onCenter: false,
+        autoSize: true,
     },
     projectile: {
         type: "projectile",
@@ -32,6 +34,7 @@ export const particleDefaultValues = {
         mass: 100,
         gravity: 0,
         rate: 10,
+        duration: 3000,
     },
     ray: {
         type: "ray",
