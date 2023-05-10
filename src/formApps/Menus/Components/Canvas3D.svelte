@@ -62,7 +62,7 @@
         <div class="flexcol" style="align-items: center;">
             <label for="">{localize("autoanimations.menus.type")}</label>
             <select bind:value={$animation.levels3d.type} on:change={() => setSprite(animation._data.levels3d.type)}>
-                <option value="token">{localize(`autoanimations.menus.token`)}</option>
+                <option value="token">{localize(`autoanimations.menus.token`)} {localize(`autoanimations.menus.animation`)}</option>
                 {#each Object.keys(pEffects) as effect}
                     {#if effect.includes("optgroup")}
                         <optgroup label={localize(`levels3dpreview.particleSystems.${effect}`)} />
