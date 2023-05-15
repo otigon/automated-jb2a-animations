@@ -702,7 +702,10 @@
 			"colorTint": "Teinte de couleur",
 			"contrast": "Contraste",
 			"matchFound": "Correspondance trouvée",
-			"activeEffect": "Effet actif"
+			"activeEffect": "Effet actif",
+			"autoSize": "Taille Auto",
+			"duration": "Durée",
+			"onCenter": "Au centre"
 		},
 		"app": {
 			"aaAutorec-range": {

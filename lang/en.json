@@ -658,7 +658,7 @@
             "musicnote": "Music Notes",
             "level": "Level",
             "duplicate": "Duplicate",
-            "3dcanvas": "3d Canvas",
+            "3dcanvas": "3D Canvas",
             "only": "Only",
             "all": "All",
             "unbind": "Unbind",
@@ -700,7 +700,10 @@
             "saturation": "Saturation",
             "colorTint": "Color Tint",
             "activeEffect": "Active Effect",
-            "matchFound": "Match Found"
+            "matchFound": "Match Found",
+            "onCenter": "On Center",
+            "autoSize": "Auto Size",
+            "duration": "Duration"
         },
         "tokenAnimations": {
             "bow": "Bow",
