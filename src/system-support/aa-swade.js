@@ -11,9 +11,25 @@ export function systemHooks() {
                 token = controlledTokens.find(token => token.document.actorId === SwadeTokenOrActor.id);
             }
             if (token) { SwadeTokenOrActor = token; }
-            runSwade(SwadeTokenOrActor, SwadeTokenOrActor, SwadeItem)
+            runSwade(SwadeTokenOrActor, SwadeTokenOrActor, SwadeItem);
         }
     });
+    Hooks.on("swadeConsumeItem", async (SwadeItem, charges, usage) => {
+        const controlledTokens = canvas.tokens.controlled;
+        let token;
+        let SwadeTokenOrActor = SwadeItem.parent
+        if (controlledTokens.length > 0) {
+          token = controlledTokens.find(token => token.document.actorId === SwadeTokenOrActor.id);
+        }
+        if (token) {
+          SwadeTokenOrActor = token;
+        }
+        runSwade(SwadeTokenOrActor, SwadeTokenOrActor, SwadeItem);
+    });
+    Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
+        if (userId !== game.user.id || !template.flags?.swade?.origin) return;
+        templateAnimation(await getRequiredData({itemUuid: template.flags?.swade?.origin, templateData: template, workflow: template, isTemplate: true}))
+    })
     async function get_brsw_data (data) {
         //var tokenId = data.getFlag("betterrolls-swade2", "token");
         return {token: data.token, actor: data.actor, item: data.item}
