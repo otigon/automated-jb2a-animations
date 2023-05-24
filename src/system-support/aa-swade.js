@@ -4,7 +4,8 @@ import { getRequiredData }  from "./getRequiredData.js";
 
 export function systemHooks() {
     Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem, SwadeAction) => {
-        if (SwadeAction === "damage" || (SwadeAction === "formula" && !SwadeItem.system.damage)) {
+        const playtrigger = game.settings.get("autoanimations", "playtrigger");
+        if ((SwadeAction === "damage" && playtrigger === "onDamage") || (SwadeAction === "formula" && playtrigger === "onAttack")) {
             const controlledTokens = canvas.tokens.controlled;
             let token;
             if (controlledTokens.length > 0) {

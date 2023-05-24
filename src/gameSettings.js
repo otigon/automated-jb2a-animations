@@ -786,6 +786,24 @@ class AAGameSettings extends TJSGameSettings {
                }
             });
             break;
+         case "swade":
+            settings.push({
+               namespace,
+               key: "playtrigger",
+               folder: game.system.title || game.system.name,
+               options: {
+                  name: "autoanimations.settings.playAnimations",
+                  scope: scope.world,
+                  type: String,
+                  choices: {
+                     onAttack: "autoanimations.settings.swadeTraitRolls",
+                     onDamage: "autoanimations.settings.damage"
+                  },
+                  default: "onDamage",
+                  config: true
+               }
+            });
+            break;
          /* Considering options for changing 5e options on "How To Play" Animations
       default:
          settings.push({
