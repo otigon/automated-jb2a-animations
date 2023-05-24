@@ -1,9 +1,11 @@
-import { trafficCop }       from "../router/traffic-cop.js"
-import AAHandler            from "../system-handlers/workflow-data.js";
-import { getRequiredData }  from "./getRequiredData.js";
+import { debug } from "../constants/constants.js";
+import { trafficCop } from "../router/traffic-cop.js";
+import AAHandler from "../system-handlers/workflow-data.js";
+import { getRequiredData } from "./getRequiredData.js";
 
 export function systemHooks() {
-    Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem, SwadeAction) => {
+    Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem, SwadeAction, SwadeRoll, userId) => {
+        if (!SwadeRoll) { return; }
         const playtrigger = game.settings.get("autoanimations", "playtrigger");
         if ((SwadeAction === "damage" && playtrigger === "onDamage") || (SwadeAction === "formula" && playtrigger === "onAttack")) {
             const controlledTokens = canvas.tokens.controlled;
@@ -69,6 +71,15 @@ export function systemHooks() {
     })
 }
 
+async function templateAnimation(input) {
+    debug("Template placed, checking for animations")
+    if (!input.item) {
+        debug("No Item could be found")
+        return;
+    }
+    const handler = await AAHandler.make(input)
+    trafficCop(handler)
+}
 // TO-DO, CHECK SWADE
 async function runSwade(token, actor, item) {
     let data = await getRequiredData({token, actor, item })
