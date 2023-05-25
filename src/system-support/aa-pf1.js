@@ -9,7 +9,8 @@ export function systemHooks() {
         const chatName = $(msg.content).find('.item-name')?.text() ?? '';
         const itemFromChat = msg.itemSource;
         if (!itemFromChat) { return; };
-        const item = foundry.utils.deepClone(itemFromChat);
+        const item = itemFromChat.toObject();
+        //const item = foundry.utils.duplicate(itemFromChat);
         if (item && actionId) {
             item.actions?.get(actionId)?.name ?? '';
             item.name = `${item.name} ${actionName}`;

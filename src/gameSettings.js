@@ -238,7 +238,7 @@ class AAGameSettings extends TJSGameSettings {
                key: 'CriticalAnimation',
                folder: game.system.title || game.system.name,
                options: {
-                  name: 'autoanimations.settings.CriticalAnimation',
+                  name: 'autoanimations.settings.cypherCritAnim_name',
                   scope: scope.world,
                   type: String,
                   config: true,
