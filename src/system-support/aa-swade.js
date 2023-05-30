@@ -1,19 +1,38 @@
-import { trafficCop }       from "../router/traffic-cop.js"
-import AAHandler            from "../system-handlers/workflow-data.js";
-import { getRequiredData }  from "./getRequiredData.js";
+import { debug } from "../constants/constants.js";
+import { trafficCop } from "../router/traffic-cop.js";
+import AAHandler from "../system-handlers/workflow-data.js";
+import { getRequiredData } from "./getRequiredData.js";
 
 export function systemHooks() {
-    Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem, SwadeAction) => {
-        if (SwadeAction === "damage" || (SwadeAction === "formula" && !SwadeItem.system.damage)) {
+    Hooks.on("swadeAction", async (SwadeTokenOrActor, SwadeItem, SwadeAction, SwadeRoll, userId) => {
+        if (!SwadeRoll) { return; }
+        const playtrigger = game.settings.get("autoanimations", "playtrigger");
+        if ((SwadeAction === "damage" && playtrigger === "onDamage") || (SwadeAction === "formula" && playtrigger === "onAttack")) {
             const controlledTokens = canvas.tokens.controlled;
             let token;
             if (controlledTokens.length > 0) {
                 token = controlledTokens.find(token => token.document.actorId === SwadeTokenOrActor.id);
             }
             if (token) { SwadeTokenOrActor = token; }
-            runSwade(SwadeTokenOrActor, SwadeTokenOrActor, SwadeItem)
+            runSwade(SwadeTokenOrActor, SwadeTokenOrActor, SwadeItem);
         }
     });
+    Hooks.on("swadeConsumeItem", async (SwadeItem, charges, usage) => {
+        const controlledTokens = canvas.tokens.controlled;
+        let token;
+        let SwadeTokenOrActor = SwadeItem.parent
+        if (controlledTokens.length > 0) {
+          token = controlledTokens.find(token => token.document.actorId === SwadeTokenOrActor.id);
+        }
+        if (token) {
+          SwadeTokenOrActor = token;
+        }
+        runSwade(SwadeTokenOrActor, SwadeTokenOrActor, SwadeItem);
+    });
+    Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
+        if (userId !== game.user.id || !template.flags?.swade?.origin) return;
+        templateAnimation(await getRequiredData({itemUuid: template.flags?.swade?.origin, templateData: template, workflow: template, isTemplate: true}))
+    })
     async function get_brsw_data (data) {
         //var tokenId = data.getFlag("betterrolls-swade2", "token");
         return {token: data.token, actor: data.actor, item: data.item}
@@ -52,6 +71,15 @@ export function systemHooks() {
     })
 }
 
+async function templateAnimation(input) {
+    debug("Template placed, checking for animations")
+    if (!input.item) {
+        debug("No Item could be found")
+        return;
+    }
+    const handler = await AAHandler.make(input)
+    trafficCop(handler)
+}
 // TO-DO, CHECK SWADE
 async function runSwade(token, actor, item) {
     let data = await getRequiredData({token, actor, item })

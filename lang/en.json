@@ -89,6 +89,7 @@
             "hoverInTemplateLayer": "Show on Hover in Template Layer",
             "hoverInTemplate": "Show on any Hover",
             "playAnimations": "When to play Animations",
+            "swadeTraitRolls": "Trait Rolls",
             "attack": "Attack Rolls",
             "damage": "Damage Rolls",
             "disableGrantedAura": "Disable Granted Aura Effect Animations",

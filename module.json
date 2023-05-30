@@ -12,8 +12,7 @@
 	"version": "4.0.15",
 	"compatibility": {
 		"minimum": "10",
-		"verified": "10",
-		"maximum": "10"
+		"verified": "11"
 	},
 	"minimumCoreVersion": "10",
 	"compatibleCoreVersion": "10",
