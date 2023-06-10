@@ -80,7 +80,8 @@
 			"overwriteWarn": "Überschreiben löscht Ihr vorhandenes Menü",
 			"wfrp4eCastOnlyOnSuccess": "Zauberanimation nach erfolgreichem Wirken",
 			"wfrp4eCastOnlyOnSuccessHint": "Wenn Sie diese Option wählen, wird die Animation des Zaubers nur abgespielt, wenn der Zauber erfolgreich gewirkt wurde (Test bestanden und CN-Nummer erreicht)",
-			"menuHint": "Starten Sie das Menü Global Autorec. Hier befindet sich auch das Menü Einstellungen für automatisierte Animationen"
+			"menuHint": "Starten Sie das Menü Global Autorec. Hier befindet sich auch das Menü Einstellungen für automatisierte Animationen",
+			"coreonatk_name": "Angriffsanimationen bei Angriffswürfen abspielen"
 		},
 		"colors": {
 			"palegreen": "Blassgrün",
