@@ -35,7 +35,7 @@ export function systemHooks() {
 
     const handler = await AAHandler.make(workflowData);
     if (!handler?.item || !handler?.sourceToken) {
-      console.log("Automated Animations: No Item or Source Token", handler);
+      debug("Automated Animations: No Item or Source Token", handler);
       return;
     }
     trafficCop(handler);
