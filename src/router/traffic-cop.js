@@ -29,8 +29,7 @@ export async function trafficCop(handler) {
         if (handler.isTemplateAnimation) {
             switch (game.system.id) {
                 case "a5e":
-                case "sw5e":
-                case "dnd4e":
+                case "sw5e":                
                 case "tormenta20":
                 case "swade":
                     aaTemplateHook = Hooks.once("createMeasuredTemplate", async (template) => {
@@ -114,8 +113,7 @@ export async function trafficCop(handler) {
         switch (game.system.id) {
             case "a5e":
             case "pf2e":
-            case "sw5e":
-            case "dnd4e":
+            case "sw5e":            
             case "tormenta20":
             case "swade":
                 aaTemplateHook = Hooks.once("createMeasuredTemplate", async (template) => {
