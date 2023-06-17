@@ -205,16 +205,22 @@ export default class AAHandler {
         macroSection(seq, macro, handler)
     }
     runMacro(macro, handler = this) {
-        let userData = macro.args
-        if (game.modules.get("advanced-macros")?.active) {
+        let userData = macro.args;
+        if (isNewerVersion(game.version, 11)) {
             new Sequence(handler.sequenceData)
-                .macro(macro.name, handler.workflow, handler, userData)
+                .macro(macro.name, {args: [handler.workflow, handler, userData]})
                 .play()
         } else {
-            new Sequence(handler.sequenceData)
-                .macro(macro.name)
-                .play()
-        }    
+            if (game.modules.get("advanced-macros")?.active) {
+                new Sequence(handler.sequenceData)
+                    .macro(macro.name, handler.workflow, handler, userData)
+                    .play()
+            } else {
+                new Sequence(handler.sequenceData)
+                    .macro(macro.name)
+                    .play()
+            }    
+        }
     }
     compileSourceEffect(sourceFX, seq, handler = this) {
         sourceEffect(sourceFX, seq, handler)

@@ -70,15 +70,20 @@ export async function deleteActiveEffects(effect, shouldDelete = false) {
 
     const macro = await DataSanitizer.compileMacro(handler, flagData);
     if (macro) {
-        //let userData = macro.args;
-        if (game.modules.get("advanced-macros")?.active) {
+        if (isNewerVersion(game.version, 11)) {
             new Sequence()
-                .macro(macro.name, "off", handler, macro.args)
-                .play()
+            .macro(macro.name, {args: ["off", handler, macro.args]})
+            .play()
         } else {
-            new Sequence()
-                .macro(macro.name)
-                .play()
+            if (game.modules.get("advanced-macros")?.active) {
+                new Sequence()
+                    .macro(macro.name, "off", handler, macro.args)
+                    .play()
+            } else {
+                new Sequence()
+                    .macro(macro.name)
+                    .play()
+            }    
         }
     }
 

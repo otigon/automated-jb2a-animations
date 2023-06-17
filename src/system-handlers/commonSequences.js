@@ -127,9 +127,13 @@ export function targetEffect(targetFX, seq, targetArray, missable = false, handl
 
 export function macroSection(seq, macro, handler) {
     let userData = macro.args
-    if(game.modules.get("advanced-macros")?.active){
-        seq.macro(macro.name, handler.workflow, handler, userData)
-      }else{
-        seq.macro(macro.name)
+    if (isNewerVersion(game.version, 11)) {
+        seq.macro(macro.name, {args: [handler.workflow, handler, userData]})
+    } else {
+        if(game.modules.get("advanced-macros")?.active){
+            seq.macro(macro.name, handler.workflow, handler, userData)
+          }else{
+            seq.macro(macro.name)
+        }    
     }
 }

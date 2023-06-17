@@ -99,10 +99,22 @@ export async function trafficCop(handler) {
         // In place specifically for using Warpgate to spawn a Template thru a Macro
         if (sanitizedData?.macro && sanitizedData?.macro?.args?.warpgateTemplate) {
             // Play Macro if it is for using Crosshairs to create a Template
-            new Sequence(handler.sequenceData)
-                .macro(sanitizedData.macro.name, handler.workflow, handler, sanitizedData.macro.args)
-                .play()
-                aaTemplateHook = Hooks.once("createMeasuredTemplate", async (template) => {
+            if (isNewerVersion(game.version, 11)) {
+                new Sequence()
+                    .macro(sanitizedData.macro.name, { args: [handler.workflow, handler, sanitizedData.macro.args] })
+                    .play()
+            } else {
+                if (game.modules.get("advanced-macros")?.active) {
+                    new Sequence()
+                        .macro(sanitizedData.macro.name, handler.workflow, handler, sanitizedData.macro.args)
+                        .play()
+                } else {
+                    new Sequence()
+                        .macro(sanitizedData.macro.name)
+                        .play()
+                }
+            }
+            aaTemplateHook = Hooks.once("createMeasuredTemplate", async (template) => {
                 await wait(500)
                 animate[animationType](handler, sanitizedData, template);
             });
