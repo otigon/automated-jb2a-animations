@@ -29,7 +29,11 @@ async function checkMessage(msg) {
     if (!attackSkillEnabled && !damageEnabled && !spellEnabled) { return null; }
 
     if (compiledData.attackSkill && attackSkillEnabled) {
-        //all is fine
+      compiledData.extraNames.push(compiledData.attackSkill);
+    }
+
+    if (compiledData.attackSkill && attackSkillEnabled) {
+        // all is fine
     } else if (compiledData.spell && spellEnabled) {
         compiledData.item = compiledData.spell;
     } else if (damageEnabled) {
