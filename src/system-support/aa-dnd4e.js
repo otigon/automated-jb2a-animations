@@ -40,6 +40,34 @@ export function systemHooks() {
     }
     trafficCop(handler);
   });
+
+  Hooks.on("dnd4e.rollDamage", async (item, speakerData) => {
+    const targets = Array.from(game.user.targets);
+
+    if (item.system.attack?.isAttack) {
+      // Play on attack rolls when possible.
+      return;
+    }
+
+    const token = game.scenes
+      .get(speakerData.scene)
+      .tokens.get(speakerData.token);
+
+    const workflowData = {
+      item,
+      token,
+      actor: null,
+      targets,
+      workflow: item,
+    };
+
+    const handler = await AAHandler.make(workflowData);
+    if (!handler?.item || !handler?.sourceToken) {
+      debug("Automated Animations: No Item or Source Token", handler);
+      return;
+    }
+    trafficCop(handler);
+  });
 }
 
 async function templateAnimation(input) {
