@@ -86,7 +86,7 @@ export function systemHooks() {
 function shouldPlayAnimation(item, hookName) {
   const itemData = item.system ? item.system : item;
   const aaHookToUse = itemData.macro?.autoanimationHook
-    ? item.system.macro.autoanimationHook
+    ? itemData.macro.autoanimationHook
     : false;
 
   console.log(`should play animation for hook ${hookName}?`);
