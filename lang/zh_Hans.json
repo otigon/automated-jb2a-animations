@@ -51,8 +51,8 @@
 			"cypherCrit_name": "重击",
 			"cypherCrit_hint": "启用重击（20）动画在来源Token上播放",
 			"cypherCritAnim_name": "重击动画",
-			"cypherFumble_name": "大失败",
-			"cypherFumbleAnim_name": "大失败动画",
+			"cypherFumble_name": "GM介入",
+			"cypherFumbleAnim_name": "GM介入动画",
 			"teleport": "你选择了范围外的一点。请重新选择",
 			"extraexplain": "需要一个主要动画,或者配置自定义/自动识别",
 			"restoreHint": "清除当前设置并重置为初始设置",
@@ -75,7 +75,7 @@
 			"toggleAnimations_hint": "如果打开动画,需要重新整理",
 			"s3Hint": "需要刷新：仅当您的 JB2A 托管在外部如 S3 或类似东西上时才更改。否则留空。例子:S3Bucket/jb2a_patreon 或 S3Bucket/JB2A_DnD5e（末尾无斜线）",
 			"recovery_hint": "启用还原掷骰以在来源Token上播放",
-			"cypherFumble_hint": "启用大失败（1）动画在来源Token上播放",
+			"cypherFumble_hint": "允许GM介入动画在来源Token上播放",
 			"wfrp4eCastOnlyOnSuccess": "成功检定动画",
 			"wfrp4eCastOnlyOnSuccessHint": "选择此选项后，仅当法术/神术/技能检定成功时（通过测试并达到 CN ）才会播出动画。",
 			"menuHint": "打开全局自动识别菜单，这里也包含A-A本身设置",
@@ -489,7 +489,7 @@
 		"menus": {
 			"occlusion00": "无（总是可见）",
 			"duplicate": "复制",
-			"3dcanvas": "3d Canvas",
+			"3dcanvas": "3D Canvas",
 			"mask": "面具",
 			"override": "覆盖",
 			"macroonly": "仅执行宏,无动画",
@@ -645,7 +645,10 @@
 			"property": "性能",
 			"rotateTowards": "旋转方向",
 			"activeEffect": "主动效果",
-			"matchFound": "已找到匹配项"
+			"matchFound": "已找到匹配项",
+			"autoSize": "自动调整尺寸",
+			"duration": "持续时间",
+			"onCenter": "位于中心"
 		},
 		"menuTypes": {
 			"creature": "生物攻击",
@@ -716,7 +719,8 @@
 		},
 		"app": {
 			"aaAutorec-melee": {
-				"label": "近战"
+				"label": "近战",
+				"icon": "fas fa-shield-alt"
 			},
 			"aaAutorec-range": {
 				"label": "远程"

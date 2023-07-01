@@ -98,7 +98,8 @@
 			"cyberPunkElevation_hint": "Utilise l'élévation entre les jetons comme distance supplémentaire lorsque cette option est activée",
 			"cyberPunkAutoFire": "Activer la répétition automatique",
 			"cyberPunkAutoFire_hint": "Passer outre la répétition pour l'animation primaire lorsque le feu automatique ou suppressif est activé pour l'arme",
-			"cyberPunkCanMiss": "Utiliser forceMiss en cas d'échec"
+			"cyberPunkCanMiss": "Utiliser forceMiss en cas d'échec",
+			"swadeTraitRolls": "Jet de caractéristique"
 		},
 		"colors": {
 			"lightorange": "Orange clair",
