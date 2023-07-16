@@ -73,6 +73,11 @@ export async function handleItem(data) {
                     }
                 }
             }
+            if (!autorecObject && data.isVariant && !data.isTemplate) {
+                let originalItemName = data.originalItem?.name
+                let originalRinsedName = originalItemName ? AAAutorecFunctions.rinseName(originalItemName) : "noitem"
+                autorecObject = AAAutorecFunctions.allMenuSearch(menus, originalRinsedName, originalItemName);
+            }
         }    
     }
     
@@ -83,7 +88,7 @@ export async function handleItem(data) {
         }
     } else if ( data.isVariant && !autorecObject && data.isTemplate && !autorecDisabled) {
         // For use with Variant spell casting, based off PF2e. If the variant name is not found in the Global menu, it looks for one matching the original name
-        let newItemName = input.originalItem?.name;
+        let newItemName = data.originalItem?.name;
         let newRinsedName = newItemName ? AAAutorecFunctions.rinseName(newItemName) : "noitem";
         autorecObject = AAAutorecFunctions.allMenuSearch(menus, newRinsedName, newItemName);
     }
