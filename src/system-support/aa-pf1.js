@@ -12,7 +12,7 @@ export function systemHooks() {
         const item = itemFromChat.toObject();
         //const item = foundry.utils.duplicate(itemFromChat);
         if (item && actionId) {
-            item.actions?.get(actionId)?.name ?? '';
+            const actionName = item.actions?.get(actionId)?.name ?? '';
             item.name = `${item.name} ${actionName}`;
         }
         else if (item && chatName && chatName.includes(item.name)) {
