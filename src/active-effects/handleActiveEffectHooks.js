@@ -4,7 +4,7 @@ import AAHandler from "../system-handlers/workflow-data.js";
 import { debug } from "../constants/constants.js";
 import { createRuleElementPtr, deleteRuleElementPtr } from "./ptr/handlePtrRuleElements.js";
 
-const pf2eDeletedItems = newMap();
+const pf2eDeletedItems = new Map();
 const ptrDeletedItems = new Map();
 
 export function registerActiveEffectHooks() {
