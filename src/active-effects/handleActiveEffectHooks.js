@@ -4,6 +4,7 @@ import AAHandler from "../system-handlers/workflow-data.js";
 import { debug } from "../constants/constants.js";
 import { createRuleElementPtr, deleteRuleElementPtr } from "./ptr/handlePtrRuleElements.js";
 
+const pf2eDeletedItems = newMap();
 const ptrDeletedItems = new Map();
 
 export function registerActiveEffectHooks() {
@@ -28,7 +29,7 @@ export function registerActiveEffectHooks() {
             })
             Hooks.on("preDeleteItem", (item, data, userId) => {
                 if (shouldContinue(item, userId)) {
-                    ptrDeletedItems.set(item.id, {
+                    pf2eDeletedItems.set(item.id, {
                         item, 
                         token: item.parent?.token || canvas.tokens.placeables.find(token => token.actor?.items?.get(item.id) != null)
                     })    
@@ -36,7 +37,7 @@ export function registerActiveEffectHooks() {
             })
             Hooks.on("deleteItem", (item, data, userId) => {
                 if (shouldContinue(item, userId)) {
-                    let itemData = ptrDeletedItems.get(item.id);
+                    let itemData = pf2eDeletedItems.get(item.id);
                     if (!itemData) { return; }
                     deleteRuleElementPF2e(itemData)
                 }
