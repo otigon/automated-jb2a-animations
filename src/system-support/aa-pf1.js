@@ -16,7 +16,7 @@ export function systemHooks() {
         const data = {
             actor: msg.itemSource?.actor,
             actorId: msg.speaker?.actor,
-            ammoId: msg.flags.pf1.metadata.rolls?.attacks?.map((attack) => attack.ammo?.id),
+            ammoId: msg.flags.pf1.metadata.rolls?.attacks?.map((attack) => attack.ammo?.id)[0],
             itemId: msg.flags.pf1.metadata.item,
             item: msg.itemSource,
             targetIds: msg.flags.pf1.metadata.targets,
