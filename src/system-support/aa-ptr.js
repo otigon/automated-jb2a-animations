@@ -6,7 +6,7 @@ import {getRequiredData }   from "./getRequiredData.js";
 export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => {
         if (msg.user.id !== game.user.id) { return };
-
+        const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
         let compiledData = await getRequiredData({
             item: await fromUuid(msg.flags.ptr?.origin?.uuid),
             itemId: msg.flags.ptr?.origin?.uuid,
@@ -14,6 +14,7 @@ export function systemHooks() {
             tokenId: msg.speaker?.token,
             actorId: msg.speaker?.actor,
             workflow: msg,
+            playOnDamage: playOnDmg,
             bypassTemplates: true,
         });
         if (!compiledData.item) {
@@ -74,6 +75,11 @@ async function runPtr(data) {
     const playOnDamage = data.playOnDamage;
     const isDamageRoll = msg.isDamageRoll;
     
+    if(itemType === "effect" || itemType === "condition") {
+        debug ("PTR | This is a Condition or Effect, exiting main workflow")
+        return;
+    }
+
     if (!msg.isRoll) { return; }
     if (moveHasAOE(item)) { return; }
     if ((playOnDamage && isDamageRoll) || (!playOnDamage && !isDamageRoll)) {
@@ -99,12 +105,15 @@ function checkOutcome(input) {
     let outcome = input.workflow.flags?.ptr?.context?.outcome;
     outcome = outcome ? outcome.toLowerCase() : "";
     let hitTargets;
-    if (input.targets.length < 2 && outcome) {
-        if (outcome === 'success' || outcome === 'criticalsuccess') {
-            hitTargets = input.targets;
-        } else {
-            hitTargets = false
-        }
+    if (input.targets.length < 2
+        && !game.settings.get('autoanimations', 'playonDamageCore') 
+        && outcome)
+        {
+            if (outcome === 'success' || outcome === 'criticalsuccess') {
+                hitTargets = input.targets;
+            } else {
+                hitTargets = false
+            }
     } else {
         hitTargets = input.targets;
     }
