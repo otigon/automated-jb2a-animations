@@ -603,7 +603,7 @@ class AAGameSettings extends TJSGameSettings {
             settings.push({
                   namespace,
                   key: 'playonhit',
-                  folder: 'game.system.title || game.system.name',
+                  folder: game.system.title || game.system.name,
                   options: {
                      name: 'autoanimations.settings.midionhit_name',
                      hint: 'autoanimations.settings.midionhit_hint',
@@ -617,7 +617,7 @@ class AAGameSettings extends TJSGameSettings {
                settings.push({
                   namespace,
                   key: 'playonmiss',
-                  folder: 'game.system.title || game.system.name',
+                  folder: game.system.title || game.system.name,
                   options: {
                      name: 'autoanimations.settings.midionmiss_name',
                      hint: 'autoanimations.settings.midionmiss_hint',
@@ -631,7 +631,7 @@ class AAGameSettings extends TJSGameSettings {
                settings.push({
                   namespace,
                   key: 'playonDamage',
-                  folder: 'game.system.title || game.system.name',
+                  folder: game.system.title || game.system.name,
                   options: {
                      name: 'autoanimations.settings.midiondmg_name',
                      hint: 'autoanimations.settings.midiondmg_hint',
@@ -645,7 +645,7 @@ class AAGameSettings extends TJSGameSettings {
                settings.push({
                   namespace,
                   key: 'EnableCritical',
-                  folder: 'game.system.title || game.system.name',
+                  folder: game.system.title || game.system.name,
                   options: {
                      name: 'autoanimations.settings.crithit_name',
                      hint: 'autoanimations.settings.crithit_hint',
@@ -659,7 +659,7 @@ class AAGameSettings extends TJSGameSettings {
                settings.push({
                   namespace,
                   key: 'CriticalAnimation',
-                  folder: 'game.system.title || game.system.name',
+                  folder: game.system.title || game.system.name,
                   options: {
                      name: 'autoanimations.settings.crithitAnim_name',
                      //name: 'Choose A File',
@@ -674,7 +674,7 @@ class AAGameSettings extends TJSGameSettings {
                settings.push({
                   namespace,
                   key: 'EnableCriticalMiss',
-                  folder: 'game.system.title || game.system.name',
+                  folder: game.system.title || game.system.name,
                   options: {
                      name: 'autoanimations.settings.critmiss_name',
                      hint: 'autoanimations.settings.critmiss_hint',
@@ -688,7 +688,7 @@ class AAGameSettings extends TJSGameSettings {
                settings.push({
                   namespace,
                   key: 'CriticalMissAnimation',
-                  folder: 'game.system.title || game.system.name',
+                  folder: game.system.title || game.system.name,
                   options: {
                      name: 'autoanimations.settings.critmissAnim_name',
                      scope: scope.world,
