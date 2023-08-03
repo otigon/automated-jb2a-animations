@@ -3,44 +3,43 @@ import { trafficCop }       from "../router/traffic-cop.js";
 import AAHandler            from "../system-handlers/workflow-data.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
-// DnD5e System hooks provided to run animations
+// ARS System hooks provided to run animations
 export function systemHooks() {
-		Hooks.on("postRollAttack", async (token, hit, actor, item,ability) => {
-			if(item){				
-				attack(await getRequiredData({ item: item, actor, workflow: item }));   
-			}
-			else{
-				useItem(await getRequiredData({item: ability, actor, workflow: ability}));
-			}
-  });
+	Hooks.on("postRollAttack", async (token, hit, actor, item,ability) => {
+		if(item){				
+			attack(await getRequiredData({ item: item, actor, workflow: item }));   
+		}
+		else{
+			useItem(await getRequiredData({item: ability, actor, workflow: ability}));
+		}
+  	});
 
-   Hooks.on("createChatMessage", async (msg) => {
-    if(msg.flags.item){
-		useItem(await getRequiredData({item: msg.flags.item, actor: msg.flags.actor, workflow: msg.flags.item}));
-	}
-  }); 
+	Hooks.on("createChatMessage", async (msg) => {
+		if(msg.flags.item){
+			useItem(await getRequiredData({item: msg.flags.item, actor: msg.flags.actor, workflow: msg.flags.item}));
+		}
+  	}); 
 }
 
-
 async function useItem(input) {
-    debug("Item used, checking for animations")
-    const handler = await AAHandler.make(input)
-    if (!handler?.item || !handler?.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler); return;}
-    trafficCop(handler)
+	debug("Item used, checking for animations")
+	const handler = await AAHandler.make(input)
+	if (!handler?.item || !handler?.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler); return;}
+	trafficCop(handler)
 }
 
 async function attack(input) {
-    checkAmmo(input)
-    debug("Attack rolled, checking for animations");
-    const handler = await AAHandler.make(input)
-    if (!handler?.item || !handler?.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler); return;}
-    trafficCop(handler)
+	checkAmmo(input)
+	debug("Attack rolled, checking for animations");
+	const handler = await AAHandler.make(input)
+	if (!handler?.item || !handler?.sourceToken) { console.log("Automated Animations: No Item or Source Token", handler); return;}
+	trafficCop(handler)
 }
 
 function checkAmmo(data) {
-    //const ammo = data.item?.flags?.autoanimations?.fromAmmo;
-    const ammoType = data.item?.system?.consume?.type;
-    data.ammoItem = ammoType === "ammo" ? data.token?.actor?.items?.get(data.item?.system?.consume?.target) : null;
+	//const ammo = data.item?.flags?.autoanimations?.fromAmmo;
+	const ammoType = data.item?.system?.consume?.type;
+	data.ammoItem = ammoType === "ammo" ? data.token?.actor?.items?.get(data.item?.system?.consume?.target) : null;
 }
 
 function getWorkflowData(data) {
