@@ -5,20 +5,36 @@ import { getRequiredData }  from "./getRequiredData.js";
 
 // ARS System hooks provided to run animations
 export function systemHooks() {
-	Hooks.on("postRollAttack", async (token, hit, actor, item,ability) => {
-		if(item){				
-			attack(await getRequiredData({ item: item, actor, workflow: item }));   
-		}
-		else{
-			useItem(await getRequiredData({item: ability, actor, workflow: ability}));
-		}
-  	});
-
 	Hooks.on("createChatMessage", async (msg) => {
-		if(msg.flags.item){
-			useItem(await getRequiredData({item: msg.flags.item, actor: msg.flags.actor, workflow: msg.flags.item}));
-		}
-  	}); 
+		if(msg.flags.criticaled){
+			let critAnim = game.settings.get("autoanimations", "CriticalAnimation");
+			// run critical attack
+			new Sequence({moduleName: "Automated Animations", softFail: !game.settings.get("autoanimations", "debug")})
+				.effect()
+				.file(critAnim)
+				.atLocation(canvas.tokens.get(msg.flags.targetLoc))
+				.scaleToObject(2)
+				.play();
+	}
+
+	if(msg.flags.fumbled){
+		let critMissAnim = game.settings.get("autoanimations", "CriticalMissAnimation");
+			new Sequence({ moduleName: "Automated Animations", softFail: !game.settings.get("autoanimations", "debug") })
+				.effect()
+				.file(critMissAnim)
+				.atLocation(canvas.tokens.get(msg.speaker.token))
+				.scaleToObject(2)
+				.play();
+	}
+	   
+	if(msg.flags.item){
+		useItem(await getRequiredData({item: msg.flags.item, actor: msg.flags.actor, workflow: msg.flags.item}));
+	}
+	else if(msg.flags.action){
+		useItem(await getRequiredData({item: msg.flags.action, actor: msg.flags.actor, workflow: msg.flags.action}));
+	}
+  });
+	 
 }
 
 async function useItem(input) {
@@ -54,6 +70,7 @@ function getWorkflowData(data) {
 }
 
 // Pending implementation
+/*
 function criticalCheck(workflow, item = {}) {
     if (!workflow.isCritical && !workflow.isFumble) { return; }
     debug("Checking for Crit or Fumble")
@@ -80,7 +97,7 @@ function criticalCheck(workflow, item = {}) {
                 .play()
             break;
     }
-
+*/
     function getTokenFromItem(item) {
         let token = item?.parent?.token;
         if (token) { return token }
