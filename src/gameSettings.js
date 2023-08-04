@@ -600,105 +600,60 @@ class AAGameSettings extends TJSGameSettings {
             }
             break;
          case 'ars':
-            settings.push({
+      		settings.push({
                   namespace,
-                  key: 'playonhit',
+                  key: "EnableCritical",
                   folder: game.system.title || game.system.name,
                   options: {
-                     name: 'autoanimations.settings.midionhit_name',
-                     hint: 'autoanimations.settings.midionhit_hint',
-                     scope: scope.world,
-                     type: Boolean,
-                     default: false,
-                     config: true,
+                    name: "autoanimations.settings.crithit_name",
+                    hint: "autoanimations.settings.crithit_hint",
+                    scope: scope.world,
+                    type: Boolean,
+                    default: false,
+                    config: true
                   }
-               });
-
-               settings.push({
+                });
+                settings.push({
                   namespace,
-                  key: 'playonmiss',
+                  key: "CriticalAnimation",
                   folder: game.system.title || game.system.name,
                   options: {
-                     name: 'autoanimations.settings.midionmiss_name',
-                     hint: 'autoanimations.settings.midionmiss_hint',
-                     scope: scope.world,
-                     type: Boolean,
-                     default: false,
-                     config: true,
+                    name: "autoanimations.settings.crithitAnim_name",
+                    //name: 'Choose A File',
+                    scope: scope.world,
+                    config: true,
+                    type: String,
+                    default: "",
+                    filePicker: "imagevideo"
                   }
-               });
-
-               settings.push({
+                });
+                settings.push({
                   namespace,
-                  key: 'playonDamage',
+                  key: "EnableCriticalMiss",
                   folder: game.system.title || game.system.name,
                   options: {
-                     name: 'autoanimations.settings.midiondmg_name',
-                     hint: 'autoanimations.settings.midiondmg_hint',
-                     scope: scope.world,
-                     type: Boolean,
-                     default: false,
-                     config: true
+                    name: "autoanimations.settings.critmiss_name",
+                    hint: "autoanimations.settings.critmiss_hint",
+                    scope: scope.world,
+                    type: Boolean,
+                    default: false,
+                    config: true
                   }
-               });
-
-               settings.push({
+                });
+                settings.push({
                   namespace,
-                  key: 'EnableCritical',
+                  key: "CriticalMissAnimation",
                   folder: game.system.title || game.system.name,
                   options: {
-                     name: 'autoanimations.settings.crithit_name',
-                     hint: 'autoanimations.settings.crithit_hint',
-                     scope: scope.world,
-                     type: Boolean,
-                     default: false,
-                     config: true
+                    name: "autoanimations.settings.critmissAnim_name",
+                    scope: scope.world,
+                    config: true,
+                    type: String,
+                    default: "",
+                    filePicker: "imagevideo"
                   }
-               });
-
-               settings.push({
-                  namespace,
-                  key: 'CriticalAnimation',
-                  folder: game.system.title || game.system.name,
-                  options: {
-                     name: 'autoanimations.settings.crithitAnim_name',
-                     //name: 'Choose A File',
-                     scope: scope.world,
-                     config: true,
-                     type: String,
-                     default: "",
-                     filePicker: 'imagevideo'
-                  }
-               });
-
-               settings.push({
-                  namespace,
-                  key: 'EnableCriticalMiss',
-                  folder: game.system.title || game.system.name,
-                  options: {
-                     name: 'autoanimations.settings.critmiss_name',
-                     hint: 'autoanimations.settings.critmiss_hint',
-                     scope: scope.world,
-                     type: Boolean,
-                     default: false,
-                     config: true
-                  }
-               });
-
-               settings.push({
-                  namespace,
-                  key: 'CriticalMissAnimation',
-                  folder: game.system.title || game.system.name,
-                  options: {
-                     name: 'autoanimations.settings.critmissAnim_name',
-                     scope: scope.world,
-                     config: true,
-                     type: String,
-                     default: "",
-                     filePicker: 'imagevideo'
-                  }
-               });
-         break;
+                });
+		     break;
          case 'pf2e':
             settings.push({
                namespace,
