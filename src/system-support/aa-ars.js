@@ -105,5 +105,3 @@ function criticalCheck(workflow, item = {}) {
         let trueToken = tokens.length > 1 ? tokens.find(x => x.id === _token.id) || tokens[0] : tokens[0];
         return trueToken;
     }
-    
-}
