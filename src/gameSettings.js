@@ -602,11 +602,11 @@ class AAGameSettings extends TJSGameSettings {
          case 'ars':
       		settings.push({
                   namespace,
-                  key: "EnableCritical",
+                  key: 'EnableCritical',
                   folder: game.system.title || game.system.name,
                   options: {
-                    name: "autoanimations.settings.crithit_name",
-                    hint: "autoanimations.settings.crithit_hint",
+                    name: 'autoanimations.settings.crithit_name',
+                    hint: 'autoanimations.settings.crithit_hint',
                     scope: scope.world,
                     type: Boolean,
                     default: false,
@@ -615,25 +615,25 @@ class AAGameSettings extends TJSGameSettings {
                 });
                 settings.push({
                   namespace,
-                  key: "CriticalAnimation",
+                  key: 'CriticalAnimation',
                   folder: game.system.title || game.system.name,
                   options: {
-                    name: "autoanimations.settings.crithitAnim_name",
+                    name: 'autoanimations.settings.crithitAnim_name',
                     //name: 'Choose A File',
                     scope: scope.world,
                     config: true,
                     type: String,
-                    default: "",
-                    filePicker: "imagevideo"
+                    default: '',
+                    filePicker: 'imagevideo'
                   }
                 });
                 settings.push({
                   namespace,
-                  key: "EnableCriticalMiss",
+                  key: 'EnableCriticalMiss',
                   folder: game.system.title || game.system.name,
                   options: {
-                    name: "autoanimations.settings.critmiss_name",
-                    hint: "autoanimations.settings.critmiss_hint",
+                    name: 'autoanimations.settings.critmiss_name',
+                    hint: 'autoanimations.settings.critmiss_hint',
                     scope: scope.world,
                     type: Boolean,
                     default: false,
@@ -642,18 +642,18 @@ class AAGameSettings extends TJSGameSettings {
                 });
                 settings.push({
                   namespace,
-                  key: "CriticalMissAnimation",
+                  key: 'CriticalMissAnimation',
                   folder: game.system.title || game.system.name,
                   options: {
-                    name: "autoanimations.settings.critmissAnim_name",
+                    name: 'autoanimations.settings.critmissAnim_name',
                     scope: scope.world,
                     config: true,
                     type: String,
-                    default: "",
-                    filePicker: "imagevideo"
+                    default: '',
+                    filePicker: 'imagevideo'
                   }
                 });
-		     break;
+	break;
          case 'pf2e':
             settings.push({
                namespace,
