@@ -25,8 +25,12 @@ export function systemHooks() {
             }
             if (game.settings.get("autoanimations", "playtrigger") === "rolldamage") {
                 return commonEventTypes.concat(["roll-damage"]).includes(eventType)
-            } if (game.settings.get("autoanimations", "playtrigger") === "applydamage") {
+            }
+            if (game.settings.get("autoanimations", "playtrigger") === "applydamage") {
                 return commonEventTypes.concat(["apply-damage"]).includes(eventType)
+            }
+            if (game.settings.get("autoanimations", "playtrigger") === "rollattack") {
+                return commonEventTypes.concat(["roll-attack", "use-spell", "use-talent"]).includes(eventType);
             }
             return commonEventTypes.concat(["roll-attack"]).includes(eventType)
         }
