@@ -2,8 +2,10 @@ import { createActiveEffects, deleteActiveEffects, checkConcentration, toggleAct
 import { createRuleElementPF2e, deleteRuleElementPF2e } from "./pf2e/handlePF2eRuleElements.js";
 import AAHandler from "../system-handlers/workflow-data.js";
 import { debug } from "../constants/constants.js";
+import { createRuleElementPtr, deleteRuleElementPtr } from "./ptr/handlePtrRuleElements.js";
 
 const pf2eDeletedItems = new Map();
+const ptrDeletedItems = new Map();
 
 export function registerActiveEffectHooks() {
     switch (game.system.id) {
@@ -105,6 +107,44 @@ export function registerActiveEffectHooks() {
             */
             //}
             break;
+        case 'ptr':
+            Hooks.on("createItem", (item, data, userId) => {
+                if (game.settings.get("autoanimations", "disableAEAnimations")) {
+                    debug(`Active Effect Animations are Disabled`);
+                    return;
+                }    
+                if (game.user.id !== userId) { return; }
+                const aePtrTypes = ['condition', 'effect']
+                if (!aePtrTypes.includes(item.type)) {
+                    debug("This is not a PTR Ruleset, exiting early")
+                    return;
+                }
+                if (item.system?.references?.parent && game.settings.get("autoanimations", "disableNestedEffects")) {
+                    debug("This is a nested Ruleset, exiting early")
+                    return;
+                }            
+                createRuleElementPtr(item);
+            })
+            Hooks.on("preDeleteItem", (item, data, userId) => {
+                if (ptrShouldContinue(item, userId)) {
+                    ptrDeletedItems.set(item.id, {
+                        item, 
+                        token: item.parent?.token || canvas.tokens.placeables.find(token => token.actor?.items?.get(item.id) != null)
+                    })    
+                }
+            })
+            Hooks.on("deleteItem", (item, data, userId) => {
+                if (ptrShouldContinue(item, userId)) {
+                    let itemData = ptrDeletedItems.get(item.id);
+                    if (!itemData) { return; }
+                    deleteRuleElementPtr(itemData)
+                }
+            })
+            function ptrShouldContinue(item, userId) {
+                if (game.user.id !== userId) { return false; }
+                if (!['condition', 'effect'].includes(item.type)) { return false; }
+                return true;
+            }
         default:
             Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
                 if (game.settings.get("autoanimations", "disableAEAnimations")) {
