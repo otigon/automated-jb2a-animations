@@ -1,3 +1,6 @@
+# NOTICE: Automated Animations is no longer becing actively worked on, and should be considered to be in Maintenance Mode only. I will still merge in PR's as they come in, but will only actively fix critical bugs for the module. If anyone wishes to take over development of this Foundry Module, please get with me here or on Discord at username Otigon (Otigon#2010).  
+
+  
 MIT License provided:   
 - Honeybadger (Trioderigon) and Wasp provided the framework for the Teleportation Preset  
 - The SEQUENCER module is now a dependancy of Automated Animations.  
