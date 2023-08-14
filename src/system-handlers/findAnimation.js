@@ -8,7 +8,7 @@ export async function handleItem(data) {
     if (!data.item) { return; };
 
     const item = data.item;
-    const itemName = !data.activeEffect || game.system.id === "pf2e" ? item.name : item.label;
+    const itemName = !data.activeEffect || game.system.id === "pf2e" || game.system.id === "ptr" ? item.name : item.label;
     const rinsedItemName = itemName ? AAAutorecFunctions.rinseName(itemName) : "noitem";
 
     const ammoItem = data.ammoItem;
@@ -61,26 +61,25 @@ export async function handleItem(data) {
         if (itemFlags.isCustomized) {
             return itemFlags;
         } else if (!autorecDisabled) {
-            autorecObject = AAAutorecFunctions.allMenuSearch(menus, rinsedItemName, itemName);
-            if (!autorecObject && data.extraNames?.length && !data.activeEffect) {
-                for (const name of data.extraNames) {
-                    if (!name) { continue }
-                    const rinsedName = AAAutorecFunctions.rinseName(name);
-                    autorecObject = AAAutorecFunctions.allMenuSearch(menus, rinsedName, itemName);
-                    if (autorecObject) {
-                        data.rinsedName = rinsedName;
-                        break;
-                    }
+            const prioritizedNames = [...(data.overrideNames || []), itemName, ...(data.extraNames || [])];
+            prioritizedNames.find((name) => {
+                const rinsedName = AAAutorecFunctions.rinseName(name);
+                const found = AAAutorecFunctions.allMenuSearch(menus, rinsedName, name);
+                if (found) {
+                    autorecObject = found;
+                    data.rinsedName = rinsedName;
                 }
-            }
+                return !!found;
+            });
+
             if (!autorecObject && data.isVariant && !data.isTemplate) {
                 let originalItemName = data.originalItem?.name
                 let originalRinsedName = originalItemName ? AAAutorecFunctions.rinseName(originalItemName) : "noitem"
                 autorecObject = AAAutorecFunctions.allMenuSearch(menus, originalRinsedName, originalItemName);
             }
-        }    
+        }
     }
-    
+
     if (autorecObject && data.isTemplate && !autorecDisabled) {
         let data = autorecObject;
         if (data.menu === "range" || data.menu === "melee" || data.menu === "ontoken") {
