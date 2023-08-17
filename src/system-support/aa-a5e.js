@@ -19,13 +19,13 @@ export function systemHooks() {
         runA5e(compiledData);
     });
 
-    Hooks.on('a5e.templateCreated', async (item, templateData, userId) => {
+    Hooks.on('a5e.measuredTemplatePlaced', async (item, templateData, userId) => {
         if (userId !== game.user.id) return;
 
         const compiledData = await getRequiredData({
             item,
-            templateData: templateData?.[0],
-            workflow: templateData?.[0],
+            templateData: templateData,
+            workflow: templateData,
             isTemplate: true,
         })
 
