@@ -75,7 +75,7 @@ async function runPtr(data) {
     const playOnDamage = data.playOnDamage;
     const isDamageRoll = msg.isDamageRoll;
     
-    if(itemType === "effect" || itemType === "condition") {
+    if(item.type === "effect" || item.type === "condition") {
         debug ("PTR | This is a Condition or Effect, exiting main workflow")
         return;
     }
