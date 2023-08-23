@@ -49,6 +49,7 @@ Current System Compatibility:
 - [Dungeonslayers 4](https://foundryvtt.com/packages/ds4)
 - [Cypher System](https://foundryvtt.com/packages/cyphersystem)
 - [Pokemon Tabletop Reunited v4](https://github.com/dylanpiera/foundry-Pokemon-Tabletop-United-System/)
+- [Lancer](https://foundryvtt.com/packages/lancer/)
 
 Systems in Process for Compatibility:   
 - Please log a GitHub request for other systems  
