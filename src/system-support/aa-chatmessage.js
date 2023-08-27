@@ -4,19 +4,14 @@ import AAHandler            from "../system-handlers/workflow-data.js";
 import { getRequiredData }  from "./getRequiredData.js";
 
 export function systemHooks() {
-
     Hooks.on("createChatMessage", async (msg) => {checkChatMessage(msg) });
 }
 
 async function checkChatMessage(msg) {
-    debug('HEREEEEEEEEEEEEEEEEEEEEEEEEEEEE')
-    debug(msg)
     if (msg.user.id !== game.user.id) { return };
-    
-    
+
     let findData = funkyTest(msg);
     if (!findData.itemId) { 
-        
         debug("Unable to locate Item ID from Chat Message HTML")
         return;
     }
