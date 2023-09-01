@@ -28,7 +28,7 @@ export async function getRequiredData(data) {
 
     // set up targets
     if (!data.targets && data.targetIds?.length) {
-        data.targets = data.targetIds.map((id) => canvas.scene.tokens.get(id));
+        data.targets = data.targetIds.map((id) => canvas.scene.tokens.get(id)?.object).filter(x => !!x);
     }
     if (!data.targets) {
         data.targets = Array.from(game.user.targets)
