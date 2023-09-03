@@ -78,6 +78,27 @@ export function registerActiveEffectHooks() {
                 toggleActiveEffects(data, toggle)
             });
         case "pf1":
+            Hooks.on("createActiveEffect", async (effect, data, userId) => {
+                if (game.settings.get("autoanimations", "disableAEAnimations")) {
+                    debug(`Active Effect Animations are Disabled`);
+                    return;
+                }
+                if (game.user.id !== userId) { return; }
+                const item = fromUuidSync(effect.origin);
+                if (item) {
+                    const flagData = fromUuidSync(effect.origin).flags['autoanimations'];
+                    if (flagData) {
+                        await effect.update({ 'flags.autoanimations': flagData });
+                    }
+                    createActiveEffects(effect);
+                }
+            });
+            Hooks.on("preDeleteActiveEffect", (effect, data, userId) => {
+                if (game.user.id !== userId) { return; }
+
+                deleteActiveEffects(effect);
+            });
+            break;
         case 'wfrp4e':
             Hooks.on("createActiveEffect", (effect, data, userId) => {
                 if (game.settings.get("autoanimations", "disableAEAnimations")) {
