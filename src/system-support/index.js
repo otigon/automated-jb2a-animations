@@ -27,4 +27,5 @@ export * as ars from "./aa-ars.js"
 export * as earthdawn4e from "./aa-ed4e.js"
 export * as ptr from "./aa-ptr.js";
 export * as lancer from "./aa-lancer.js";
+export * as anarchy from "./aa-shadowrun-anarchy.js";
 

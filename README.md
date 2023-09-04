@@ -45,6 +45,7 @@ Current System Compatibility:
 - Cyberpunk Red
 - TheWitcherTRPG
 - [ShadowRun5e](https://foundryvtt.com/packages/shadowrun5e/)
+- [ShadowRun Anarchy unnoficial](https://gitlab.com/vincent.vandeme/anarchy)
 - Level Up A5E
 - [Dungeonslayers 4](https://foundryvtt.com/packages/ds4)
 - [Cypher System](https://foundryvtt.com/packages/cyphersystem)
