@@ -77,6 +77,7 @@ export function registerActiveEffectHooks() {
                 if (game.user.id !== userId) { return; }
                 toggleActiveEffects(data, toggle)
             });
+            break;
         case "pf1":
             Hooks.on("createActiveEffect", async (effect, data, userId) => {
                 if (game.settings.get("autoanimations", "disableAEAnimations")) {
