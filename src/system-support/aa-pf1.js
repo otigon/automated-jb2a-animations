@@ -16,11 +16,11 @@ export function systemHooks() {
         const data = {
             actor: msg.itemSource?.actor,
             actorId: msg.speaker?.actor,
-            ammoId: msg.flags.pf1.metadata.rolls?.attacks?.map((attack) => attack.ammo?.id)[0],
-            itemId: msg.flags.pf1.metadata.item,
+            ammoId: msg.flags.pf1?.metadata?.rolls?.attacks?.map((attack) => attack.ammo?.id)[0],
+            itemId: msg.flags.pf1?.metadata?.item,
             item: msg.itemSource,
-            targetIds: msg.flags.pf1.metadata.targets,
-            templateDataId: msg.flags.pf1.metadata.template,
+            targetIds: msg.flags.pf1?.metadata?.targets,
+            templateDataId: msg.flags.pf1?.metadata?.template,
             tokenId: msg.speaker?.token,
             workflow: msg,
         };
@@ -36,7 +36,7 @@ export function systemHooks() {
         //  This is for cases like "Staff of Fire" that can cast "Fireball", "Burning Hands", "Wall of Fire"
         //  We want to use those specific action names because we don't want to cast "Fireball" but see a "Staff" thwack everyone 
         //     ...as funny as that would be 😛
-        const actionId = msg.flags.pf1.metadata.action;
+        const actionId = msg.flags.pf1?.metadata?.action;
         if (item && actionId) {
             const actionName = item.actions?.get(actionId)?.name ?? '';
             if (actionName) {
