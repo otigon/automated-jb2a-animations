@@ -48,6 +48,7 @@ export function registerActiveEffectHooks() {
                 return true;
             }
             break;
+        // SFRPG, DND5e and WFRP4e are all missing switch breaks on purpose. DON"T CHANGE THESE SECTIONS
         case "sfrpg":
             Hooks.on("updateItem", (item, diff, action, userId) => {
                 if (game.user.id !== userId) { return; }
@@ -77,6 +78,24 @@ export function registerActiveEffectHooks() {
                 if (game.user.id !== userId) { return; }
                 toggleActiveEffects(data, toggle)
             });
+        case 'wfrp4e':
+            Hooks.on("createActiveEffect", (effect, data, userId) => {
+                if (game.settings.get("autoanimations", "disableAEAnimations")) {
+                    debug(`Active Effect Animations are Disabled`);
+                    return;
+                }
+                if (game.user.id !== userId) { return; }
+                createActiveEffects(effect)
+            });
+            Hooks.on("preDeleteActiveEffect", (effect, data, userId) => {
+                if (game.user.id !== userId) { return; }
+
+                deleteActiveEffects(effect)
+                if (game.modules.get('midi-qol')?.active) {
+                    checkConcentration(effect)
+                }
+            });
+            break;    
         case "pf1":
             Hooks.on("createActiveEffect", async (effect, data, userId) => {
                 if (game.settings.get("autoanimations", "disableAEAnimations")) {
@@ -98,35 +117,6 @@ export function registerActiveEffectHooks() {
 
                 deleteActiveEffects(effect);
             });
-            break;
-        case 'wfrp4e':
-            Hooks.on("createActiveEffect", (effect, data, userId) => {
-                if (game.settings.get("autoanimations", "disableAEAnimations")) {
-                    debug(`Active Effect Animations are Disabled`);
-                    return;
-                }
-                if (game.user.id !== userId) { return; }
-                createActiveEffects(effect)
-            });
-            Hooks.on("preDeleteActiveEffect", (effect, data, userId) => {
-                if (game.user.id !== userId) { return; }
-
-                deleteActiveEffects(effect)
-                if (game.modules.get('midi-qol')?.active) {
-                    checkConcentration(effect)
-                }
-            });
-            /*
-            Hooks.on("updateActiveEffect", (data, toggle, other, userId) => {
-                if (game.settings.get("autoanimations", "disableAEAnimations")) {
-                    console.log(`DEBUG | Automated Animations | Active Effect Animations are Disabled`);
-                    return;
-                }
-                if (game.user.id !== userId) { return; }
-                toggleActiveEffectsPF1(data, toggle)
-            });
-            */
-            //}
             break;
         case 'ptr':
             Hooks.on("createItem", (item, data, userId) => {
