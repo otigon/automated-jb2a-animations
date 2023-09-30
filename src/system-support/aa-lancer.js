@@ -15,6 +15,17 @@ export function systemHooks() {
 			return;
 		}
 
+		// getRequiredData attempts to resolve the token. It does so by first looking to see if an item has been passed
+		// in the parameter object. If there is an item or item ID, it tries to get the owner of that item. This works
+		// fine for weapons. However, in cases where the Lancer system does not provide an item/I'm using a fake item
+		// (e.g. stabilize), then because getRequiredData can't access the item's owner, it defaults to using null as
+		// the source token, even if I've provided a tokenId. So, if the itemData I've got from the chat message does
+		// not contain either an itemId or an item object with an ID, then resolve the token here, and pass that in to
+		// get around this issue.
+		if (!itemData.itemId && !itemData.item?.id) {
+			itemData.token = game.canvas.tokens.get(msg.speaker?.token);
+		}
+
 		const compiledData = await getRequiredData({
 			...itemData,
 			actorId: msg.speaker?.actor,
