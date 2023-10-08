@@ -8,7 +8,7 @@ export async function handleItem(data) {
     if (!data.item) { return; };
 
     const item = data.item;
-    const itemName = !data.activeEffect || game.system.id === "pf2e" || game.system.id === "ptr" ? item.name : item.label;
+    const itemName = !data.activeEffect || game.system.id === "pf2e" || game.system.id === "ptu" ? item.name : item.label;
     const rinsedItemName = itemName ? AAAutorecFunctions.rinseName(itemName) : "noitem";
 
     const ammoItem = data.ammoItem;

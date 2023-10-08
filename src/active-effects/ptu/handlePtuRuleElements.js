@@ -5,7 +5,7 @@ import { AnimationState }   from "../../AnimationState.js";
 import { DataSanitizer }    from "../../aa-classes/DataSanitizer.js";
 
 
-export async function createRuleElementPtr(item) {    
+export async function createRuleElementPtu(item) {    
     if (!AnimationState.enabled) { return; }
 
     // Get the Item ID and Token it is on
@@ -18,7 +18,7 @@ export async function createRuleElementPtr(item) {
 
     if (game.settings.get("autoanimations", "disableGrantedAuraEffects")) {
         let tactorId = aeToken.actor.id;
-        let origin = item.flags?.ptr?.aura?.origin;
+        let origin = item.flags?.ptu?.aura?.origin;
         if (origin) {
             let idSplit = origin.split('.');
             let id = idSplit[idSplit.length - 1];
@@ -62,7 +62,7 @@ export async function createRuleElementPtr(item) {
 
 }
 
-export async function deleteRuleElementPtr(itemData = {}) {
+export async function deleteRuleElementPtu(itemData = {}) {
     
     const data = {
         token: itemData.token,
