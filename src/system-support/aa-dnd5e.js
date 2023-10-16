@@ -22,6 +22,8 @@ export function systemHooks() {
             useItem(getWorkflowData(workflow))
         });
     
+    } else if (game.modules.get("wire")?.active) {
+        // WIRE handles triggering AA
     } else {
         Hooks.on("dnd5e.preRollAttack", async (item, options) => {
             let spellLevel = options.spellLevel ?? void 0;
