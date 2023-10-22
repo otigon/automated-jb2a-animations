@@ -186,6 +186,7 @@ export async function templatefx(handler, animationData, templateDocument) {
         seq.playbackRate(data.options.playbackRate)
         seq.name(handler.rinsedName)
         seq.aboveLighting(data.options.aboveTemplate)
+        seq.xray(data.options.xray)
         if (data.options.tint) {
             seq.tint(data.options.tintColor)
             seq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})

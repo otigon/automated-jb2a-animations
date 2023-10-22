@@ -109,6 +109,12 @@
     </tr>
     <tr>
         <td class="aa-table">
+            <strong>{localize("autoanimations.variants.xray")}</strong>
+        </td>
+        <td> This will cause the effect to ignore vision-based masking </td>
+    </tr>
+    <tr>
+        <td class="aa-table">
             <strong>{localize("autoanimations.menus.z-index")}</strong>
         </td>
         <td> Index of the animation when they are played at the same elevation </td>
