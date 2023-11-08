@@ -42,7 +42,7 @@ export function systemHooks() {
     });
 
     Hooks.on("wfrp4e:applyDamage", async (scriptArgs) => {
-        if (game.user.id !== scriptArgs.opposedTest.attackerTest.data.context.cardOptions.user || !AnimationState.enabled) { return }
+        if (game.user.id !== scriptArgs.opposedTest.attackerTest.data.context.cardOptions.user || game.user.isGM || !AnimationState.enabled) { return }
         if (scriptArgs.opposedTest.attackerTest.result.castOutcome != "success" || !scriptArgs.opposedTest.attackerTest.spell?.system?.magicMissile?.value) { return }
         let compiledData = await getRequiredData({
             item: scriptArgs.opposedTest.attackerTest.spell,
