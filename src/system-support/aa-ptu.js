@@ -8,8 +8,8 @@ export function systemHooks() {
         if (msg.user.id !== game.user.id) { return };
         const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
         let compiledData = await getRequiredData({
-            item: await fromUuid(msg.flags.ptr?.origin?.uuid),
-            itemId: msg.flags.ptr?.origin?.uuid,
+            item: await fromUuid(msg.flags.ptu?.origin?.uuid),
+            itemId: msg.flags.ptu?.origin?.uuid,
             token: msg.token?.object,
             tokenId: msg.speaker?.token,
             actorId: msg.speaker?.actor,
@@ -18,16 +18,16 @@ export function systemHooks() {
             bypassTemplates: true,
         });
         if (!compiledData.item) {
-            debug("PTR | No Item Found, exiting main Workflow")
+            debug("PTU | No Item Found, exiting main Workflow")
             return;
         }
         compiledData.hitTargets = checkOutcome(compiledData);
-        runPtr(compiledData)
+        runPtu(compiledData)
     });
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
         if (userId !== game.user.id) { return };
         let compiledData = await getRequiredData({
-            itemUuid: template.flags?.ptr?.origin?.uuid,
+            itemUuid: template.flags?.ptu?.origin?.uuid,
             templateData: template,
             workflow: template,
             isTemplate: true
@@ -41,7 +41,7 @@ export function systemHooks() {
 async function templateAnimation(input) {
     debug("Template placed, checking for animations")
     if (!input.item) { 
-        debug("PTR | No Item could be found")
+        debug("PTU | No Item could be found")
         return;
     }
     if (isNewerVersion(game.system.version, "5")) {
@@ -52,7 +52,7 @@ async function templateAnimation(input) {
     }
     else {
         // Spell variants can be identified by the template name
-        const templateName = input.templateData.flags?.ptr?.origin?.name
+        const templateName = input.templateData.flags?.ptu?.origin?.name
         // If item and template name differ, the variant spell can be created by applying the variants overlay
         if (templateName && input.item.name !== templateName) {
             // Search for the variant overlay by name
@@ -69,25 +69,25 @@ async function templateAnimation(input) {
     trafficCop(handler)
 }
 
-async function runPtr(data) {
+async function runPtu(data) {
     const msg = data.workflow;
     const item = data.item;
     const playOnDamage = data.playOnDamage;
     const isDamageRoll = msg.isDamageRoll;
     
     if(item.type === "effect" || item.type === "condition") {
-        debug ("PTR | This is a Condition or Effect, exiting main workflow")
+        debug ("PTU | This is a Condition or Effect, exiting main workflow")
         return;
     }
 
     if (!msg.isRoll) { return; }
     if (moveHasAOE(item)) { return; }
     if ((playOnDamage && isDamageRoll) || (!playOnDamage && !isDamageRoll)) {
-        playPtr(data);
+        playPtu(data);
     }
 }
 
-async function playPtr(input) {
+async function playPtu(input) {
     if (!input.item) {
         debug("No Item could be found")
         return;
@@ -102,7 +102,7 @@ function moveHasAOE(item) {
 }
 
 function checkOutcome(input) {
-    let outcome = input.workflow.flags?.ptr?.context?.outcome;
+    let outcome = input.workflow.flags?.ptu?.context?.outcome;
     outcome = outcome ? outcome.toLowerCase() : "";
     let hitTargets;
     if (input.targets.length < 2

@@ -485,7 +485,8 @@
             "illusion": "Illusion",
             "necromancy": "Necromancy",
             "transmutation": "Transmutation",
-            "arcana": "Arcana"
+            "arcana": "Arcana",
+            "xray": "XRay"
         },
         "menuTypes": {
             "creature": "Creature Attack",
