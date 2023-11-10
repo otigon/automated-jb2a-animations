@@ -1,8 +1,9 @@
 import { aaDeletedItems } from "../deletedItems";
 
 export async function getRequiredData(data) {
-    //let {item, itemId, itemUuid, itemName, token, tokenId, tokenUuid, targets, actorId, actor} = data;
+    //let {item, itemId, itemUuid, itemName, token, tokenId, tokenUuid, targets, targetIds, actorId, actor, templateId, ammoId} = data;
 
+    // set up token and item ... and try to set up token some more if it still doesn't work
     if (!data.token) {
         data.token = getToken(data);
     }
@@ -13,9 +14,9 @@ export async function getRequiredData(data) {
     if (!data.item && data.itemUuid) {
         if (game.modules.get("magicitems")?.active) {
             const splitUuid = data.itemUuid.split('.');
-            const id = splitUuid[splitUuid.length - 1];    
+            const id = splitUuid[splitUuid.length - 1];
             data.item = game.packs.get("dnd5e.spells")?.index?.get(id)
-        }  
+        }
     }
     if (!data.token && data.item) {
         // Last ditch effort to find a token
@@ -24,11 +25,33 @@ export async function getRequiredData(data) {
     if (!data.token) {
         data.token = _token;
     }
+
+    // set up targets
+    if (!data.targets && data.targetIds?.length) {
+        data.targets = data.targetIds.map((id) => canvas.scene.tokens.get(id)?.object).filter(x => !!x);
+    }
     if (!data.targets) {
         data.targets = Array.from(game.user.targets)
     }
 
-    return {...data}
+    // set up ammo
+    if (data.ammoId && !data.ammoItem && data.token) {
+        data.ammoItem = getItemFromToken(data.token, data.ammoId);
+    }
+
+    // set up template
+    if (!data.templateData && data.templateDataId) {
+        data.templateData = canvas.scene.templates.get(data.templateDataId);
+    }
+    if (data.templateData) {
+        data.isTemplate = true;
+    }
+
+    // set up empty name arrays so each system handler doesn't have to define them on their own
+    data.extraNames ||= [];
+    data.overrideNames ||= [];
+
+    return { ...data }
     //return {item: data.item, token: data.token, targets: data.targets}
 }
 

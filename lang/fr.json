@@ -57,9 +57,9 @@
 			"cypherCrit_name": "Critiques",
 			"cypherCrit_hint": "Activer les animations des coups critiques (20 naturel) sur le token source",
 			"cypherCritAnim_name": "Animation de coup critique",
-			"cypherFumble_name": "Échecs critiques",
-			"cypherFumble_hint": "Activer l'animation des échecs critiques (1 naturel) sur le token source",
-			"cypherFumbleAnim_name": "Animation d'échec critique",
+			"cypherFumble_name": "Intrusion du MJ",
+			"cypherFumble_hint": "Activer pour l'intrusion du MJ dans les animations sur le token source",
+			"cypherFumbleAnim_name": "Animation Intrusion du MJ",
 			"mightroll_name": "Jet de puissance",
 			"mightroll_hint": "Activer les animations des jets de puissance sur le token source",
 			"mightRollAnim_name": "Animation de Puissance",
@@ -92,7 +92,14 @@
 			"damage": "Jets de dégâts",
 			"playAnimations": "Quand jouer les animations",
 			"disableGrantedAura": "Désactiver les animations des effets d'auras accordées",
-			"disableGrantedAuraHint": "Désactive les animations pour les effets accordés par les Auras"
+			"disableGrantedAuraHint": "Désactive les animations pour les effets accordés par les Auras",
+			"cyberPunkCanMiss_hint": "Montre que la balle manque le jeton ciblé si le DV n'a pas été battu. Si une table de DV ne peut être trouvée, l'animation considèrera que çà touche en guise de solution de repli",
+			"cyberPunkElevation": "Utiliser l'élévation calculer si çà touche",
+			"cyberPunkElevation_hint": "Utilise l'élévation entre les jetons comme distance supplémentaire lorsque cette option est activée",
+			"cyberPunkAutoFire": "Activer la répétition automatique",
+			"cyberPunkAutoFire_hint": "Passer outre la répétition pour l'animation primaire lorsque le feu automatique ou suppressif est activé pour l'arme",
+			"cyberPunkCanMiss": "Utiliser forceMiss en cas d'échec",
+			"swadeTraitRolls": "Jet de caractéristique"
 		},
 		"colors": {
 			"lightorange": "Orange clair",
@@ -694,7 +701,12 @@
 			"rotateTowards": "Faire une rotation vers",
 			"saturation": "Saturation",
 			"colorTint": "Teinte de couleur",
-			"contrast": "Contraste"
+			"contrast": "Contraste",
+			"matchFound": "Correspondance trouvée",
+			"activeEffect": "Effet actif",
+			"autoSize": "Taille Auto",
+			"duration": "Durée",
+			"onCenter": "Au centre"
 		},
 		"app": {
 			"aaAutorec-range": {

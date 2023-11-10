@@ -12,8 +12,7 @@
 	"version": "4.0.15",
 	"compatibility": {
 		"minimum": "10",
-		"verified": "10",
-		"maximum": "10"
+		"verified": "11"
 	},
 	"minimumCoreVersion": "10",
 	"compatibleCoreVersion": "10",
@@ -66,7 +65,7 @@
 			"path": "lang/zh-tw.json"
 		},
 		{
-			"lang": "zh-Hans",
+			"lang": "cn",
 			"name": "中文（简体）",
 			"path": "lang/zh_Hans.json"
 		},

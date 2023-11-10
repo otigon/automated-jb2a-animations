@@ -5,10 +5,7 @@ import { AnimationState }   from "../../AnimationState.js";
 import { DataSanitizer }    from "../../aa-classes/DataSanitizer.js";
 
 
-export async function createRuleElementPF2e(item) {
-    const aePF2eTypes = ['condition', 'effect']
-    if (!aePF2eTypes.includes(item.type)) { return; }
-    
+export async function createRuleElementPtu(item) {    
     if (!AnimationState.enabled) { return; }
 
     // Get the Item ID and Token it is on
@@ -21,7 +18,7 @@ export async function createRuleElementPF2e(item) {
 
     if (game.settings.get("autoanimations", "disableGrantedAuraEffects")) {
         let tactorId = aeToken.actor.id;
-        let origin = item.flags?.pf2e?.aura?.origin;
+        let origin = item.flags?.ptu?.aura?.origin;
         if (origin) {
             let idSplit = origin.split('.');
             let id = idSplit[idSplit.length - 1];
@@ -65,7 +62,7 @@ export async function createRuleElementPF2e(item) {
 
 }
 
-export async function deleteRuleElementPF2e(itemData = {}) {
+export async function deleteRuleElementPtu(itemData = {}) {
     
     const data = {
         token: itemData.token,

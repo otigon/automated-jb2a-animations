@@ -180,7 +180,20 @@
                 </td>
             </tr>
             <tr>
-                <td></td>
+                <td>
+                    <!--Ignore vision-based masking-->
+                    <div>
+                        <label for="xray {animation._data.id}"
+                            >{localize("autoanimations.variants.xray")}
+                        </label>
+                        <input
+                            type="checkbox"
+                            id="xray {animation._data.id}"
+                            bind:checked={$animation.primary.options
+                                .xray}
+                        />
+                    </div>
+                </td>
                 <td>
                     <WaitDelay {animation}/>
                 </td>

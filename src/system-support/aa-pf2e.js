@@ -39,12 +39,16 @@ export function systemHooks() {
     });
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
         if (userId !== game.user.id) { return };
-        templateAnimation(await getRequiredData({
+        let compiledData = await getRequiredData({
             itemUuid: template.flags?.pf2e?.origin?.uuid,
             templateData: template,
             workflow: template,
             isTemplate: true
-        }))
+        }) 
+        // pf2e v5 includes on item getter on templates which handles variants
+        if (template.item) compiledData.item = template.item
+
+        templateAnimation(compiledData)
     })
 }
 
@@ -54,16 +58,24 @@ async function templateAnimation(input) {
         debug("No Item could be found")
         return;
     }
-    // Spell variants can be identified by the template name
-    const templateName = input.templateData.flags?.pf2e?.origin?.name
-    // If item and template name differ, the variant spell can be created by applying the variants overlay
-    if (templateName && input.item.name !== templateName) {
-        // Search for the variant overlay by name
-        const overlayId = input.item.overlays.find(o => o.name == templateName)?._id
-        if (overlayId) {
-            input.item = input.item.loadVariant({ overlayIds: [overlayId] })
-            input.isVariant = true;
-            input.originalItem = input.item?.original;
+    if (isNewerVersion(game.system.version, "5")) {
+        if (input.item.isVariant) {
+            input.isVariant = true
+            input.originalItem = input.item.original
+        }
+    }
+    else {
+        // Spell variants can be identified by the template name
+        const templateName = input.templateData.flags?.pf2e?.origin?.name
+        // If item and template name differ, the variant spell can be created by applying the variants overlay
+        if (templateName && input.item.name !== templateName) {
+            // Search for the variant overlay by name
+            const overlayId = input.item.overlays.find(o => o.name == templateName)?._id
+            if (overlayId) {
+                input.item = input.item.loadVariant({ overlayIds: [overlayId] })
+                input.isVariant = true;
+                input.originalItem = input.item?.original;
+            }
         }
     }
     
@@ -142,6 +154,11 @@ async function runPF2eSpells(data) {
     const isDamageRoll = msg.isDamageRoll;
     const hasAttack = spellHasAttack(item);
     const spellType = getSpellType(item);
+
+    if (item.isVariant) {
+        data.isVariant = true
+        data.originalItem = item.original;
+    }
 
     switch (spellType) {
         case "utility":

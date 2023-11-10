@@ -9,7 +9,10 @@ export async function melee(handler, animationData) {
     const macro = animationData.macro;
 
     const sourceToken = handler.sourceToken;
-    const sourceTokenGS = (sourceToken.w / canvas.grid.size) * 5;
+    let sourceTokenGS = (sourceToken.w / canvas.grid.size) * 5;
+    if (data.video?.animation === "claw" || data.video?.animation === "bite") {
+        sourceTokenGS = sourceToken.w / canvas.grid.size;
+    }
 
     const switchDisabled = game.settings.get("autoanimations", "rangeSwitch")
 
@@ -21,9 +24,9 @@ export async function melee(handler, animationData) {
 
     let range = {};
     if (data.meleeSwitch.options.switchType === "on") {
-        range = aaRangeWeapons.includes(data.video.animation) && !data.video.customPath ? await buildFile("range", data.video, false) : {};
+        range = aaRangeWeapons.includes(data.video.animation) && !data.video.customPath ? await buildFile("range", data.video, false, {isReturnable: true}) : {};
     } else if (data.meleeSwitch.options.switchType === "custom") {
-        range = !data.meleeSwitch?.video?.customPath ? await buildFile("range", data.meleeSwitch.video, data.meleeSwitch.video.customPath) : {};
+        range = !data.meleeSwitch?.video?.customPath ? await buildFile("range", data.meleeSwitch.video, data.meleeSwitch.video.customPath, {isReturnable: true}) : {};
     }
 
     let switchDistance = 5;
@@ -153,7 +156,7 @@ export async function melee(handler, animationData) {
                 let currentTarget = rangeArray[i].token
 
                 let returnSeq = aaSeq.effect()
-                returnSeq.file(data.path.returnFile)
+                returnSeq.file(range.returnFile)
                 returnSeq.opacity(data.options.opacity)
                 returnSeq.atLocation(sourceToken)
                 returnSeq.repeats(data.options.repeat, data.options.repeatDelay)

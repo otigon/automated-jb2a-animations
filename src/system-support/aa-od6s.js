@@ -10,6 +10,7 @@ import { getRequiredData }  from "./getRequiredData.js";
 export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => {
         if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
+        if (msg.getFlag('od6s', 'type') === 'damage') { return };
 
         // Was this from an actor-controlled vehicle?
         let tokenId = '';

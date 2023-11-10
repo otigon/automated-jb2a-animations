@@ -1,3 +1,6 @@
+# NOTICE: Automated Animations is no longer becing actively worked on, and should be considered to be in Maintenance Mode only. I will still merge in PR's as they come in, but will only actively fix critical bugs for the module. If anyone wishes to take over development of this Foundry Module, please get with me here or on Discord at username Otigon (Otigon#2010).  
+
+  
 MIT License provided:   
 - Honeybadger (Trioderigon) and Wasp provided the framework for the Teleportation Preset  
 - The SEQUENCER module is now a dependancy of Automated Animations.  
@@ -42,8 +45,12 @@ Current System Compatibility:
 - Cyberpunk Red
 - TheWitcherTRPG
 - [ShadowRun5e](https://foundryvtt.com/packages/shadowrun5e/)
+- [ShadowRun Anarchy unnoficial](https://gitlab.com/vincent.vandeme/anarchy)
 - Level Up A5E
 - [Dungeonslayers 4](https://foundryvtt.com/packages/ds4)
+- [Cypher System](https://foundryvtt.com/packages/cyphersystem)
+- [Pokemon Tabletop Reunited v4](https://github.com/dylanpiera/foundry-Pokemon-Tabletop-United-System/)
+- [Lancer](https://foundryvtt.com/packages/lancer/)
 
 Systems in Process for Compatibility:   
 - Please log a GitHub request for other systems  
