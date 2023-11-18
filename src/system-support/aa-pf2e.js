@@ -151,13 +151,21 @@ async function runPF2eSpells(data) {
     const msg = data.workflow;
     const item = data.item;
     const playOnDamage = data.playOnDamage;
-    const isDamageRoll = msg.isDamageRoll;
-    const hasAttack = spellHasAttack(item);
-    const spellType = getSpellType(item);
+    let spellType = getSpellType(item);
 
     if (item.isVariant) {
         data.isVariant = true
         data.originalItem = item.original;
+    }
+
+    if (isNewerVersion(game.system.version, "5.8.3")) {
+        // pf2e 5.9 removes spellType
+        if (item.system.traits.value.includes("healing"))
+            spellType = "heal"
+        else if (item.system.traits.value.includes("attack"))
+            spellType = "attack"
+        else   
+            spellType = "save"
     }
 
     switch (spellType) {
@@ -252,7 +260,11 @@ function findDamageOnItem(item) {
 }
 
 function itemHasDamage(item) {
-    let damage = item.system?.damage?.value || item.system?.damageRolls || {};
+    let damage = 
+        item.system?.damage?.value // before pf2e 5.9 spell damage
+        || item.system?.damage // 5.9 spell damage
+        || item.system?.damageRolls // strike damage
+        || {};
     return Object.keys(damage).length
 }
 
