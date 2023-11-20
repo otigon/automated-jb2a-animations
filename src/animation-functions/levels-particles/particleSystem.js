@@ -4,7 +4,17 @@ export async function particleEffects(handler, animationData = {}) {
     //const options3d = autoObject ? autoObject.levels3d || {} : handler.flags?.levels3d || {};
 
     const data = await DataSanitizer.compileParticleData(animationData)
-    if (!data) { return; }
+    if (!data) {return;}
+    
+    let hit = true;
+    try {
+    if (handler.playOnMiss) {
+            hit = handler.allTargets.some((target) => handler.hitTargetsId.includes(target.id)) ? true : false;
+        }
+    }catch(e){}
+
+    data.miss = !hit;
+
     const secondary = data.secondary;
     const tokenAnim = data.tokenAnimation;
 
@@ -71,6 +81,7 @@ export async function particleEffects(handler, animationData = {}) {
                 spriteData.emitterSize(data.emittersize)
                 spriteData.alpha(data.alpha)
                 spriteData.mass(data.mass)
+                spriteData.miss(!!data.miss)
             spriteData.gravity(data.gravity)
             spriteData.rotateTowards(data.rotateTowards)
             spriteData.rotation(data.rotationX, data.rotationY, data.rotationZ)
