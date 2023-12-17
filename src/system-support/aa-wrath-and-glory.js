@@ -19,6 +19,10 @@ export function systemHooks() {
     })
 }
 
+console.log(itemId);
+console.log(tokenId);
+console.log(ActorId);
+
 async function routeMessage(input) {
     const requiredData = await getRequiredData(input);
     if (!requiredData.item) { return; }
