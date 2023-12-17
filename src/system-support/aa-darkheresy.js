@@ -1,5 +1,5 @@
 // Support submitted by FilippoPolo on GitHub
-input
+
 import { trafficCop }       from "../router/traffic-cop.js"
 import AAHandler            from "../system-handlers/workflow-data.js";
 import { getRequiredData }  from "./getRequiredData.js";
