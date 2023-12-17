@@ -28,6 +28,6 @@ export * as earthdawn4e from "./aa-ed4e.js"
 export * as ptu from "./aa-ptu.js";
 export * as lancer from "./aa-lancer.js";
 export * as anarchy from "./aa-shadowrun-anarchy.js";
-export * as WnG from "./aa-WnG.js";
+export * as wrath-and-glory from "./aa-wrath-and-glory.js";
 
 
