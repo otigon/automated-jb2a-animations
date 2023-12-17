@@ -25,6 +25,7 @@ function compileTargets(targets) {
 }
 
 async function runWrathandGlory(input) {
+    console.log(input);
     const handler = await AAHandler.make(input);
     trafficCop(handler);
 }
