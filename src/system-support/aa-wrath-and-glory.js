@@ -1,46 +1,24 @@
 import { trafficCop }       from "../router/traffic-cop.js"
 import AAHandler            from "../system-handlers/workflow-data.js";
 import { getRequiredData }  from "./getRequiredData.js";
-
+// WILL NEED REWORK AFTER THE V10 VERSION IS RELEASED
 export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => {
         if (msg.user.id !== game.user.id) { return };
-        const flags = msg.flags?.["wrath-and-glory"] ?? {};
-        const itemId = flags.testData.testData.itemId;
-        const actorId = flags.testData.context.speaker.actor;
-        const tokenId = actorId.getActiveTokens()[0];
-        /*const rollClass = flags.rollData.rollObject.class;*/
-        routeMessage({itemId, tokenId, actorId, workflow: msg/*, rollClass*/})
+
+        let compiledData = await getRequiredData({
+            actorId: msg.flags["wrath-and-glory"].testData.context.speaker.actor,
+            itemId: msg.flags["wrath-and-glory"].testData.testData.itemId,
+            targetIds: msg.flags["wrath-and-glory"].testData.context.targets,
+            tokenId: actorId.getActiveTokens()[0],
+            workflow: msg,
+        })
+        if (!compiledData.item) { return; }
+        runWrathandGlory(compiledData)
     });
-    Hooks.on("AutomatedAnimations-WorkflowStart", onWorkflowStart);
-    Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
-        if (userId !== game.user.id) { return };
-        templateAnimation(await getRequiredData({itemUuid: template.flags?.["wrath-and-glory"]?.origin, templateData: template, workflow: template, isTemplate: true}))
-    })
 }
 
-async function routeMessage(input) {
-    const requiredData = await getRequiredData(input);
-    if (!requiredData.item) { return; }
-    runWrathandGlory(requiredData);
-}
-
-async function runWrathandGlory(data) {
-    const handler = await AAHandler.make(data)
-    trafficCop(handler);
-}
-
-/*function onWorkflowStart(clonedData, animationData) {
-    // Repeat the animation in case of burst attacks.
-    if (animationData.primary != null && clonedData.workflow.flags["wrath-and-glory"].rollData.maxAdditionalHit != null) {
-        animationData.primary.options.repeat = (1 + clonedData.workflow.flags["wrath-and-glory"].rollData.maxAdditionalHit);
-    }
-}*/
-
-async function templateAnimation(input) {
-    if (!input.item) { 
-        return;
-    }
+async function runWrathandGlory(input) {
     const handler = await AAHandler.make(input)
-    trafficCop(handler)
+    trafficCop(handler);
 }
