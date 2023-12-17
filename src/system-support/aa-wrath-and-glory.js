@@ -6,11 +6,12 @@ export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => {
         if (msg.user.id !== game.user.id) { return };
 
+        const systemName = 'wrath-and-glory';
+
         let compiledData = await getRequiredData({
-            actorId: msg.flags["wrath-and-glory"].testData.context.speaker.actor,
-            itemId: msg.flags["wrath-and-glory"].testData.testData.itemId,
-            targetIds: msg.flags["wrath-and-glory"].testData.context.targets,
-            tokenId: actorId.getActiveTokens()[0],
+            actorId: msg.speaker.actor ?? msg.flags[systemName].testData.context.speaker.actor,
+            targets: compileTargets(msg.flags[systemName].testData.context.targets),
+            itemId: msg.flags[systemName].testData.testData.itemId,
             workflow: msg,
         })
         if (!compiledData.item) { return; }
@@ -18,10 +19,12 @@ export function systemHooks() {
     });
 }
 
-console.log(compiledData);
-console.log(getRequiredData);
+function compileTargets(targets) {
+  if (!targets) { return []; }
+  return Array.from(targets).map(token => canvas.tokens.get(token._id));
+}
 
 async function runWrathandGlory(input) {
-    const handler = await AAHandler.make(input)
+    const handler = await AAHandler.make(input);
     trafficCop(handler);
 }
