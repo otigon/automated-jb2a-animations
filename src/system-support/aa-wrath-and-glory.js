@@ -5,8 +5,8 @@ import { getRequiredData }  from "./getRequiredData.js";
 export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => {
         if (msg.user.id !== game.user.id) { return };
-
         const systemName = 'wrath-and-glory';
+        if (msg.flags[systemName].testData.result.damage.dice.length != 0) { return };
 
         let compiledData = await getRequiredData({
             actorId: msg.speaker.actor ?? msg.flags[systemName].testData.context.speaker.actor,
