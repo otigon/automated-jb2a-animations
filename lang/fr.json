@@ -486,7 +486,8 @@
 			"runeoutro": "Rune Outro",
 			"runeintro": "Rune Intro",
 			"runecomplete": "Rune complète",
-			"arcana": "Arcanes"
+			"arcana": "Arcanes",
+			"xray": "Rayon X"
 		},
 		"menuTypes": {
 			"creature": "Attaque de créature",
