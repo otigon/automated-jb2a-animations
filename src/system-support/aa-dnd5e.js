@@ -120,7 +120,7 @@ function checkReach(data) {
 function getWorkflowData(data) {
     return {
         item: data.item,
-        token: data.token,
+        token: data.rangeDetails?.attackingToken ?? data.token,
         targets: Array.from(data.targets),
         hitTargets: Array.from(data.hitTargets),
         spellLevel: data.castData?.castLevel ?? void 0,
