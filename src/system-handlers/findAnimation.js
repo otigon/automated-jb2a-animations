@@ -8,7 +8,7 @@ export async function handleItem(data) {
     if (!data.item) { return; };
 
     const item = data.item;
-    const itemName = item.name;
+    const itemName = item.name ?? item.label;
     const rinsedItemName = itemName ? AAAutorecFunctions.rinseName(itemName) : "noitem";
 
     const ammoItem = data.ammoItem;

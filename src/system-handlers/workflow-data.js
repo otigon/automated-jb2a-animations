@@ -64,7 +64,7 @@ export default class AAHandler {
 
         this.item = data.ammoItem || data.item;
         this.itemUuid = this.item?.uuid || uuidv4();
-        this.itemName = this.item.name;
+        this.itemName = this.item.name ?? this.item.label;
         this.rinsedName = data.rinsedName || this.itemName ? this.itemName.replace(/\s+/g, '').toLowerCase() : "";
 
         this.reachCheck = data.reach || 0;
