@@ -25,7 +25,7 @@ export function copyToFrom(animation, item, autorecSettings, isAE) {
       onPress: async () => {
          if (!animation._data.isEnabled) { return; }
 
-         let name = isAE ? item.label : item.name;
+         let name = item.name;
 
          const isInAutorec = isAE
             ? AAAutorecFunctions.singleMenuSearch(AAAutorecFunctions.sortAndFilterMenus(autorecSettings), AAAutorecFunctions.rinseName(name))

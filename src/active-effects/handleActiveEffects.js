@@ -22,7 +22,7 @@ export async function createActiveEffects(effect) {
         debug("Failed to find the Token for the Active Effect")
         return;
     }
-    const aeNameField = effect.label + `${aeToken.id}`
+    const aeNameField = effect.name + `${aeToken.id}`
     const checkAnim = Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
     if (checkAnim) {
         debug("Animation is already present on the Token, returning.")
@@ -124,7 +124,7 @@ export async function toggleActiveEffects(effect, toggle) {
 export async function checkConcentration(effect) {
 
     // Check effect label and return if it is not equal to "concentrating"
-    const label = effect.label || "";
+    const label = effect.name || "";
     if (label.toLowerCase() !== "concentrating") { return; }
 
     // Get Originating Item. If no Origin, return
