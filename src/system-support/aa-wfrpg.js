@@ -42,7 +42,7 @@ export function systemHooks() {
     });
 
     Hooks.on("wfrp4e:applyDamage", async (scriptArgs) => {
-        if (game.user.id !== scriptArgs.opposedTest.attackerTest.data.context.cardOptions.user || game.user.isGM || !AnimationState.enabled) { return }
+        if (!game.user.isGM || !AnimationState.enabled) { return }
         if (scriptArgs.opposedTest.attackerTest.result.castOutcome != "success" || !scriptArgs.opposedTest.attackerTest.spell?.system?.magicMissile?.value) { return }
         let compiledData = await getRequiredData({
             item: scriptArgs.opposedTest.attackerTest.spell,
@@ -81,9 +81,15 @@ export function systemHooks() {
     
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
         if (userId !== game.user.id) { return };
-        if (!template.flags?.wfrp4e?.itemuuid) { return; } 
-        const uuid = template.flags.wfrp4e.itemuuid;
-        templateAnimation(await getRequiredData({itemUuid: uuid, templateData: template, workflow: template, isTemplate: true}))
+
+        if (template.flags?.wfrp4e?.itemuuid) {
+            const uuid = template.flags.wfrp4e.itemuuid;
+            templateAnimation(await getRequiredData({itemUuid: uuid, templateData: template, workflow: template, isTemplate: true}))
+        } else if (template.flags?.wfrp4e?.auraToken) {
+            const effectUuid = template.flags.wfrp4e.effectUuid;
+            const effect = await fromUuid(effectUuid)
+            templateAnimation(await getRequiredData({itemUuid: effect.parent.uuid, templateData: template, workflow: template, isTemplate: true}))
+        }
     });
 }
 
@@ -105,5 +111,13 @@ async function templateAnimation(input) {
         return;
     }
     const handler = await AAHandler.make(input)
+    if (handler.templateData?.flags?.wfrp4e?.effectUuid && 
+        handler.templateData?.flags?.wfrp4e?.auraToken && 
+        handler.isAura &&
+        handler.animationData?.primary?.options) {
+            const effect = await fromUuid(handler.templateData.flags.wfrp4e.effectUuid);
+            handler.animationData.primary.options.size = effect.radius / 2;
+            handler.animationData.primary.options.addTokenWidth = false;
+    }
     trafficCop(handler)
 }
