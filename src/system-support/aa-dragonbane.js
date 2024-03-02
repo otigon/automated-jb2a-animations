@@ -21,28 +21,8 @@ export function systemHooks() {
             }
         }
 
-        // Extract the target id from the Roll Damage button
-        // Only supports single target
-        function extractTargets(content) {
-            try {
-                let targetId =  $(content).find('.magic-roll').attr("data-target-id");
-                if (!targetId) {
-                    targetId = $(content).find('.weapon-roll').attr("data-target-id");;
-                }
-                let target = targetId ? fromUuidSync(targetId) : null;
-                if (target instanceof TokenDocument) {
-                    target = target.object;
-                }
-                return target ? [target] : null;
-            } catch (exception) {
-                console.log("COULD NOT GET ITEM ID")
-                return null;
-            }
-        }
-
         let compiledData = await getRequiredData({
             itemId: extractItemId(msg.content),
-            targets: extractTargets(msg.content),
             actorId: msg.speaker?.actor,
             tokenId: msg.speaker?.token,
             workflow: msg,
