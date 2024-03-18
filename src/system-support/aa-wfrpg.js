@@ -85,12 +85,26 @@ export function systemHooks() {
         if (template.flags?.wfrp4e?.itemuuid) {
             const uuid = template.flags.wfrp4e.itemuuid;
             templateAnimation(await getRequiredData({itemUuid: uuid, templateData: template, workflow: template, isTemplate: true}))
+        } else if (template.flags?.wfrp4e?.effectUuid) {
+            const effectUuid = template.flags.wfrp4e.effectUuid;
+            const effect = await fromUuid(effectUuid)
+            templateAnimation(await getRequiredData({itemUuid: effect.parent.uuid, templateData: template, workflow: template, isTemplate: true}))
         } else if (template.flags?.wfrp4e?.auraToken) {
             const effectUuid = template.flags.wfrp4e.effectUuid;
             const effect = await fromUuid(effectUuid)
             templateAnimation(await getRequiredData({itemUuid: effect.parent.uuid, templateData: template, workflow: template, isTemplate: true}))
         }
     });
+
+    Hooks.on("AutomatedAnimations-WorkflowStart", onWorkflowStart);
+}
+
+function onWorkflowStart(clonedData, animationData) {
+    if (clonedData.activeEffect && clonedData.item?.flags.wfrp4e.applicationData.type == "aura" && clonedData.item?.flags.wfrp4e.applicationData.targetedAura == "self") {
+        if (clonedData.item.flags.autoanimations.activeEffectType == "aura") {
+            clonedData.stopWorkflow = true;
+        }
+    }
 }
 
 async function runWarhammer(data) {
