@@ -79,6 +79,25 @@ export function systemHooks() {
         runWarhammer(compiledData)
     });
     
+    Hooks.on("wfrp4e:renderTokenAura", async (token, effect, userId) => {
+        if (game.user.id !== userId) { return; }
+        let item;
+        if (effect.parent.constructor.name == "ItemWfrp4e") {
+            item = effect.parent;
+        }
+        else if (effect.parent.constructor.name == "ActorWfrp4e") {
+            item = effect.sourceItem;
+        }
+        let compiledData = await getRequiredData({
+            item: item,
+            activeEffect: effect,
+            tokenId: token.id,
+            actorId: token.actor.id,
+          //  workflow: data
+        })
+        runWarhammer(compiledData)
+    });
+
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
         if (userId !== game.user.id) { return };
 
@@ -100,9 +119,22 @@ export function systemHooks() {
 }
 
 function onWorkflowStart(clonedData, animationData) {
-    if (clonedData.activeEffect && clonedData.item?.flags.wfrp4e.applicationData.type == "aura" && clonedData.item?.flags.wfrp4e.applicationData.targetedAura == "self") {
-        if (clonedData.item.flags.autoanimations.activeEffectType == "aura") {
+    if (clonedData.activeEffect?.constructor.name == "Boolean" && clonedData.activeEffect && animationData) { // item is ActiveEffect
+        let effect = clonedData.item;
+        if (effect.flags?.wfrp4e.applicationData.type == "aura" && effect.flags.autoanimations?.activeEffectType == "aura") {
+            let radius = clonedData.item.radius;
+            if (clonedData.item.sourceTest?.result.overcast?.usage.target.current && clonedData.item.sourceItem?.type == "spell") {
+                radius = radius / 2;
+            }
+            animationData.primary.options.size = radius;
+        }
+        else if (effect.flags?.wfrp4e?.applicationData.type == "document" && effect.flags.wfrp4e.applicationData.targetedAura && effect.flags.autoanimations?.activeEffectType == "aura") {
             clonedData.stopWorkflow = true;
+        }
+    }
+    else if (clonedData.activeEffect?.constructor.name == "EffectWfrp4e" && clonedData.activeEffect?.flags.wfrp4e.applicationData.type == "aura" && animationData) { // item is item. 
+        if (clonedData.activeEffect.flags?.autoanimations.activeEffectType == "aura") {
+            animationData.primary.options.size = clonedData.activeEffect.radius;
         }
     }
 }
