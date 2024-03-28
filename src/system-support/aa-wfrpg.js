@@ -123,9 +123,6 @@ function onWorkflowStart(clonedData, animationData) {
         let effect = clonedData.item;
         if (effect.flags?.wfrp4e.applicationData.type == "aura" && effect.flags.autoanimations?.activeEffectType == "aura") {
             let radius = clonedData.item.radius;
-            if (clonedData.item.sourceTest?.result.overcast?.usage.target.current && clonedData.item.sourceItem?.type == "spell") {
-                radius = radius / 2;
-            }
             animationData.primary.options.size = radius;
         }
         else if (effect.flags?.wfrp4e?.applicationData.type == "document" && effect.flags.wfrp4e.applicationData.targetedAura && effect.flags.autoanimations?.activeEffectType == "aura") {
@@ -134,7 +131,7 @@ function onWorkflowStart(clonedData, animationData) {
     }
     else if (clonedData.activeEffect?.constructor.name == "EffectWfrp4e" && clonedData.activeEffect?.flags.wfrp4e.applicationData.type == "aura" && animationData) { // item is item. 
         if (clonedData.activeEffect.flags?.autoanimations.activeEffectType == "aura") {
-            animationData.primary.options.size = clonedData.activeEffect.radius;
+            animationData.primary.options.size = clonedData.activeEffect.radius / 2;
         }
     }
 }
