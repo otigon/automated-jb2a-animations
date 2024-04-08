@@ -2,14 +2,7 @@
 	"id": "autoanimations",
 	"title": "Automated Animations",
 	"description": "This will automatically run most JB2A Animations such as Melee/Ranged Attacks, Spell Attacks, and Instant Spells",
-	"authors": [
-		{
-			"name": "Otigon (Otigon#2010)",
-			"discord": "Otigon#2010"
-		}
-	],
-	"url": "https://github.com/otigon/automated-jb2a-animations",
-	"version": "4.0.15",
+		"version": "4.0.15",
 	"compatibility": {
 		"minimum": "10",
 		"verified": "11"
@@ -75,19 +68,6 @@
 			"path": "lang/pt_BR.json"
 		}
 	],
-	"relationships": {
-		"requires": [
-			{
-				"id": "sequencer",
-				"type": "module",
-				"manifest": "https://github.com/fantasycalendar/FoundryVTT-Sequencer/releases/latest/download/module.json"
-			},
-			{
-				"id": "socketlib",
-				"type": "module"
-			}
-		]
-	},
-	"socket": true,
+	
 	
 }
