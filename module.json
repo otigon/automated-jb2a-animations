@@ -11,11 +11,11 @@
 	"url": "https://github.com/otigon/automated-jb2a-animations",
 	"version": "4.0.15",
 	"compatibility": {
-		"minimum": "10",
-		"verified": "11"
+		"minimum": "11",
+		"verified": "12"
 	},
-	"minimumCoreVersion": "10",
-	"compatibleCoreVersion": "10",
+	"minimumCoreVersion": "11",
+	"compatibleCoreVersion": "12",
 	"scripts": [],
 	"esmodules": [
 		"index.js"
