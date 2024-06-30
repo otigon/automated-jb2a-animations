@@ -27,6 +27,7 @@
   ],
   "scripts": {
     "build": "vite build",
+    "watch": "vite build --watch",
     "dev": "vite",
     "eslint": "eslint ."
   }

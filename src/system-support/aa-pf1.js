@@ -19,7 +19,7 @@ export function systemHooks() {
             ammoId: msg.flags.pf1?.metadata?.rolls?.attacks?.map((attack) => attack.ammo?.id)[0],
             itemId: msg.flags.pf1?.metadata?.item,
             item: msg.itemSource,
-            targetIds: msg.flags.pf1?.metadata?.targets,
+            targets: msg.flags.pf1?.metadata?.targets.map(uuid => fromUuidSync(uuid)),
             templateDataId: msg.flags.pf1?.metadata?.template,
             tokenId: msg.speaker?.token,
             workflow: msg,
@@ -51,7 +51,7 @@ export function systemHooks() {
             // fall back to weapon groups after base weapon name 
             const groupsOnItem = [
                 ...(item.system.weaponGroups?.value || []).map((key) => pf1.config.weaponGroups[key]),
-                ...(item.system.weaponGroups?.custom || '').split(';')
+                ...(item.system.weaponGroups?.custom || []),
             ].filter((x) => !!x);
             compiledData.extraNames.push(...groupsOnItem);
         }
