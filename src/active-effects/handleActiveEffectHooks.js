@@ -104,6 +104,12 @@ export function registerActiveEffectHooks() {
                 }
                 if (game.user.id !== userId) { return; }
 
+                if (effect.parent instanceof Item) {
+                    const flagData = effect.parent.flags['autoanimations'];
+                    if (flagData) {
+                        await effect.update({ 'flags.autoanimations': flagData });
+                    }
+                }
                 createActiveEffects(effect);
             });
             Hooks.on("preDeleteActiveEffect", (effect, data, userId) => {
