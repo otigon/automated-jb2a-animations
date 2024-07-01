@@ -8,7 +8,7 @@ export const aefx = [
       activeEffectType: "ontoken",
       primary: {
          options: {
-            addTokenWidth: false,
+            addTokenWidth: true,
             delay: 0,
             elevation: 1000,
             isMasked: false,
