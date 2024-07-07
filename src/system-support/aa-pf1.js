@@ -19,7 +19,7 @@ export function systemHooks() {
             ammoId: msg.flags.pf1?.metadata?.rolls?.attacks?.map((attack) => attack.ammo?.id)[0],
             itemId: msg.flags.pf1?.metadata?.item,
             item: msg.itemSource,
-            targets: msg.flags.pf1?.metadata?.targets?.map(uuid => fromUuidSync(uuid)) ?? [],
+            targets: (msg.flags.pf1?.metadata?.targets?.map(uuid => fromUuidSync(uuid)) ?? []).map(x => x.object),
             templateDataId: msg.flags.pf1?.metadata?.template,
             tokenId: msg.speaker?.token,
             workflow: msg,
