@@ -30,7 +30,7 @@ export async function teleportation(handler, animationData) {
     const borderLocation = borderType === "circle" ? {} : {offset: {x: -borderSize, y: -borderSize}, gridUnits: true};
     const borderData = {
         lineSize: 4,
-        lineColor: game.user.color,
+        lineColor: game.user.color.toString(),
         radius: borderType === "circle" ? borderSize : .25,
         width: borderSize * 2,
         height: borderSize * 2,

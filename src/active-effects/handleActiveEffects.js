@@ -16,13 +16,14 @@ export async function createActiveEffects(effect) {
 
     if (!AnimationState.enabled) { return; }
 
-    // Gets the Token that the Active Effect is applied to
-    const aeToken = effect.parent?.token || canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id));
+    // Gets the Token that the Active Effect is applied to (which can also be from an actor's embedded item)
+    const actor = effect.parent instanceof Item ? effect.parent.actor : effect.parent;
+    const aeToken = actor.token ?? actor.getActiveTokens()[0];
     if (!aeToken) {
         debug("Failed to find the Token for the Active Effect")
         return;
     }
-    const aeNameField = effect.label + `${aeToken.id}`
+    const aeNameField = (effect.name ?? effect.label) + `${aeToken.id}`
     const checkAnim = Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
     if (checkAnim) {
         debug("Animation is already present on the Token, returning.")
@@ -51,7 +52,8 @@ export async function createActiveEffects(effect) {
 export async function deleteActiveEffects(effect, shouldDelete = false) {
     //let aaEffects = Sequencer.EffectManager.getEffects({ origin: effect.uuid })
 
-    const token = effect.parent?.token || canvas.tokens.placeables.find(token => token.actor?.effects?.get(effect.id))
+    const actor = effect.parent instanceof Item ? effect.parent.actor : effect.parent;
+    const token = actor.token ?? actor.getActiveTokens()[0];
 
     const data = {
         token: token,
@@ -124,7 +126,7 @@ export async function toggleActiveEffects(effect, toggle) {
 export async function checkConcentration(effect) {
 
     // Check effect label and return if it is not equal to "concentrating"
-    const label = effect.label || "";
+    const label = (effect.name ?? effect.label) || "";
     if (label.toLowerCase() !== "concentrating") { return; }
 
     // Get Originating Item. If no Origin, return

@@ -46,7 +46,7 @@ export async function initializeAADB() {
     // If neither Patreon nor Free JB2A is installed, register the base Free DB and throw error
     } else if (!patreonVersion && !freeVersion) {
         await initializeJB2AFreeDB(freePath)
-        custom_error("You do not have a JB2A module installed, Autmoated Animation Select menus will NOT work", true)
+        custom_error("You do not have a JB2A module installed, Automated Animation Select menus will NOT work", true)
     } else {
         // If Patreon JB2A is found, register that base DB
         if (jb2aPatreonFound) {

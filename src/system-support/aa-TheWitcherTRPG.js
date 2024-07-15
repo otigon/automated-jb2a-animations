@@ -1,4 +1,3 @@
-import { debug } from "../constants/constants.js";
 import { trafficCop } from "../router/traffic-cop.js"
 import AAHandler from "../system-handlers/workflow-data.js";
 import { getRequiredData } from "./getRequiredData.js";
@@ -8,13 +7,16 @@ export function systemHooks() {
 }
 
 async function checkMessage(msg) {
-    if (msg.user.id !== game.user.id) { return };
+    if (msg.user.id !== game.user.id) { 
+        return 
+    };
 
+    let witcherFlags = msg.flags?.TheWitcherTRPG
     let compiledData = await getRequiredData({
-        item: msg.flags?.item,
-        spell: msg.flags?.spell,
-        attackSkill: msg.flags?.attackSkill,
-        damage: msg.flags?.damage,
+        item: msg.flags?.item ?? witcherFlags?.attack?.item,
+        spell: msg.flags?.spell ?? witcherFlags?.attack?.spell,
+        attackSkill: msg.flags?.attackSkill ?? witcherFlags?.attack?.attackSkill,
+        damage: msg.flags?.damage ?? witcherFlags?.damage,
         actorId: msg.speaker?.actor,
         tokenId: msg.speaker?.token,
         sceneId: msg.speaker?.scene,
@@ -26,14 +28,13 @@ async function checkMessage(msg) {
     let attackSkillEnabled = game.settings.get('autoanimations', 'attackSkill');
     let damageEnabled = game.settings.get('autoanimations', 'damage');
     let spellEnabled = game.settings.get('autoanimations', 'spell');
-    if (!attackSkillEnabled && !damageEnabled && !spellEnabled) { return null; }
 
-    if (compiledData.attackSkill && attackSkillEnabled) {
-      compiledData.extraNames.push(compiledData.attackSkill);
+    if (!attackSkillEnabled && !damageEnabled && !spellEnabled) {
+        return null;
     }
 
     if (compiledData.attackSkill && attackSkillEnabled) {
-        // all is fine
+        compiledData.extraNames.push(compiledData.attackSkill);
     } else if (compiledData.spell && spellEnabled) {
         compiledData.item = compiledData.spell;
     } else if (damageEnabled) {
