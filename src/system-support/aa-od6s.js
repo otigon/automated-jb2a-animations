@@ -9,8 +9,11 @@ import { getRequiredData }  from "./getRequiredData.js";
 
 export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => {
-        if (msg.user.id !== game.user.id || !AnimationState.enabled) { return };
-        if (msg.getFlag('od6s', 'type') === 'damage') { return };
+        if (msg.user.id !== game.user.id || !AnimationState.enabled) { return }
+        if (msg.getFlag('od6s', 'type') === 'damage') { return }
+        if (msg.getFlag('od6s', 'isExplosive')) {
+            if(!msg.getFlag('od6s','triggered')) { return }
+        }
 
         // Was this from an actor-controlled vehicle?
         let tokenId = '';
