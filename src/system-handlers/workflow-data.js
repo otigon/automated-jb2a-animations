@@ -116,8 +116,8 @@ export default class AAHandler {
     // Sets the Size of the effect
     getSize(isRadius = false, size = 1, token, addToken = false) {
         return isRadius 
-            ? addToken ? ((size * 2) + ((token.w ? (token.w / canvas.grid.size) : token.width))) : size * 2 
-            : ((token.w ? (token.w / canvas.grid.size) : token.width)) * 1.5 * size;
+            ? addToken ? (size * 2) + (token.w / canvas.grid.size) : size * 2 
+            : (token.w / canvas.grid.size) * 1.5 * size;
     }
 
     getDistance(target) {
@@ -127,9 +127,9 @@ export default class AAHandler {
             const gridSize = scene.grid.size;
     
             const left = (token) => token.x;
-            const right = (token) => token.x + (token.w ?? token.width) ;
+            const right = (token) => token.x + token.w;
             const top = (token) => token.y;
-            const bottom = (token) => token.y + (token.h ?? token.height) ;
+            const bottom = (token) => token.y + token.h;
     
             const isLeftOf = right(this.sourceToken) <= left(target);
             const isRightOf = left(this.sourceToken) >= right(target);

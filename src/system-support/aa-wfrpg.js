@@ -2,7 +2,6 @@ import { trafficCop }       from "../router/traffic-cop.js"
 import AAHandler            from "../system-handlers/workflow-data.js";
 import { debug }            from "../constants/constants.js";
 import { getRequiredData }  from "./getRequiredData.js";
-import { AnimationState }   from "../AnimationState.js";
 
 export function systemHooks() {
     Hooks.on("wfrp4e:rollWeaponTest", async (data, info) => {
@@ -42,7 +41,7 @@ export function systemHooks() {
     });
 
     Hooks.on("wfrp4e:applyDamage", async (scriptArgs) => {
-        if (!game.user.isGM || !AnimationState.enabled) { return }
+        if (!game.user.isGM) { return }
         if (scriptArgs.opposedTest.attackerTest.result.castOutcome != "success" || !scriptArgs.opposedTest.attackerTest.spell?.system?.magicMissile?.value) { return }
         let compiledData = await getRequiredData({
             item: scriptArgs.opposedTest.attackerTest.spell,
@@ -78,7 +77,7 @@ export function systemHooks() {
         })
         runWarhammer(compiledData)
     });
-    
+        
     Hooks.on("wfrp4e:renderTokenAura", async (token, effect, userId) => {
         if (game.user.id !== userId) { return; }
         let item;
@@ -97,7 +96,7 @@ export function systemHooks() {
         })
         runWarhammer(compiledData)
     });
-
+    
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
         if (userId !== game.user.id) { return };
 
@@ -159,8 +158,8 @@ async function templateAnimation(input) {
         handler.isAura &&
         handler.animationData?.primary?.options) {
             const effect = await fromUuid(handler.templateData.flags.wfrp4e.effectUuid);
-            handler.animationData.primary.options.size = effect.radius / 2;
-            handler.animationData.primary.options.addTokenWidth = false;
+            handler.animationData.primary.options.size = effect.radius;
+            handler.animationData.primary.options.addTokenWidth = true;
     }
     trafficCop(handler)
 }
