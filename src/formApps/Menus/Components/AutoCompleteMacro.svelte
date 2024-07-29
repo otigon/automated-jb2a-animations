@@ -16,7 +16,7 @@
 
     let macros = writable([]);
 
-    const id = randomID() + "-list";
+    const id = foundry.utils.randomID() + "-list";
 
     function filterMacros() {
 
