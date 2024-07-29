@@ -45,7 +45,7 @@ export async function teleportation(handler, animationData) {
         .fadeOut(500)
         .atLocation(sourceToken, borderLocation)
         .shape(borderType, borderData)
-        .elevation(sourceToken?.document?.elevation - 1)
+        .elevation(sourceToken?.document?.elevation + 1)
         .forUsers(hideBorder)
         .name("teleportation")
         .opacity(0.75)
