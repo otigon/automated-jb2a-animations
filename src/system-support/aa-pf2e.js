@@ -16,6 +16,11 @@ export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => {
         if (msg.author.id !== game.user.id) { return };
         const playOnDmg = game.settings.get("autoanimations", "playonDamageCore")
+        if (msg.flags.pf2e?.context?.type === "damage-taken") {
+            // This can be removed if later A-A can differentiate animations on the same item. I guess.
+            debug ("Caught a damage-taken message thats not meant to be animated, exiting main workflow")
+            return;
+        }
         let compiledData = await getRequiredData({
             item: msg.item,
             itemId: msg.flags.pf2e?.origin?.uuid,
