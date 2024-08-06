@@ -12,7 +12,7 @@ export function systemHooks() {
         let compiledData = await getRequiredData({
             actorId: msg.speaker.actor ?? msg.flags[systemName].testData.context.speaker.actor,
             targets: compileTargets(msg.flags[systemName].testData.context.targets),
-            itemId: msg.flags[systemName].testData.testData.itemId,
+            itemUuid: msg.flags[systemName].testData.testData.itemId,
             workflow: msg,
         })
         if (!compiledData.item) { return; }
