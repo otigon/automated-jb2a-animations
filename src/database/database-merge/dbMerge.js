@@ -10,7 +10,7 @@ export const dbMerge = {
 
         if (patreonVersion) {
             for (let [version, migration] of Object.entries(this.migrations)) {
-                if (!isNewerVersion(patreonVersion, version)) {
+                if (!foundry.utils.isNewerVersion(patreonVersion, version)) {
                     if (patreonVersion === version) {
                         await migration(patreonPath, true)
                         break;
@@ -23,13 +23,13 @@ export const dbMerge = {
         }
         if (freeVersion) {
             for (let [version, migration] of Object.entries(this.migrations)) {
-                if (isNewerVersion(patreonVersion, version)) {
+                if (foundry.utils.isNewerVersion(patreonVersion, version)) {
                     continue;
                 }
                 if (patreonVersion === version) {
                     continue;
                 }
-                if (!isNewerVersion(freeVersion, version)) {
+                if (!foundry.utils.isNewerVersion(freeVersion, version)) {
                     if (freeVersion === version) {
                         await migration(freePath);
                         break;

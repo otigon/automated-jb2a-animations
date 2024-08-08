@@ -39,6 +39,20 @@ export function systemHooks() {
         })
         runWarhammer(compiledData)
     });
+
+    Hooks.on("wfrp4e:applyDamage", async (scriptArgs) => {
+        if (!game.user.isGM) { return }
+        if (scriptArgs.opposedTest.attackerTest.result.castOutcome != "success" || !scriptArgs.opposedTest.attackerTest.spell?.system?.magicMissile?.value) { return }
+        let compiledData = await getRequiredData({
+            item: scriptArgs.opposedTest.attackerTest.spell,
+            targets: game.canvas.tokens.getDocuments().filter(x=>x.actorId == scriptArgs.opposedTest.defenderTest.data.context.speaker.actor),
+            tokenId: game.canvas.tokens.getDocuments().find(x=>x.actorId == scriptArgs.opposedTest.attackerTest.data.context.speaker.actor).id,
+            actorId: scriptArgs.attacker.id,
+            workflow: scriptArgs.opposedTest.attackerTest
+        })
+        runWarhammer(compiledData)
+    });
+
     Hooks.on("wfrp4e:rollTraitTest", async (data, info) => {
         if (game.user.id !== info.user) { return }
         let compiledData = await getRequiredData({
@@ -63,13 +77,62 @@ export function systemHooks() {
         })
         runWarhammer(compiledData)
     });
+        
+    Hooks.on("wfrp4e:renderTokenAura", async (token, effect, userId) => {
+        if (game.user.id !== userId) { return; }
+        let item;
+        if (effect.parent.constructor.name == "ItemWfrp4e") {
+            item = effect.parent;
+        }
+        else if (effect.parent.constructor.name == "ActorWfrp4e") {
+            item = effect.sourceItem;
+        }
+        let compiledData = await getRequiredData({
+            item: item,
+            activeEffect: effect,
+            tokenId: token.id,
+            actorId: token.actor.id,
+          //  workflow: data
+        })
+        runWarhammer(compiledData)
+    });
     
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
         if (userId !== game.user.id) { return };
-        if (!template.flags?.wfrp4e?.itemuuid) { return; } 
-        const uuid = template.flags.wfrp4e.itemuuid;
-        templateAnimation(await getRequiredData({itemUuid: uuid, templateData: template, workflow: template, isTemplate: true}))
+
+        if (template.flags?.wfrp4e?.itemuuid) {
+            const uuid = template.flags.wfrp4e.itemuuid;
+            templateAnimation(await getRequiredData({itemUuid: uuid, templateData: template, workflow: template, isTemplate: true}))
+        } else if (template.flags?.wfrp4e?.effectUuid) {
+            const effectUuid = template.flags.wfrp4e.effectUuid;
+            const effect = await fromUuid(effectUuid)
+            templateAnimation(await getRequiredData({itemUuid: effect.parent.uuid, templateData: template, workflow: template, isTemplate: true}))
+        } else if (template.flags?.wfrp4e?.auraToken) {
+            const effectUuid = template.flags.wfrp4e.effectUuid;
+            const effect = await fromUuid(effectUuid)
+            templateAnimation(await getRequiredData({itemUuid: effect.parent.uuid, templateData: template, workflow: template, isTemplate: true}))
+        }
     });
+
+    Hooks.on("AutomatedAnimations-WorkflowStart", onWorkflowStart);
+}
+
+function onWorkflowStart(clonedData, animationData) {
+    if (clonedData.activeEffect?.constructor.name == "Boolean" && clonedData.activeEffect && animationData) { // item is ActiveEffect
+        let effect = clonedData.item;
+        if (effect.flags?.wfrp4e.applicationData.type == "aura" && effect.flags.autoanimations?.activeEffectType == "aura") {
+            let radius = clonedData.item.radius;
+            animationData.primary.options.size = radius;
+        }
+        else if (effect.flags?.wfrp4e?.applicationData.type == "document" && effect.flags.wfrp4e.applicationData.targetedAura && effect.flags.autoanimations?.activeEffectType == "aura") {
+            clonedData.stopWorkflow = true;
+        }
+    }
+    else if (clonedData.activeEffect?.constructor.name == "EffectWfrp4e" && clonedData.activeEffect?.flags.wfrp4e.applicationData.type == "aura" && animationData) { // item is item. 
+        if (clonedData.activeEffect.flags?.autoanimations.activeEffectType == "aura") {
+            animationData.primary.options.size = clonedData.activeEffect.radius / 2;
+        }
+    }
 }
 
 async function runWarhammer(data) {
@@ -90,5 +153,13 @@ async function templateAnimation(input) {
         return;
     }
     const handler = await AAHandler.make(input)
+    if (handler.templateData?.flags?.wfrp4e?.effectUuid && 
+        handler.templateData?.flags?.wfrp4e?.auraToken && 
+        handler.isAura &&
+        handler.animationData?.primary?.options) {
+            const effect = await fromUuid(handler.templateData.flags.wfrp4e.effectUuid);
+            handler.animationData.primary.options.size = effect.radius;
+            handler.animationData.primary.options.addTokenWidth = true;
+    }
     trafficCop(handler)
 }

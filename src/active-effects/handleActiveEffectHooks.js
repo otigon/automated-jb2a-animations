@@ -78,24 +78,6 @@ export function registerActiveEffectHooks() {
                 if (game.user.id !== userId) { return; }
                 toggleActiveEffects(data, toggle)
             });
-        case 'wfrp4e':
-            Hooks.on("createActiveEffect", (effect, data, userId) => {
-                if (game.settings.get("autoanimations", "disableAEAnimations")) {
-                    debug(`Active Effect Animations are Disabled`);
-                    return;
-                }
-                if (game.user.id !== userId) { return; }
-                createActiveEffects(effect)
-            });
-            Hooks.on("preDeleteActiveEffect", (effect, data, userId) => {
-                if (game.user.id !== userId) { return; }
-
-                deleteActiveEffects(effect)
-                if (game.modules.get('midi-qol')?.active) {
-                    checkConcentration(effect)
-                }
-            });
-            break;    
         case "pf1":
             Hooks.on("createActiveEffect", async (effect, data, userId) => {
                 if (game.settings.get("autoanimations", "disableAEAnimations")) {
