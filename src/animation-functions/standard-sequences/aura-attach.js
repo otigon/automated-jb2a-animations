@@ -9,13 +9,13 @@ export async function aura(handler, animationData) {
     const macro = animationData.macro;
     const easeArray = ['easeInOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutQuad', 'easeInCirc']
     const sourceToken = handler.sourceToken;
-    
+
     let newTargetArray = [];
     for (let target of handler.allTargets) {
         let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0;
         if (!checkAnim) { newTargetArray.push(target) }
     }
-    
+
     let aaSeq = new Sequence(handler.sequenceData)
     // Play Macro if Awaiting
     if (macro && macro.playWhen === "1") {
@@ -67,13 +67,13 @@ export async function aura(handler, animationData) {
             let currentTarget = newTargetArray[i]
 
             let aaEffect = aaSeq.effect();
-                setPrimary(currentTarget, aaEffect)
+            setPrimary(currentTarget, aaEffect)
 
-                if (i === newTargetArray.length - 1 && data.options.isWait) {
-                    aaEffect.waitUntilFinished(data.options.delay)
-                } else if (!data.options.isWait) {
-                    aaEffect.delay(data.options.delay)
-                }
+            if (i === newTargetArray.length - 1 && data.options.isWait) {
+                aaEffect.waitUntilFinished(data.options.delay)
+            } else if (!data.options.isWait) {
+                aaEffect.delay(data.options.delay)
+            }
         }
         if (secondary) {
             handler.compileSecondaryEffect(secondary, aaSeq, newTargetArray, targetFX.enable, false)
@@ -90,7 +90,8 @@ export async function aura(handler, animationData) {
             let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0;
             if (!checkAnim) { newTargetArray.push(target) }
         }
-        if (sourceCheckAnim && newTargetArray.length < 1) { return; 
+        if (sourceCheckAnim && newTargetArray.length < 1) {
+            return;
         }
         if (!sourceCheckAnim) {
             let aaEffect = aaSeq.effect();
@@ -138,32 +139,36 @@ export async function aura(handler, animationData) {
     function setPrimary(token, seq) {
         const size = handler.getSize(true, data.options.size, token, data.options.addTokenWidth)
         seq.file(data.path.file)
-        seq.persist(true, {persistTokenPrototype: true})
+        seq.persist(true, { persistTokenPrototype: true })
         seq.origin(handler.itemUuid)
         if (data.options.tint) {
             seq.tint(data.options.tintColor)
-            seq.filter("ColorMatrix", {saturate: data.options.tintSaturate})
+            seq.filter("ColorMatrix", { saturate: data.options.tintSaturate })
             //seq.filter("ColorMatrix", {tint: data.options.tintColor})
         }
         seq.size(size, { gridUnits: true })
-        seq.elevation(handler.elevation(token, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
+        if (data.options.elevation === 0) {
+            seq.belowTokens(true)
+        } else {
+            seq.elevation(handler.elevation(token, data.options.isAbsolute, data.options.elevation), { absolute: data.options.isAbsolute })
+        }
         seq.attachTo(token, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
         seq.opacity(data.options.opacity)
         seq.fadeIn(data.options.fadeIn)
         if (data.video.variant === "complete" || data.video.animation === "complete") { }
         else {
-            seq.fadeOut(data.options.fadeOut)    
+            seq.fadeOut(data.options.fadeOut)
         }
         seq.zIndex(data.options.zIndex)
         /*
         if (data.options.easeIn) {
             seq.animateProperty("sprite", "width", { from: 0, to: size, duration: 750, ease: data.options.ease, gridUnits: true })
-            seq.animateProperty("sprite", "height", { from: 0, to: size, duration: 750, ease: data.options.ease, gridUnits: true })    
+            seq.animateProperty("sprite", "height", { from: 0, to: size, duration: 750, ease: data.options.ease, gridUnits: true })
         }
         */
         if (data.options.breath) {
             seq.loopProperty("sprite", "scale.x", { from: data.options.breathMin, to: data.options.breathMax, duration: data.options.breathDuration, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
-            seq.loopProperty("sprite", "scale.y", { from: data.options.breathMin, to: data.options.breathMax, duration: data.options.breathDuration, pingPong: true, ease: 'easeInOutSine', gridUnits: true })    
+            seq.loopProperty("sprite", "scale.y", { from: data.options.breathMin, to: data.options.breathMax, duration: data.options.breathDuration, pingPong: true, ease: 'easeInOutSine', gridUnits: true })
         }
         if (data.options.alpha) {
             seq.loopProperty("alphaFilter", "alpha", { from: data.options.alphaMin, to: data.options.alphaMax, duration: data.options.alphaDuration, pingPong: true })
@@ -182,9 +187,9 @@ export async function aura(handler, animationData) {
     if (macro && macro.playWhen === "3") {
         handler.complileMacroSection(aaSeq, macro)
     }
-    
+
     aaSeq.play()
-    
+
     howToDelete("sequencerground")
 
 }

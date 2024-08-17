@@ -35,14 +35,19 @@ export async function dualattach(handler, animationData) {
         for (let target of handler.allTargets) {
             let checkTarget = effectExists.filter(i => i.data.target.includes(target.id)).length > 0;
             if (!checkTarget) {
-            aaSeq.effect()
-                .file(animFile.file)
-                .attachTo(sourceToken)
-                .stretchTo(target, { attachTo: true, onlyX: onlyX })
-                .persist(true)
-                .playbackRate(data.options.playbackRate)
-                .origin(handler.itemUuid)
-                .elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
+                const effect = aaSeq.effect()
+                    .file(animFile.file)
+                    .attachTo(sourceToken)
+                    .stretchTo(target, { attachTo: true, onlyX: onlyX })
+                    .persist(true)
+                    .playbackRate(data.options.playbackRate)
+                    .origin(handler.itemUuid)
+
+                if (data.options.elevation === 0) {
+                    effect.belowTokens(true)
+                } else {
+                    effect.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), { absolute: data.options.isAbsolute })
+                }
             }
         }
         // Macro if Concurrent

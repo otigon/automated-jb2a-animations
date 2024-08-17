@@ -66,7 +66,7 @@ export async function templatefx(handler, animationData, templateDocument) {
         const templateObject = buildTile(tileX, tileY, isOverhead, tileWidth, tileHeight);
         aaSeq.thenDo(function () {
             socketlibSocket.executeAsGM("placeTile", templateObject);
-        })    
+        })
 
     } else {
 
@@ -87,15 +87,15 @@ export async function templatefx(handler, animationData, templateDocument) {
                 templateSeq.persist(true)
                 if (data.options.persistType === 'attachtemplate') {
                     templateSeq.attachTo(template)
-                    templateSeq.rotateTowards(template, {attachTo: true})
+                    templateSeq.rotateTowards(template, { attachTo: true })
                 } else {
                     templateSeq.atLocation(template, { cacheLocation: true })
-                    templateSeq.rotateTowards(template, {cacheLocation: true})
+                    templateSeq.rotateTowards(template, { cacheLocation: true })
                 }
             } else {
                 templateSeq.atLocation(template, { cacheLocation: true })
                 templateSeq.repeats(data.options.repeat, data.options.repeatDelay)
-                templateSeq.rotateTowards(template, {cacheLocation: true})
+                templateSeq.rotateTowards(template, { cacheLocation: true })
             }
             if (!data.options.isWait) {
                 templateSeq.delay(data.options.delay)
@@ -105,7 +105,7 @@ export async function templatefx(handler, animationData, templateDocument) {
         if (templateType === 'circle' || templateType === 'rect') {
             let trueSize;
             if (templateType === 'rect') {
-                trueSize = Math.sqrt(Math.pow(template.distance, 2)/2)
+                trueSize = Math.sqrt(Math.pow(template.distance, 2) / 2)
             } else {
                 trueSize = template.distance * 2;
             }
@@ -138,7 +138,7 @@ export async function templatefx(handler, animationData, templateDocument) {
 
     if (secondary) {
         handler.compileSecondaryEffect(secondary, aaSeq, handler.allTargets, targetFX.enable, false)
-    }    
+    }
     if (targetFX) {
         handler.compileTargetEffect(targetFX, aaSeq, handler.allTargets, false)
     }
@@ -151,9 +151,9 @@ export async function templatefx(handler, animationData, templateDocument) {
     if (macro && macro.playWhen === "3") {
         handler.complileMacroSection(aaSeq, macro)
     }
-    
+
     aaSeq.play()
-    
+
     if (data.options.persistent) {
         switch (data.options.persistType) {
             case "overheadtile":
@@ -177,7 +177,11 @@ export async function templatefx(handler, animationData, templateDocument) {
         seq.file(data.path.file)
         seq.opacity(data.options.opacity)
         seq.origin(handler.itemUuid)
-        seq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
+        if (data.options.elevation === 0) {
+            seq.belowTokens(true)
+        } else {
+            seq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), { absolute: data.options.isAbsolute })
+        }
         seq.zIndex(data.options.zIndex)
         seq.rotate(data.options.rotate)
         if (data.options.isMasked) {
@@ -189,26 +193,26 @@ export async function templatefx(handler, animationData, templateDocument) {
         seq.xray(data.options.xray)
         if (data.options.tint) {
             seq.tint(data.options.tintColor)
-            seq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+            seq.filter("ColorMatrix", { contrast: data.options.contrast, saturate: data.options.saturation })
         }
         function convertToXY(input) {
             let menuType = data.video.menuType;
             let templateType = template.t;
-            let defaultAnchor = templateType === "circle" || templateType === "rect" ? {x: 0.5, y: 0.5} : {x: 0, y: 0.5};
-            if (!input) { return defaultAnchor}
+            let defaultAnchor = templateType === "circle" || templateType === "rect" ? { x: 0.5, y: 0.5 } : { x: 0, y: 0.5 };
+            if (!input) { return defaultAnchor }
             let dNum = menuType === "cone" || menuType === "ray"
-                        ? input || "0, 0.5"
-                        : input || "0.5, 0.5"
+                ? input || "0, 0.5"
+                : input || "0.5, 0.5"
             //if (!input) { return {x: dNum, y: dNum}}
             let parsedInput = dNum.split(',').map(s => s.trim());
             let posX = Number(parsedInput[0]);
             let posY = Number(parsedInput[1]);
             if (parsedInput.length === 2) {
-                return {x: posX, y: posY}
-            } else if( parsedInput.length === 1) {
-                return {x: posX, y: posX}
+                return { x: posX, y: posY }
+            } else if (parsedInput.length === 1) {
+                return { x: posX, y: posX }
             }
-        }    
+        }
     }
 
     function buildTile(tileX, tileY, isOverhead, tileWidth, tileHeight) {
