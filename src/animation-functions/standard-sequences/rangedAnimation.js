@@ -73,9 +73,9 @@ export async function range(handler, animationData) {
         nextSeq.missed(!hit || handler.systemData.forceMiss || false)
         nextSeq.name("spot" + ` ${currentTarget.id}`)
         if (data.options.elevation === 0) {
-            rangeSeq.belowTokens(true)
+            nextSeq.belowTokens(true)
         } else {
-            rangeSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), { absolute: data.options.isAbsolute })
+            nextSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), { absolute: data.options.isAbsolute })
         }
         nextSeq.zIndex(data.options.zIndex)
         if (data.options.tint) {
