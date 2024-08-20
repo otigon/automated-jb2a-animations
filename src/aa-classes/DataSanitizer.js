@@ -33,7 +33,7 @@ export class DataSanitizer {
             enable: macro.enable ?? false,
             name: isItemMacro ? itemMacro : macro.name,
             args: this.strToObj(macro.args),
-            playWhen: macro.playWhen ?? "0",    
+            playWhen: macro.playWhen ?? "0",
         }
         return data;
     }
@@ -98,7 +98,7 @@ export class DataSanitizer {
             options: this.setPrimaryOptions(options, menu, handler),
             //sound: this.setSound(sound),
         }
-        let addSoundDelay = 0; 
+        let addSoundDelay = 0;
         if (!data.options.isWait) {
             addSoundDelay = data.options.delay;
         }
@@ -330,7 +330,7 @@ export class DataSanitizer {
             },
             //sound: this.setSound(sound, topLevel.primary.options),
         }
-        let addSoundDelay = 0; 
+        let addSoundDelay = 0;
         if (!data.options.isWait) {
             addSoundDelay = data.options.delay;
         }
@@ -386,7 +386,7 @@ export class DataSanitizer {
             },
             //sound: this.setSound(sound)
         }
-        let addSoundDelay = 0; 
+        let addSoundDelay = 0;
         if (!data.options.isWait) {
             addSoundDelay = data.options.delay;
         }
@@ -402,7 +402,7 @@ export class DataSanitizer {
         const video = target.video || {};
         const options = target.options || {};
         const sound = target.sound || {};
-    
+
         if (!target.enable) { return false; }
 
         const data = {
@@ -466,7 +466,11 @@ export class DataSanitizer {
         //.scale(targetFX.tFXScale * targetFX.scale)
         targetEffect.size(targetTokenGS * 1.5 * targetFX.options.size, { gridUnits: true })
         targetEffect.repeats(targetFX.options.repeat, targetFX.options.repeatDelay)
-        targetEffect.elevation(targetFX.options.elevation)
+        if (targetFX.options.elevation === 0) {
+            effectAfterImage.belowTokens(true)
+        } else {
+            targetEffect.elevation(targetFX.options.elevation)
+        }
         if (targetFX.options.isMasked) {
             targetEffect.mask(target)
         }
@@ -665,10 +669,10 @@ export class DataSanitizer {
                         persistent: afterImageOptions.persistent ?? false,
                         scale: afterImageOptions.scale || 1,
                     }
-                }, 
+                },
                 soundOnly: {
                     enable: false,
-                }    
+                }
             }
             data.projectile.path = await buildFile(data.projectile.dbSection, data.projectile, data.projectile.customPath)
             data.preExplosion.path = await buildFile(data.preExplosion.dbSection, data.preExplosion, data.preExplosion.customPath)
@@ -676,7 +680,7 @@ export class DataSanitizer {
 
             return data;
         }
-        
+
         function teleportation() {
             const flags = topLevel.data || {};
 
@@ -830,7 +834,7 @@ export class DataSanitizer {
             section.repeats(input.repeat, input.repeatDelay)
             return soundSeq;
         }
-    
+
     }
 }
 /*
@@ -857,7 +861,7 @@ function hexToHSL(H) {
         h = 0,
         s = 0,
         l = 0;
-  
+
     if (delta == 0)
       h = 0;
     else if (cmax == r)
@@ -866,17 +870,17 @@ function hexToHSL(H) {
       h = (b - r) / delta + 2;
     else
       h = (r - g) / delta + 4;
-  
+
     h = Math.round(h * 60);
-  
+
     if (h < 0)
       h += 360;
-  
+
     l = (cmax + cmin) / 2;
     s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
     s = +(s * 100).toFixed(1);
     l = +(l * 100).toFixed(1);
-  
+
     return ({h: h, s: s/100, l: l/100})
   }
 */

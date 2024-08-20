@@ -41,7 +41,7 @@ export async function ontoken(handler, animationData) {
 
         const sourceCheckAnim = Sequencer.EffectManager.getEffects({ object: sourceToken, origin: handler.itemUuid }).length > 0
         if (sourceCheckAnim) { return; }
-        
+
         if (data.options.isShieldFX) {
             let bottomEffect = aaSeq.effect();
             if (handler.isActiveEffect) {
@@ -75,7 +75,7 @@ export async function ontoken(handler, animationData) {
 
         if (secondary) {
             handler.compileSecondaryEffect(secondary, aaSeq, [sourceToken], false, false)
-        }    
+        }
     }
 
     // Target Effect sections
@@ -124,7 +124,7 @@ export async function ontoken(handler, animationData) {
 
         if (secondary) {
             handler.compileSecondaryEffect(secondary, aaSeq, newTargetArray, targetFX.enable, true)
-        }    
+        }
         if (targetFX) {
             handler.compileTargetEffect(targetFX, aaSeq, handler.allTargets, true)
         }
@@ -138,7 +138,8 @@ export async function ontoken(handler, animationData) {
             let checkAnim = Sequencer.EffectManager.getEffects({ object: target, origin: handler.itemUuid }).length > 0;
             if (!checkAnim) { newTargetArray.push(target) }
         }
-        if (sourceCheckAnim && newTargetArray.length < 1) { return; 
+        if (sourceCheckAnim && newTargetArray.length < 1) {
+            return;
         }
         if (!sourceCheckAnim) {
             if (data.options.isShieldFX) {
@@ -210,7 +211,7 @@ export async function ontoken(handler, animationData) {
 
         if (secondary && !sourceCheckAnim) {
             handler.compileSecondaryEffect(secondary, aaSeq, [sourceToken], false, false)
-        }    
+        }
         if (newTargetArray.length) {
             if (secondary) {
                 handler.compileSecondaryEffect(secondary, aaSeq, newTargetArray, targetFX.enable, true)
@@ -219,7 +220,7 @@ export async function ontoken(handler, animationData) {
                 handler.compileTargetEffect(targetFX, aaSeq, handler.allTargets, true)
             }
         }
-    }  
+    }
 
     function setBottom(token, size, seq) {
         seq.file(bottomAnim)
@@ -234,7 +235,7 @@ export async function ontoken(handler, animationData) {
         seq.fadeOut(500)
         if (data.options.tint) {
             seq.tint(data.options.tintColor)
-            seq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+            seq.filter("ColorMatrix", { contrast: data.options.contrast, saturate: data.options.saturation })
         }
         if (!data.options.persistent) {
             seq.atLocation(token)
@@ -242,7 +243,7 @@ export async function ontoken(handler, animationData) {
         }
         if (data.options.persistent) {
             seq.attachTo(token, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
-            seq.persist(true, {persistTokenPrototype: true})
+            seq.persist(true, { persistTokenPrototype: true })
             seq.origin(handler.itemUuid)
         }
         seq.playbackRate(data.options.playbackRate)
@@ -262,7 +263,7 @@ export async function ontoken(handler, animationData) {
         seq.fadeOut(500)
         if (data.options.tint) {
             seq.tint(data.options.tintColor)
-            seq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+            seq.filter("ColorMatrix", { contrast: data.options.contrast, saturate: data.options.saturation })
         }
         if (!data.options.persistent) {
             seq.atLocation(token)
@@ -270,7 +271,7 @@ export async function ontoken(handler, animationData) {
         }
         if (data.options.persistent) {
             seq.attachTo(token, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
-            seq.persist(true, {persistTokenPrototype: true})
+            seq.persist(true, { persistTokenPrototype: true })
             seq.origin(handler.itemUuid)
         }
         seq.playbackRate(data.options.playbackRate)
@@ -282,32 +283,36 @@ export async function ontoken(handler, animationData) {
         seq.file(data.path.file)
         seq.opacity(data.options.opacity)
         seq.size(size, { gridUnits: true })
-        seq.elevation(handler.elevation(token, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
+        if (data.options.elevation === 0) {
+            seq.belowTokens(true)
+        } else {
+            seq.elevation(handler.elevation(token, data.options.isAbsolute, data.options.elevation), { absolute: data.options.isAbsolute })
+        }
         if (data.options.isMasked) {
             seq.mask(token)
         }
         seq.zIndex(data.options.zIndex)
         if (data.options.tint) {
             seq.tint(data.options.tintColor)
-            seq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+            seq.filter("ColorMatrix", { contrast: data.options.contrast, saturate: data.options.saturation })
         }
         if (!data.options.persistent) {
             seq.atLocation(token)
             seq.repeats(data.options.repeat, data.options.repeatDelay)
             seq.fadeIn(data.options.fadeIn)
-            seq.fadeOut(data.options.fadeOut)    
+            seq.fadeOut(data.options.fadeOut)
         }
         if (data.options.persistent) {
             seq.fadeIn(data.options.fadeIn)
             if (data.video.variant === "complete" || data.video.animation === "complete") { }
             else {
-                seq.fadeOut(data.options.fadeOut)    
+                seq.fadeOut(data.options.fadeOut)
             }
             seq.attachTo(token, { bindAlpha: data.options.unbindAlpha, bindVisibility: data.options.unbindVisibility })
-            seq.persist(true, {persistTokenPrototype: true})
+            seq.persist(true, { persistTokenPrototype: true })
             seq.origin(handler.itemUuid)
         }
-        seq.anchor({x: data.options.anchor.x, y: data.options.anchor.y})
+        seq.anchor({ x: data.options.anchor.x, y: data.options.anchor.y })
         seq.playbackRate(data.options.playbackRate)
         if (handler.systemData.tieToDocuments) {
             seq.tieToDocuments(handler.item)
@@ -322,9 +327,9 @@ export async function ontoken(handler, animationData) {
     if (macro && macro.playWhen === "3") {
         handler.complileMacroSection(aaSeq, macro)
     }
-    
+
     aaSeq.play()
-    
+
     Hooks.callAll("aa.animationEnd", sourceToken, handler.allTargets)
     if (data.options.persistent) { howToDelete("sequencerground") }
 }

@@ -24,9 +24,9 @@ export async function melee(handler, animationData) {
 
     let range = {};
     if (data.meleeSwitch.options.switchType === "on") {
-        range = aaRangeWeapons.includes(data.video.animation) && !data.video.customPath ? await buildFile("range", data.video, false, {isReturnable: true}) : {};
+        range = aaRangeWeapons.includes(data.video.animation) && !data.video.customPath ? await buildFile("range", data.video, false, { isReturnable: true }) : {};
     } else if (data.meleeSwitch.options.switchType === "custom") {
-        range = !data.meleeSwitch?.video?.customPath ? await buildFile("range", data.meleeSwitch.video, data.meleeSwitch.video.customPath, {isReturnable: true}) : {};
+        range = !data.meleeSwitch?.video?.customPath ? await buildFile("range", data.meleeSwitch.video, data.meleeSwitch.video.customPath, { isReturnable: true }) : {};
     }
 
     let switchDistance = 5;
@@ -44,7 +44,7 @@ export async function melee(handler, animationData) {
             ? data.meleeSwitch.options.range
             : (switchDistance / canvas.dimensions.distance) + handler.reachCheck;
 
-            let hit = !handler.playOnMiss ? true : handler.hitTargetsId.includes(target.id) ? true : false;
+        let hit = !handler.playOnMiss ? true : handler.hitTargetsId.includes(target.id) ? true : false;
 
         if ((distanceTo > rangeDistance) && range.file && !switchDisabled) {
             rangeArray.push({
@@ -96,12 +96,16 @@ export async function melee(handler, animationData) {
             meleeSeq.randomizeMirrorY()
             meleeSeq.missed(!currentTarget.hit)
             meleeSeq.name("spot" + ` ${currentTarget.token.id}`)
-            meleeSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
+            if (data.options.elevation === 0) {
+                meleeSeq.belowTokens(true)
+            } else {
+                meleeSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), { absolute: data.options.isAbsolute })
+            }
             meleeSeq.zIndex(data.options.zIndex)
             if (data.options.tint) {
                 meleeSeq.tint(data.options.tintColor)
-                meleeSeq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
-            }    
+                meleeSeq.filter("ColorMatrix", { contrast: data.options.contrast, saturate: data.options.saturation })
+            }
             if (i === meleeArray.length - 1 && data.options.isWait) {
                 meleeSeq.waitUntilFinished(data.options.delay)
             } else if (!data.options.isWait) {
@@ -112,7 +116,7 @@ export async function melee(handler, animationData) {
 
         if (secondary) {
             handler.compileSecondaryEffect(secondary, aaSeq, meleeArray.map(e => e.token), targetFX.enable, true)
-        }    
+        }
         if (targetFX) {
             handler.compileTargetEffect(targetFX, aaSeq, meleeArray.map(e => e.token), true)
         }
@@ -137,12 +141,16 @@ export async function melee(handler, animationData) {
             rangeSeq.repeats(data.options.repeat, data.options.repeatDelay)
             rangeSeq.missed(!currentTarget.hit)
             rangeSeq.name("spot" + ` ${currentTarget.token.id}`)
-            rangeSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
+            if (data.options.elevation === 0) {
+                rangeSeq.belowTokens(true)
+            } else {
+                rangeSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), { absolute: data.options.isAbsolute })
+            }
             rangeSeq.playbackRate(data.options.playbackRate)
             if (data.options.tint) {
                 rangeSeq.tint(data.options.tintColor)
-                rangeSeq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
-            }    
+                rangeSeq.filter("ColorMatrix", { contrast: data.options.contrast, saturate: data.options.saturation })
+            }
             if (i === rangeArray.length - 1 && data.options.isWait) {
                 rangeSeq.waitUntilFinished(data.options.delay)
             } else if (!data.options.isWait) {
@@ -165,13 +173,13 @@ export async function melee(handler, animationData) {
                 returnSeq.playbackRate(data.options.playbackRate)
                 if (data.options.tint) {
                     returnSeq.tint(data.options.tintColor)
-                    returnSeq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
-                }    
+                    returnSeq.filter("ColorMatrix", { contrast: data.options.contrast, saturate: data.options.saturation })
+                }
             }
         }
         if (secondary) {
             handler.compileSecondaryEffect(secondary, aaSeq, rangeArray.map(e => e.token), targetFX.enable, true)
-        }    
+        }
         if (targetFX) {
             handler.compileTargetEffect(targetFX, aaSeq, rangeArray.map(e => e.token), true)
         }
@@ -186,7 +194,7 @@ export async function melee(handler, animationData) {
     if (macro && macro.playWhen === "3") {
         handler.complileMacroSection(aaSeq, macro)
     }
-    
+
     aaSeq.play()
 
 }

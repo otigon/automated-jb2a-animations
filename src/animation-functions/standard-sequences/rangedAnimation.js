@@ -54,7 +54,7 @@ export async function range(handler, animationData) {
         let nextSeq = aaSeq.effect()
         nextSeq.file(data.path.file)
         if (data.options.animationSource) {
-            nextSeq.atLocation({x: data.options.fakeLocation.x, y: data.options.fakeLocation.y})
+            nextSeq.atLocation({ x: data.options.fakeLocation.x, y: data.options.fakeLocation.y })
         } else {
             if (data.options.reverse) {
                 nextSeq.atLocation(currentTarget)
@@ -72,12 +72,16 @@ export async function range(handler, animationData) {
         nextSeq.opacity(data.options.opacity)
         nextSeq.missed(!hit || handler.systemData.forceMiss || false)
         nextSeq.name("spot" + ` ${currentTarget.id}`)
-        nextSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), {absolute: data.options.isAbsolute})
+        if (data.options.elevation === 0) {
+            nextSeq.belowTokens(true)
+        } else {
+            nextSeq.elevation(handler.elevation(sourceToken, data.options.isAbsolute, data.options.elevation), { absolute: data.options.isAbsolute })
+        }
         nextSeq.zIndex(data.options.zIndex)
         if (data.options.tint) {
             nextSeq.tint(data.options.tintColor)
-            nextSeq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
-        }    
+            nextSeq.filter("ColorMatrix", { contrast: data.options.contrast, saturate: data.options.saturation })
+        }
         if (i === handler.allTargets.length - 1 && data.options.isWait) {
             nextSeq.waitUntilFinished(data.options.delay)
         } else if (!data.options.isWait) {
@@ -101,7 +105,7 @@ export async function range(handler, animationData) {
             returnSeq.playbackRate(data.options.playbackRate)
             if (data.options.tint) {
                 returnSeq.tint(data.options.tintColor)
-                returnSeq.filter("ColorMatrix", {contrast: data.options.contrast, saturate: data.options.saturation})
+                returnSeq.filter("ColorMatrix", { contrast: data.options.contrast, saturate: data.options.saturation })
             }
         }
     }
@@ -123,7 +127,7 @@ export async function range(handler, animationData) {
     if (macro && macro.playWhen === "3") {
         handler.complileMacroSection(aaSeq, macro)
     }
-    
+
     aaSeq.play()
     await wait(handler.animEnd)
 
