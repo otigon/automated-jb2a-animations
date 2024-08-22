@@ -17,7 +17,7 @@ export function sourceEffect(sourceFX, seq, handler) {
     if (options.elevation === 0) {
         thisSeq.belowTokens(true)
     } else {
-        thisSeq.elevation(handler.elevation(currentTarget, options.isAbsolute, options.elevation), { absolute: options.isAbsolute })
+        thisSeq.elevation(options.isAbsolute ? options.elevation : options.elevation - 1, { absolute: options.isAbsolute })
     }
     if (options.tint) {
         thisSeq.tint(options.tintColor)
