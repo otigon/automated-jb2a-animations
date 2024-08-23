@@ -34,11 +34,22 @@ export function systemHooks() {
                 attack(await getRequiredData({item, actor: item.actor, workflow: item, rollAttackHook: {item, roll}, spellLevel}))    
             })
         })
-        Hooks.on("dnd5e.rollDamage", async (item, roll) => {
-            let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
-            if (item.hasAreaTarget || (item.hasAttack && !playOnDamage)) { return; }
-            damage(await getRequiredData({item, actor: item.actor, workflow: item, rollDamageHook: {item, roll}, spellLevel: roll?.data?.item?.level ?? void 0}))
-        })
+        if (game.modules.get("ready-set-roll-5e")?.active) {
+            // If RSR is enabled, trigger animation when damage is applied, not rolled
+            Hooks.on("autoAnimationOnDmg", async (targetTokens, item2, roll) => {
+              if (item2.hasAreaTarget) {
+                return;
+              }
+              damage$1(await getRequiredData({ item: item2, actor: item2.actor, targets: targetTokens, workflow: item2, rollDamageHook: { item: item2, roll }, spellLevel: roll?.data?.item?.level ?? void 0 }));
+            });
+        } else {
+            // Otherwise, trigger animation when damage is rolled
+            Hooks.on("dnd5e.rollDamage", async (item, roll) => {
+                let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
+                if (item.hasAreaTarget || (item.hasAttack && !playOnDamage)) { return; }
+                damage(await getRequiredData({item, actor: item.actor, workflow: item, rollDamageHook: {item, roll}, spellLevel: roll?.data?.item?.level ?? void 0}))
+            })
+        }
         Hooks.on('dnd5e.useItem', async (item, config, options) => {
             if (item?.hasAreaTarget || item.hasAttack || item.hasDamage) { return; }
             useItem(await getRequiredData({item, actor: item.actor, workflow: item, useItemHook: {item, config, options}, spellLevel: options?.flags?.dnd5e?.use?.spellLevel || void 0}))
