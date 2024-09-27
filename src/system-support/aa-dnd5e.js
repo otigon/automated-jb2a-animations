@@ -2,6 +2,7 @@ import { debug }            from "../constants/constants.js";
 import { trafficCop }       from "../router/traffic-cop.js";
 import AAHandler            from "../system-handlers/workflow-data.js";
 import { getRequiredData }  from "./getRequiredData.js";
+import { AAAutorecFunctions } from "../aa-classes/aaAutorecFunctions.js";
 
 // DnD5e System hooks provided to run animations
 export function systemHooks() {
@@ -25,29 +26,37 @@ export function systemHooks() {
     } else if (game.modules.get("wire")?.active) {
         // WIRE handles triggering AA
     } else {
-        Hooks.on("dnd5e.preRollAttack", async (item, options) => {
-            let spellLevel = options.spellLevel ?? void 0;
-            Hooks.once("dnd5e.rollAttack", async (item, roll) => {
-                criticalCheck(roll, item);
-                let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
-                if (item.hasAreaTarget || (item.hasDamage && playOnDamage)) { return; }   
-                attack(await getRequiredData({item, actor: item.actor, workflow: item, rollAttackHook: {item, roll}, spellLevel}))    
-            })
-        })
-        Hooks.on("dnd5e.rollDamage", async (item, roll) => {
-            let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
-            if (item.hasAreaTarget || (item.hasAttack && !playOnDamage)) { return; }
-            damage(await getRequiredData({item, actor: item.actor, workflow: item, rollDamageHook: {item, roll}, spellLevel: roll?.data?.item?.level ?? void 0}))
-        })
-        Hooks.on('dnd5e.useItem', async (item, config, options) => {
-            if (item?.hasAreaTarget || item.hasAttack || item.hasDamage) { return; }
-            useItem(await getRequiredData({item, actor: item.actor, workflow: item, useItemHook: {item, config, options}, spellLevel: options?.flags?.dnd5e?.use?.spellLevel || void 0}))
-        })
+        Hooks.on("dnd5e.rollAttackV2", async (rolls, data) => {
+            const roll = rolls[0];
+            const activity = data.subject;
+            const playOnDamage = game.settings.get('autoanimations', 'playonDamageCore');
+            if (["circle", "cone", "cube", "cylinder", "line", "sphere", "square", "wall"].includes(activity?.target?.template?.type) || (activity?.damage?.parts?.length && activity?.type != "heal" && playOnDamage)) { return; }
+            const itemData = await itemDataFromActivity(activity, "attack");
+            criticalCheck(roll, itemData);
+            attack(await getRequiredData({item: itemData, actor: itemData.parent, workflow: itemData, rollAttackHook: {itemData, roll}, spellLevel: roll?.data?.item?.level ?? void 0}));    
+        });
+        Hooks.on("dnd5e.rollDamageV2", async (rolls, data) => {
+            const roll = rolls[0];
+            const activity = data.subject;
+            const playOnDamage = game.settings.get('autoanimations', 'playonDamageCore');
+            if (["circle", "cone", "cube", "cylinder", "line", "sphere", "square", "wall"].includes(activity?.target?.template?.type) || (activity?.type == "attack" && !playOnDamage)) { return; }
+            const itemData = await itemDataFromActivity(activity, "damage");
+            damage(await getRequiredData({item: itemData, actor: itemData.parent, workflow: itemData, rollDamageHook: {itemData, roll}, spellLevel: roll?.data?.item?.level ?? void 0}));
+        });
+        Hooks.on('dnd5e.postUseActivity', async (activity, usageConfig, results) => {
+            if (["circle", "cone", "cube", "cylinder", "line", "sphere", "square", "wall"].includes(activity?.target?.template?.type) || activity?.type == "attack" || (activity?.damage?.parts?.length && activity?.type != "heal")) { return; }
+            const config = usageConfig;
+            const options = results;
+            const itemData = await itemDataFromActivity(activity, "utility");
+            useItem(await getRequiredData({item: itemData, actor: itemData.parent, workflow: itemData, useItemHook: {itemData, config, options}, spellLevel: options?.flags?.dnd5e?.use?.spellLevel || void 0}));
+        });
     }
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
         if (userId !== game.user.id) { return };
-        templateAnimation(await getRequiredData({itemUuid: template.flags?.dnd5e?.origin, templateData: template, workflow: template, isTemplate: true}))
-    })
+        const activity = await fromUuid(template.flags?.dnd5e?.origin);
+        const itemData = await itemDataFromActivity(activity, "template");
+        templateAnimation(await getRequiredData({item: itemData, templateData: template, workflow: template, isTemplate: true}));
+    });
     /*
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
         if (userId !== game.user.id) { return };
@@ -67,6 +76,40 @@ export function systemHooks() {
  * @param {Boolean} hasDamage // Checks if the item has Damage
  *  
  */
+
+async function itemDataFromActivity(activity, animationType) {
+	const item = activity?.parent?.parent;
+    const rinsedActivityName = activity?.name ? AAAutorecFunctions.rinseName(activity.name) : "noactivity";
+    const autorecSettings = {
+        melee: game.settings.get("autoanimations", "aaAutorec-melee"),
+        range: game.settings.get("autoanimations", "aaAutorec-range"),
+        ontoken: game.settings.get("autoanimations", "aaAutorec-ontoken"),
+        templatefx: game.settings.get("autoanimations", "aaAutorec-templatefx"),
+        aura: game.settings.get("autoanimations", "aaAutorec-aura"),
+        preset: game.settings.get("autoanimations", "aaAutorec-preset"),
+        aefx: game.settings.get("autoanimations", "aaAutorec-aefx")
+    }
+    const validMenus = {
+        attack: ["melee", "ranged", "ontoken", "preset"],
+        damage: ["melee", "ranged", "ontoken", "preset", "aura"],
+        utility: ["ontoken", "preset", "aura"],
+        template: ["templatefx", "preset"]
+    }
+    const menus = AAAutorecFunctions.sortAndFilterMenus(autorecSettings);
+    const found = AAAutorecFunctions.allMenuSearch(menus, rinsedActivityName, activity?.name);
+	const itemData = {
+		uuid: item?.uuid,
+		id: item?._id ?? item?.id,
+		_id: item?._id ?? item?.id,
+		parent: item?.parent,
+		actor: item?.parent,
+		name: found && validMenus?.[animationType].includes(found?.menu) && !["attack", "check", "damage", "enchant", "heal", "save", "summon", "utility"].includes(activity?.name?.trim()?.toLowerCase()) ? activity?.name : item?.name,
+		type: item?.type,
+		system: item?.system,
+        flags: item?.flags
+	}
+	return itemData;
+}
 
 async function useItem(input) {
     debug("Item used, checking for animations")
