@@ -78,7 +78,7 @@ export function systemHooks() {
  */
 
 async function itemDataFromActivity(activity, animationType) {
-	const item = activity?.parent?.parent;
+    const item = activity?.parent?.parent;
     const rinsedActivityName = activity?.name ? AAAutorecFunctions.rinseName(activity.name) : "noactivity";
     const autorecSettings = {
         melee: game.settings.get("autoanimations", "aaAutorec-melee"),
@@ -97,18 +97,18 @@ async function itemDataFromActivity(activity, animationType) {
     }
     const menus = AAAutorecFunctions.sortAndFilterMenus(autorecSettings);
     const found = AAAutorecFunctions.allMenuSearch(menus, rinsedActivityName, activity?.name);
-	const itemData = {
-		uuid: item?.uuid,
-		id: item?._id ?? item?.id,
-		_id: item?._id ?? item?.id,
-		parent: item?.parent,
-		actor: item?.parent,
-		name: found && validMenus?.[animationType].includes(found?.menu) && !["attack", "check", "damage", "enchant", "heal", "save", "summon", "utility"].includes(activity?.name?.trim()?.toLowerCase()) ? activity?.name : item?.name,
-		type: item?.type,
-		system: item?.system,
+    const itemData = {
+	uuid: item?.uuid,
+	id: item?._id ?? item?.id,
+	_id: item?._id ?? item?.id,
+	parent: item?.parent,
+	actor: item?.parent,
+	name: found && validMenus?.[animationType].includes(found?.menu) && !["attack", "check", "damage", "enchant", "heal", "save", "summon", "utility"].includes(activity?.name?.trim()?.toLowerCase()) ? activity?.name : item?.name,
+	type: item?.type,
+	system: item?.system,
         flags: item?.flags
-	}
-	return itemData;
+    }
+    return itemData;
 }
 
 async function useItem(input) {
