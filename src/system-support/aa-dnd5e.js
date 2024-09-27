@@ -32,8 +32,9 @@ export function systemHooks() {
             const playOnDamage = game.settings.get('autoanimations', 'playonDamageCore');
             if (["circle", "cone", "cube", "cylinder", "line", "sphere", "square", "wall"].includes(activity?.target?.template?.type) || (activity?.damage?.parts?.length && activity?.type != "heal" && playOnDamage)) { return; }
             const itemData = await itemDataFromActivity(activity, "attack");
+            const ammoItem = itemData?.parent?.items?.get(data?.ammoUpdate?.id) ?? null;
             criticalCheck(roll, itemData);
-            attack(await getRequiredData({item: itemData, actor: itemData.parent, workflow: itemData, rollAttackHook: {itemData, roll}, spellLevel: roll?.data?.item?.level ?? void 0}));    
+            attack(await getRequiredData({activity, item: itemData, actor: itemData.parent, workflow: itemData, rollAttackHook: {itemData, roll}, spellLevel: roll?.data?.item?.level ?? void 0, ammoItem}));    
         });
         Hooks.on("dnd5e.rollDamageV2", async (rolls, data) => {
             const roll = rolls[0];
@@ -41,21 +42,22 @@ export function systemHooks() {
             const playOnDamage = game.settings.get('autoanimations', 'playonDamageCore');
             if (["circle", "cone", "cube", "cylinder", "line", "sphere", "square", "wall"].includes(activity?.target?.template?.type) || (activity?.type == "attack" && !playOnDamage)) { return; }
             const itemData = await itemDataFromActivity(activity, "damage");
-            damage(await getRequiredData({item: itemData, actor: itemData.parent, workflow: itemData, rollDamageHook: {itemData, roll}, spellLevel: roll?.data?.item?.level ?? void 0}));
+            const ammoItem = itemData?.parent?.items?.get(data?.ammoUpdate?.id) ?? null;
+            damage(await getRequiredData({activity, item: itemData, actor: itemData.parent, workflow: itemData, rollDamageHook: {itemData, roll}, spellLevel: roll?.data?.item?.level ?? void 0, ammoItem}));
         });
         Hooks.on('dnd5e.postUseActivity', async (activity, usageConfig, results) => {
             if (["circle", "cone", "cube", "cylinder", "line", "sphere", "square", "wall"].includes(activity?.target?.template?.type) || activity?.type == "attack" || (activity?.damage?.parts?.length && activity?.type != "heal")) { return; }
             const config = usageConfig;
             const options = results;
             const itemData = await itemDataFromActivity(activity, "utility");
-            useItem(await getRequiredData({item: itemData, actor: itemData.parent, workflow: itemData, useItemHook: {itemData, config, options}, spellLevel: options?.flags?.dnd5e?.use?.spellLevel || void 0}));
+            useItem(await getRequiredData({activity, item: itemData, actor: itemData.parent, workflow: itemData, useItemHook: {itemData, config, options}, spellLevel: options?.flags?.dnd5e?.use?.spellLevel || void 0}));
         });
     }
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
         if (userId !== game.user.id) { return };
         const activity = await fromUuid(template.flags?.dnd5e?.origin);
         const itemData = await itemDataFromActivity(activity, "template");
-        templateAnimation(await getRequiredData({item: itemData, templateData: template, workflow: template, isTemplate: true}));
+        templateAnimation(await getRequiredData({activity, item: itemData, templateData: template, workflow: template, isTemplate: true}));
     });
     /*
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
@@ -119,7 +121,7 @@ async function useItem(input) {
 }
 
 async function attack(input) {
-    checkAmmo(input)
+    //checkAmmo(input)
     checkReach(input)
     debug("Attack rolled, checking for animations");
     const handler = await AAHandler.make(input)
@@ -128,7 +130,7 @@ async function attack(input) {
 }
 
 async function damage(input) {
-    checkAmmo(input)
+    //checkAmmo(input)
     checkReach(input)
     debug("Damage rolled, checking for animations")
     const handler = await AAHandler.make(input)
@@ -148,7 +150,7 @@ async function templateAnimation(input) {
 
 function checkAmmo(data) {
     //const ammo = data.item?.flags?.autoanimations?.fromAmmo;
-    const ammoType = data.item?.system?.consume?.type;
+    const ammoType = data.activity?.consume?.type;
     data.ammoItem = ammoType === "ammo" ? data.token?.actor?.items?.get(data.item?.system?.consume?.target) : null;
 }
 
