@@ -34,7 +34,7 @@ export function systemHooks() {
             const itemData = await itemDataFromActivity(activity, "attack");
             const ammoItem = itemData?.parent?.items?.get(data?.ammoUpdate?.id) ?? null;
             criticalCheck(roll, itemData);
-            attack(await getRequiredData({activity, item: itemData, actor: itemData.parent, workflow: itemData, rollAttackHook: {itemData, roll}, spellLevel: roll?.data?.item?.level ?? void 0, ammoItem}));    
+            attack(await getRequiredData({item: itemData, actor: itemData.parent, workflow: itemData, rollAttackHook: {itemData, roll}, spellLevel: roll?.data?.item?.level ?? void 0, ammoItem})); 
         });
         Hooks.on("dnd5e.rollDamageV2", async (rolls, data) => {
             const roll = rolls[0];
@@ -43,21 +43,31 @@ export function systemHooks() {
             if (["circle", "cone", "cube", "cylinder", "line", "sphere", "square", "wall"].includes(activity?.target?.template?.type) || (activity?.type == "attack" && !playOnDamage)) { return; }
             const itemData = await itemDataFromActivity(activity, "damage");
             const ammoItem = itemData?.parent?.items?.get(data?.ammoUpdate?.id) ?? null;
-            damage(await getRequiredData({activity, item: itemData, actor: itemData.parent, workflow: itemData, rollDamageHook: {itemData, roll}, spellLevel: roll?.data?.item?.level ?? void 0, ammoItem}));
+            damage(await getRequiredData({item: itemData, actor: itemData.parent, workflow: itemData, rollDamageHook: {itemData, roll}, spellLevel: roll?.data?.item?.level ?? void 0, ammoItem}));
         });
         Hooks.on('dnd5e.postUseActivity', async (activity, usageConfig, results) => {
             if (["circle", "cone", "cube", "cylinder", "line", "sphere", "square", "wall"].includes(activity?.target?.template?.type) || activity?.type == "attack" || (activity?.damage?.parts?.length && activity?.type != "heal")) { return; }
             const config = usageConfig;
             const options = results;
             const itemData = await itemDataFromActivity(activity, "utility");
-            useItem(await getRequiredData({activity, item: itemData, actor: itemData.parent, workflow: itemData, useItemHook: {itemData, config, options}, spellLevel: options?.flags?.dnd5e?.use?.spellLevel || void 0}));
+            useItem(await getRequiredData({item: itemData, actor: itemData.parent, workflow: itemData, useItemHook: {itemData, config, options}, spellLevel: options?.flags?.dnd5e?.use?.spellLevel || void 0}));
         });
     }
+    Hooks.on("dnd5e.preCreateActivityTemplate", async (activity, templateData) => {
+        templateData.flags.autoanimations = {itemData: {
+            parent: activity?.parent?.parent?.parent,
+	    actor: activity?.parent?.parent?.parent,
+	    name: activity?.parent?.parent?.name,
+	    type: activity?.parent?.parent?.type,
+	    system: activity?.parent?.parent?.system,
+            flags: activity?.parent?.parent?.flags
+        }}
+    });
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
         if (userId !== game.user.id) { return };
         const activity = await fromUuid(template.flags?.dnd5e?.origin);
-        const itemData = await itemDataFromActivity(activity, "template");
-        templateAnimation(await getRequiredData({activity, item: itemData, templateData: template, workflow: template, isTemplate: true}));
+        const itemData = activity ? await itemDataFromActivity(activity, "template") : template?.flags?.autoanimations?.itemData;
+        templateAnimation(await getRequiredData({item: itemData, templateData: template, workflow: template, isTemplate: true}));
     });
     /*
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
@@ -150,7 +160,7 @@ async function templateAnimation(input) {
 
 function checkAmmo(data) {
     //const ammo = data.item?.flags?.autoanimations?.fromAmmo;
-    const ammoType = data.activity?.consume?.type;
+    const ammoType = data.item?.system?.consume?.type;
     data.ammoItem = ammoType === "ammo" ? data.token?.actor?.items?.get(data.item?.system?.consume?.target) : null;
 }
 
