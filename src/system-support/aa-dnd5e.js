@@ -32,7 +32,7 @@ export function systemHooks() {
             if (["circle", "cone", "cube", "cylinder", "line", "sphere", "square", "wall"].includes(activity?.target?.template?.type) || (activity?.damage?.parts?.length && activity?.type != "heal" && playOnDamage)) { return; }
             const item = activity?.parent?.parent;
             const ammoItem = item?.parent?.items?.get(data?.ammoUpdate?.id) ?? null;
-            const overrideNames = activity?.name ? ["heal", "summon"].includes(activity?.name?.trim()?.toLowerCase()) ? [] : [activity.name] : [];
+            const overrideNames = activity?.name && !["heal", "summon"].includes(activity?.name?.trim()?.toLowerCase()) ? [activity.name] : [];
             criticalCheck(roll, item);
             attack(await getRequiredData({item: item, actor: item.parent, workflow: item, rollAttackHook: {item, roll}, spellLevel: roll?.data?.item?.level ?? void 0, ammoItem, overrideNames})); 
         });
@@ -42,7 +42,7 @@ export function systemHooks() {
             const playOnDamage = game.settings.get('autoanimations', 'playonDamageCore');
             if (["circle", "cone", "cube", "cylinder", "line", "sphere", "square", "wall"].includes(activity?.target?.template?.type) || (activity?.type == "attack" && !playOnDamage)) { return; }
             const item = activity?.parent?.parent;
-            const overrideNames = activity?.name ? ["heal", "summon"].includes(activity?.name?.trim()?.toLowerCase()) ? [] : [activity.name] : [];
+            const overrideNames = activity?.name && !["heal", "summon"].includes(activity?.name?.trim()?.toLowerCase()) ? [activity.name] : [];
             damage(await getRequiredData({item, actor: item.parent, workflow: item, rollDamageHook: {item, roll}, spellLevel: roll?.data?.item?.level ?? void 0, overrideNames}));
         });
         Hooks.on('dnd5e.postUseActivity', async (activity, usageConfig, results) => {
@@ -50,7 +50,7 @@ export function systemHooks() {
             const config = usageConfig;
             const options = results;
             const item = activity?.parent?.parent;
-            const overrideNames = activity?.name ? ["heal", "summon"].includes(activity?.name?.trim()?.toLowerCase()) ? [] : [activity.name] : [];
+            const overrideNames = activity?.name && !["heal", "summon"].includes(activity?.name?.trim()?.toLowerCase()) ? [activity.name] : [];
             useItem(await getRequiredData({item, actor: item.parent, workflow: item, useItemHook: {item, config, options}, spellLevel: options?.flags?.dnd5e?.use?.spellLevel || void 0, overrideNames}));
         });
     }
@@ -70,7 +70,7 @@ export function systemHooks() {
         if (userId !== game.user.id) { return };
         const activity = await fromUuid(template.flags?.dnd5e?.origin);
         const item = activity ? activity?.parent?.parent : template?.flags?.autoanimations?.itemData;
-        const overrideNames = activity?.name ? ["heal", "summon"].includes(activity?.name?.trim()?.toLowerCase()) ? [] : [activity.name] : [];
+        const overrideNames = activity?.name && !["heal", "summon"].includes(activity?.name?.trim()?.toLowerCase()) ? [activity.name] : [];
         templateAnimation(await getRequiredData({item, templateData: template, workflow: template, isTemplate: true, overrideNames}));
     });
     /*
