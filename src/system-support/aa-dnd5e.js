@@ -42,9 +42,8 @@ export function systemHooks() {
             const playOnDamage = game.settings.get('autoanimations', 'playonDamageCore');
             if (["circle", "cone", "cube", "cylinder", "line", "sphere", "square", "wall"].includes(activity?.target?.template?.type) || (activity?.type == "attack" && !playOnDamage)) { return; }
             const item = activity?.parent?.parent;
-            const ammoItem = item?.parent?.items?.get(data?.ammoUpdate?.id) ?? null;
             const overrideNames = activity?.name ? ["heal", "summon"].includes(activity?.name?.trim()?.toLowerCase()) ? [] : [activity.name] : [];
-            damage(await getRequiredData({item, actor: item.parent, workflow: item, rollDamageHook: {item, roll}, spellLevel: roll?.data?.item?.level ?? void 0, ammoItem, overrideNames}));
+            damage(await getRequiredData({item, actor: item.parent, workflow: item, rollDamageHook: {item, roll}, spellLevel: roll?.data?.item?.level ?? void 0, overrideNames}));
         });
         Hooks.on('dnd5e.postUseActivity', async (activity, usageConfig, results) => {
             if (["circle", "cone", "cube", "cylinder", "line", "sphere", "square", "wall"].includes(activity?.target?.template?.type) || activity?.type == "attack" || (activity?.damage?.parts?.length && activity?.type != "heal")) { return; }
