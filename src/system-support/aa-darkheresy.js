@@ -9,12 +9,16 @@ export function systemHooks() {
         if (msg.user.id !== game.user.id) { return };
         const flags = msg.flags?.["dark-heresy"] ?? {};
         if(!flags.rollData) return;
-        if(flags.rollData.evasions) return;
         const itemId = flags.rollData.itemId;
         const tokenId = flags.rollData.tokenId;
         const actorId = flags.rollData.ownerId;
         const rollClass = flags.rollData.rollObject.class;
-        routeMessage({itemId, tokenId, actorId, workflow: msg, rollClass})
+
+        if(flags.rollData.flags.isAttack){
+            routeMessage({itemId, tokenId, actorId, workflow: msg, rollClass})
+        }
+        
+        checkCrit(flags.rollData)
     });
     Hooks.on("AutomatedAnimations-WorkflowStart", onWorkflowStart);
     Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
@@ -27,6 +31,28 @@ async function routeMessage(input) {
     const requiredData = await getRequiredData(input);
     if (!requiredData.item) { return; }
     runDarkHeresy(requiredData);
+}
+
+async function checkCrit(rollData) {
+    if(!rollData.flags.isDamageRoll) return;
+
+    let critAnim = game.settings.get("autoanimations", "criticalAnimation");
+    if(!critAnim) return;
+
+    let delay = 100;
+    rollData.damages.forEach(damage => {
+        if(damage.righteousFury) {
+            new Sequence({moduleName: "Automated Animations", softFail: !game.settings.get("autoanimations", "debug")})
+                .effect()
+                .file(critAnim)
+                .atLocation(rollData.tokenId)
+                .missed()
+                .delay(delay)
+                .play()
+
+           delay += 200;
+        }
+    })
 }
 
 async function runDarkHeresy(data) {
