@@ -8,6 +8,8 @@ export function systemHooks() {
     Hooks.on("createChatMessage", async (msg) => {
         if (msg.user.id !== game.user.id) { return };
         const flags = msg.flags?.["dark-heresy"] ?? {};
+        if(!flags.rollData) return;
+        if(flags.rollData.evasions) return;
         const itemId = flags.rollData.itemId;
         const tokenId = flags.rollData.tokenId;
         const actorId = flags.rollData.ownerId;
@@ -34,8 +36,9 @@ async function runDarkHeresy(data) {
 
 function onWorkflowStart(clonedData, animationData) {
     // Repeat the animation in case of burst attacks.
-    if (animationData.primary != null && clonedData.workflow.flags["dark-heresy"].rollData.maxAdditionalHit != null) {
-        animationData.primary.options.repeat = (1 + clonedData.workflow.flags["dark-heresy"].rollData.maxAdditionalHit);
+    if (animationData.primary != null && clonedData.workflow.flags["dark-heresy"].rollData.attackType?.maxHits > 1) {
+        animationData.primary.options.repeat = clonedData.workflow.flags["dark-heresy"].rollData.attackType.maxHits;
+        animationData.primary.options.repeatDelay = 500 / clonedData.workflow.flags["dark-heresy"].rollData.attackType.maxHits
     }
 }
 
