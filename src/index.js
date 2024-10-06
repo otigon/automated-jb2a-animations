@@ -92,6 +92,29 @@ function registerAAItemHooks() {
         }
         buttons.splice(0, 0, buttonOptions)
     })
+
+    // Tidy 5e Sheet App V2 compatibility
+    Hooks.once("tidy5e-sheet.ready", api => {
+        api.registerItemHeaderControls?.({
+            controls: [
+                {
+                    icon: "fas fa-biohazard",
+                    label: "A-A",
+                    async onClickAction() {
+                        const item = this.document;
+                        await flagMigrations.handle(item);
+                        const pf2eRuleTypes = ['condition', 'effect'];
+                        // if this is a PF1 "Buff" effect or PF2e Ruleset Item (Active Effects) launch the Active Effect menu. Otherwise continue as normal
+                        if ((game.system.id === 'pf1' && itemSheet.item?.type === 'buff') || (game.system.id === 'pf2e' && pf2eRuleTypes.includes(itemSheet.item?.type))) {
+                            new AEMenuApp(item, {}).render(true, { focus: true });
+                        } else {
+                            new ItemMenuApp(item, {}).render(true, { focus: true });
+                        }
+                    }
+                }
+            ]
+        });
+    });
 }
 
 /**
