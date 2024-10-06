@@ -19,7 +19,7 @@ export async function thunderwave(handler, animationData, config) {
         ? `autoanimations.templatefx.square.thunderwave.${getPosition.type}`
         : `autoanimations.templatefx.square.thunderwave.${getPosition.type}.${color}`
 
-    const gridSize = canvas.scene.data.grid.size;
+    const gridSize = canvas.scene.dimensions.size;
 
     let aaSeq = await new Sequence(handler.sequenceData)
 
@@ -78,7 +78,7 @@ export async function thunderwave(handler, animationData, config) {
         const yPos = token.y;
         const tempY = template.y;
         const tempX = template.x;
-        const gridSize = canvas.scene.data.grid.size;
+        const gridSize = canvas.scene.dimensions.size;
         let type;
         let angle;
         switch (true) {
