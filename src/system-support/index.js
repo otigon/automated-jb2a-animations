@@ -32,4 +32,5 @@ export * as wrathandglory from "./aa-wrath-and-glory.js";
 export * as dragonbane from "./aa-dragonbane.js";
 export * as impmal from "./aa-ImpMal.js";
 export * as salvageunion from "./aa-salvage-union.js"
+export * as DeathinSpace from "./aa-DeathinSpace.js"
 
