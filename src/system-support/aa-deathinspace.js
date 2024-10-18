@@ -1,32 +1,20 @@
 import { trafficCop }       from "../router/traffic-cop.js"
 import AAHandler            from "../system-handlers/workflow-data.js";
 import { getRequiredData }  from "./getRequiredData.js";
-// WILL NEED REWORK AFTER THE V10 VERSION IS RELEASED
+
 export function systemHooks() {
-    Hooks.on("createChatMessage", async (msg) => {
-        if (msg.user.id !== game.user.id) { return };
-
-        function extractItemId(content) {
-            try {
-                return $(content).attr("data-item-id");
-            } catch (exception) {
-                console.log("COULD NOT GET ITEM ID")
-                return null;
-            }
-        }
-
+    Hooks.on("chatOutput", async (data) => {
         let compiledData = await getRequiredData({
-            itemId: extractItemId(msg.content),
-            actorId: msg.speaker?.actor,
-            tokenId: msg.speaker?.token,
-            workflow: msg,
-        })
-        if (!compiledData.item) { return; }
-        runDiS(compiledData)
+           itemId: itemId,
+           actorId: actorId,
+           workflow: data,
+       })
+       runDeathInSpace(compiledData)
     });
 }
 
-async function runDiS(input) {
-    const handler = await AAHandler.make(input)
+async function runDeathInSpace(input) {
+    const handler = await AAHandler.make(input);
+    if (!handler) { return; }
     trafficCop(handler);
 }
