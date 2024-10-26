@@ -1,3 +1,3 @@
-import { TJSSessionStorage  } from "@typhonjs-fvtt/runtime/svelte/store";
+import { TJSSessionStorage  } from "#runtime/svelte/store/web-storage";
 
-export const aaSessionStorage = new TJSSessionStorage ();
+export const aaSessionStorage = new TJSSessionStorage();

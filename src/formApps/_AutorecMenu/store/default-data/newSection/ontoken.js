@@ -1,11 +1,11 @@
-import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+import { Hashing } from "#runtime/util";
 
 import * as common from "../common";
 import * as options from "../options";
 
 export function ontoken(current = {}) {
         return {
-            id: current.id || uuidv4(),
+            id: current.id || Hashing.uuidv4(),
             label: current.label,
             levels3d: current.levels3d || common.levels3d(),
             macro: current.macro || common.macro(),

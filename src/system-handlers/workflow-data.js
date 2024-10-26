@@ -1,7 +1,7 @@
-import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+import { Hashing } from "#runtime/util";
 import { debug, custom_notify } from "../constants/constants.js";
 import { handleItem } from "./findAnimation.js";
-//import { endTiming } from "../constants/timings.js";
+// import { endTiming } from "../constants/timings.js";
 import { sourceEffect, secondaryEffect, targetEffect, macroSection } from "./commonSequences.js";
 import { AnimationState } from "../AnimationState.js";
 
@@ -63,7 +63,7 @@ export default class AAHandler {
         this.sourceToken = data.token?.isEmbedded ? data.token?.object : data.token;
 
         this.item = data.ammoItem || data.item;
-        this.itemUuid = this.item?.uuid || uuidv4();
+        this.itemUuid = this.item?.uuid || Hashing.uuidv4();
         this.itemName = this.item.name ?? this.item.label;
         this.rinsedName = data.rinsedName || this.itemName ? this.itemName.replace(/\s+/g, '').toLowerCase() : "";
 

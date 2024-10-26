@@ -1,6 +1,6 @@
 import { ObjectEntryStore }   from "@typhonjs-fvtt/svelte-standard/store";
 import { writable }           from "svelte/store";
-import { uuidv4 }             from "@typhonjs-fvtt/runtime/svelte/util";
+import { Hashing }            from "#runtime/util";
 import { isObject }           from '@typhonjs-fvtt/runtime/svelte/util';
 import * as changeSection from "../../_AutorecMenu/store/default-data/newSection";
 
@@ -313,7 +313,7 @@ export class AnimationStore extends ObjectEntryStore {
          custom_warning("You are attempting to copy an Item to the Global menu, but you haven't configured the item!", true)
       }
       let data = foundry.utils.deepClone(this._data);
-      data.id = uuidv4();
+      data.id = Hashing.uuidv4();
       data.label = label;
       switch(menu) {
          case "melee":
@@ -432,7 +432,7 @@ export class AnimationStore extends ObjectEntryStore {
             break;
       }
    }
-  
+
 }
 
 /**

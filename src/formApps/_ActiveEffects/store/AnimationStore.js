@@ -1,15 +1,15 @@
 import { ObjectEntryStore }   from "@typhonjs-fvtt/svelte-standard/store";
 import { writable }           from "svelte/store";
-import { uuidv4 }             from "@typhonjs-fvtt/runtime/svelte/util";
+import { Hashing }            from "#runtime/util";
 import { isObject }           from '@typhonjs-fvtt/runtime/svelte/util';
 
-import { custom_warning } from "../../../constants/constants.js";
+import { custom_warning }     from "../../../constants/constants.js";
 
-import VideoPreview  from "../../Menus/Components/videoPreview/videoPreview.js"
+import VideoPreview           from "../../Menus/Components/videoPreview/videoPreview.js";
 
-//import { CategoryStore } from "../category/CategoryStore.js";
-//import { aaSessionStorage } from "../../../../sessionStorage.js";
-//import { constants } from "../../../../constants.js";
+// import { CategoryStore } from "../category/CategoryStore.js";
+// import { aaSessionStorage } from "../../../../sessionStorage.js";
+// import { constants } from "../../../../constants.js";
 
 import {
    newTypeMenu,
@@ -281,7 +281,7 @@ export class AnimationStore extends ObjectEntryStore {
          custom_warning("You are attempting to copy an Item to the Global menu, but you haven't configured the item!")
       }
       let data = foundry.utils.deepClone(this._data);
-      data.id = uuidv4();
+      data.id = Hashing.uuidv4();
       data.label = label;
 
       delete data.isCustomized;
@@ -289,7 +289,7 @@ export class AnimationStore extends ObjectEntryStore {
 
       let currentMenu = await game.settings.get('autoanimations', `aaAutorec-aefx`);
       currentMenu.push(data);
-      await game.settings.set('autoanimations', `aaAutorec-aefx`, currentMenu)
+      await game.settings.set('autoanimations', `aaAutorec-aefx`, currentMenu);
    }
 }
 
