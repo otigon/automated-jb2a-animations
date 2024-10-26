@@ -8,7 +8,7 @@
     import { AnimationStore } from "../store/AnimationStore.js"
     import { ApplicationShell } from "#runtime/svelte/component/application";
     import CategoryControl       from "./category/CategoryControl.svelte";
-    import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store';
+    import { TJSDocument } from "#runtime/svelte/store/fvtt/document";
 
     import { flagMigrations } from "../../../mergeScripts/items/itemFlagMerge.js"
     //import { constants}         from "../../../constants.js";
