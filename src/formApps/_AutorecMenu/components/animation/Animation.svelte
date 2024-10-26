@@ -1,18 +1,18 @@
 <script>
+   import { setContext }            from "svelte";
+
    import {
       ripple,
-      rippleFocus }                 from "@typhonjs-fvtt/svelte-standard/action";
+      rippleFocus }                 from "#standard/action/animate/composable/ripple";
 
-   import {
-      TJSInput,
-      TJSSvgFolder }                from "@typhonjs-fvtt/svelte-standard/component";
+   import { TJSSvgFolder }          from "#standard/component/folder";
+   import { TJSInput }              from "#standard/component/form";
 
-   import OverflowSlot from "./OverflowSlot.svelte";
+   import OverflowSlot              from "./OverflowSlot.svelte";
 
    import { createOverflowItems }   from "./createOverflowItems.js";
 
    import { selectBuildMenu }       from "../../../Menus/BuildMenu/selectBuildMenu.js";
-   import { setContext } from "svelte";
 
    /** @type {AnimationStore} */
    export let animation = void 0;

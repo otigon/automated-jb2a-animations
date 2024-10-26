@@ -6,7 +6,7 @@
     import { ApplicationShell } from "#runtime/svelte/component/application";
     import { Timing }           from "#runtime/util";
 
-    import { TJSSettingsSwap }  from "@typhonjs-fvtt/svelte-standard/component";
+    import { TJSSettingsSwap }  from "#standard/component/fvtt/settings";
 
     import CategorySelect       from "./category/CategorySelect.svelte";
 

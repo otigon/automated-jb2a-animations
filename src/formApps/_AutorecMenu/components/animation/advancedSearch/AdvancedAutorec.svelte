@@ -1,9 +1,11 @@
 <script>
     import { getContext }       from "svelte";
+
     import { localize }         from "#runtime/util/i18n";
 
-    import { TJSIconButton }    from "@typhonjs-fvtt/svelte-standard/component";
-    import { ripple }           from "@typhonjs-fvtt/svelte-standard/action";
+    import { ripple }           from "#standard/action/animate/composable/ripple";
+
+    import { TJSIconButton }    from "#standard/component/button";
 
     const { application } = getContext("#external");
 

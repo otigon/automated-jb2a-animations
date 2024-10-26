@@ -1,8 +1,9 @@
 <script>
-    import { localize }     from "#runtime/util/i18n";
     import { getContext }   from "svelte";
 
-    import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
+    import { localize }     from "#runtime/util/i18n";
+
+    import { TJSSvgFolder } from "#standard/component/folder";
 
     import VideoSelect      from "../Components/VideoSelect.svelte";
     import Opacity          from "./inputComponents/Opacity.svelte";

@@ -1,13 +1,15 @@
 <script>
     import {
        ripple,
-       rippleFocus }                from "@typhonjs-fvtt/svelte-standard/action";
+       rippleFocus }                from "#standard/action/animate/composable/ripple";
 
     import {
        TJSIconButton,
-       TJSInput,
-       TJSMenu,
-       TJSToggleIconButton }        from "@typhonjs-fvtt/svelte-standard/component";
+       TJSToggleIconButton }        from "#standard/component/button";
+
+    import { TJSInput }             from "#standard/component/form";
+
+    import { TJSMenu }              from "#standard/component/menu";
 
     import { Hashing }              from "#runtime/util";
 

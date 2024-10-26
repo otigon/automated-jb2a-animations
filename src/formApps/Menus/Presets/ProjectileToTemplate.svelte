@@ -1,21 +1,23 @@
 <script>
-    import { localize }     from "#runtime/util/i18n";
-    import { getContext }   from "svelte";
+    import { getContext }       from "svelte";
 
-    import {
-       TJSSvgFolder,
-       TJSIconButton }      from "@typhonjs-fvtt/svelte-standard/component";
+    import { localize }         from "#runtime/util/i18n";
 
-    import SectionHeader    from "../Components/SectionHeader.svelte";
-    import VideoSelect      from "../Components/VideoSelect.svelte";
-    import SoundSettings    from "../Components/SoundSettingsNested.svelte";
-    import Opacity          from "./inputComponents/Opacity.svelte";
-    import Elevation        from "./inputComponents/Elevation.svelte";
-    import OptionsDialog    from "../Components/options/optionsInfoDialog.js";
-    import * as settings    from "../Components"
+    import { TJSIconButton }    from "#standard/component/button";
+    import { TJSSvgFolder }     from "#standard/component/folder";
+
+    import SectionHeader        from "../Components/SectionHeader.svelte";
+    import VideoSelect          from "../Components/VideoSelect.svelte";
+    import SoundSettings        from "../Components/SoundSettingsNested.svelte";
+    import Opacity              from "./inputComponents/Opacity.svelte";
+    import Elevation            from "./inputComponents/Elevation.svelte";
+    import OptionsDialog        from "../Components/options/optionsInfoDialog.js";
+    import * as settings        from "../Components"
+
     //export let animation;
     //export let category;
     //export let idx;
+
     let { animation, category, idx } = getContext('animation-data');
 
     const title = "Projectile to Template";

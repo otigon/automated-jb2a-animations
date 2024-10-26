@@ -1,18 +1,17 @@
 <script>
   import {
     getContext,
-    setContext } from "svelte";
+    setContext }                  from "svelte";
 
-  import { localize } from "#runtime/util/i18n";
-  import { ripple } from "@typhonjs-fvtt/svelte-standard/action";
+  import { localize }             from "#runtime/util/i18n";
+
+  import { ripple }               from "#standard/action/animate/composable/ripple";
+
+  import { TJSToggleIconButton }  from "#standard/component/button";
+
+  import { TJSMenu }              from "#standard/component/menu";
 
   //import CategoryControl      from "./CategoryControl.svelte";
-
-  import {
-    TJSMenu,
-    TJSToggleIconButton,
-  } from "@typhonjs-fvtt/svelte-standard/component";
-
 
   import CategoryList from "./CategoryList.svelte";
   import Slider from "../../../Menus/Components/options/inputComponents/Slider.svelte";

@@ -1,16 +1,16 @@
 <script>
-    import { localize }     from "#runtime/util/i18n";
+    import { getContext }       from "svelte";
 
-    import {
-       TJSSvgFolder,
-       TJSIconButton }      from "@typhonjs-fvtt/svelte-standard/component";
+    import { localize }         from "#runtime/util/i18n";
 
-    import NumberInput      from "./inputComponents/NumberInput.svelte";
-    import Elevation        from "./inputComponents/Elevation.svelte";
-    import ScaleRadius      from "./inputComponents/ScaleRadius.svelte";
-    import Opacity          from "./inputComponents/Opacity.svelte";
-    import OptionsDialog    from "./optionsInfoDialog.js";
-    import { getContext }   from "svelte";
+    import { TJSIconButton }    from "#standard/component/button";
+    import { TJSSvgFolder }     from "#standard/component/folder";
+
+    import NumberInput          from "./inputComponents/NumberInput.svelte";
+    import Elevation            from "./inputComponents/Elevation.svelte";
+    import ScaleRadius          from "./inputComponents/ScaleRadius.svelte";
+    import Opacity              from "./inputComponents/Opacity.svelte";
+    import OptionsDialog        from "./optionsInfoDialog.js";
 
     //export let animation;
     let { animation} = getContext('animation-data');

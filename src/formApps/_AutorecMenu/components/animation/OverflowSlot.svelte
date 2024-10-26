@@ -1,9 +1,8 @@
 <script>
-    import { ripple }                 from "@typhonjs-fvtt/svelte-standard/action";
-    import {
-        TJSMenu,
-        TJSToggleIconButton,
-    } from "@typhonjs-fvtt/svelte-standard/component";
+    import { ripple }               from "#standard/action/animate/composable/ripple";
+
+    import { TJSToggleIconButton }  from "#standard/component/button";
+    import { TJSMenu }              from "#standard/component/menu";
 
     export let menu;
     export let info = {};

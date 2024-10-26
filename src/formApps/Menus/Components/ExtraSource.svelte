@@ -1,12 +1,14 @@
 <script>
+    import { getContext }   from "svelte";
+
     import { localize } from "#runtime/util/i18n";
-    import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
+
+    import { TJSSvgFolder } from "#standard/component/folder";
 
     import SoundSettings from "./SoundSettings.svelte";
     import VideoSelect from "./VideoSelect.svelte";
     import SourceFxOptions from "./options/SourceFXOptions.svelte";
     import EffectColor from "./options/EffectColor.svelte";
-    import { getContext }   from "svelte";
 
     //export let animation;
     //export let idx;

@@ -1,8 +1,8 @@
 <script>
-   import { ripple }        from "@typhonjs-fvtt/svelte-standard/action";
-   import { TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
+   import { ripple }        from "#standard/action/animate/composable/ripple";
 
-   
+   import { TJSIconButton } from "#standard/component/button";
+
    export let category;
 
    // TODO: LOCALIZE THESE STRINGS
