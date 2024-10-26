@@ -3,8 +3,10 @@ import { propertyStore } from "#runtime/svelte/store/writable-derived";
 import { FVTTFilePickerControl } from "#standard/application/control/filepicker";
 
 import { CategoryStore } from "../category/CategoryStore.js";
-import { aaSessionStorage } from "../../../../sessionStorage.js";
-import { constants } from "../../../../constants.js";
+
+import { constants } from "#constants";
+import { aaSessionStorage } from "#sessionStorage";
+
 /*
 import {
    aaTypeMenu,

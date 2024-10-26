@@ -12,7 +12,7 @@
     import { AnimationStore } from "../store/AnimationStore.js"
 
     import { flagMigrations } from "../../../mergeScripts/items/itemFlagMerge.js"
-    //import { constants}         from "../../../constants.js";
+    // import { constants }         from "#constants";
 
     export let elementRoot;
     export let storageStore = void 0;

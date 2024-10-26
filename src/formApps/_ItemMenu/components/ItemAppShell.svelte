@@ -11,7 +11,7 @@
     import { TJSDocument } from "#runtime/svelte/store/fvtt/document";
 
     import { flagMigrations } from "../../../mergeScripts/items/itemFlagMerge.js"
-    //import { constants}         from "../../../constants.js";
+    // import { constants }         from "#constants";
 
     export let elementRoot;
     export let storageStore = void 0;

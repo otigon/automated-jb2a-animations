@@ -27,7 +27,6 @@
         },
     };
     function checkMeta() {
-console.log(`!!!! Secondary.svelte - checkMeta`)
         delete $animation.metaData
     }
 

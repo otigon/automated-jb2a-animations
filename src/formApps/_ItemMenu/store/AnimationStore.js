@@ -13,8 +13,8 @@ import { custom_warning } from "../../../constants/constants.js";
 import VideoPreview  from "../../Menus/Components/videoPreview/videoPreview.js";
 
 //import { CategoryStore } from "../category/CategoryStore.js";
-//import { aaSessionStorage } from "../../../../sessionStorage.js";
-//import { constants } from "../../../../constants.js";
+//import { aaSessionStorage } from "#sessionStorage";
+//import { constants } from "#constants";
 
 import {
    newTypeMenu,
