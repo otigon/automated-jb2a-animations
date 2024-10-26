@@ -3,6 +3,8 @@
 
     import { localize }         from "#runtime/util/i18n";
 
+    import { FVTTFilePickerControl } from "#standard/application/control/filepicker";
+
     import { TJSIconButton }    from "#standard/component/button";
     import { TJSSvgFolder }     from "#standard/component/folder";
 
@@ -54,17 +56,16 @@ if(!$animation.levels3d.secondary.data.spritePath) {
 
     async function selectCustom() {
         const current = animation._data.levels3d.secondary.data.spritePath;
-        const picker = new FilePicker({
+
+        const path = await FVTTFilePickerControl.browse({
+            modal: true,
             type: "any",
-            current,
-            callback: (path) => {
-                $animation.levels3d.secondary.data.spritePath = path;
-            },
+            current
         });
-        setTimeout(() => {
-            picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-        }, 100);
-        await picker.browse(current);
+
+        if (path) {
+            $animation.levels3d.secondary.data.spritePath = path;
+        }
     }
 
     $: isEnabled = $animation.levels3d.secondary.enable

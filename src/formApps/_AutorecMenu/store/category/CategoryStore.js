@@ -5,6 +5,8 @@ import { localize }                 from "#runtime/util/i18n";
 import { WorldSettingArrayStore }   from "#runtime/svelte/store/fvtt/settings/world";
 import { DynReducerHelper }         from "#runtime/svelte/store/reducer";
 
+import { FVTTFilePickerControl }    from "#standard/application/control/filepicker";
+
 import { constants }                from "#constants";
 import { gameSettings }             from "#gameSettings";
 import { aaSessionStorage }         from "#sessionStorage";
@@ -247,57 +249,52 @@ export class CategoryStore extends WorldSettingArrayStore {
 
    async selectCustom(section, section02 = "video", idx) {
       const current = this._data[idx]._data[section][section02].customPath;
-      const picker = new FilePicker({
-         type: "imagevideo",
-         current,
-         callback: (path) => {
-            this._data[idx]._data[section][section02].customPath = path;
-            this._data[idx]._updateSubscribers()
-            },
-      });
-      setTimeout(() => {
-         picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-      }, 100);
-      await picker.browse(current);
 
+      const path = await FVTTFilePickerControl.browse({
+         modal: true,
+         type: "imagevideo",
+         current
+      });
+
+      if (path) {
+         this._data[idx]._data[section][section02].customPath = path;
+         this._data[idx]._updateSubscribers();
+      }
    }
 
    async selectSound(section, idx) {
       const current = this._data[idx]._data[section].sound.file;
-      const picker = new FilePicker({
-          type: "audio",
-          current,
-          callback: (path) => {
-            this._data[idx]._data[section].sound.file = path;
-            this._data[idx]._updateSubscribers()
-            },
-      });
-      setTimeout(() => {
-          picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-      }, 100);
-      await picker.browse(current);
-  }
 
-  async selectSoundNested(section, section02, idx) {
-   const current = this._data[idx]._data[section][section02].sound.file;
-   const picker = new FilePicker({
-       type: "audio",
-       current,
-       callback: (path) => {
+      const path = await FVTTFilePickerControl.browse({
+         modal: true,
+         type: "audio",
+         current
+      });
+
+      if (path) {
+         this._data[idx]._data[section].sound.file = path;
+         this._data[idx]._updateSubscribers();
+      }
+   }
+
+   async selectSoundNested(section, section02, idx) {
+      const current = this._data[idx]._data[section][section02].sound.file;
+
+      const path = await FVTTFilePickerControl.browse({
+         modal: true,
+         type: "audio",
+         current
+      });
+
+      if (path) {
          this._data[idx]._data[section][section02].sound.file = path;
-         this._data[idx]._updateSubscribers()
-      },
-   });
-   setTimeout(() => {
-       picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-   }, 100);
-   await picker.browse(current);
+         this._data[idx]._updateSubscribers();
+      }
    }
 
    openSequencerViewer() {
       Sequencer.DatabaseViewer.show()
    }
-
 }
 
 /**
