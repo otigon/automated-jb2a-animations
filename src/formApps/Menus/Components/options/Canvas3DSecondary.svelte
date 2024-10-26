@@ -75,6 +75,7 @@ if(!$animation.levels3d.secondary.data.spritePath) {
 >
     <div slot="summary-end">
         <input
+            on:click|stopPropagation
             type="checkbox"
             style="align-self:center"
             title="Toggle Secondary On/Off"

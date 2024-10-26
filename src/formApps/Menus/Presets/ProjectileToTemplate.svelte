@@ -180,6 +180,7 @@
     <TJSSvgFolder folder={preExplode}>
         <div slot="summary-end">
             <input
+                on:click|stopPropagation
                 type="checkbox"
                 style="align-self:center"
                 title="Toggle Source FX On/Off"
@@ -438,6 +439,7 @@
         <SectionHeader title="After Image" />
         <div slot="summary-end">
             <input
+                on:click|stopPropagation
                 type="checkbox"
                 style="align-self:center"
                 title="Toggle Source FX On/Off"

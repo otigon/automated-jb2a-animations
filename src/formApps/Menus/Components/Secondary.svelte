@@ -27,6 +27,7 @@
         },
     };
     function checkMeta() {
+console.log(`!!!! Secondary.svelte - checkMeta`)
         delete $animation.metaData
     }
 
@@ -39,6 +40,7 @@
     >
         <div slot="summary-end">
             <input
+                on:click|stopPropagation
                 type="checkbox"
                 style="align-self:center"
                 title="Toggle Secondary On/Off"

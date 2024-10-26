@@ -270,6 +270,7 @@
     <TJSSvgFolder folder={startFolder}>
         <div slot="summary-end">
             <input
+                on:click|stopPropagation
                 type="checkbox"
                 style="align-self:center"
                 title="Toggle Source FX On/Off"
@@ -398,6 +399,7 @@
     <TJSSvgFolder folder={betweenFolder}>
         <div slot="summary-end">
             <input
+                on:click|stopPropagation
                 type="checkbox"
                 style="align-self:center"
                 title="Toggle Source FX On/Off"
@@ -474,6 +476,7 @@
     <TJSSvgFolder folder={endFolder}>
         <div slot="summary-end">
             <input
+                on:click|stopPropagation
                 type="checkbox"
                 style="align-self:center"
                 title="Toggle Source FX On/Off"
