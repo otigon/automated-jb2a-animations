@@ -3,7 +3,7 @@ import { writable }           from "svelte/store";
 import { Hashing }            from "#runtime/util";
 import { isObject }           from '#runtime/util/object';
 
-import { ObjectEntryStore }   from "@typhonjs-fvtt/svelte-standard/store";
+import { ObjectEntryStore }   from "#runtime/svelte/store/reducer/array-object";
 
 import * as changeSection from "../../_AutorecMenu/store/default-data/newSection";
 
