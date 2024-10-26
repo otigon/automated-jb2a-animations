@@ -1,7 +1,7 @@
 <svelte:options accessors={true} />
 
 <script>
-    import { getContext}        from "svelte";
+    import { getContext }       from "svelte";
 
     import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
     import { debounce }         from "@typhonjs-fvtt/runtime/svelte/util";
@@ -12,14 +12,14 @@
 
     import SettingsFooter       from "./SettingsFooter.svelte";
 
-    import { constants }        from "../../../constants.js";
-    import { gameSettings }     from "../../../gameSettings.js";
-    import { aaSessionStorage } from "../../../sessionStorage.js";
+    import { constants }        from "#constants";
+    import { gameSettings }     from "#gameSettings";
+    import { aaSessionStorage } from "#sessionStorage";
 
     import { AutorecSanitizer } from "../../../aa-classes/autorecSanityCheck.js"
 
     AutorecSanitizer.checkForDuplicates();
-    
+
     export let elementRoot;
 
     const { application } = getContext("#external");

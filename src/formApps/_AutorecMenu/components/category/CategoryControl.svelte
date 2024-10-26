@@ -9,7 +9,7 @@
        TJSMenu,
        TJSToggleIconButton }        from "@typhonjs-fvtt/svelte-standard/component";
 
-    import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+    import { Hashing }              from "#runtime/util";
 
     import ButtonOpenCloseAll       from "./ButtonOpenCloseAll.svelte";
     import { createOverflowItems }  from "./createOverflowItems.js";
@@ -53,7 +53,7 @@
 
     function addEntry() {
       let newData = newSection[menuTab]()
-      //newData.id = uuidv4();
+      //newData.id = Hashing.uuidv4();
       category.createEntry(newData)
     }
 </script>
