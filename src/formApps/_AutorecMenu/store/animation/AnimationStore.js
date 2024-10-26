@@ -1,4 +1,4 @@
-import { propertyStore } from "@typhonjs-fvtt/runtime/svelte/store";
+import { propertyStore } from "#runtime/svelte/store/writable-derived";
 
 import { CategoryStore } from "../category/CategoryStore.js";
 import { aaSessionStorage } from "../../../../sessionStorage.js";
