@@ -1,5 +1,5 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { localize } from "#runtime/util/i18n";
     import { getPreviewFile } from "./getPreviewFile.js";
     import { currentStore } from "./previewStore.js";
 
@@ -113,7 +113,7 @@
                     ? daCustomPath
                     : getPreviewFile(daCompiledPath)
 
-    // Teleportation 
+    // Teleportation
     // Start animation
     $: tpsCustom = animation.data?.start?.enableCustom;
     $: tpsCustomPath = animation.data?.start?.customPath;
@@ -165,7 +165,7 @@
                     ? tpeCustomPath
                     : getPreviewFile(tpeCompiledPath)
 
-    // Projectile to Template 
+    // Projectile to Template
     //Projectile
     $: pCustom = animation.data?.projectile?.enableCustom;
     $: pCustomPath = animation.data?.projectile?.customPath;

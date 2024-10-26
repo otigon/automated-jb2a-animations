@@ -1,5 +1,5 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { localize } from "#runtime/util/i18n";
 
     import {
         TJSSvgFolder,
@@ -52,7 +52,7 @@
         swipe: {},
         twirl: {},
     };
-        
+
     if (!$animation.levels3d.tokens) {
         $animation.levels3d.tokens = {
             enable: false,

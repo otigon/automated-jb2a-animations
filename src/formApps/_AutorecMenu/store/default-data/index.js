@@ -1,4 +1,4 @@
-import { localize }     from "@typhonjs-fvtt/runtime/svelte/helper";
+import { localize }     from "#runtime/util/i18n";
 
 import { aefx }         from "./aefx.js";
 import { aura }         from "./aura.js";

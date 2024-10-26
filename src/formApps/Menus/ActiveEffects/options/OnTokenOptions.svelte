@@ -1,5 +1,5 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { localize } from "#runtime/util/i18n";
     import { getContext }   from "svelte";
 
     import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
@@ -220,7 +220,7 @@
             </tr>
             <tr>
                 <td>
-                    <NumberInput 
+                    <NumberInput
                     label={localize("autoanimations.menus.playbackRate")}
                     section="primary"
                     field="playbackRate"

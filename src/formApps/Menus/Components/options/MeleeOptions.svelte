@@ -1,7 +1,9 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { localize }     from "#runtime/util/i18n";
 
-    import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
+    import {
+       TJSSvgFolder,
+       TJSIconButton }      from "@typhonjs-fvtt/svelte-standard/component";
 
     import NumberInput      from "./inputComponents/NumberInput.svelte";
     import Elevation        from "./inputComponents/Elevation.svelte";
@@ -98,7 +100,7 @@
             </tr>
             <tr>
                 <td>
-                    <NumberInput 
+                    <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.playbackRate")}
                     section="primary"

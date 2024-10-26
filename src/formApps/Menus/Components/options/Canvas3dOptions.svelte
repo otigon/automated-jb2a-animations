@@ -1,7 +1,9 @@
 <script>
-    import { localize }     from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { localize }     from "#runtime/util/i18n";
 
-    import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
+    import {
+       TJSSvgFolder,
+       TJSIconButton }      from "@typhonjs-fvtt/svelte-standard/component";
     import { getContext }   from "svelte";
 
     import OptionsDialog    from "./optionsInfoDialog.js";

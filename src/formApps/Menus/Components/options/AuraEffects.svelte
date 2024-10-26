@@ -1,5 +1,5 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { localize } from "#runtime/util/i18n";
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
     import { getContext }   from "svelte";
@@ -50,7 +50,7 @@
                 <td class={tintEnabled ? "" : "aa-disableOpacity"}>
                     <!--Set Animation Opacity-->
                     <Opacity {animation} label={localize("autoanimations.menus.saturate")} field="tintSaturate" min="-1" max="1"/>
-                </td> 
+                </td>
                 <td class={tintEnabled ? "" : "aa-disableOpacity"}>
                     <div class="flexcol">
                         <input
@@ -68,7 +68,7 @@
                             bind:value={$animation.primary.options.tintColor}
                         />
                     </div>
-                </td>   
+                </td>
             </tr>
         </table>
         <table class="d">
@@ -119,7 +119,7 @@
                     field="breathDuration"
                     step="1"
                 />
-                </td>    
+                </td>
             </tr>
         </table>
         <table class="d">
@@ -169,7 +169,7 @@
                     field="alphaDuration"
                     step="1"
                 />
-                </td>    
+                </td>
             </tr>
         </table>
     </TJSSvgFolder>

@@ -1,9 +1,12 @@
 <script>
-  //import CategoryControl      from "./CategoryControl.svelte";
+  import {
+    getContext,
+    setContext } from "svelte";
+
+  import { localize } from "#runtime/util/i18n";
   import { ripple } from "@typhonjs-fvtt/svelte-standard/action";
-  import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-  import { getContext } from "svelte";
-  import { setContext } from "svelte";
+
+  //import CategoryControl      from "./CategoryControl.svelte";
 
   import {
     TJSMenu,
@@ -83,7 +86,7 @@
     styles: { "margin-left": "0.5em" },
     onClickPropagate: false, // Necessary to capture click for Firefox.
   };
-  
+
   const subMenu = {
     items: copyToFrom(animation, item, autorecSettings),
   };

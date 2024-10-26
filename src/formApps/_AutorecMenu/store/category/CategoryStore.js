@@ -1,17 +1,17 @@
 import { writable }           from "svelte/store";
 
-import { localize }           from "@typhonjs-fvtt/runtime/svelte/helper";
+import { localize }           from "#runtime/util/i18n";
 
 import {
    createFilterQuery,
    WorldSettingArrayStore }   from "@typhonjs-fvtt/svelte-standard/store";
 
 
-import { aaSessionStorage }   from "../../../../sessionStorage.js";
-import { constants }          from "../../../../constants.js";
-import { gameSettings }       from "../../../../gameSettings.js";
+import { constants }          from "#constants";
+import { gameSettings }       from "#gameSettings";
+import { aaSessionStorage }   from "#sessionStorage";
 
-import CopyClipBoard from "../../../Menus/Components/copyOnClick.svelte"
+import CopyClipBoard from "../../../Menus/Components/copyOnClick.svelte";
 import VideoPreview  from "../../../Menus/Components/videoPreview/videoPreview.js";
 
 import {

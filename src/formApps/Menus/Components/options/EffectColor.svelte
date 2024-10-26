@@ -1,5 +1,5 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { localize }     from "#runtime/util/i18n";
 
     import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
     import { getContext }   from "svelte";
@@ -25,7 +25,7 @@
 <div class="aa-effect-border">
     <TJSSvgFolder
         {folder}
-        label={localize("autoanimations.menus.colorTint")} 
+        label={localize("autoanimations.menus.colorTint")}
     >
         <div slot="summary-end">
             <input
@@ -44,7 +44,7 @@
                 <td>
                     <!--Set Animation Opacity-->
                     <Opacity {animation} label={localize("autoanimations.menus.saturation")} field="saturation" min="-1" max="1" placeDefault=0 {section}/>
-                </td> 
+                </td>
                 <td>
                     <div class="flexcol">
                         <input
@@ -62,7 +62,7 @@
                             bind:value={$animation[section].options.tintColor}
                         />
                     </div>
-                </td>   
+                </td>
             </tr>
         </table>
     </TJSSvgFolder>
