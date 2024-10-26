@@ -1,9 +1,10 @@
-import { SvelteApplication }    from "@typhonjs-fvtt/runtime/svelte/application";
+import { SvelteApplication }    from "#runtime/svelte/application";
 
 import { AutorecAppShell }      from "./components";
-import { gameSettings }         from "../../gameSettings.js";
-import AADiagnostics         from "../../troubleshooting/diagnosticsMenu.js"
-import { constants }            from "../../constants.js";
+import AADiagnostics            from "../../troubleshooting/diagnosticsMenu.js";
+
+import { constants }            from "#constants";
+import { gameSettings }         from "#gameSettings";
 
 export default class AutorecMenuApp extends SvelteApplication {
     /** @inheritDoc */
@@ -80,7 +81,7 @@ export default class AutorecMenuApp extends SvelteApplication {
         {
             icon: "fas fa-stethoscope",
             label: "Diagnostics",
-            
+
             onPress: function() {
                 let diagnosticApp = new AADiagnostics();
                 diagnosticApp.render(true, { focus: true });

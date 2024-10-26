@@ -1,6 +1,7 @@
 
-import { TJSDialog } from '@typhonjs-fvtt/runtime/svelte/application';
-import ItemInfo from './itemInfo/ItemInfo.svelte'
+import { TJSDialog } from '#runtime/svelte/application';
+
+import ItemInfo from './itemInfo/ItemInfo.svelte';
 
 export default class ItemInfoDialog extends TJSDialog {
     constructor(data) {
@@ -11,7 +12,7 @@ export default class ItemInfoDialog extends TJSDialog {
             modal: false,
             zIndex:null,
             content: {
-                class: ItemInfo, 
+                class: ItemInfo,
                 props: {
                     ...data
                 }

@@ -1,17 +1,17 @@
 
-import { TJSDialog } from '@typhonjs-fvtt/runtime/svelte/application';
-import ItemInfo from './itemInfo/ItemInfo.svelte'
+import { TJSDialog } from '#runtime/svelte/application';
+import ItemInfo from './itemInfo/ItemInfo.svelte';
 
 export default class ItemInfoDialog extends TJSDialog {
     constructor(data) {
         super({
             title: 'Options Info',
             draggable: true,
-            resizable:true,
+            resizable: true,
             modal: false,
-            zIndex:null,
+            zIndex: null,
             content: {
-                class: ItemInfo, 
+                class: ItemInfo,
                 props: {
                     ...data
                 }

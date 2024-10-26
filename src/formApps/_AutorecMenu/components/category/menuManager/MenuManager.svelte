@@ -1,7 +1,7 @@
 <script>
     import { getContext }       from "svelte";
 
-    import { TJSDialog }        from "@typhonjs-fvtt/runtime/svelte/application";
+    import { TJSDialog }        from "#runtime/svelte/application";
     import { localize }         from "#runtime/util/i18n";
 
     import { AAAutorecManager } from "./AAAutorecManager";

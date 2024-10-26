@@ -1,4 +1,4 @@
-import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
+import { TJSDialog } from "#runtime/svelte/application";
 
 import ItemToAutorec from "./itemToAutorec.js";
 
