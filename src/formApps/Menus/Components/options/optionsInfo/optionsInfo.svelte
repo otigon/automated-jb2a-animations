@@ -56,7 +56,7 @@
 
     // A debounced callback that serializes application state after 500-millisecond delay.
     const storeAppState = foundry.utils.debounce(
-        () => ($storageStore = application.state.get()),
+        () => ($storageStore = application.state.current()),
         500
     );
 

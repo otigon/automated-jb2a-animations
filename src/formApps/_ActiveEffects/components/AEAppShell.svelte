@@ -54,7 +54,7 @@
     const position = application.position;
 
     // A debounced callback that serializes application state after 500-millisecond delay.
-    const storeAppState = foundry.utils.debounce(() => $storageStore = application.state.get(), 500);
+    const storeAppState = foundry.utils.debounce(() => $storageStore = application.state.current(), 500);
 
     // Reactive statement to invoke debounce callback on Position changes.
     $: storeAppState($position);
