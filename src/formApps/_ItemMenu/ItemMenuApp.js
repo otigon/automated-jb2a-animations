@@ -57,14 +57,13 @@ export default class ItemMenuApp extends SvelteApplication {
             label: "Info",
             styles: { color: 'lightblue', position: "relative", right: "5px" },
 
-            onPress: function()
-            {
+            onPress: () => {
                 if (
                     Object.values(ui.windows).find(
                        (w) => w.id === `Options-Information`
                     )
                  ) { return; }
-                 new ItemInfoDialog().render(true)
+                 new ItemInfoDialog().render(true);
             }
          });
 
@@ -75,10 +74,10 @@ export default class ItemMenuApp extends SvelteApplication {
             label: "Global Automatic Recognition Menu",
             styles: { color: 'lightblue', position: "relative", right: "30px" },
 
-            onPress: function()
+            onPress: () =>
             {
                 if (game.user.isGM) {
-                    new showAutorecMenu()
+                    new showAutorecMenu();
                 }
             }
          });

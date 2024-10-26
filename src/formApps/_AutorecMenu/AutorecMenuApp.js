@@ -70,19 +70,18 @@ export default class AutorecMenuApp extends SvelteApplication {
             icon: showSettings ? "fa-regular fa-square-list" : "fa-regular fa-gear",
             label: showSettings ? "Main Menu" : "Settings",
 
-            onPress: function()
-            {
+            onPress: ({ button }) => {
                 const newShowSettings = gameSettings.uiControl.swapShowSettings();
 
-                this.icon = newShowSettings ? "fa-regular fa-square-list" : "fa-regular fa-gear";
-                this.label = newShowSettings ? "Main Menu" : "Settings";
+                button.icon = newShowSettings ? "fa-regular fa-square-list" : "fa-regular fa-gear";
+                button.label = newShowSettings ? "Main Menu" : "Settings";
             }
         },
         {
             icon: "fas fa-stethoscope",
             label: "Diagnostics",
 
-            onPress: function() {
+            onPress: () => {
                 let diagnosticApp = new AADiagnostics();
                 diagnosticApp.render(true, { focus: true });
             }
