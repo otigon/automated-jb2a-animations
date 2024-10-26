@@ -1,15 +1,13 @@
-import { writable }           from "svelte/store";
+import { writable }                 from "svelte/store";
 
-import { localize }           from "#runtime/util/i18n";
+import { localize }                 from "#runtime/util/i18n";
 
-import {
-   createFilterQuery,
-   WorldSettingArrayStore }   from "@typhonjs-fvtt/svelte-standard/store";
+import { WorldSettingArrayStore }   from "#runtime/svelte/store/fvtt/settings/world";
+import { DynReducerHelper }         from "#runtime/svelte/store/reducer";
 
-
-import { constants }          from "#constants";
-import { gameSettings }       from "#gameSettings";
-import { aaSessionStorage }   from "#sessionStorage";
+import { constants }                from "#constants";
+import { gameSettings }             from "#gameSettings";
+import { aaSessionStorage }         from "#sessionStorage";
 
 import CopyClipBoard from "../../../Menus/Components/copyOnClick.svelte";
 import VideoPreview  from "../../../Menus/Components/videoPreview/videoPreview.js";
@@ -28,12 +26,12 @@ export class CategoryStore extends WorldSettingArrayStore {
     *
     * @type {(data: object) => boolean}
     */
-   static #filterSearch = createFilterQuery("label");
+   static #filterSearch = DynReducerHelper.filters.regexObjectQuery("label");
 
    /**
     * @type {CategoryStores}
     */
-   #stores
+   #stores;
 
    /**
     * @param {string}   key -
