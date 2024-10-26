@@ -6,7 +6,7 @@
 
     import { getContext}        from "svelte";
     import { AnimationStore } from "../store/AnimationStore.js"
-    import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
+    import { ApplicationShell } from "#runtime/svelte/component/application";
     import CategoryControl       from "./category/CategoryControl.svelte";
     import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store';
 

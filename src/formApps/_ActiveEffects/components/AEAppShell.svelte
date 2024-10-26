@@ -3,11 +3,13 @@
 <script>
     import * as newData from "../../_AutorecMenu/store/default-data/newSection"
 
-    import { getContext}        from "svelte";
-    import { AnimationStore } from "../store/AnimationStore.js"
-    import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
-    import CategoryControl       from "./category/CategoryControl.svelte";
+    import { getContext }        from "svelte";
+    import { ApplicationShell } from "#runtime/svelte/component/application";
     import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store';
+
+    import CategoryControl       from "./category/CategoryControl.svelte";
+
+    import { AnimationStore } from "../store/AnimationStore.js"
 
     import { flagMigrations } from "../../../mergeScripts/items/itemFlagMerge.js"
     //import { constants}         from "../../../constants.js";

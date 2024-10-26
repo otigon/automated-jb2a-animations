@@ -3,7 +3,7 @@
 <script>
     import { getContext }       from "svelte";
 
-    import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
+    import { ApplicationShell } from "#runtime/svelte/component/application";
     import { Timing }           from "#runtime/util";
 
     import { TJSSettingsSwap }  from "@typhonjs-fvtt/svelte-standard/component";
