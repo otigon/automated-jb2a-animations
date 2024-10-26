@@ -28,7 +28,7 @@
             bottom: "-2px",
             color: "rgba(50, 79, 245, 0.5)",
         },
-        onClickPropagate: false,
+        clickPropagate: false,
     };
     const folderOptions = {
         styles: {

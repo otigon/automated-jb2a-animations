@@ -44,7 +44,7 @@
       icon: 'fas fa-ellipsis-v',
       efx: ripple(),
       styles: { 'margin-left': '0.5em' },
-      onClickPropagate: false   // Necessary to capture click for Firefox.
+      clickPropagate: false   // Necessary to capture click for Firefox.
    };
 
    const menu = {

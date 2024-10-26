@@ -29,13 +29,13 @@
         icon: "fas fa-info-circle",
         title: "autoanimations.menus.quickReference",
         styles: {
-            "--tjs-icon-button-diameter": "1.em",
+            "--tjs-icon-button-diameter": "1em",
             position: "relative",
             left: "10px",
             bottom: "-2px",
             color: "rgba(50, 79, 245, 0.5)"
         },
-        onClickPropagate: false
+        clickPropagate: false
     }
 
     $: persistent = $animation.target.options.persistent;
