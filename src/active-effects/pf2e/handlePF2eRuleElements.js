@@ -8,7 +8,7 @@ import { DataSanitizer }    from "../../aa-classes/DataSanitizer.js";
 export async function createRuleElementPF2e(item) {
     const aePF2eTypes = ['condition', 'effect']
     if (!aePF2eTypes.includes(item.type)) { return; }
-    
+
     if (!AnimationState.enabled) { return; }
 
     // Get the Item ID and Token it is on
@@ -27,10 +27,10 @@ export async function createRuleElementPF2e(item) {
             let id = idSplit[idSplit.length - 1];
             if (tactorId !== id) {
                 debug("This is a Granted Ruleset, exiting early")
-                return;    
+                return;
             }
         }
-    }            
+    }
 
     const aeNameField = item.name.replace(/[^A-Za-z0-9 .*_-]/g, "") + `${aeToken.id}`
     const checkAnim = await Sequencer.EffectManager.getEffects({ object: aeToken, name: aeNameField }).length > 0
@@ -66,7 +66,7 @@ export async function createRuleElementPF2e(item) {
 }
 
 export async function deleteRuleElementPF2e(itemData = {}) {
-    
+
     const data = {
         token: itemData.token,
         targets: [],
@@ -83,7 +83,7 @@ export async function deleteRuleElementPF2e(itemData = {}) {
 
     const macro = await DataSanitizer.compileMacro(handler, flagData);
     if (macro) {
-        if (isNewerVersion(game.version, 11)) {
+        if (foundry.utils.isNewerVersion(game.version, 11)) {
             new Sequence()
             .macro(macro.name, {args: ["off", handler, macro.args]})
             .play()
@@ -96,7 +96,7 @@ export async function deleteRuleElementPF2e(itemData = {}) {
                 new Sequence()
                     .macro(macro.name)
                     .play()
-            }    
+            }
         }
     }
 }

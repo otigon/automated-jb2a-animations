@@ -49,7 +49,7 @@ export function systemHooks() {
             templateData: template,
             workflow: template,
             isTemplate: true
-        }) 
+        })
         // pf2e v5 includes on item getter on templates which handles variants
         if (template.item) compiledData.item = template.item
 
@@ -59,11 +59,11 @@ export function systemHooks() {
 
 async function templateAnimation(input) {
     debug("Template placed, checking for animations")
-    if (!input.item) { 
+    if (!input.item) {
         debug("No Item could be found")
         return;
     }
-    if (isNewerVersion(game.system.version, "5")) {
+    if (foundry.utils.isNewerVersion(game.system.version, "5")) {
         if (input.item.isVariant) {
             input.isVariant = true
             input.originalItem = input.item.original
@@ -83,7 +83,7 @@ async function templateAnimation(input) {
             }
         }
     }
-    
+
     const handler = await AAHandler.make(input)
     trafficCop(handler)
 }
@@ -103,7 +103,7 @@ async function runPF2e(data) {
             if (!data.workflow.isRoll) { return; }
             runPF2eWeapons(data)
             break;
-        case "consumable": 
+        case "consumable":
             playPF2e(data)
             break;
         default:
@@ -163,13 +163,13 @@ async function runPF2eSpells(data) {
         data.originalItem = item.original;
     }
 
-    if (isNewerVersion(game.system.version, "5.8.3")) {
+    if (foundry.utils.isNewerVersion(game.system.version, "5.8.3")) {
         // pf2e 5.9 removes spellType
         if (item.system.traits.value.includes("healing"))
             spellType = "heal"
         else if (item.system.traits.value.includes("attack"))
             spellType = "attack"
-        else   
+        else
             spellType = "save"
     }
 
@@ -201,7 +201,7 @@ async function runPF2eSpells(data) {
     }
 }
 async function playPF2e(input) {
-    if (!input.item) { 
+    if (!input.item) {
         debug("No Item could be found")
         return;
     }
@@ -220,16 +220,16 @@ async function playPF2e(input) {
     trafficCop(handler);
 }
 /**
- * 
- * @param {Object} item 
+ *
+ * @param {Object} item
  * @returns {String} spell || focus || ritual
  */
  function getSpellCategory(item) {
     return item.system.category.value;
 }
 /**
- * 
- * @param {Object} item 
+ *
+ * @param {Object} item
  * @returns {String} utility || save || heal || attack
  */
 function getSpellType(item) {
@@ -252,7 +252,7 @@ function findAttackOnItem(item) {
         case "ritual":
             return spellHasAttack(item)
 
-             
+
     }
 }
 
@@ -265,7 +265,7 @@ function findDamageOnItem(item) {
 }
 
 function itemHasDamage(item) {
-    let damage = 
+    let damage =
         item.system?.damage?.value // before pf2e 5.9 spell damage
         || item.system?.damage // 5.9 spell damage
         || item.system?.damageRolls // strike damage
@@ -274,8 +274,8 @@ function itemHasDamage(item) {
 }
 
 /**
- * 
- * @param {Object} item 
+ *
+ * @param {Object} item
  * @returns {String} Weapon's base type
  */
 function getWeaponBaseType(item) {
