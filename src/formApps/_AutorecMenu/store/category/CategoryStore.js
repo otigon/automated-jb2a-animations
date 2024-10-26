@@ -81,8 +81,6 @@ export class CategoryStore extends WorldSettingArrayStore {
     * In this case this solution is better than creating a derived store from the AnimationStore sessionStorage folder
     * state. The below code uses the current dataReducer count and is also triggered by any open / close of any children
     * folders. The calculation for "all folders open" can short circuit on the first false / closed value.
-    *
-    * @param {import('@typhonjs-fvtt/runtime/svelte/store').DynArrayReducer<AnimationStore>}   dataReducer -
     */
    calcAllFolderState()
    {

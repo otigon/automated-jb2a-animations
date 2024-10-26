@@ -3,9 +3,8 @@
     import { quintOut }          from "svelte/easing";
     import { writable }          from "svelte/store";
 
-    import { applyScrolltop }    from "@typhonjs-fvtt/runtime/svelte/action";
-    import { animateEvents }     from "@typhonjs-fvtt/runtime/svelte/animate";
-
+    import { applyScrolltop }    from "#runtime/svelte/action/dom/properties";
+    import { animateEvents }     from "#runtime/svelte/animate";
 
     import Animation            from "../animation/Animation.svelte";
 
