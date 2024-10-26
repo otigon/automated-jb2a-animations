@@ -9,22 +9,22 @@
     "Otigon (https://github.com/otigon)",
     "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)"
   ],
+  "imports": {
+    "#runtime/*": "@typhonjs-fvtt/runtime/*",
+    "#standard/*": "@typhonjs-fvtt/standard/*",
+    "#constants": "./src/constants.js",
+    "#gameSettings": "./src/gameSettings.js",
+    "#sessionStorage": "./src/sessionStorage.js"
+  },
   "dependencies": {
-    "@typhonjs-fvtt/runtime": "^0.0.23",
-    "@typhonjs-fvtt/svelte-standard": "^0.0.23",
-    "svelte": "^3.56.0"
+    "@typhonjs-fvtt/runtime": "^0.2.0-next.2",
+    "@typhonjs-fvtt/standard": "^0.2.0-next.2",
+    "svelte": "^4.2.19"
   },
   "devDependencies": {
-    "@typhonjs-config/eslint-config": "^0.3.0",
-    "@typhonjs-fvtt/eslint-config-foundry.js": "^0.8.0",
-    "eslint": "^8",
-    "svelte-preprocess": "^5",
-    "vite": "^4"
+    "vite": "^5"
   },
-  "browserslist": [
-    ">5%",
-    "not IE 11"
-  ],
+  "browserslist": [">5%", "not IE 11"],
   "scripts": {
     "build": "vite build",
     "watch": "vite build --watch",
