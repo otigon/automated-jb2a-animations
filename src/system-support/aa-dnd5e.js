@@ -23,8 +23,11 @@ export function systemHooks() {
         });
         Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
             if (userId !== game.user.id) { return };
-            templateAnimation(await getRequiredData({itemUuid: template.flags?.dnd5e?.origin, templateData: template, workflow: template, isTemplate: true}))
-        })
+            const activity = await fromUuid(template.flags?.dnd5e?.origin);
+            const item = activity ? activity?.parent?.parent : template?.flags?.autoanimations?.itemData;
+            const overrideNames = activity?.name && !["heal", "summon"].includes(activity?.name?.trim()) ? [activity.name] : [];
+            templateAnimation(await getRequiredData({item, templateData: template, workflow: template, isTemplate: true, overrideNames}));
+        });
     } else if (game.modules.get("wire")?.active) {
         // WIRE handles triggering AA
     } else if (isNewerVersion(game.system.version, 3.9)) { 
