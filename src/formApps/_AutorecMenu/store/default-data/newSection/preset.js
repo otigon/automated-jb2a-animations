@@ -1,4 +1,4 @@
-import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+import { Hashing } from "#runtime/util";
 
 import * as common from "../common";
 
@@ -6,7 +6,7 @@ export function preset(current = {}, type) {
     switch (type) {
         case "dualattach":
             return {
-                id: current.id || uuidv4(),
+                id: current.id || Hashing.uuidv4(),
                 data: {
                     video: {
                         dbSection: "range",
@@ -21,7 +21,7 @@ export function preset(current = {}, type) {
                         opacity: 1,
                         playbackRate: 1,
                     },
-                    sound: common.sound()                
+                    sound: common.sound()
                 },
                 label: current.label || "",
                 macro: current.macro || common.macro(),
@@ -33,7 +33,7 @@ export function preset(current = {}, type) {
             }
         case "proToTemp":
             return {
-                id: current.id || uuidv4(),
+                id: current.id || Hashing.uuidv4(),
                 data: {
                     projectile: {
                         dbSection: "range",
@@ -97,7 +97,7 @@ export function preset(current = {}, type) {
                             persistent: false,
                             scale: 1,
                         }
-                    }                
+                    }
                 },
                 label: current.label || "",
                 macro: current.macro || common.macro(),
@@ -111,7 +111,7 @@ export function preset(current = {}, type) {
             }
         case "teleportation":
             return {
-                id: current.id || uuidv4(),
+                id: current.id || Hashing.uuidv4(),
                 data: {
                     start: {
                         dbSection: "static",
@@ -177,7 +177,7 @@ export function preset(current = {}, type) {
                         delayReturn: 250,
                         checkCollision: true,
                     },
-                    sound: {enable: false}                
+                    sound: {enable: false}
                 },
                 label: current.label || "",
                 macro: current.macro || common.macro(),
@@ -189,14 +189,14 @@ export function preset(current = {}, type) {
             }
         case "thunderwave":
             return {
-                id: current.id || uuidv4(),
+                id: current.id || Hashing.uuidv4(),
                 data: {
                     video: {
                         dbSection: "static",
                         menuType: "spell",
                         animation: "thunderwave",
                         variant: "mid",
-                        color: "blue",    
+                        color: "blue",
                     },
                     options: {
                         elevation: 1000,
@@ -205,7 +205,7 @@ export function preset(current = {}, type) {
                         repeatDelay: 250,
                         opacity: 1,
                     }      ,
-                    sound: {enable: false},          
+                    sound: {enable: false},
                 },
                 label: current.label || "",
                 macro: current.macro || common.macro(),
@@ -217,7 +217,7 @@ export function preset(current = {}, type) {
             }
         default:
             return {
-                id: current.id || uuidv4(),
+                id: current.id || Hashing.uuidv4(),
                 data: {
                     projectile: {
                         dbSection: "range",
@@ -281,7 +281,7 @@ export function preset(current = {}, type) {
                             persistent: false,
                             scale: 1,
                         }
-                    }                
+                    }
                 },
                 label: current.label || "",
                 macro: current.macro || common.macro(),

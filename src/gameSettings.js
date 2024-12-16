@@ -2,9 +2,9 @@ import AutorecShim from "./formApps/_AutorecMenu/appShim.js";
 import { aaAutorec } from "./mergeScripts/autorec/aaAutoRecList.js";
 import { AnimationState } from "./AnimationState.js";
 
-import { TJSGameSettings } from '@typhonjs-fvtt/svelte-standard/store';
+import { TJSGameSettingsWithUI } from '#standard/store/fvtt/settings';
 
-class AAGameSettings extends TJSGameSettings {
+class AAGameSettings extends TJSGameSettingsWithUI {
    constructor() {
       super('autoanimations');
    }
@@ -425,7 +425,7 @@ class AAGameSettings extends TJSGameSettings {
                }
             });
             break;
-      
+
          case 'dnd5e':
          case 'sw5e':
             if (game.modules.get('midi-qol')?.active) {

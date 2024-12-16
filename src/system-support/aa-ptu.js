@@ -31,7 +31,7 @@ export function systemHooks() {
             templateData: template,
             workflow: template,
             isTemplate: true
-        }) 
+        })
         if (template.item) compiledData.item = template.item
 
         templateAnimation(compiledData)
@@ -40,11 +40,11 @@ export function systemHooks() {
 
 async function templateAnimation(input) {
     debug("Template placed, checking for animations")
-    if (!input.item) { 
+    if (!input.item) {
         debug("PTU | No Item could be found")
         return;
     }
-    if (isNewerVersion(game.system.version, "5")) {
+    if (foundry.utils.isNewerVersion(game.system.version, "5")) {
         if (input.item.isVariant) {
             input.isVariant = true
             input.originalItem = input.item.original
@@ -64,7 +64,7 @@ async function templateAnimation(input) {
             }
         }
     }
-    
+
     const handler = await AAHandler.make(input)
     trafficCop(handler)
 }
@@ -74,7 +74,7 @@ async function runPtu(data) {
     const item = data.item;
     const playOnDamage = data.playOnDamage;
     const isDamageRoll = msg.isDamageRoll;
-    
+
     if(item.type === "effect" || item.type === "condition") {
         debug ("PTU | This is a Condition or Effect, exiting main workflow")
         return;
@@ -106,7 +106,7 @@ function checkOutcome(input) {
     outcome = outcome ? outcome.toLowerCase() : "";
     let hitTargets;
     if (input.targets.length < 2
-        && !game.settings.get('autoanimations', 'playonDamageCore') 
+        && !game.settings.get('autoanimations', 'playonDamageCore')
         && outcome)
         {
             if (outcome === 'success' || outcome === 'criticalsuccess') {

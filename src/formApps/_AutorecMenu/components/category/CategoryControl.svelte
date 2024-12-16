@@ -1,15 +1,17 @@
 <script>
     import {
        ripple,
-       rippleFocus }                from "@typhonjs-fvtt/svelte-standard/action";
+       rippleFocus }                from "#standard/action/animate/composable/ripple";
 
     import {
        TJSIconButton,
-       TJSInput,
-       TJSMenu,
-       TJSToggleIconButton }        from "@typhonjs-fvtt/svelte-standard/component";
+       TJSToggleIconButton }        from "#standard/component/button";
 
-    import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+    import { TJSInput }             from "#standard/component/form";
+
+    import { TJSMenu }              from "#standard/component/menu";
+
+    import { Hashing }              from "#runtime/util";
 
     import ButtonOpenCloseAll       from "./ButtonOpenCloseAll.svelte";
     import { createOverflowItems }  from "./createOverflowItems.js";
@@ -53,7 +55,7 @@
 
     function addEntry() {
       let newData = newSection[menuTab]()
-      //newData.id = uuidv4();
+      //newData.id = Hashing.uuidv4();
       category.createEntry(newData)
     }
 </script>

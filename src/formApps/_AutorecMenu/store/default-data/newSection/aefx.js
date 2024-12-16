@@ -1,12 +1,12 @@
-import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+import { Hashing } from "#runtime/util";
 
 import * as common from "../common";
-import * as options from "../options"
+import * as options from "../options";
 
 export function aefx(current = {}, type) {
     if (type === "ontoken") {
         return {
-            id: current.id || uuidv4(),
+            id: current.id || Hashing.uuidv4(),
             label: current.label || "",
             activeEffectType: current.activeEffectType || "ontoken",
             menu: 'aefx',
@@ -30,11 +30,11 @@ export function aefx(current = {}, type) {
         }
     } else if (type === "aura") {
         return {
-            id: current.id || uuidv4(),
+            id: current.id || Hashing.uuidv4(),
             label: current.label || "",
             activeEffectType: current.activeEffectType || "ontoken",
             menu: 'aefx',
-            macro: current.macro || common.macro(),    
+            macro: current.macro || common.macro(),
             primary: {
                 video: {
                     dbSection: "static",
@@ -54,7 +54,7 @@ export function aefx(current = {}, type) {
         }
     } else {
         return {
-            id: current.id || uuidv4(),
+            id: current.id || Hashing.uuidv4(),
             label: current.label || "",
             activeEffectType: current.activeEffectType || "ontoken",
             menu: 'aefx',

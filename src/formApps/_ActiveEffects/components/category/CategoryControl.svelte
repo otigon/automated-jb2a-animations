@@ -1,15 +1,15 @@
 <script>
-  //import CategoryControl      from "./CategoryControl.svelte";
-  import { ripple } from "@typhonjs-fvtt/svelte-standard/action";
-  import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
   import { getContext } from "svelte";
   import { setContext } from "svelte";
 
-  import {
-    TJSMenu,
-    TJSToggleIconButton,
-  } from "@typhonjs-fvtt/svelte-standard/component";
+  import { localize }   from "#runtime/util/i18n";
 
+  import { ripple }     from "#standard/action/animate/composable/ripple";
+
+  import { TJSToggleIconButton } from "#standard/component/button";
+  import { TJSMenu } from "#standard/component/menu";
+
+  //import CategoryControl      from "./CategoryControl.svelte";
 
   import CategoryList from "./CategoryList.svelte";
   import Slider from "../../../Menus/Components/options/inputComponents/Slider.svelte";
@@ -97,7 +97,7 @@
     efx: ripple(),
     title: "Copy To/From",
     styles: { "margin-left": "0.5em" },
-    onClickPropagate: false, // Necessary to capture click for Firefox.
+    clickPropagate: false, // Necessary to capture click for Firefox.
   };
 
   const subMenu = {

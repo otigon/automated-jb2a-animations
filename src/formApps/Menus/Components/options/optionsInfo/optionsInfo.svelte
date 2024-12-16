@@ -1,7 +1,7 @@
 <script>
     import { getContext } from "svelte";
 
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { localize } from "#runtime/util/i18n";
 
     import OptionsInformation from "./OptionsInformation.svelte";
 
@@ -56,7 +56,7 @@
 
     // A debounced callback that serializes application state after 500-millisecond delay.
     const storeAppState = foundry.utils.debounce(
-        () => ($storageStore = application.state.get()),
+        () => ($storageStore = application.state.current()),
         500
     );
 

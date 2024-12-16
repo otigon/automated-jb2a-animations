@@ -1,6 +1,6 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { getContext }   from "svelte";
+    import { localize }         from "#runtime/util/i18n";
+    import { getContext }       from "svelte";
 
     import DualAttach           from "../Presets/DualAttach.svelte"
     import ProjectileToTemplate from "../Presets/ProjectileToTemplate.svelte";
@@ -9,7 +9,7 @@
     import SectionButtons       from "../Components/SectionButtons02.svelte";
     import Macro                from "../Components/Macro.svelte";
     import SoundOnly            from "../Components/SoundOnly.svelte";
-    import { preset }       from "../../_AutorecMenu/store/default-data/newSection/preset.js"
+    import { preset }           from "../../_AutorecMenu/store/default-data/newSection/preset.js"
     //import * as reset           from "../Presets/presetDefaults";
 
     //export let animation;

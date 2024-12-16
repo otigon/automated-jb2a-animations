@@ -1,8 +1,12 @@
-import { propertyStore } from "@typhonjs-fvtt/runtime/svelte/store";
+import { propertyStore } from "#runtime/svelte/store/writable-derived";
+
+import { FVTTFilePickerControl } from "#standard/application/control/filepicker";
 
 import { CategoryStore } from "../category/CategoryStore.js";
-import { aaSessionStorage } from "../../../../sessionStorage.js";
-import { constants } from "../../../../constants.js";
+
+import { constants } from "#constants";
+import { aaSessionStorage } from "#sessionStorage";
+
 /*
 import {
    aaTypeMenu,
@@ -96,38 +100,35 @@ export class AnimationStore extends CategoryStore.EntryStore {
 
    async selectCustom(section, section02 = "video") {
       const current = this._data[section][section02].customPath;
-      const picker = new FilePicker({
-         type: "imagevideo",
-         current,
-         callback: (path) => {
-            this._data[section][section02].customPath = path;
-            this._updateSubscribers()
-            },
-      });
-      setTimeout(() => {
-         picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-      }, 100);
-      await picker.browse(current);
 
+      const path = await FVTTFilePickerControl.browse({
+         modal: true,
+         type: "imagevideo",
+         current
+      });
+
+      if (path) {
+         this._data[section][section02].customPath = path;
+         this._updateSubscribers();
+      }
    }
 
    async selectSound(section) {
       const current = this._data[section].sound.file;
-      const picker = new FilePicker({
-          type: "audio",
-          current,
-          callback: (path) => {
-            this._data[section].sound.file = path;
-            this._updateSubscribers()
-            },
-      });
-      setTimeout(() => {
-          picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-      }, 100);
-      await picker.browse(current);
-  }
 
-  async getSource() {
+      const path = await FVTTFilePickerControl.browse({
+         modal: true,
+         type: "audio",
+         current
+      });
+
+      if (path) {
+         this._data[section].sound.file = path;
+         this._updateSubscribers();
+      }
+   }
+
+   async getSource() {
       if (!this._data.metaData) {
          ui.notifications.info(`Automated Animations | No Defined MetaData on this Entry`)
       } else {
@@ -135,7 +136,7 @@ export class AnimationStore extends CategoryStore.EntryStore {
          ui.notifications.info("Automated Animations | MetaData logged to Dev Console");
          Hooks.callAll("AutomatedAnimations.metaData", this._data)
       }
-  }
+   }
 }
 
 /**

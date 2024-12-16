@@ -1,9 +1,8 @@
 <script>
-    import { ripple }                 from "@typhonjs-fvtt/svelte-standard/action";
-    import {
-        TJSMenu,
-        TJSToggleIconButton,
-    } from "@typhonjs-fvtt/svelte-standard/component";
+    import { ripple }               from "#standard/action/animate/composable/ripple";
+
+    import { TJSToggleIconButton }  from "#standard/component/button";
+    import { TJSMenu }              from "#standard/component/menu";
 
     export let menu;
     export let info = {};
@@ -12,7 +11,7 @@
         icon: 'fas fa-ellipsis-v',
         efx: ripple(),
         styles: { 'margin-left': '0.5em' },
-        onClickPropagate: false   // Necessary to capture click for Firefox.
+        clickPropagate: false   // Necessary to capture click for Firefox.
     };
 
 </script>

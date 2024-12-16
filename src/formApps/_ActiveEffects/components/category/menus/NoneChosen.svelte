@@ -1,5 +1,5 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    // import { localize } from "#runtime/util/i18n";
 
     export let isEnabled;
     export let isCustomized;
@@ -73,7 +73,7 @@
                 <strong>Animations are disabled for this item</strong>  <i class="fas fa-xmark aa-red"></i>
             </li>
         </ul>
-        
+
     {/if}
 </div>
 

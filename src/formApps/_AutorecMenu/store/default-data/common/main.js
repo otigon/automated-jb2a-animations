@@ -1,4 +1,4 @@
-import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+import { Hashing } from "#runtime/util";
 
 /**
  * Creates the main properties that all animations share.
@@ -10,7 +10,7 @@ export function main({ label, soundOnly}) {
    //if (typeof soundOnly !== 'boolean') { throw new TypeError(`'soundOnly' is not a boolean.`); }
 
    return {
-      id: uuidv4(),
+      id: Hashing.uuidv4(),
       label: `autoanimations.animations.${label}`,
       soundOnly: {
          sound: {

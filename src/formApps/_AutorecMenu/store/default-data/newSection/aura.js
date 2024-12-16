@@ -1,11 +1,11 @@
-import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+import { Hashing } from "#runtime/util";
 
 import * as common from "../common";
 import * as options from "../options";
 
 export function aura(current = {}) {
         return {
-            id: current.id || uuidv4(),
+            id: current.id || Hashing.uuidv4(),
             label: current.label,
             macro: current.macro || common.macro(),
             menu: "aura",

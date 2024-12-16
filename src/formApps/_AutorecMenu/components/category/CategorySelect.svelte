@@ -2,7 +2,7 @@
     import CategoryControl      from "./CategoryControl.svelte";
     import CategoryList         from "./CategoryList.svelte";
     import { getContext } from "svelte";
-    import { TJSIconButton, TJSToggleIconButton } from "@typhonjs-fvtt/svelte-standard/component";
+    import { TJSIconButton, TJSToggleIconButton } from "#standard/component/button";
 
     import MenuManager from "./menuManager/MenuManagerApp.js"
     import { autoRecStores }    from "../../store/AutoRecStores.js";

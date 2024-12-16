@@ -1,10 +1,14 @@
 <script>
-    import { localize }     from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }       from "svelte";
 
-    import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
-    import { getContext }   from "svelte";
+    import { localize }         from "#runtime/util/i18n";
 
-    import OptionsDialog    from "./optionsInfoDialog.js";
+    import { FVTTFilePickerControl } from "#standard/application/control/filepicker";
+
+    import { TJSIconButton }    from "#standard/component/button";
+    import { TJSSvgFolder }     from "#standard/component/folder";
+
+    import OptionsDialog        from "./optionsInfoDialog.js";
 
     //export let animation;
     let { animation} = getContext('animation-data');
@@ -39,7 +43,7 @@ if(!$animation.levels3d.secondary.data.spritePath) {
           bottom: "-2px",
           color: "rgba(50, 79, 245, 0.5)"
        },
-        onClickPropagate: false
+        clickPropagate: false
     }
     const folderOptions = {
         styles: {
@@ -52,17 +56,16 @@ if(!$animation.levels3d.secondary.data.spritePath) {
 
     async function selectCustom() {
         const current = animation._data.levels3d.secondary.data.spritePath;
-        const picker = new FilePicker({
+
+        const path = await FVTTFilePickerControl.browse({
+            modal: true,
             type: "any",
-            current,
-            callback: (path) => {
-                $animation.levels3d.secondary.data.spritePath = path;
-            },
+            current
         });
-        setTimeout(() => {
-            picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-        }, 100);
-        await picker.browse(current);
+
+        if (path) {
+            $animation.levels3d.secondary.data.spritePath = path;
+        }
     }
 
     $: isEnabled = $animation.levels3d.secondary.enable
@@ -73,6 +76,7 @@ if(!$animation.levels3d.secondary.data.spritePath) {
 >
     <div slot="summary-end">
         <input
+            on:click|stopPropagation
             type="checkbox"
             style="align-self:center"
             title="Toggle Secondary On/Off"

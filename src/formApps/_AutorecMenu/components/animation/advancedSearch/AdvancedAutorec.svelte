@@ -1,9 +1,11 @@
 <script>
-    import { localize }     from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { getContext }   from "svelte";
+    import { getContext }       from "svelte";
 
-    import {TJSIconButton}  from "@typhonjs-fvtt/svelte-standard/component";
-    import {ripple}         from "@typhonjs-fvtt/svelte-standard/action";
+    import { localize }         from "#runtime/util/i18n";
+
+    import { ripple }           from "#standard/action/animate/composable/ripple";
+
+    import { TJSIconButton }    from "#standard/component/button";
 
     const { application } = getContext("#external");
 
@@ -106,7 +108,7 @@
                     <input type=text bind:value={$animation.advanced.excludedType.property}/>
                 </div>
             </div>
-        </th>    
+        </th>
     </tr>
 </table>
 <div class="aa-list" />

@@ -1,15 +1,20 @@
-import { ObjectEntryStore }   from "@typhonjs-fvtt/svelte-standard/store";
 import { writable }           from "svelte/store";
-import { uuidv4 }             from "@typhonjs-fvtt/runtime/svelte/util";
-import { isObject }           from '@typhonjs-fvtt/runtime/svelte/util';
+
+import { Hashing }            from "#runtime/util";
+import { isObject }           from '#runtime/util/object';
+
+import { ObjectEntryStore }   from "#runtime/svelte/store/reducer/array-object";
+
+import { FVTTFilePickerControl } from "#standard/application/control/filepicker";
+
 import * as changeSection from "../../_AutorecMenu/store/default-data/newSection";
 
 import { custom_warning } from "../../../constants/constants.js";
-import VideoPreview  from "../../Menus/Components/videoPreview/videoPreview.js"
+import VideoPreview  from "../../Menus/Components/videoPreview/videoPreview.js";
 
 //import { CategoryStore } from "../category/CategoryStore.js";
-//import { aaSessionStorage } from "../../../../sessionStorage.js";
-//import { constants } from "../../../../constants.js";
+//import { aaSessionStorage } from "#sessionStorage";
+//import { constants } from "#constants";
 
 import {
    newTypeMenu,
@@ -44,27 +49,25 @@ export class AnimationStore extends ObjectEntryStore {
    // ----------------------------------------------------------------------------------------------------------------
 
    /**
- * @param {object}   data -
- */
+    * @param {object}   data -
+    */
    set() {
       this._updateSubscribers();
    }
 
    async selectCustom(section, section02 = "video") {
       const current = this._data[section][section02].customPath;
-      const picker = new FilePicker({
-         type: "imagevideo",
-         current,
-         callback: (path) => {
-            this._data[section][section02].customPath = path;
-            this._updateSubscribers()
-         },
-      });
-      setTimeout(() => {
-         picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-      }, 100);
-      await picker.browse(current);
 
+      const path = await FVTTFilePickerControl.browse({
+         modal: true,
+         type: "imagevideo",
+         current
+      });
+
+      if (path) {
+         this._data[section][section02].customPath = path;
+         this._updateSubscribers();
+      }
    }
 
    loadPreviews() {
@@ -205,51 +208,47 @@ export class AnimationStore extends ObjectEntryStore {
 
    async selectCustom(section, section02 = "video", idx) {
       const current = this._data[section][section02].customPath;
-      const picker = new FilePicker({
-         type: "imagevideo",
-         current,
-         callback: (path) => {
-            this._data[section][section02].customPath = path;
-            this._updateSubscribers()
-         },
-      });
-      setTimeout(() => {
-         picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-      }, 100);
-      await picker.browse(current);
 
+      const path = await FVTTFilePickerControl.browse({
+         modal: true,
+         type: "imagevideo",
+         current
+      });
+
+      if (path) {
+         this._data[section][section02].customPath = path;
+         this._updateSubscribers();
+      }
    }
 
    async selectSound(section, idx) {
       const current = this._data[section].sound.file;
-      const picker = new FilePicker({
+
+      const path = await FVTTFilePickerControl.browse({
+         modal: true,
          type: "audio",
-         current,
-         callback: (path) => {
-            this._data[section].sound.file = path;
-            this._updateSubscribers()
-         },
+         current
       });
-      setTimeout(() => {
-         picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-      }, 100);
-      await picker.browse(current);
+
+      if (path) {
+         this._data[section].sound.file = path;
+         this._updateSubscribers();
+      }
    }
 
    async selectSoundNested(section, section02, idx) {
       const current = this._data[section][section02].sound.file;
-      const picker = new FilePicker({
+
+      const path = await FVTTFilePickerControl.browse({
+         modal: true,
          type: "audio",
-         current,
-         callback: (path) => {
-            this._data[section][section02].sound.file = path;
-            this._updateSubscribers()
-         },
+         current
       });
-      setTimeout(() => {
-         picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-      }, 100);
-      await picker.browse(current);
+
+      if (path) {
+         this._data[section][section02].sound.file = path;
+         this._updateSubscribers();
+      }
    }
 
    openSequencerViewer() {
@@ -313,7 +312,7 @@ export class AnimationStore extends ObjectEntryStore {
          custom_warning("You are attempting to copy an Item to the Global menu, but you haven't configured the item!", true)
       }
       let data = foundry.utils.deepClone(this._data);
-      data.id = uuidv4();
+      data.id = Hashing.uuidv4();
       data.label = label;
       switch(menu) {
          case "melee":
@@ -432,7 +431,7 @@ export class AnimationStore extends ObjectEntryStore {
             break;
       }
    }
-  
+
 }
 
 /**

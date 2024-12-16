@@ -1,9 +1,9 @@
-import { TJSDialog } from '@typhonjs-fvtt/runtime/svelte/application';
+import { TJSDialog } from '#runtime/svelte/application';
 
 import FullVideoPreview from "./autorecPreviews.svelte";
 
-import { aaSessionStorage } from "../../../../sessionStorage.js";
-import { sessionConstants } from "../../../../constants.js";
+import { sessionConstants } from "#constants";
+import { aaSessionStorage } from "#sessionStorage";
 
 export default class TotalPreview extends TJSDialog {
     static #app;

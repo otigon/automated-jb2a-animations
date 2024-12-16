@@ -1,7 +1,7 @@
-import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+import { Hashing } from "#runtime/util";
 import { debug, custom_notify } from "../constants/constants.js";
 import { handleItem } from "./findAnimation.js";
-//import { endTiming } from "../constants/timings.js";
+// import { endTiming } from "../constants/timings.js";
 import { sourceEffect, secondaryEffect, targetEffect, macroSection } from "./commonSequences.js";
 import { AnimationState } from "../AnimationState.js";
 
@@ -21,7 +21,7 @@ export default class AAHandler {
         Hooks.callAll("AutomatedAnimations-WorkflowStart", clonedData, animationData);
 
         // Can be added from the above Hook to stop the A-A workflow
-        if (clonedData.stopWorkflow) { 
+        if (clonedData.stopWorkflow) {
             debug(`Animation Workflow was interrupted by an External Source`, clonedData )
             return;
         }
@@ -38,7 +38,7 @@ export default class AAHandler {
         }
 
         // If no Animation data is matched, returns False and stops workflow
-        if (!animationData && !newAnimationData) { 
+        if (!animationData && !newAnimationData) {
             debug(`No Animation matched for Item`, clonedData )
             return false;
         }
@@ -51,7 +51,7 @@ export default class AAHandler {
         debug("Compiling Automated Animations data");
 
         this.animationData = data.finalAnimationData;
-        
+
         this.isActiveEffect = data.activeEffect ?? false;
 
         this.systemId = game.system.id;
@@ -63,7 +63,7 @@ export default class AAHandler {
         this.sourceToken = data.token?.isEmbedded ? data.token?.object : data.token;
 
         this.item = data.ammoItem || data.item;
-        this.itemUuid = this.item?.uuid || uuidv4();
+        this.itemUuid = this.item?.uuid || Hashing.uuidv4();
         this.itemName = this.item.name ?? this.item.label;
         this.rinsedName = data.rinsedName || this.itemName ? this.itemName.replace(/\s+/g, '').toLowerCase() : "";
 
@@ -94,7 +94,7 @@ export default class AAHandler {
     }
 
     get isAura () {
-        return this.menu === "aura" 
+        return this.menu === "aura"
     }
 
     get isTeleport() {
@@ -110,13 +110,13 @@ export default class AAHandler {
 
     // Sets the Elevation of the Effect
     elevation(token = {}, abs = false, level = 0) {
-        return abs ? level : level - 1; 
+        return abs ? level : level - 1;
     }
 
     // Sets the Size of the effect
     getSize(isRadius = false, size = 1, token, addToken = false) {
-        return isRadius 
-            ? addToken ? (size * 2) + (token.w / canvas.grid.size) : size * 2 
+        return isRadius
+            ? addToken ? (size * 2) + (token.w / canvas.grid.size) : size * 2
             : (token.w / canvas.grid.size) * 1.5 * size;
     }
 
@@ -125,36 +125,36 @@ export default class AAHandler {
             // This code was provided by David (AKA Claudekennilol) specific for PF1
             const scene = game.scenes.active;
             const gridSize = scene.grid.size;
-    
+
             const left = (token) => token.x;
             const right = (token) => token.x + token.w;
             const top = (token) => token.y;
             const bottom = (token) => token.y + token.h;
-    
+
             const isLeftOf = right(this.sourceToken) <= left(target);
             const isRightOf = left(this.sourceToken) >= right(target);
             const isAbove = bottom(this.sourceToken) <= top(target);
             const isBelow = top(this.sourceToken) >= bottom(target);
-    
+
             let x1 = left(this.sourceToken);
             let x2 = left(target);
             let y1 = top(this.sourceToken);
             let y2 = top(target);
-    
+
             if (isLeftOf) {
                 x1 += (this.sourceToken.document.width - 1) * gridSize;
             }
             else if (isRightOf) {
                 x2 += (target.document.width - 1) * gridSize;
             }
-    
+
             if (isAbove) {
                 y1 += (this.sourceToken.document.height - 1) * gridSize;
             }
             else if (isBelow) {
                 y2 += (target.document.height - 1) * gridSize;
             }
-    
+
             const ray = new Ray({ x: x1, y: y1 }, { x: x2, y: y2 });
             const distance = canvas.grid.grid.measureDistances([{ ray }], { gridSpaces: true })[0];
             return distance / canvas.dimensions.distance;
@@ -206,7 +206,7 @@ export default class AAHandler {
     }
     runMacro(macro, handler = this) {
         let userData = macro.args;
-        if (isNewerVersion(game.version, 11)) {
+        if (foundry.utils.isNewerVersion(game.version, 11)) {
             new Sequence(handler.sequenceData)
                 .macro(macro.name, {args: [handler.workflow, handler, userData]})
                 .play()
@@ -219,7 +219,7 @@ export default class AAHandler {
                 new Sequence(handler.sequenceData)
                     .macro(macro.name)
                     .play()
-            }    
+            }
         }
     }
     compileSourceEffect(sourceFX, seq, handler = this) {

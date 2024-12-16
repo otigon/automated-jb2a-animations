@@ -1,6 +1,9 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
     import { getContext } from "svelte";
+
+    import { localize } from "#runtime/util/i18n";
+
+    import { FVTTFilePickerControl } from "#standard/application/control/filepicker";
 
     import Canvas3dOptions from "./options/Canvas3dOptions.svelte";
     import Canvas3DSecondary from "./options/Canvas3DSecondary.svelte";
@@ -32,17 +35,16 @@
 
     async function selectCustom() {
         const current = animation._data.levels3d.data.spritePath;
-        const picker = new FilePicker({
-            type: "any",
-            current,
-            callback: (path) => {
-                $animation.levels3d.data.spritePath = path;
-            },
-        });
-        setTimeout(() => {
-            picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-        }, 100);
-        await picker.browse(current);
+
+       const path = await FVTTFilePickerControl.browse({
+          modal: true,
+          type: "any",
+          current,
+       });
+
+       if (path) {
+          $animation.levels3d.data.spritePath = path;
+       }
     }
 
     $: type = $animation.levels3d.type;

@@ -1,5 +1,5 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { localize }     from "#runtime/util/i18n";
     import { getContext }   from "svelte";
 
     //export let animation;
@@ -13,10 +13,10 @@
 <div>
     <div>
         <label for="Relative {section} {animation._data.id}" style="font-size:10px" class="aaLabelBorder {isAbsolute ? "aaIsSelected" : ""}">ABS</label>
-        <input 
+        <input
             id="Relative {section} {animation._data.id}"
-            type="checkbox" 
-            style="display:none" 
+            type="checkbox"
+            style="display:none"
             bind:checked={$animation.data[section].options.isAbsolute}
         />
         <label for="" style="font-size:13px">{localize('autoanimations.menus.elevation')} </label>
