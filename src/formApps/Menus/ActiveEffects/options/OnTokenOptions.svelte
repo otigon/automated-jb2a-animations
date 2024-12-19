@@ -1,15 +1,17 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { getContext }   from "svelte";
+    import { getContext }       from "svelte";
 
-    import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
+    import { localize }         from "#runtime/util/i18n";
 
-    import NumberInput      from "../../Components/options/inputComponents/NumberInput.svelte";
-    import Elevation        from "../../Components/options/inputComponents/Elevation.svelte";
-    import ScaleRadius      from "../../Components/options/inputComponents/ScaleRadius.svelte";
-    import Opacity          from "../../Components/options/inputComponents/Opacity.svelte";
-    import OptionsDialog    from "../../Components/options/optionsInfoDialog.js";
-    import WaitDelay        from "../../Components/options/inputComponents/WaitDelay.svelte";
+    import { TJSIconButton }    from "#standard/component/button";
+    import { TJSSvgFolder }     from "#standard/component/folder";
+
+    import NumberInput          from "../../Components/options/inputComponents/NumberInput.svelte";
+    import Elevation            from "../../Components/options/inputComponents/Elevation.svelte";
+    import ScaleRadius          from "../../Components/options/inputComponents/ScaleRadius.svelte";
+    import Opacity              from "../../Components/options/inputComponents/Opacity.svelte";
+    import OptionsDialog        from "../../Components/options/optionsInfoDialog.js";
+    import WaitDelay            from "../../Components/options/inputComponents/WaitDelay.svelte";
 
     //export let animation;
     let { animation } = getContext('animation-data');
@@ -220,7 +222,7 @@
             </tr>
             <tr>
                 <td>
-                    <NumberInput 
+                    <NumberInput
                     label={localize("autoanimations.menus.playbackRate")}
                     section="primary"
                     field="playbackRate"

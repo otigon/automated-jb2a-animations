@@ -1,13 +1,15 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
+    import { getContext }   from "svelte";
+
+    import { localize } from "#runtime/util/i18n";
+
+    import { TJSSvgFolder } from "#standard/component/folder";
 
     //import SoundSettings from "./SoundSettings.svelte";
     import VideoSelect from "./VideoSelect.svelte";
     import Sound from "./SoundSettings.svelte"
 
     import { aaReturnWeapons } from "../../../database/jb2a-menu-options.js"
-    import { getContext }   from "svelte";
 
     //export let animation;
     //export let category;
@@ -136,7 +138,7 @@
                                     bind:checked={$animation.meleeSwitch.options.isReturning}
                                 />
                             </div>
-                        </td>        
+                        </td>
                     </tr>
                 </table>
             </div>

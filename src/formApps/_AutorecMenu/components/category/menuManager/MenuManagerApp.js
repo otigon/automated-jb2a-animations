@@ -1,6 +1,6 @@
-import { TJSDialog }        from "@typhonjs-fvtt/runtime/svelte/application";
+import { TJSDialog }        from "#runtime/svelte/application";
 
-import MenuManagerContent   from "./MenuManager.svelte"
+import MenuManagerContent   from "./MenuManager.svelte";
 
 export default class MenuManager extends TJSDialog {
     static #app

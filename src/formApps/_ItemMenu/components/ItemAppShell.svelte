@@ -6,12 +6,12 @@
 
     import { getContext}        from "svelte";
     import { AnimationStore } from "../store/AnimationStore.js"
-    import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
+    import { ApplicationShell } from "#runtime/svelte/component/application";
     import CategoryControl       from "./category/CategoryControl.svelte";
-    import { TJSDocument } from '@typhonjs-fvtt/runtime/svelte/store';
+    import { TJSDocument } from "#runtime/svelte/store/fvtt/document";
 
     import { flagMigrations } from "../../../mergeScripts/items/itemFlagMerge.js"
-    //import { constants}         from "../../../constants.js";
+    // import { constants }         from "#constants";
 
     export let elementRoot;
     export let storageStore = void 0;
@@ -55,7 +55,7 @@
     const position = application.position;
 
     // A debounced callback that serializes application state after 500-millisecond delay.
-    const storeAppState = foundry.utils.debounce(() => $storageStore = application.state.get(), 500);
+    const storeAppState = foundry.utils.debounce(() => $storageStore = application.state.current(), 500);
 
     // Reactive statement to invoke debounce callback on Position changes.
     $: storeAppState($position);

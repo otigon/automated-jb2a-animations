@@ -1,5 +1,5 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { localize } from "#runtime/util/i18n";
     import { getContext }   from "svelte";
 
     import CustomPicker from "./CustomPicker.svelte";
@@ -11,7 +11,7 @@
     export let title;
     //export let idx;
     //export let category;
- 
+
     let { animation, category, idx } = getContext('animation-data');
 
     function typeUpdate() {
@@ -51,7 +51,7 @@
                         on:change={async () =>
                             //await category.menuTypeChange(section, idx, section02, dbSection)
                             typeUpdate()
-                        }       
+                        }
                     >
                         {#each category.typeMenu[$animation[section][section02].dbSection] ?? [] as [key, name]}
                             <option value={key}>{name}</option>

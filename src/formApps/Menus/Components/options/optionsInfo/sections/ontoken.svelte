@@ -1,5 +1,5 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { localize } from "#runtime/util/i18n";
 
 </script>
 
@@ -62,7 +62,7 @@
         <td class="aa-table">
             <strong>{localize("autoanimations.menus.playbackRate")}</strong>
         </td>
-        <td> 
+        <td>
             Default 1: Set the playback speed of the animation
         </td>
     </tr>

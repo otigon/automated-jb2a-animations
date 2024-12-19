@@ -1,9 +1,9 @@
-import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+import { Hashing } from "#runtime/util";
 import { custom_warning } from "../../../constants/constants";
 
 export async function version05(flags, isActiveEffect) {
 
-    if (!flags) { 
+    if (!flags) {
         console.error("Automated Animations | Critical A-A Flag Errors found in version 05 merge. Removing A-A flags from item")
         await item.update({ 'flags.-=autoanimations': null })
         return;
@@ -42,14 +42,14 @@ export async function version05(flags, isActiveEffect) {
         custom_warning("Item was set to old Auto-Override, delete flags")
         return void 0;
         //await item.update({ 'flags.-=autoanimations': null })
-        //return;        
+        //return;
     }  else if (v4Flags.killAnim && (v4Flags.macro?.enable || v4Flags.audio?.a01?.enable)) {
         // Item is Disabled and either a Macro or Sound is set to play.
         const v5Flags = {};
         await convertV6(v4Flags, v5Flags, "melee");
         if (v4Flags.macro?.enable) {
             v5Flags.macro.playWhen = "2"
-        } 
+        }
         if (v4Flags.audio?.a01?.enable) {
             v5Flags.soundOnly.sound = v5Flags.primary.sound;
         }
@@ -68,19 +68,19 @@ export async function version05(flags, isActiveEffect) {
                 default:
                     await convertV6(v4Flags, v5Flags, type);
                     break;
-            }    
+            }
         }
         v5Flags.version = 5;
         custom_warning(`Automated Animations | Version 5 Flag Migration Complete`, false, v5Flags)
         return v5Flags;
     }
-    
+
     async function convertV6(oldMO, newMO, type) {
 
-        let { animLevel, animType, animation, audio, autoOverride, color, explosions, killAnim, 
+        let { animLevel, animType, animation, audio, autoOverride, color, explosions, killAnim,
             levels3d, macro, meleeSwitch, options, override, preview, sourceToken, targetToken } = oldMO
-        
-        newMO.id = uuidv4();
+
+        newMO.id = Hashing.uuidv4();
         newMO.isEnabled = true;
         newMO.isCustomized = true;
         newMO.fromAmmo = options?.ammo ?? false;
@@ -137,7 +137,7 @@ export async function version05(flags, isActiveEffect) {
                 repeat: 1,
                 repeatDelay: 250,
                 volume: 1,
-            }    
+            }
         } else {
             return {
                 delay: audio?.[section]?.delay ?? 0,
@@ -152,7 +152,7 @@ export async function version05(flags, isActiveEffect) {
     }
 
     function setDBSection(type) {
-        return type === "aura" || type === "ontoken" ? "static" : type;  
+        return type === "aura" || type === "ontoken" ? "static" : type;
     }
 
     function convertSourceFX(extraFX, audio, section) {
@@ -334,7 +334,7 @@ export async function version05(flags, isActiveEffect) {
                 data.breath = false,
                 data.breathMax = 1.05,
                 data.breathMin = 0.95,
-                data.breathDuration = 1000,        
+                data.breathDuration = 1000,
                 data.delay = 0;
                 data.elevation = options.below ? 0 : 1000;
                 data.fadeIn = 250;
@@ -400,7 +400,7 @@ export async function version05(flags, isActiveEffect) {
     }
 
     async function convertExplosionV6(exp, audio, oldMO) {
-        
+
         let data = {
             enable: exp?.enable ?? false,
             options: {
@@ -409,7 +409,7 @@ export async function version05(flags, isActiveEffect) {
                 delay: exp?.delay ?? 250,
                 elevation: exp?.below ? 0 : 1000,
                 fadeIn: 250,
-                fadeOut: 500,       
+                fadeOut: 500,
                 isMasked: exp?.isMasked ?? false,
                 isRadius: true,
                 isWait: false,
@@ -472,14 +472,14 @@ export async function version05(flags, isActiveEffect) {
 
         let { animLevel, animType, animation, audio, color, killAnim, macro, options, override, sourceToken, targetToken } = oldData;
 
-        newData.id = uuidv4();
+        newData.id = Hashing.uuidv4();
         newData.isEnabled = true;
         newData.isCustomized = true;
         newData.fromAmmo = options?.ammo ?? false;
         newData.menu = "preset"
         newData.presetType = "dualattach";
 
-        
+
         newData.macro = macro || {};
         //newData.label = name;
         newData.data = {
@@ -513,20 +513,20 @@ export async function version05(flags, isActiveEffect) {
         newData.data = {};
         const root = newData.data;
         let { animLevel, animType, animation, audio, killAnim, macro, options, override, sourceToken, targetToken } = oldData;
-        
+
         let fireballData = oldData.fireball || {};
-        let {afterEffect, afterEffectPath, ex01Type, ex02Type, explosion01, explosion01Color, explosion01Delay, explosion01Repeat, 
+        let {afterEffect, afterEffectPath, ex01Type, ex02Type, explosion01, explosion01Color, explosion01Delay, explosion01Repeat,
             explosion01Scale, explosion01Variant, explosion02, explosion02Color, explosion02Delay, explosion02Repeat, explosion02Scale,
-            explosion02Variant, projectile, projectileColor, projectileDelay, projectileRepeat, projectileVariant, rangeType, wait01, 
+            explosion02Variant, projectile, projectileColor, projectileDelay, projectileRepeat, projectileVariant, rangeType, wait01,
             wait02, wait03} = fireballData;
 
-        newData.id = uuidv4();
+        newData.id = Hashing.uuidv4();
         newData.isEnabled = true;
         newData.isCustomized = true;
         newData.fromAmmo = options?.ammo ?? false;
         newData.menu = "preset"
         newData.presetType = "proToTemp";
-    
+
         //root.audio = audio || {};
         newData.macro = macro || {};
 
@@ -606,7 +606,7 @@ export async function version05(flags, isActiveEffect) {
                 delay: 250,
                 elevation: 1000,
                 fadeIn: 250,
-                fadeOut: 500,       
+                fadeOut: 500,
                 isMasked: false,
                 isRadius: true,
                 isWait: false,
@@ -638,7 +638,7 @@ export async function version05(flags, isActiveEffect) {
         const root = newData.data;
         let { animLevel, animType, animation, audio, color, color02, killAnim, macro, options, override } = oldData;
 
-        newData.id = uuidv4();
+        newData.id = Hashing.uuidv4();
         newData.isEnabled = true;
         newData.isCustomized = true;
         newData.fromAmmo = options?.ammo ?? false;
@@ -729,7 +729,7 @@ export async function version05(flags, isActiveEffect) {
     async function updateThunderwave(oldData, newData) {
         let { animLevel, animType, animation, audio, color, killAnim, macro, options, override } = oldData;
 
-        newData.id = uuidv4();
+        newData.id = Hashing.uuidv4();
         newData.isEnabled = true;
         newData.isCustomized = true;
         newData.fromAmmo = options?.ammo ?? false;
@@ -743,7 +743,7 @@ export async function version05(flags, isActiveEffect) {
                 menuType: "square",
                 animation: "thunderwave",
                 variant: "mid",
-                color: color || "blue",    
+                color: color || "blue",
             },
             options: {
                 elevation: animLevel ? 0 : 1000,
@@ -751,7 +751,7 @@ export async function version05(flags, isActiveEffect) {
                 repeatDelay: options?.delay ?? 250,
                 opacity: options?.opacity ?? 1,
                 removeTemplate: options?.removeTemplate ?? false,
-            }, 
+            },
             sound: setSound(audio, "a01"),
         };
         newData.soundOnly = {
@@ -783,7 +783,7 @@ export async function version05(flags, isActiveEffect) {
                         current = await convertAEShield(oldMO, newMO);
                         return current;
                 }
-                
+
         }
     }
 
@@ -803,7 +803,7 @@ export async function version05(flags, isActiveEffect) {
                 repeat: 1,
                 repeatDelay: 250,
                 size: 1,
-                zIndex: 1,       
+                zIndex: 1,
             },
             sound: setSound({}, "a01", true),
             video: {
@@ -825,7 +825,7 @@ export async function version05(flags, isActiveEffect) {
         //let { aeDelay, aeType, animation, audio, below, color, custom, customPath, delay, explosion, macro, menuType, name,
             //opacity, persistent, repeat, scale, soundOnly, type, unbindAlpha, unbindVisibility, variant } = oldMO;
 
-        newMO.id = uuidv4();
+        newMO.id = Hashing.uuidv4();
         newMO.isEnabled = true;
         newMO.isCustomized = true;
         newMO.activeEffectType = "ontoken";
@@ -880,7 +880,7 @@ export async function version05(flags, isActiveEffect) {
 
         let { animLevel, animType, animation, audio, color, macro, options } = oldMO;
 
-        newMO.id = uuidv4();
+        newMO.id = Hashing.uuidv4();
         newMO.isEnabled = true;
         newMO.isCustomized = true;
         newMO.activeEffectType = "ontoken";
@@ -909,11 +909,11 @@ export async function version05(flags, isActiveEffect) {
                 breath: false,
                 breathMax: 1.05,
                 breathMin: 0.95,
-                breathDuration: 1000,        
+                breathDuration: 1000,
                 delay: 0,
                 elevation: animLevel ? 0 : 1000,
                 fadeIn: 250,
-                fadeOut: 500,        
+                fadeOut: 500,
                 isRadius: true,
                 isWait: true,
                 opacity: options?.opacity || 1,
@@ -921,7 +921,7 @@ export async function version05(flags, isActiveEffect) {
                 size: options?.auraRadius || 3,
                 tint: false,
                 tintColor: "#FFFFFF",
-                tintSaturate: 0,        
+                tintSaturate: 0,
                 unbindAlpha: options?.unbindAlpha ?? false,
                 unbindVisibility: options?.unbindVisibility ?? false,
                 zIndex: 1,
@@ -957,7 +957,7 @@ export async function version05(flags, isActiveEffect) {
 
         let { animLevel, animType, animation, audio, color, macro, options } = oldMO;
 
-        newMO.id = uuidv4();
+        newMO.id = Hashing.uuidv4();
         newMO.isEnabled = true;
         newMO.isCustomized = true;
         newMO.activeEffectType = "ontoken";
@@ -971,7 +971,7 @@ export async function version05(flags, isActiveEffect) {
                 delay: 0,
                 elevation: animLevel ? 0 : 1000,
                 fadeIn: 0,
-                fadeOut: 500,    
+                fadeOut: 500,
                 isMasked: false,
                 isRadius: false,
                 isWait: true,
@@ -1023,7 +1023,7 @@ export async function version05(flags, isActiveEffect) {
                 delay: -500,
                 elevation: animLevel ? 0 : 1000,
                 fadeIn: 250,
-                fadeOut: 500,    
+                fadeOut: 500,
                 isMasked: false,
                 isRadius: false,
                 isWait: true,
@@ -1052,7 +1052,7 @@ export async function version05(flags, isActiveEffect) {
 
         let { animLevel, animType, animation, audio, color, macro, options } = oldMO;
 
-        newMO.id = uuidv4();
+        newMO.id = Hashing.uuidv4();
         newMO.isEnabled = true;
         newMO.isCustomized = true;
         newMO.activeEffectType = "ontoken";

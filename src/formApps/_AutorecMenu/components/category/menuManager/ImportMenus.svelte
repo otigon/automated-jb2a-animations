@@ -1,6 +1,7 @@
 <script>
-    import { localize }     from "@typhonjs-fvtt/runtime/svelte/helper";
     import { getContext }   from "svelte";
+    import { localize }     from "#runtime/util/i18n";
+
     import { AAAutorecManager } from "./AAAutorecManager.js"
 
     const { application } = getContext("#external");

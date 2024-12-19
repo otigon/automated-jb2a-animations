@@ -72,7 +72,7 @@ export async function deleteActiveEffects(effect, shouldDelete = false) {
 
     const macro = await DataSanitizer.compileMacro(handler, flagData);
     if (macro) {
-        if (isNewerVersion(game.version, 11)) {
+        if (foundry.utils.isNewerVersion(game.version, 11)) {
             new Sequence()
             .macro(macro.name, {args: ["off", handler, macro.args]})
             .play()
@@ -85,26 +85,26 @@ export async function deleteActiveEffects(effect, shouldDelete = false) {
                 new Sequence()
                     .macro(macro.name)
                     .play()
-            }    
+            }
         }
     }
 
     if (shouldDelete) {
         let aaEffects = Sequencer.EffectManager.getEffects({ origin: effect.uuid });
-        if (aaEffects.length > 0) {  
+        if (aaEffects.length > 0) {
             // Filters the active Animations to isolate the ones active on the Token
             let currentEffect = aaEffects.filter(i => effect.uuid.includes(i.source?.actor?.id));
             currentEffect = currentEffect.length < 1 ? aaEffects.filter(i => effect.uuid.includes(i.source?.id)) : currentEffect;
             if (currentEffect.length < 0) { return; }
-    
+
             // Fallback for the Source Token
             if (!handler.sourceToken) {
                 handler.sourceToken = currentEffect[0].source;
             }
-    
+
             // End all Animations on the token with .origin(effect.uuid)
             Sequencer.EffectManager.endEffects({ origin: effect.uuid, object: handler.sourceToken })
-        }    
+        }
     }
 }
 

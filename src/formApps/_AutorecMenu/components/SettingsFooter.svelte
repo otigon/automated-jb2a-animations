@@ -51,6 +51,7 @@
 </script>
 
 <div on:dragstart={onDragStart}
+     role="banner"
      draggable=true
      title="Drag to hot bar">
     <img bind:this={imageEl}

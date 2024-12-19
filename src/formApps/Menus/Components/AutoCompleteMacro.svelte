@@ -2,7 +2,7 @@
     /**
      * Credit to Wasp for the Compendium macro filtering!
      */
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { localize } from "#runtime/util/i18n";
     import { writable } from "svelte/store";
     import { getContext }   from "svelte";
 
@@ -38,7 +38,7 @@
       allResults = allResults.filter(m => {
         return m.name?.toLowerCase().includes(macro?.toLowerCase()) || !macro
       })
-  
+
       if (macro?.startsWith("Compendium.") && allResults.length === 1) {
         allResults = Array.from(game.packs.get(allResults[0].id).index).map(m => {
           return {

@@ -11,10 +11,10 @@ export function systemHooks() {
             if (workflow.item?.hasAreaTarget || (workflow.item?.hasDamage && playOnDamage)) { return };
             attack(getWorkflowData(workflow)); criticalCheck(workflow)
         });
-        Hooks.on("midi-qol.DamageRollComplete", (workflow) => { 
+        Hooks.on("midi-qol.DamageRollComplete", (workflow) => {
             let playOnDamage = game.settings.get('autoanimations', 'playonDamage');
             if (workflow.item?.hasAreaTarget || (!playOnDamage && workflow.item?.hasAttack)) { return };
-            damage(getWorkflowData(workflow)) 
+            damage(getWorkflowData(workflow))
         });
         // Items with no Attack/Damage
         Hooks.on("midi-qol.RollComplete", (workflow) => {
@@ -23,11 +23,14 @@ export function systemHooks() {
         });
         Hooks.on("createMeasuredTemplate", async (template, data, userId) => {
             if (userId !== game.user.id) { return };
-            templateAnimation(await getRequiredData({itemUuid: template.flags?.dnd5e?.origin, templateData: template, workflow: template, isTemplate: true}))
-        })
+            const activity = await fromUuid(template.flags?.dnd5e?.origin);
+            const item = activity ? activity?.parent?.parent : template?.flags?.autoanimations?.itemData;
+            const overrideNames = activity?.name && !["heal", "summon"].includes(activity?.name?.trim()) ? [activity.name] : [];
+            templateAnimation(await getRequiredData({item, templateData: template, workflow: template, isTemplate: true, overrideNames}));
+        });
     } else if (game.modules.get("wire")?.active) {
         // WIRE handles triggering AA
-    } else if (isNewerVersion(game.system.version, 3.9)) { 
+    } else if (foundry.utils.isNewerVersion(game.system.version, 3.9)) {
         Hooks.on("dnd5e.rollAttackV2", async (rolls, data) => {
             const roll = rolls[0];
             const activity = data.subject;
@@ -37,7 +40,7 @@ export function systemHooks() {
             const ammoItem = item?.parent?.items?.get(data?.ammoUpdate?.id) ?? null;
             const overrideNames = activity?.name && !["heal", "summon"].includes(activity?.name?.trim()) ? [activity.name] : [];
             criticalCheck(roll, item);
-            attackV2(await getRequiredData({item: item, actor: item.parent, workflow: item, rollAttackHook: {item, roll}, spellLevel: roll?.data?.item?.level ?? void 0, ammoItem, overrideNames})); 
+            attackV2(await getRequiredData({item: item, actor: item.parent, workflow: item, rollAttackHook: {item, roll}, spellLevel: roll?.data?.item?.level ?? void 0, ammoItem, overrideNames}));
         });
         Hooks.on("dnd5e.rollDamageV2", async (rolls, data) => {
             const roll = rolls[0];
@@ -74,15 +77,15 @@ export function systemHooks() {
             const item = activity ? activity?.parent?.parent : template?.flags?.autoanimations?.itemData;
             const overrideNames = activity?.name && !["heal", "summon"].includes(activity?.name?.trim()) ? [activity.name] : [];
             templateAnimation(await getRequiredData({item, templateData: template, workflow: template, isTemplate: true, overrideNames}));
-        });    
+        });
     } else {
         Hooks.on("dnd5e.preRollAttack", async (item, options) => {
             let spellLevel = options.spellLevel ?? void 0;
             Hooks.once("dnd5e.rollAttack", async (item, roll) => {
                 criticalCheck(roll, item);
                 let playOnDamage = game.settings.get('autoanimations', 'playonDamageCore')
-                if (item.hasAreaTarget || (item.hasDamage && playOnDamage)) { return; }   
-                attack(await getRequiredData({item, actor: item.actor, workflow: item, rollAttackHook: {item, roll}, spellLevel}))    
+                if (item.hasAreaTarget || (item.hasDamage && playOnDamage)) { return; }
+                attack(await getRequiredData({item, actor: item.actor, workflow: item, rollAttackHook: {item, roll}, spellLevel}))
             })
         })
         Hooks.on("dnd5e.rollDamage", async (item, roll) => {
@@ -102,11 +105,11 @@ export function systemHooks() {
 }
 
 /**
- * 
+ *
  * @param {Boolean} hasAreaTarget // Checks to see if the item has an AOE template
  * @param {Boolean} hasAttack // Checks if the item has Attack
  * @param {Boolean} hasDamage // Checks if the item has Damage
- *  
+ *
  */
 
 async function useItem(input) {
@@ -154,7 +157,7 @@ async function damageV2(input) {
 
 async function templateAnimation(input) {
     debug("Template placed, checking for animations")
-    if (!input.item) { 
+    if (!input.item) {
         debug("No Item could be found")
         return;
     }
@@ -221,5 +224,5 @@ function criticalCheck(workflow, item = {}) {
         let trueToken = tokens.length > 1 ? tokens.find(x => x.id === _token.id) || tokens[0] : tokens[0];
         return trueToken;
     }
-    
+
 }

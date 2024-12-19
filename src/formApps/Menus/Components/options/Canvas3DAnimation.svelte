@@ -1,10 +1,9 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }   from "svelte";
 
-    import {
-        TJSSvgFolder,
-    } from "@typhonjs-fvtt/svelte-standard/component";
-    import { getContext } from "svelte";
+    import { localize }     from "#runtime/util/i18n";
+
+    import { TJSSvgFolder } from "#standard/component/folder";
 
     //export let animation;
     let { animation } = getContext("animation-data");
@@ -29,7 +28,7 @@
             bottom: "-2px",
             color: "rgba(50, 79, 245, 0.5)",
         },
-        onClickPropagate: false,
+        clickPropagate: false,
     };
     const folderOptions = {
         styles: {
@@ -52,7 +51,7 @@
         swipe: {},
         twirl: {},
     };
-        
+
     if (!$animation.levels3d.tokens) {
         $animation.levels3d.tokens = {
             enable: false,
@@ -71,6 +70,7 @@
 <TJSSvgFolder folder={folderOptions} label="{localize("autoanimations.menus.token")} {localize("autoanimations.menus.animation")}">
     <div slot="summary-end">
         <input
+            on:click|stopPropagation
             type="checkbox"
             style="align-self:center"
             title="Toggle Secondary On/Off"

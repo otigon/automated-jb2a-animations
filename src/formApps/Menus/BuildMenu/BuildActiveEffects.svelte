@@ -1,5 +1,5 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { localize }     from "#runtime/util/i18n";
     import { getContext }   from "svelte";
 
     import BuildAeOnToken   from "../ActiveEffects/BuildAEOnToken.svelte";
@@ -7,7 +7,7 @@
     import SectionButtons   from "../Components/SectionButtons02.svelte";
     import Macro            from "../Components/Macro.svelte";
     import SoundOnly        from "../Components/SoundOnly.svelte";
-    import { aefx }       from "../../_AutorecMenu/store/default-data/newSection/aefx.js"
+    import { aefx }         from "../../_AutorecMenu/store/default-data/newSection/aefx.js"
 
     //export let animation;
     //export let category;

@@ -1,7 +1,7 @@
 import { autoRecMigration }                 from "../../../../../mergeScripts/autorec/autoRecMerge";
 import { currentAutorecVersion }            from "../../../../../mergeScripts/autorec/autoRecMerge.js";
 import { custom_warning, custom_error, custom_notify }     from "../../../../../constants/constants";
-import { uuidv4 }                           from "@typhonjs-fvtt/runtime/svelte/util";
+import { Hashing }                          from "#runtime/util";
 import { AutorecSanitizer }                 from "../../../../../aa-classes/autorecSanityCheck";
 import { defaultData }                      from "./defaultIndex";
 
@@ -17,7 +17,7 @@ export class AAAutorecManager
         await game.settings.set("autoanimations", "aaAutorec-preset", restoredMenu.preset);
         await game.settings.set("autoanimations", "aaAutorec-range", restoredMenu.range);
         await game.settings.set("autoanimations", "aaAutorec-ontoken", restoredMenu.ontoken);
-        await game.settings.set("autoanimations", "aaAutorec-templatefx", restoredMenu.templatefx);    
+        await game.settings.set("autoanimations", "aaAutorec-templatefx", restoredMenu.templatefx);
     }
 
     // Returns the current Global Automatic Recognition Menus with Version
@@ -36,10 +36,10 @@ export class AAAutorecManager
     }
 
     /**
-     * 
-     * @param {Object} data // Expects an Object containing all MetaData to tag on the Menu Entries 
+     *
+     * @param {Object} data // Expects an Object containing all MetaData to tag on the Menu Entries
      * @param {Object} options // Limit the Menus in which to tag with MetaData. Ex: {melee: true} will ONLY tag the Melee Menu entries with MetaData
-     * @returns 
+     * @returns
      */
     static async addMetaData(data, options) {
 
@@ -114,11 +114,11 @@ export class AAAutorecManager
 
         const filename = `fvtt-AutomatedAnimations-GlobalMenu${string}.json`;
 
-        saveDataToFile(JSON.stringify(exportData, null, 2), "text/json", filename);    
+        saveDataToFile(JSON.stringify(exportData, null, 2), "text/json", filename);
     }
 
     /**
-     * 
+     *
      * @param {Object} menu // Expects a valid  Global Automatic Recognition Menu export
      * @param {*} options // Limit the Menus in which to perform the Merge. Ex: {melee: true} will ONLY merge the Melee Menus
      */
@@ -161,9 +161,9 @@ export class AAAutorecManager
                 let newSection = existingMenu.find(section => {
                     return section.label?.replace(/\s+/g, '')?.toLowerCase() === incomingSectionLabel;
                 })
-                if (!newSection) { 
-                    incomingMenu[a].id = uuidv4();
-                    currentMenu[mergeList[i]].push(incomingMenu[a])
+                if (!newSection) {
+                    incomingMenu[a].id = Hashing.uuidv4();
+                    currentMenu[mergeList[i]].push(incomingMenu[a]);
                 }
             }
             custom_notify(`${game.i18n.localize(`autoanimations.animTypes.${mergeList[i]}`)} Menu has been successfully merged`);
@@ -172,7 +172,7 @@ export class AAAutorecManager
     }
 
     /**
-     * 
+     *
      * @param {Object} menu // Expects a valid  Global Automatic Recognition Menu export
      * @param {*} options // Limit the Menus in which to perform the Overwrite. Ex: {melee: true} will ONLY overwrite the Melee Menus
      */

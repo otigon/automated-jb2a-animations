@@ -1,12 +1,14 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
+    import { getContext }   from "svelte";
+
+    import { localize } from "#runtime/util/i18n";
+
+    import { TJSSvgFolder } from "#standard/component/folder";
 
     import SoundSettings from "./SoundSettings.svelte";
     import VideoSelect from "./VideoSelect.svelte";
     import TargetFxOptions from "./options/TargetFXOptions.svelte";
     import EffectColor from "./options/EffectColor.svelte";
-    import { getContext }   from "svelte";
 
     //export let animation;
     //export let idx;
@@ -36,6 +38,7 @@
     >
         <div slot="summary-end">
             <input
+                on:click|stopPropagation
                 type="checkbox"
                 style="align-self:center"
                 title="Toggle Target FX On/Off"

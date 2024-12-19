@@ -1,17 +1,17 @@
-import { writable }           from "svelte/store";
+import { writable }                 from "svelte/store";
 
-import { localize }           from "@typhonjs-fvtt/runtime/svelte/helper";
+import { localize }                 from "#runtime/util/i18n";
 
-import {
-   createFilterQuery,
-   WorldSettingArrayStore }   from "@typhonjs-fvtt/svelte-standard/store";
+import { WorldSettingArrayStore }   from "#runtime/svelte/store/fvtt/settings/world";
+import { DynReducerHelper }         from "#runtime/svelte/store/reducer";
 
+import { FVTTFilePickerControl }    from "#standard/application/control/filepicker";
 
-import { aaSessionStorage }   from "../../../../sessionStorage.js";
-import { constants }          from "../../../../constants.js";
-import { gameSettings }       from "../../../../gameSettings.js";
+import { constants }                from "#constants";
+import { gameSettings }             from "#gameSettings";
+import { aaSessionStorage }         from "#sessionStorage";
 
-import CopyClipBoard from "../../../Menus/Components/copyOnClick.svelte"
+import CopyClipBoard from "../../../Menus/Components/copyOnClick.svelte";
 import VideoPreview  from "../../../Menus/Components/videoPreview/videoPreview.js";
 
 import {
@@ -28,12 +28,12 @@ export class CategoryStore extends WorldSettingArrayStore {
     *
     * @type {(data: object) => boolean}
     */
-   static #filterSearch = createFilterQuery("label");
+   static #filterSearch = DynReducerHelper.filters.regexObjectQuery("label");
 
    /**
     * @type {CategoryStores}
     */
-   #stores
+   #stores;
 
    /**
     * @param {string}   key -
@@ -81,8 +81,6 @@ export class CategoryStore extends WorldSettingArrayStore {
     * In this case this solution is better than creating a derived store from the AnimationStore sessionStorage folder
     * state. The below code uses the current dataReducer count and is also triggered by any open / close of any children
     * folders. The calculation for "all folders open" can short circuit on the first false / closed value.
-    *
-    * @param {import('@typhonjs-fvtt/runtime/svelte/store').DynArrayReducer<AnimationStore>}   dataReducer -
     */
    calcAllFolderState()
    {
@@ -251,57 +249,52 @@ export class CategoryStore extends WorldSettingArrayStore {
 
    async selectCustom(section, section02 = "video", idx) {
       const current = this._data[idx]._data[section][section02].customPath;
-      const picker = new FilePicker({
-         type: "imagevideo",
-         current,
-         callback: (path) => {
-            this._data[idx]._data[section][section02].customPath = path;
-            this._data[idx]._updateSubscribers()
-            },
-      });
-      setTimeout(() => {
-         picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-      }, 100);
-      await picker.browse(current);
 
+      const path = await FVTTFilePickerControl.browse({
+         modal: true,
+         type: "imagevideo",
+         current
+      });
+
+      if (path) {
+         this._data[idx]._data[section][section02].customPath = path;
+         this._data[idx]._updateSubscribers();
+      }
    }
 
    async selectSound(section, idx) {
       const current = this._data[idx]._data[section].sound.file;
-      const picker = new FilePicker({
-          type: "audio",
-          current,
-          callback: (path) => {
-            this._data[idx]._data[section].sound.file = path;
-            this._data[idx]._updateSubscribers()
-            },
-      });
-      setTimeout(() => {
-          picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-      }, 100);
-      await picker.browse(current);
-  }
 
-  async selectSoundNested(section, section02, idx) {
-   const current = this._data[idx]._data[section][section02].sound.file;
-   const picker = new FilePicker({
-       type: "audio",
-       current,
-       callback: (path) => {
+      const path = await FVTTFilePickerControl.browse({
+         modal: true,
+         type: "audio",
+         current
+      });
+
+      if (path) {
+         this._data[idx]._data[section].sound.file = path;
+         this._data[idx]._updateSubscribers();
+      }
+   }
+
+   async selectSoundNested(section, section02, idx) {
+      const current = this._data[idx]._data[section][section02].sound.file;
+
+      const path = await FVTTFilePickerControl.browse({
+         modal: true,
+         type: "audio",
+         current
+      });
+
+      if (path) {
          this._data[idx]._data[section][section02].sound.file = path;
-         this._data[idx]._updateSubscribers()
-      },
-   });
-   setTimeout(() => {
-       picker.element[0].style.zIndex = `${Number.MAX_SAFE_INTEGER}`;
-   }, 100);
-   await picker.browse(current);
+         this._data[idx]._updateSubscribers();
+      }
    }
 
    openSequencerViewer() {
       Sequencer.DatabaseViewer.show()
    }
-
 }
 
 /**

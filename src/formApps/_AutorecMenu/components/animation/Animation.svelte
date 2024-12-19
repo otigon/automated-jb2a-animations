@@ -1,18 +1,18 @@
 <script>
+   import { setContext }            from "svelte";
+
    import {
       ripple,
-      rippleFocus }                 from "@typhonjs-fvtt/svelte-standard/action";
+      rippleFocus }                 from "#standard/action/animate/composable/ripple";
 
-   import {
-      TJSInput,
-      TJSSvgFolder }                from "@typhonjs-fvtt/svelte-standard/component";
+   import { TJSSvgFolder }          from "#standard/component/folder";
+   import { TJSInput }              from "#standard/component/form";
 
-   import OverflowSlot from "./OverflowSlot.svelte";
+   import OverflowSlot              from "./OverflowSlot.svelte";
 
    import { createOverflowItems }   from "./createOverflowItems.js";
 
    import { selectBuildMenu }       from "../../../Menus/BuildMenu/selectBuildMenu.js";
-   import { setContext } from "svelte";
 
    /** @type {AnimationStore} */
    export let animation = void 0;
@@ -44,7 +44,7 @@
       icon: 'fas fa-ellipsis-v',
       efx: ripple(),
       styles: { 'margin-left': '0.5em' },
-      onClickPropagate: false   // Necessary to capture click for Firefox.
+      clickPropagate: false   // Necessary to capture click for Firefox.
    };
 
    const menu = {

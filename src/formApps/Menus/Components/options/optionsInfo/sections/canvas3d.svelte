@@ -1,5 +1,5 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { localize } from "#runtime/util/i18n";
 
 </script>
 
@@ -60,7 +60,7 @@
         <td class="aa-table">
             <strong>{localize("autoanimations.menus.gravity")}</strong>
         </td>
-        <td> 
+        <td>
             Determines the falling speeed for the particles
         </td>
     </tr>
@@ -68,7 +68,7 @@
         <td class="aa-table">
             <strong>{localize("autoanimations.menus.mass")}</strong>
         </td>
-        <td> 
+        <td>
             Sets the overall Particle size
         </td>
     </tr>
@@ -76,7 +76,7 @@
         <td class="aa-table">
             <strong>{localize("autoanimations.menus.life")}</strong>
         </td>
-        <td> 
+        <td>
             How long the particle last in milliseconds
         </td>
     </tr>
@@ -84,7 +84,7 @@
         <td class="aa-table">
             <strong>{localize("autoanimations.menus.emiterSize")}</strong>
         </td>
-        <td> 
+        <td>
             Size of the emitter source
         </td>
     </tr>
@@ -92,7 +92,7 @@
         <td class="aa-table">
             <strong>{localize("autoanimations.menus.rate")}</strong>
         </td>
-        <td> 
+        <td>
             Rate at which the particles are spawned
         </td>
     </tr>

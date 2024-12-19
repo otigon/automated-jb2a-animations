@@ -1,4 +1,4 @@
-import { uuidv4 } from "@typhonjs-fvtt/runtime/svelte/util";
+import { Hashing } from "#runtime/util";
 
 async function mergeVersion05(data) {
     let currentAutorec = data;
@@ -174,7 +174,7 @@ async function mergeVersion05(data) {
                 repeat: 1,
                 repeatDelay: 250,
                 volume: 1,
-            }    
+            }
         } else {
             return {
                 delay: audio?.[section]?.delay ?? 0,
@@ -198,7 +198,7 @@ async function mergeVersion05(data) {
                 delay: exp?.delay ?? 250,
                 elevation: exp?.below ? 0 : 1000,
                 fadeIn: 250,
-                fadeOut: 500,       
+                fadeOut: 500,
                 isMasked: exp?.isMasked ?? false,
                 isRadius: true,
                 isWait: false,
@@ -232,9 +232,9 @@ async function mergeVersion05(data) {
 
     async function convertV6(oldMO, newMO, type) {
         let { menuType, variant, custom, customPath, name, animation, color, audio, macro,
-            soundOnly, explosion, levels3d, meleeSwitch, ...rest } = oldMO
-        
-            newMO.id = uuidv4();
+            soundOnly, explosion, levels3d, meleeSwitch, ...rest } = oldMO;
+
+            newMO.id = Hashing.uuidv4();
         newMO.label = name;
 
         if (type !== "aura" && type !== "templatefx") {
@@ -415,7 +415,7 @@ async function mergeVersion05(data) {
                 data.breath = false,
                 data.breathMax = 1.05,
                 data.breathMin = 0.95,
-                data.breathDuration = 1000,        
+                data.breathDuration = 1000,
                 data.delay = 0;
                 data.elevation = oldMO.below ? 0 : 1000;
                 data.fadeIn = 250;
@@ -427,7 +427,7 @@ async function mergeVersion05(data) {
                 data.size = oldMO.scale ?? 3;
                 data.tint = false,
                 data.tintColor = "#FFFFFF",
-                data.tintSaturate = 0,        
+                data.tintSaturate = 0,
                 data.unbindAlpha = oldMO.unbindAlpha ?? false;
                 data.unbindVisibility = oldMO.unbindVisibility ?? false;
                 data.zIndex = oldMO.zIndex ?? 1;
@@ -468,7 +468,7 @@ async function mergeVersion05(data) {
                     color: "blue",
                     enableCustom: false,
                     customPath: "",
-                }    
+                }
             }
         } else {
             return {
@@ -487,7 +487,7 @@ async function mergeVersion05(data) {
                     repeat: 1,
                     repeatDelay: 250,
                     size: 1,
-                    zIndex: 1,       
+                    zIndex: 1,
                 },
                 sound:  setSound({}, "s01", true),
                 video: {
@@ -498,17 +498,17 @@ async function mergeVersion05(data) {
                     color: "blue",
                     enableCustom: false,
                     customPath: "",
-                }    
+                }
             }
         }
     }
 
     function setDBSection(type) {
-        return type === "aura" || type === "ontoken" ? "static" : type;  
+        return type === "aura" || type === "ontoken" ? "static" : type;
     }
 
     async function updateTele(oldData, newData) {
-        newData.id = uuidv4();
+        newData.id = Hashing.uuidv4();
         newData.data = {};
         const root = newData.data;
         let { menuType, subAnimation, variant, color, below, custom, customPath,
@@ -603,7 +603,7 @@ async function mergeVersion05(data) {
         return newData;
     }
     async function updateDAttach(oldData, newData) {
-        newData.id = uuidv4();
+        newData.id = Hashing.uuidv4();
 
         let { name, below, macro, audio, menuType, subAnimation, variant, color, custom, customPath, playbackRate, onlyX, soundOnly } = oldData;
         newData.macro = macro || {};
@@ -642,7 +642,7 @@ async function mergeVersion05(data) {
         return newData;
     }
     async function updateFireball(oldData, newData) {
-        newData.id = uuidv4();
+        newData.id = Hashing.uuidv4();
         newData.data = {};
         const root = newData.data;
         let { audio, macro, name, below, animation, rangeType, projectile, projectilVariant, projectileColor, projectileRepeat, projectileDelay, wait01, removeTemplate,
@@ -734,7 +734,7 @@ async function mergeVersion05(data) {
                 delay: 250,
                 elevation: 1000,
                 fadeIn: 250,
-                fadeOut: 500,       
+                fadeOut: 500,
                 isMasked: false,
                 isRadius: true,
                 isWait: false,
@@ -762,7 +762,7 @@ async function mergeVersion05(data) {
     }
 
     async function updateThunderwave(oldData, newData) {
-        newData.id = uuidv4();
+        newData.id = Hashing.uuidv4();
         //newData.data = {};
         //const root = newData.data;
         let { audio, macro, name, below, color, repeat, delay, scaleX, scaleY, opacity, removeTemplate, persist: persistent, persistType, occlusionMode, occlusionAlpha, soundOnly } = oldData;
@@ -776,7 +776,7 @@ async function mergeVersion05(data) {
                 menuType: "square",
                 animation: "thunderwave",
                 variant: "mid",
-                color: color || "blue",    
+                color: color || "blue",
             },
             options: {
                 elevation: below ? 0 : 1000,
@@ -784,7 +784,7 @@ async function mergeVersion05(data) {
                 repeatDelay: delay ?? 250,
                 opacity: opacity ?? 1,
                 removeTemplate: removeTemplate ?? false,
-            }, 
+            },
             sound: setSound(audio, "a01"),
         };
         newData.soundOnly = {
@@ -804,7 +804,7 @@ async function mergeVersion05(data) {
         let { aeDelay, aeType, animation, audio, below, color, custom, customPath, delay, explosion, macro, menuType, name,
             opacity, persistent, repeat, scale, soundOnly, type, unbindAlpha, unbindVisibility, variant } = oldMO;
 
-        newMO.id = uuidv4();
+        newMO.id = Hashing.uuidv4();
         newMO.label = name;
         newMO.menu = "aefx";
         newMO.secondary = await convertExplosionV6(explosion, audio, oldMO)
@@ -865,7 +865,7 @@ async function mergeVersion05(data) {
         let { aeDelay, aeType, animation, audio, below, color, custom, customPath, macro, menuType, name,
             opacity, scale, soundOnly, type, unbindAlpha, unbindVisibility, variant } = oldMO;
 
-        newMO.id = uuidv4();
+        newMO.id = Hashing.uuidv4();
         newMO.label = name;
         newMO.menu = "aefx";
 
@@ -892,11 +892,11 @@ async function mergeVersion05(data) {
                 breath: false,
                 breathMax: 1.05,
                 breathMin: 0.95,
-                breathDuration: 1000,        
+                breathDuration: 1000,
                 delay: 0,
                 elevation: below ? 0 : 1000,
                 fadeIn: 250,
-                fadeOut: 500,        
+                fadeOut: 500,
                 isRadius: true,
                 isWait: true,
                 opacity: opacity || 1,
@@ -904,7 +904,7 @@ async function mergeVersion05(data) {
                 size: scale || 1,
                 tint: false,
                 tintColor: "#FFFFFF",
-                tintSaturate: 0,        
+                tintSaturate: 0,
                 unbindAlpha: unbindAlpha || false,
                 unbindVisibility: unbindVisibility || false,
                 zIndex: 1,
@@ -947,7 +947,7 @@ async function mergeVersion05(data) {
         let { addCTA, aeType, animation, audio, below, color, custom, macro, menuType, name,
             scale, soundOnly, type, unbindAlpha, unbindVisibility, variant } = oldMO;
 
-        newMO.id = uuidv4();
+        newMO.id = Hashing.uuidv4();
         newMO.label = name;
         newMO.menu = "aefx";
 
@@ -959,7 +959,7 @@ async function mergeVersion05(data) {
                 delay: 0,
                 elevation: below ? 0 : 1000,
                 fadeIn: 0,
-                fadeOut: 500,    
+                fadeOut: 500,
                 isMasked: false,
                 isRadius: false,
                 isWait: true,
@@ -1018,7 +1018,7 @@ async function mergeVersion05(data) {
                 delay: -500,
                 elevation: below ? 0 : 1000,
                 fadeIn: 250,
-                fadeOut: 500,    
+                fadeOut: 500,
                 isMasked: false,
                 isRadius: false,
                 isWait: true,
@@ -1048,7 +1048,7 @@ async function mergeVersion05(data) {
         let { addCTA, aeType, animation, audio, below, color, custom, endEffect, macro, menuType, name,
             scale, soundOnly, type, unbindAlpha, unbindVisibility, variant } = oldMO;
 
-        newMO.id = uuidv4();
+        newMO.id = Hashing.uuidv4();
         newMO.label = name;
         newMO.menu = "aefx";
 

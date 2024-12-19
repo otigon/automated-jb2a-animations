@@ -1,6 +1,7 @@
 
-import { TJSDialog } from '@typhonjs-fvtt/runtime/svelte/application';
-import Diagnostics from "./Diagnostics.svelte"
+import { TJSDialog } from '#runtime/svelte/application';
+
+import Diagnostics from "./Diagnostics.svelte";
 
 export default class AADiagnostics extends TJSDialog {
     constructor(data) {
@@ -11,7 +12,7 @@ export default class AADiagnostics extends TJSDialog {
             modal: false,
             zIndex:null,
             content: {
-                class: Diagnostics, 
+                class: Diagnostics,
             },
         });
     }

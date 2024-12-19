@@ -1,25 +1,25 @@
 <svelte:options accessors={true} />
 
 <script>
-    import { getContext}        from "svelte";
+    import { getContext }       from "svelte";
 
-    import { ApplicationShell } from "@typhonjs-fvtt/runtime/svelte/component/core";
-    import { debounce }         from "@typhonjs-fvtt/runtime/svelte/util";
+    import { ApplicationShell } from "#runtime/svelte/component/application";
+    import { Timing }           from "#runtime/util";
 
-    import { TJSSettingsSwap }  from "@typhonjs-fvtt/svelte-standard/component";
+    import { TJSSettingsSwap }  from "#standard/component/fvtt/settings";
 
     import CategorySelect       from "./category/CategorySelect.svelte";
 
     import SettingsFooter       from "./SettingsFooter.svelte";
 
-    import { constants }        from "../../../constants.js";
-    import { gameSettings }     from "../../../gameSettings.js";
-    import { aaSessionStorage } from "../../../sessionStorage.js";
+    import { constants }        from "#constants";
+    import { gameSettings }     from "#gameSettings";
+    import { aaSessionStorage } from "#sessionStorage";
 
     import { AutorecSanitizer } from "../../../aa-classes/autorecSanityCheck.js"
 
     AutorecSanitizer.checkForDuplicates();
-    
+
     export let elementRoot;
 
     const { application } = getContext("#external");
@@ -31,7 +31,7 @@
     const position = application.position;
 
     // A debounced callback that serializes application state after 500-millisecond delay.
-    const storePosition = debounce(() => $stateStore = application.state.get(), 500);
+    const storePosition = Timing.debounce(() => $stateStore = application.state.current(), 500);
 
     // Reactive statement to invoke debounce callback on Position changes.
     $: storePosition($position);

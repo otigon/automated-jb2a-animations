@@ -1,14 +1,16 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { getContext }   from "svelte";
+    import { getContext }       from "svelte";
 
-    import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
+    import { localize }         from "#runtime/util/i18n";
 
-    import SectionHeader    from "../Components/SectionHeader.svelte";
-    import SoundSettings    from "../Components/SoundSettings.svelte";
-    import Elevation        from "../Components/options/inputComponents/Elevation.svelte";
-    import Opacity          from "./inputComponents/Opacity02.svelte";
-    import OptionsDialog    from "../Components/options/optionsInfoDialog.js";
+    import { TJSIconButton }    from "#standard/component/button";
+    import { TJSSvgFolder }     from "#standard/component/folder";
+
+    import SectionHeader        from "../Components/SectionHeader.svelte";
+    import SoundSettings        from "../Components/SoundSettings.svelte";
+    import Elevation            from "../Components/options/inputComponents/Elevation.svelte";
+    import Opacity              from "./inputComponents/Opacity02.svelte";
+    import OptionsDialog        from "../Components/options/optionsInfoDialog.js";
 
     //export let animation;
     //export let category;

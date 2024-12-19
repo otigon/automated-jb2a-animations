@@ -1,5 +1,5 @@
 
-import { TJSDialog } from '@typhonjs-fvtt/runtime/svelte/application';
+import { TJSDialog } from '#runtime/svelte/application';
 import CopyToAutorec from './CopyToAutorec.svelte';
 
 export default class ItemToAutorec extends TJSDialog {
@@ -10,7 +10,7 @@ export default class ItemToAutorec extends TJSDialog {
             modal: true,
             draggable: true,
             content: {
-                class: CopyToAutorec, 
+                class: CopyToAutorec,
                 props: {
                     ...data
                 }

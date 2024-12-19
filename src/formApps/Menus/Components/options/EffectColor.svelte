@@ -1,8 +1,9 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-
-    import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
     import { getContext }   from "svelte";
+
+    import { localize }     from "#runtime/util/i18n";
+
+    import { TJSSvgFolder } from "#standard/component/folder";
 
     import Opacity          from "./inputComponents/Opacity.svelte";
 
@@ -25,10 +26,11 @@
 <div class="aa-effect-border">
     <TJSSvgFolder
         {folder}
-        label={localize("autoanimations.menus.colorTint")} 
+        label={localize("autoanimations.menus.colorTint")}
     >
         <div slot="summary-end">
             <input
+                on:click|stopPropagation
                 type="checkbox"
                 style="align-self:center"
                 title="Enable Color Tint"
@@ -44,7 +46,7 @@
                 <td>
                     <!--Set Animation Opacity-->
                     <Opacity {animation} label={localize("autoanimations.menus.saturation")} field="saturation" min="-1" max="1" placeDefault=0 {section}/>
-                </td> 
+                </td>
                 <td>
                     <div class="flexcol">
                         <input
@@ -62,7 +64,7 @@
                             bind:value={$animation[section].options.tintColor}
                         />
                     </div>
-                </td>   
+                </td>
             </tr>
         </table>
     </TJSSvgFolder>

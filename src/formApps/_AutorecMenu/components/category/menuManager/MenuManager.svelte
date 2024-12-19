@@ -1,9 +1,11 @@
 <script>
-    import { TJSDialog } from "@typhonjs-fvtt/runtime/svelte/application";
-    import { getContext } from "svelte";
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }       from "svelte";
+
+    import { TJSDialog }        from "#runtime/svelte/application";
+    import { localize }         from "#runtime/util/i18n";
+
     import { AAAutorecManager } from "./AAAutorecManager";
-    import ImportMenus from "./ImportMenus.svelte";
+    import ImportMenus          from "./ImportMenus.svelte";
 
     const { application } = getContext("#external");
 

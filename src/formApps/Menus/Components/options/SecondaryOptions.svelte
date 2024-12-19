@@ -1,15 +1,17 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { getContext }       from "svelte";
 
-    import { TJSSvgFolder, TJSIconButton } from "@typhonjs-fvtt/svelte-standard/component";
+    import { localize }         from "#runtime/util/i18n";
 
-    import NumberInput      from "./inputComponents/NumberInput.svelte";
-    import Elevation        from "./inputComponents/Elevation.svelte";
-    import ScaleRadius      from "./inputComponents/ScaleRadius.svelte";
-    import Opacity          from "./inputComponents/Opacity.svelte";
-    import OptionsDialog    from "./optionsInfoDialog.js";
-    import WaitDelay        from "./inputComponents/WaitDelay.svelte";
-    import { getContext }   from "svelte";
+    import { TJSIconButton }    from "#standard/component/button";
+    import { TJSSvgFolder }     from "#standard/component/folder";
+
+    import NumberInput          from "./inputComponents/NumberInput.svelte";
+    import Elevation            from "./inputComponents/Elevation.svelte";
+    import ScaleRadius          from "./inputComponents/ScaleRadius.svelte";
+    import Opacity              from "./inputComponents/Opacity.svelte";
+    import OptionsDialog        from "./optionsInfoDialog.js";
+    import WaitDelay            from "./inputComponents/WaitDelay.svelte";
 
     //export let animation;
     let { animation} = getContext('animation-data');
@@ -34,7 +36,7 @@
             bottom: "-2px",
             color: "rgba(50, 79, 245, 0.5)"
         },
-        onClickPropagate: false
+        clickPropagate: false
     }
 
     $: isRadius = $animation.secondary.options.isRadius;
@@ -170,7 +172,7 @@
             </tr>
             <tr>
                 <td>
-                    <NumberInput 
+                    <NumberInput
                     {animation}
                     label={localize("autoanimations.menus.playbackRate")}
                     section="secondary"

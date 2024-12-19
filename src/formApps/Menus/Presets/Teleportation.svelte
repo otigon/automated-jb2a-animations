@@ -1,7 +1,9 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
-    import { TJSSvgFolder } from "@typhonjs-fvtt/svelte-standard/component";
     import { getContext }   from "svelte";
+
+    import { localize }     from "#runtime/util/i18n";
+
+    import { TJSSvgFolder } from "#standard/component/folder";
 
     import VideoSelect      from "../Components/VideoSelect.svelte";
     import Opacity          from "./inputComponents/Opacity.svelte";
@@ -268,6 +270,7 @@
     <TJSSvgFolder folder={startFolder}>
         <div slot="summary-end">
             <input
+                on:click|stopPropagation
                 type="checkbox"
                 style="align-self:center"
                 title="Toggle Source FX On/Off"
@@ -396,6 +399,7 @@
     <TJSSvgFolder folder={betweenFolder}>
         <div slot="summary-end">
             <input
+                on:click|stopPropagation
                 type="checkbox"
                 style="align-self:center"
                 title="Toggle Source FX On/Off"
@@ -472,6 +476,7 @@
     <TJSSvgFolder folder={endFolder}>
         <div slot="summary-end">
             <input
+                on:click|stopPropagation
                 type="checkbox"
                 style="align-self:center"
                 title="Toggle Source FX On/Off"

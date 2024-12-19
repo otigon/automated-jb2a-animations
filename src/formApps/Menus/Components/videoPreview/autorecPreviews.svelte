@@ -1,5 +1,5 @@
 <script>
-    import { localize } from "@typhonjs-fvtt/runtime/svelte/helper";
+    import { localize } from "#runtime/util/i18n";
     import { getPreviewFile } from "./getPreviewFile.js";
     import { currentStore } from "./previewStore.js";
 
@@ -113,7 +113,7 @@
                     ? daCustomPath
                     : getPreviewFile(daCompiledPath)
 
-    // Teleportation 
+    // Teleportation
     // Start animation
     $: tpsCustom = animation.data?.start?.enableCustom;
     $: tpsCustomPath = animation.data?.start?.customPath;
@@ -165,7 +165,7 @@
                     ? tpeCustomPath
                     : getPreviewFile(tpeCompiledPath)
 
-    // Projectile to Template 
+    // Projectile to Template
     //Projectile
     $: pCustom = animation.data?.projectile?.enableCustom;
     $: pCustomPath = animation.data?.projectile?.customPath;
@@ -221,7 +221,7 @@
     const position = application.position;
 
     // A debounced callback that serializes application state after 500-millisecond delay.
-    const storeAppState = foundry.utils.debounce(() => $storageStore = application.state.get(), 500);
+    const storeAppState = foundry.utils.debounce(() => $storageStore = application.state.current(), 500);
 
     // Reactive statement to invoke debounce callback on Position changes.
     $: storeAppState($position);
