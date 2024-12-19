@@ -425,7 +425,36 @@ class AAGameSettings extends TJSGameSettingsWithUI {
                }
             });
             break;
-
+      
+         case 'marvel-multiverse':
+            settings.push({
+               namespace,
+               key: 'playonAttackCore',
+               folder: game.system.title || game.system.name,
+               options: {
+                  name: 'autoanimations.settings.coreonatk_name',
+                  hint: 'autoanimations.settings.coreonatk_hint',
+                  scope: scope.world,
+                  type: Boolean,
+                  default: false,
+                  config: true
+               }
+            });
+            settings.push({
+               namespace,
+               key: 'playonDamageCore',
+               folder: game.system.title || game.system.name,
+               options: {
+                  name: 'autoanimations.settings.coreondmg_name',
+                  hint: 'autoanimations.settings.coreondmg_hint',
+                  scope: scope.world,
+                  type: Boolean,
+                  default: false,
+                  config: true
+               }
+            });
+            break;
+          
          case 'dnd5e':
          case 'sw5e':
             if (game.modules.get('midi-qol')?.active) {
