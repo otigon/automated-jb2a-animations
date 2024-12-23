@@ -3,7 +3,7 @@
 
    import {
       ripple,
-      rippleFocus }                 from "#standard/action/animate/composable/ripple";
+      rippleFocus }                 from "#standard/action/animate/composable";
 
    import { TJSSvgFolder }          from "#standard/component/folder";
    import { TJSInput }              from "#standard/component/form";

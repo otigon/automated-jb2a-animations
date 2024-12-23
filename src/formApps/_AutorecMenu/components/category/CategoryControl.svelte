@@ -1,7 +1,7 @@
 <script>
     import {
        ripple,
-       rippleFocus }                from "#standard/action/animate/composable/ripple";
+       rippleFocus }                from "#standard/action/animate/composable";
 
     import {
        TJSIconButton,

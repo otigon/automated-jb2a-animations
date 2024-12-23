@@ -1,5 +1,5 @@
 <script>
-    import { ripple }               from "#standard/action/animate/composable/ripple";
+    import { ripple }               from "#standard/action/animate/composable";
 
     import { TJSToggleIconButton }  from "#standard/component/button";
     import { TJSMenu }              from "#standard/component/menu";

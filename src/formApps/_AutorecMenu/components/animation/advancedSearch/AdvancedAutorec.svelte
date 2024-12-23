@@ -3,7 +3,7 @@
 
     import { localize }         from "#runtime/util/i18n";
 
-    import { ripple }           from "#standard/action/animate/composable/ripple";
+    import { ripple }           from "#standard/action/animate/composable";
 
     import { TJSIconButton }    from "#standard/component/button";
 

@@ -14,7 +14,7 @@
 
     import { aaReturnWeapons }  from "../../../../database/jb2a-menu-options.js";
 
-    //import { ripple } from "#standard/action/animate/composable/ripple";
+    //import { ripple } from "#standard/action/animate/composable";
 
     //export let animation;
     //export let category;
