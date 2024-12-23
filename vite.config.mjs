@@ -1,5 +1,4 @@
-import { svelte }          from '@sveltejs/vite-plugin-svelte';
-import resolve             from '@rollup/plugin-node-resolve'; // This resolves NPM modules from node_modules.
+import { svelte }             from '@sveltejs/vite-plugin-svelte';
 
 import {
    postcssConfig,
@@ -20,12 +19,6 @@ const s_SVELTE_HASH_ID = 'auto';
 
 const s_COMPRESS = false;  // Set to true to compress the module bundle.
 const s_SOURCEMAPS = true; // Generate sourcemaps for the bundle (recommended).
-
-// Used in bundling.
-const s_RESOLVE_CONFIG = {
-   browser: true,
-   dedupe: ['svelte']
-};
 
 export default () =>
 {
@@ -96,9 +89,7 @@ export default () =>
                cssHash: ({ hash, css }) => `svelte-${s_SVELTE_HASH_ID}-${hash(css)}`
             },
             preprocess: sveltePreprocess()
-         }),
-
-         resolve(s_RESOLVE_CONFIG)  // Necessary when bundling npm-linked packages.
+         })
       ]
    };
 };

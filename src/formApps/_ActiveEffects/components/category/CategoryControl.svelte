@@ -4,7 +4,7 @@
 
   import { localize }   from "#runtime/util/i18n";
 
-  import { ripple }     from "#standard/action/animate/composable/ripple";
+  import { ripple }     from "#standard/action/animate/composable";
 
   import { TJSToggleIconButton } from "#standard/component/button";
   import { TJSMenu } from "#standard/component/menu";
