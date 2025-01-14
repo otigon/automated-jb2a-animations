@@ -13,8 +13,15 @@
     import OptionsDialog        from "./optionsInfoDialog.js";
     import WaitDelay            from "./inputComponents/WaitDelay.svelte";
 
+    import { gameSettings }     from "#gameSettings";
+
     //export let animation;
     let { animation} = getContext('animation-data');
+
+    /**
+     * Game setting store to control folder animation.
+     */
+    const uiAnimation = gameSettings.getStore('uiAnimation');
 
     const folder = {
         label: game.i18n.localize("autoanimations.menus.options"),
@@ -43,7 +50,7 @@
 </script>
 
 <div class="aa-options-border">
-    <TJSSvgFolder {folder}>
+    <TJSSvgFolder {folder} animate={$uiAnimation}>
         <div slot="summary-end">
             <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("ontoken")}/>
         </div>
@@ -115,7 +122,7 @@
                 </td>
                 <td>
                     <!--Add Token Width-->
-                    <div class="{isRadius ? "" : "aa-disableOpacity"}">
+                    <div class={isRadius ? "" : "aa-disableOpacity"}>
                         <label for="Width2 {animation._data.id}"
                             >{localize("autoanimations.menus.add")}
                             {localize("autoanimations.menus.token")}

@@ -8,8 +8,15 @@
     import NumberInput      from "./inputComponents/NumberInput.svelte";
     import Opacity          from "./inputComponents/Opacity.svelte";
 
+   import { gameSettings }  from "#gameSettings";
+
     //export let animation;
     let { animation} = getContext('animation-data');
+
+   /**
+    * Game setting store to control folder animation.
+    */
+   const uiAnimation = gameSettings.getStore('uiAnimation');
 
     const folder = {
         styles: {
@@ -28,7 +35,7 @@
     </script>
 
 <div class="aa-options-border">
-    <TJSSvgFolder {folder}>
+    <TJSSvgFolder {folder} animate={$uiAnimation}>
         <table class="d">
             <tr>
                 <th></th>

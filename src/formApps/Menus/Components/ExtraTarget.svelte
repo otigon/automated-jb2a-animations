@@ -10,10 +10,17 @@
     import TargetFxOptions from "./options/TargetFXOptions.svelte";
     import EffectColor from "./options/EffectColor.svelte";
 
+    import { gameSettings } from "#gameSettings";
+
     //export let animation;
     //export let idx;
     //export let category;
     let { animation, category, idx } = getContext('animation-data');
+
+    /**
+     * Game setting store to control folder animation.
+     */
+    const uiAnimation = gameSettings.getStore('uiAnimation');
 
     let title = "Target" + " " + game.i18n.localize("autoanimations.menus.animation")
 
@@ -35,6 +42,7 @@
     <TJSSvgFolder
         folder={folderOptions}
         label={localize("autoanimations.menus.target") + " " + localize("autoanimations.menus.animation")}
+        animate={$uiAnimation}
     >
         <div slot="summary-end">
             <input

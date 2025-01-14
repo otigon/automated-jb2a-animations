@@ -208,6 +208,19 @@ class AAGameSettings extends TJSGameSettingsWithUI {
 
       settings.push({
          namespace,
+         key: 'uiAnimation',
+         options: {
+            name: 'autoanimations.settings.uiAnimation',
+            hint: 'autoanimations.settings.uiAnimationHint',
+            scope: scope.world,
+            config: true,
+            type: Boolean,
+            default: true
+         }
+      });
+
+      settings.push({
+         namespace,
          key: 'debug',
          options: {
             name: 'autoanimations.settings.debugging',
@@ -425,7 +438,7 @@ class AAGameSettings extends TJSGameSettingsWithUI {
                }
             });
             break;
-      
+
          case 'marvel-multiverse':
             settings.push({
                namespace,
@@ -454,7 +467,7 @@ class AAGameSettings extends TJSGameSettingsWithUI {
                }
             });
             break;
-          
+
          case 'dnd5e':
          case 'sw5e':
             if (game.modules.get('midi-qol')?.active) {

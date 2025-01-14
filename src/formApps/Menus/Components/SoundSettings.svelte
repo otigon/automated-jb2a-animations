@@ -5,12 +5,19 @@
 
     import { TJSSvgFolder } from "#standard/component/folder";
 
+    import { gameSettings } from "#gameSettings";
+
     //export let animation;
     //export let category;
     export let section;
     //export let idx;
 
     let { animation, category, idx } = getContext('animation-data');
+
+    /**
+     * Game setting store to control folder animation.
+     */
+    const uiAnimation = gameSettings.getStore('uiAnimation');
 
     const folder = {
         styles: {
@@ -43,7 +50,7 @@
 </script>
 
 <div class="aa-sound-border">
-    <TJSSvgFolder {folder} label={localize("autoanimations.menus.sound")}>
+    <TJSSvgFolder {folder} label={localize("autoanimations.menus.sound")} animate={$uiAnimation}>
         <div slot="summary-end">
             <input
                 on:click|stopPropagation

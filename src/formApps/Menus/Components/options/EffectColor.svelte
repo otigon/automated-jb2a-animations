@@ -7,9 +7,18 @@
 
     import Opacity          from "./inputComponents/Opacity.svelte";
 
+    import { gameSettings } from "#gameSettings";
+
+    export let section = "primary";
+
     //export let animation;
     let { animation } = getContext('animation-data');
-    export let section = "primary";
+
+    /**
+     * Game setting store to control folder animation.
+     */
+    const uiAnimation = gameSettings.getStore('uiAnimation');
+
     const folder = {
         styles: {
             "--tjs-summary-font-family":
@@ -27,6 +36,7 @@
     <TJSSvgFolder
         {folder}
         label={localize("autoanimations.menus.colorTint")}
+        animate={$uiAnimation}
     >
         <div slot="summary-end">
             <input
@@ -37,7 +47,7 @@
                 bind:checked={$animation[section].options.tint}
             />
         </div>
-        <table class="d {tintEnabled ? "" : "aa-disableOpacity"}">
+        <table class={`d ${tintEnabled ? "" : "aa-disableOpacity"}`}>
             <tr>
                 <td>
                     <!--Set Animation Opacity-->

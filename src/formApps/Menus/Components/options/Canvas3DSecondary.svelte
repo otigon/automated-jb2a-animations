@@ -10,8 +10,15 @@
 
     import OptionsDialog        from "./optionsInfoDialog.js";
 
+    import { gameSettings }     from "#gameSettings";
+
     //export let animation;
     let { animation} = getContext('animation-data');
+
+    /**
+     * Game setting store to control folder animation.
+     */
+    const uiAnimation = gameSettings.getStore('uiAnimation');
 
     if (typeof $animation.levels3d.secondary.data.autoSize !== "boolean") {
         $animation.levels3d.secondary.data.autoSize = true;
@@ -73,6 +80,7 @@ if(!$animation.levels3d.secondary.data.spritePath) {
 <TJSSvgFolder
     folder={folderOptions}
     label={localize("autoanimations.animations.explosion")}
+    animate={$uiAnimation}
 >
     <div slot="summary-end">
         <input
@@ -123,7 +131,7 @@ if(!$animation.levels3d.secondary.data.spritePath) {
             </td>
         </tr>
     </table>
-    <div class="{isEnabled ? "" : "aa-disableOpacity"}">
+    <div class={isEnabled ? "" : "aa-disableOpacity"}>
         <div class="aa-options-border" style="margin-top: .5em;">
             <h1>Colors</h1>
             <table class="d" style="padding-right: 4em; padding-left: 4em">
@@ -174,7 +182,7 @@ if(!$animation.levels3d.secondary.data.spritePath) {
             </table>
         </div>
         <div class="aa-options-border">
-            <TJSSvgFolder {folder}>
+            <TJSSvgFolder {folder} animate={$uiAnimation}>
                 <div slot="summary-end">
                     <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("canvas3d")}/>
                 </div>

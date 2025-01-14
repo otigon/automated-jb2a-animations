@@ -5,6 +5,8 @@
 
     import { TJSSvgFolder } from "#standard/component/folder";
 
+    import { gameSettings } from "#gameSettings";
+
     //export let animation;
     //export let category;
     export let section;
@@ -12,6 +14,11 @@
     //export let idx;
 
     let { animation, category, idx } = getContext('animation-data');
+
+    /**
+     * Game setting store to control folder animation.
+     */
+    const uiAnimation = gameSettings.getStore('uiAnimation');
 
     // If the Sound object was not set, set it now
     if (!$animation[section][section02].sound) {
@@ -46,6 +53,7 @@
     <TJSSvgFolder
         {folder}
         label={localize("autoanimations.menus.sound")}
+        animate={$uiAnimation}
     >
         <div slot="summary-end">
             <input

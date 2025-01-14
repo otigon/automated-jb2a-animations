@@ -32,6 +32,8 @@
             "OFF": "Off",
             "settingDisableAutoRec": "Disable Automatic Recognition",
             "settingDisableAutoRecHint": "Only Custom configured Items will play animations",
+            "uiAnimation": "Enable UI animation",
+            "uiAnimationHint": "For faster performance in the Automated Animations UI you may turn off UI animation.",
             "globaldelay_name": "Global Delay",
             "globaldelay_hint": "Delay the Start of All Animations in milliseconds",
             "s3Name": "JB2A Asset Location",

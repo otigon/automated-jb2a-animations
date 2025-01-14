@@ -11,11 +11,18 @@
 
     import { aaReturnWeapons } from "../../../database/jb2a-menu-options.js"
 
+    import { gameSettings } from "#gameSettings";
+
     //export let animation;
     //export let category;
     //export let idx;
 
     let { animation, category, idx } = getContext('animation-data');
+
+    /**
+     * Game setting store to control folder animation.
+     */
+    const uiAnimation = gameSettings.getStore('uiAnimation');
 
     const folderOptions = {
         styles: {
@@ -39,7 +46,7 @@
 </script>
 
 <div class="aa-sound-border">
-    <TJSSvgFolder folder={folderOptions} label="Range Switch">
+    <TJSSvgFolder folder={folderOptions} label="Range Switch" animate={$uiAnimation}>
         <div
             slot="summary-end"
             style="position:relative; left: 10px"

@@ -12,10 +12,17 @@
     import OptionsDialog        from "../Components/options/optionsInfoDialog.js";
     import Elevation            from "../Components/options/inputComponents/Elevation.svelte";
 
+    import { gameSettings }     from "#gameSettings";
+
     //export let animation;
     //export let category;
     //export let idx;
     let { animation } = getContext('animation-data');
+
+    /**
+     * Game setting store to control folder animation.
+     */
+    const uiAnimation = gameSettings.getStore('uiAnimation');
 
     const folder = {
         styles: {
@@ -45,7 +52,7 @@
 <div class="aa-section-border">
     <VideoSelect title="Dual Attach" section="data" />
     <div class="aa-options-border">
-        <TJSSvgFolder {folder}>
+        <TJSSvgFolder {folder} animate={$uiAnimation}>
             <div slot="summary-end">
                 <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("preset", "dualattach")}/>
             </div>
@@ -80,7 +87,7 @@
                     <td />
                     <td>
                         <!--Set Only X Scaling-->
-                        <div class="{!isCustom ? "aa-disableOpacity" : ""}">
+                        <div class={!isCustom ? "aa-disableOpacity" : ""}>
                             <label for="Remove {animation._data.id}"
                                 >{localize("autoanimations.menus.only")} X
                             </label>
