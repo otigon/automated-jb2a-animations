@@ -1,10 +1,5 @@
 <script>
-    import { flip }              from "svelte/animate";
-    import { quintOut }          from "svelte/easing";
-    import { writable }          from "svelte/store";
-
     import { applyScrolltop }    from "#runtime/svelte/action/dom/properties";
-    import { animateEvents }     from "#runtime/svelte/animate";
 
     import Animation            from "../animation/Animation.svelte";
 
@@ -12,12 +7,6 @@
     export let category;
 
     $: dataReducer = category.dataReducer;
-
-    // Svelte doesn't have events for the animate directive; `animateEvents` wraps an animate function and provides
-    // events, but also an optional ability to set a store w/ the current animation state. This is used below to set
-    // the `no-scroll` class on the main element to remove overflow-y when animating.
-    const isAnimating = writable(false);
-    const flipWithEvents = animateEvents(flip, isAnimating);
 
     /**
      * When the data reducer count changes or there is any folder open / close changes invoke `calcAllFolderState`.
@@ -31,11 +20,10 @@
 </script>
 
 <main use:applyScrolltop={category.stores.scrollTop}
-      class:no-scroll={$isAnimating}
       on:openAny={onFolderChange}
       on:closeAny={onFolderChange}>
         {#each [...$dataReducer] as animation, idx (animation.id)}
-            <section animate:flipWithEvents={{duration: 250, easing: quintOut}}>
+            <section>
                 <Animation {animation} {idx} {category}/>
             </section>
         {/each}
@@ -49,8 +37,6 @@
     padding-bottom: 150px;
     scrollbar-width: thin;  // For Firefox
   }
-
-  .no-scroll { overflow-y: hidden; }
 
   section {
     height: fit-content;
