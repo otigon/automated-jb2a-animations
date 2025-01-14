@@ -1,0 +1,11 @@
+# Set line endings.
+* text eol=lf
+
+# Explicitly mark binary files.
+*.gif binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.webm binary
+*.webp binary
+*.xcf binary
