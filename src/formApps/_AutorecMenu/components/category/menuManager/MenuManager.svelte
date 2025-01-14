@@ -47,7 +47,7 @@
                 title: "Merge Menus",
                 content: content,
                 modal: true,
-                onOk: (app) => {
+                onOk: ({ application: app }) => {
                     //@ts-ignore
                     const form = app.element.find("form")[0];
                     if (!form.data.files.length)
@@ -97,7 +97,7 @@
                 title: "Overwrite Menu",
                 content: content,
                 modal: true,
-                onOk: (app) => {
+                onOk: ({ application: app }) => {
                     const form = app.element.find("form")[0];
                     if (!form.data.files.length)
                         return ui.notifications?.error(
