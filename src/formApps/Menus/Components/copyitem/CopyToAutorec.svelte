@@ -64,7 +64,7 @@
 {/if}
 
     <button
-        class="aa-copySubmitButton {checkAutorec ? "aa-disableOpacity" : ""}"
+        class={`aa-copySubmitButton ${checkAutorec ? "aa-disableOpacity" : ""}`}
         on:click={() => submitNewEntry(nameToAdd)}
     >Submit</button>
 </div>

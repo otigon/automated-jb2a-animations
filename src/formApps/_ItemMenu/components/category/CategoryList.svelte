@@ -41,7 +41,7 @@
 
 </script>
 
-   <div class="animation {!isEnabled || !isCustomized ? "aa-disableOpacity" : ""}">
+   <div class={`animation ${!isEnabled || !isCustomized ? "aa-disableOpacity" : ""}`}>
       <div class="sectionBorder">
          <svelte:component this={menuRoute} fromMenu="item"/>
       </div>

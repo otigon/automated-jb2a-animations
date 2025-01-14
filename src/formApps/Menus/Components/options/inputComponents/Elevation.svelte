@@ -11,7 +11,7 @@
 
 <div>
     <div>
-        <label for="Relative {section} {animation._data.id}" style="font-size:10px" class="aaLabelBorder {isAbsolute ? "aaIsSelected" : ""}">ABS</label>
+        <label for="Relative {section} {animation._data.id}" style="font-size:10px" class={`aaLabelBorder ${isAbsolute ? "aaIsSelected" : ""}`}>ABS</label>
         <input
             id="Relative {section} {animation._data.id}"
             type="checkbox"

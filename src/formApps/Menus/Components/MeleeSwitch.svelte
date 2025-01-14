@@ -135,7 +135,7 @@
                     <tr>
                         <td>
                             <!--Set Return animation-->
-                            <div class="form-group {shouldShow ? "" : "aa-disableOpacity"}">
+                            <div class={`form-group ${shouldShow ? "" : "aa-disableOpacity"}`}>
                                 <label for="OnlyX {animation._data.id}"
                                     >{localize("autoanimations.menus.return")} {localize("autoanimations.menus.animation")}
                                 </label>

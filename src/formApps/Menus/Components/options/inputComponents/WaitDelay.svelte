@@ -25,9 +25,9 @@
 
 <div class="{isDisabled}">
     <div>
-        <label for="" class="aaLabelBorder {!isWait ? "aaIsSelected" : ""}" on:click={() => switchWait()} role=presentation>{delayLabel}</label>
+        <label for="" class={`aaLabelBorder ${!isWait ? "aaIsSelected" : ""}`} on:click={() => switchWait()} role=presentation>{delayLabel}</label>
         <label for=""> &nbsp|&nbsp </label>
-        <label for="" class="aaLabelBorder {isWait ? "aaIsSelected" : ""}" on:click={() => switchDelay()} role=presentation>{waitLabel}</label>
+        <label for="" class={`aaLabelBorder ${isWait ? "aaIsSelected" : ""}`} on:click={() => switchDelay()} role=presentation>{waitLabel}</label>
     </div>
     <div>
         <input

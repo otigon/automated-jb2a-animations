@@ -205,7 +205,7 @@
         </tr>
     </table>
 </div>
-<div style="margin: 2em, font-size: 1.3em">
+<div style="margin: 2em; font-size: 1.3em">
     <button on:click={() => runDiagnostics()}><strong>Re-Run Diagnostics</strong></button>
 </div>
 

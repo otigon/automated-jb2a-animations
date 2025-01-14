@@ -29,7 +29,7 @@
 
 </script>
 
-   <div class="animation {!isEnabled || !isCustomized ? "aa-disableOpacity" : ""}">
+   <div class={`animation ${!isEnabled || !isCustomized ? "aa-disableOpacity" : ""}`}>
       <div class="sectionBorder">
          <SectionButtons type="item" />
          <div hidden={!soundOnly}>

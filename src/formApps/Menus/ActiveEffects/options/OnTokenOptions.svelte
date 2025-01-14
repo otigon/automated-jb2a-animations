@@ -177,7 +177,7 @@
                 </td>
                 <td>
                     <!--Add Token Width-->
-                    <div class="{isRadius ? "" : "aa-disableOpacity"}">
+                    <div class={isRadius ? "" : "aa-disableOpacity"}>
                         <label for="Width {animation._data.id}"
                             >{localize("autoanimations.menus.add")}
                             {localize("autoanimations.menus.token")}
