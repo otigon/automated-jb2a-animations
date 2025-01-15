@@ -12,10 +12,17 @@
     import Opacity              from "./inputComponents/Opacity02.svelte";
     import OptionsDialog        from "../Components/options/optionsInfoDialog.js";
 
+    import { gameSettings }     from "#gameSettings";
+
     //export let animation;
     //export let category;
     //export let idx;
     let { animation, category, idx } = getContext('animation-data');
+
+    /**
+     * Game setting store to control folder animation.
+     */
+    const uiAnimation = gameSettings.getStore('uiAnimation');
 
     const title = "Thunderwave 5e";
 
@@ -55,7 +62,7 @@
         </div>
     </div>
     <div class="aa-options-border">
-        <TJSSvgFolder {folder}>
+        <TJSSvgFolder {folder} animate={$uiAnimation}>
             <div slot="summary-end">
                 <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("preset", "thunderwave")}/>
             </div>

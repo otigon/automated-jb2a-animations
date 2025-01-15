@@ -8,6 +8,8 @@
 
     import OptionsDialog        from "./optionsInfoDialog.js";
 
+    import { gameSettings }     from "#gameSettings";
+
     let tokenAnimations = game.Levels3DPreview?.CONFIG?.tokenAnimations || {
         bow: {},
         breath: {},
@@ -23,6 +25,12 @@
 
     //export let animation;
     let { animation} = getContext('animation-data');
+
+    /**
+     * Game setting store to control folder animation.
+     */
+    const uiAnimation = gameSettings.getStore('uiAnimation');
+
     if (typeof $animation.levels3d.data.autoSize !== "boolean") {
   $animation.levels3d.data.autoSize = true;
 }
@@ -105,7 +113,7 @@
             </table>
         </div>
     <div class="aa-options-border">
-        <TJSSvgFolder {folder}>
+        <TJSSvgFolder {folder} animate={$uiAnimation}>
             <div slot="summary-end">
                 <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("canvas3d")}/>
             </div>

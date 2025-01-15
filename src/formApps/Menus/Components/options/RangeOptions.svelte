@@ -14,11 +14,16 @@
 
     import { aaReturnWeapons }  from "../../../../database/jb2a-menu-options.js";
 
-    //import { ripple } from "#standard/action/animate/composable";
+    import { gameSettings }     from "#gameSettings";
 
     //export let animation;
     //export let category;
     let { animation, category} = getContext('animation-data');
+
+    /**
+     * Game setting store to control folder animation.
+     */
+    const uiAnimation = gameSettings.getStore('uiAnimation');
 
     const folder = {
         label: game.i18n.localize("autoanimations.menus.options"),
@@ -50,7 +55,7 @@
 </script>
 
 <div class="aa-options-border">
-    <TJSSvgFolder {folder}>
+    <TJSSvgFolder {folder} animate={$uiAnimation}>
         <div slot="summary-end">
             <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("range")}/>
         </div>
@@ -85,7 +90,7 @@
             <tr>
                 <td>
                     <!--Set OnlyX-->
-                    <div class="{isCustom ? "" : "aa-disableOpacity"}">
+                    <div class={isCustom ? "" : "aa-disableOpacity"}>
                         <label for="OnlyX {animation._data.id}"
                             >{localize("autoanimations.menus.only")} X
                         </label>
@@ -113,7 +118,7 @@
             <tr>
                 <td>
                     <!--Set Return animation-->
-                    <div class="{shouldShow ? "" : "aa-disableOpacity"}">
+                    <div class={shouldShow ? "" : "aa-disableOpacity"}>
                         <label for="OnlyX {animation._data.id}"
                             >{localize("autoanimations.menus.return")} {localize("autoanimations.menus.animation")}
                         </label>

@@ -27,9 +27,9 @@
 
 <div class="{isDisabled}">
     <div>
-        <label for="" class="aaLabelBorder {!isRadius ? "aaIsSelected" : "aaNotSelected"}" on:click={() => switchScale()} role=presentation>{scaleLabel}</label>
+        <label for="" class={`aaLabelBorder ${!isRadius ? "aaIsSelected" : "aaNotSelected"}`} on:click={() => switchScale()} role=presentation>{scaleLabel}</label>
         <label for=""> &nbsp|&nbsp </label>
-        <label for="" class="aaLabelBorder {isRadius ? "aaIsSelected" : "aaNotSelected"}" on:click={() => switchRadius()} role=presentation>{radiusLabel}</label>
+        <label for="" class={`aaLabelBorder ${isRadius ? "aaIsSelected" : "aaNotSelected"}`} on:click={() => switchRadius()} role=presentation>{radiusLabel}</label>
     </div>
     <div>
         <input

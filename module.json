@@ -18,11 +18,17 @@
 	"compatibleCoreVersion": "12",
 	"scripts": [],
 	"esmodules": [
-		"index.js"
+		"dist/autoanimations.js"
 	],
 	"styles": [
-		"style.css"
+		"dist/autoanimations.css"
 	],
+	"flags": {
+		"hotReload": {
+			"extensions": ["json"],
+			"paths": ["lang"]
+		}
+	},
 	"languages": [
 		{
 			"lang": "en",

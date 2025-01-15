@@ -14,11 +14,18 @@
     import OptionsDialog        from "../Components/options/optionsInfoDialog.js";
     import * as settings        from "../Components"
 
+    import { gameSettings }     from "#gameSettings";
+
     //export let animation;
     //export let category;
     //export let idx;
 
     let { animation, category, idx } = getContext('animation-data');
+
+    /**
+     * Game setting store to control folder animation.
+     */
+    const uiAnimation = gameSettings.getStore('uiAnimation');
 
     const title = "Projectile to Template";
 
@@ -63,7 +70,7 @@
         title="Projectile"
     />
     <div class="aa-options-border">
-        <TJSSvgFolder {folder}>
+        <TJSSvgFolder {folder} animate={$uiAnimation}>
             <div slot="summary-end">
                 <TJSIconButton button={optionsInfo} on:click={() => OptionsDialog.show("preset", "proToTemp")}/>
             </div>
@@ -177,7 +184,7 @@
 </div>
 
 <div class="aa-section-border">
-    <TJSSvgFolder folder={preExplode}>
+    <TJSSvgFolder folder={preExplode} animate={$uiAnimation}>
         <div slot="summary-end">
             <input
                 on:click|stopPropagation
@@ -194,7 +201,7 @@
             title="Pre Explosion"
             />
             <div class="aa-options-border">
-                <TJSSvgFolder {folder}>
+                <TJSSvgFolder {folder} animate={$uiAnimation}>
                     <table class="d">
                         <tr>
                             <td>
@@ -319,7 +326,7 @@
         title="Primary Explosion"
     />
     <div class="aa-options-border">
-        <TJSSvgFolder {folder}>
+        <TJSSvgFolder {folder} animate={$uiAnimation}>
             <table class="d">
                 <tr>
                     <td>
@@ -435,7 +442,7 @@
     <SoundSettings section="data" section02="explosion" />
 </div>
 <div class="aa-section-border">
-    <TJSSvgFolder folder={afterImage}>
+    <TJSSvgFolder folder={afterImage} animate={$uiAnimation}>
         <SectionHeader title="After Image" />
         <div slot="summary-end">
             <input

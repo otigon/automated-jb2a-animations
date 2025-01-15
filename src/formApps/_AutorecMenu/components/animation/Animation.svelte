@@ -14,6 +14,8 @@
 
    import { selectBuildMenu }       from "../../../Menus/BuildMenu/selectBuildMenu.js";
 
+   import { gameSettings }          from "#gameSettings";
+
    /** @type {AnimationStore} */
    export let animation = void 0;
 
@@ -24,6 +26,11 @@
    export let idx = void 0;
 
    setContext('animation-data', {animation, category, idx})
+
+   /**
+    * Game setting store to control folder animation.
+    */
+   const uiAnimation = gameSettings.getStore('uiAnimation');
 
    /**
     * @type {object} Defines folder data for TJSIconFolder.
@@ -60,10 +67,10 @@
 </script>
 
 <div class=animation>
-   <TJSSvgFolder {folder}>
+   <TJSSvgFolder {folder} animate={$uiAnimation}>
          <TJSInput {input} slot=label />
-         <OverflowSlot info={exactMatchButton} {menu} slot=summary-end/>
-         <svelte:component this={selectBuildMenu(category.key)} {animation} {idx} {category}/>
+         <OverflowSlot info={exactMatchButton} {menu} slot=summary-end />
+         <svelte:component this={selectBuildMenu(category.key)} {animation} {idx} {category} />
    </TJSSvgFolder>
 </div>
 

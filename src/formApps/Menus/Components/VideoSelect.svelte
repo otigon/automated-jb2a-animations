@@ -36,7 +36,7 @@
 
 <SectionHeader {title} />
 <div class="aaSelect">
-    <table class="aaMenu {$animation[section][section02].enableCustom ? 'aa-disableOpacity' : ""}">
+    <table class={`aaMenu ${$animation[section][section02].enableCustom ? 'aa-disableOpacity' : ""}`}>
         <tr>
             <td>
             </td>

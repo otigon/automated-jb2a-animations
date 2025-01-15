@@ -5,8 +5,15 @@
 
     import { TJSSvgFolder } from "#standard/component/folder";
 
+    import { gameSettings } from "#gameSettings";
+
     //export let animation;
     let { animation } = getContext("animation-data");
+
+    /**
+     * Game setting store to control folder animation.
+     */
+    const uiAnimation = gameSettings.getStore('uiAnimation');
 
     const folder = {
         label: game.i18n.localize("autoanimations.menus.options"),
@@ -67,7 +74,7 @@
     $: isEnabled = $animation.levels3d.tokens.enable;
 </script>
 
-<TJSSvgFolder folder={folderOptions} label="{localize("autoanimations.menus.token")} {localize("autoanimations.menus.animation")}">
+<TJSSvgFolder folder={folderOptions} label={`${localize("autoanimations.menus.token")} ${localize("autoanimations.menus.animation")}`} animate={$uiAnimation}>
     <div slot="summary-end">
         <input
             on:click|stopPropagation
