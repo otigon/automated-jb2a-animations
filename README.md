@@ -1,4 +1,4 @@
-# NOTICE: Automated Animations is no longer becing actively worked on, and should be considered to be in Maintenance Mode only. I will still merge in PR's as they come in, but will only actively fix critical bugs for the module. If anyone wishes to take over development of this Foundry Module, please get with me here or on Discord at username Otigon (Otigon#2010).  
+# NOTICE: Automated Animations is now being maintained by Ripper, check out the new repo at https://github.com/theripper93/autoanimations
 
   
 MIT License provided:   
